@@ -1,0 +1,1486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.water_systems module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.zone_airflow module" href="pyidf.zone_airflow.html" />
+    <link rel="prev" title="pyidf.water_heaters_and_thermal_storage module" href="pyidf.water_heaters_and_thermal_storage.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_airflow.html" title="pyidf.zone_airflow module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.water_heaters_and_thermal_storage.html" title="pyidf.water_heaters_and_thermal_storage module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.water_systems">
+<span id="pyidf-water-systems-module"></span><h1>pyidf.water_systems module<a class="headerlink" href="#module-pyidf.water_systems" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Water Systems&#8221;</p>
+<dl class="class">
+<dt id="pyidf.water_systems.WaterUseConnections">
+<em class="property">class </em><code class="descclassname">pyidf.water_systems.</code><code class="descname">WaterUseConnections</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>WaterUse:Connections</cite>
+A subsystem that groups together multiple WaterUse:Equipment components.
+As its name suggests, the object provides connections that are shared by these
+components, including: 1. Inlet node and outlet node connections to a plant loop
+2. Connections to WaterUse:Storage objects to store and draw reclaimed water
+3. Internal connections to simulate drainwater heat recovery.</p>
+<dl class="method">
+<dt id="pyidf.water_systems.WaterUseConnections.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>water_use_equipment_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>water_use_equipment_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Use Equipment 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.cold_water_supply_temperature_schedule_name">
+<code class="descname">cold_water_supply_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.cold_water_supply_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cold Water Supply Temperature Schedule Name</cite></p>
+<p>Defaults to water temperatures calculated by Site:WaterMainsTemperature object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cold Water Supply Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cold_water_supply_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_destination">
+<code class="descname">drain_water_heat_exchanger_destination</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Drain Water Heat Exchanger Destination</cite></p>
+<p>Default value: Plant</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Drain Water Heat Exchanger Destination</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>drain_water_heat_exchanger_destination</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_type">
+<code class="descname">drain_water_heat_exchanger_type</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Drain Water Heat Exchanger Type</cite></p>
+<p>Default value: None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Drain Water Heat Exchanger Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>drain_water_heat_exchanger_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_ufactor_times_area">
+<code class="descname">drain_water_heat_exchanger_ufactor_times_area</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.drain_water_heat_exchanger_ufactor_times_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Drain Water Heat Exchanger U-Factor Times Area</cite></p>
+<p>Units: W/K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Drain Water Heat Exchanger U-Factor Times Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>drain_water_heat_exchanger_ufactor_times_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.hot_water_supply_temperature_schedule_name">
+<code class="descname">hot_water_supply_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.hot_water_supply_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Hot Water Supply Temperature Schedule Name</cite></p>
+<p>Defaults to cold water supply temperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Hot Water Supply Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>hot_water_supply_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.reclamation_water_storage_tank_name">
+<code class="descname">reclamation_water_storage_tank_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.reclamation_water_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Reclamation Water Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Reclamation Water Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reclamation_water_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseConnections.supply_water_storage_tank_name">
+<code class="descname">supply_water_storage_tank_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseConnections.supply_water_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Water Storage Tank Name</cite></p>
+<p>If blank, or tank is empty, defaults to fresh water from the mains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Water Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_water_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.water_systems.WaterUseEquipment">
+<em class="property">class </em><code class="descclassname">pyidf.water_systems.</code><code class="descname">WaterUseEquipment</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>WaterUse:Equipment</cite>
+A generalized object for simulating all water end uses. Hot and cold water uses are
+included, as well as controlled mixing of hot and cold water at the tap. The
+WaterUse:Equipment object can be used stand-alone, or coupled into a plant loop using
+the WaterUse:Connections object (see below). The WaterUse:Connections object allows
+water uses to be linked to WaterUse:Storage objects to store and draw reclaimed water.
+The object can also simulate drainwater heat recovery.</p>
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.cold_water_supply_temperature_schedule_name">
+<code class="descname">cold_water_supply_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.cold_water_supply_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cold Water Supply Temperature Schedule Name</cite></p>
+<p>Defaults to water temperatures calculated by Site:WaterMainsTemperature object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cold Water Supply Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cold_water_supply_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.flow_rate_fraction_schedule_name">
+<code class="descname">flow_rate_fraction_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.flow_rate_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Rate Fraction Schedule Name</cite></p>
+<p>Defaults to 1.0 at all times</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Rate Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_rate_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.hot_water_supply_temperature_schedule_name">
+<code class="descname">hot_water_supply_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.hot_water_supply_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Hot Water Supply Temperature Schedule Name</cite></p>
+<p>Defaults to cold water supply temperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Hot Water Supply Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>hot_water_supply_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.latent_fraction_schedule_name">
+<code class="descname">latent_fraction_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.latent_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Latent Fraction Schedule Name</cite></p>
+<p>Defaults to 0.0 at all times</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Latent Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>latent_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.peak_flow_rate">
+<code class="descname">peak_flow_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.peak_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Peak Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Peak Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>peak_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.sensible_fraction_schedule_name">
+<code class="descname">sensible_fraction_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.sensible_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensible Fraction Schedule Name</cite></p>
+<p>Defaults to 0.0 at all times</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensible Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensible_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.target_temperature_schedule_name">
+<code class="descname">target_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.target_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Target Temperature Schedule Name</cite></p>
+<p>Defaults to hot water supply temperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Target Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>target_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseEquipment.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseEquipment.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.water_systems.WaterUseRainCollector">
+<em class="property">class </em><code class="descclassname">pyidf.water_systems.</code><code class="descname">WaterUseRainCollector</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>WaterUse:RainCollector</cite>
+Used for harvesting rainwater falling on building surfaces. The rainwater is sent to a
+WaterUse:Storage object. In order to use this object it is necessary to also include
+a Site:Precipitation object to describe the rates of rainfall.</p>
+<dl class="method">
+<dt id="pyidf.water_systems.WaterUseRainCollector.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>collection_surface_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>collection_surface_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Collection Surface 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.collection_loss_factor">
+<code class="descname">collection_loss_factor</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.collection_loss_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Collection Loss Factor</cite></p>
+<p>this is the portion of rain
+that is lost in the process of collecting it
+the rain collected is one minus this factor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Collection Loss Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>collection_loss_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.collection_loss_factor_schedule_name">
+<code class="descname">collection_loss_factor_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.collection_loss_factor_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Collection Loss Factor Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Collection Loss Factor Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>collection_loss_factor_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.loss_factor_mode">
+<code class="descname">loss_factor_mode</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.loss_factor_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Loss Factor Mode</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Loss Factor Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>loss_factor_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.maximum_collection_rate">
+<code class="descname">maximum_collection_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.maximum_collection_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Collection Rate</cite></p>
+<p>Defaults to unlimited flow.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Collection Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_collection_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseRainCollector.storage_tank_name">
+<code class="descname">storage_tank_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseRainCollector.storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.water_systems.WaterUseStorage">
+<em class="property">class </em><code class="descclassname">pyidf.water_systems.</code><code class="descname">WaterUseStorage</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>WaterUse:Storage</cite>
+A water storage tank. If the building model is to include any on-site
+water collection, wells, or storing and reuse of graywater, then a WaterUse:Storage
+object is needed. Each WaterUse:Storage can serve as a central node and make
+connections to numerous sources of supply or numerous components with demand. If a
+maximum capacity is not specified, the tank is assumed to have unlimited capacity.</p>
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.ambient_temperature_indicator">
+<code class="descname">ambient_temperature_indicator</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.ambient_temperature_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Temperature Indicator</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Temperature Indicator</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_temperature_indicator</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.ambient_temperature_schedule_name">
+<code class="descname">ambient_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.ambient_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Temperature Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.backup_mains_capacity">
+<code class="descname">backup_mains_capacity</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.backup_mains_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Backup Mains Capacity</cite></p>
+<p>Lower range of secondary target storage level
+used to keep tanks at a minimum level using
+mains water if well can&#8217;t keep up
+Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Backup Mains Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>backup_mains_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.design_in_flow_rate">
+<code class="descname">design_in_flow_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.design_in_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design In Flow Rate</cite></p>
+<p>Defaults to unlimited flow.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design In Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_in_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.design_out_flow_rate">
+<code class="descname">design_out_flow_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.design_out_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Out Flow Rate</cite></p>
+<p>Defaults to unlimited flow.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design Out Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_out_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.float_valve_off_capacity">
+<code class="descname">float_valve_off_capacity</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.float_valve_off_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Float Valve Off Capacity</cite></p>
+<p>Upper range of target storage level e.g. float valve kicks off
+Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Float Valve Off Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>float_valve_off_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.float_valve_on_capacity">
+<code class="descname">float_valve_on_capacity</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.float_valve_on_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Float Valve On Capacity</cite></p>
+<p>Lower range of target storage level e.g. float valve kicks on
+Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Float Valve On Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>float_valve_on_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.initial_volume">
+<code class="descname">initial_volume</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.initial_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Volume</cite></p>
+<p>Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Volume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_volume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.maximum_capacity">
+<code class="descname">maximum_capacity</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.maximum_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Capacity</cite></p>
+<p>Defaults to unlimited capacity.
+Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.other_tank_name">
+<code class="descname">other_tank_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.other_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Other Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Other Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>other_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.overflow_destination">
+<code class="descname">overflow_destination</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.overflow_destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Overflow Destination</cite></p>
+<p>If blank, overflow is discarded</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Overflow Destination</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>overflow_destination</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.tank_outside_surface_material_name">
+<code class="descname">tank_outside_surface_material_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.tank_outside_surface_material_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Tank Outside Surface Material Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tank Outside Surface Material Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tank_outside_surface_material_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.tank_surface_area">
+<code class="descname">tank_surface_area</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.tank_surface_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Tank Surface Area</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Tank Surface Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tank_surface_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.tank_u_value">
+<code class="descname">tank_u_value</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.tank_u_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Tank U Value</cite></p>
+<p>Units: W/m2-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Tank U Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tank_u_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.type_of_supply_controlled_by_float_valve">
+<code class="descname">type_of_supply_controlled_by_float_valve</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.type_of_supply_controlled_by_float_valve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Type of Supply Controlled by Float Valve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Type of Supply Controlled by Float Valve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>type_of_supply_controlled_by_float_valve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.water_quality_subcategory">
+<code class="descname">water_quality_subcategory</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.water_quality_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Quality Subcategory</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Quality Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_quality_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.water_temperature_schedule_name">
+<code class="descname">water_temperature_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.water_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Temperature Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.water_thermal_mode">
+<code class="descname">water_thermal_mode</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.water_thermal_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Thermal Mode</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Thermal Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_thermal_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseStorage.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseStorage.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.water_systems.WaterUseWell">
+<em class="property">class </em><code class="descclassname">pyidf.water_systems.</code><code class="descname">WaterUseWell</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>WaterUse:Well</cite>
+Simulates on-site water supply from a well. Well water is pumped out of the ground
+into a WaterUse:Storage. The operation of the ground water well is controlled by the
+associated WaterUse:Storage which is assumed to be operated as a vented cistern with
+no pressure tank.</p>
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.nominal_well_storage_volume">
+<code class="descname">nominal_well_storage_volume</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.nominal_well_storage_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Well Storage Volume</cite></p>
+<p>Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Well Storage Volume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_well_storage_volume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.pump_depth">
+<code class="descname">pump_depth</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.pump_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Depth</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pump Depth</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_depth</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.pump_efficiency">
+<code class="descname">pump_efficiency</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.pump_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Efficiency</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pump Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.pump_rated_flow_rate">
+<code class="descname">pump_rated_flow_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.pump_rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Rated Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pump Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_rated_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.pump_rated_head">
+<code class="descname">pump_rated_head</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.pump_rated_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Rated Head</cite></p>
+<p>Units: Pa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pump Rated Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_rated_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.pump_rated_power_consumption">
+<code class="descname">pump_rated_power_consumption</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.pump_rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Rated Power Consumption</cite></p>
+<p>Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pump Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_rated_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.storage_tank_name">
+<code class="descname">storage_tank_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.water_table_depth">
+<code class="descname">water_table_depth</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.water_table_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Table Depth</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Water Table Depth</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_table_depth</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.water_table_depth_mode">
+<code class="descname">water_table_depth_mode</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.water_table_depth_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Table Depth Mode</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Table Depth Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_table_depth_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.water_table_depth_schedule_name">
+<code class="descname">water_table_depth_schedule_name</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.water_table_depth_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Table Depth Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Table Depth Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_table_depth_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.water_systems.WaterUseWell.well_recovery_rate">
+<code class="descname">well_recovery_rate</code><a class="headerlink" href="#pyidf.water_systems.WaterUseWell.well_recovery_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Well Recovery Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Well Recovery Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>well_recovery_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.water_heaters_and_thermal_storage.html"
+                        title="previous chapter">pyidf.water_heaters_and_thermal_storage module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.zone_airflow.html"
+                        title="next chapter">pyidf.zone_airflow module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.water_systems.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_airflow.html" title="pyidf.zone_airflow module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.water_heaters_and_thermal_storage.html" title="pyidf.water_heaters_and_thermal_storage module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

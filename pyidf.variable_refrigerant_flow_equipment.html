@@ -1,0 +1,2200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.variable_refrigerant_flow_equipment module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.water_heaters_and_thermal_storage module" href="pyidf.water_heaters_and_thermal_storage.html" />
+    <link rel="prev" title="pyidf.user_defined_hvac_and_plant_component_models module" href="pyidf.user_defined_hvac_and_plant_component_models.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.water_heaters_and_thermal_storage.html" title="pyidf.water_heaters_and_thermal_storage module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.user_defined_hvac_and_plant_component_models.html" title="pyidf.user_defined_hvac_and_plant_component_models module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.variable_refrigerant_flow_equipment">
+<span id="pyidf-variable-refrigerant-flow-equipment-module"></span><h1>pyidf.variable_refrigerant_flow_equipment module<a class="headerlink" href="#module-pyidf.variable_refrigerant_flow_equipment" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Variable Refrigerant Flow Equipment&#8221;</p>
+<dl class="class">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow">
+<em class="property">class </em><code class="descclassname">pyidf.variable_refrigerant_flow_equipment.</code><code class="descname">AirConditionerVariableRefrigerantFlow</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirConditioner:VariableRefrigerantFlow</cite>
+Variable refrigerant flow (VRF) air-to-air heat pump condensing unit (includes one
+or more electric compressors and outdoor fan). Serves one or more VRF zone terminal
+units. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and ZoneTerminalUnitList.</p>
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.
+Enter the name of a schedule that defines the availability of the unit.
+Schedule values of 0 denote the unit is off. All other values denote the unit is available.
+If this field is left blank, the unit is available the entire simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_capacity">
+<code class="descname">basin_heater_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Basin Heater Capacity</cite></p>
+<p>This field is only used for Condenser Type = EvaporativelyCooled and for periods
+when the basin heater is available (field Basin Heater Operating Schedule Name).
+For this situation, the heater maintains the basin water temperature at the basin heater
+setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+The basin heater only operates when the DX coil is off.
+Units: W/K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Basin Heater Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>basin_heater_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_operating_schedule_name">
+<code class="descname">basin_heater_operating_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_operating_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Basin Heater Operating Schedule Name</cite></p>
+<p>This field is only used for Condenser Type = EvaporativelyCooled.
+Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+air dry-bulb temperature is below the basin heater setpoint temperature.
+If a schedule name is not entered, the basin heater is allowed to operate
+throughout the entire simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Basin Heater Operating Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>basin_heater_operating_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_setpoint_temperature">
+<code class="descname">basin_heater_setpoint_temperature</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_setpoint_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Basin Heater Setpoint Temperature</cite></p>
+<p>This field is only used for Condenser Type = EvaporativelyCooled.
+Enter the outdoor dry-bulb temperature when the basin heater turns on.
+Units: C
+Default value: 2.0
+value &gt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Basin Heater Setpoint Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>basin_heater_setpoint_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_inlet_node_name">
+<code class="descname">condenser_inlet_node_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Condenser Inlet Node Name</cite></p>
+<p>Choose an outside air node name or leave this field blank to use weather data.
+If this field is blank, the Condenser Type is assumed to be AirCooled.
+This input must be specified if Condenser Type = WaterCooled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Condenser Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>condenser_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_outlet_node_name">
+<code class="descname">condenser_outlet_node_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Condenser Outlet Node Name</cite></p>
+<p>Enter a water outlet node name if Condenser Type = WaterCooled.
+Leave this field blank if Condenser Type = Air or EvaporativelyCooled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Condenser Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>condenser_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_type">
+<code class="descname">condenser_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Condenser Type</cite></p>
+<p>Select either an air-cooled, evaporatively-cooled or water-cooled condenser.
+Default value: AirCooled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Condenser Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>condenser_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_boundary_curve_name">
+<code class="descname">cooling_capacity_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Capacity Ratio Boundary Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve object is used to allow separate low and high cooling capacity ratio
+performance curves. This curve represents a line passing through the points where
+performance changes. The curve calculates outdoor dry-bulb temperature given weighted
+average indoor wet-bulb temperature. If a single performance curve is used,
+leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Capacity Ratio Boundary Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_capacity_ratio_boundary_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name">
+<code class="descname">cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Capacity Ratio Modifier Function of High Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+This curve object is used to describe the high outdoor temperature
+performance curve used to describe cooling capacity ratio.
+This curve is used when a single performance curve does not accurately describe
+cooling capacity ratio as a function of temperature.
+If a single performance curve is used, leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Capacity Ratio Modifier Function of High Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name">
+<code class="descname">cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter a curve name that represents full load cooling capacity ratio as a
+function of outdoor dry-bulb temperature and indoor wet-bulb temperature.
+Up to two curves are allowed if the performance cannot be represented by a single curve.
+The following two fields are used if two curves are required.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_combination_ratio_correction_factor_curve_name">
+<code class="descname">cooling_combination_ratio_correction_factor_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_combination_ratio_correction_factor_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Combination Ratio Correction Factor Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve defines how rated capacity changes when the total indoor terminal unit cooling
+capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.
+If this field is left blank, the model assumes total indoor terminal unit cooling
+capacity is equal to the Gross Rated Total Cooling Capacity defined above.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Combination Ratio Correction Factor Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_combination_ratio_correction_factor_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_boundary_curve_name">
+<code class="descname">cooling_energy_input_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Energy Input Ratio Boundary Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve object is used to allow separate low and high cooling energy input ratio
+performance curves. This curve represents a line passing through the points where
+performance changes. The curve calculates outdoor dry-bulb temperature given weighted
+average indoor wet-bulb temperature. If a single performance curve is used,
+leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Energy Input Ratio Boundary Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_energy_input_ratio_boundary_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name">
+<code class="descname">cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Enter a curve name that represents cooling energy ratio as a function of
+part-load ratio for part-load ratios greater than 1. Part-load ratios
+can exceed 1 in variable speed compresson systems.
+If this field is left blank, the model assumes energy is proportional to
+part-load ratio.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name">
+<code class="descname">cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+This curve object is used to describe the high outdoor temperature
+performance curve used to describe cooling energy ratio.
+This curve is used when a single performance curve does not accurately describe
+cooling energy ratio as a function of temperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name">
+<code class="descname">cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Enter a curve name that represents cooling energy ratio as a function of
+part-load ratio for part-load ratios less than or equal to 1.
+If this field is left blank, the model assumes energy is proportional to
+part-load ratio.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name">
+<code class="descname">cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter a curve name that represents cooling energy ratio as a function of
+outdoor dry-bulb temperature and indoor wet-bulb temperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_partload_fraction_correlation_curve_name">
+<code class="descname">cooling_partload_fraction_correlation_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_partload_fraction_correlation_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Part-Load Fraction Correlation Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve defines the cycling losses when the heat pump compressor cycles on and off
+below the Minimum Heat Pump Part-Load Ratio specified in the field below.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Part-Load Fraction Correlation Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_partload_fraction_correlation_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.crankcase_heater_power_per_compressor">
+<code class="descname">crankcase_heater_power_per_compressor</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.crankcase_heater_power_per_compressor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Crankcase Heater Power per Compressor</cite></p>
+<p>Enter the value of the resistive heater located in the compressor(s). This heater
+is used to warm the refrigerant and oil when the compressor is off.
+Units: W
+Default value: 33.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Crankcase Heater Power per Compressor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>crankcase_heater_power_per_compressor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_control">
+<code class="descname">defrost_control</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Defrost Control</cite></p>
+<p>Choose a defrost control type. Either use a fixed Timed defrost period or select
+OnDemand to defrost only when necessary.
+Default value: Timed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Defrost Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>defrost_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name">
+<code class="descname">defrost_energy_input_ratio_modifier_function_of_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Defrost Energy Input Ratio Modifier Function of Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+A valid performance curve must be used if reversecycle defrost strategy is selected.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Defrost Energy Input Ratio Modifier Function of Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>defrost_energy_input_ratio_modifier_function_of_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_strategy">
+<code class="descname">defrost_strategy</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_strategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Defrost Strategy</cite></p>
+<p>Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling
+to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater
+to melt the frost.
+Default value: Resistive</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Defrost Strategy</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>defrost_strategy</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_time_period_fraction">
+<code class="descname">defrost_time_period_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_time_period_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Defrost Time Period Fraction</cite></p>
+<p>Fraction of time in defrost mode.
+Only applicable if timed defrost control is specified.
+Units: dimensionless
+Default value: 0.058333</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Defrost Time Period Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>defrost_time_period_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode">
+<code class="descname">equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Equivalent Piping Length used for Piping Correction Factor in Cooling Mode</cite></p>
+<p>Enter the equivalent length of the farthest terminal unit from the condenser
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Equivalent Piping Length used for Piping Correction Factor in Cooling Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode">
+<code class="descname">equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Equivalent Piping Length used for Piping Correction Factor in Heating Mode</cite></p>
+<p>Enter the equivalent length of the farthest terminal unit from the condenser
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Equivalent Piping Length used for Piping Correction Factor in Heating Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_air_flow_rate">
+<code class="descname">evaporative_condenser_air_flow_rate</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Evaporative Condenser Air Flow Rate</cite></p>
+<p>Used to calculate evaporative condenser water use.
+This field is only used when the Condenser Type = EvaporativelyCooled.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Evaporative Condenser Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>evaporative_condenser_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_effectiveness">
+<code class="descname">evaporative_condenser_effectiveness</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_effectiveness" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Evaporative Condenser Effectiveness</cite></p>
+<p>Enter the effectiveness of the evaporatively cooled condenser.
+This field is only used when the Condenser Type = EvaporativelyCooled.
+Units: dimensionless
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Evaporative Condenser Effectiveness</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>evaporative_condenser_effectiveness</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_pump_rated_power_consumption">
+<code class="descname">evaporative_condenser_pump_rated_power_consumption</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_pump_rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Evaporative Condenser Pump Rated Power Consumption</cite></p>
+<p>Rated power consumed by the evaporative condenser&#8217;s water pump.
+This field is only used when the Condenser Type = EvaporativelyCooled.
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Evaporative Condenser Pump Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>evaporative_condenser_pump_rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.fuel_type">
+<code class="descname">fuel_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.fuel_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fuel Type</cite></p>
+<p>Default value: Electricity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fuel Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fuel_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_cooling_cop">
+<code class="descname">gross_rated_cooling_cop</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_cooling_cop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Rated Cooling COP</cite></p>
+<p>Enter the coefficient of performance at rated conditions or leave blank to use default.
+COP includes compressor and condenser fan electrical energy input
+COP does not include supply fan heat or supply fan electric power input
+Units: W/W
+Default value: 3.3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Gross Rated Cooling COP</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gross_rated_cooling_cop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_capacity">
+<code class="descname">gross_rated_heating_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Rated Heating Capacity</cite></p>
+<p>Enter the heating capacity in watts at rated conditions or set to autosize.
+Heating capacity not accounting for the effect of supply air fan heat
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Gross Rated Heating Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>gross_rated_heating_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_cop">
+<code class="descname">gross_rated_heating_cop</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_cop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Rated Heating COP</cite></p>
+<p>COP includes compressor and condenser fan electrical energy input
+COP does not include supply fan heat or supply fan electrical energy input
+Units: W/W
+Default value: 3.4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Gross Rated Heating COP</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gross_rated_heating_cop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_total_cooling_capacity">
+<code class="descname">gross_rated_total_cooling_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_total_cooling_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Rated Total Cooling Capacity</cite></p>
+<p>Enter the total cooling capacity in watts at rated conditions or set to autosize.
+Total cooling capacity not accounting for the effect of supply air fan heat
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Gross Rated Total Cooling Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>gross_rated_total_cooling_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_name">
+<code class="descname">heat_pump_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Pump Name</cite></p>
+<p>Enter a unique name for this variable refrigerant flow heat pump.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Pump Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_pump_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_waste_heat_recovery">
+<code class="descname">heat_pump_waste_heat_recovery</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_waste_heat_recovery" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Pump Waste Heat Recovery</cite></p>
+<p>This field is reserved for future use. The only valid choice is No.
+Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Pump Waste Heat Recovery</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_pump_waste_heat_recovery</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_modifier_curve_name">
+<code class="descname">heat_recovery_cooling_capacity_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Cooling Capacity Modifier Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter the name of a performance curve which represents
+the change in cooling capacity when heat recovery is active
+A default constant of 0.9 is used if this input is blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Recovery Cooling Capacity Modifier Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_cooling_capacity_modifier_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_time_constant">
+<code class="descname">heat_recovery_cooling_capacity_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_time_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Cooling Capacity Time Constant</cite></p>
+<p>Enter the time constant used to model the transition
+from cooling only mode to heat recovery mode
+Units: hr
+Default value: 0.15</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heat Recovery Cooling Capacity Time Constant</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_cooling_capacity_time_constant</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_modifier_curve_name">
+<code class="descname">heat_recovery_cooling_energy_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Cooling Energy Modifier Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter the name of a performance curve which represents
+the change in cooling energy when heat recovery is active
+A default constant of 1.1 is used if this input is blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Recovery Cooling Energy Modifier Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_cooling_energy_modifier_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_time_constant">
+<code class="descname">heat_recovery_cooling_energy_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_time_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Cooling Energy Time Constant</cite></p>
+<p>Enter the time constant used to model the transition
+from cooling only mode to heat recovery mode
+Units: hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heat Recovery Cooling Energy Time Constant</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_cooling_energy_time_constant</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_modifier_curve_name">
+<code class="descname">heat_recovery_heating_capacity_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Heating Capacity Modifier Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter the name of a performance curve which represents
+the change in heating capacity when heat recovery is active
+A default constant of 1.1 is used if this input is blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Recovery Heating Capacity Modifier Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_heating_capacity_modifier_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_time_constant">
+<code class="descname">heat_recovery_heating_capacity_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_time_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Heating Capacity Time Constant</cite></p>
+<p>Enter the time constant used to model the transition
+from cooling only mode to heat recovery mode
+Units: hr
+Default value: 0.15</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heat Recovery Heating Capacity Time Constant</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_heating_capacity_time_constant</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_modifier_curve_name">
+<code class="descname">heat_recovery_heating_energy_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Heating Energy Modifier Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter the name of a performance curve which represents
+the change in heating electric consumption rate when heat recovery is active
+A default constant of 1.1 is used if this input is blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Recovery Heating Energy Modifier Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_heating_energy_modifier_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_time_constant">
+<code class="descname">heat_recovery_heating_energy_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_time_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Heating Energy Time Constant</cite></p>
+<p>Enter the time constant used to model the transition
+from cooling only mode to heat recovery mode
+Units: hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heat Recovery Heating Energy Time Constant</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_heating_energy_time_constant</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_boundary_curve_name">
+<code class="descname">heating_capacity_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Capacity Ratio Boundary Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve object is used to allow separate low and high heating capacity ratio
+performance curves. This curve represents a line passing through the points where
+performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
+given weighted average indoor dry-bulb temperature. See Heating Performance Curve
+Outdoor Temperature Type input below to determine which outdoor temperature type to use.
+If a single performance curve is used, leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Capacity Ratio Boundary Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_capacity_ratio_boundary_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name">
+<code class="descname">heating_capacity_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Capacity Ratio Modifier Function of High Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+This curve object is used to describe the high outdoor temperature
+performance curve used to describe heating capacity ratio.
+This curve is used when a single performance curve does not accurately describe
+heating capacity ratio as a function of temperature.
+If a single performance curve is used, leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Capacity Ratio Modifier Function of High Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_capacity_ratio_modifier_function_of_high_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name">
+<code class="descname">heating_capacity_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter a curve name that represents full load heating capacity ratio as a
+function of outdoor wet-bulb temperature and indoor dry-bulb temperature.
+Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
+See Heating Performance Curve Outdoor Temperature Type input below to determine which
+outdoor temperature type to use.
+Up to two curves are allowed if the performance cannot be represented by a single curve.
+The following two fields are used if two curves are required.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_capacity_ratio_modifier_function_of_low_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_combination_ratio_correction_factor_curve_name">
+<code class="descname">heating_combination_ratio_correction_factor_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_combination_ratio_correction_factor_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Combination Ratio Correction Factor Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve defines how rated capacity changes when the total indoor terminal unit heating
+capacity is greater than the Gross Rated Heating Capacity defined in this object.
+If this field is left blank, the model assumes total indoor terminal unit heating
+capacity is equal to the Gross Rated Heating Capacity defined above.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Combination Ratio Correction Factor Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_combination_ratio_correction_factor_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_boundary_curve_name">
+<code class="descname">heating_energy_input_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Energy Input Ratio Boundary Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve object is used to allow separate low and high heating energy input ratio
+performance curves. This curve represents a line passing through the points where
+performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
+given weighted average indoor dry-bulb temperature. See Heating Performance Curve
+Outdoor Temperature Type input below to determine which outdoor temperature type to use.
+If a single performance curve is used, leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Energy Input Ratio Boundary Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_energy_input_ratio_boundary_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name">
+<code class="descname">heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve represents the heating energy input ratio for part-load ratios greater than 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name">
+<code class="descname">heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+This curve object is used to allow separate performance curves for heating energy.
+If a single performance curve is used, leave this field blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name">
+<code class="descname">heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve represents the heating energy input ratio for part-load ratios less than 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name">
+<code class="descname">heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></p>
+<p>Table:TwoIndependentVariables object can also be used
+Enter a curve name that represents heating energy ratio as a function of
+outdoor wet-bulb temperature and indoor dry-bulb temperature
+Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
+See Heating Performance Curve Outdoor Temperature Type input below to determine which
+outdoor temperature type to use.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_partload_fraction_correlation_curve_name">
+<code class="descname">heating_partload_fraction_correlation_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_partload_fraction_correlation_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Part-Load Fraction Correlation Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+This curve defines the cycling losses when the heat pump compressor cycles on and off
+below the Minimum Heat Pump Part-Load Ratio specified in the following field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Part-Load Fraction Correlation Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_partload_fraction_correlation_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_performance_curve_outdoor_temperature_type">
+<code class="descname">heating_performance_curve_outdoor_temperature_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_performance_curve_outdoor_temperature_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Performance Curve Outdoor Temperature Type</cite></p>
+<p>Determines temperature type for heating capacity curves and heating energy curves.
+This input determines whether the outdoor air dry-bulb or wet-bulb temperature
+is used to evaluate these curves.
+Default value: WetBulbTemperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Performance Curve Outdoor Temperature Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_performance_curve_outdoor_temperature_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_capacity_fraction">
+<code class="descname">initial_heat_recovery_cooling_capacity_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_capacity_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Heat Recovery Cooling Capacity Fraction</cite></p>
+<p>Enter the fractional capacity available at the start
+of heat recovery mode. The capacity exponentially approaches
+the steady-state value according to the inputs for
+Heat Recovery Cooling Capacity Modifier and Heat Recovery
+Cooling Capacity Time Constant
+Units: W/W
+Default value: 0.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Heat Recovery Cooling Capacity Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_heat_recovery_cooling_capacity_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_energy_fraction">
+<code class="descname">initial_heat_recovery_cooling_energy_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_energy_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Heat Recovery Cooling Energy Fraction</cite></p>
+<p>Enter the fractional electric consumption rate at the start
+of heat recovery mode. The electric consumption rate exponentially
+approaches the steady-state value according to the inputs for
+Heat Recovery Cooling Energy Modifier and Heat Recovery
+Cooling Energy Time Constant
+Units: W/W
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Heat Recovery Cooling Energy Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_heat_recovery_cooling_energy_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_capacity_fraction">
+<code class="descname">initial_heat_recovery_heating_capacity_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_capacity_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Heat Recovery Heating Capacity Fraction</cite></p>
+<p>Enter the fractional capacity available at the start
+of heat recovery mode. The capacity exponentially approaches
+the steady-state value according to the inputs for
+Heat Recovery Heating Capacity Modifier and Heat Recovery
+Heating Capacity Time Constant
+Units: W/W
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Heat Recovery Heating Capacity Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_heat_recovery_heating_capacity_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_energy_fraction">
+<code class="descname">initial_heat_recovery_heating_energy_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_energy_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Heat Recovery Heating Energy Fraction</cite></p>
+<p>Enter the fractional electric consumption rate at the start
+of heat recovery mode. The electric consumption rate exponentially
+approaches the steady-state value according to the inputs for
+Heat Recovery Cooling Energy Modifier and Heat Recovery
+Cooling Energy Time Constant
+Units: W/W
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Heat Recovery Heating Energy Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_heat_recovery_heating_energy_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.master_thermostat_priority_control_type">
+<code class="descname">master_thermostat_priority_control_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.master_thermostat_priority_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Master Thermostat Priority Control Type</cite></p>
+<p>Choose a thermostat control logic scheme. If these control types fail to control zone
+temperature within a reasonable limit, consider using multiple VRF systems
+Default value: MasterThermostatPriority</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Master Thermostat Priority Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>master_thermostat_priority_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_crankcase_heater">
+<code class="descname">maximum_outdoor_drybulb_temperature_for_crankcase_heater</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_crankcase_heater" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater</cite></p>
+<p>Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+Units: C
+Default value: 5.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_drybulb_temperature_for_crankcase_heater</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_defrost_operation">
+<code class="descname">maximum_outdoor_drybulb_temperature_for_defrost_operation</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_defrost_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Dry-bulb Temperature for Defrost Operation</cite></p>
+<p>Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+Units: C
+Default value: 5.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Dry-bulb Temperature for Defrost Operation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_drybulb_temperature_for_defrost_operation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_cooling_mode">
+<code class="descname">maximum_outdoor_temperature_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Temperature in Cooling Mode</cite></p>
+<p>Enter the maximum outdoor temperature allowed for cooling operation.
+Cooling is disabled above this temperature.
+Units: C
+Default value: 43.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Temperature in Cooling Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_temperature_in_cooling_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heat_recovery_mode">
+<code class="descname">maximum_outdoor_temperature_in_heat_recovery_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heat_recovery_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Temperature in Heat Recovery Mode</cite></p>
+<p>The maximum outdoor temperature above which heat
+recovery mode will not operate.
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Temperature in Heat Recovery Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_temperature_in_heat_recovery_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heating_mode">
+<code class="descname">maximum_outdoor_temperature_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heating_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Temperature in Heating Mode</cite></p>
+<p>Enter the maximum outdoor temperature allowed for heating operation.
+Units: C
+Default value: 16.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Temperature in Heating Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_temperature_in_heating_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_heat_pump_partload_ratio">
+<code class="descname">minimum_heat_pump_partload_ratio</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_heat_pump_partload_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Heat Pump Part-Load Ratio</cite></p>
+<p>Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
+below this value, the heat pump compressor will cycle to meet the cooling or heating
+demand.
+Units: dimensionless
+Default value: 0.15</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Heat Pump Part-Load Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_heat_pump_partload_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_cooling_mode">
+<code class="descname">minimum_outdoor_temperature_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Temperature in Cooling Mode</cite></p>
+<p>Enter the minimum outdoor temperature allowed for cooling operation.
+Cooling is disabled below this temperature.
+Units: C
+Default value: -6.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Temperature in Cooling Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_temperature_in_cooling_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heat_recovery_mode">
+<code class="descname">minimum_outdoor_temperature_in_heat_recovery_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heat_recovery_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Temperature in Heat Recovery Mode</cite></p>
+<p>The minimum outdoor temperature below which heat
+recovery mode will not operate.
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Temperature in Heat Recovery Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_temperature_in_heat_recovery_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heating_mode">
+<code class="descname">minimum_outdoor_temperature_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heating_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Temperature in Heating Mode</cite></p>
+<p>Enter the minimum outdoor temperature allowed for cooling operation.
+Units: C
+Default value: -20.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Temperature in Heating Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_temperature_in_heating_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.number_of_compressors">
+<code class="descname">number_of_compressors</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.number_of_compressors" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Compressors</cite></p>
+<p>Enter the total number of compressor. This input is used only for crankcase
+heater calculations.
+Units: dimensionless
+Default value: 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Compressors</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_compressors</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_cooling_mode_coefficient">
+<code class="descname">piping_correction_factor_for_height_in_cooling_mode_coefficient</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_cooling_mode_coefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Piping Correction Factor for Height in Cooling Mode Coefficient</cite></p>
+<p>PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+where L = length, H = height, and CR = combination ratio
+specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+Units: 1/m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Piping Correction Factor for Height in Cooling Mode Coefficient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>piping_correction_factor_for_height_in_cooling_mode_coefficient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_heating_mode_coefficient">
+<code class="descname">piping_correction_factor_for_height_in_heating_mode_coefficient</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_heating_mode_coefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Piping Correction Factor for Height in Heating Mode Coefficient</cite></p>
+<p>PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+where L = length, H = height, and CR = combination ratio
+specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+Units: 1/m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Piping Correction Factor for Height in Heating Mode Coefficient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>piping_correction_factor_for_height_in_heating_mode_coefficient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_cooling_mode_curve_name">
+<code class="descname">piping_correction_factor_for_length_in_cooling_mode_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_cooling_mode_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Piping Correction Factor for Length in Cooling Mode Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Table:TwoIndependentVariables object can also be used
+PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)
+where L = length and CR = combination ratio
+specifies coefficients for a0, a1, a2, and a3 in the PCF equation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Piping Correction Factor for Length in Cooling Mode Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>piping_correction_factor_for_length_in_cooling_mode_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_heating_mode_curve_name">
+<code class="descname">piping_correction_factor_for_length_in_heating_mode_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_heating_mode_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Piping Correction Factor for Length in Heating Mode Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Table:TwoIndependentVariables object can also be used
+PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+where L = length and CR = combination ratio
+specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Piping Correction Factor for Length in Heating Mode Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>piping_correction_factor_for_length_in_heating_mode_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio">
+<code class="descname">rated_heating_capacity_sizing_ratio</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Heating Capacity Sizing Ratio</cite></p>
+<p>If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
+to be equal to the cooling capacity multiplied by this sizing ratio. The zone
+terminal unit heating coils are also sized using this ratio unless the sizing
+ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+Units: W/W
+Default value: 1.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Heating Capacity Sizing Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_heating_capacity_sizing_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.ratio_of_compressor_size_to_total_compressor_capacity">
+<code class="descname">ratio_of_compressor_size_to_total_compressor_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.ratio_of_compressor_size_to_total_compressor_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ratio of Compressor Size to Total Compressor Capacity</cite></p>
+<p>Enter the ratio of the first stage compressor to total compressor capacity.
+All other compressors are assumed to be equally sized. This inputs is used
+only for crankcase heater calculations.
+Units: W/W
+Default value: 0.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ratio of Compressor Size to Total Compressor Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ratio_of_compressor_size_to_total_compressor_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.resistive_defrost_heater_capacity">
+<code class="descname">resistive_defrost_heater_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.resistive_defrost_heater_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Resistive Defrost Heater Capacity</cite></p>
+<p>Enter the size of the resistive defrost heating element.
+Only applicable if resistive defrost strategy is specified
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Resistive Defrost Heater Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>resistive_defrost_heater_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.supply_water_storage_tank_name">
+<code class="descname">supply_water_storage_tank_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.supply_water_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Water Storage Tank Name</cite></p>
+<p>A separate storage tank may be used to supply an evaporatively cooled condenser.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Water Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_water_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.thermostat_priority_schedule_name">
+<code class="descname">thermostat_priority_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.thermostat_priority_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Priority Schedule Name</cite></p>
+<p>this field is required if Master Thermostat Priority Control Type is Scheduled.
+Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Thermostat Priority Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_priority_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.vertical_height_used_for_piping_correction_factor">
+<code class="descname">vertical_height_used_for_piping_correction_factor</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.vertical_height_used_for_piping_correction_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Vertical Height used for Piping Correction Factor</cite></p>
+<p>Enter the height difference between the highest and lowest terminal unit
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Vertical Height used for Piping Correction Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>vertical_height_used_for_piping_correction_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.water_condenser_volume_flow_rate">
+<code class="descname">water_condenser_volume_flow_rate</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.water_condenser_volume_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Condenser Volume Flow Rate</cite></p>
+<p>Only used when Condenser Type = WaterCooled.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Water Condenser Volume Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>water_condenser_volume_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_name_for_master_thermostat_location">
+<code class="descname">zone_name_for_master_thermostat_location</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_name_for_master_thermostat_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name for Master Thermostat Location</cite></p>
+<p>Enter the name of the zone where the master thermostat is located.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name for Master Thermostat Location</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name_for_master_thermostat_location</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_terminal_unit_list_name">
+<code class="descname">zone_terminal_unit_list_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_terminal_unit_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Terminal Unit List Name</cite></p>
+<p>Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this
+heat pump.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Terminal Unit List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_terminal_unit_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList">
+<em class="property">class </em><code class="descclassname">pyidf.variable_refrigerant_flow_equipment.</code><code class="descname">ZoneTerminalUnitList</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ZoneTerminalUnitList</cite>
+List of variable refrigerant flow (VRF) terminal units served by a given VRF condensing
+unit. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and
+AirConditioner:VariableRefrigerantFlow.</p>
+<dl class="method">
+<dt id="pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>zone_terminal_unit_name_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>zone_terminal_unit_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Terminal Unit Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.zone_terminal_unit_list_name">
+<code class="descname">zone_terminal_unit_list_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.ZoneTerminalUnitList.zone_terminal_unit_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Terminal Unit List Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Terminal Unit List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_terminal_unit_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.user_defined_hvac_and_plant_component_models.html"
+                        title="previous chapter">pyidf.user_defined_hvac_and_plant_component_models module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.water_heaters_and_thermal_storage.html"
+                        title="next chapter">pyidf.water_heaters_and_thermal_storage module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.variable_refrigerant_flow_equipment.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.water_heaters_and_thermal_storage.html" title="pyidf.water_heaters_and_thermal_storage module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.user_defined_hvac_and_plant_component_models.html" title="pyidf.user_defined_hvac_and_plant_component_models module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

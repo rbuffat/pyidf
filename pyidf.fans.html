@@ -1,0 +1,2321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.fans module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.fluid_properties module" href="pyidf.fluid_properties.html" />
+    <link rel="prev" title="pyidf.external_interface module" href="pyidf.external_interface.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fluid_properties.html" title="pyidf.fluid_properties module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.external_interface.html" title="pyidf.external_interface module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.fans">
+<span id="pyidf-fans-module"></span><h1>pyidf.fans module<a class="headerlink" href="#module-pyidf.fans" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Fans&#8221;</p>
+<dl class="class">
+<dt id="pyidf.fans.FanComponentModel">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanComponentModel</code><a class="headerlink" href="#pyidf.fans.FanComponentModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Fan:ComponentModel</cite>
+A detailed fan type for constant-air-volume (CAV) and variable-air-volume (VAV)
+systems. It includes inputs that describe the air-distribution system as well as the
+fan, drive belt (if used), motor, and variable-frequency-drive (if used).</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.belt_fractional_torque_transition">
+<code class="descname">belt_fractional_torque_transition</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.belt_fractional_torque_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Belt Fractional Torque Transition</cite></p>
+<p>Region 1 to 2 curve transition for belt normalized efficiency
+Default value: 0.167
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Belt Fractional Torque Transition</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>belt_fractional_torque_transition</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.belt_maximum_torque">
+<code class="descname">belt_maximum_torque</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.belt_maximum_torque" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Belt Maximum Torque</cite></p>
+<p>Maximum torque transmitted by belt
+Units: N-m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Belt Maximum Torque</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>belt_maximum_torque</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.belt_sizing_factor">
+<code class="descname">belt_sizing_factor</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.belt_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Belt Sizing Factor</cite></p>
+<p>Applied to specified or autosized max torque transmitted by belt
+Default value: 1.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Belt Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>belt_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.duct_static_pressure_reset_curve_name">
+<code class="descname">duct_static_pressure_reset_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.duct_static_pressure_reset_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Duct Static Pressure Reset Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Function of fan volumetric flow
+Minimum and maximum fan airflows correspond respectively to
+minimum and maximum duct static pressure set points</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Duct Static Pressure Reset Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>duct_static_pressure_reset_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.euler_number_at_maximum_fan_static_efficiency">
+<code class="descname">euler_number_at_maximum_fan_static_efficiency</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.euler_number_at_maximum_fan_static_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Euler Number at Maximum Fan Static Efficiency</cite></p>
+<p>Euler number (Eu) determined from fan performance data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Euler Number at Maximum Fan Static Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>euler_number_at_maximum_fan_static_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.fan_outlet_area">
+<code class="descname">fan_outlet_area</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.fan_outlet_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Outlet Area</cite></p>
+<p>Area at fan outlet plane for determining discharge velocity pressure
+Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Outlet Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_outlet_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.fan_pressure_rise_curve_name">
+<code class="descname">fan_pressure_rise_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.fan_pressure_rise_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Pressure Rise Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Pressure rise depends on volumetric flow, system resistances,
+system leakage, and duct static pressure set point</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Pressure Rise Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_pressure_rise_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.fan_sizing_factor">
+<code class="descname">fan_sizing_factor</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.fan_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Sizing Factor</cite></p>
+<p>Applied to specified or autosized max fan airflow
+Default value: 1.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.fan_wheel_diameter">
+<code class="descname">fan_wheel_diameter</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.fan_wheel_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Wheel Diameter</cite></p>
+<p>Diameter of wheel outer circumference
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Wheel Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_wheel_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_belt_efficiency_curve_name">
+<code class="descname">maximum_belt_efficiency_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_belt_efficiency_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Belt Efficiency Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Determines maximum fan drive belt efficiency in log space
+as function of xbelt,max
+Curve should have minimum of -4.6 and maximum of 0.0
+If field blank, assumes output of curve is always 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Maximum Belt Efficiency Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_belt_efficiency_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_dimensionless_fan_airflow">
+<code class="descname">maximum_dimensionless_fan_airflow</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_dimensionless_fan_airflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Dimensionless Fan Airflow</cite></p>
+<p>Corresponds to maximum ratio between fan airflow and
+fan shaft rotational speed for specified fan wheel diameter
+Determined from fan performance data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Dimensionless Fan Airflow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_dimensionless_fan_airflow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_fan_static_efficiency">
+<code class="descname">maximum_fan_static_efficiency</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_fan_static_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Fan Static Efficiency</cite></p>
+<p>Maximum ratio between power delivered to air and fan shaft input power
+Determined from fan performance data
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Fan Static Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_fan_static_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_motor_efficiency_curve_name">
+<code class="descname">maximum_motor_efficiency_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_motor_efficiency_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Motor Efficiency Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes output of curve is always 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Maximum Motor Efficiency Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_motor_efficiency_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_motor_output_power">
+<code class="descname">maximum_motor_output_power</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_motor_output_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Motor Output Power</cite></p>
+<p>Maximum power input to drive belt by motor
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Motor Output Power</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_motor_output_power</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.maximum_vfd_output_power">
+<code class="descname">maximum_vfd_output_power</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.maximum_vfd_output_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum VFD Output Power</cite></p>
+<p>Maximum power input to motor by VFD
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum VFD Output Power</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_vfd_output_power</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.minimum_flow_rate">
+<code class="descname">minimum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.minimum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Minimum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>minimum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.motor_fan_pulley_ratio">
+<code class="descname">motor_fan_pulley_ratio</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.motor_fan_pulley_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Fan Pulley Ratio</cite></p>
+<p>Ratio of motor pulley diameter to fan pulley diameter
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Motor Fan Pulley Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>motor_fan_pulley_ratio</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.motor_in_airstream_fraction">
+<code class="descname">motor_in_airstream_fraction</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.motor_in_airstream_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor In Airstream Fraction</cite></p>
+<p>0.0 means motor outside air stream
+1.0 means motor inside air stream
+Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor In Airstream Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_in_airstream_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.motor_maximum_speed">
+<code class="descname">motor_maximum_speed</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.motor_maximum_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Maximum Speed</cite></p>
+<p>Maximum rotational speed of fan motor shaft
+Units: rev/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Maximum Speed</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_maximum_speed</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.motor_sizing_factor">
+<code class="descname">motor_sizing_factor</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.motor_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Sizing Factor</cite></p>
+<p>Applied to specified or autosized motor output power
+Default value: 1.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_1">
+<code class="descname">normalized_belt_efficiency_curve_name_region_1</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Belt Efficiency Curve Name - Region 1</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Region 1 (0 &lt;= xbelt &lt; xbelt,trans)
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes output of curve is always 1.0 in Region 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Belt Efficiency Curve Name - Region 1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_belt_efficiency_curve_name_region_1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_2">
+<code class="descname">normalized_belt_efficiency_curve_name_region_2</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Belt Efficiency Curve Name - Region 2</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Region 2 (xbelt,trans &lt;= xbelt &lt;= 1)
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes output of curve is always 1.0 in Region 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Belt Efficiency Curve Name - Region 2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_belt_efficiency_curve_name_region_2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_3">
+<code class="descname">normalized_belt_efficiency_curve_name_region_3</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_belt_efficiency_curve_name_region_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Belt Efficiency Curve Name - Region 3</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Determines normalized drive belt efficiency Region 3 (xbelt &gt; 1)
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes output of curve is always 1.0 in Region 3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Belt Efficiency Curve Name - Region 3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_belt_efficiency_curve_name_region_3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_dimensionless_airflow_curve_namenonstall_region">
+<code class="descname">normalized_dimensionless_airflow_curve_namenonstall_region</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_dimensionless_airflow_curve_namenonstall_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Dimensionless Airflow Curve Name-Non-Stall Region</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+xspd &lt;= 0
+Curve should have maximum of 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Dimensionless Airflow Curve Name-Non-Stall Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_dimensionless_airflow_curve_namenonstall_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_dimensionless_airflow_curve_namestall_region">
+<code class="descname">normalized_dimensionless_airflow_curve_namestall_region</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_dimensionless_airflow_curve_namestall_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Dimensionless Airflow Curve Name-Stall Region</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+xspd &gt; 0
+Curve should have maximum of 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Dimensionless Airflow Curve Name-Stall Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_dimensionless_airflow_curve_namestall_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_fan_static_efficiency_curve_namenonstall_region">
+<code class="descname">normalized_fan_static_efficiency_curve_namenonstall_region</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_fan_static_efficiency_curve_namenonstall_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Fan Static Efficiency Curve Name-Non-Stall Region</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+xfan &lt;= 0
+Curve should have maximum of 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Fan Static Efficiency Curve Name-Non-Stall Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_fan_static_efficiency_curve_namenonstall_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_fan_static_efficiency_curve_namestall_region">
+<code class="descname">normalized_fan_static_efficiency_curve_namestall_region</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_fan_static_efficiency_curve_namestall_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Fan Static Efficiency Curve Name-Stall Region</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+xfan &gt; 0
+Curve should have maximum of 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Fan Static Efficiency Curve Name-Stall Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_fan_static_efficiency_curve_namestall_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.normalized_motor_efficiency_curve_name">
+<code class="descname">normalized_motor_efficiency_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.normalized_motor_efficiency_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalized Motor Efficiency Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes output of curve is always 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Normalized Motor Efficiency Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalized_motor_efficiency_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.vfd_efficiency_curve_name">
+<code class="descname">vfd_efficiency_curve_name</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.vfd_efficiency_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>VFD Efficiency Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Determines VFD efficiency as function of motor load or speed fraction
+Curve should have minimum &gt; 0.0 and maximum of 1.0
+If field blank, assumes constant VFD efficiency (0.97)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>VFD Efficiency Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>vfd_efficiency_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.vfd_efficiency_type">
+<code class="descname">vfd_efficiency_type</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.vfd_efficiency_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>VFD Efficiency Type</cite></p>
+<p>Efficiency depends on fraction of full-load motor speed
+Efficiency depends on  fraction of full-load motor input power
+If field blank, then assumes constant VFD efficiency (0.97)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>VFD Efficiency Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>vfd_efficiency_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanComponentModel.vfd_sizing_factor">
+<code class="descname">vfd_sizing_factor</code><a class="headerlink" href="#pyidf.fans.FanComponentModel.vfd_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>VFD Sizing Factor</cite></p>
+<p>Applied to specified or autosized VFD output power
+Default value: 1.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>VFD Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>vfd_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.fans.FanConstantVolume">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanConstantVolume</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Fan:ConstantVolume</cite>
+Constant volume fan that is intended to operate continuously based on a time schedule.
+This fan will not cycle on and off based on cooling/heating load or other control
+signals.</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.fan_total_efficiency">
+<code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Total Efficiency</cite></p>
+<p>Default value: 0.7
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.motor_in_airstream_fraction">
+<code class="descname">motor_in_airstream_fraction</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.motor_in_airstream_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor In Airstream Fraction</cite></p>
+<p>0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor In Airstream Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_in_airstream_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanConstantVolume.pressure_rise">
+<code class="descname">pressure_rise</code><a class="headerlink" href="#pyidf.fans.FanConstantVolume.pressure_rise" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Rise</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pressure Rise</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_rise</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.fans.FanOnOff">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanOnOff</code><a class="headerlink" href="#pyidf.fans.FanOnOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Fan:OnOff</cite>
+Constant volume fan that is intended to cycle on and off based on cooling/heating load
+or other control signals. This fan can also operate continuously like
+Fan:ConstantVolume.</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.fans.FanOnOff.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.fan_efficiency_ratio_function_of_speed_ratio_curve_name">
+<code class="descname">fan_efficiency_ratio_function_of_speed_ratio_curve_name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.fan_efficiency_ratio_function_of_speed_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Efficiency Ratio Function of Speed Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable can also be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Efficiency Ratio Function of Speed Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_efficiency_ratio_function_of_speed_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.fan_power_ratio_function_of_speed_ratio_curve_name">
+<code class="descname">fan_power_ratio_function_of_speed_ratio_curve_name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.fan_power_ratio_function_of_speed_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Ratio Function of Speed Ratio Curve Name</cite></p>
+<p>Table:OneIndependentVariable can also be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Power Ratio Function of Speed Ratio Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_ratio_function_of_speed_ratio_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.fan_total_efficiency">
+<code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.fans.FanOnOff.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Total Efficiency</cite></p>
+<p>Default value: 0.6
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanOnOff.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.fans.FanOnOff.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>Default value: 0.8
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.motor_in_airstream_fraction">
+<code class="descname">motor_in_airstream_fraction</code><a class="headerlink" href="#pyidf.fans.FanOnOff.motor_in_airstream_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor In Airstream Fraction</cite></p>
+<p>0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor In Airstream Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_in_airstream_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.fans.FanOnOff.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanOnOff.pressure_rise">
+<code class="descname">pressure_rise</code><a class="headerlink" href="#pyidf.fans.FanOnOff.pressure_rise" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Rise</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pressure Rise</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_rise</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.fans.FanPerformanceNightVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanPerformanceNightVentilation</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>FanPerformance:NightVentilation</cite>
+Specifies an alternate set of performance parameters for a fan. These alternate
+parameters are used when a system manager (such as AvailabilityManager:NightVentilation)
+sets a specified flow rate.  May be used with any type of fan except not with
+Fan:ComponentModel. If the fan model senses that a fixed flow rate has been set, it
+will use these alternate performance parameters. It is assumed that the fan will
+run at a fixed speed in the alternate mode.</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.fan_name">
+<code class="descname">fan_name</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.fan_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.fan_total_efficiency">
+<code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Total Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.motor_in_airstream_fraction">
+<code class="descname">motor_in_airstream_fraction</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.motor_in_airstream_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor in Airstream Fraction</cite></p>
+<p>0.0 means fan motor outside of airstream
+1.0 means fan motor inside of airstream
+Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor in Airstream Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_in_airstream_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanPerformanceNightVentilation.pressure_rise">
+<code class="descname">pressure_rise</code><a class="headerlink" href="#pyidf.fans.FanPerformanceNightVentilation.pressure_rise" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Rise</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pressure Rise</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_rise</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.fans.FanVariableVolume">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanVariableVolume</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Fan:VariableVolume</cite>
+Variable air volume fan where the electric power input varies according to a
+performance curve as a function of flow fraction.</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_coefficient_1">
+<code class="descname">fan_power_coefficient_1</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_coefficient_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Coefficient 1</cite></p>
+<p>all Fan Power Coefficients should not be 0.0 or no fan power will be consumed.
+Fan Power Coefficents are specified as function of full flow rate/power
+Equation:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Coefficient 1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_coefficient_1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_coefficient_2">
+<code class="descname">fan_power_coefficient_2</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_coefficient_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Coefficient 2</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Coefficient 2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_coefficient_2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_coefficient_3">
+<code class="descname">fan_power_coefficient_3</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_coefficient_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Coefficient 3</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Coefficient 3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_coefficient_3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_coefficient_4">
+<code class="descname">fan_power_coefficient_4</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_coefficient_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Coefficient 4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Coefficient 4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_coefficient_4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_coefficient_5">
+<code class="descname">fan_power_coefficient_5</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_coefficient_5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Coefficient 5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Coefficient 5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_coefficient_5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_minimum_air_flow_rate">
+<code class="descname">fan_power_minimum_air_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_minimum_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Minimum Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Minimum Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_minimum_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_minimum_flow_fraction">
+<code class="descname">fan_power_minimum_flow_fraction</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_minimum_flow_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Minimum Flow Fraction</cite></p>
+<p>Default value: 0.25
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Power Minimum Flow Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_minimum_flow_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_power_minimum_flow_rate_input_method">
+<code class="descname">fan_power_minimum_flow_rate_input_method</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_power_minimum_flow_rate_input_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Power Minimum Flow Rate Input Method</cite></p>
+<p>Default value: Fraction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Power Minimum Flow Rate Input Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_power_minimum_flow_rate_input_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.fan_total_efficiency">
+<code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Total Efficiency</cite></p>
+<p>Default value: 0.7
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.motor_in_airstream_fraction">
+<code class="descname">motor_in_airstream_fraction</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.motor_in_airstream_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor In Airstream Fraction</cite></p>
+<p>0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor In Airstream Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_in_airstream_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanVariableVolume.pressure_rise">
+<code class="descname">pressure_rise</code><a class="headerlink" href="#pyidf.fans.FanVariableVolume.pressure_rise" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Rise</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pressure Rise</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_rise</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.fans.FanZoneExhaust">
+<em class="property">class </em><code class="descclassname">pyidf.fans.</code><code class="descname">FanZoneExhaust</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Fan:ZoneExhaust</cite>
+Models a fan that exhausts air from a zone.</p>
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.balanced_exhaust_fraction_schedule_name">
+<code class="descname">balanced_exhaust_fraction_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.balanced_exhaust_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Balanced Exhaust Fraction Schedule Name</cite></p>
+<p>Used to control fan&#8217;s impact on flow at the return air node. Enter the portion of the exhaust that is balanced by simple airflows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Balanced Exhaust Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>balanced_exhaust_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>Default value: General</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.fan_total_efficiency">
+<code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Total Efficiency</cite></p>
+<p>Default value: 0.6
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.flow_fraction_schedule_name">
+<code class="descname">flow_fraction_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.flow_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Fraction Schedule Name</cite></p>
+<p>If field is used, then when fan runs the exhausted air flow rate is controlled to be the scheduled fraction times the Maximum Flow Rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.minimum_zone_temperature_limit_schedule_name">
+<code class="descname">minimum_zone_temperature_limit_schedule_name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.minimum_zone_temperature_limit_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Zone Temperature Limit Schedule Name</cite></p>
+<p>If field is used, the exhaust fan will not run if the zone temperature is lower than this limit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Zone Temperature Limit Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_zone_temperature_limit_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.pressure_rise">
+<code class="descname">pressure_rise</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.pressure_rise" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Rise</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pressure Rise</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_rise</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.fans.FanZoneExhaust.system_availability_manager_coupling_mode">
+<code class="descname">system_availability_manager_coupling_mode</code><a class="headerlink" href="#pyidf.fans.FanZoneExhaust.system_availability_manager_coupling_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>System Availability Manager Coupling Mode</cite></p>
+<p>Control if fan is to be interlocked with HVAC system Availability Managerrs or not.
+Default value: Coupled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>System Availability Manager Coupling Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>system_availability_manager_coupling_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.external_interface.html"
+                        title="previous chapter">pyidf.external_interface module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.fluid_properties.html"
+                        title="next chapter">pyidf.fluid_properties module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.fans.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fluid_properties.html" title="pyidf.fluid_properties module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.external_interface.html" title="pyidf.external_interface module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

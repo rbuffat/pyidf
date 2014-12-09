@@ -1,0 +1,2206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.pumps module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.refrigeration module" href="pyidf.refrigeration.html" />
+    <link rel="prev" title="pyidf.plant_heating_and_cooling_equipment module" href="pyidf.plant_heating_and_cooling_equipment.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.plant_heating_and_cooling_equipment.html" title="pyidf.plant_heating_and_cooling_equipment module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.pumps">
+<span id="pyidf-pumps-module"></span><h1>pyidf.pumps module<a class="headerlink" href="#module-pyidf.pumps" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Pumps&#8221;</p>
+<dl class="class">
+<dt id="pyidf.pumps.BranchList">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">BranchList</code><a class="headerlink" href="#pyidf.pumps.BranchList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>BranchList</cite>
+Branches MUST be listed in Flow order: Inlet branch, then parallel branches, then Outlet branch.
+Branches are simulated in the order listed.  Branch names cannot be duplicated within a single branch list.</p>
+<dl class="method">
+<dt id="pyidf.pumps.BranchList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>branch_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.pumps.BranchList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>branch_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Branch Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.BranchList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.pumps.BranchList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.BranchList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.BranchList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">HeaderedPumpsConstantSpeed</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeaderedPumps:ConstantSpeed</cite>
+This Headered pump object describes a pump bank with more than 1 pump in parallel</p>
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme">
+<code class="descname">flow_sequencing_control_scheme</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Sequencing Control Scheme</cite></p>
+<p>Default value: Sequential</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Sequencing Control Scheme</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_sequencing_control_scheme</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
+<code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_motor_inefficiencies_to_fluid_stream</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
+an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.number_of_pumps_in_bank">
+<code class="descname">number_of_pumps_in_bank</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.number_of_pumps_in_bank" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Pumps in Bank</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Pumps in Bank</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_pumps_in_bank</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.pump_control_type">
+<code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Control Type</cite></p>
+<p>Default value: Continuous</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name">
+<code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
+<p>Modifies the rated flow rate of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Flow Rate Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_flow_rate_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.rated_power_consumption">
+<code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Power Consumption</cite></p>
+<p>If the field is not autosized set to the power consumed by the pump bank
+when all the pumps are running at nominal flow
+If this field is autosized, an impeller efficiency of 0.78 is assumed.
+autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.rated_pump_head">
+<code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Pump Head</cite></p>
+<p>default head is 60 feet
+Units: Pa
+IP-Units: ftH2O
+Default value: 179352.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Pump Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_pump_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction">
+<code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
+<p>optional. If zone identified in previous field then this determines
+the split between convection and radiation for the skin losses
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Skin Loss Radiative Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>skin_loss_radiative_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.total_rated_flow_rate">
+<code class="descname">total_rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.total_rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Total Rated Flow Rate</cite></p>
+<p>If the field is not autosized set to the flow rate to
+the total flow when all pumps are running at full load
+Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Total Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>total_rated_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>optional, if used pump losses transfered to zone as internal gains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">HeaderedPumpsVariableSpeed</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeaderedPumps:VariableSpeed</cite>
+This Headered pump object describes a pump bank with more than 1 pump in parallel</p>
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_1_of_the_part_load_performance_curve">
+<code class="descname">coefficient_1_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_1_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 1 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 1 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_1_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_2_of_the_part_load_performance_curve">
+<code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
+<p>Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 2 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_2_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_3_of_the_part_load_performance_curve">
+<code class="descname">coefficient_3_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_3_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 3 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 3 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_3_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_4_of_the_part_load_performance_curve">
+<code class="descname">coefficient_4_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_4_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 4 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 4 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_4_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme">
+<code class="descname">flow_sequencing_control_scheme</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Sequencing Control Scheme</cite></p>
+<p>Default value: Sequential</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Sequencing Control Scheme</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_sequencing_control_scheme</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
+<code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_motor_inefficiencies_to_fluid_stream</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction">
+<code class="descname">minimum_flow_rate_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Flow Rate Fraction</cite></p>
+<p>This value can be zero and will be defaulted to that if not specified.
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Flow Rate Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_flow_rate_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
+an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.number_of_pumps_in_bank">
+<code class="descname">number_of_pumps_in_bank</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.number_of_pumps_in_bank" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Pumps in Bank</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Pumps in Bank</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_pumps_in_bank</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.pump_control_type">
+<code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Control Type</cite></p>
+<p>Default value: Continuous</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name">
+<code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
+<p>Modifies the rated flow rate of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Flow Rate Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_flow_rate_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.rated_power_consumption">
+<code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Power Consumption</cite></p>
+<p>If the field is not autosized set to the power consumed by the pump bank
+when all the pumps are running at nominal flow
+If this field is autosized, an impeller efficiency of 0.78 is assumed.
+autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.rated_pump_head">
+<code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Pump Head</cite></p>
+<p>default head is 60 feet
+Units: Pa
+IP-Units: ftH2O
+Default value: 179352.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Pump Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_pump_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction">
+<code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
+<p>optional. If zone identified in previous field then this determines
+the split between convection and radiation for the skin losses
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Skin Loss Radiative Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>skin_loss_radiative_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.total_rated_flow_rate">
+<code class="descname">total_rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.total_rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Total Rated Flow Rate</cite></p>
+<p>If the field is not autosized set to the flow rate to
+the total flow when all pumps are running at full load
+Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Total Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>total_rated_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>optional, if used pump losses transfered to zone as internal gains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.pumps.PumpConstantSpeed">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">PumpConstantSpeed</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pump:ConstantSpeed</cite>
+This pump model is described in the ASHRAE secondary HVAC toolkit.</p>
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
+<code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_motor_inefficiencies_to_fluid_stream</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.impeller_diameter">
+<code class="descname">impeller_diameter</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.impeller_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Impeller Diameter</cite></p>
+<p>&#8220;D&#8221; in above expression in field A6
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Impeller Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>impeller_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
+an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.pump_control_type">
+<code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Control Type</cite></p>
+<p>Default value: Continuous</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.pump_curve_name">
+<code class="descname">pump_curve_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Curve Name</cite></p>
+<p>This references any single independent variable polynomial curve in order to
+do pressure vs. flow calculations for this pump.  The available types are then:
+Linear, Quadratic, Cubic, and Quartic
+The non-dimensional pump pressure relationship is of the following form:
+(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
+Where the nondimensional variables are defined as:
+delP = rho * ((N/60)^2) * (D^2) * psi
+mdot = rho * (N/60) * (D^3) * phi
+Table:OneIndependentVariable object can also be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.pump_flow_rate_schedule_name">
+<code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
+<p>Modifies the rated flow rate of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Flow Rate Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_flow_rate_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.rated_flow_rate">
+<code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Flow Rate</cite></p>
+<p>Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.rated_power_consumption">
+<code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Power Consumption</cite></p>
+<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
+autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.rated_pump_head">
+<code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Pump Head</cite></p>
+<p>default head is 60 feet
+Units: Pa
+IP-Units: ftH2O
+Default value: 179352.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Pump Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_pump_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.rotational_speed">
+<code class="descname">rotational_speed</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rotational_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rotational Speed</cite></p>
+<p>&#8220;N&#8221; in above expression in field A6
+Units: rev/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rotational Speed</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rotational_speed</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.skin_loss_radiative_fraction">
+<code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
+<p>optional. If zone identified in previous field then this determines
+the split between convection and radiation for the skin losses
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Skin Loss Radiative Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>skin_loss_radiative_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpConstantSpeed.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>optional, if used pump losses transfered to zone as internal gains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.pumps.PumpVariableSpeed">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">PumpVariableSpeed</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pump:VariableSpeed</cite>
+This pump model is described in the ASHRAE secondary HVAC toolkit.</p>
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.coefficient_1_of_the_part_load_performance_curve">
+<code class="descname">coefficient_1_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.coefficient_1_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 1 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 1 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_1_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.coefficient_2_of_the_part_load_performance_curve">
+<code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
+<p>Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 2 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_2_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.coefficient_3_of_the_part_load_performance_curve">
+<code class="descname">coefficient_3_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.coefficient_3_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 3 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 3 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_3_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.coefficient_4_of_the_part_load_performance_curve">
+<code class="descname">coefficient_4_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.coefficient_4_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 4 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 4 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_4_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
+<code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_motor_inefficiencies_to_fluid_stream</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.impeller_diameter">
+<code class="descname">impeller_diameter</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.impeller_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Impeller Diameter</cite></p>
+<p>&#8220;D&#8221; in above expression in field A6
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Impeller Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>impeller_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.maximum_pressure_schedule">
+<code class="descname">maximum_pressure_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.maximum_pressure_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Pressure Schedule</cite></p>
+<p>Units: Pa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Maximum Pressure Schedule</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_pressure_schedule</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.maximum_rpm_schedule">
+<code class="descname">maximum_rpm_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.maximum_rpm_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum RPM Schedule</cite></p>
+<p>Units: Rotations Per Minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Maximum RPM Schedule</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_rpm_schedule</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.minimum_flow_rate">
+<code class="descname">minimum_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Flow Rate</cite></p>
+<p>This value can be zero and will be defaulted to that if not specified.
+Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.minimum_pressure_schedule">
+<code class="descname">minimum_pressure_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_pressure_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Pressure Schedule</cite></p>
+<p>Units: Pa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Pressure Schedule</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_pressure_schedule</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.minimum_rpm_schedule">
+<code class="descname">minimum_rpm_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_rpm_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum RPM Schedule</cite></p>
+<p>Units: Rotations Per Minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum RPM Schedule</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_rpm_schedule</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
+an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.pump_control_type">
+<code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Control Type</cite></p>
+<p>Default value: Continuous</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.pump_curve_name">
+<code class="descname">pump_curve_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Curve Name</cite></p>
+<p>This references any single independent variable polynomial curve in order to
+do pressure vs. flow calculations for this pump.  The available types are then:
+Linear, Quadratic, Cubic, and Quartic
+The non-dimensional pump pressure relationship is of the following form:
+(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
+Where the nondimensional variables are defined as:
+delP = rho * ((N/60)^2) * (D^2) * psi
+mdot = rho * (N/60) * (D^3) * phi
+Table:OneIndependentVariable object can also be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.pump_flow_rate_schedule_name">
+<code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
+<p>Modifies the rated flow rate of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Flow Rate Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_flow_rate_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.pump_rpm_schedule_name">
+<code class="descname">pump_rpm_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_rpm_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump rpm Schedule Name</cite></p>
+<p>Modifies the rpm of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump rpm Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_rpm_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.rated_flow_rate">
+<code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Flow Rate</cite></p>
+<p>Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.rated_power_consumption">
+<code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Power Consumption</cite></p>
+<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
+autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.rated_pump_head">
+<code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Pump Head</cite></p>
+<p>default head is 60 feet
+Units: Pa
+IP-Units: ftH2O
+Default value: 179352.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Pump Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_pump_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.skin_loss_radiative_fraction">
+<code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
+<p>optional. If zone identified in previous field then this determines
+the split between convection and radiation for the skin losses
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Skin Loss Radiative Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>skin_loss_radiative_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.vfd_control_type">
+<code class="descname">vfd_control_type</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.vfd_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>VFD Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>VFD Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>vfd_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeed.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>optional, if used pump losses transfered to zone as internal gains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate">
+<em class="property">class </em><code class="descclassname">pyidf.pumps.</code><code class="descname">PumpVariableSpeedCondensate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pump:VariableSpeed:Condensate</cite>
+This pump model is described in the ASHRAE secondary HVAC toolkit.
+Variable Speed Condensate pump for Steam Systems</p>
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.coefficient_1_of_the_part_load_performance_curve">
+<code class="descname">coefficient_1_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.coefficient_1_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 1 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 1 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_1_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.coefficient_2_of_the_part_load_performance_curve">
+<code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
+<p>Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 2 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_2_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.coefficient_3_of_the_part_load_performance_curve">
+<code class="descname">coefficient_3_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.coefficient_3_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 3 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 3 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_3_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.coefficient_4_of_the_part_load_performance_curve">
+<code class="descname">coefficient_4_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.coefficient_4_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 4 of the Part Load Performance Curve</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 4 of the Part Load Performance Curve</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_4_of_the_part_load_performance_curve</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream">
+<code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_motor_inefficiencies_to_fluid_stream</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.motor_efficiency">
+<code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.motor_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Motor Efficiency</cite></p>
+<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
+an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+Default value: 0.9
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Motor Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>motor_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.pump_flow_rate_schedule_name">
+<code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
+<p>Modifies the rated flow rate of the pump on a time basis. Default is
+that the pump is on and runs according to its other operational requirements
+specified above.  The schedule is for special pump operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pump Flow Rate Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pump_flow_rate_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_flow_rate">
+<code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Flow Rate</cite></p>
+<p>Units: m3/s
+IP-Units: gal/min</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_power_consumption">
+<code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Power Consumption</cite></p>
+<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
+autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Rated Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>rated_power_consumption</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_pump_head">
+<code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_pump_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rated Pump Head</cite></p>
+<p>default head is 60 feet
+Units: Pa
+IP-Units: ftH2O
+Default value: 179352.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rated Pump Head</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rated_pump_head</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.skin_loss_radiative_fraction">
+<code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
+<p>optional. If zone identified in previous field then this determines
+the split between convection and radiation for the skin losses
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Skin Loss Radiative Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>skin_loss_radiative_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.pumps.PumpVariableSpeedCondensate.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>optional, if used pump losses transfered to zone as internal gains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.plant_heating_and_cooling_equipment.html"
+                        title="previous chapter">pyidf.plant_heating_and_cooling_equipment module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.refrigeration.html"
+                        title="next chapter">pyidf.refrigeration module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.pumps.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.plant_heating_and_cooling_equipment.html" title="pyidf.plant_heating_and_cooling_equipment module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

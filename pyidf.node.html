@@ -1,0 +1,2685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.node module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.non module" href="pyidf.non.html" />
+    <link rel="prev" title="pyidf.natural_ventilation_and_duct_leakage module" href="pyidf.natural_ventilation_and_duct_leakage.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.non.html" title="pyidf.non module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.natural_ventilation_and_duct_leakage.html" title="pyidf.natural_ventilation_and_duct_leakage module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.node">
+<span id="pyidf-node-module"></span><h1>pyidf.node module<a class="headerlink" href="#module-pyidf.node" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Node&#8221;</p>
+<dl class="class">
+<dt id="pyidf.node.Branch">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">Branch</code><a class="headerlink" href="#pyidf.node.Branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Branch</cite>
+List components on the branch in simulation and connection order
+Note: this should NOT include splitters or mixers which define
+endpoints of branches</p>
+<dl class="method">
+<dt id="pyidf.node.Branch.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>component_1_object_type=None</em>, <em>component_1_name=None</em>, <em>component_1_inlet_node_name=None</em>, <em>component_1_outlet_node_name=None</em>, <em>component_1_branch_control_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.Branch.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component_1_object_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Object Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_inlet_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Inlet Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_outlet_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Outlet Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_branch_control_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Branch Control Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Branch.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.Branch.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Branch.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.node.Branch.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Branch.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.Branch.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Branch.pressure_drop_curve_name">
+<code class="descname">pressure_drop_curve_name</code><a class="headerlink" href="#pyidf.node.Branch.pressure_drop_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pressure Drop Curve Name</cite></p>
+<p>Optional field to include this branch in plant pressure drop calculations
+This field is only relevant for branches in PlantLoops and CondenserLoops
+Air loops do not account for pressure drop using this field
+Valid curve types are: Curve:Functional:PressureDrop or
+one of Curve:{Linear,Quadratic,Cubic,Exponent}&#8217;)
+Table:OneIndependentVariable object can also be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pressure Drop Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pressure_drop_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.ConnectorList">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">ConnectorList</code><a class="headerlink" href="#pyidf.node.ConnectorList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ConnectorList</cite>
+only two connectors allowed per loop
+if two entered, one must be Connector:Splitter and one must be Connector:Mixer</p>
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorList.connector_1_name">
+<code class="descname">connector_1_name</code><a class="headerlink" href="#pyidf.node.ConnectorList.connector_1_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Connector 1 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Connector 1 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>connector_1_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorList.connector_1_object_type">
+<code class="descname">connector_1_object_type</code><a class="headerlink" href="#pyidf.node.ConnectorList.connector_1_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Connector 1 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Connector 1 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>connector_1_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorList.connector_2_name">
+<code class="descname">connector_2_name</code><a class="headerlink" href="#pyidf.node.ConnectorList.connector_2_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Connector 2 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Connector 2 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>connector_2_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorList.connector_2_object_type">
+<code class="descname">connector_2_object_type</code><a class="headerlink" href="#pyidf.node.ConnectorList.connector_2_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Connector 2 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Connector 2 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>connector_2_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.ConnectorList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.ConnectorMixer">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">ConnectorMixer</code><a class="headerlink" href="#pyidf.node.ConnectorMixer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Connector:Mixer</cite>
+Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
+a single mixer list.</p>
+<dl class="method">
+<dt id="pyidf.node.ConnectorMixer.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>inlet_branch_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.ConnectorMixer.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inlet_branch_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Branch Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorMixer.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.ConnectorMixer.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorMixer.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.ConnectorMixer.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorMixer.outlet_branch_name">
+<code class="descname">outlet_branch_name</code><a class="headerlink" href="#pyidf.node.ConnectorMixer.outlet_branch_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Branch Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Branch Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_branch_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.ConnectorSplitter">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">ConnectorSplitter</code><a class="headerlink" href="#pyidf.node.ConnectorSplitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Connector:Splitter</cite>
+Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
+within a single Splitter list.</p>
+<dl class="method">
+<dt id="pyidf.node.ConnectorSplitter.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>outlet_branch_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.ConnectorSplitter.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outlet_branch_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Branch Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorSplitter.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.ConnectorSplitter.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorSplitter.inlet_branch_name">
+<code class="descname">inlet_branch_name</code><a class="headerlink" href="#pyidf.node.ConnectorSplitter.inlet_branch_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Branch Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Branch Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_branch_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.ConnectorSplitter.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.ConnectorSplitter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.Duct">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">Duct</code><a class="headerlink" href="#pyidf.node.Duct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Duct</cite>
+Passes inlet node state variables to outlet node state variables</p>
+<dl class="attribute">
+<dt id="pyidf.node.Duct.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.node.Duct.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Duct.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.Duct.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.Duct.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.node.Duct.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.NodeList">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">NodeList</code><a class="headerlink" href="#pyidf.node.NodeList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>NodeList</cite>
+This object is used in places where lists of nodes may be
+needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name</p>
+<dl class="method">
+<dt id="pyidf.node.NodeList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>node_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.NodeList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.NodeList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.NodeList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.NodeList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.NodeList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.OutdoorAirNode">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">OutdoorAirNode</code><a class="headerlink" href="#pyidf.node.OutdoorAirNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>OutdoorAir:Node</cite>
+This object sets the temperature and humidity conditions
+for an outdoor air node.  It allows the height above ground to be
+specified.  This object may be used more than once.
+The same node name may not appear in both an OutdoorAir:Node object and
+an OutdoorAir:NodeList object.</p>
+<dl class="attribute">
+<dt id="pyidf.node.OutdoorAirNode.height_above_ground">
+<code class="descname">height_above_ground</code><a class="headerlink" href="#pyidf.node.OutdoorAirNode.height_above_ground" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Height Above Ground</cite></p>
+<p>A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
+Units: m
+Default value: -1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Height Above Ground</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>height_above_ground</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.OutdoorAirNode.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.OutdoorAirNode.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.OutdoorAirNodeList">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">OutdoorAirNodeList</code><a class="headerlink" href="#pyidf.node.OutdoorAirNodeList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>OutdoorAir:NodeList</cite>
+This object sets the temperature and humidity conditions
+for an outdoor air node using the weather data values.
+to vary outdoor air node conditions with height above ground
+use OutdoorAir:Node instead of this object.
+This object may be used more than once.
+The same node name may not appear in both an OutdoorAir:Node object and
+an OutdoorAir:NodeList object.</p>
+<dl class="method">
+<dt id="pyidf.node.OutdoorAirNodeList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>node_or_nodelist_name_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.OutdoorAirNodeList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node_or_nodelist_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Node or NodeList Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.OutdoorAirNodeList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.OutdoorAirNodeList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipeAdiabatic">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipeAdiabatic</code><a class="headerlink" href="#pyidf.node.PipeAdiabatic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pipe:Adiabatic</cite>
+Passes Inlet Node state variables to Outlet Node state variables</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabatic.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeAdiabatic.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabatic.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipeAdiabatic.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabatic.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeAdiabatic.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipeAdiabaticSteam">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipeAdiabaticSteam</code><a class="headerlink" href="#pyidf.node.PipeAdiabaticSteam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pipe:Adiabatic:Steam</cite>
+Passes Inlet Node state variables to Outlet Node state variables</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabaticSteam.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeAdiabaticSteam.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabaticSteam.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipeAdiabaticSteam.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeAdiabaticSteam.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeAdiabaticSteam.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipeIndoor">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipeIndoor</code><a class="headerlink" href="#pyidf.node.PipeIndoor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pipe:Indoor</cite>
+Pipe model with transport delay and heat transfer to the environment.</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.ambient_air_velocity_schedule_name">
+<code class="descname">ambient_air_velocity_schedule_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.ambient_air_velocity_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Air Velocity Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Air Velocity Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_air_velocity_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.ambient_temperature_schedule_name">
+<code class="descname">ambient_temperature_schedule_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.ambient_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Temperature Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.ambient_temperature_zone_name">
+<code class="descname">ambient_temperature_zone_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.ambient_temperature_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Temperature Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Temperature Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_temperature_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.construction_name">
+<code class="descname">construction_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.construction_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Construction Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Construction Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>construction_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.environment_type">
+<code class="descname">environment_type</code><a class="headerlink" href="#pyidf.node.PipeIndoor.environment_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Environment Type</cite></p>
+<p>Default value: Zone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Environment Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>environment_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.fluid_inlet_node_name">
+<code class="descname">fluid_inlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.fluid_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.fluid_outlet_node_name">
+<code class="descname">fluid_outlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.fluid_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipeIndoor.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.pipe_inside_diameter">
+<code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeIndoor.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Inside Diameter</cite></p>
+<p>Units: m
+IP-Units: in</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Inside Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_inside_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeIndoor.pipe_length">
+<code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeIndoor.pipe_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Length</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Length</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_length</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipeOutdoor">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipeOutdoor</code><a class="headerlink" href="#pyidf.node.PipeOutdoor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pipe:Outdoor</cite>
+Pipe model with transport delay and heat transfer to the environment.</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.ambient_temperature_outdoor_air_node_name">
+<code class="descname">ambient_temperature_outdoor_air_node_name</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.ambient_temperature_outdoor_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ambient Temperature Outdoor Air Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ambient Temperature Outdoor Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ambient_temperature_outdoor_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.construction_name">
+<code class="descname">construction_name</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.construction_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Construction Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Construction Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>construction_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.fluid_inlet_node_name">
+<code class="descname">fluid_inlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.fluid_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.fluid_outlet_node_name">
+<code class="descname">fluid_outlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.fluid_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.pipe_inside_diameter">
+<code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Inside Diameter</cite></p>
+<p>Units: m
+IP-Units: in</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Inside Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_inside_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeOutdoor.pipe_length">
+<code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.pipe_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Length</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Length</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_length</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipeUnderground">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipeUnderground</code><a class="headerlink" href="#pyidf.node.PipeUnderground" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Pipe:Underground</cite>
+Buried Pipe model: For pipes buried at a depth less
+than one meter, this is an alternative object to:
+HeatExchanger:Surface</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.amplitude_of_soil_surface_temperature">
+<code class="descname">amplitude_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.amplitude_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Amplitude of Soil Surface Temperature</cite></p>
+<p>optional
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Amplitude of Soil Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>amplitude_of_soil_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.average_soil_surface_temperature">
+<code class="descname">average_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.average_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Average Soil Surface Temperature</cite></p>
+<p>optional
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Average Soil Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>average_soil_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.construction_name">
+<code class="descname">construction_name</code><a class="headerlink" href="#pyidf.node.PipeUnderground.construction_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Construction Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Construction Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>construction_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.fluid_inlet_node_name">
+<code class="descname">fluid_inlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeUnderground.fluid_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.fluid_outlet_node_name">
+<code class="descname">fluid_outlet_node_name</code><a class="headerlink" href="#pyidf.node.PipeUnderground.fluid_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fluid Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fluid Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fluid_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipeUnderground.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.phase_constant_of_soil_surface_temperature">
+<code class="descname">phase_constant_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.phase_constant_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Phase Constant of Soil Surface Temperature</cite></p>
+<p>optional
+Units: days</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Phase Constant of Soil Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>phase_constant_of_soil_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.pipe_inside_diameter">
+<code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeUnderground.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Inside Diameter</cite></p>
+<p>pipe thickness is defined in the Construction object
+Units: m
+IP-Units: in</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Inside Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_inside_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.pipe_length">
+<code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeUnderground.pipe_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Length</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Length</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_length</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.soil_material_name">
+<code class="descname">soil_material_name</code><a class="headerlink" href="#pyidf.node.PipeUnderground.soil_material_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Material Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Soil Material Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_material_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipeUnderground.sun_exposure">
+<code class="descname">sun_exposure</code><a class="headerlink" href="#pyidf.node.PipeUnderground.sun_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sun Exposure</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sun Exposure</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sun_exposure</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipingSystemUndergroundDomain">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipingSystemUndergroundDomain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>PipingSystem:Underground:Domain</cite>
+The ground domain object for underground piping system simulation.</p>
+<dl class="method">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>pipe_circuit_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pipe_circuit_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pipe Circuit 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop">
+<code class="descname">convergence_criterion_for_the_outer_cartesian_domain_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Convergence Criterion for the Outer Cartesian Domain Iteration Loop</cite></p>
+<p>Units: deltaC
+Default value: 0.001
+value &gt;= 1e-06
+value &lt;= 0.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Convergence Criterion for the Outer Cartesian Domain Iteration Loop</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>convergence_criterion_for_the_outer_cartesian_domain_iteration_loop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.depth_of_basement_wall_in_ground_domain">
+<code class="descname">depth_of_basement_wall_in_ground_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.depth_of_basement_wall_in_ground_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Depth of Basement Wall In Ground Domain</cite></p>
+<p>Required only if Domain Has Basement Interaction
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Depth of Basement Wall In Ground Domain</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>depth_of_basement_wall_in_ground_domain</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter">
+<code class="descname">evapotranspiration_ground_cover_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Evapotranspiration Ground Cover Parameter</cite></p>
+<p>This specifies the ground cover effects during evapotranspiration
+calculations.  The value roughly represents the following cases:
+= 0   : concrete or other solid, non-permeable ground surface material
+= 0.5 : short grass, much like a manicured lawn
+= 1   : standard reference state (12 cm grass)
+= 1.5 : wild growth
+Default value: 0.4
+value &lt;= 1.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Evapotranspiration Ground Cover Parameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>evapotranspiration_ground_cover_parameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature">
+<code class="descname">kusudaachenbach_average_amplitude_of_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Kusuda-Achenbach Average Amplitude of Surface Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Kusuda-Achenbach Average Amplitude of Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>kusudaachenbach_average_amplitude_of_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_surface_temperature">
+<code class="descname">kusudaachenbach_average_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Kusuda-Achenbach Average Surface Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Kusuda-Achenbach Average Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>kusudaachenbach_average_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature">
+<code class="descname">kusudaachenbach_phase_shift_of_minimum_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Kusuda-Achenbach Phase Shift of Minimum Surface Temperature</cite></p>
+<p>Units: days</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Kusuda-Achenbach Phase Shift of Minimum Surface Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>kusudaachenbach_phase_shift_of_minimum_surface_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop">
+<code class="descname">maximum_iterations_in_the_outer_cartesian_domain_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Iterations in the Outer Cartesian Domain Iteration Loop</cite></p>
+<p>Default value: 500
+value &gt;= 3
+value &lt;= 10000</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Maximum Iterations in the Outer Cartesian Domain Iteration Loop</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_iterations_in_the_outer_cartesian_domain_iteration_loop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model">
+<code class="descname">name_of_basement_floor_boundary_condition_model</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name of Basement Floor Boundary Condition Model</cite></p>
+<p>Required only if Domain Has Basement Interaction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name of Basement Floor Boundary Condition Model</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name_of_basement_floor_boundary_condition_model</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model">
+<code class="descname">name_of_basement_wall_boundary_condition_model</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name of Basement Wall Boundary Condition Model</cite></p>
+<p>Required only if Domain Has Basement Interaction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name of Basement Wall Boundary Condition Model</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name_of_basement_wall_boundary_condition_model</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain">
+<code class="descname">number_of_pipe_circuits_entered_for_this_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Pipe Circuits Entered for this Domain</cite></p>
+<p>value &gt;= 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Pipe Circuits Entered for this Domain</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_pipe_circuits_entered_for_this_domain</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width">
+<code class="descname">shift_pipe_x_coordinates_by_basement_width</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Shift Pipe X Coordinates By Basement Width</cite></p>
+<p>Required only if Domain Has Basement Interaction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Shift Pipe X Coordinates By Basement Width</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>shift_pipe_x_coordinates_by_basement_width</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.soil_density">
+<code class="descname">soil_density</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Density</cite></p>
+<p>Units: kg/m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Soil Density</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_density</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction">
+<code class="descname">soil_moisture_content_volume_fraction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Moisture Content Volume Fraction</cite></p>
+<p>Units: percent
+Default value: 30.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Soil Moisture Content Volume Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_moisture_content_volume_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation">
+<code class="descname">soil_moisture_content_volume_fraction_at_saturation</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Moisture Content Volume Fraction at Saturation</cite></p>
+<p>Units: percent
+Default value: 50.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Soil Moisture Content Volume Fraction at Saturation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_moisture_content_volume_fraction_at_saturation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.soil_specific_heat">
+<code class="descname">soil_specific_heat</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_specific_heat" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Specific Heat</cite></p>
+<p>This is a dry soil property, which is adjusted for freezing effects
+by the simulation algorithm.
+Units: J/kg-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Soil Specific Heat</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_specific_heat</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.soil_thermal_conductivity">
+<code class="descname">soil_thermal_conductivity</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_thermal_conductivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Soil Thermal Conductivity</cite></p>
+<p>Units: W/m-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Soil Thermal Conductivity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>soil_thermal_conductivity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction">
+<code class="descname">this_domain_includes_basement_surface_interaction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>This Domain Includes Basement Surface Interaction</cite></p>
+<p>if Yes, then the following basement inputs are used
+if No, then the following basement inputs are <em>ignored</em>
+Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>This Domain Includes Basement Surface Interaction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>this_domain_includes_basement_surface_interaction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.width_of_basement_floor_in_ground_domain">
+<code class="descname">width_of_basement_floor_in_ground_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.width_of_basement_floor_in_ground_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Width of Basement Floor in Ground Domain</cite></p>
+<p>Required only if Domain Has Basement Interaction
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Width of Basement Floor in Ground Domain</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>width_of_basement_floor_in_ground_domain</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.xdirection_geometric_coefficient">
+<code class="descname">xdirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xdirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-Direction Geometric Coefficient</cite></p>
+<p>optional
+Only used if mesh type is symmetric geometric
+Default value: 1.3
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X-Direction Geometric Coefficient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xdirection_geometric_coefficient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_density_parameter">
+<code class="descname">xdirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-Direction Mesh Density Parameter</cite></p>
+<p>If mesh type is symmetric geometric, this should be an even number.
+Default value: 4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>X-Direction Mesh Density Parameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xdirection_mesh_density_parameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_type">
+<code class="descname">xdirection_mesh_type</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-Direction Mesh Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>X-Direction Mesh Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xdirection_mesh_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.xmax">
+<code class="descname">xmax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Xmax</cite></p>
+<p>Domain extent in the local &#8216;X&#8217; direction
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Xmax</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xmax</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.ydirection_geometric_coefficient">
+<code class="descname">ydirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ydirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-Direction Geometric Coefficient</cite></p>
+<p>optional
+Only used if mesh type is symmetric geometric
+Default value: 1.3
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y-Direction Geometric Coefficient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ydirection_geometric_coefficient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_density_parameter">
+<code class="descname">ydirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-Direction Mesh Density Parameter</cite></p>
+<p>If mesh type is symmetric geometric, this should be an even number.
+Default value: 4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Y-Direction Mesh Density Parameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ydirection_mesh_density_parameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_type">
+<code class="descname">ydirection_mesh_type</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-Direction Mesh Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Y-Direction Mesh Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ydirection_mesh_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.ymax">
+<code class="descname">ymax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ymax" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ymax</cite></p>
+<p>Domain extent in the local &#8216;Y&#8217; direction
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ymax</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ymax</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.zdirection_geometric_coefficient">
+<code class="descname">zdirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zdirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-Direction Geometric Coefficient</cite></p>
+<p>optional
+Only used if mesh type is symmetric geometric
+Default value: 1.3
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Z-Direction Geometric Coefficient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zdirection_geometric_coefficient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_density_parameter">
+<code class="descname">zdirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-Direction Mesh Density Parameter</cite></p>
+<p>If mesh type is symmetric geometric, this should be an even number.
+Default value: 4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Z-Direction Mesh Density Parameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zdirection_mesh_density_parameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_type">
+<code class="descname">zdirection_mesh_type</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-Direction Mesh Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Z-Direction Mesh Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zdirection_mesh_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundDomain.zmax">
+<code class="descname">zmax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zmax</cite></p>
+<p>Domain extent in the local &#8216;Y&#8217; direction
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zmax</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zmax</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipingSystemUndergroundPipeCircuit</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>PipingSystem:Underground:PipeCircuit</cite>
+The pipe circuit object in an underground piping system.
+This object is simulated within an underground piping domain object
+and connected on a branch on a plant loop.</p>
+<dl class="method">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>pipe_segment_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pipe_segment_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pipe Segment 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.circuit_inlet_node">
+<code class="descname">circuit_inlet_node</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.circuit_inlet_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Circuit Inlet Node</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Circuit Inlet Node</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>circuit_inlet_node</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.circuit_outlet_node">
+<code class="descname">circuit_outlet_node</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.circuit_outlet_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Circuit Outlet Node</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Circuit Outlet Node</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>circuit_outlet_node</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop">
+<code class="descname">convergence_criterion_for_the_inner_radial_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Convergence Criterion for the Inner Radial Iteration Loop</cite></p>
+<p>Units: deltaC
+Default value: 0.001
+value &gt;= 1e-06
+value &lt;= 0.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Convergence Criterion for the Inner Radial Iteration Loop</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>convergence_criterion_for_the_inner_radial_iteration_loop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.design_flow_rate">
+<code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.design_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop">
+<code class="descname">maximum_iterations_in_the_inner_radial_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Iterations in the Inner Radial Iteration Loop</cite></p>
+<p>Default value: 500
+value &gt;= 3
+value &lt;= 10000</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Maximum Iterations in the Inner Radial Iteration Loop</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_iterations_in_the_inner_radial_iteration_loop</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit">
+<code class="descname">number_of_pipe_segments_entered_for_this_pipe_circuit</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Pipe Segments Entered for this Pipe Circuit</cite></p>
+<p>value &gt;= 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Pipe Segments Entered for this Pipe Circuit</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_pipe_segments_entered_for_this_pipe_circuit</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region">
+<code class="descname">number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region</cite></p>
+<p>Default value: 3
+value &gt;= 1
+value &lt;= 15</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_density">
+<code class="descname">pipe_density</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Density</cite></p>
+<p>Units: kg/m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Density</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_density</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_inner_diameter">
+<code class="descname">pipe_inner_diameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_inner_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Inner Diameter</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Inner Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_inner_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_outer_diameter">
+<code class="descname">pipe_outer_diameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_outer_diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Outer Diameter</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Outer Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_outer_diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_specific_heat">
+<code class="descname">pipe_specific_heat</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_specific_heat" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Specific Heat</cite></p>
+<p>Units: J/kg-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Specific Heat</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_specific_heat</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity">
+<code class="descname">pipe_thermal_conductivity</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pipe Thermal Conductivity</cite></p>
+<p>Units: W/m-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pipe Thermal Conductivity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pipe_thermal_conductivity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region">
+<code class="descname">radial_thickness_of_inner_radial_near_pipe_mesh_region</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Radial Thickness of Inner Radial Near Pipe Mesh Region</cite></p>
+<p>Required because it must be selected by user instead of being
+inferred from circuit/domain object inputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Radial Thickness of Inner Radial Near Pipe Mesh Region</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>radial_thickness_of_inner_radial_near_pipe_mesh_region</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.node.PipingSystemUndergroundPipeSegment">
+<em class="property">class </em><code class="descclassname">pyidf.node.</code><code class="descname">PipingSystemUndergroundPipeSegment</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>PipingSystem:Underground:PipeSegment</cite>
+The pipe segment to be used in an underground piping system
+This object represents a single pipe leg positioned axially
+in the local z-direction, at a given x, y location in the domain</p>
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeSegment.flow_direction">
+<code class="descname">flow_direction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.flow_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Direction</cite></p>
+<p>This segment will be simulated such that the flow is in the
+selected direction.  This can allow for detailed analysis
+of circuiting effects in a single domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Direction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_direction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeSegment.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeSegment.x_position">
+<code class="descname">x_position</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.x_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X Position</cite></p>
+<p>This segment will be centered at this distance from the x=0
+domain surface or the basement wall surface, based on whether
+a basement exists in this domain and the selection of the
+shift input field found in the domain object.
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X Position</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>x_position</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.node.PipingSystemUndergroundPipeSegment.y_position">
+<code class="descname">y_position</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.y_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y Position</cite></p>
+<p>This segment will be centered at this distance away from the
+ground surface; thus this value represents the burial depth
+of this pipe segment.
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y Position</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>y_position</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.natural_ventilation_and_duct_leakage.html"
+                        title="previous chapter">pyidf.natural_ventilation_and_duct_leakage module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.non.html"
+                        title="next chapter">pyidf.non module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.node.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.non.html" title="pyidf.non module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.natural_ventilation_and_duct_leakage.html" title="pyidf.natural_ventilation_and_duct_leakage module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

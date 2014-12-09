@@ -1,0 +1,1571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.evaporative_coolers module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.exterior_equipment module" href="pyidf.exterior_equipment.html" />
+    <link rel="prev" title="pyidf.energyplus module" href="pyidf.energyplus.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.exterior_equipment.html" title="pyidf.exterior_equipment module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.energyplus.html" title="pyidf.energyplus module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.evaporative_coolers">
+<span id="pyidf-evaporative-coolers-module"></span><h1>pyidf.evaporative_coolers module<a class="headerlink" href="#module-pyidf.evaporative_coolers" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Evaporative Coolers&#8221;</p>
+<dl class="class">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad">
+<em class="property">class </em><code class="descclassname">pyidf.evaporative_coolers.</code><code class="descname">EvaporativeCoolerDirectCelDekPad</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EvaporativeCooler:Direct:CelDekPad</cite>
+Direct evaporative cooler with rigid media evaporative pad and recirculating water
+pump. This model has no controls other than its availability schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<p>This field is not currently used and can be left blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.direct_pad_area">
+<code class="descname">direct_pad_area</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.direct_pad_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Direct Pad Area</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Direct Pad Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>direct_pad_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.direct_pad_depth">
+<code class="descname">direct_pad_depth</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.direct_pad_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Direct Pad Depth</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Direct Pad Depth</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>direct_pad_depth</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.recirculating_water_pump_power_consumption">
+<code class="descname">recirculating_water_pump_power_consumption</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.recirculating_water_pump_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Recirculating Water Pump Power Consumption</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Recirculating Water Pump Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>recirculating_water_pump_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.water_supply_storage_tank_name">
+<code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectCelDekPad.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Supply Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_supply_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial">
+<em class="property">class </em><code class="descclassname">pyidf.evaporative_coolers.</code><code class="descname">EvaporativeCoolerDirectResearchSpecial</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EvaporativeCooler:Direct:ResearchSpecial</cite>
+Direct evaporative cooler with user-specified effectiveness (can represent rigid pad
+or similar media), and recirculating water pump, and secondary air fan. This model is
+controlled to meet the primary air outlet temperature setpoint.</p>
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.blowdown_concentration_ratio">
+<code class="descname">blowdown_concentration_ratio</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.blowdown_concentration_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Blowdown Concentration Ratio</cite></p>
+<p>Characterizes the rate of blowdown in the evaporative cooler.
+Blowdown is water intentionally drained from the cooler in order to offset the build up
+of solids in the water that would otherwise occur because of evaporation.
+Ratio of solids in the blowdown water to solids in the make up water.
+A typical value is 3. If left blank then there is no blowdown.
+value &gt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Blowdown Concentration Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>blowdown_concentration_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.cooler_effectiveness">
+<code class="descname">cooler_effectiveness</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.cooler_effectiveness" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooler Effectiveness</cite></p>
+<p>effectiveness with respect to wetbulb depression
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooler Effectiveness</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooler_effectiveness</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.drift_loss_fraction">
+<code class="descname">drift_loss_fraction</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.drift_loss_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Drift Loss Fraction</cite></p>
+<p>Rate of drift loss as a fraction of evaporated water flow rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Drift Loss Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>drift_loss_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.recirculating_water_pump_power_consumption">
+<code class="descname">recirculating_water_pump_power_consumption</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.recirculating_water_pump_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Recirculating Water Pump Power Consumption</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Recirculating Water Pump Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>recirculating_water_pump_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.water_supply_storage_tank_name">
+<code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerDirectResearchSpecial.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Supply Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_supply_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad">
+<em class="property">class </em><code class="descclassname">pyidf.evaporative_coolers.</code><code class="descname">EvaporativeCoolerIndirectCelDekPad</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EvaporativeCooler:Indirect:CelDekPad</cite>
+Indirect evaporative cooler with rigid media evaporative pad, recirculating water
+pump, and secondary air fan. This model has no controls other than its availability
+schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<p>This field is not currently used and can be left blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.direct_pad_area">
+<code class="descname">direct_pad_area</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.direct_pad_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Direct Pad Area</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Direct Pad Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>direct_pad_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.direct_pad_depth">
+<code class="descname">direct_pad_depth</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.direct_pad_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Direct Pad Depth</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Direct Pad Depth</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>direct_pad_depth</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.indirect_heat_exchanger_effectiveness">
+<code class="descname">indirect_heat_exchanger_effectiveness</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.indirect_heat_exchanger_effectiveness" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Indirect Heat Exchanger Effectiveness</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Indirect Heat Exchanger Effectiveness</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>indirect_heat_exchanger_effectiveness</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.primary_air_inlet_node_name">
+<code class="descname">primary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.primary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.primary_air_outlet_node_name">
+<code class="descname">primary_air_outlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.primary_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.recirculating_water_pump_power_consumption">
+<code class="descname">recirculating_water_pump_power_consumption</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.recirculating_water_pump_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Recirculating Water Pump Power Consumption</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Recirculating Water Pump Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>recirculating_water_pump_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_air_inlet_node_name">
+<code class="descname">secondary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Air Inlet Node Name</cite></p>
+<p>Enter the name of an outdoor air node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Secondary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_delta_pressure">
+<code class="descname">secondary_fan_delta_pressure</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_delta_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Delta Pressure</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Delta Pressure</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_delta_pressure</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_flow_rate">
+<code class="descname">secondary_fan_flow_rate</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_total_efficiency">
+<code class="descname">secondary_fan_total_efficiency</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.secondary_fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Total Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.water_supply_storage_tank_name">
+<code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectCelDekPad.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Supply Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_supply_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial">
+<em class="property">class </em><code class="descclassname">pyidf.evaporative_coolers.</code><code class="descname">EvaporativeCoolerIndirectResearchSpecial</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EvaporativeCooler:Indirect:ResearchSpecial</cite>
+Indirect evaporative cooler with user-specified effectiveness (can represent rigid pad
+or wetted coil), recirculating water pump, and secondary air fan. This model is
+controlled to meet the primary air outlet temperature setpoint.</p>
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.blowdown_concentration_ratio">
+<code class="descname">blowdown_concentration_ratio</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.blowdown_concentration_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Blowdown Concentration Ratio</cite></p>
+<p>Characterizes the rate of blowdown in the evaporative cooler.
+Blowdown is water intentionally drained from the cooler in order to offset the build up
+of solids in the water that would otherwise occur because of evaporation.
+Ratio of solids in the blowdown water to solids in the make up water.
+A typical value is 3.  If left blank then there is no blowdown.
+value &gt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Blowdown Concentration Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>blowdown_concentration_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.cooler_flow_ratio">
+<code class="descname">cooler_flow_ratio</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.cooler_flow_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooler Flow Ratio</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooler Flow Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooler_flow_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.cooler_maximum_effectiveness">
+<code class="descname">cooler_maximum_effectiveness</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.cooler_maximum_effectiveness" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooler Maximum Effectiveness</cite></p>
+<p>value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooler Maximum Effectiveness</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooler_maximum_effectiveness</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.dewpoint_effectiveness_factor">
+<code class="descname">dewpoint_effectiveness_factor</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.dewpoint_effectiveness_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Dewpoint Effectiveness Factor</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Dewpoint Effectiveness Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>dewpoint_effectiveness_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.drift_loss_fraction">
+<code class="descname">drift_loss_fraction</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.drift_loss_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Drift Loss Fraction</cite></p>
+<p>Rate of drift loss as a fraction of evaporated water flow rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Drift Loss Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>drift_loss_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.primary_air_inlet_node_name">
+<code class="descname">primary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.primary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.primary_air_outlet_node_name">
+<code class="descname">primary_air_outlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.primary_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.recirculating_water_pump_power_consumption">
+<code class="descname">recirculating_water_pump_power_consumption</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.recirculating_water_pump_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Recirculating Water Pump Power Consumption</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Recirculating Water Pump Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>recirculating_water_pump_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.relief_air_inlet_node_name">
+<code class="descname">relief_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.relief_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Relief Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Relief Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>relief_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_air_inlet_node_name">
+<code class="descname">secondary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Secondary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_delta_pressure">
+<code class="descname">secondary_fan_delta_pressure</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_delta_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Delta Pressure</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Delta Pressure</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_delta_pressure</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_flow_rate">
+<code class="descname">secondary_fan_flow_rate</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Secondary Fan Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>secondary_fan_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_total_efficiency">
+<code class="descname">secondary_fan_total_efficiency</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.secondary_fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Total Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.water_supply_storage_tank_name">
+<code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectResearchSpecial.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Supply Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_supply_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil">
+<em class="property">class </em><code class="descclassname">pyidf.evaporative_coolers.</code><code class="descname">EvaporativeCoolerIndirectWetCoil</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EvaporativeCooler:Indirect:WetCoil</cite>
+Indirect evaporative cooler with wetted coil, recirculating water pump, and secondary
+air fan. This model has no controls other than its availability schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.coil_flow_ratio">
+<code class="descname">coil_flow_ratio</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.coil_flow_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coil Flow Ratio</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coil Flow Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coil_flow_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.coil_maximum_efficiency">
+<code class="descname">coil_maximum_efficiency</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.coil_maximum_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coil Maximum Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coil Maximum Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coil_maximum_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<p>This field is not currently used and can be left blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.primary_air_inlet_node_name">
+<code class="descname">primary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.primary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.primary_air_outlet_node_name">
+<code class="descname">primary_air_outlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.primary_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Primary Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Primary Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>primary_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.recirculating_water_pump_power_consumption">
+<code class="descname">recirculating_water_pump_power_consumption</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.recirculating_water_pump_power_consumption" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Recirculating Water Pump Power Consumption</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Recirculating Water Pump Power Consumption</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>recirculating_water_pump_power_consumption</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_air_inlet_node_name">
+<code class="descname">secondary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Air Inlet Node Name</cite></p>
+<p>Enter the name of an outdoor air node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Secondary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_delta_pressure">
+<code class="descname">secondary_fan_delta_pressure</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_delta_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Delta Pressure</cite></p>
+<p>Units: Pa
+IP-Units: inH2O</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Delta Pressure</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_delta_pressure</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_flow_rate">
+<code class="descname">secondary_fan_flow_rate</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_total_efficiency">
+<code class="descname">secondary_fan_total_efficiency</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.secondary_fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Fan Total Efficiency</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Secondary Fan Total Efficiency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_fan_total_efficiency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.water_supply_storage_tank_name">
+<code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.evaporative_coolers.EvaporativeCoolerIndirectWetCoil.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Supply Storage Tank Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_supply_storage_tank_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.energyplus.html"
+                        title="previous chapter">pyidf.energyplus module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.exterior_equipment.html"
+                        title="next chapter">pyidf.exterior_equipment module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.evaporative_coolers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.exterior_equipment.html" title="pyidf.exterior_equipment module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.energyplus.html" title="pyidf.energyplus module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.external_interface module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.fans module" href="pyidf.fans.html" />
+    <link rel="prev" title="pyidf.exterior_equipment module" href="pyidf.exterior_equipment.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fans.html" title="pyidf.fans module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.exterior_equipment.html" title="pyidf.exterior_equipment module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.external_interface">
+<span id="pyidf-external-interface-module"></span><h1>pyidf.external_interface module<a class="headerlink" href="#module-pyidf.external_interface" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;External Interface&#8221;</p>
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterface">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterface</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface</cite>
+This object activates the external interface of EnergyPlus. If the object
+ExternalInterface is present, then all ExtnernalInterface:* objects will receive
+their values from the BCVTB interface or from FMUs at each zone time step.
+If this object is not present, then the values of these objects will be fixed at the
+value declared in the &#8220;initial value&#8221; field of the corresponding object, and a
+warning will be written to the EnergyPlus error file.</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterface.name_of_external_interface">
+<code class="descname">name_of_external_interface</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterface.name_of_external_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name of External Interface</cite></p>
+<p>Name of External Interface
+Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name of External Interface</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name_of_external_interface</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceActuator</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:Actuator</cite>
+Hardware portion of EMS used to set up actuators in the model</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator.actuated_component_control_type">
+<code class="descname">actuated_component_control_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator.actuated_component_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator.actuated_component_type">
+<code class="descname">actuated_component_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator.actuated_component_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator.actuated_component_unique_name">
+<code class="descname">actuated_component_unique_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator.actuated_component_unique_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Unique Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Unique Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_unique_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceActuator.optional_initial_value">
+<code class="descname">optional_initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceActuator.optional_initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Optional Initial Value</cite></p>
+<p>If specified, it is used during warm-up and system sizing.
+If not specified, then the actuator only overwrites the
+actuated component after the warm-up and system sizing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Optional Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>optional_initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitExportFromVariable</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitExport:From:Variable</cite>
+This object declares an FMU input variable</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_index_key_name">
+<code class="descname">outputvariable_index_key_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_index_key_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable Index Key Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable Index Key Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_index_key_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_name">
+<code class="descname">outputvariable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitExportToActuator</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitExport:To:Actuator</cite>
+Hardware portion of EMS used to set up actuators in the model
+that are dynamically updated from the FMU.</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_control_type">
+<code class="descname">actuated_component_control_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_type">
+<code class="descname">actuated_component_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_unique_name">
+<code class="descname">actuated_component_unique_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_unique_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Unique Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Unique Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_unique_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToActuator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a read-only variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitExportToSchedule</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitExport:To:Schedule</cite>
+This objects contains only one value, which is used during the first
+call of EnergyPlus</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_name">
+<code class="descname">schedule_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_type_limits_names">
+<code class="descname">schedule_type_limits_names</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_type_limits_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Type Limits Names</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Type Limits Names</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_type_limits_names</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitExportToVariable</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitExport:To:Variable</cite>
+Declares Erl variable as having global scope
+No spaces allowed in names used for Erl variables</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitExportToVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitImport</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitImport</cite>
+This object declares an FMU</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_file_name">
+<code class="descname">fmu_file_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_loggingon">
+<code class="descname">fmu_loggingon</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_loggingon" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU LoggingOn</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>FMU LoggingOn</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_loggingon</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_timeout">
+<code class="descname">fmu_timeout</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImport.fmu_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Timeout</cite></p>
+<p>in milli-seconds
+Units: ms</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>FMU Timeout</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_timeout</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitImportFromVariable</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitImport:From:Variable</cite>
+This object declares an FMU input variable</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_file_name">
+<code class="descname">fmu_file_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_instance_name">
+<code class="descname">fmu_instance_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_instance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Instance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Instance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_instance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_index_key_name">
+<code class="descname">outputvariable_index_key_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_index_key_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable Index Key Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable Index Key Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_index_key_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_name">
+<code class="descname">outputvariable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitImportToActuator</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitImport:To:Actuator</cite>
+Hardware portion of EMS used to set up actuators in the model
+that are dynamically updated from the FMU.</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_control_type">
+<code class="descname">actuated_component_control_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_type">
+<code class="descname">actuated_component_type</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_unique_name">
+<code class="descname">actuated_component_unique_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_unique_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Unique Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Unique Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_unique_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_file_name">
+<code class="descname">fmu_file_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_instance_name">
+<code class="descname">fmu_instance_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_instance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Instance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Instance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_instance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToActuator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a read-only variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitImportToSchedule</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitImport:To:Schedule</cite>
+This objects contains only one value, which is used during the first
+call of EnergyPlus</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_file_name">
+<code class="descname">fmu_file_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_instance_name">
+<code class="descname">fmu_instance_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_instance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Instance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Instance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_instance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.schedule_type_limits_names">
+<code class="descname">schedule_type_limits_names</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToSchedule.schedule_type_limits_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Type Limits Names</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Type Limits Names</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_type_limits_names</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceFunctionalMockupUnitImportToVariable</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:FunctionalMockupUnitImport:To:Variable</cite>
+Declares Erl variable as having global scope
+No spaces allowed in names used for Erl variables</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_file_name">
+<code class="descname">fmu_file_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_instance_name">
+<code class="descname">fmu_instance_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_instance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Instance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Instance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_instance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_variable_name">
+<code class="descname">fmu_variable_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>FMU Variable Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>FMU Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fmu_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during the first call of EnergyPlus.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceFunctionalMockupUnitImportToVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceSchedule">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceSchedule</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:Schedule</cite>
+A ExternalInterface:Schedule contains only one value,
+which is used during the warm-up period and the system sizing.</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceSchedule.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceSchedule.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during warm-up and system sizing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceSchedule.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceSchedule.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceSchedule.schedule_type_limits_name">
+<code class="descname">schedule_type_limits_name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceSchedule.schedule_type_limits_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Type Limits Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Type Limits Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_type_limits_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.external_interface.ExternalInterfaceVariable">
+<em class="property">class </em><code class="descclassname">pyidf.external_interface.</code><code class="descname">ExternalInterfaceVariable</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ExternalInterface:Variable</cite>
+This input object is similar to EnergyManagementSystem:GlobalVariable. However, at
+the beginning of each zone time step, its value is set to the value received from the
+external interface. During the warm-up period and the system sizing, its value
+is set to the value specified by the field &#8220;initial value.&#8221; This object can be used
+to move data into Erl subroutines.</p>
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceVariable.initial_value">
+<code class="descname">initial_value</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceVariable.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Value</cite></p>
+<p>Used during warm-up and system sizing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_value</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.external_interface.ExternalInterfaceVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.external_interface.ExternalInterfaceVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.exterior_equipment.html"
+                        title="previous chapter">pyidf.exterior_equipment module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.fans.html"
+                        title="next chapter">pyidf.fans module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.external_interface.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fans.html" title="pyidf.fans module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.exterior_equipment.html" title="pyidf.exterior_equipment module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

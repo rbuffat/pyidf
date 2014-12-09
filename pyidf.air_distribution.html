@@ -1,0 +1,1526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.air_distribution module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.coils module" href="pyidf.coils.html" />
+    <link rel="prev" title="pyidf.advanced_construction module" href="pyidf.advanced_construction.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.coils.html" title="pyidf.coils module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.advanced_construction.html" title="pyidf.advanced_construction module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.air_distribution">
+<span id="pyidf-air-distribution-module"></span><h1>pyidf.air_distribution module<a class="headerlink" href="#module-pyidf.air_distribution" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Air Distribution&#8221;</p>
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvac">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvac</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC</cite>
+Defines a central forced air system.</p>
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.availability_manager_list_name">
+<code class="descname">availability_manager_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.availability_manager_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Manager List Name</cite></p>
+<p>Enter the name of an AvailabilityManagerAssignmentList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Manager List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_manager_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.branch_list_name">
+<code class="descname">branch_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.branch_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Branch List Name</cite></p>
+<p>Name of a BranchList containing all the branches in this air loop</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Branch List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>branch_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.connector_list_name">
+<code class="descname">connector_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.connector_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Connector List Name</cite></p>
+<p>Name of a ConnectorList containing all the splitters and mixers in the loop</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Connector List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>connector_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.controller_list_name">
+<code class="descname">controller_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.controller_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller List Name</cite></p>
+<p>Enter the name of an AirLoopHVAC:ControllerList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.demand_side_inlet_node_names">
+<code class="descname">demand_side_inlet_node_names</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.demand_side_inlet_node_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Demand Side Inlet Node Names</cite></p>
+<p>Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Demand Side Inlet Node Names</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>demand_side_inlet_node_names</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.demand_side_outlet_node_name">
+<code class="descname">demand_side_outlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.demand_side_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Demand Side Outlet Node Name</cite></p>
+<p>Name of outlet node where return air leaves the demand side and enters the supply side.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Demand Side Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>demand_side_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.design_supply_air_flow_rate">
+<code class="descname">design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Supply Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Design Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>design_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.supply_side_inlet_node_name">
+<code class="descname">supply_side_inlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.supply_side_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Side Inlet Node Name</cite></p>
+<p>Name of inlet node where return air enters the supply side of the air loop</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Side Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_side_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvac.supply_side_outlet_node_names">
+<code class="descname">supply_side_outlet_node_names</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvac.supply_side_outlet_node_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Side Outlet Node Names</cite></p>
+<p>Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Side Outlet Node Names</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_side_outlet_node_names</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystem">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacOutdoorAirSystem</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:OutdoorAirSystem</cite>
+Outdoor air subsystem for an AirLoopHVAC. Includes an outdoor air mixing box and
+optional outdoor air conditioning equipment such as heat recovery, preheat, and precool
+coils. From the perspective of the primary air loop the outdoor air system is treated
+as a single component.</p>
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.availability_manager_list_name">
+<code class="descname">availability_manager_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.availability_manager_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Manager List Name</cite></p>
+<p>Enter the name of an AvailabilityManagerAssignmentList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Manager List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_manager_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.controller_list_name">
+<code class="descname">controller_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.controller_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller List Name</cite></p>
+<p>Enter the name of an AirLoopHVAC:ControllerList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.outdoor_air_equipment_list_name">
+<code class="descname">outdoor_air_equipment_list_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystem.outdoor_air_equipment_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Equipment List Name</cite></p>
+<p>Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air Equipment List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_equipment_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacOutdoorAirSystemEquipmentList</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:OutdoorAirSystem:EquipmentList</cite>
+List equipment in simulation order</p>
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_1_name">
+<code class="descname">component_1_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_1_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 1 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_1_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_1_object_type">
+<code class="descname">component_1_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_1_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 1 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_1_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_2_name">
+<code class="descname">component_2_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_2_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 2 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 2 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_2_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_2_object_type">
+<code class="descname">component_2_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_2_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 2 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 2 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_2_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_3_name">
+<code class="descname">component_3_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_3_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 3 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 3 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_3_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_3_object_type">
+<code class="descname">component_3_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_3_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 3 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 3 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_3_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_4_name">
+<code class="descname">component_4_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_4_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 4 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 4 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_4_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_4_object_type">
+<code class="descname">component_4_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_4_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 4 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 4 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_4_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_5_name">
+<code class="descname">component_5_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_5_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 5 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 5 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_5_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_5_object_type">
+<code class="descname">component_5_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_5_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 5 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 5 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_5_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_6_name">
+<code class="descname">component_6_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_6_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 6 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 6 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_6_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_6_object_type">
+<code class="descname">component_6_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_6_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 6 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 6 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_6_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_7_name">
+<code class="descname">component_7_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_7_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 7 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 7 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_7_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_7_object_type">
+<code class="descname">component_7_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_7_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 7 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 7 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_7_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_8_name">
+<code class="descname">component_8_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_8_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 8 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 8 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_8_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_8_object_type">
+<code class="descname">component_8_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_8_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 8 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 8 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_8_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_9_name">
+<code class="descname">component_9_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_9_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 9 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 9 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_9_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_9_object_type">
+<code class="descname">component_9_object_type</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.component_9_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Component 9 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 9 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>component_9_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacOutdoorAirSystemEquipmentList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPath">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacReturnPath</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:ReturnPath</cite>
+A return air path can only contain one AirLoopHVAC:ZoneMixer
+and one or more AirLoopHVAC:ReturnPlenum objects.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPath.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>component_1_object_type=None</em>, <em>component_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPath.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component_1_object_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Object Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPath.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPath.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPath.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPath.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPath.return_air_path_outlet_node_name">
+<code class="descname">return_air_path_outlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPath.return_air_path_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Path Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Return Air Path Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_path_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacReturnPlenum</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:ReturnPlenum</cite>
+Connects N zone inlet air streams, through zone return plenum, to outlet
+(currently 500 per air loop)
+Node names cannot be duplicated within a single plenum list.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>inlet_node_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inlet_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.induced_air_outlet_node_or_nodelist_name">
+<code class="descname">induced_air_outlet_node_or_nodelist_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.induced_air_outlet_node_or_nodelist_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Induced Air Outlet Node or NodeList Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Induced Air Outlet Node or NodeList Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>induced_air_outlet_node_or_nodelist_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacReturnPlenum.zone_node_name">
+<code class="descname">zone_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacReturnPlenum.zone_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPath">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacSupplyPath</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:SupplyPath</cite>
+A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
+which may be in series or parallel.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPath.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>component_1_object_type=None</em>, <em>component_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPath.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component_1_object_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Object Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>component_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Component 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPath.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPath.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPath.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPath.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPath.supply_air_path_inlet_node_name">
+<code class="descname">supply_air_path_inlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPath.supply_air_path_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Path Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Path Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_path_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacSupplyPlenum</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:SupplyPlenum</cite>
+Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
+Node names cannot be duplicated within a single supply plenum list.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>outlet_node_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outlet_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacSupplyPlenum.zone_node_name">
+<code class="descname">zone_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacSupplyPlenum.zone_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneMixer">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacZoneMixer</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneMixer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:ZoneMixer</cite>
+Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
+be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneMixer.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>inlet_1_node_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneMixer.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inlet_1_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet 1 Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneMixer.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneMixer.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneMixer.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneMixer.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneMixer.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneMixer.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneSplitter">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">AirLoopHvacZoneSplitter</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneSplitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:ZoneSplitter</cite>
+Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
+cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.</p>
+<dl class="method">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneSplitter.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>outlet_node_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneSplitter.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outlet_node_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet  Node Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneSplitter.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneSplitter.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneSplitter.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneSplitter.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.AirLoopHvacZoneSplitter.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.AirLoopHvacZoneSplitter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.air_distribution.OutdoorAirMixer">
+<em class="property">class </em><code class="descclassname">pyidf.air_distribution.</code><code class="descname">OutdoorAirMixer</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>OutdoorAir:Mixer</cite>
+Outdoor air mixer. Node names cannot be duplicated within a single OutdoorAir:Mixer
+object or across all outdoor air mixers.</p>
+<dl class="attribute">
+<dt id="pyidf.air_distribution.OutdoorAirMixer.mixed_air_node_name">
+<code class="descname">mixed_air_node_name</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer.mixed_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Mixed Air Node Name</cite></p>
+<p>Name of Mixed Air Node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Mixed Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>mixed_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.OutdoorAirMixer.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.OutdoorAirMixer.outdoor_air_stream_node_name">
+<code class="descname">outdoor_air_stream_node_name</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer.outdoor_air_stream_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Stream Node Name</cite></p>
+<p>Name of Outdoor Air Stream Node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air Stream Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_stream_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.OutdoorAirMixer.relief_air_stream_node_name">
+<code class="descname">relief_air_stream_node_name</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer.relief_air_stream_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Relief Air Stream Node Name</cite></p>
+<p>Name of Relief Air Stream Node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Relief Air Stream Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>relief_air_stream_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.air_distribution.OutdoorAirMixer.return_air_stream_node_name">
+<code class="descname">return_air_stream_node_name</code><a class="headerlink" href="#pyidf.air_distribution.OutdoorAirMixer.return_air_stream_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Stream Node Name</cite></p>
+<p>Name of Return Air Stream Node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Return Air Stream Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_stream_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.advanced_construction.html"
+                        title="previous chapter">pyidf.advanced_construction module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.coils.html"
+                        title="next chapter">pyidf.coils module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.air_distribution.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.coils.html" title="pyidf.coils module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.advanced_construction.html" title="pyidf.advanced_construction module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

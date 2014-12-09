@@ -1,0 +1,2653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.room_air_models module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.schedules module" href="pyidf.schedules.html" />
+    <link rel="prev" title="pyidf.refrigeration module" href="pyidf.refrigeration.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.schedules.html" title="pyidf.schedules module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.room_air_models">
+<span id="pyidf-room-air-models-module"></span><h1>pyidf.room_air_models module<a class="headerlink" href="#module-pyidf.room_air_models" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Room Air Models&#8221;</p>
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferBasementXface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementXface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementXface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:XFACE</cite>
+This is only needed when using manual gridding (not recommended)
+XFACE: X Direction cell face coordinates: m</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferBasementYface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementYface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementYface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:YFACE</cite>
+This is only needed when using manual gridding (not recommended)
+YFACE: Y Direction cell face coordinates: m</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferBasementZface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementZface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementZface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:ZFACE</cite>
+This is only needed when using manual gridding (not recommended)
+ZFACE: Z Direction cell face coordinates: m</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferSlabXface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabXface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabXface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:XFACE</cite>
+This is only needed when using manual gridding (not recommended)
+XFACE: X Direction cell face coordinates: m</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferSlabYface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabYface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabYface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:YFACE</cite>
+This is only needed when using manual gridding (not recommended)
+YFACE: Y Direction cell face coordinates: m,</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.GroundHeatTransferSlabZface">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabZface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabZface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:ZFACE</cite>
+This is only needed when usuing manual gridding (not recommended)
+ZFACE: Z Direction cell face coordinates: m</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirModelType">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirModelType</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirModelType</cite>
+Selects the type of room air model to be used in a given zone. If no RoomAirModelType
+object is specified then the default Mixing model (all zone air at the same
+temperature) will be used.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirModelType.air_temperature_coupling_strategy">
+<code class="descname">air_temperature_coupling_strategy</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.air_temperature_coupling_strategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Temperature Coupling Strategy</cite></p>
+<p>Default value: Direct</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Temperature Coupling Strategy</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_temperature_coupling_strategy</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirModelType.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirModelType.roomair_modeling_type">
+<code class="descname">roomair_modeling_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.roomair_modeling_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Room-Air Modeling Type</cite></p>
+<p>Complete mixing air model
+UserDefined Room Air Temperature Patterns
+needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone
+Mundt roomair model for displacement ventilation with single floor air node
+needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone
+(UCSD three-node displacement ventilation model)
+needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone
+(UCSD two-zone cross ventilation model)
+needs RoomAirSettings:CrossVentilation object referencing this Zone
+2-Node UFAD model for interior zones
+needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone
+(2-Node UFAD model for exterior zones)
+needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone
+Default value: Mixing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Room-Air Modeling Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roomair_modeling_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirModelType.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirNode">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirNode</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:Node</cite>
+Define an air node for some types of nodal room air models</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.height_of_nodal_control_volume_center">
+<code class="descname">height_of_nodal_control_volume_center</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.height_of_nodal_control_volume_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Height of Nodal Control Volume Center</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Height of Nodal Control Volume Center</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>height_of_nodal_control_volume_center</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.node_type">
+<code class="descname">node_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.node_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Node Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Node Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>node_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_10_name">
+<code class="descname">surface_10_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_10_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 10 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 10 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_10_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_11_name">
+<code class="descname">surface_11_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_11_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 11 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 11 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_11_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_12_name">
+<code class="descname">surface_12_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_12_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 12 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 12 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_12_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_13_name">
+<code class="descname">surface_13_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_13_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 13 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 13 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_13_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_14_name">
+<code class="descname">surface_14_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_14_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 14 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 14 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_14_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_15_name">
+<code class="descname">surface_15_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_15_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 15 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 15 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_15_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_16_name">
+<code class="descname">surface_16_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_16_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 16 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 16 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_16_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_17_name">
+<code class="descname">surface_17_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_17_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 17 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 17 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_17_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_18_name">
+<code class="descname">surface_18_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_18_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 18 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 18 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_18_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_19_name">
+<code class="descname">surface_19_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_19_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 19 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 19 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_19_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_1_name">
+<code class="descname">surface_1_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_1_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 1 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 1 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_1_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_20_name">
+<code class="descname">surface_20_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_20_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 20 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 20 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_20_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_21_name">
+<code class="descname">surface_21_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_21_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 21 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 21 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_21_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_2_name">
+<code class="descname">surface_2_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_2_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 2 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 2 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_2_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_3_name">
+<code class="descname">surface_3_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_3_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 3 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 3 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_3_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_4_name">
+<code class="descname">surface_4_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_4_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 4 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 4 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_4_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_5_name">
+<code class="descname">surface_5_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_5_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 5 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 5 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_5_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_6_name">
+<code class="descname">surface_6_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_6_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 6 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 6 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_6_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_7_name">
+<code class="descname">surface_7_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_7_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 7 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 7 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_7_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_8_name">
+<code class="descname">surface_8_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_8_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 8 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 8 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_8_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.surface_9_name">
+<code class="descname">surface_9_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.surface_9_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface 9 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 9 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_9_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNode.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsCrossVentilation</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:CrossVentilation</cite>
+This UCSD Cross Ventilation Room Air Model provides a simple model for heat transfer
+and vertical temperature profile prediction in cross ventilated rooms. The model
+distinguishes two regions in the room, the main jet region and the recirculations,
+and predicts characteristic airflow velocities and average air temperatures.
+Used with RoomAirModelType = CrossVentilation.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation">
+<code class="descname">airflow_region_used_for_thermal_comfort_evaluation</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Airflow Region Used for Thermal Comfort Evaluation</cite></p>
+<p>Required field whenever thermal comfort is predicted
+defines Air temperature and Airflow velocity that will be used in the Fanger model
+conditions must refer to one of the two regions: jet or recirculation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Airflow Region Used for Thermal Comfort Evaluation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>airflow_region_used_for_thermal_comfort_evaluation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.gain_distribution_schedule_name">
+<code class="descname">gain_distribution_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.gain_distribution_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gain Distribution Schedule Name</cite></p>
+<p>Distribution of the convective heat gains between the jet and recirculation zones.
+0&lt;= Accepted Value &lt;= 1.
+In the CV model 1 means all convective gains in the jet region.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gain Distribution Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gain_distribution_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>Name of Zone being described. Any existing zone name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsOneNodeDisplacementVentilation</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:OneNodeDisplacementVentilation</cite>
+The Mundt model for displacement ventilation</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air">
+<code class="descname">fraction_of_convective_internal_loads_added_to_floor_air</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Convective Internal Loads Added to Floor Air</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Convective Internal Loads Added to Floor Air</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_convective_internal_loads_added_to_floor_air</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air">
+<code class="descname">fraction_of_infiltration_internal_loads_added_to_floor_air</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Infiltration Internal Loads Added to Floor Air</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Infiltration Internal Loads Added to Floor Air</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_infiltration_internal_loads_added_to_floor_air</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsThreeNodeDisplacementVentilation</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:ThreeNodeDisplacementVentilation</cite>
+The UCSD model for Displacement Ventilation</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height">
+<code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Comfort Height</cite></p>
+<p>Height at which air temperature is calculated for comfort purposes
+Units: m
+Default value: 1.1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name">
+<code class="descname">gain_distribution_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gain Distribution Schedule Name</cite></p>
+<p>Distribution of the convective heat gains between the occupied and mixed zones.
+0&lt;= Accepted Value &lt;= 1.
+In the DV model 1 means all convective gains in the lower layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gain Distribution Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gain_distribution_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant">
+<code class="descname">number_of_plumes_per_occupant</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Plumes per Occupant</cite></p>
+<p>Used only in the UCSD displacement ventilation model.
+Effective number of separate plumes per occupant in the occupied zone.
+Plumes that merge together in the occupied zone count as one.
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Number of Plumes per Occupant</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_plumes_per_occupant</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting">
+<code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
+<p>Minimum temperature difference between predicted upper and lower layer
+temperatures above which DV auxilliary outputs are calculated.
+These outputs are &#8216;DV Transition Height&#8217;, &#8216;DV Fraction Min Recommended Flow Rate&#8217;
+&#8216;DV Average Temp Gradient&#8217; and &#8216;DV Maximum Temp Gradient&#8217;.  They
+are set to negative values when the temperature difference is less than the
+threshold and the output &#8216;DV Zone Is Mixed&#8217; is set to 1
+Units: deltaC
+Default value: 0.4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height">
+<code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Height</cite></p>
+<p>Height of thermostat/temperature control sensor above floor
+Units: m
+Default value: 1.1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>Name of Zone being described. Any existing zone name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsUnderFloorAirDistributionExterior</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:UnderFloorAirDistributionExterior</cite>
+Applicable to exterior spaces that are served by an underfloor air distribution system.
+The dominant sources of heat gain should be from people, equipment, and other
+localized sources located in the occupied part of the room, as well as convective gain
+coming from a warm window. Used with RoomAirModelType = CrossVentilation.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2">
+<code class="descname">coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
+<p>Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2">
+<code class="descname">coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
+<p>Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2">
+<code class="descname">coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
+<p>Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2">
+<code class="descname">coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
+<p>Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2">
+<code class="descname">coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
+<p>Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height">
+<code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Comfort Height</cite></p>
+<p>Height at which Air temperature is calculated for comfort purposes
+Units: m
+Default value: 1.1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser">
+<code class="descname">design_effective_area_of_diffuser</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Effective Area of Diffuser</cite></p>
+<p>Units: m2
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Design Effective Area of Diffuser</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical">
+<code class="descname">diffuser_slot_angle_from_vertical</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Diffuser Slot Angle from Vertical</cite></p>
+<p>Units: deg
+Default value: &#8220;autocalculate&#8221;
+value &lt;= 90.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Diffuser Slot Angle from Vertical</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type">
+<code class="descname">floor_diffuser_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Floor Diffuser Type</cite></p>
+<p>Default value: Swirl</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Floor Diffuser Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>floor_diffuser_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone">
+<code class="descname">number_of_diffusers_per_zone</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Diffusers per Zone</cite></p>
+<p>Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Number of Diffusers per Zone</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>number_of_diffusers_per_zone</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume">
+<code class="descname">power_per_plume</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Power per Plume</cite></p>
+<p>Units: W
+Default value: &#8220;autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Power per Plume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>power_per_plume</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting">
+<code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
+<p>Minimum temperature difference between upper and lower layer
+temperatures above which UFAD auxilliary outputs are calculated.
+These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They
+are set to zero values when the temperature difference is less than the
+threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1
+Units: deltaC
+Default value: 0.4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height">
+<code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Height</cite></p>
+<p>Height of thermostat/temperature control sensor above floor
+Units: m
+Default value: 1.2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.transition_height">
+<code class="descname">transition_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.transition_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Transition Height</cite></p>
+<p>User-specified height above floor of boundary between occupied and upper subzones
+Units: m
+Default value: 1.7</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Transition Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>transition_height</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>Name of Zone being described. Any existing zone name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsUnderFloorAirDistributionInterior</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:UnderFloorAirDistributionInterior</cite>
+This Room Air Model is applicable to interior spaces that are served by an underfloor
+air distribution system. The dominant sources of heat gain should be from people,
+equipment, and other localized sources located in the occupied part of the room.
+The model should be used with caution in zones which have large heat gains or losses
+through exterior walls or windows or which have considerable direct solar gain.
+Used with RoomAirModelType = UnderFloorAirDistributionInterior.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a">
+<code class="descname">coefficient_a</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient A</cite></p>
+<p>Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient A</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_a</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b">
+<code class="descname">coefficient_b</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient B</cite></p>
+<p>Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient B</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_b</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c">
+<code class="descname">coefficient_c</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient C</cite></p>
+<p>Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient C</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_c</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d">
+<code class="descname">coefficient_d</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient D</cite></p>
+<p>Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient D</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_d</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e">
+<code class="descname">coefficient_e</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient E</cite></p>
+<p>Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+Kc is the fraction of the total zone load attributable to the lower subzone
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient E</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_e</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height">
+<code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Comfort Height</cite></p>
+<p>Height at which air temperature is calculated for comfort purposes
+Units: m
+Default value: 1.1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser">
+<code class="descname">design_effective_area_of_diffuser</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Effective Area of Diffuser</cite></p>
+<p>Units: m2
+Default value: &#8220;Autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Design Effective Area of Diffuser</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical">
+<code class="descname">diffuser_slot_angle_from_vertical</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Diffuser Slot Angle from Vertical</cite></p>
+<p>Units: deg
+Default value: &#8220;Autocalculate&#8221;
+value &lt;= 90.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Diffuser Slot Angle from Vertical</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type">
+<code class="descname">floor_diffuser_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Floor Diffuser Type</cite></p>
+<p>Default value: Swirl</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Floor Diffuser Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>floor_diffuser_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers">
+<code class="descname">number_of_diffusers</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Diffusers</cite></p>
+<p>Total number of diffusers in this zone
+Default value: &#8220;autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Number of Diffusers</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>number_of_diffusers</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume">
+<code class="descname">power_per_plume</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Power per Plume</cite></p>
+<p>Units: W
+Default value: &#8220;autocalculate&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Power per Plume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>power_per_plume</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting">
+<code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
+<p>Minimum temperature difference between predicted upper and lower layer
+temperatures above which UFAD auxilliary outputs are calculated.
+These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They
+are set to zero values when the temperature difference is less than the
+threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1
+Units: deltaC
+Default value: 0.4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height">
+<code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Height</cite></p>
+<p>Height of thermostat/temperature control sensor above floor
+Units: m
+Default value: 1.2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.transition_height">
+<code class="descname">transition_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.transition_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Transition Height</cite></p>
+<p>user-specified height above floor of boundary between occupied and upper subzones
+Units: m
+Default value: 1.7</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Transition Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>transition_height</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>Name of Zone with underfloor air distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirTemperaturePatternConstantGradient</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:ConstantGradient</cite>
+Used to model room air with a fixed temperature gradient in the vertical direction.
+Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name">
+<code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
+<p>reference this entry in Schedule Name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.exhaust_air_offset">
+<code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Offset</cite></p>
+<p>= (Texhaust - Mean Air Temp) deg C
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.return_air_offset">
+<code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.return_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Offset</cite></p>
+<p>= (Tleaving - Mean Air Temp )
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.temperature_gradient">
+<code class="descname">temperature_gradient</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.temperature_gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Gradient</cite></p>
+<p>Slope of temperature change in vertical direction
+Units: K/m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.thermostat_offset">
+<code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.thermostat_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Offset</cite></p>
+<p>= (Temp at thermostat- Mean Air Temp)
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirTemperaturePatternNondimensionalHeight</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:NondimensionalHeight</cite>
+Defines a distribution pattern for air temperatures relative to the current mean air
+temperature as a function of height. The height, referred to as Zeta, is non-dimensional
+by normalizing with the zone ceiling height.
+Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>pair_1_zeta_nondimensional_height=None</em>, <em>pair_1_delta_adjacent_air_temperature=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pair_1_zeta_nondimensional_height</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pair 1 Zeta Nondimensional Height</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>pair_1_delta_adjacent_air_temperature</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Pair 1 Delta Adjacent Air Temperature</cite>
+Units: deltaC
+value &gt;= -10.0
+value &lt;= 20.0
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name">
+<code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
+<p>this value should appear in as a schedule value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.exhaust_air_offset">
+<code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Offset</cite></p>
+<p>= (Temp exhaust - Mean Air Temp) deg C
+the remaining fields have pairs that describe the relative
+temperature pattern in the vertical direction of a zone
+Zeta is the nondimensional height (in z-direction). on [0..1]
+DeltaTai =  (Tai - MAT) in units of deg. C
+relative deg C on [-10.0 .. 20.0 ]
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.return_air_offset">
+<code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.return_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Offset</cite></p>
+<p>= (Temp leaving - Mean Air Temp ) deg C
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.thermostat_offset">
+<code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.thermostat_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Offset</cite></p>
+<p>= (Temp at thermostat- Mean Air Temp)
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirTemperaturePatternSurfaceMapping</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:SurfaceMapping</cite>
+Defines a distribution pattern for the air temperatures adjacent to individual surfaces.
+This allows controlling the adjacent air temperature on a surface-by-surface basis
+rather than by height. This allows modeling different adjacent air temperatures on
+the opposite sides of the zone. Used in combination with
+RoomAir:TemperaturePattern:UserDefined.</p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>surface_name_pair_1=None</em>, <em>delta_adjacent_air_temperature_pair_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>surface_name_pair_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface Name Pair 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>delta_adjacent_air_temperature_pair_1</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Delta Adjacent Air Temperature Pair 1</cite>
+Units: deltaC
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name">
+<code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
+<p>reference this entry in schedule</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.exhaust_air_offset">
+<code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Offset</cite></p>
+<p>= (Texhaust - Mean Air Temp) deg C
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.return_air_offset">
+<code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.return_air_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Offset</cite></p>
+<p>= (Tleaving - Mean Air Temp ) deg C
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.thermostat_offset">
+<code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.thermostat_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Offset</cite></p>
+<p>= (Temp at thermostat- Mean Air Temp)
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirTemperaturePatternTwoGradient</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:TwoGradient</cite>
+Used to model room air with two temperature gradients in the vertical direction.
+Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name">
+<code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
+<p>reference this entry in Schedule Name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.exhaust_air_height">
+<code class="descname">exhaust_air_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.exhaust_air_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Height</cite></p>
+<p>= Distance from floor of zone
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode">
+<code class="descname">gradient_interpolation_mode</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gradient Interpolation Mode</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gradient Interpolation Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gradient_interpolation_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_heat_rate_bound">
+<code class="descname">lower_heat_rate_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_heat_rate_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Lower Heat Rate Bound</cite></p>
+<p>Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Lower Heat Rate Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lower_heat_rate_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_temperature_bound">
+<code class="descname">lower_temperature_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_temperature_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Lower Temperature Bound</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Lower Temperature Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lower_temperature_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.return_air_height">
+<code class="descname">return_air_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.return_air_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Height</cite></p>
+<p>= Distance from floor of zone
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_lower_bound">
+<code class="descname">temperature_gradient_lower_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_lower_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Gradient Lower Bound</cite></p>
+<p>Slope of temperature change in vertical direction
+Units: K/m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient Lower Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient_lower_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_upper_bound">
+<code class="descname">temperature_gradient_upper_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_upper_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Gradient Upper  Bound</cite></p>
+<p>Slope of temperature change in vertical direction
+Units: K/m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient Upper  Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient_upper_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.thermostat_height">
+<code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.thermostat_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Height</cite></p>
+<p>= Distance from floor of zone
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_heat_rate_bound">
+<code class="descname">upper_heat_rate_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_heat_rate_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Upper Heat Rate Bound</cite></p>
+<p>Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Upper Heat Rate Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>upper_heat_rate_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_temperature_bound">
+<code class="descname">upper_temperature_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_temperature_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Upper Temperature Bound</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Upper Temperature Bound</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>upper_temperature_bound</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirTemperaturePatternUserDefined</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:UserDefined</cite>
+Used to explicitly define temperature patterns that are to be applied to the mean air
+temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this model. Schedule value &gt; 0 means the model is
+active. Schedule value = 0 means the model is inactive and the zone will be modeled
+as fully mixed (Mixing). If this field is blank, the model is always active.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name">
+<code class="descname">pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Pattern Control Schedule Name</cite></p>
+<p>The schedule should contain integer values that
+correspond to unique Control Integer fields in
+one of the RoomAir:TemperaturePattern:* objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pattern Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pattern_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.refrigeration.html"
+                        title="previous chapter">pyidf.refrigeration module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.schedules.html"
+                        title="next chapter">pyidf.schedules module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.room_air_models.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.schedules.html" title="pyidf.schedules module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

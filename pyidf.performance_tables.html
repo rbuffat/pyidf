@@ -1,0 +1,1516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.performance_tables module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.plant module" href="pyidf.plant.html" />
+    <link rel="prev" title="pyidf.performance_curves module" href="pyidf.performance_curves.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.plant.html" title="pyidf.plant module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.performance_curves.html" title="pyidf.performance_curves module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.performance_tables">
+<span id="pyidf-performance-tables-module"></span><h1>pyidf.performance_tables module<a class="headerlink" href="#module-pyidf.performance_tables" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Performance Tables&#8221;</p>
+<dl class="class">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup">
+<em class="property">class </em><code class="descclassname">pyidf.performance_tables.</code><code class="descname">TableMultiVariableLookup</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Table:MultiVariableLookup</cite>
+The multi-variable lookup table can represent from 1 to 5 independent variables and
+can interpolate these independent variables up to a 4th order polynomial. The
+polynomial order is assumed to be the number of interpolation points (n) minus 1.
+When any independent variable value is outside the table limits, linear extrapolation
+is used to predict the table result and is based on the two nearest data points in the
+table for that particularindependent variable.</p>
+<dl class="method">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>field_3_determined_by_the_number_of_independent_variables=None</em>, <em>v1=None</em>, <em>v2=None</em>, <em>v3=None</em>, <em>v4=None</em>, <em>v5=None</em>, <em>v6=None</em>, <em>v7=None</em>, <em>v8=None</em>, <em>v9=None</em>, <em>v10=None</em>, <em>v11=None</em>, <em>v12=None</em>, <em>v13=None</em>, <em>v14=None</em>, <em>v15=None</em>, <em>v16=None</em>, <em>v17=None</em>, <em>v18=None</em>, <em>v19=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>field_3_determined_by_the_number_of_independent_variables</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Field 3 Determined by the Number of Independent Variables</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v1</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v2</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V2</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v3</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V3</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v4</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V4</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v5</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V5</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v6</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V6</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v7</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V7</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v8</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V8</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v9</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V9</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v10</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V10</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v11</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V11</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v12</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V12</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v13</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V13</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v14</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V14</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v15</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V15</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v16</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V16</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v17</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V17</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v18</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V18</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>v19</strong> (<em>float</em>) &#8211; value for IDD Field <cite>V19</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.curve_type">
+<code class="descname">curve_type</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.curve_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Curve Type</cite></p>
+<p>The curve types BiCubic and TriQuadratic may not
+be used with Interpolation Method = EvaluateCurveToLimits</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Curve Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>curve_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.external_file_name">
+<code class="descname">external_file_name</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.external_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>External File Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>External File Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>external_file_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.field_1_determined_by_the_number_of_independent_variables">
+<code class="descname">field_1_determined_by_the_number_of_independent_variables</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.field_1_determined_by_the_number_of_independent_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Field 1 Determined by the Number of Independent Variables</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Field 1 Determined by the Number of Independent Variables</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>field_1_determined_by_the_number_of_independent_variables</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.field_2_determined_by_the_number_of_independent_variables">
+<code class="descname">field_2_determined_by_the_number_of_independent_variables</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.field_2_determined_by_the_number_of_independent_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Field 2 Determined by the Number of Independent Variables</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Field 2 Determined by the Number of Independent Variables</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>field_2_determined_by_the_number_of_independent_variables</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x1">
+<code class="descname">input_unit_type_for_x1</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X1</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x2">
+<code class="descname">input_unit_type_for_x2</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X2</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x3">
+<code class="descname">input_unit_type_for_x3</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X3</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x4">
+<code class="descname">input_unit_type_for_x4</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X4</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x5">
+<code class="descname">input_unit_type_for_x5</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.input_unit_type_for_x5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X5</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.interpolation_method">
+<code class="descname">interpolation_method</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.interpolation_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Interpolation Method</cite></p>
+<p>Default value: LagrangeInterpolationLinearExtrapolation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Interpolation Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>interpolation_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_table_output">
+<code class="descname">maximum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Table Output</cite></p>
+<p>Specify the maximum value calculated by this curve object
+Units are based on field <cite>A13</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x1">
+<code class="descname">maximum_value_of_x1</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X1</cite></p>
+<p>Units are based on field <cite>A8</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x2">
+<code class="descname">maximum_value_of_x2</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X2</cite></p>
+<p>Units are based on field <cite>A9</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x3">
+<code class="descname">maximum_value_of_x3</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X3</cite></p>
+<p>Units are based on field <cite>A10</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x4">
+<code class="descname">maximum_value_of_x4</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X4</cite></p>
+<p>Units are based on field <cite>A11</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x5">
+<code class="descname">maximum_value_of_x5</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.maximum_value_of_x5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X5</cite></p>
+<p>Units are based on field <cite>A12</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_table_output">
+<code class="descname">minimum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Table Output</cite></p>
+<p>Specify the minimum value calculated by this curve object
+Units are based on field <cite>A13</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x1">
+<code class="descname">minimum_value_of_x1</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X1</cite></p>
+<p>Units are based on field <cite>A8</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x2">
+<code class="descname">minimum_value_of_x2</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X2</cite></p>
+<p>Units are based on field <cite>A9</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x3">
+<code class="descname">minimum_value_of_x3</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X3</cite></p>
+<p>Units are based on field <cite>A10</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x4">
+<code class="descname">minimum_value_of_x4</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X4</cite></p>
+<p>Units are based on field <cite>A11</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x5">
+<code class="descname">minimum_value_of_x5</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.minimum_value_of_x5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X5</cite></p>
+<p>Units are based on field <cite>A12</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.normalization_reference">
+<code class="descname">normalization_reference</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.normalization_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalization Reference</cite></p>
+<p>This field is used to normalize the table output data.
+The minimum and maximum table output fields are also normalized.
+If this field is blank or 1, the table data will be directly used.
+This field is not allowed to be set equal to 0.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Normalization Reference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalization_reference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.number_of_independent_variables">
+<code class="descname">number_of_independent_variables</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.number_of_independent_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Independent Variables</cite></p>
+<p>value &lt;= 5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Independent Variables</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_independent_variables</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.number_of_interpolation_points">
+<code class="descname">number_of_interpolation_points</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.number_of_interpolation_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Interpolation Points</cite></p>
+<p>Default value: 3
+value &gt; 1
+value &lt;= 4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Interpolation Points</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_interpolation_points</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.number_of_values_for_independent_variable_x1">
+<code class="descname">number_of_values_for_independent_variable_x1</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.number_of_values_for_independent_variable_x1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Values for Independent Variable X1</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Values for Independent Variable X1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_values_for_independent_variable_x1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.output_unit_type">
+<code class="descname">output_unit_type</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.output_unit_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output Unit Type</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output Unit Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>output_unit_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.table_data_format">
+<code class="descname">table_data_format</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.table_data_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Table Data Format</cite></p>
+<p>Default value: SingleLineIndependentVariableWithMatrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Table Data Format</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>table_data_format</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.x1_sort_order">
+<code class="descname">x1_sort_order</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.x1_sort_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X1 Sort Order</cite></p>
+<p>Default value: Ascending</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>X1 Sort Order</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>x1_sort_order</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableMultiVariableLookup.x2_sort_order">
+<code class="descname">x2_sort_order</code><a class="headerlink" href="#pyidf.performance_tables.TableMultiVariableLookup.x2_sort_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X2 Sort Order</cite></p>
+<p>Default value: Ascending</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>X2 Sort Order</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>x2_sort_order</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable">
+<em class="property">class </em><code class="descclassname">pyidf.performance_tables.</code><code class="descname">TableOneIndependentVariable</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Table:OneIndependentVariable</cite>
+Allows entry of tabular data pairs as alternate input
+for performance curve objects.
+Performance curve objects can be created using these inputs.
+Linear Table Equation: Output = a + bX
+Linear solution requires a minimum of 2 data pairs
+Quadratic Table Equation: Output = a + b*X + c*X**2
+Quadratic solution requires a minimum of 3 data pairs
+Cubic Table Equation: Output = a + b*X + c* X**2 + d*X**3
+Cubic solution requires a minimum of 4 data pairs
+Quartic Table Equation: Output = a + b*X + c* X**2 + d*X**3 + e*X**4
+Quartic solution requires a minimum of 5 data pairs
+Exponent Table Equation: Output = a + b*X**c
+Exponent solution requires a minimum of 4 data pairs</p>
+<dl class="method">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>x_value=None</em>, <em>output_value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X Value</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>output_value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Output Value</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.curve_type">
+<code class="descname">curve_type</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.curve_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Curve Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Curve Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>curve_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.input_unit_type_for_x">
+<code class="descname">input_unit_type_for_x</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.input_unit_type_for_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.interpolation_method">
+<code class="descname">interpolation_method</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.interpolation_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Interpolation Method</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Interpolation Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>interpolation_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.maximum_table_output">
+<code class="descname">maximum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.maximum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Table Output</cite></p>
+<p>Specify the maximum value calculated by this table
+lookup object
+used only when Interpolation Type is Evaluate Curve
+to Limits
+Units are based on field <cite>A5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.maximum_value_of_x">
+<code class="descname">maximum_value_of_x</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.maximum_value_of_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X</cite></p>
+<p>used only when Interpolation Type is Evaluate Curve
+to Limits
+Units are based on field <cite>A4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.minimum_table_output">
+<code class="descname">minimum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.minimum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Table Output</cite></p>
+<p>Specify the minimum value calculated by this table
+lookup object
+used only when Interpolation Type is Evaluate Curve
+to Limits
+Units are based on field <cite>A5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.minimum_value_of_x">
+<code class="descname">minimum_value_of_x</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.minimum_value_of_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X</cite></p>
+<p>used only when Interpolation Type is Evaluate Curve
+to Limits
+Units are based on field <cite>A4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.normalization_reference">
+<code class="descname">normalization_reference</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.normalization_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalization Reference</cite></p>
+<p>This field is used to normalize the following ouput data.
+The minimum and maximum table output fields are also normalized.
+If this field is blank or 1, the table data presented
+in the following fields will be used with normalization
+reference set to 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Normalization Reference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalization_reference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableOneIndependentVariable.output_unit_type">
+<code class="descname">output_unit_type</code><a class="headerlink" href="#pyidf.performance_tables.TableOneIndependentVariable.output_unit_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output Unit Type</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output Unit Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>output_unit_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables">
+<em class="property">class </em><code class="descclassname">pyidf.performance_tables.</code><code class="descname">TableTwoIndependentVariables</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Table:TwoIndependentVariables</cite>
+Allows entry of tabular data pairs as alternate input
+for performance curve objects.
+Performance curve objects can be created using these inputs.
+BiQuadratic Table Equation: Output = a + bX + cX**2 + dY + eY**2 + fXY
+BiQuadratic solution requires a minimum of 6 data pairs
+QuadraticLinear Table Equation: Output = a + bX + cX**2 + dY + eXY + fX**2Y
+QuadraticLinear solution requires a minimum of 6 data pairs</p>
+<dl class="method">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>x_value=None</em>, <em>y_value=None</em>, <em>output_value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X Value</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>y_value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y Value</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>output_value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Output Value</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.curve_type">
+<code class="descname">curve_type</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.curve_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Curve Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Curve Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>curve_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.input_unit_type_for_x">
+<code class="descname">input_unit_type_for_x</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.input_unit_type_for_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for X</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.input_unit_type_for_y">
+<code class="descname">input_unit_type_for_y</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.input_unit_type_for_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Input Unit Type for Y</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Input Unit Type for Y</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>input_unit_type_for_y</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.interpolation_method">
+<code class="descname">interpolation_method</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.interpolation_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Interpolation Method</cite></p>
+<p>Default value: LagrangeInterpolationLinearExtrapolation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Interpolation Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>interpolation_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.maximum_table_output">
+<code class="descname">maximum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.maximum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Table Output</cite></p>
+<p>Specify the maximum value calculated by this table lookup object
+Units are based on field <cite>A6</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.maximum_value_of_x">
+<code class="descname">maximum_value_of_x</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.maximum_value_of_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of X</cite></p>
+<p>Units are based on field <cite>A4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.maximum_value_of_y">
+<code class="descname">maximum_value_of_y</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.maximum_value_of_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value of Y</cite></p>
+<p>Units are based on field <cite>A5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value of Y</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_of_y</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.minimum_table_output">
+<code class="descname">minimum_table_output</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.minimum_table_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Table Output</cite></p>
+<p>Specify the minimum value calculated by this table lookup object
+Units are based on field <cite>A6</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Table Output</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_table_output</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.minimum_value_of_x">
+<code class="descname">minimum_value_of_x</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.minimum_value_of_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of X</cite></p>
+<p>Units are based on field <cite>A4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of X</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_x</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.minimum_value_of_y">
+<code class="descname">minimum_value_of_y</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.minimum_value_of_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Value of Y</cite></p>
+<p>Units are based on field <cite>A5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Value of Y</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_value_of_y</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.normalization_reference">
+<code class="descname">normalization_reference</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.normalization_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Normalization Reference</cite></p>
+<p>This field is used to normalize the following output data.
+The minimum and maximum table output fields are also normalized.
+If this field is blank or 1, the table data presented below will be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Normalization Reference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>normalization_reference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.performance_tables.TableTwoIndependentVariables.output_unit_type">
+<code class="descname">output_unit_type</code><a class="headerlink" href="#pyidf.performance_tables.TableTwoIndependentVariables.output_unit_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output Unit Type</cite></p>
+<p>Default value: Dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output Unit Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>output_unit_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.performance_curves.html"
+                        title="previous chapter">pyidf.performance_curves module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.plant.html"
+                        title="next chapter">pyidf.plant module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.performance_tables.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.plant.html" title="pyidf.plant module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.performance_curves.html" title="pyidf.performance_curves module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.zone_hvac_equipment_connections module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.zone_hvac_forced_air_units module" href="pyidf.zone_hvac_forced_air_units.html" />
+    <link rel="prev" title="pyidf.zone_hvac_controls_and_thermostats module" href="pyidf.zone_hvac_controls_and_thermostats.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_hvac_forced_air_units.html" title="pyidf.zone_hvac_forced_air_units module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_hvac_controls_and_thermostats.html" title="pyidf.zone_hvac_controls_and_thermostats module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.zone_hvac_equipment_connections">
+<span id="pyidf-zone-hvac-equipment-connections-module"></span><h1>pyidf.zone_hvac_equipment_connections module<a class="headerlink" href="#module-pyidf.zone_hvac_equipment_connections" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Zone HVAC Equipment Connections&#8221;</p>
+<dl class="class">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections">
+<em class="property">class </em><code class="descclassname">pyidf.zone_hvac_equipment_connections.</code><code class="descname">ZoneHvacEquipmentConnections</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ZoneHVAC:EquipmentConnections</cite>
+Specifies the HVAC equipment connections for a zone. Node names are specified for the
+zone air node, air inlet nodes, air exhaust nodes, and the air return node. A zone
+equipment list is referenced which lists all HVAC equipment connected to the zone.</p>
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_exhaust_node_or_nodelist_name">
+<code class="descname">zone_air_exhaust_node_or_nodelist_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_exhaust_node_or_nodelist_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Exhaust Node or NodeList Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Air Exhaust Node or NodeList Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_exhaust_node_or_nodelist_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_inlet_node_or_nodelist_name">
+<code class="descname">zone_air_inlet_node_or_nodelist_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_inlet_node_or_nodelist_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Inlet Node or NodeList Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Air Inlet Node or NodeList Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_inlet_node_or_nodelist_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_node_name">
+<code class="descname">zone_air_node_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_conditioning_equipment_list_name">
+<code class="descname">zone_conditioning_equipment_list_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_conditioning_equipment_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Conditioning Equipment List Name</cite></p>
+<p>Enter the name of a ZoneHVAC:EquipmentList object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Conditioning Equipment List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_conditioning_equipment_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_return_air_node_name">
+<code class="descname">zone_return_air_node_name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentConnections.zone_return_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Return Air Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Return Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_return_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList">
+<em class="property">class </em><code class="descclassname">pyidf.zone_hvac_equipment_connections.</code><code class="descname">ZoneHvacEquipmentList</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>ZoneHVAC:EquipmentList</cite>
+List equipment in simulation order.  Note that an ZoneHVAC:AirDistributionUnit or
+AirTerminal:SingleDuct:Uncontrolled object must be listed in this statement if there is a forced
+air system serving the zone from the air loop.
+Equipment is simulated in the order specified by Zone Equipment Cooling Sequence and
+Zone Equipment Heating or No-Load Sequence, depending on the thermostat request.
+For equipment of similar type, assign sequence 1 to the first system intended to
+serve that type of load.  For situations where one or more equipment types has limited capacity or
+limited control, order the sequence so that the most controllable piece of equipment runs last.
+For example, with a dedicated outdoor air system (DOAS), the air terminal for the DOAS
+should be assigned Heating Sequence = 1 and Cooling Sequence = 1.  Any other equipment should
+be assigned sequence 2 or higher so that it will see the net load after the DOAS air is added
+to the zone.</p>
+<dl class="method">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>zone_equipment_1_object_type=None</em>, <em>zone_equipment_1_name=None</em>, <em>zone_equipment_1_cooling_sequence=None</em>, <em>zone_equipment_1_heating_or_noload_sequence=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>zone_equipment_1_object_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Equipment 1 Object Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>zone_equipment_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Equipment 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>zone_equipment_1_cooling_sequence</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Zone Equipment 1 Cooling Sequence</cite>
+value &gt;= 1
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>zone_equipment_1_heating_or_noload_sequence</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Zone Equipment 1 Heating or No-Load Sequence</cite>
+value &gt;= 1
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.zone_hvac_equipment_connections.ZoneHvacEquipmentList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.zone_hvac_controls_and_thermostats.html"
+                        title="previous chapter">pyidf.zone_hvac_controls_and_thermostats module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.zone_hvac_forced_air_units.html"
+                        title="next chapter">pyidf.zone_hvac_forced_air_units module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.zone_hvac_equipment_connections.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_hvac_forced_air_units.html" title="pyidf.zone_hvac_forced_air_units module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.zone_hvac_controls_and_thermostats.html" title="pyidf.zone_hvac_controls_and_thermostats module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

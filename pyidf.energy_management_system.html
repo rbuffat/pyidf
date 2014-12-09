@@ -1,0 +1,1099 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.energy_management_system module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.energyplus module" href="pyidf.energyplus.html" />
+    <link rel="prev" title="pyidf.electric_load_center module" href="pyidf.electric_load_center.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.energyplus.html" title="pyidf.energyplus module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.electric_load_center.html" title="pyidf.electric_load_center module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.energy_management_system">
+<span id="pyidf-energy-management-system-module"></span><h1>pyidf.energy_management_system module<a class="headerlink" href="#module-pyidf.energy_management_system" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Energy Management System&#8221;</p>
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemActuator">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemActuator</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemActuator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:Actuator</cite>
+Hardware portion of EMS used to set up actuators in the model</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_control_type">
+<code class="descname">actuated_component_control_type</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Control Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_type">
+<code class="descname">actuated_component_type</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_unique_name">
+<code class="descname">actuated_component_unique_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemActuator.actuated_component_unique_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuated Component Unique Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuated Component Unique Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuated_component_unique_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemActuator.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemActuator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemConstructionIndexVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:ConstructionIndexVariable</cite>
+Declares EMS variable that identifies a construction</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable.construction_object_name">
+<code class="descname">construction_object_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable.construction_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Construction Object Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Construction Object Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>construction_object_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemConstructionIndexVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemCurveOrTableIndexVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:CurveOrTableIndexVariable</cite>
+Declares EMS variable that identifies a curve or table</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable.curve_or_table_object_name">
+<code class="descname">curve_or_table_object_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable.curve_or_table_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Curve or Table Object Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Curve or Table Object Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>curve_or_table_object_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemCurveOrTableIndexVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemGlobalVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemGlobalVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemGlobalVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:GlobalVariable</cite>
+Declares Erl variable as having global scope
+No spaces allowed in names used for Erl variables</p>
+<dl class="method">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemGlobalVariable.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>erl_variable_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemGlobalVariable.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>erl_variable_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Erl Variable 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemGlobalVariable.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemGlobalVariable.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemInternalVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemInternalVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemInternalVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:InternalVariable</cite>
+Declares EMS variable as an internal data variable</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemInternalVariable.internal_data_index_key_name">
+<code class="descname">internal_data_index_key_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemInternalVariable.internal_data_index_key_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Internal Data Index Key Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Internal Data Index Key Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>internal_data_index_key_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemInternalVariable.internal_data_type">
+<code class="descname">internal_data_type</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemInternalVariable.internal_data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Internal Data Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Internal Data Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>internal_data_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemInternalVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemInternalVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemMeteredOutputVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:MeteredOutputVariable</cite>
+This object sets up an EnergyPlus output variable from an Erl variable</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.ems_program_or_subroutine_name">
+<code class="descname">ems_program_or_subroutine_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.ems_program_or_subroutine_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EMS Program or Subroutine Name</cite></p>
+<p>optional for global scope variables, required for local scope variables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EMS Program or Subroutine Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ems_program_or_subroutine_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.ems_variable_name">
+<code class="descname">ems_variable_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.ems_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EMS Variable Name</cite></p>
+<p>must be an acceptable EMS variable, no spaces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EMS Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ems_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.enduse_category">
+<code class="descname">enduse_category</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.enduse_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Category</cite></p>
+<p>choose how the metered output should be classified for end-use category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Category</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_category</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.enduse_subcategory">
+<code class="descname">enduse_subcategory</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.enduse_subcategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>End-Use Subcategory</cite></p>
+<p>enter a user-defined subcategory for this metered output</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>End-Use Subcategory</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>enduse_subcategory</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.group_type">
+<code class="descname">group_type</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.group_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Group Type</cite></p>
+<p>choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Group Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>group_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.resource_type">
+<code class="descname">resource_type</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.resource_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Resource Type</cite></p>
+<p>choose the type of fuel, water, electricity, pollution or heat rate that should be metered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Resource Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>resource_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.units">
+<code class="descname">units</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Units</cite></p>
+<p>optional but will result in dimensionless units for blank
+EnergyPlus units are standard SI units</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Units</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>units</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.update_frequency">
+<code class="descname">update_frequency</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemMeteredOutputVariable.update_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Update Frequency</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Update Frequency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>update_frequency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemOutputVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:OutputVariable</cite>
+This object sets up an EnergyPlus output variable from an Erl variable</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.ems_program_or_subroutine_name">
+<code class="descname">ems_program_or_subroutine_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.ems_program_or_subroutine_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EMS Program or Subroutine Name</cite></p>
+<p>optional for global scope variables, required for local scope variables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EMS Program or Subroutine Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ems_program_or_subroutine_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.ems_variable_name">
+<code class="descname">ems_variable_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.ems_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EMS Variable Name</cite></p>
+<p>must be an acceptable EMS variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EMS Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ems_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.type_of_data_in_variable">
+<code class="descname">type_of_data_in_variable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.type_of_data_in_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Type of Data in Variable</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Type of Data in Variable</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>type_of_data_in_variable</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.units">
+<code class="descname">units</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Units</cite></p>
+<p>optional but will result in dimensionless units for blank
+EnergyPlus units are standard SI units</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Units</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>units</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemOutputVariable.update_frequency">
+<code class="descname">update_frequency</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemOutputVariable.update_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Update Frequency</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Update Frequency</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>update_frequency</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgram">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemProgram</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:Program</cite>
+This input defines an Erl program
+Each field after the name is a line of EMS Runtime Language</p>
+<dl class="method">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgram.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>program_line_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgram.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program_line_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Program Line 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgram.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgram.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgram.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgram.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemProgramCallingManager</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:ProgramCallingManager</cite>
+Input EMS program. a program needs a name
+a description of when it should be called
+and then lines of program code for EMS Runtime language</p>
+<dl class="method">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>program_name_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Program Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point">
+<code class="descname">energyplus_model_calling_point</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EnergyPlus Model Calling Point</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EnergyPlus Model Calling Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>energyplus_model_calling_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemProgramCallingManager.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSensor">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemSensor</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:Sensor</cite>
+Declares EMS variable as a sensor
+a list of output variables and meters that can be reported are available after a run on
+the report (.rdd) or meter dictionary file (.mdd) if the Output:VariableDictionary
+has been requested.</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSensor.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSensor.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>This name becomes a variable for use in Erl programs
+no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSensor.outputvariable_or_outputmeter_index_key_name">
+<code class="descname">outputvariable_or_outputmeter_index_key_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSensor.outputvariable_or_outputmeter_index_key_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable or Output:Meter Index Key Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable or Output:Meter Index Key Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_or_outputmeter_index_key_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSensor.outputvariable_or_outputmeter_name">
+<code class="descname">outputvariable_or_outputmeter_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSensor.outputvariable_or_outputmeter_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Output:Variable or Output:Meter Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output:Variable or Output:Meter Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outputvariable_or_outputmeter_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSubroutine">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemSubroutine</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSubroutine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:Subroutine</cite>
+This input defines an Erl program subroutine
+Each field after the name is a line of EMS Runtime Language</p>
+<dl class="method">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSubroutine.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>program_line=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSubroutine.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program_line</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Program Line</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSubroutine.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSubroutine.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemSubroutine.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemSubroutine.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemTrendVariable">
+<em class="property">class </em><code class="descclassname">pyidf.energy_management_system.</code><code class="descname">EnergyManagementSystemTrendVariable</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemTrendVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>EnergyManagementSystem:TrendVariable</cite>
+This object sets up an EMS trend variable from an Erl variable
+A trend variable logs values across timesteps</p>
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemTrendVariable.ems_variable_name">
+<code class="descname">ems_variable_name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemTrendVariable.ems_variable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>EMS Variable Name</cite></p>
+<p>must be a global scope EMS variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>EMS Variable Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ems_variable_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemTrendVariable.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemTrendVariable.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>no spaces allowed in name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.energy_management_system.EnergyManagementSystemTrendVariable.number_of_timesteps_to_be_logged">
+<code class="descname">number_of_timesteps_to_be_logged</code><a class="headerlink" href="#pyidf.energy_management_system.EnergyManagementSystemTrendVariable.number_of_timesteps_to_be_logged" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Timesteps to be Logged</cite></p>
+<p>value &gt;= 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Timesteps to be Logged</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_timesteps_to_be_logged</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.electric_load_center.html"
+                        title="previous chapter">pyidf.electric_load_center module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.energyplus.html"
+                        title="next chapter">pyidf.energyplus module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.energy_management_system.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.energyplus.html" title="pyidf.energyplus module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.electric_load_center.html" title="pyidf.electric_load_center module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

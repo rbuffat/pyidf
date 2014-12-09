@@ -1,0 +1,1806 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.daylighting module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.demand_limiting_controls module" href="pyidf.demand_limiting_controls.html" />
+    <link rel="prev" title="pyidf.controllers module" href="pyidf.controllers.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.demand_limiting_controls.html" title="pyidf.demand_limiting_controls module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.controllers.html" title="pyidf.controllers module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.daylighting">
+<span id="pyidf-daylighting-module"></span><h1>pyidf.daylighting module<a class="headerlink" href="#module-pyidf.daylighting" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Daylighting&#8221;</p>
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingControls">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingControls</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Daylighting:Controls</cite>
+Dimming of overhead electric lighting is determined from
+interior daylight illuminance calculated at one or two reference points.
+reference points are given in coordinates specified in the GlobalGeometryRules object
+Daylighting Reference Point CoordinateSystem field
+Glare from daylighting is also calculated.</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.fraction_of_zone_controlled_by_first_reference_point">
+<code class="descname">fraction_of_zone_controlled_by_first_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.fraction_of_zone_controlled_by_first_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Zone Controlled by First Reference Point</cite></p>
+<p>Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Zone Controlled by First Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_zone_controlled_by_first_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.fraction_of_zone_controlled_by_second_reference_point">
+<code class="descname">fraction_of_zone_controlled_by_second_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.fraction_of_zone_controlled_by_second_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Zone Controlled by Second Reference Point</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Zone Controlled by Second Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_zone_controlled_by_second_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis">
+<code class="descname">glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis</cite></p>
+<p>Units: deg
+value &lt;= 360.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.illuminance_setpoint_at_first_reference_point">
+<code class="descname">illuminance_setpoint_at_first_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.illuminance_setpoint_at_first_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Illuminance Setpoint at First Reference Point</cite></p>
+<p>Units: lux
+Default value: 500.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Illuminance Setpoint at First Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>illuminance_setpoint_at_first_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.illuminance_setpoint_at_second_reference_point">
+<code class="descname">illuminance_setpoint_at_second_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.illuminance_setpoint_at_second_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Illuminance Setpoint at Second Reference Point</cite></p>
+<p>Units: lux
+Default value: 500.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Illuminance Setpoint at Second Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>illuminance_setpoint_at_second_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.lighting_control_type">
+<code class="descname">lighting_control_type</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.lighting_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Lighting Control Type</cite></p>
+<p>1=continuous,2=stepped,3=continuous/off
+Default value: 1
+value &gt;= 1
+value &lt;= 3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Lighting Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lighting_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.maximum_allowable_discomfort_glare_index">
+<code class="descname">maximum_allowable_discomfort_glare_index</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.maximum_allowable_discomfort_glare_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Allowable Discomfort Glare Index</cite></p>
+<p>The default is for general office work
+Default value: 22.0
+value &gt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Allowable Discomfort Glare Index</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_allowable_discomfort_glare_index</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.minimum_input_power_fraction_for_continuous_dimming_control">
+<code class="descname">minimum_input_power_fraction_for_continuous_dimming_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.minimum_input_power_fraction_for_continuous_dimming_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Input Power Fraction for Continuous Dimming Control</cite></p>
+<p>Default value: 0.3
+value &lt;= 0.6</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Input Power Fraction for Continuous Dimming Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_input_power_fraction_for_continuous_dimming_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.minimum_light_output_fraction_for_continuous_dimming_control">
+<code class="descname">minimum_light_output_fraction_for_continuous_dimming_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.minimum_light_output_fraction_for_continuous_dimming_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Light Output Fraction for Continuous Dimming Control</cite></p>
+<p>Default value: 0.2
+value &lt;= 0.6</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Light Output Fraction for Continuous Dimming Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_light_output_fraction_for_continuous_dimming_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.number_of_stepped_control_steps">
+<code class="descname">number_of_stepped_control_steps</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.number_of_stepped_control_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Stepped Control Steps</cite></p>
+<p>for Lighting Control Type=2, this field cannot be zero.
+Default value: 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Stepped Control Steps</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_stepped_control_steps</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control">
+<code class="descname">probability_lighting_will_be_reset_when_needed_in_manual_stepped_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Probability Lighting will be Reset When Needed in Manual Stepped Control</cite></p>
+<p>Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Probability Lighting will be Reset When Needed in Manual Stepped Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>probability_lighting_will_be_reset_when_needed_in_manual_stepped_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.total_daylighting_reference_points">
+<code class="descname">total_daylighting_reference_points</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.total_daylighting_reference_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Total Daylighting Reference Points</cite></p>
+<p>Default value: 1
+value &gt;= 1
+value &lt;= 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Total Daylighting Reference Points</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>total_daylighting_reference_points</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.xcoordinate_of_first_reference_point">
+<code class="descname">xcoordinate_of_first_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.xcoordinate_of_first_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-Coordinate of First Reference Point</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X-Coordinate of First Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xcoordinate_of_first_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.xcoordinate_of_second_reference_point">
+<code class="descname">xcoordinate_of_second_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.xcoordinate_of_second_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-Coordinate of Second Reference Point</cite></p>
+<p>Required if Total Daylighting Reference Points = 2
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X-Coordinate of Second Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xcoordinate_of_second_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.ycoordinate_of_first_reference_point">
+<code class="descname">ycoordinate_of_first_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.ycoordinate_of_first_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-Coordinate of First Reference Point</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y-Coordinate of First Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ycoordinate_of_first_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.ycoordinate_of_second_reference_point">
+<code class="descname">ycoordinate_of_second_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.ycoordinate_of_second_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-Coordinate of Second Reference Point</cite></p>
+<p>Required if Total Daylighting Reference Points = 2
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y-Coordinate of Second Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ycoordinate_of_second_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.zcoordinate_of_first_reference_point">
+<code class="descname">zcoordinate_of_first_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.zcoordinate_of_first_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-Coordinate of First Reference Point</cite></p>
+<p>Units: m
+Default value: 0.8</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Z-Coordinate of First Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zcoordinate_of_first_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.zcoordinate_of_second_reference_point">
+<code class="descname">zcoordinate_of_second_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.zcoordinate_of_second_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-Coordinate of Second Reference Point</cite></p>
+<p>Units: m
+Default value: 0.8</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Z-Coordinate of Second Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zcoordinate_of_second_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingControls.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingControls.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDelightComplexFenestration</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Daylighting:DELight:ComplexFenestration</cite>
+Used for DElight Complex Fenestration of all types</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration.building_surface_name">
+<code class="descname">building_surface_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration.building_surface_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Building Surface Name</cite></p>
+<p>This is a reference to a valid surface object (such as BuildingSurface:Detailed) hosting
+this complex fenestration, analogous to the base surface Name
+field for subsurfaces such as Windows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Building Surface Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>building_surface_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration.complex_fenestration_type">
+<code class="descname">complex_fenestration_type</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration.complex_fenestration_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Complex Fenestration Type</cite></p>
+<p>Used to select the appropriate Complex Fenestration BTDF data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Complex Fenestration Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>complex_fenestration_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration.fenestration_rotation">
+<code class="descname">fenestration_rotation</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration.fenestration_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fenestration Rotation</cite></p>
+<p>In-plane counter-clockwise rotation angle of the Complex Fenestration
+optical reference direction and the base edge of the Complex Fenestration.
+The Rotation will typically be zero when the host and CFS surfaces
+are rectangular and height and width edges are aligned.
+Units: deg</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fenestration Rotation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fenestration_rotation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<p>Only used for user reference</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightComplexFenestration.window_name">
+<code class="descname">window_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightComplexFenestration.window_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Window Name</cite></p>
+<p>This is a reference to a valid FenestrationSurface:Detailed window object
+used to account for the geometry, and the solar and thermal gains/losses,
+of the Complex Fenestration</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Window Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>window_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDelightControls">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDelightControls</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Daylighting:DELight:Controls</cite>
+Dimming of overhead electric lighting is determined from
+DElight calculated interior daylight illuminance at one or more reference points.</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.gridding_resolution">
+<code class="descname">gridding_resolution</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.gridding_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gridding Resolution</cite></p>
+<p>Maximum surface area for nodes in gridding all surfaces in the DElight zone.
+All reflective and transmitting surfaces will be subdivided
+into approximately square nodes that do not exceed this maximum.
+Higher resolution subdivisions require greater calculation times,
+but generally produce more accurate results.
+Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Gridding Resolution</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gridding_resolution</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.lighting_control_type">
+<code class="descname">lighting_control_type</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.lighting_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Lighting Control Type</cite></p>
+<p>1=continuous,2=stepped,3=continuous/off
+Default value: 1
+value &gt;= 1
+value &lt;= 3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Lighting Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lighting_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.minimum_input_power_fraction_for_continuous_dimming_control">
+<code class="descname">minimum_input_power_fraction_for_continuous_dimming_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.minimum_input_power_fraction_for_continuous_dimming_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Input Power Fraction for Continuous Dimming Control</cite></p>
+<p>Default value: 0.3
+value &lt;= 0.6</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Input Power Fraction for Continuous Dimming Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_input_power_fraction_for_continuous_dimming_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.minimum_light_output_fraction_for_continuous_dimming_control">
+<code class="descname">minimum_light_output_fraction_for_continuous_dimming_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.minimum_light_output_fraction_for_continuous_dimming_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Light Output Fraction for Continuous Dimming Control</cite></p>
+<p>Default value: 0.2
+value &lt;= 0.6</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Light Output Fraction for Continuous Dimming Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_light_output_fraction_for_continuous_dimming_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.number_of_stepped_control_steps">
+<code class="descname">number_of_stepped_control_steps</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.number_of_stepped_control_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Stepped Control Steps</cite></p>
+<p>for Lighting Control Type=2, this field cannot be zero.
+Default value: 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Stepped Control Steps</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_stepped_control_steps</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control">
+<code class="descname">probability_lighting_will_be_reset_when_needed_in_manual_stepped_control</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Probability Lighting will be Reset When Needed in Manual Stepped Control</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Probability Lighting will be Reset When Needed in Manual Stepped Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>probability_lighting_will_be_reset_when_needed_in_manual_stepped_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightControls.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightControls.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<p>Name of Thermal Zone hosting the given DElight Zone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDelightReferencePoint</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Daylighting:DELight:ReferencePoint</cite>
+DElight reference point for illuminance calculation and electric lighting dimming.
+reference points are given in coordinates specified in the GlobalGeometryRules object
+Daylighting Reference Point CoordinateSystem field
+There is a maximum number of 100 reference points per DElight daylighting zone.</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.delight_name">
+<code class="descname">delight_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.delight_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>DElight Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>DElight Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>delight_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.fraction_of_zone_controlled_by_reference_point">
+<code class="descname">fraction_of_zone_controlled_by_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.fraction_of_zone_controlled_by_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Zone Controlled by Reference Point</cite></p>
+<p>Default value: 1.0
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Zone Controlled by Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_zone_controlled_by_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.illuminance_setpoint_at_reference_point">
+<code class="descname">illuminance_setpoint_at_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.illuminance_setpoint_at_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Illuminance Setpoint at Reference Point</cite></p>
+<p>Units: lux
+Default value: 500.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Illuminance Setpoint at Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>illuminance_setpoint_at_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.xcoordinate_of_reference_point">
+<code class="descname">xcoordinate_of_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.xcoordinate_of_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X-coordinate of Reference Point</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X-coordinate of Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>xcoordinate_of_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.ycoordinate_of_reference_point">
+<code class="descname">ycoordinate_of_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.ycoordinate_of_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y-coordinate of Reference Point</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y-coordinate of Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ycoordinate_of_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDelightReferencePoint.zcoordinate_of_reference_point">
+<code class="descname">zcoordinate_of_reference_point</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDelightReferencePoint.zcoordinate_of_reference_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z-coordinate of Reference Point</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Z-coordinate of Reference Point</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zcoordinate_of_reference_point</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDeviceLightWell</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DaylightingDevice:LightWell</cite>
+Applies only to exterior windows in daylighting-controlled zones or
+in zones that share an interior window with a daylighting-controlled  zone.
+Generally used with skylights.</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell.area_of_bottom_of_well">
+<code class="descname">area_of_bottom_of_well</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell.area_of_bottom_of_well" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Area of Bottom of Well</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Area of Bottom of Well</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>area_of_bottom_of_well</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell.exterior_window_name">
+<code class="descname">exterior_window_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell.exterior_window_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exterior Window Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Exterior Window Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exterior_window_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell.height_of_well">
+<code class="descname">height_of_well</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell.height_of_well" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Height of Well</cite></p>
+<p>Distance from Bottom of Window to Bottom of Well
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Height of Well</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>height_of_well</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell.perimeter_of_bottom_of_well">
+<code class="descname">perimeter_of_bottom_of_well</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell.perimeter_of_bottom_of_well" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Perimeter of Bottom of Well</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Perimeter of Bottom of Well</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>perimeter_of_bottom_of_well</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceLightWell.visible_reflectance_of_well_walls">
+<code class="descname">visible_reflectance_of_well_walls</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceLightWell.visible_reflectance_of_well_walls" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Visible Reflectance of Well Walls</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Visible Reflectance of Well Walls</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>visible_reflectance_of_well_walls</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDeviceShelf</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DaylightingDevice:Shelf</cite>
+Defines a daylighting which can have an inside shelf, an outside shelf, or both.
+The inside shelf is defined as a building surface and the outside shelf is defined
+as a shading surface.</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.inside_shelf_name">
+<code class="descname">inside_shelf_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.inside_shelf_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inside Shelf Name</cite></p>
+<p>This must refer to a BuildingSurface:Detailed or equivalent object
+This surface must be its own Surface for other side boundary conditions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inside Shelf Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inside_shelf_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.outside_shelf_construction_name">
+<code class="descname">outside_shelf_construction_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.outside_shelf_construction_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outside Shelf Construction Name</cite></p>
+<p>Required if outside shelf is specified</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outside Shelf Construction Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outside_shelf_construction_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.outside_shelf_name">
+<code class="descname">outside_shelf_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.outside_shelf_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outside Shelf Name</cite></p>
+<p>This must refer to a Shading:Zone:Detailed object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outside Shelf Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outside_shelf_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.view_factor_to_outside_shelf">
+<code class="descname">view_factor_to_outside_shelf</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.view_factor_to_outside_shelf" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>View Factor to Outside Shelf</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>View Factor to Outside Shelf</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>view_factor_to_outside_shelf</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceShelf.window_name">
+<code class="descname">window_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceShelf.window_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Window Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Window Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>window_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">DaylightingDeviceTubular</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DaylightingDevice:Tubular</cite>
+Defines a tubular daylighting device (TDD) consisting of three components:
+a dome, a pipe, and a diffuser. The dome and diffuser are defined separately using the
+FenestrationSurface:Detailed object.</p>
+<dl class="method">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>transition_zone_1_name=None</em>, <em>transition_zone_1_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>transition_zone_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Transition Zone 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>transition_zone_1_length</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Transition Zone 1 Length</cite>
+Units: m
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.construction_name">
+<code class="descname">construction_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.construction_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Construction Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Construction Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>construction_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.diameter">
+<code class="descname">diameter</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Diameter</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Diameter</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>diameter</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.diffuser_name">
+<code class="descname">diffuser_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.diffuser_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Diffuser Name</cite></p>
+<p>This must refer to a subsurface object of type TubularDaylightDiffuser
+Delivery zone is specified in the diffuser object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Diffuser Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>diffuser_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.dome_name">
+<code class="descname">dome_name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.dome_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Dome Name</cite></p>
+<p>This must refer to a subsurface object of type TubularDaylightDome</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Dome Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>dome_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.effective_thermal_resistance">
+<code class="descname">effective_thermal_resistance</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.effective_thermal_resistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Effective Thermal Resistance</cite></p>
+<p>R value between TubularDaylightDome and TubularDaylightDiffuser
+Units: m2-K/W
+Default value: 0.28</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Effective Thermal Resistance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>effective_thermal_resistance</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.DaylightingDeviceTubular.total_length">
+<code class="descname">total_length</code><a class="headerlink" href="#pyidf.daylighting.DaylightingDeviceTubular.total_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Total Length</cite></p>
+<p>The exterior exposed length is the difference between total and sum of zone lengths
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Total Length</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>total_length</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.OutputControlIlluminanceMapStyle">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">OutputControlIlluminanceMapStyle</code><a class="headerlink" href="#pyidf.daylighting.OutputControlIlluminanceMapStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>OutputControl:IlluminanceMap:Style</cite>
+default style for the Daylighting Illuminance Map is comma &#8211; this works well for
+importing into spreadsheet programs such as Excel(tm) but not so well for word
+processing progams &#8211; there tab may be a better choice.  fixed puts spaces between
+the &#8220;columns&#8221;</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputControlIlluminanceMapStyle.column_separator">
+<code class="descname">column_separator</code><a class="headerlink" href="#pyidf.daylighting.OutputControlIlluminanceMapStyle.column_separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Column Separator</cite></p>
+<p>Default value: Comma</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Column Separator</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>column_separator</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.OutputDaylightFactors">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">OutputDaylightFactors</code><a class="headerlink" href="#pyidf.daylighting.OutputDaylightFactors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Output:DaylightFactors</cite>
+Reports hourly daylight factors for each exterior window for four sky types
+(clear, turbid clear, intermediate, and overcast).</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputDaylightFactors.reporting_days">
+<code class="descname">reporting_days</code><a class="headerlink" href="#pyidf.daylighting.OutputDaylightFactors.reporting_days" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Reporting Days</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Reporting Days</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reporting_days</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.daylighting.OutputIlluminanceMap">
+<em class="property">class </em><code class="descclassname">pyidf.daylighting.</code><code class="descname">OutputIlluminanceMap</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Output:IlluminanceMap</cite>
+reference points are given in coordinates specified in the GlobalGeometryRules object
+Daylighting Reference Point CoordinateSystem field</p>
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.number_of_x_grid_points">
+<code class="descname">number_of_x_grid_points</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.number_of_x_grid_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of X Grid Points</cite></p>
+<p>Maximum number of total grid points must be &lt;= 2500 (X*Y)
+Default value: 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of X Grid Points</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_x_grid_points</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.number_of_y_grid_points">
+<code class="descname">number_of_y_grid_points</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.number_of_y_grid_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Y Grid Points</cite></p>
+<p>Maximum number of total grid points must be &lt;= 2500 (X*Y)
+Default value: 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Y Grid Points</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_y_grid_points</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.x_maximum_coordinate">
+<code class="descname">x_maximum_coordinate</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.x_maximum_coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X Maximum Coordinate</cite></p>
+<p>Units: m
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X Maximum Coordinate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>x_maximum_coordinate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.x_minimum_coordinate">
+<code class="descname">x_minimum_coordinate</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.x_minimum_coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>X Minimum Coordinate</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>X Minimum Coordinate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>x_minimum_coordinate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.y_maximum_coordinate">
+<code class="descname">y_maximum_coordinate</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.y_maximum_coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y Maximum Coordinate</cite></p>
+<p>Units: m
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y Maximum Coordinate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>y_maximum_coordinate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.y_minimum_coordinate">
+<code class="descname">y_minimum_coordinate</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.y_minimum_coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Y Minimum Coordinate</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Y Minimum Coordinate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>y_minimum_coordinate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.z_height">
+<code class="descname">z_height</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.z_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Z height</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Z height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>z_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.daylighting.OutputIlluminanceMap.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.daylighting.OutputIlluminanceMap.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.controllers.html"
+                        title="previous chapter">pyidf.controllers module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.demand_limiting_controls.html"
+                        title="next chapter">pyidf.demand_limiting_controls module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.daylighting.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.demand_limiting_controls.html" title="pyidf.demand_limiting_controls module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.controllers.html" title="pyidf.controllers module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

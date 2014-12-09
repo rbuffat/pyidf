@@ -1,0 +1,2367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.heat_recovery module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.helper module" href="pyidf.helper.html" />
+    <link rel="prev" title="pyidf.fluid_properties module" href="pyidf.fluid_properties.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.helper.html" title="pyidf.helper module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fluid_properties.html" title="pyidf.fluid_properties module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.heat_recovery">
+<span id="pyidf-heat-recovery-module"></span><h1>pyidf.heat_recovery module<a class="headerlink" href="#module-pyidf.heat_recovery" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Heat Recovery&#8221;</p>
+<dl class="class">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate">
+<em class="property">class </em><code class="descclassname">pyidf.heat_recovery.</code><code class="descname">HeatExchangerAirToAirFlatPlate</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeatExchanger:AirToAir:FlatPlate</cite>
+Flat plate air-to-air heat exchanger, typically used for exhaust or relief air heat
+recovery.</p>
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.economizer_lockout">
+<code class="descname">economizer_lockout</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.economizer_lockout" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Lockout</cite></p>
+<p>Yes means that the heat exchanger will be locked out (off)
+when the economizer is operating or high humidity control is active
+Default value: Yes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Economizer Lockout</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_lockout</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.flow_arrangement_type">
+<code class="descname">flow_arrangement_type</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.flow_arrangement_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Flow Arrangement Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Flow Arrangement Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>flow_arrangement_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_electric_power">
+<code class="descname">nominal_electric_power</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_electric_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Electric Power</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Electric Power</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_electric_power</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_secondary_air_flow_rate">
+<code class="descname">nominal_secondary_air_flow_rate</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_secondary_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Secondary Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Secondary Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_secondary_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_secondary_air_inlet_temperature">
+<code class="descname">nominal_secondary_air_inlet_temperature</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_secondary_air_inlet_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Secondary Air Inlet Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Secondary Air Inlet Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_secondary_air_inlet_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_flow_rate">
+<code class="descname">nominal_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Supply Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_inlet_temperature">
+<code class="descname">nominal_supply_air_inlet_temperature</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_inlet_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Supply Air Inlet Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Supply Air Inlet Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_supply_air_inlet_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_outlet_temperature">
+<code class="descname">nominal_supply_air_outlet_temperature</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.nominal_supply_air_outlet_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Supply Air Outlet Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Supply Air Outlet Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_supply_air_outlet_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.ratio_of_supply_to_secondary_ha_values">
+<code class="descname">ratio_of_supply_to_secondary_ha_values</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.ratio_of_supply_to_secondary_ha_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ratio of Supply to Secondary hA Values</cite></p>
+<p>Ratio of h*A for supply side to h*A for exhaust side</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ratio of Supply to Secondary hA Values</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ratio_of_supply_to_secondary_ha_values</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.secondary_air_inlet_node_name">
+<code class="descname">secondary_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.secondary_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Secondary Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.secondary_air_outlet_node_name">
+<code class="descname">secondary_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.secondary_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Secondary Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Secondary Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>secondary_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.supply_air_inlet_node_name">
+<code class="descname">supply_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.supply_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.supply_air_outlet_node_name">
+<code class="descname">supply_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirFlatPlate.supply_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent">
+<em class="property">class </em><code class="descclassname">pyidf.heat_recovery.</code><code class="descname">HeatExchangerAirToAirSensibleAndLatent</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeatExchanger:AirToAir:SensibleAndLatent</cite>
+This object models an air-to-air heat exchanger using effectiveness relationships.
+The heat exchanger can transfer sensible energy, latent energy, or both between the
+supply (primary) and exhaust (secondary) air streams.</p>
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.economizer_lockout">
+<code class="descname">economizer_lockout</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.economizer_lockout" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Lockout</cite></p>
+<p>Yes means that the heat exchanger will be locked out (off)
+when the economizer is operating or high humidity control is active
+Default value: Yes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Economizer Lockout</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_lockout</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.exhaust_air_inlet_node_name">
+<code class="descname">exhaust_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.exhaust_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Exhaust Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.exhaust_air_outlet_node_name">
+<code class="descname">exhaust_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.exhaust_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Exhaust Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Exhaust Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.frost_control_type">
+<code class="descname">frost_control_type</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.frost_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Frost Control Type</cite></p>
+<p>Default value: None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Frost Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>frost_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type">
+<code class="descname">heat_exchanger_type</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Exchanger Type</cite></p>
+<p>Default value: Plate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Exchanger Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_exchanger_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.initial_defrost_time_fraction">
+<code class="descname">initial_defrost_time_fraction</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.initial_defrost_time_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Defrost Time Fraction</cite></p>
+<p>Fraction of the time when frost control will be invoked at the threshold temperature.
+This field only used for exhaust air recirc and exhaust-only frost control types.
+Units: dimensionless
+Default value: 0.083
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Defrost Time Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_defrost_time_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_cooling_air_flow">
+<code class="descname">latent_effectiveness_at_100_cooling_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_cooling_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Latent Effectiveness at 100% Cooling Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Latent Effectiveness at 100% Cooling Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>latent_effectiveness_at_100_cooling_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_heating_air_flow">
+<code class="descname">latent_effectiveness_at_100_heating_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_heating_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Latent Effectiveness at 100% Heating Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Latent Effectiveness at 100% Heating Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>latent_effectiveness_at_100_heating_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_cooling_air_flow">
+<code class="descname">latent_effectiveness_at_75_cooling_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_cooling_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Latent Effectiveness at 75% Cooling Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Latent Effectiveness at 75% Cooling Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>latent_effectiveness_at_75_cooling_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_heating_air_flow">
+<code class="descname">latent_effectiveness_at_75_heating_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_heating_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Latent Effectiveness at 75% Heating Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Latent Effectiveness at 75% Heating Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>latent_effectiveness_at_75_heating_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.nominal_electric_power">
+<code class="descname">nominal_electric_power</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.nominal_electric_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Electric Power</cite></p>
+<p>Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Electric Power</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_electric_power</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.nominal_supply_air_flow_rate">
+<code class="descname">nominal_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.nominal_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Supply Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Nominal Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>nominal_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.rate_of_defrost_time_fraction_increase">
+<code class="descname">rate_of_defrost_time_fraction_increase</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.rate_of_defrost_time_fraction_increase" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Rate of Defrost Time Fraction Increase</cite></p>
+<p>Rate of increase in defrost time fraction as actual temp falls below threshold temperature.
+This field only used for exhaust air recirc and exhaust-only frost control types.
+Units: 1/K
+Default value: 0.012</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Rate of Defrost Time Fraction Increase</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>rate_of_defrost_time_fraction_increase</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_cooling_air_flow">
+<code class="descname">sensible_effectiveness_at_100_cooling_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_cooling_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensible Effectiveness at 100% Cooling Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Sensible Effectiveness at 100% Cooling Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensible_effectiveness_at_100_cooling_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_heating_air_flow">
+<code class="descname">sensible_effectiveness_at_100_heating_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_heating_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensible Effectiveness at 100% Heating Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Sensible Effectiveness at 100% Heating Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensible_effectiveness_at_100_heating_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_cooling_air_flow">
+<code class="descname">sensible_effectiveness_at_75_cooling_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_cooling_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensible Effectiveness at 75% Cooling Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Sensible Effectiveness at 75% Cooling Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensible_effectiveness_at_75_cooling_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_heating_air_flow">
+<code class="descname">sensible_effectiveness_at_75_heating_air_flow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_heating_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensible Effectiveness at 75% Heating Air Flow</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Sensible Effectiveness at 75% Heating Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensible_effectiveness_at_75_heating_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_inlet_node_name">
+<code class="descname">supply_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_node_name">
+<code class="descname">supply_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control">
+<code class="descname">supply_air_outlet_temperature_control</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Outlet Temperature Control</cite></p>
+<p>Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Outlet Temperature Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_outlet_temperature_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.threshold_temperature">
+<code class="descname">threshold_temperature</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerAirToAirSensibleAndLatent.threshold_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Threshold Temperature</cite></p>
+<p>Supply (outdoor) air inlet temp threshold for exhaust air recirculation and
+exhaust only frost control types. Exhaust air outlet threshold Temperature for
+minimum exhaust temperature frost control type.
+Units: C
+Default value: 1.7</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Threshold Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>threshold_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow">
+<em class="property">class </em><code class="descclassname">pyidf.heat_recovery.</code><code class="descname">HeatExchangerDesiccantBalancedFlow</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeatExchanger:Desiccant:BalancedFlow</cite>
+This object models a balanced desiccant heat exchanger.
+The heat exchanger transfers both sensible and latent energy between the
+process and regeneration air streams. The air flow rate and face velocity
+are assumed to be the same on both the process and regeneration sides of the
+heat exchanger.</p>
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
+If this field is blank, the system is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.economizer_lockout">
+<code class="descname">economizer_lockout</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.economizer_lockout" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Lockout</cite></p>
+<p>Yes means that the heat exchanger will be locked out (off)
+when the economizer is operating or high humidity control is active
+Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Economizer Lockout</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_lockout</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_name">
+<code class="descname">heat_exchanger_performance_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Exchanger Performance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Exchanger Performance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_exchanger_performance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type">
+<code class="descname">heat_exchanger_performance_object_type</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Exchanger Performance Object Type</cite></p>
+<p>Default value: HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Exchanger Performance Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_exchanger_performance_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.process_air_inlet_node_name">
+<code class="descname">process_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.process_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Process Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Process Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>process_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.process_air_outlet_node_name">
+<code class="descname">process_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.process_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Process Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Process Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>process_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.regeneration_air_inlet_node_name">
+<code class="descname">regeneration_air_inlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.regeneration_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Regeneration Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Regeneration Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>regeneration_air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.regeneration_air_outlet_node_name">
+<code class="descname">regeneration_air_outlet_node_name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlow.regeneration_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Regeneration Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Regeneration Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>regeneration_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1">
+<em class="property">class </em><code class="descclassname">pyidf.heat_recovery.</code><code class="descname">HeatExchangerDesiccantBalancedFlowPerformanceDataType1</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1</cite>
+RTO = B1 + B2*RWI + B3*RTI + B4*(RWI/RTI) + B5*PWI + B6*PTI + B7*(PWI/PTI)
++ B8*RFV
+RWO = C1 + C2*RWI + C3*RTI + C4*(RWI/RTI) + C5*PWI + C6*PTI + C7*(PWI/PTI)
++ C8*RFV
+where,
+RTO = Dry-bulb temperature of the regeneration outlet air (C)
+RWO = Humidity ratio of the regeneration outlet air (kgWater/kgDryAir)
+RWI = Humidity ratio of the regeneration inlet air (kgWater/kgDryAir)
+RTI = Dry-bulb temperature of the regeneration inlet air (C)
+PWI = Humidity ratio of the process inlet air (kgWater/kgDryAir)
+PTI = Dry-bulb temperature of the process inlet air (C)
+RFV = Regeneration Face Velocity (m/s)</p>
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_1">
+<code class="descname">humidity_ratio_equation_coefficient_1</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 1</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_2">
+<code class="descname">humidity_ratio_equation_coefficient_2</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 2</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_3">
+<code class="descname">humidity_ratio_equation_coefficient_3</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 3</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_4">
+<code class="descname">humidity_ratio_equation_coefficient_4</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_5">
+<code class="descname">humidity_ratio_equation_coefficient_5</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_6">
+<code class="descname">humidity_ratio_equation_coefficient_6</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_6" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 6</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 6</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_6</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_7">
+<code class="descname">humidity_ratio_equation_coefficient_7</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_7" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 7</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 7</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_7</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_8">
+<code class="descname">humidity_ratio_equation_coefficient_8</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidity Ratio Equation Coefficient 8</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Humidity Ratio Equation Coefficient 8</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidity_ratio_equation_coefficient_8</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_temperature_equation">
+<code class="descname">maximum_process_inlet_air_humidity_ratio_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Humidity Ratio for Temperature Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Humidity Ratio for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_humidity_ratio_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation">
+<code class="descname">maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_temperature_equation">
+<code class="descname">maximum_process_inlet_air_relative_humidity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Relative Humidity for Temperature Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Relative Humidity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_relative_humidity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_humidity_ratio_equation">
+<code class="descname">maximum_process_inlet_air_temperature_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Temperature for Humidity Ratio Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Temperature for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_temperature_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_temperature_equation">
+<code class="descname">maximum_process_inlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Process Inlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Process Inlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_process_inlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_humidity_ratio_equation">
+<code class="descname">maximum_regeneration_air_velocity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Air Velocity for Humidity Ratio Equation</cite></p>
+<p>Units: m/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Air Velocity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_air_velocity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_temperature_equation">
+<code class="descname">maximum_regeneration_air_velocity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Air Velocity for Temperature Equation</cite></p>
+<p>Units: m/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Air Velocity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_air_velocity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation">
+<code class="descname">maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation">
+<code class="descname">maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation">
+<code class="descname">maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation">
+<code class="descname">maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_temperature_equation">
+<code class="descname">maximum_regeneration_inlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Inlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Inlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_inlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_temperature_for_temperature_equation">
+<code class="descname">maximum_regeneration_outlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Regeneration Outlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Regeneration Outlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_regeneration_outlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_temperature_equation">
+<code class="descname">minimum_process_inlet_air_humidity_ratio_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Humidity Ratio for Temperature Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Humidity Ratio for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_humidity_ratio_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation">
+<code class="descname">minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_temperature_equation">
+<code class="descname">minimum_process_inlet_air_relative_humidity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Relative Humidity for Temperature Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Relative Humidity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_relative_humidity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_humidity_ratio_equation">
+<code class="descname">minimum_process_inlet_air_temperature_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Temperature for Humidity Ratio Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Temperature for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_temperature_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_temperature_equation">
+<code class="descname">minimum_process_inlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Process Inlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Process Inlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_process_inlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_humidity_ratio_equation">
+<code class="descname">minimum_regeneration_air_velocity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Air Velocity for Humidity Ratio Equation</cite></p>
+<p>Units: m/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Air Velocity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_air_velocity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_temperature_equation">
+<code class="descname">minimum_regeneration_air_velocity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Air Velocity for Temperature Equation</cite></p>
+<p>Units: m/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Air Velocity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_air_velocity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation">
+<code class="descname">minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation">
+<code class="descname">minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation">
+<code class="descname">minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation</cite></p>
+<p>Units: percent
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation">
+<code class="descname">minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_temperature_equation">
+<code class="descname">minimum_regeneration_inlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Inlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Inlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_inlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation">
+<code class="descname">minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation</cite></p>
+<p>Units: kgWater/kgDryAir
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_temperature_for_temperature_equation">
+<code class="descname">minimum_regeneration_outlet_air_temperature_for_temperature_equation</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_temperature_for_temperature_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Regeneration Outlet Air Temperature for Temperature Equation</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Regeneration Outlet Air Temperature for Temperature Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_regeneration_outlet_air_temperature_for_temperature_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_face_velocity">
+<code class="descname">nominal_air_face_velocity</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_face_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Air Face Velocity</cite></p>
+<p>Units: m/s
+value &lt;= 6.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Air Face Velocity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_air_face_velocity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_flow_rate">
+<code class="descname">nominal_air_flow_rate</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Air Flow Rate</cite></p>
+<p>Air flow rate at nominal conditions (assumed to be the same for both sides
+of the heat exchanger).
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_electric_power">
+<code class="descname">nominal_electric_power</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_electric_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Nominal Electric Power</cite></p>
+<p>Parasitic electric power (e.g., desiccant wheel motor)
+Units: W
+IP-Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Electric Power</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_electric_power</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_1">
+<code class="descname">temperature_equation_coefficient_1</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 1</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 1</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_1</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_2">
+<code class="descname">temperature_equation_coefficient_2</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 2</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 2</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_3">
+<code class="descname">temperature_equation_coefficient_3</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 3</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_4">
+<code class="descname">temperature_equation_coefficient_4</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 4</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 4</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_4</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_5">
+<code class="descname">temperature_equation_coefficient_5</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_5" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 5</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 5</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_5</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_6">
+<code class="descname">temperature_equation_coefficient_6</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_6" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 6</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 6</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_6</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_7">
+<code class="descname">temperature_equation_coefficient_7</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_7" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 7</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 7</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_7</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_8">
+<code class="descname">temperature_equation_coefficient_8</code><a class="headerlink" href="#pyidf.heat_recovery.HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Equation Coefficient 8</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Equation Coefficient 8</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_equation_coefficient_8</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.fluid_properties.html"
+                        title="previous chapter">pyidf.fluid_properties module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.helper.html"
+                        title="next chapter">pyidf.helper module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.heat_recovery.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.helper.html" title="pyidf.helper module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.fluid_properties.html" title="pyidf.fluid_properties module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

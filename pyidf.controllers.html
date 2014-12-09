@@ -1,0 +1,1468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.controllers module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.daylighting module" href="pyidf.daylighting.html" />
+    <link rel="prev" title="pyidf.condenser_equipment_and_heat_exchangers module" href="pyidf.condenser_equipment_and_heat_exchangers.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.daylighting.html" title="pyidf.daylighting module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.condenser_equipment_and_heat_exchangers.html" title="pyidf.condenser_equipment_and_heat_exchangers module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.controllers">
+<span id="pyidf-controllers-module"></span><h1>pyidf.controllers module<a class="headerlink" href="#module-pyidf.controllers" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Controllers&#8221;</p>
+<dl class="class">
+<dt id="pyidf.controllers.AirLoopHvacControllerList">
+<em class="property">class </em><code class="descclassname">pyidf.controllers.</code><code class="descname">AirLoopHvacControllerList</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AirLoopHVAC:ControllerList</cite>
+List controllers in order of control sequence</p>
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_1_name">
+<code class="descname">controller_1_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_1_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 1 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 1 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_1_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_1_object_type">
+<code class="descname">controller_1_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_1_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 1 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 1 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_1_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_2_name">
+<code class="descname">controller_2_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_2_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 2 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 2 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_2_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_2_object_type">
+<code class="descname">controller_2_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_2_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 2 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 2 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_2_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_3_name">
+<code class="descname">controller_3_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_3_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 3 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 3 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_3_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_3_object_type">
+<code class="descname">controller_3_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_3_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 3 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 3 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_3_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_4_name">
+<code class="descname">controller_4_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_4_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 4 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 4 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_4_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_4_object_type">
+<code class="descname">controller_4_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_4_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 4 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 4 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_4_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_5_name">
+<code class="descname">controller_5_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_5_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 5 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 5 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_5_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_5_object_type">
+<code class="descname">controller_5_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_5_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 5 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 5 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_5_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_6_name">
+<code class="descname">controller_6_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_6_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 6 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 6 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_6_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_6_object_type">
+<code class="descname">controller_6_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_6_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 6 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 6 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_6_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_7_name">
+<code class="descname">controller_7_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_7_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 7 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 7 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_7_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_7_object_type">
+<code class="descname">controller_7_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_7_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 7 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 7 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_7_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_8_name">
+<code class="descname">controller_8_name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_8_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 8 Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 8 Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_8_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.controller_8_object_type">
+<code class="descname">controller_8_object_type</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.controller_8_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller 8 Object Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controller 8 Object Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controller_8_object_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.AirLoopHvacControllerList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.controllers.AirLoopHvacControllerList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.controllers.</code><code class="descname">ControllerMechanicalVentilation</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Controller:MechanicalVentilation</cite>
+This object is used in conjuction with Controller:OutdoorAir to specify outdoor
+ventilation air based on outdoor air specified in the DesignSpecification:OutdoorAir object
+The Controller:OutdoorAir object is associated with a specific air loop, so the
+outdoor air flow rates specified in Controller:MechanicalVentilation correspond to the zones
+attached to that specific air loop.
+Duplicate groups of Zone name, Design Specification Outdoor Air Object Name,
+and Design Specification Zone Air Distribution Object Name to increase allowable number of entries</p>
+<dl class="method">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>zone_1_name=None</em>, <em>design_specification_outdoor_air_object_name_1=None</em>, <em>design_specification_zone_air_distribution_object_name_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>zone_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>design_specification_outdoor_air_object_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Design Specification Outdoor Air Object Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>design_specification_zone_air_distribution_object_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Design Specification Zone Air Distribution Object Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
+Schedule values greater than 0 indicate mechanical ventilation is enabled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.demand_controlled_ventilation">
+<code class="descname">demand_controlled_ventilation</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.demand_controlled_ventilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Demand Controlled Ventilation</cite></p>
+<p>Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Demand Controlled Ventilation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>demand_controlled_ventilation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.system_outdoor_air_method">
+<code class="descname">system_outdoor_air_method</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.system_outdoor_air_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>System Outdoor Air Method</cite></p>
+<p>Default value: VentilationRateProcedure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>System Outdoor Air Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>system_outdoor_air_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction">
+<code class="descname">zone_maximum_outdoor_air_fraction</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Maximum Outdoor Air Fraction</cite></p>
+<p>Units: dimensionless
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Maximum Outdoor Air Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_maximum_outdoor_air_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.controllers.ControllerOutdoorAir">
+<em class="property">class </em><code class="descclassname">pyidf.controllers.</code><code class="descname">ControllerOutdoorAir</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Controller:OutdoorAir</cite>
+Controller to set the outdoor air flow rate for an air loop. Control options include
+fixed, proportional, scheduled, economizer, and demand-controlled ventilation.</p>
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.actuator_node_name">
+<code class="descname">actuator_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.actuator_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuator Node Name</cite></p>
+<p>Outdoor air inlet node entering the first pre-treat component if any</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuator Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuator_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio">
+<code class="descname">control_high_indoor_humidity_based_on_outdoor_humidity_ratio</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control High Indoor Humidity Based on Outdoor Humidity Ratio</cite></p>
+<p>If No is selected, the outdoor air flow rate is modified any time indoor relative
+humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
+flow rate is modified any time the indoor relative humidity is above the humidistat
+setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
+This field is only used when the field High Humidity Control = Yes.
+Default value: Yes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control High Indoor Humidity Based on Outdoor Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_high_indoor_humidity_based_on_outdoor_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_control_action_type">
+<code class="descname">economizer_control_action_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_control_action_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Control Action Type</cite></p>
+<p>Default value: ModulateFlow</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Economizer Control Action Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_control_action_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_control_type">
+<code class="descname">economizer_control_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Control Type</cite></p>
+<p>Default value: NoEconomizer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Economizer Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature">
+<code class="descname">economizer_maximum_limit_dewpoint_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Maximum Limit Dewpoint Temperature</cite></p>
+<p>Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+economizer control type. No input or blank input means this limit is not operative.
+Limit is applied regardless of economizer control type.
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Economizer Maximum Limit Dewpoint Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_maximum_limit_dewpoint_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature">
+<code class="descname">economizer_maximum_limit_drybulb_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Maximum Limit Dry-Bulb Temperature</cite></p>
+<p>Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
+economizer control type. No input or blank input means this limit is
+not operative. Limit is applied regardless of economizer control type.
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Economizer Maximum Limit Dry-Bulb Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_maximum_limit_drybulb_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_enthalpy">
+<code class="descname">economizer_maximum_limit_enthalpy</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_enthalpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Maximum Limit Enthalpy</cite></p>
+<p>Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
+No input or blank input means this limit is not operative
+Limit is applied regardless of economizer control type.
+Units: J/kg</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Economizer Maximum Limit Enthalpy</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_maximum_limit_enthalpy</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature">
+<code class="descname">economizer_minimum_limit_drybulb_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Economizer Minimum Limit Dry-Bulb Temperature</cite></p>
+<p>Enter the minimum outdoor dry-bulb temperature limit for economizer control.
+No input or blank input means this limit is not operative
+Limit is applied regardless of economizer control type.
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Economizer Minimum Limit Dry-Bulb Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>economizer_minimum_limit_drybulb_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.electronic_enthalpy_limit_curve_name">
+<code class="descname">electronic_enthalpy_limit_curve_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.electronic_enthalpy_limit_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Electronic Enthalpy Limit Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+Enter the name of a quadratic or cubic curve which defines the maximum outdoor
+humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
+economizer control type. No input or blank input means this limit is not operative
+Limit is applied regardless of economizer control type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Electronic Enthalpy Limit Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>electronic_enthalpy_limit_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.heat_recovery_bypass_control_type">
+<code class="descname">heat_recovery_bypass_control_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.heat_recovery_bypass_control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Recovery Bypass Control Type</cite></p>
+<p>BypassWhenWithinEconomizerLimits specifies that heat recovery
+is active only when the economizer is off because conditions
+are outside the economizer control limits
+BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer
+controls to allow heat recovery when economizer is active
+(within limits) but the outdoor air flow rate is at the minimum.
+Default value: BypassWhenWithinEconomizerLimits</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Recovery Bypass Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_recovery_bypass_control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.high_humidity_control">
+<code class="descname">high_humidity_control</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.high_humidity_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>High Humidity Control</cite></p>
+<p>Optional field to enable modified outdoor air flow rates based on zone relative humidity.
+Select Yes to modify outdoor air flow rate based on a zone humidistat.
+Select No to disable this feature.
+If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>High Humidity Control</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>high_humidity_control</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio">
+<code class="descname">high_humidity_outdoor_air_flow_ratio</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>High Humidity Outdoor Air Flow Ratio</cite></p>
+<p>Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
+flow rates are active based on high indoor humidity.
+The minimum value must be greater than 0.
+This field is only used when the field High Humidity Control = Yes.
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>High Humidity Outdoor Air Flow Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>high_humidity_outdoor_air_flow_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.humidistat_control_zone_name">
+<code class="descname">humidistat_control_zone_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.humidistat_control_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Humidistat Control Zone Name</cite></p>
+<p>Enter the name of the zone where the humidistat is located.
+This field is only used when the field High Humidity Control = Yes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Humidistat Control Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>humidistat_control_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.lockout_type">
+<code class="descname">lockout_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.lockout_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Lockout Type</cite></p>
+<p>Default value: NoLockout</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Lockout Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lockout_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name">
+<code class="descname">maximum_fraction_of_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Fraction of Outdoor Air Schedule Name</cite></p>
+<p>schedule values multiply the design/mixed air flow rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Maximum Fraction of Outdoor Air Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_fraction_of_outdoor_air_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.maximum_outdoor_air_flow_rate">
+<code class="descname">maximum_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.maximum_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_outdoor_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.mechanical_ventilation_controller_name">
+<code class="descname">mechanical_ventilation_controller_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.mechanical_ventilation_controller_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Mechanical Ventilation Controller Name</cite></p>
+<p>Enter the name of a Controller:MechanicalVentilation object.
+Optional field for defining outdoor ventilation air based on flow rate per unit floor
+area and flow rate per person. Simplified method of demand-controlled ventilation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Mechanical Ventilation Controller Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>mechanical_ventilation_controller_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name">
+<code class="descname">minimum_fraction_of_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Fraction of Outdoor Air Schedule Name</cite></p>
+<p>schedule values multiply the design/mixed air flow rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Fraction of Outdoor Air Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_fraction_of_outdoor_air_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.minimum_limit_type">
+<code class="descname">minimum_limit_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_limit_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Limit Type</cite></p>
+<p>Default value: ProportionalMinimum</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Limit Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_limit_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_flow_rate">
+<code class="descname">minimum_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Air Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>minimum_outdoor_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_schedule_name">
+<code class="descname">minimum_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Air Schedule Name</cite></p>
+<p>Schedule values multiply the minimum outdoor air flow rate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Air Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_air_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.mixed_air_node_name">
+<code class="descname">mixed_air_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.mixed_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Mixed Air Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Mixed Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>mixed_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.relief_air_outlet_node_name">
+<code class="descname">relief_air_outlet_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.relief_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Relief Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Relief Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>relief_air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.return_air_node_name">
+<code class="descname">return_air_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.return_air_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Return Air Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Return Air Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerOutdoorAir.time_of_day_economizer_control_schedule_name">
+<code class="descname">time_of_day_economizer_control_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.time_of_day_economizer_control_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Time of Day Economizer Control Schedule Name</cite></p>
+<p>Optional schedule to simulate &#8220;push-button&#8221; type economizer control.
+Schedule values greater than 0 indicate time-of-day economizer control is enabled.
+Economizer control may be used with or without the high humidity control option.
+When used together, high humidity control has priority over economizer control.
+If the field Economizer Control Type = NoEconomizer, then this option is disabled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Time of Day Economizer Control Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>time_of_day_economizer_control_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.controllers.ControllerWaterCoil">
+<em class="property">class </em><code class="descclassname">pyidf.controllers.</code><code class="descname">ControllerWaterCoil</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Controller:WaterCoil</cite>
+Controller for a water coil which is located directly in an air loop branch or
+outdoor air equipment list. Controls the coil water flow to meet the specified
+leaving air setpoint(s). Used with Coil:Heating:Water, Coil:Cooling:Water,
+Coil:Cooling:Water:DetailedGeometry, and
+CoilSystem:Cooling:Water:HeatexchangerAssisted.</p>
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.action">
+<code class="descname">action</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Action</cite></p>
+<p>Leave blank to have this automatically selected from coil type.
+Chilled water coils should be reverse action
+Hot water coils should be normal action</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Action</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>action</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.actuator_node_name">
+<code class="descname">actuator_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.actuator_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuator Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuator Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuator_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.actuator_variable">
+<code class="descname">actuator_variable</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.actuator_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Actuator Variable</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Actuator Variable</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>actuator_variable</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.control_variable">
+<code class="descname">control_variable</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.control_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Variable</cite></p>
+<p>keys HumidityRatio or TemperatureAndHumidityRatio
+requires a ZoneControl:Humidistat object along
+with SetpointManager:SingleZone:Humidity:Maximum,
+SetpointManager:MultiZone:MaximumHumidity:Average, or
+SetpointManager:Multizone:Humidity:Maximum object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Variable</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_variable</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.controller_convergence_tolerance">
+<code class="descname">controller_convergence_tolerance</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.controller_convergence_tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controller Convergence Tolerance</cite></p>
+<p>Units: deltaC
+Default value: &#8220;autosize&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Controller Convergence Tolerance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>controller_convergence_tolerance</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.maximum_actuated_flow">
+<code class="descname">maximum_actuated_flow</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.maximum_actuated_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Actuated Flow</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Maximum Actuated Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>maximum_actuated_flow</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.minimum_actuated_flow">
+<code class="descname">minimum_actuated_flow</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.minimum_actuated_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Actuated Flow</cite></p>
+<p>Units: m3/s
+Default value: 1e-07</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Actuated Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_actuated_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.controllers.ControllerWaterCoil.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.condenser_equipment_and_heat_exchangers.html"
+                        title="previous chapter">pyidf.condenser_equipment_and_heat_exchangers module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.daylighting.html"
+                        title="next chapter">pyidf.daylighting module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.controllers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.daylighting.html" title="pyidf.daylighting module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.condenser_equipment_and_heat_exchangers.html" title="pyidf.condenser_equipment_and_heat_exchangers module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

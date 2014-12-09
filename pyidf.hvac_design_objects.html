@@ -1,0 +1,2652 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.hvac_design_objects module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.hvac_templates module" href="pyidf.hvac_templates.html" />
+    <link rel="prev" title="pyidf.humidifiers_and_dehumidifiers module" href="pyidf.humidifiers_and_dehumidifiers.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.hvac_templates.html" title="pyidf.hvac_templates module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.humidifiers_and_dehumidifiers.html" title="pyidf.humidifiers_and_dehumidifiers module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.hvac_design_objects">
+<span id="pyidf-hvac-design-objects-module"></span><h1>pyidf.hvac_design_objects module<a class="headerlink" href="#module-pyidf.hvac_design_objects" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;HVAC Design Objects&#8221;</p>
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">DesignSpecificationOutdoorAir</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DesignSpecification:OutdoorAir</cite>
+This object is used to describe general outdoor air requirements which
+are referenced by other objects.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour">
+<code class="descname">outdoor_air_flow_air_changes_per_hour</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Flow Air Changes per Hour</cite></p>
+<p>This input should be used if the field Outdoor Air Method is AirChanges/Hour.
+This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum
+Units: 1/hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Outdoor Air Flow Air Changes per Hour</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_flow_air_changes_per_hour</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_person">
+<code class="descname">outdoor_air_flow_per_person</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_person" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Flow per Person</cite></p>
+<p>0.00944 m3/s is equivalent to 20 cfm per person
+This input should be used if the field Outdoor Air Method is Flow/Person.
+This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum
+Units: m3/s-person
+Default value: 0.00944</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Outdoor Air Flow per Person</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_flow_per_person</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone">
+<code class="descname">outdoor_air_flow_per_zone</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Flow per Zone</cite></p>
+<p>This input should be used if the field Outdoor Air Method is Flow/Zone.
+This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Outdoor Air Flow per Zone</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_flow_per_zone</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area">
+<code class="descname">outdoor_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Flow per Zone Floor Area</cite></p>
+<p>This input should be used if the field Outdoor Air Method is Flow/Area.
+This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Outdoor Air Flow per Zone Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_flow_per_zone_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name">
+<code class="descname">outdoor_air_flow_rate_fraction_schedule_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Flow Rate Fraction Schedule Name</cite></p>
+<p>Schedule values are multiplied by the Outdoor Air Flow rate calculated using
+the previous four inputs. Schedule values are limited to 0 to 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air Flow Rate Fraction Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_flow_rate_fraction_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_method">
+<code class="descname">outdoor_air_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outdoor Air Method</cite></p>
+<p>Flow/Person =&gt; Outdoor Air Flow per Person * Occupancy = Design Flow Rate,
+Flow/Area =&gt; Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,
+Flow/Zone =&gt; Outdoor Air Flow per Zone = Design Flow Rate,
+AirChanges/Hour =&gt; Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate
+Default value: Flow/Person</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outdoor_air_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">DesignSpecificationZoneAirDistribution</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DesignSpecification:ZoneAirDistribution</cite>
+This object is used to describe zone air distribution in terms of air distribution
+effectiveness and secondary recirculation fraction. It is referenced by Sizing:Zone
+and Controller:MechanicalVentilation objects</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode">
+<code class="descname">zone_air_distribution_effectiveness_in_cooling_mode</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Distribution Effectiveness in Cooling Mode</cite></p>
+<p>Units: dimensionless
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Air Distribution Effectiveness in Cooling Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_distribution_effectiveness_in_cooling_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode">
+<code class="descname">zone_air_distribution_effectiveness_in_heating_mode</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Distribution Effectiveness in Heating Mode</cite></p>
+<p>Units: dimensionless
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Air Distribution Effectiveness in Heating Mode</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_distribution_effectiveness_in_heating_mode</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name">
+<code class="descname">zone_air_distribution_effectiveness_schedule_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Air Distribution Effectiveness Schedule Name</cite></p>
+<p>optionally used to replace Zone Air Distribution Effectiveness in Cooling and
+Heating Mode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Air Distribution Effectiveness Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_air_distribution_effectiveness_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction">
+<code class="descname">zone_secondary_recirculation_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Secondary Recirculation Fraction</cite></p>
+<p>Units: dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Secondary Recirculation Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_secondary_recirculation_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">DesignSpecificationZoneHvacSizing</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>DesignSpecification:ZoneHVAC:Sizing</cite>
+This object is used to describe general scalable zone HVAC equipment sizing which
+are referenced by other objects.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method">
+<code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
+<p>Enter the method used to determine the cooling supply air volume flow rate.
+None is used when a cooling coil is not included in the Zone HVAC Equip or this field
+may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the supply air volume
+flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air volume flow rate
+is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area
+value specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply air volume
+is determined from a user specified fraction and the autosized cooling supply air flow rate
+value determined by the simulation. FlowPerCoolingCapacity =&gt; is selected when the supply
+air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity
+determined by the simulation.
+Default value: SupplyAirFlowRate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity">
+<code class="descname">cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity</cite></p>
+<p>Enter the design cooling capacity. Required field when the cooling design capacity method
+CoolingDesignCapacity.
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>cooling_design_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_method">
+<code class="descname">cooling_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity Method</cite></p>
+<p>Enter the method used to determine the cooling design capacity for scalable sizing.
+None is used when a cooling coils is not included in the Zone HVAC Equipment or
+this field may be blank. If this input field is left blank, then the design cooling
+capacity is set to zero. CoolingDesignCapacity =&gt; selected when the design cooling capacity
+value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling
+capacity is determine from user specified cooling capacity per floor area and zone floor area.
+FractionOfAutosizedCoolingCapacity =&gt; is selected when the design cooling capacity is
+determined from a user specified fraction and the auto-sized design cooling capacity.
+Default value: None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_capacity_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area">
+<code class="descname">cooling_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity Per Floor Area</cite></p>
+<p>Enter the cooling design capacity per zone floor area. Required field when the cooling design
+capacity method field is CapacityPerFloorArea.
+Units: W/m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_capacity_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate">
+<code class="descname">cooling_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Supply Air Flow Rate</cite></p>
+<p>Enter the magnitude of supply air volume flow rate during cooling operation.
+Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
+This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Cooling Design Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>cooling_design_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area">
+<code class="descname">cooling_design_supply_air_flow_rate_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Supply Air Flow Rate Per Floor Area</cite></p>
+<p>Enter the cooling supply air volume flow rate per total conditioned floor area.
+Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
+This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Supply Air Flow Rate Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_supply_air_flow_rate_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity">
+<code class="descname">cooling_design_supply_air_flow_rate_per_unit_cooling_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></p>
+<p>Enter the cooling supply air volume flow rate unit cooling capacity.
+Required field when Supply air Flow Rate Method During Cooling Operation is
+FlowPerCoolingCapacity. This field may be blank if a cooling coil is not
+included in the Zone HVAC equipment.
+Units: m3/s-W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_supply_air_flow_rate_per_unit_cooling_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity">
+<code class="descname">fraction_of_autosized_cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Cooling Design Capacity</cite></p>
+<p>Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
+design capacity method field is FractionOfAutosizedCoolingCapacity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Cooling Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_cooling_design_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate">
+<code class="descname">fraction_of_autosized_cooling_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Cooling Design Supply Air Flow Rate</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+Required field when Supply air Flow Rate Method During Cooling Operation is
+FractionOfAutosizedCoolingAirflow.
+This field may be blank if a cooling coil is not included in the Zone HVAC equipment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Cooling Design Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_cooling_design_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity">
+<code class="descname">fraction_of_autosized_heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Heating Design Capacity</cite></p>
+<p>Enter the fraction of auto-sized heating design capacity. Required field when capacity the
+heating design capacity method field is FractionOfAutosizedHeatingCapacity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Heating Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_heating_design_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required">
+<code class="descname">fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+is FractionOfAutosizedCoolingAirflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required">
+<code class="descname">fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+is FractionOfAutosizedHeatingAirflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate">
+<code class="descname">fraction_of_heating_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Heating Design Supply Air Flow Rate</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+Required field when Supply air Flow Rate Method During Heating Operation is
+FractionOfAutosizedHeatingAirflow.
+This field may be blank if a heating coil is not included in the Zone HVAC equipment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Heating Design Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_heating_design_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_air_flow_method">
+<code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Air Flow Method</cite></p>
+<p>Enter the method used to determine the heating supply air volume flow rate.
+None is used when a heating coil is not included in the Zone HVAC Equipment or this field may
+be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the heating supply air volume
+flow rate is specified.  FlowPerFloorArea =&gt; selected when the supply air volume flow rate is
+determined from total floor area served by a Zone HVAC unit and user specified value of Flow
+Per Floor Area. FractionOfAutosizedHeatingAirflow =&gt; is selected when the supply air volume
+is determined from a user specified fraction and the Autosized heating supply air flow rate
+value determined by the simulation. FlowPerHeatingCapacity =&gt; is selected when the supply
+air volume is determined from user specified flow per Heating Capacity and Heating Capacity
+determined by the simulation.
+Default value: SupplyAirFlowRate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity">
+<code class="descname">heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity</cite></p>
+<p>Enter the design heating capacity. Required field when the heating design capacity method
+HeatingDesignCapacity.
+Units: W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Heating Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>heating_design_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_method">
+<code class="descname">heating_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity Method</cite></p>
+<p>Enter the method used to determine the heating design capacity for scalable sizing.
+None is used when a heating coil is not included in the Zone HVAC Equipment or
+this field may be blank. If this input field is left blank, then the design heating
+capacity is set to zero. HeatingDesignCapacity =&gt; selected when the design heating capacity
+value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling
+capacity is determine from user specified heating capacity per flow area and zone floor area.
+FractionOfAutosizedHeatingCapacity =&gt; is selected when the design heating capacity is
+determined from a user specified fraction and the auto-sized design heating capacity
+Default value: None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Design Capacity Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_capacity_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area">
+<code class="descname">heating_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity Per Floor Area</cite></p>
+<p>Enter the heating design capacity per zone floor area. Required field when the heating design
+capacity method field is CapacityPerFloorArea.
+Units: W/m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Capacity Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_capacity_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate">
+<code class="descname">heating_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Supply Air Flow Rate</cite></p>
+<p>Enter the magnitude of the supply air volume flow rate during heating operation.
+Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
+This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Heating Design Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>heating_design_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area">
+<code class="descname">heating_design_supply_air_flow_rate_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Supply Air Flow Rate Per Floor Area</cite></p>
+<p>Enter the heating supply air volume flow rate per total conditioned floor area.
+Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
+This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Supply Air Flow Rate Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_supply_air_flow_rate_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity">
+<code class="descname">heating_design_supply_air_flow_rate_per_unit_heating_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Supply Air Flow Rate Per Unit Heating Capacity</cite></p>
+<p>Enter the supply air volume flow rate per unit heating capacity.
+Required field when Supply air Flow Rate Method During Heating Operation is
+FlowPerHeatingCapacity.
+This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+Units: m3/s-W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Supply Air Flow Rate Per Unit Heating Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_supply_air_flow_rate_per_unit_heating_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required">
+<code class="descname">supply_air_flow_rate_method_when_no_cooling_or_heating_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Flow Rate Method When No Cooling or Heating is Required</cite></p>
+<p>Enter the method used to determine the supply air volume flow rate When No Cooling or Heating
+is Required. None is used when a cooling or heating coils is not included in the Zone HVAC
+Equipment or this field may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the
+supply air volume flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air
+volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per
+Floor Area is specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply
+air volume is determined from a user specified fraction and the Autosized cooling supply
+air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow =&gt; is
+selected when the supply air volume is determined from a user specified fraction and the
+Autosized heating supply air flow rate value determined by the simulation.
+Default value: SupplyAirFlowRate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Supply Air Flow Rate Method When No Cooling or Heating is Required</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_flow_rate_method_when_no_cooling_or_heating_is_required</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required">
+<code class="descname">supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required</cite></p>
+<p>Enter the supply air volume flow rate per total floor area.
+Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+is FlowPerFloorArea.
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required">
+<code class="descname">supply_air_flow_rate_when_no_cooling_or_heating_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Flow Rate When No Cooling or Heating is Required</cite></p>
+<p>Enter the magnitude of the supply air volume flow rate during when no cooling or heating
+is required. Required field when Supply air Flow Rate Method When No Cooling or Heating
+is Required is SupplyAirFlowRate.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Supply Air Flow Rate When No Cooling or Heating is Required</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>supply_air_flow_rate_when_no_cooling_or_heating_is_required</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.OutputControlSizingStyle">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">OutputControlSizingStyle</code><a class="headerlink" href="#pyidf.hvac_design_objects.OutputControlSizingStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>OutputControl:Sizing:Style</cite>
+default style for the Sizing output files is comma &#8211; this works well for
+importing into spreadsheet programs such as Excel(tm) but not so well for word
+processing progams &#8211; there tab may be a better choice.  fixed puts spaces between
+the &#8220;columns&#8221;</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.OutputControlSizingStyle.column_separator">
+<code class="descname">column_separator</code><a class="headerlink" href="#pyidf.hvac_design_objects.OutputControlSizingStyle.column_separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Column Separator</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Column Separator</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>column_separator</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.SizingParameters">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">SizingParameters</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Sizing:Parameters</cite>
+Specifies global heating and cooling sizing factors/ratios.
+These ratios are applied at the zone level to all of the zone heating and cooling loads
+and air flow rates. Then these new loads and air flow rates are used to calculate the
+system level flow rates and capacities and are used in all component sizing calculations.
+Specifies the width (in load timesteps) of a moving average window
+which is used to smooth the peak load across more than one timestep.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingParameters.cooling_sizing_factor">
+<code class="descname">cooling_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.cooling_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Sizing Factor</cite></p>
+<p>Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingParameters.heating_sizing_factor">
+<code class="descname">heating_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.heating_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Sizing Factor</cite></p>
+<p>Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingParameters.timesteps_in_averaging_window">
+<code class="descname">timesteps_in_averaging_window</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.timesteps_in_averaging_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Timesteps in Averaging Window</cite></p>
+<p>blank =&gt; set the timesteps in averaging window to
+Number of Timesteps per Hour resulting in a 1 hour averaging window
+default is number of timesteps for 1 hour averaging window
+value &gt;= 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Timesteps in Averaging Window</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>timesteps_in_averaging_window</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.SizingPlant">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">SizingPlant</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Sizing:Plant</cite>
+Specifies the input needed to autosize plant loop flow rates and equipment capacities.
+This information is initially used by components that use water for heating or cooling
+such as hot or chilled water coils to calculate their maximum water flow rates. These
+flow rates are then summed for use in calculating the Plant Loop flow rates.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingPlant.design_loop_exit_temperature">
+<code class="descname">design_loop_exit_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.design_loop_exit_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Loop Exit Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design Loop Exit Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_loop_exit_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingPlant.loop_design_temperature_difference">
+<code class="descname">loop_design_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.loop_design_temperature_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Loop Design Temperature Difference</cite></p>
+<p>Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Loop Design Temperature Difference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>loop_design_temperature_difference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingPlant.loop_type">
+<code class="descname">loop_type</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.loop_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Loop Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Loop Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>loop_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingPlant.plant_or_condenser_loop_name">
+<code class="descname">plant_or_condenser_loop_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.plant_or_condenser_loop_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Plant or Condenser Loop Name</cite></p>
+<p>Enter the name of a PlantLoop or a CondenserLoop object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Plant or Condenser Loop Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>plant_or_condenser_loop_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.SizingSystem">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">SizingSystem</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Sizing:System</cite>
+Specifies the input needed to perform sizing calculations for a central forced air
+system design air flow, heating capacity, and cooling capacity.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_cooling">
+<code class="descname">a_100_outdoor_air_in_cooling</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_cooling" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>100% Outdoor Air in Cooling</cite></p>
+<p>Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>100% Outdoor Air in Cooling</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>a_100_outdoor_air_in_cooling</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_heating">
+<code class="descname">a_100_outdoor_air_in_heating</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_heating" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>100% Outdoor Air in Heating</cite></p>
+<p>Default value: No</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>100% Outdoor Air in Heating</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>a_100_outdoor_air_in_heating</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.airloop_name">
+<code class="descname">airloop_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.airloop_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>AirLoop Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>AirLoop Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>airloop_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_humidity_ratio">
+<code class="descname">central_cooling_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Central Cooling Design Supply Air Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir
+Default value: 0.008</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Central Cooling Design Supply Air Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>central_cooling_design_supply_air_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_temperature">
+<code class="descname">central_cooling_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Central Cooling Design Supply Air Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Central Cooling Design Supply Air Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>central_cooling_design_supply_air_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_humidity_ratio">
+<code class="descname">central_heating_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Central Heating Design Supply Air Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir
+Default value: 0.008</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Central Heating Design Supply Air Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>central_heating_design_supply_air_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_temperature">
+<code class="descname">central_heating_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Central Heating Design Supply Air Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Central Heating Design Supply Air Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>central_heating_design_supply_air_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_method">
+<code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
+<p>Default value: DesignDay</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_rate">
+<code class="descname">cooling_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Air Flow Rate</cite></p>
+<p>This input is used if Cooling Design Air Flow Method is Flow/System
+This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.
+If using zone multipliers, this value must be large enough to serve the multiplied zones.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity">
+<code class="descname">cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity</cite></p>
+<p>Enter the design cooling capacity. Required field when the cooling design capacity method
+CoolingDesignCapacity.
+Units: W
+Default value: &#8220;autosize&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>cooling_design_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_method">
+<code class="descname">cooling_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity Method</cite></p>
+<p>Enter the method used to determine the system cooling design capacity for scalable sizing.
+None is used when a cooling coils is not included in an airloop or this field may be blank.
+If this input field is left blank, then the design cooling capacity is set to zero.
+CoolingDesignCapacity =&gt; selected when the design cooling capacity value is specified or
+auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling capacity is determined
+from user specified cooling capacity per floor area and total floor area of cooled zones
+served by an airloop. FractionOfAutosizedCoolingCapacity =&gt; is selected when the design
+cooling capacity is determined from a user specified fraction and the auto-sized design
+cooling capacity of the system.
+Default value: CoolingDesignCapacity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_capacity_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_per_floor_area">
+<code class="descname">cooling_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Capacity Per Floor Area</cite></p>
+<p>Enter the cooling design capacity per total floor area of cooled zones served by an airloop.
+Required field when the cooling design capacity method field is CapacityPerFloorArea.
+Units: W/m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Capacity Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_capacity_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.design_outdoor_air_flow_rate">
+<code class="descname">design_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Outdoor Air Flow Rate</cite></p>
+<p>Units: m3/s
+Default value: &#8220;autosize&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Design Outdoor Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>design_outdoor_air_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity">
+<code class="descname">design_supply_air_flow_rate_per_unit_cooling_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></p>
+<p>Enter the supply air volume flow rate per unit cooling capacity.
+Required field when Supply air Flow Rate Method During Cooling Operation is
+FlowPerCoolingCapacity.
+Units: m3/s-W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_supply_air_flow_rate_per_unit_cooling_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity">
+<code class="descname">design_supply_air_flow_rate_per_unit_heating_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Supply Air Flow Rate Per Unit Heating Capacity</cite></p>
+<p>Enter the heating supply air volume flow rate per unit heating capacity.
+Required field when Supply air Flow Rate Method during heating operation is
+FlowPerHeatingCapacity.
+Units: m3/s-W</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design Supply Air Flow Rate Per Unit Heating Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_supply_air_flow_rate_per_unit_heating_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_cooling_design_capacity">
+<code class="descname">fraction_of_autosized_cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Cooling Design Capacity</cite></p>
+<p>Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
+design capacity method field is FractionOfAutosizedCoolingCapacity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Cooling Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_cooling_design_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate">
+<code class="descname">fraction_of_autosized_design_cooling_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+Required field when Supply air Flow Rate Method during cooling operation is
+FractionOfAutosizedCoolingAirflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_design_cooling_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3">
+<code class="descname">fraction_of_autosized_design_cooling_supply_air_flow_rate_v3</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate v3</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+Required field when Supply air Flow Rate Method during heating operation is
+FractionOfAutosizedCoolingAirflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate v3</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_design_cooling_supply_air_flow_rate_v3</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate">
+<code class="descname">fraction_of_autosized_design_heating_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Design Heating Supply Air Flow Rate</cite></p>
+<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+Required field when Supply air Flow Rate Method during heating operation is
+FractionOfAutosizedHeatingAirflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Design Heating Supply Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_design_heating_supply_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_heating_design_capacity">
+<code class="descname">fraction_of_autosized_heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_heating_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Autosized Heating Design Capacity</cite></p>
+<p>Enter the fraction of auto-sized heating design capacity. Required field when capacity the
+heating design capacity method field is FractionOfAutosizedHeatingCapacity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Autosized Heating Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_autosized_heating_design_capacity</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_method">
+<code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Air Flow Method</cite></p>
+<p>Default value: DesignDay</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_rate">
+<code class="descname">heating_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Air Flow Rate</cite></p>
+<p>This input is used if Heating Design Air Flow Method is Flow/System
+This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.
+If using zone multipliers, this value must be large enough to serve the multiplied zones.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity">
+<code class="descname">heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity</cite></p>
+<p>Enter the design heating capacity. Required field when the heating design capacity method
+HeatingDesignCapacity.
+Units: W
+Default value: &#8220;autosize&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Heating Design Capacity</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>heating_design_capacity</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_method">
+<code class="descname">heating_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity Method</cite></p>
+<p>Enter the method used to determine the heating design capacity for scalable sizing.
+None is used when a heating coil not included in an airloop or this field may be blank.
+If this input field is left blank, then the design heating capacity is set to zero.
+HeatingDesignCapacity =&gt; selected when the design heating capacity value is specified or
+auto-sized. CapacityPerFloorArea =&gt; selected when the design heating capacity is determined
+from user specified heating capacity per flow area and total floor area of heated zones
+served by an airloop. FractionOfAutosizedHeatingCapacity =&gt; is selected when the design
+heating capacity is determined from a user specified fraction and the auto-sized design
+heating capacity of the system.
+Default value: HeatingDesignCapacity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Design Capacity Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_capacity_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_per_floor_area">
+<code class="descname">heating_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Capacity Per Floor Area</cite></p>
+<p>Enter the heating design capacity per zone floor area. Required field when the heating design
+capacity method field is CapacityPerFloorArea.
+Units: W/m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Capacity Per Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_capacity_per_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.minimum_system_air_flow_ratio">
+<code class="descname">minimum_system_air_flow_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.minimum_system_air_flow_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum System Air Flow Ratio</cite></p>
+<p>value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum System Air Flow Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_system_air_flow_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.precool_design_humidity_ratio">
+<code class="descname">precool_design_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.precool_design_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Precool Design Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Precool Design Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>precool_design_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.precool_design_temperature">
+<code class="descname">precool_design_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.precool_design_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Precool Design Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Precool Design Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>precool_design_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.preheat_design_humidity_ratio">
+<code class="descname">preheat_design_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.preheat_design_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Preheat Design Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Preheat Design Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>preheat_design_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.preheat_design_temperature">
+<code class="descname">preheat_design_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.preheat_design_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Preheat Design Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Preheat Design Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>preheat_design_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.sizing_option">
+<code class="descname">sizing_option</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.sizing_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sizing Option</cite></p>
+<p>Default value: NonCoincident</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sizing Option</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sizing_option</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation">
+<code class="descname">supply_air_flow_rate_per_floor_area_during_cooling_operation</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Flow Rate Per Floor Area During Cooling Operation</cite></p>
+<p>Enter the cooling supply air volume flow rate per total conditioned floor area.
+Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Supply Air Flow Rate Per Floor Area During Cooling Operation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_flow_rate_per_floor_area_during_cooling_operation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation">
+<code class="descname">supply_air_flow_rate_per_floor_area_during_heating_operation</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Supply Air Flow Rate Per Floor Area During Heating Operation</cite></p>
+<p>Enter the heating supply air volume flow rate per total conditioned floor area.
+Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.
+Units: m3/s-m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Supply Air Flow Rate Per Floor Area During Heating Operation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>supply_air_flow_rate_per_floor_area_during_heating_operation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.system_outdoor_air_method">
+<code class="descname">system_outdoor_air_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.system_outdoor_air_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>System Outdoor Air Method</cite></p>
+<p>Default value: ZoneSum</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>System Outdoor Air Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>system_outdoor_air_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.type_of_load_to_size_on">
+<code class="descname">type_of_load_to_size_on</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.type_of_load_to_size_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Type of Load to Size On</cite></p>
+<p>Specifies the basis for sizing the system supply air flow rate
+Sensible and VentilationRequirement are the only available options
+Sensible uses the zone design air flow rates
+VentilationRequirement uses the system ventilation requirement
+Default value: Sensible</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Type of Load to Size On</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>type_of_load_to_size_on</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingSystem.zone_maximum_outdoor_air_fraction">
+<code class="descname">zone_maximum_outdoor_air_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.zone_maximum_outdoor_air_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Maximum Outdoor Air Fraction</cite></p>
+<p>Units: dimensionless
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Maximum Outdoor Air Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_maximum_outdoor_air_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.hvac_design_objects.SizingZone">
+<em class="property">class </em><code class="descclassname">pyidf.hvac_design_objects.</code><code class="descname">SizingZone</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>Sizing:Zone</cite>
+Specifies the data needed to perform a zone design air flow calculation.
+The calculation is done for every sizing period included in the input. The maximum
+cooling and heating load and cooling, heating, and ventilation air flows are then saved
+for system level and zone component design calculations.</p>
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_method">
+<code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
+<p>Default value: DesignDay</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cooling Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_rate">
+<code class="descname">cooling_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Design Air Flow Rate</cite></p>
+<p>This input is used if Cooling Design Air Flow Method is Flow/Zone
+This value will be multiplied by the global or zone sizing factor and
+by zone multipliers.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Design Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_design_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow">
+<code class="descname">cooling_minimum_air_flow</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Minimum Air Flow</cite></p>
+<p>This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Minimum Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_minimum_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_fraction">
+<code class="descname">cooling_minimum_air_flow_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Minimum Air Flow Fraction</cite></p>
+<p>fraction of the Cooling design Air Flow Rate
+This input is currently used in sizing the Fan minimum Flow Rate.
+It does not currently affect other component autosizing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Minimum Air Flow Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_minimum_air_flow_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_per_zone_floor_area">
+<code class="descname">cooling_minimum_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cooling Minimum Air Flow per Zone Floor Area</cite></p>
+<p>default is .15 cfm/ft2
+This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+Units: m3/s-m2
+Default value: 0.000762</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cooling Minimum Air Flow per Zone Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cooling_minimum_air_flow_per_zone_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.design_specification_outdoor_air_object_name">
+<code class="descname">design_specification_outdoor_air_object_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.design_specification_outdoor_air_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Specification Outdoor Air Object Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Design Specification Outdoor Air Object Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_specification_outdoor_air_object_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.design_specification_zone_air_distribution_object_name">
+<code class="descname">design_specification_zone_air_distribution_object_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.design_specification_zone_air_distribution_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Specification Zone Air Distribution Object Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Design Specification Zone Air Distribution Object Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_specification_zone_air_distribution_object_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_method">
+<code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Air Flow Method</cite></p>
+<p>Default value: DesignDay</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heating Design Air Flow Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_air_flow_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_rate">
+<code class="descname">heating_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Design Air Flow Rate</cite></p>
+<p>This input is used if Heating Design Air Flow Method is Flow/Zone.
+This value will be multiplied by the global or zone sizing factor and
+by zone multipliers.
+Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Design Air Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_design_air_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow">
+<code class="descname">heating_maximum_air_flow</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Maximum Air Flow</cite></p>
+<p>default is 300 cfm
+This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+Units: m3/s
+Default value: 0.1415762</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Maximum Air Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_maximum_air_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_fraction">
+<code class="descname">heating_maximum_air_flow_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Maximum Air Flow Fraction</cite></p>
+<p>fraction of the Heating Design Air Flow Rate
+This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+Default value: 0.3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Maximum Air Flow Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_maximum_air_flow_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_per_zone_floor_area">
+<code class="descname">heating_maximum_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heating Maximum Air Flow per Zone Floor Area</cite></p>
+<p>default is .40 cfm/ft2
+This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.
+This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+Units: m3/s-m2
+Default value: 0.002032</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Heating Maximum Air Flow per Zone Floor Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heating_maximum_air_flow_per_zone_floor_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_humidity_ratio">
+<code class="descname">zone_cooling_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Cooling Design Supply Air Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Cooling Design Supply Air Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_cooling_design_supply_air_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature">
+<code class="descname">zone_cooling_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Cooling Design Supply Air Temperature</cite></p>
+<p>Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+Supply Air Temperature Input Method = SupplyAirTemperature
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Cooling Design Supply Air Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_cooling_design_supply_air_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_difference">
+<code class="descname">zone_cooling_design_supply_air_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Cooling Design Supply Air Temperature Difference</cite></p>
+<p>Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+Supply Air Temperature Input Method = TemperatureDifference
+The absolute value of this field will be subtracted from the zone temperature
+at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Cooling Design Supply Air Temperature Difference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_cooling_design_supply_air_temperature_difference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_input_method">
+<code class="descname">zone_cooling_design_supply_air_temperature_input_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_input_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Cooling Design Supply Air Temperature Input Method</cite></p>
+<p>Default value: SupplyAirTemperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Cooling Design Supply Air Temperature Input Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_cooling_design_supply_air_temperature_input_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_sizing_factor">
+<code class="descname">zone_cooling_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Cooling Sizing Factor</cite></p>
+<p>if blank or zero, global cooling sizing factor from Sizing:Parameters is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Cooling Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_cooling_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_humidity_ratio">
+<code class="descname">zone_heating_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Heating Design Supply Air Humidity Ratio</cite></p>
+<p>Units: kgWater/kgDryAir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Heating Design Supply Air Humidity Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_heating_design_supply_air_humidity_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature">
+<code class="descname">zone_heating_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Heating Design Supply Air Temperature</cite></p>
+<p>Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+Supply Air Temperature Input Method = SupplyAirTemperature
+Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Heating Design Supply Air Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_heating_design_supply_air_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_difference">
+<code class="descname">zone_heating_design_supply_air_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Heating Design Supply Air Temperature Difference</cite></p>
+<p>Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+Supply Air Temperature Input Method = TemperatureDifference
+The absolute value of this field will be added to the zone temperature
+at peak load to calculate the Zone Heating Design Supply Air Temperature.
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Heating Design Supply Air Temperature Difference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_heating_design_supply_air_temperature_difference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_input_method">
+<code class="descname">zone_heating_design_supply_air_temperature_input_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_input_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Heating Design Supply Air Temperature Input Method</cite></p>
+<p>Default value: SupplyAirTemperature</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Heating Design Supply Air Temperature Input Method</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_heating_design_supply_air_temperature_input_method</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_sizing_factor">
+<code class="descname">zone_heating_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_sizing_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Heating Sizing Factor</cite></p>
+<p>if blank or zero, global heating sizing factor from Sizing:Parameters is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Zone Heating Sizing Factor</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_heating_sizing_factor</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.hvac_design_objects.SizingZone.zone_or_zonelist_name">
+<code class="descname">zone_or_zonelist_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_or_zonelist_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone or ZoneList Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone or ZoneList Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_or_zonelist_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.humidifiers_and_dehumidifiers.html"
+                        title="previous chapter">pyidf.humidifiers_and_dehumidifiers module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.hvac_templates.html"
+                        title="next chapter">pyidf.hvac_templates module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.hvac_design_objects.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.hvac_templates.html" title="pyidf.hvac_templates module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.humidifiers_and_dehumidifiers.html" title="pyidf.humidifiers_and_dehumidifiers module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1879 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.system_availability_managers module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.thermal_zones_and_surfaces module" href="pyidf.thermal_zones_and_surfaces.html" />
+    <link rel="prev" title="pyidf.surface_construction_elements module" href="pyidf.surface_construction_elements.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.thermal_zones_and_surfaces.html" title="pyidf.thermal_zones_and_surfaces module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.surface_construction_elements.html" title="pyidf.surface_construction_elements module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.system_availability_managers">
+<span id="pyidf-system-availability-managers-module"></span><h1>pyidf.system_availability_managers module<a class="headerlink" href="#module-pyidf.system_availability_managers" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;System Availability Managers&#8221;</p>
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerAssignmentList">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerAssignmentList</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerAssignmentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManagerAssignmentList</cite>
+Defines the applicable managers used for an AirLoopHVAC or PlantLoop. The priority of
+availability managers is based on a set of rules and are specific to the type of loop.
+The output from each availability manager is an availability status flag:
+NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).</p>
+<dl class="method">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerAssignmentList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>availability_manager_1_object_type=None</em>, <em>availability_manager_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerAssignmentList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>availability_manager_1_object_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Manager 1 Object Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>availability_manager_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Manager 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerAssignmentList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerAssignmentList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerAssignmentList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerAssignmentList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerDifferentialThermostat</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:DifferentialThermostat</cite>
+Overrides fan/pump schedules depending on temperature difference between two nodes.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.cold_node_name">
+<code class="descname">cold_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.cold_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cold Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cold Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cold_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.hot_node_name">
+<code class="descname">hot_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.hot_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Hot Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Hot Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>hot_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.temperature_difference_off_limit">
+<code class="descname">temperature_difference_off_limit</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.temperature_difference_off_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Difference Off Limit</cite></p>
+<p>Defaults to Temperature Difference On Limit.
+Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Off Limit</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_off_limit</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.temperature_difference_on_limit">
+<code class="descname">temperature_difference_on_limit</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerDifferentialThermostat.temperature_difference_on_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature Difference On Limit</cite></p>
+<p>Units: deltaC</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference On Limit</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_on_limit</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerHighTemperatureTurnOff</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:HighTemperatureTurnOff</cite>
+Overrides fan/pump schedules depending on temperature at sensor node.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.temperature">
+<code class="descname">temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOff.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerHighTemperatureTurnOn</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:HighTemperatureTurnOn</cite>
+Overrides fan/pump schedules depending on temperature at sensor node.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.temperature">
+<code class="descname">temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHighTemperatureTurnOn.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerHybridVentilation</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:HybridVentilation</cite>
+Depending on zone and outdoor conditions overrides window/door opening controls
+to maximize natural ventilation and turn off an HVAC system when ventilation control
+conditions are met.
+This object (zone ventilation object name) has not been instrumented to work with
+global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to
+use, you must enter the single &lt;Ventilation:DesignFlowRate&gt; name in that
+field. If it is a part of a global ventilation assignement the name will be
+&lt;Zone Name&gt; &lt;global Ventilation:DesignFlowRate&gt; name.
+Currently, hybrid ventilation manager is restricted to one per zone. It can either be applied
+through the air loop or directly to the zone. If hybrid ventilation manager is applied to an
+air loop and one of the zones served by that air loop also has hybrid ventilation manager,
+then zone hybrid ventilation manager is disabled.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.airflownetwork_control_type_schedule_name">
+<code class="descname">airflownetwork_control_type_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.airflownetwork_control_type_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>AirflowNetwork Control Type Schedule Name</cite></p>
+<p>The schedule is used to incorporate operation of AirflowNetwork large opening
+objects and HVAC system operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>AirflowNetwork Control Type Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>airflownetwork_control_type_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.controlled_zone_name">
+<code class="descname">controlled_zone_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.controlled_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Controlled Zone Name</cite></p>
+<p>the controlled zone name should be a zone where a thermostat or humidistat is located
+served by an air primary loop.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Controlled Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>controlled_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.hvac_air_loop_name">
+<code class="descname">hvac_air_loop_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.hvac_air_loop_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>HVAC Air Loop Name</cite></p>
+<p>Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.
+If this field is left blank, hybrid ventilation managers will be
+simulated for zone equipment control</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>HVAC Air Loop Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>hvac_air_loop_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_dewpoint">
+<code class="descname">maximum_outdoor_dewpoint</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_dewpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Dewpoint</cite></p>
+<p>this is the outdoor dewpoint above which ventilation is shutoff
+Applicable only if Ventilation Control Mode = 3
+Units: C
+Default value: 100.0
+value &gt;= -100.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Dewpoint</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_dewpoint</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_enthalpy">
+<code class="descname">maximum_outdoor_enthalpy</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_enthalpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Enthalpy</cite></p>
+<p>this is the outdoor Enthalpy above which ventilation is shutoff
+Units: J/kg
+value &lt; 300000.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Enthalpy</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_enthalpy</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_temperature">
+<code class="descname">maximum_outdoor_temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Outdoor Temperature</cite></p>
+<p>this is the outdoor temperature above which ventilation is shutoff
+Units: C
+Default value: 100.0
+value &gt;= -100.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Outdoor Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_outdoor_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_wind_speed">
+<code class="descname">maximum_wind_speed</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.maximum_wind_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Wind Speed</cite></p>
+<p>this is the wind speed above which ventilation is shutoff
+Units: m/s
+Default value: 40.0
+value &lt;= 40.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Wind Speed</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_wind_speed</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_dewpoint">
+<code class="descname">minimum_outdoor_dewpoint</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_dewpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Dewpoint</cite></p>
+<p>this is the outdoor temperature below which ventilation is shutoff
+Applicable only if Ventilation Control Mode = 3
+Units: C
+Default value: -100.0
+value &gt;= -100.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Dewpoint</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_dewpoint</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_enthalpy">
+<code class="descname">minimum_outdoor_enthalpy</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_enthalpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Enthalpy</cite></p>
+<p>this is the outdoor Enthalpy below which ventilation is shutoff
+Units: J/kg
+value &lt; 300000.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Enthalpy</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_enthalpy</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_temperature">
+<code class="descname">minimum_outdoor_temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Temperature</cite></p>
+<p>this is the outdoor temperature below which ventilation is shutoff
+Units: C
+Default value: -100.0
+value &gt;= -100.0
+value &lt;= 100.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_ventilation_air_schedule_name">
+<code class="descname">minimum_outdoor_ventilation_air_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.minimum_outdoor_ventilation_air_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Minimum Outdoor Ventilation Air Schedule Name</cite></p>
+<p>Used only if Ventilation Control Mode = 4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Outdoor Ventilation Air Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_outdoor_ventilation_air_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.opening_factor_function_of_wind_speed_curve_name">
+<code class="descname">opening_factor_function_of_wind_speed_curve_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.opening_factor_function_of_wind_speed_curve_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Opening Factor Function of Wind Speed Curve Name</cite></p>
+<p>Table:OneIndependentVariable object can also be used
+linear curve = a + b*WS
+quadratic curve = a + b*WS + c*WS**2
+WS = wind speed (m/s)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Opening Factor Function of Wind Speed Curve Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>opening_factor_function_of_wind_speed_curve_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.simple_airflow_control_type_schedule_name">
+<code class="descname">simple_airflow_control_type_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.simple_airflow_control_type_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Simple Airflow Control Type Schedule Name</cite></p>
+<p>The schedule is used to incorporate operation of simple airflow objects and HVAC
+system operation.
+The simple airflow objects are Ventilation and Mixing only</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Simple Airflow Control Type Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>simple_airflow_control_type_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators">
+<code class="descname">use_weather_file_rain_indicators</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Use Weather File Rain Indicators</cite></p>
+<p>If Yes, ventilation is shutoff when there is rain
+If No, there is no rain control
+Default value: Yes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Use Weather File Rain Indicators</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>use_weather_file_rain_indicators</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.ventilation_control_mode_schedule_name">
+<code class="descname">ventilation_control_mode_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.ventilation_control_mode_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ventilation Control Mode Schedule Name</cite></p>
+<p>The Ventilation control mode contains appropriate integer control types.
+0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)
+1 = Temperature control
+2 = Enthalpy control
+3 = Dewpoint control
+4 = Outdoor ventilation air control</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ventilation Control Mode Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ventilation_control_mode_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.zoneventilation_object_name">
+<code class="descname">zoneventilation_object_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerHybridVentilation.zoneventilation_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>ZoneVentilation Object Name</cite></p>
+<p>This fieldhas not been instrumented to work with
+global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to
+use, you must enter the single &lt;Ventilation:DesignFlowRate&gt; name in this field.
+If it is a part of a global ventilation assignement the name will be
+&lt;Zone Name&gt; &lt;global Ventilation:DesignFlowRate&gt; name.
+The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC
+will work in the same way as this ventilation object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>ZoneVentilation Object Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zoneventilation_object_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerLowTemperatureTurnOff</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:LowTemperatureTurnOff</cite>
+Overrides fan/pump schedules depending on temperature at sensor node.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.applicability_schedule_name">
+<code class="descname">applicability_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.applicability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Applicability Schedule Name</cite></p>
+<p>If blank, defaults to always active</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Applicability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>applicability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.temperature">
+<code class="descname">temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOff.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerLowTemperatureTurnOn</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:LowTemperatureTurnOn</cite>
+Overrides fan/pump schedules depending on temperature at sensor node.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.sensor_node_name">
+<code class="descname">sensor_node_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.sensor_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Sensor Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Sensor Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>sensor_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.temperature">
+<code class="descname">temperature</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerLowTemperatureTurnOn.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Temperature</cite></p>
+<p>Units: C</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerNightCycle</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:NightCycle</cite>
+Determines the availability of a loop or system: whether it is on or off.
+Depending on zone temperatures, overrides Schedules and forces system Fans on.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.applicability_schedule_name">
+<code class="descname">applicability_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.applicability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Applicability Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Applicability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>applicability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<p>When AvailabilityManager:NightCycle is used in the zone component availability
+manager assignment list, the key choices for Control Type would only be
+StayOff and CycleOnControlZone
+Default value: StayOff</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.control_zone_name">
+<code class="descname">control_zone_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.control_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Zone Name</cite></p>
+<p>When AvailabilityManager:NightCycle is used in the zone component availability
+manager assignment list, the Control Zone Name should be the name of the zone in which the
+zone component is.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.cycling_run_time">
+<code class="descname">cycling_run_time</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.cycling_run_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cycling Run Time</cite></p>
+<p>Units: s
+Default value: 3600.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cycling Run Time</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cycling_run_time</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.fan_schedule_name">
+<code class="descname">fan_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.fan_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightCycle.thermostat_tolerance">
+<code class="descname">thermostat_tolerance</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightCycle.thermostat_tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermostat Tolerance</cite></p>
+<p>Units: deltaC
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Tolerance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_tolerance</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerNightVentilation</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:NightVentilation</cite>
+depending on zone and outdoor conditions overides fan schedule to do
+precooling with outdoor air</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.applicability_schedule_name">
+<code class="descname">applicability_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.applicability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Applicability Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Applicability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>applicability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.control_zone_name">
+<code class="descname">control_zone_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.control_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Zone Name</cite></p>
+<p>When AvailabilityManager:NightVentilation is used in the zone component availability
+manager assignment list, the Control Zone Name should be the name of the zone in which the
+zone component is.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.fan_schedule_name">
+<code class="descname">fan_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.fan_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.night_venting_flow_fraction">
+<code class="descname">night_venting_flow_fraction</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.night_venting_flow_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Night Venting Flow Fraction</cite></p>
+<p>the fraction (could be &gt; 1) of the design system Flow Rate at which
+night ventilation will be done
+Default value: 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Night Venting Flow Fraction</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>night_venting_flow_fraction</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_difference">
+<code class="descname">ventilation_temperature_difference</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ventilation Temperature Difference</cite></p>
+<p>The outdoor air temperature minus the control zone temperature
+must be greater than the ventilation delta T
+Units: deltaC
+Default value: 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ventilation Temperature Difference</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ventilation_temperature_difference</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_low_limit">
+<code class="descname">ventilation_temperature_low_limit</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_low_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ventilation Temperature Low Limit</cite></p>
+<p>Night ventilation is disabled if any conditioned zone served by
+the system falls below this temperature
+Units: C
+Default value: 15.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ventilation Temperature Low Limit</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ventilation_temperature_low_limit</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_schedule_name">
+<code class="descname">ventilation_temperature_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerNightVentilation.ventilation_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ventilation Temperature Schedule Name</cite></p>
+<p>One zone temperature must be above this scheduled temperature
+for night ventilation to be enabled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Ventilation Temperature Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ventilation_temperature_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerOptimumStart</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:OptimumStart</cite>
+Determines the optimal start of HVAC systems before occupancy.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.applicability_schedule_name">
+<code class="descname">applicability_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.applicability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Applicability Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Applicability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>applicability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_start_time">
+<code class="descname">constant_start_time</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Constant Start Time</cite></p>
+<p>this is the number of hours before occupancy for a system
+Units: hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Constant Start Time</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>constant_start_time</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_temperature_gradient_during_cooling">
+<code class="descname">constant_temperature_gradient_during_cooling</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_temperature_gradient_during_cooling" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Constant Temperature Gradient during Cooling</cite></p>
+<p>Units: deltaC/hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Constant Temperature Gradient during Cooling</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>constant_temperature_gradient_during_cooling</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_temperature_gradient_during_heating">
+<code class="descname">constant_temperature_gradient_during_heating</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.constant_temperature_gradient_during_heating" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Constant Temperature Gradient during Heating</cite></p>
+<p>Units: deltaC/hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Constant Temperature Gradient during Heating</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>constant_temperature_gradient_during_heating</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_algorithm">
+<code class="descname">control_algorithm</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Algorithm</cite></p>
+<p>Default value: AdaptiveASHRAE</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Algorithm</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_algorithm</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_type">
+<code class="descname">control_type</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Type</cite></p>
+<p>Default value: ControlZone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_zone_name">
+<code class="descname">control_zone_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.control_zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.fan_schedule_name">
+<code class="descname">fan_schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.fan_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fan Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Fan Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fan_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.initial_temperature_gradient_during_cooling">
+<code class="descname">initial_temperature_gradient_during_cooling</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.initial_temperature_gradient_during_cooling" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Temperature Gradient during Cooling</cite></p>
+<p>Units: deltaC/hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Temperature Gradient during Cooling</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_temperature_gradient_during_cooling</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.initial_temperature_gradient_during_heating">
+<code class="descname">initial_temperature_gradient_during_heating</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.initial_temperature_gradient_during_heating" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Initial Temperature Gradient during Heating</cite></p>
+<p>Units: deltaC/hr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Initial Temperature Gradient during Heating</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>initial_temperature_gradient_during_heating</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.maximum_value_for_optimum_start_time">
+<code class="descname">maximum_value_for_optimum_start_time</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.maximum_value_for_optimum_start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Value for Optimum Start Time</cite></p>
+<p>this is the maximum number of hours that a system can start before occupancy
+Units: hr
+Default value: 6.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Value for Optimum Start Time</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_value_for_optimum_start_time</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.number_of_previous_days">
+<code class="descname">number_of_previous_days</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.number_of_previous_days" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Previous Days</cite></p>
+<p>this is the number of days that their actual temperature
+gradients will be used in the AdaptiveTemperatureGradient method
+Units: days
+Default value: 2
+value &gt;= 2
+value &lt;= 5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Previous Days</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_previous_days</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerOptimumStart.zone_list_name">
+<code class="descname">zone_list_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerOptimumStart.zone_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone List Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone List Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_list_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduled">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerScheduled</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:Scheduled</cite>
+Determines the availability of a loop or system: whether it is on or off.
+Schedule overrides fan/pump schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduled.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduled.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduled.schedule_name">
+<code class="descname">schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduled.schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOff">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerScheduledOff</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:ScheduledOff</cite>
+Determines the availability of a loop or system: only controls the turn off action.
+Schedule overrides fan/pump schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOff.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOff.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOff.schedule_name">
+<code class="descname">schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOff.schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOn">
+<em class="property">class </em><code class="descclassname">pyidf.system_availability_managers.</code><code class="descname">AvailabilityManagerScheduledOn</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>AvailabilityManager:ScheduledOn</cite>
+Determines the availability of a loop or system: only controls the turn on action.
+Schedule overrides fan/pump schedule.</p>
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOn.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOn.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.system_availability_managers.AvailabilityManagerScheduledOn.schedule_name">
+<code class="descname">schedule_name</code><a class="headerlink" href="#pyidf.system_availability_managers.AvailabilityManagerScheduledOn.schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.surface_construction_elements.html"
+                        title="previous chapter">pyidf.surface_construction_elements module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.thermal_zones_and_surfaces.html"
+                        title="next chapter">pyidf.thermal_zones_and_surfaces module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.system_availability_managers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.thermal_zones_and_surfaces.html" title="pyidf.thermal_zones_and_surfaces module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.surface_construction_elements.html" title="pyidf.surface_construction_elements module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

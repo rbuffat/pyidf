@@ -1,0 +1,2122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyidf.solar_collectors module &mdash; pyidf 0.1.4-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="up" title="pyidf package" href="pyidf.html" />
+    <link rel="next" title="pyidf.surface_construction_elements module" href="pyidf.surface_construction_elements.html" />
+    <link rel="prev" title="pyidf.simulation_parameters module" href="pyidf.simulation_parameters.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.surface_construction_elements.html" title="pyidf.surface_construction_elements module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.simulation_parameters.html" title="pyidf.simulation_parameters module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyidf.solar_collectors">
+<span id="pyidf-solar-collectors-module"></span><h1>pyidf.solar_collectors module<a class="headerlink" href="#module-pyidf.solar_collectors" title="Permalink to this headline">¶</a></h1>
+<p>Data objects in group &#8220;Solar Collectors&#8221;</p>
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorFlatPlatePhotovoltaicThermal</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollector:FlatPlate:PhotovoltaicThermal</cite>
+Models hybrid photovoltaic-thermal (PVT) solar collectors that convert incident solar
+energy into both electricity and useful thermal energy by heating air or water.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.air_inlet_node_name">
+<code class="descname">air_inlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.air_outlet_node_name">
+<code class="descname">air_outlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Air Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.design_flow_rate">
+<code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.design_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Design Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autosize&#8221;</em>) &#8211; value for IDD Field <cite>Design Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autosize&#8221;: the value of <cite>design_flow_rate</cite> or None if not set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaic_name">
+<code class="descname">photovoltaic_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Photovoltaic Name</cite></p>
+<p>Enter the name of a Generator:Photovoltaic object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Photovoltaic Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>photovoltaic_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaicthermal_model_performance_name">
+<code class="descname">photovoltaicthermal_model_performance_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaicthermal_model_performance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Photovoltaic-Thermal Model Performance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Photovoltaic-Thermal Model Performance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>photovoltaicthermal_model_performance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.surface_name">
+<code class="descname">surface_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.surface_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type">
+<code class="descname">thermal_working_fluid_type</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermal Working Fluid Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Thermal Working Fluid Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermal_working_fluid_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.water_inlet_node_name">
+<code class="descname">water_inlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.water_inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.water_outlet_node_name">
+<code class="descname">water_outlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlatePhotovoltaicThermal.water_outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Water Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Water Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>water_outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorFlatPlateWater</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollector:FlatPlate:Water</cite>
+Flat plate water solar collector (single glazed, unglazed, or evacuated tube).
+Thermal and optical properties are taken from the referenced
+SolarCollectorPerformance:FlatPlate object. Collector tilt, azimuth, and gross area
+are taken from the referenced building surface or shading surface. The collector
+surface participates normally in all shading calculations.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.solarcollectorperformance_name">
+<code class="descname">solarcollectorperformance_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.solarcollectorperformance_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>SolarCollectorPerformance Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>SolarCollectorPerformance Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>solarcollectorperformance_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorFlatPlateWater.surface_name">
+<code class="descname">surface_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorFlatPlateWater.surface_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorIntegralCollectorStorage</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollector:IntegralCollectorStorage</cite>
+Glazed solar collector with integral storage unit. Thermal and optical properties are
+taken from the referenced SolarCollectorPerformance:IntegralCollectorStorage object.
+Collector tilt, azimuth, and gross area are taken from the referenced building surface
+or shading surface. The collector surface participates normally in all shading
+calculations.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type">
+<code class="descname">bottom_surface_boundary_conditions_type</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Bottom Surface Boundary Conditions Type</cite></p>
+<p>Default value: AmbientAir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Bottom Surface Boundary Conditions Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>bottom_surface_boundary_conditions_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.boundary_condition_model_name">
+<code class="descname">boundary_condition_model_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.boundary_condition_model_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Boundary Condition Model Name</cite></p>
+<p>Enter the name of a SurfaceProperty:OtherSideConditionsModel
+object. Specified only if the boundary condition type is
+OtherSideConditionsModel, otherwise leave it blank</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Boundary Condition Model Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>boundary_condition_model_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.integralcollectorstorageparameters_name">
+<code class="descname">integralcollectorstorageparameters_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.integralcollectorstorageparameters_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>IntegralCollectorStorageParameters Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>IntegralCollectorStorageParameters Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>integralcollectorstorageparameters_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.maximum_flow_rate">
+<code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Maximum Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Maximum Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>maximum_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.surface_name">
+<code class="descname">surface_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorIntegralCollectorStorage.surface_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Surface Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorPerformanceFlatPlate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollectorPerformance:FlatPlate</cite>
+Thermal and optical performance parameters for a single flat plate solar collector
+module. These parameters are based on the testing methodologies described in ASHRAE
+Standards 93 and 96 which are used Solar Rating and Certification Corporation (SRCC)
+Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
+SolarCollectors.idf.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_1_of_efficiency_equation">
+<code class="descname">coefficient_1_of_efficiency_equation</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_1_of_efficiency_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 1 of Efficiency Equation</cite></p>
+<p>Y-intercept term
+Units: dimensionless</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 1 of Efficiency Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_1_of_efficiency_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_2_of_efficiency_equation">
+<code class="descname">coefficient_2_of_efficiency_equation</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_2_of_efficiency_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 2 of Efficiency Equation</cite></p>
+<p>1st Order term
+Units: W/m2-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 2 of Efficiency Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_2_of_efficiency_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_2_of_incident_angle_modifier">
+<code class="descname">coefficient_2_of_incident_angle_modifier</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_2_of_incident_angle_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 2 of Incident Angle Modifier</cite></p>
+<p>1st order term</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 2 of Incident Angle Modifier</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_2_of_incident_angle_modifier</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_3_of_efficiency_equation">
+<code class="descname">coefficient_3_of_efficiency_equation</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_3_of_efficiency_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 3 of Efficiency Equation</cite></p>
+<p>2nd order term
+Units: W/m2-K2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 3 of Efficiency Equation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_3_of_efficiency_equation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_3_of_incident_angle_modifier">
+<code class="descname">coefficient_3_of_incident_angle_modifier</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.coefficient_3_of_incident_angle_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Coefficient 3 of Incident Angle Modifier</cite></p>
+<p>2nd order term</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Coefficient 3 of Incident Angle Modifier</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_3_of_incident_angle_modifier</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.gross_area">
+<code class="descname">gross_area</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.gross_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Area</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Gross Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gross_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_correlation_type">
+<code class="descname">test_correlation_type</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_correlation_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Test Correlation Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Test Correlation Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>test_correlation_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_flow_rate">
+<code class="descname">test_flow_rate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_flow_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Test Flow Rate</cite></p>
+<p>Units: m3/s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Test Flow Rate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>test_flow_rate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_fluid">
+<code class="descname">test_fluid</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceFlatPlate.test_fluid" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Test Fluid</cite></p>
+<p>Default value: Water</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Test Fluid</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>test_fluid</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorPerformanceIntegralCollectorStorage</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollectorPerformance:IntegralCollectorStorage</cite>
+Thermal and optical performance parameters for a single glazed solar collector with
+integral storage unit.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.absorptance_of_absorber_plate">
+<code class="descname">absorptance_of_absorber_plate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.absorptance_of_absorber_plate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Absorptance of Absorber Plate</cite></p>
+<p>The absober plate solar absorptance.  Copper is assumed as
+the default absorber plate.
+Units: dimensionless
+Default value: 0.96
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Absorptance of Absorber Plate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>absorptance_of_absorber_plate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.aspect_ratio">
+<code class="descname">aspect_ratio</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.aspect_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Aspect Ratio</cite></p>
+<p>This value is ratio of the width (short side) to length
+(long side of) of the collector.  Used to calculate the
+perimeter of the collector
+Units: m
+Default value: 0.8
+value &gt; 0.5
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Aspect Ratio</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>aspect_ratio</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.bottom_heat_loss_conductance">
+<code class="descname">bottom_heat_loss_conductance</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.bottom_heat_loss_conductance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Bottom Heat Loss Conductance</cite></p>
+<p>Heat loss conductance of the collector bottom insulation
+Units: W/m2-K
+Default value: 0.4</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Bottom Heat Loss Conductance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>bottom_heat_loss_conductance</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.collector_side_height">
+<code class="descname">collector_side_height</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.collector_side_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Collector Side Height</cite></p>
+<p>This value is used to estimate collector side area for the heat
+loss calculation through the collector side
+Units: m
+Default value: 0.2
+value &lt; 0.3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Collector Side Height</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>collector_side_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.collector_water_volume">
+<code class="descname">collector_water_volume</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.collector_water_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Collector Water Volume</cite></p>
+<p>Units: m3</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Collector Water Volume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>collector_water_volume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.cover_spacing">
+<code class="descname">cover_spacing</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.cover_spacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Cover Spacing</cite></p>
+<p>The gap between the transparent covers and between the inner cover
+and the absorber plate
+Units: m
+Default value: 0.05
+value &lt;= 0.2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cover Spacing</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cover_spacing</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_absorber_plate">
+<code class="descname">emissivity_of_absorber_plate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_absorber_plate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Emissivity of Absorber Plate</cite></p>
+<p>Thermal emissivity of the absorber plate
+Units: dimensionless
+Default value: 0.3
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Emissivity of Absorber Plate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>emissivity_of_absorber_plate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_outer_cover">
+<code class="descname">emissivity_of_outer_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_outer_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Emissivity of Outer Cover</cite></p>
+<p>Thermal emissivity of the outer cover, commonly glass is used as
+the out collector cover material.
+Units: dimensionless
+Default value: 0.88
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Emissivity of Outer Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>emissivity_of_outer_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emmissivity_of_inner_cover">
+<code class="descname">emmissivity_of_inner_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.emmissivity_of_inner_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Emmissivity of Inner Cover</cite></p>
+<p>Thermal emissivity of the inner cover matrial
+Units: dimensionless
+Default value: 0.88
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Emmissivity of Inner Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>emmissivity_of_inner_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_outer_cover">
+<code class="descname">extinction_coefficient_times_thickness_of_outer_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_outer_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Extinction Coefficient Times Thickness of Outer Cover</cite></p>
+<p>Clear glass has extinction coefficient of about 15 [1/m]
+and with thickness of 3.0mm, the product of the extinction
+coefficient and thickness becomes 0.045 (=15 * 0.003)
+Units: dimensionless
+Default value: 0.045</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Extinction Coefficient Times Thickness of Outer Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>extinction_coefficient_times_thickness_of_outer_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_the_inner_cover">
+<code class="descname">extinction_coefficient_times_thickness_of_the_inner_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_the_inner_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Extinction Coefficient Times Thickness of the inner Cover</cite></p>
+<p>Default inner cover is very thin sheet of Teflon with
+extinction coefficient of approximately 40.0 and a thickness
+0.2mm yields a default value of 0.008.
+Units: dimensionless
+Default value: 0.008</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Extinction Coefficient Times Thickness of the inner Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>extinction_coefficient_times_thickness_of_the_inner_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.gross_area">
+<code class="descname">gross_area</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.gross_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Gross Area</cite></p>
+<p>Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Gross Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gross_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type">
+<code class="descname">ics_collector_type</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>ICS Collector Type</cite></p>
+<p>Currently only RectangularTank ICS collector type is available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>ICS Collector Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ics_collector_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers">
+<code class="descname">number_of_covers</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Number of Covers</cite></p>
+<p>Number of transparent covers. Common practice is to use low-iron
+glass as the outer cover and very thin transparent sheet such as
+Teflon as the inner cover.
+Default value: 2
+value &gt;= 1
+value &lt;= 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Number of Covers</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_covers</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_inner_cover">
+<code class="descname">refractive_index_of_inner_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_inner_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Refractive Index of Inner Cover</cite></p>
+<p>Typical material is very thin sheet of Teflon (PTFE). The default
+value is refractive index of Teflon.
+Units: dimensionless
+Default value: 1.37
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Refractive Index of Inner Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>refractive_index_of_inner_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_outer_cover">
+<code class="descname">refractive_index_of_outer_cover</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_outer_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Refractive Index of Outer Cover</cite></p>
+<p>Refractive index of outer cover. Typically low-iron glass is used
+as the outer cover material, and used as the default outer cover
+with a vallue of 1.526.
+Units: dimensionless
+Default value: 1.526
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Refractive Index of Outer Cover</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>refractive_index_of_outer_cover</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.side_heat_loss_conductance">
+<code class="descname">side_heat_loss_conductance</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.side_heat_loss_conductance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Side Heat Loss Conductance</cite></p>
+<p>heat loss conductance of the collector side insulation
+Units: W/m2-K
+Default value: 0.6</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Side Heat Loss Conductance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>side_heat_loss_conductance</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.thermal_mass_of_absorber_plate">
+<code class="descname">thermal_mass_of_absorber_plate</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformanceIntegralCollectorStorage.thermal_mass_of_absorber_plate" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermal Mass of Absorber Plate</cite></p>
+<p>Calculated from the specific heat, density and thickness
+of the absorber plate.
+Units: J/m2-K</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermal Mass of Absorber Plate</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermal_mass_of_absorber_plate</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorPerformancePhotovoltaicThermalSimple</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollectorPerformance:PhotovoltaicThermal:Simple</cite>
+Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.</p>
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.fraction_of_surface_area_with_active_thermal_collector">
+<code class="descname">fraction_of_surface_area_with_active_thermal_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.fraction_of_surface_area_with_active_thermal_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Surface Area with Active Thermal Collector</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Surface Area with Active Thermal Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_surface_area_with_active_thermal_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.front_surface_emittance">
+<code class="descname">front_surface_emittance</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.front_surface_emittance" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Front Surface Emittance</cite></p>
+<p>Default value: 0.84
+value &lt; 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Front Surface Emittance</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>front_surface_emittance</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type">
+<code class="descname">thermal_conversion_efficiency_input_mode_type</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermal Conversion Efficiency Input Mode Type</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Thermal Conversion Efficiency Input Mode Type</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermal_conversion_efficiency_input_mode_type</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_schedule_name">
+<code class="descname">thermal_conversion_efficiency_schedule_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermal Conversion Efficiency Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Thermal Conversion Efficiency Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermal_conversion_efficiency_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.value_for_thermal_conversion_efficiency_if_fixed">
+<code class="descname">value_for_thermal_conversion_efficiency_if_fixed</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorPerformancePhotovoltaicThermalSimple.value_for_thermal_conversion_efficiency_if_fixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Value for Thermal Conversion Efficiency if Fixed</cite></p>
+<p>Efficiency = (thermal power generated [W])/(incident solar[W])
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Value for Thermal Conversion Efficiency if Fixed</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>value_for_thermal_conversion_efficiency_if_fixed</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorUnglazedTranspired</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollector:UnglazedTranspired</cite>
+Unglazed transpired solar collector (UTSC) used to condition outdoor air. This type of
+collector is generally used to heat air drawn through perforated absorbers and also
+recover heat conducted out through the underlying surfae. This object represents a
+single collector attached to one or more building or shading surfaces and to one or
+more outdoor air systems.</p>
+<dl class="method">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>surface_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>surface_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.availability_schedule_name">
+<code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Availability Schedule Name</cite></p>
+<p>Availability schedule name for this collector. Schedule value &gt; 0 means it is available.
+If this field is blank, the collector is always available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.boundary_conditions_model_name">
+<code class="descname">boundary_conditions_model_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.boundary_conditions_model_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Boundary Conditions Model Name</cite></p>
+<p>Enter the name of a SurfaceProperty:OtherSideConditionsModel object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Boundary Conditions Model Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>boundary_conditions_model_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.collector_thickness">
+<code class="descname">collector_thickness</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.collector_thickness" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Collector Thickness</cite></p>
+<p>Collector thickness is not required for Kutscher correlation
+Collector thickness is required for Van Decker et al. correlation
+Units: m
+value &gt;= 0.0005
+value &lt;= 0.007</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Collector Thickness</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>collector_thickness</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.diameter_of_perforations_in_collector">
+<code class="descname">diameter_of_perforations_in_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.diameter_of_perforations_in_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Diameter of Perforations in Collector</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Diameter of Perforations in Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>diameter_of_perforations_in_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow">
+<code class="descname">discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow</cite></p>
+<p>Cd
+Units: dimensionless
+Default value: 0.65
+value &lt;= 1.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.distance_between_perforations_in_collector">
+<code class="descname">distance_between_perforations_in_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.distance_between_perforations_in_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Distance Between Perforations in Collector</cite></p>
+<p>Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Distance Between Perforations in Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>distance_between_perforations_in_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_cross_section_area_of_plenum_behind_collector">
+<code class="descname">effective_cross_section_area_of_plenum_behind_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_cross_section_area_of_plenum_behind_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Effective Cross Section Area of Plenum Behind Collector</cite></p>
+<p>if corrugated, use average depth
+Units: m2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Effective Cross Section Area of Plenum Behind Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>effective_cross_section_area_of_plenum_behind_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_gap_thickness_of_plenum_behind_collector">
+<code class="descname">effective_gap_thickness_of_plenum_behind_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_gap_thickness_of_plenum_behind_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Effective Gap Thickness of Plenum Behind Collector</cite></p>
+<p>if corrugated, use average depth
+Units: m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Effective Gap Thickness of Plenum Behind Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>effective_gap_thickness_of_plenum_behind_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_overall_height_of_collector">
+<code class="descname">effective_overall_height_of_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effective_overall_height_of_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Effective Overall Height of Collector</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Effective Overall Height of Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>effective_overall_height_of_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effectiveness_for_perforations_with_respect_to_wind">
+<code class="descname">effectiveness_for_perforations_with_respect_to_wind</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.effectiveness_for_perforations_with_respect_to_wind" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Effectiveness for Perforations with Respect to Wind</cite></p>
+<p>Cv
+Units: dimensionless
+Default value: 0.25
+value &lt;= 1.5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Effectiveness for Perforations with Respect to Wind</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>effectiveness_for_perforations_with_respect_to_wind</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.free_heating_setpoint_schedule_name">
+<code class="descname">free_heating_setpoint_schedule_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.free_heating_setpoint_schedule_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Free Heating Setpoint Schedule Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Free Heating Setpoint Schedule Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>free_heating_setpoint_schedule_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation">
+<code class="descname">heat_exchange_effectiveness_correlation</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Heat Exchange Effectiveness Correlation</cite></p>
+<p>Default value: Kutscher1994</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Heat Exchange Effectiveness Correlation</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>heat_exchange_effectiveness_correlation</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch">
+<code class="descname">hole_layout_pattern_for_pitch</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Hole Layout Pattern for Pitch</cite></p>
+<p>Default value: Square</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Hole Layout Pattern for Pitch</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>hole_layout_pattern_for_pitch</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.inlet_node_name">
+<code class="descname">inlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.inlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Inlet Node Name</cite></p>
+<p>required field if no SolarCollector:UnglazedTranspired:Multisystem</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.outlet_node_name">
+<code class="descname">outlet_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.outlet_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Outlet Node Name</cite></p>
+<p>required field if no SolarCollector:UnglazedTranspired:Multisystem</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outlet Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>outlet_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.ratio_of_actual_collector_surface_area_to_projected_surface_area">
+<code class="descname">ratio_of_actual_collector_surface_area_to_projected_surface_area</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.ratio_of_actual_collector_surface_area_to_projected_surface_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Ratio of Actual Collector Surface Area to Projected Surface Area</cite></p>
+<p>This parameter is used to help account for corrugations in the collector
+Units: dimensionless
+Default value: 1.0
+value &gt;= 1.0
+value &lt;= 2.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Ratio of Actual Collector Surface Area to Projected Surface Area</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>ratio_of_actual_collector_surface_area_to_projected_surface_area</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.roughness_of_collector">
+<code class="descname">roughness_of_collector</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.roughness_of_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Roughness of Collector</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Roughness of Collector</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roughness_of_collector</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.setpoint_node_name">
+<code class="descname">setpoint_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.setpoint_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Setpoint Node Name</cite></p>
+<p>This node is where the mixed air setpoint is determined.
+required field if no SolarCollector:UnglazedTranspired:Multisystem</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Setpoint Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>setpoint_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.solar_absorbtivity_of_collector_surface">
+<code class="descname">solar_absorbtivity_of_collector_surface</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.solar_absorbtivity_of_collector_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Solar Absorbtivity of Collector Surface</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Solar Absorbtivity of Collector Surface</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>solar_absorbtivity_of_collector_surface</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.thermal_emissivity_of_collector_surface">
+<code class="descname">thermal_emissivity_of_collector_surface</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.thermal_emissivity_of_collector_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Thermal Emissivity of Collector Surface</cite></p>
+<p>Units: dimensionless
+value &lt;= 1.0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermal Emissivity of Collector Surface</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermal_emissivity_of_collector_surface</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspired.zone_node_name">
+<code class="descname">zone_node_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspired.zone_node_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Node Name</cite></p>
+<p>This node is used to indentify the affected zone
+required field if no SolarCollector:UnglazedTranspired:Multisystem</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_node_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem">
+<em class="property">class </em><code class="descclassname">pyidf.solar_collectors.</code><code class="descname">SolarCollectorUnglazedTranspiredMultisystem</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>SolarCollector:UnglazedTranspired:Multisystem</cite>
+quad-tuples of inlet, outlet, control, and zone nodes
+for multiple different outdoor air systems attached to same collector</p>
+<dl class="method">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>outdoor_air_system_1_collector_inlet_node=None</em>, <em>outdoor_air_system_1_collector_outlet_node=None</em>, <em>outdoor_air_system_1_mixed_air_node=None</em>, <em>outdoor_air_system_1_zone_node=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>outdoor_air_system_1_collector_inlet_node</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air System 1 Collector Inlet Node</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>outdoor_air_system_1_collector_outlet_node</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air System 1 Collector Outlet Node</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>outdoor_air_system_1_mixed_air_node</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air System 1 Mixed Air Node</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>outdoor_air_system_1_zone_node</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Outdoor Air System 1 Zone Node</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.solar_collector_name">
+<code class="descname">solar_collector_name</code><a class="headerlink" href="#pyidf.solar_collectors.SolarCollectorUnglazedTranspiredMultisystem.solar_collector_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Solar Collector Name</cite></p>
+<p>Enter the name of a SolarCollector:UnglazedTranspired object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Solar Collector Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>solar_collector_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyidf.simulation_parameters.html"
+                        title="previous chapter">pyidf.simulation_parameters module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyidf.surface_construction_elements.html"
+                        title="next chapter">pyidf.surface_construction_elements module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyidf.solar_collectors.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyidf.surface_construction_elements.html" title="pyidf.surface_construction_elements module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyidf.simulation_parameters.html" title="pyidf.simulation_parameters module"
+             >previous</a> |</li>
+        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
+          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Rene Buffat.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>
