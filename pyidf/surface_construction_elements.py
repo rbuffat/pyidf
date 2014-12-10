@@ -156,11 +156,12 @@ class Material(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+        |  value <= 3.0
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
-                value <= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -180,9 +181,10 @@ class Material(DataObject):
     def conductivity(self):
         """field `Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -202,9 +204,10 @@ class Material(DataObject):
     def density(self):
         """field `Density`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Density`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -224,10 +227,11 @@ class Material(DataObject):
     def specific_heat(self):
         """field `Specific Heat`
 
+        |  Units: J/kg-K
+        |  value >= 100.0
+
         Args:
             value (float): value for IDD Field `Specific Heat`
-                Units: J/kg-K
-                value >= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -247,10 +251,11 @@ class Material(DataObject):
     def thermal_absorptance(self):
         """field `Thermal Absorptance`
 
+        |  Default value: 0.9
+        |  value <= 0.99999
+
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
-                Default value: 0.9
-                value <= 0.99999
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -270,10 +275,11 @@ class Material(DataObject):
     def solar_absorptance(self):
         """field `Solar Absorptance`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Solar Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -293,10 +299,11 @@ class Material(DataObject):
     def visible_absorptance(self):
         """field `Visible Absorptance`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Visible Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -434,10 +441,11 @@ class MaterialNoMass(DataObject):
     def thermal_resistance(self):
         """field `Thermal Resistance`
 
+        |  Units: m2-K/W
+        |  value >= 0.001
+
         Args:
             value (float): value for IDD Field `Thermal Resistance`
-                Units: m2-K/W
-                value >= 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -457,10 +465,11 @@ class MaterialNoMass(DataObject):
     def thermal_absorptance(self):
         """field `Thermal Absorptance`
 
+        |  Default value: 0.9
+        |  value <= 0.99999
+
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
-                Default value: 0.9
-                value <= 0.99999
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -480,10 +489,11 @@ class MaterialNoMass(DataObject):
     def solar_absorptance(self):
         """field `Solar Absorptance`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Solar Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -503,10 +513,11 @@ class MaterialNoMass(DataObject):
     def visible_absorptance(self):
         """field `Visible Absorptance`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Visible Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -630,9 +641,10 @@ class MaterialAirGap(DataObject):
     def thermal_resistance(self):
         """field `Thermal Resistance`
 
+        |  Units: m2-K/W
+
         Args:
             value (float): value for IDD Field `Thermal Resistance`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -890,15 +902,16 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def height_of_plants(self):
-        """field `Height of Plants` The ecoroof module is designed for short
-        plants and shrubs.
+        """field `Height of Plants`
+
+        |  The ecoroof module is designed for short plants and shrubs.
+        |  Units: m
+        |  Default value: 0.2
+        |  value > 0.005
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Height of Plants`
-                Units: m
-                Default value: 0.2
-                value > 0.005
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -916,15 +929,16 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def leaf_area_index(self):
-        """field `Leaf Area Index` Entire surface is assumed covered, so
-        decrease LAI accordingly.
+        """field `Leaf Area Index`
+
+        |  Entire surface is assumed covered, so decrease LAI accordingly.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value > 0.001
+        |  value <= 5.0
 
         Args:
             value (float): value for IDD Field `Leaf Area Index`
-                Units: dimensionless
-                Default value: 1.0
-                value > 0.001
-                value <= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -943,20 +957,22 @@ class MaterialRoofVegetation(DataObject):
     @property
     def leaf_reflectivity(self):
         """field `Leaf Reflectivity`
-        Leaf reflectivity (albedo) is typically 0.18-0.25
+
+        |  Leaf reflectivity (albedo) is typically 0.18-0.25
+        |  Units: dimensionless
+        |  Default value: 0.22
+        |  value >= 0.05
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Leaf Reflectivity`
-                Units: dimensionless
-                Default value: 0.22
-                value >= 0.05
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `leaf_reflectivity` or None if not set
+
         """
         return self["Leaf Reflectivity"]
 
@@ -969,11 +985,12 @@ class MaterialRoofVegetation(DataObject):
     def leaf_emissivity(self):
         """field `Leaf Emissivity`
 
+        |  Default value: 0.95
+        |  value >= 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Leaf Emissivity`
-                Default value: 0.95
-                value >= 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -991,14 +1008,16 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def minimum_stomatal_resistance(self):
-        """field `Minimum Stomatal Resistance` This depends upon plant type.
+        """field `Minimum Stomatal Resistance`
+
+        |  This depends upon plant type
+        |  Units: s/m
+        |  Default value: 180.0
+        |  value >= 50.0
+        |  value <= 300.0
 
         Args:
             value (float): value for IDD Field `Minimum Stomatal Resistance`
-                Units: s/m
-                Default value: 180.0
-                value >= 50.0
-                value <= 300.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1018,9 +1037,10 @@ class MaterialRoofVegetation(DataObject):
     def soil_layer_name(self):
         """field `Soil Layer Name`
 
+        |  Default value: Green Roof Soil
+
         Args:
             value (str): value for IDD Field `Soil Layer Name`
-                Default value: Green Roof Soil
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1040,9 +1060,10 @@ class MaterialRoofVegetation(DataObject):
     def roughness(self):
         """field `Roughness`
 
+        |  Default value: MediumRough
+
         Args:
             value (str): value for IDD Field `Roughness`
-                Default value: MediumRough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1061,22 +1082,24 @@ class MaterialRoofVegetation(DataObject):
     @property
     def thickness(self):
         """field `Thickness`
-        thickness of the soil layer of the EcoRoof
-        Soil depths of 0.15m (6in) and 0.30m (12in) are common.
+
+        |  thickness of the soil layer of the EcoRoof
+        |  Soil depths of 0.15m (6in) and 0.30m (12in) are common.
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.1
+        |  value > 0.05
+        |  value <= 0.7
 
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
-                Default value: 0.1
-                value > 0.05
-                value <= 0.7
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thickness` or None if not set
+
         """
         return self["Thickness"]
 
@@ -1088,21 +1111,23 @@ class MaterialRoofVegetation(DataObject):
     @property
     def conductivity_of_dry_soil(self):
         """field `Conductivity of Dry Soil`
-        Thermal conductivity of dry soil.
-        Typical ecoroof soils range from 0.3 to 0.5
+
+        |  Thermal conductivity of dry soil.
+        |  Typical ecoroof soils range from 0.3 to 0.5
+        |  Units: W/m-K
+        |  Default value: 0.35
+        |  value >= 0.2
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Conductivity of Dry Soil`
-                Units: W/m-K
-                Default value: 0.35
-                value >= 0.2
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_of_dry_soil` or None if not set
+
         """
         return self["Conductivity of Dry Soil"]
 
@@ -1113,16 +1138,17 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def density_of_dry_soil(self):
-        """field `Density of Dry Soil` Density of dry soil (the code modifies
-        this as the soil becomes moist) Typical ecoroof soils range from 400 to
-        1000 (dry to wet)
+        """field `Density of Dry Soil`
+
+        |  Density of dry soil (the code modifies this as the soil becomes moist)
+        |  Typical ecoroof soils range from 400 to 1000 (dry to wet)
+        |  Units: kg/m3
+        |  Default value: 1100.0
+        |  value >= 300.0
+        |  value <= 2000.0
 
         Args:
             value (float): value for IDD Field `Density of Dry Soil`
-                Units: kg/m3
-                Default value: 1100.0
-                value >= 300.0
-                value <= 2000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1140,14 +1166,16 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def specific_heat_of_dry_soil(self):
-        """field `Specific Heat of Dry Soil` Specific heat of dry soil.
+        """field `Specific Heat of Dry Soil`
+
+        |  Specific heat of dry soil
+        |  Units: J/kg-K
+        |  Default value: 1200.0
+        |  value > 500.0
+        |  value <= 2000.0
 
         Args:
             value (float): value for IDD Field `Specific Heat of Dry Soil`
-                Units: J/kg-K
-                Default value: 1200.0
-                value > 500.0
-                value <= 2000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1166,19 +1194,21 @@ class MaterialRoofVegetation(DataObject):
     @property
     def thermal_absorptance(self):
         """field `Thermal Absorptance`
-        Soil emissivity is typically in range of 0.90 to 0.98
+
+        |  Soil emissivity is typically in range of 0.90 to 0.98
+        |  Default value: 0.9
+        |  value > 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
-                Default value: 0.9
-                value > 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_absorptance` or None if not set
+
         """
         return self["Thermal Absorptance"]
 
@@ -1190,20 +1220,22 @@ class MaterialRoofVegetation(DataObject):
     @property
     def solar_absorptance(self):
         """field `Solar Absorptance`
-        Solar absorptance of dry soil (1-albedo) is typically 0.60 to 0.85
-        corresponding to a dry albedo of 0.15 to 0.40
+
+        |  Solar absorptance of dry soil (1-albedo) is typically 0.60 to 0.85
+        |  corresponding to a dry albedo of 0.15 to 0.40
+        |  Default value: 0.7
+        |  value >= 0.4
+        |  value <= 0.9
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
-                Default value: 0.7
-                value >= 0.4
-                value <= 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `solar_absorptance` or None if not set
+
         """
         return self["Solar Absorptance"]
 
@@ -1216,11 +1248,12 @@ class MaterialRoofVegetation(DataObject):
     def visible_absorptance(self):
         """field `Visible Absorptance`
 
+        |  Default value: 0.75
+        |  value > 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Visible Absorptance`
-                Default value: 0.75
-                value > 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1239,19 +1272,21 @@ class MaterialRoofVegetation(DataObject):
     @property
     def saturation_volumetric_moisture_content_of_the_soil_layer(self):
         """field `Saturation Volumetric Moisture Content of the Soil Layer`
-        Maximum moisture content is typically less than 0.5
+
+        |  Maximum moisture content is typically less than 0.5
+        |  Default value: 0.3
+        |  value > 0.1
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Saturation Volumetric Moisture Content of the Soil Layer`
-                Default value: 0.3
-                value > 0.1
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `saturation_volumetric_moisture_content_of_the_soil_layer` or None if not set
+
         """
         return self["Saturation Volumetric Moisture Content of the Soil Layer"]
 
@@ -1268,11 +1303,12 @@ class MaterialRoofVegetation(DataObject):
     def residual_volumetric_moisture_content_of_the_soil_layer(self):
         """field `Residual Volumetric Moisture Content of the Soil Layer`
 
+        |  Default value: 0.01
+        |  value >= 0.01
+        |  value <= 0.1
+
         Args:
             value (float): value for IDD Field `Residual Volumetric Moisture Content of the Soil Layer`
-                Default value: 0.01
-                value >= 0.01
-                value <= 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1295,11 +1331,12 @@ class MaterialRoofVegetation(DataObject):
     def initial_volumetric_moisture_content_of_the_soil_layer(self):
         """field `Initial Volumetric Moisture Content of the Soil Layer`
 
+        |  Default value: 0.1
+        |  value > 0.05
+        |  value <= 0.5
+
         Args:
             value (float): value for IDD Field `Initial Volumetric Moisture Content of the Soil Layer`
-                Default value: 0.1
-                value > 0.05
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1318,12 +1355,13 @@ class MaterialRoofVegetation(DataObject):
 
     @property
     def moisture_diffusion_calculation_method(self):
-        """field `Moisture Diffusion Calculation Method` Advanced calculation
-        requires increased number of timesteps (recommended >20).
+        """field `Moisture Diffusion Calculation Method`
+
+        |  Advanced calculation requires increased number of timesteps (recommended >20).
+        |  Default value: Advanced
 
         Args:
             value (str): value for IDD Field `Moisture Diffusion Calculation Method`
-                Default value: Advanced
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1417,13 +1455,14 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
     @property
     def ufactor(self):
         """field `U-Factor`
-        Enter U-Factor including film coefficients
-        Note that the effective upper limit for U-factor is 5.8 W/m2-K
+
+        |  Enter U-Factor including film coefficients
+        |  Note that the effective upper limit for U-factor is 5.8 W/m2-K
+        |  Units: W/m2-K
+        |  value <= 7.0
 
         Args:
             value (float): value for IDD Field `U-Factor`
-                Units: W/m2-K
-                value <= 7.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1442,11 +1481,13 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @property
     def solar_heat_gain_coefficient(self):
-        """field `Solar Heat Gain Coefficient` SHGC at Normal Incidence.
+        """field `Solar Heat Gain Coefficient`
+
+        |  SHGC at Normal Incidence
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Solar Heat Gain Coefficient`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1464,11 +1505,14 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @property
     def visible_transmittance(self):
-        """field `Visible Transmittance` VT at Normal Incidence optional.
+        """field `Visible Transmittance`
+
+        |  VT at Normal Incidence
+        |  optional
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Visible Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1714,7 +1758,8 @@ class WindowMaterialGlazing(DataObject):
     @property
     def window_glass_spectral_data_set_name(self):
         """field `Window Glass Spectral Data Set Name`
-        Used only when Optical Data Type = Spectral
+
+        |  Used only when Optical Data Type = Spectral
 
         Args:
             value (str): value for IDD Field `Window Glass Spectral Data Set Name`
@@ -1724,6 +1769,7 @@ class WindowMaterialGlazing(DataObject):
 
         Returns:
             str: the value of `window_glass_spectral_data_set_name` or None if not set
+
         """
         return self["Window Glass Spectral Data Set Name"]
 
@@ -1736,10 +1782,11 @@ class WindowMaterialGlazing(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1758,17 +1805,19 @@ class WindowMaterialGlazing(DataObject):
     @property
     def solar_transmittance_at_normal_incidence(self):
         """field `Solar Transmittance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Solar Transmittance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `solar_transmittance_at_normal_incidence` or None if not set
+
         """
         return self["Solar Transmittance at Normal Incidence"]
 
@@ -1781,18 +1830,20 @@ class WindowMaterialGlazing(DataObject):
     @property
     def front_side_solar_reflectance_at_normal_incidence(self):
         """field `Front Side Solar Reflectance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
-        Front Side is side closest to outdoor air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Front Side is side closest to outdoor air
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Solar Reflectance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_solar_reflectance_at_normal_incidence` or None if not set
+
         """
         return self["Front Side Solar Reflectance at Normal Incidence"]
 
@@ -1805,18 +1856,20 @@ class WindowMaterialGlazing(DataObject):
     @property
     def back_side_solar_reflectance_at_normal_incidence(self):
         """field `Back Side Solar Reflectance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
-        Back Side is side closest to zone air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Back Side is side closest to zone air
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Solar Reflectance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_solar_reflectance_at_normal_incidence` or None if not set
+
         """
         return self["Back Side Solar Reflectance at Normal Incidence"]
 
@@ -1829,17 +1882,19 @@ class WindowMaterialGlazing(DataObject):
     @property
     def visible_transmittance_at_normal_incidence(self):
         """field `Visible Transmittance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Visible Transmittance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `visible_transmittance_at_normal_incidence` or None if not set
+
         """
         return self["Visible Transmittance at Normal Incidence"]
 
@@ -1852,17 +1907,19 @@ class WindowMaterialGlazing(DataObject):
     @property
     def front_side_visible_reflectance_at_normal_incidence(self):
         """field `Front Side Visible Reflectance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Visible Reflectance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_visible_reflectance_at_normal_incidence` or None if not set
+
         """
         return self["Front Side Visible Reflectance at Normal Incidence"]
 
@@ -1875,17 +1932,19 @@ class WindowMaterialGlazing(DataObject):
     @property
     def back_side_visible_reflectance_at_normal_incidence(self):
         """field `Back Side Visible Reflectance at Normal Incidence`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Visible Reflectance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_visible_reflectance_at_normal_incidence` or None if not set
+
         """
         return self["Back Side Visible Reflectance at Normal Incidence"]
 
@@ -1899,9 +1958,10 @@ class WindowMaterialGlazing(DataObject):
     def infrared_transmittance_at_normal_incidence(self):
         """field `Infrared Transmittance at Normal Incidence`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1922,10 +1982,11 @@ class WindowMaterialGlazing(DataObject):
     def front_side_infrared_hemispherical_emissivity(self):
         """field `Front Side Infrared Hemispherical Emissivity`
 
+        |  Default value: 0.84
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Front Side Infrared Hemispherical Emissivity`
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1946,10 +2007,11 @@ class WindowMaterialGlazing(DataObject):
     def back_side_infrared_hemispherical_emissivity(self):
         """field `Back Side Infrared Hemispherical Emissivity`
 
+        |  Default value: 0.84
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Back Side Infrared Hemispherical Emissivity`
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1970,10 +2032,11 @@ class WindowMaterialGlazing(DataObject):
     def conductivity(self):
         """field `Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 0.9
+
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
-                Default value: 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1993,10 +2056,11 @@ class WindowMaterialGlazing(DataObject):
     def dirt_correction_factor_for_solar_and_visible_transmittance(self):
         """field `Dirt Correction Factor for Solar and Visible Transmittance`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2021,9 +2085,10 @@ class WindowMaterialGlazing(DataObject):
     def solar_diffusing(self):
         """field `Solar Diffusing`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Solar Diffusing`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2041,14 +2106,15 @@ class WindowMaterialGlazing(DataObject):
 
     @property
     def youngs_modulus(self):
-        """field `Youngs modulus` coefficient used for deflection calculations.
-        Used only with complex fenestration when deflection model is set to
-        TemperatureAndPressureInput.
+        """field `Youngs modulus`
+
+        |  coefficient used for deflection calculations. Used only with complex
+        |  fenestration when deflection model is set to TemperatureAndPressureInput
+        |  Units: Pa
+        |  Default value: 72000000000.0
 
         Args:
             value (float): value for IDD Field `Youngs modulus`
-                Units: Pa
-                Default value: 72000000000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2066,14 +2132,15 @@ class WindowMaterialGlazing(DataObject):
 
     @property
     def poissons_ratio(self):
-        """field `Poissons ratio` coefficient used for deflection calculations.
-        Used only with complex fenestration when deflection model is set to
-        TemperatureAndPressureInput.
+        """field `Poissons ratio`
+
+        |  coefficient used for deflection calculations. Used only with complex
+        |  fenestration when deflection model is set to TemperatureAndPressureInput
+        |  Default value: 0.22
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Poissons ratio`
-                Default value: 0.22
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2339,10 +2406,11 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2362,9 +2430,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def solar_index_of_refraction(self):
         """field `Solar Index of Refraction`
 
+        |  value > 1.0
+
         Args:
             value (float): value for IDD Field `Solar Index of Refraction`
-                value > 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2384,9 +2453,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def solar_extinction_coefficient(self):
         """field `Solar Extinction Coefficient`
 
+        |  Units: 1/m
+
         Args:
             value (float): value for IDD Field `Solar Extinction Coefficient`
-                Units: 1/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2406,9 +2476,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def visible_index_of_refraction(self):
         """field `Visible Index of Refraction`
 
+        |  value > 1.0
+
         Args:
             value (float): value for IDD Field `Visible Index of Refraction`
-                value > 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2428,9 +2499,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def visible_extinction_coefficient(self):
         """field `Visible Extinction Coefficient`
 
+        |  Units: 1/m
+
         Args:
             value (float): value for IDD Field `Visible Extinction Coefficient`
-                Units: 1/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2450,9 +2522,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def infrared_transmittance_at_normal_incidence(self):
         """field `Infrared Transmittance at Normal Incidence`
 
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2471,13 +2544,14 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @property
     def infrared_hemispherical_emissivity(self):
-        """field `Infrared Hemispherical Emissivity` Emissivity of front and
-        back side assumed equal.
+        """field `Infrared Hemispherical Emissivity`
+
+        |  Emissivity of front and back side assumed equal
+        |  Default value: 0.84
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Infrared Hemispherical Emissivity`
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2497,10 +2571,11 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def conductivity(self):
         """field `Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 0.9
+
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
-                Default value: 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2520,10 +2595,11 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def dirt_correction_factor_for_solar_and_visible_transmittance(self):
         """field `Dirt Correction Factor for Solar and Visible Transmittance`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2548,9 +2624,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     def solar_diffusing(self):
         """field `Solar Diffusing`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Solar Diffusing`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2748,10 +2825,11 @@ class WindowMaterialGas(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2770,17 +2848,19 @@ class WindowMaterialGas(DataObject):
     @property
     def conductivity_coefficient_a(self):
         """field `Conductivity Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient A`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_a` or None if not set
+
         """
         return self["Conductivity Coefficient A"]
 
@@ -2792,17 +2872,19 @@ class WindowMaterialGas(DataObject):
     @property
     def conductivity_coefficient_b(self):
         """field `Conductivity Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K2
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient B`
-                Units: W/m-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_b` or None if not set
+
         """
         return self["Conductivity Coefficient B"]
 
@@ -2814,17 +2896,19 @@ class WindowMaterialGas(DataObject):
     @property
     def conductivity_coefficient_c(self):
         """field `Conductivity Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K3
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient C`
-                Units: W/m-K3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_c` or None if not set
+
         """
         return self["Conductivity Coefficient C"]
 
@@ -2836,17 +2920,19 @@ class WindowMaterialGas(DataObject):
     @property
     def viscosity_coefficient_a(self):
         """field `Viscosity Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient A`
-                Units: kg/m-s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_a` or None if not set
+
         """
         return self["Viscosity Coefficient A"]
 
@@ -2858,17 +2944,19 @@ class WindowMaterialGas(DataObject):
     @property
     def viscosity_coefficient_b(self):
         """field `Viscosity Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s-K
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient B`
-                Units: kg/m-s-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_b` or None if not set
+
         """
         return self["Viscosity Coefficient B"]
 
@@ -2880,17 +2968,19 @@ class WindowMaterialGas(DataObject):
     @property
     def viscosity_coefficient_c(self):
         """field `Viscosity Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s-K2
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient C`
-                Units: kg/m-s-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_c` or None if not set
+
         """
         return self["Viscosity Coefficient C"]
 
@@ -2902,17 +2992,19 @@ class WindowMaterialGas(DataObject):
     @property
     def specific_heat_coefficient_a(self):
         """field `Specific Heat Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient A`
-                Units: J/kg-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_a` or None if not set
+
         """
         return self["Specific Heat Coefficient A"]
 
@@ -2924,17 +3016,19 @@ class WindowMaterialGas(DataObject):
     @property
     def specific_heat_coefficient_b(self):
         """field `Specific Heat Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K2
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient B`
-                Units: J/kg-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_b` or None if not set
+
         """
         return self["Specific Heat Coefficient B"]
 
@@ -2946,17 +3040,19 @@ class WindowMaterialGas(DataObject):
     @property
     def specific_heat_coefficient_c(self):
         """field `Specific Heat Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K3
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient C`
-                Units: J/kg-K3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_c` or None if not set
+
         """
         return self["Specific Heat Coefficient C"]
 
@@ -2968,19 +3064,21 @@ class WindowMaterialGas(DataObject):
     @property
     def molecular_weight(self):
         """field `Molecular Weight`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: g/mol
+        |  value >= 20.0
+        |  value <= 200.0
 
         Args:
             value (float): value for IDD Field `Molecular Weight`
-                Units: g/mol
-                value >= 20.0
-                value <= 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `molecular_weight` or None if not set
+
         """
         return self["Molecular Weight"]
 
@@ -2992,7 +3090,8 @@ class WindowMaterialGas(DataObject):
     @property
     def specific_heat_ratio(self):
         """field `Specific Heat Ratio`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
 
         Args:
             value (float): value for IDD Field `Specific Heat Ratio`
@@ -3002,6 +3101,7 @@ class WindowMaterialGas(DataObject):
 
         Returns:
             float: the value of `specific_heat_ratio` or None if not set
+
         """
         return self["Specific Heat Ratio"]
 
@@ -3079,10 +3179,11 @@ class WindowGapSupportPillar(DataObject):
     def spacing(self):
         """field `Spacing`
 
+        |  Units: m
+        |  Default value: 0.04
+
         Args:
             value (float): value for IDD Field `Spacing`
-                Units: m
-                Default value: 0.04
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3102,10 +3203,11 @@ class WindowGapSupportPillar(DataObject):
     def radius(self):
         """field `Radius`
 
+        |  Units: m
+        |  Default value: 0.0004
+
         Args:
             value (float): value for IDD Field `Radius`
-                Units: m
-                Default value: 0.0004
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3200,12 +3302,13 @@ class WindowGapDeflectionState(DataObject):
 
     @property
     def deflected_thickness(self):
-        """field `Deflected Thickness` If left blank will be considered that
-        gap has no deflection.
+        """field `Deflected Thickness`
+
+        |  If left blank will be considered that gap has no deflection.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Deflected Thickness`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3225,10 +3328,11 @@ class WindowGapDeflectionState(DataObject):
     def initial_temperature(self):
         """field `Initial Temperature`
 
+        |  Units: C
+        |  Default value: 25.0
+
         Args:
             value (float): value for IDD Field `Initial Temperature`
-                Units: C
-                Default value: 25.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3248,10 +3352,11 @@ class WindowGapDeflectionState(DataObject):
     def initial_pressure(self):
         """field `Initial Pressure`
 
+        |  Units: Pa
+        |  Default value: 101325.0
+
         Args:
             value (float): value for IDD Field `Initial Pressure`
-                Units: Pa
-                Default value: 101325.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3414,9 +3519,10 @@ class WindowMaterialGasMixture(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3436,10 +3542,11 @@ class WindowMaterialGasMixture(DataObject):
     def number_of_gases_in_mixture(self):
         """field `Number of Gases in Mixture`
 
+        |  value >= 1
+        |  value <= 4
+
         Args:
             value (int): value for IDD Field `Number of Gases in Mixture`
-                value >= 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3480,9 +3587,10 @@ class WindowMaterialGasMixture(DataObject):
     def gas_1_fraction(self):
         """field `Gas 1 Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas 1 Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3523,9 +3631,10 @@ class WindowMaterialGasMixture(DataObject):
     def gas_2_fraction(self):
         """field `Gas 2 Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas 2 Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3566,9 +3675,10 @@ class WindowMaterialGasMixture(DataObject):
     def gas_3_fraction(self):
         """field `Gas 3 Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas 3 Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3609,9 +3719,10 @@ class WindowMaterialGasMixture(DataObject):
     def gas_4_fraction(self):
         """field `Gas 4 Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas 4 Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3717,9 +3828,10 @@ class WindowMaterialGap(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3738,8 +3850,9 @@ class WindowMaterialGap(DataObject):
     @property
     def gas_or_gas_mixture(self):
         """field `Gas (or Gas Mixture)`
-        This field should reference only WindowMaterial:Gas
-        or WindowMaterial:GasMixture objects
+
+        |  This field should reference only WindowMaterial:Gas
+        |  or WindowMaterial:GasMixture objects
 
         Args:
             value (str): value for IDD Field `Gas (or Gas Mixture)`
@@ -3749,6 +3862,7 @@ class WindowMaterialGap(DataObject):
 
         Returns:
             str: the value of `gas_or_gas_mixture` or None if not set
+
         """
         return self["Gas (or Gas Mixture)"]
 
@@ -3761,10 +3875,11 @@ class WindowMaterialGap(DataObject):
     def pressure(self):
         """field `Pressure`
 
+        |  Units: Pa
+        |  Default value: 101325.0
+
         Args:
             value (float): value for IDD Field `Pressure`
-                Units: Pa
-                Default value: 101325.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3782,8 +3897,9 @@ class WindowMaterialGap(DataObject):
 
     @property
     def deflection_state(self):
-        """field `Deflection State` If left blank, it will be considered that
-        gap is not deflected.
+        """field `Deflection State`
+
+        |  If left blank, it will be considered that gap is not deflected
 
         Args:
             value (str): value for IDD Field `Deflection State`
@@ -3804,8 +3920,10 @@ class WindowMaterialGap(DataObject):
 
     @property
     def support_pillar(self):
-        """field `Support Pillar` If left blank, it will be considered that gap
-        does not have support pillars.
+        """field `Support Pillar`
+
+        |  If left blank, it will be considered that gap does not have
+        |  support pillars
 
         Args:
             value (str): value for IDD Field `Support Pillar`
@@ -4014,12 +4132,14 @@ class WindowMaterialShade(DataObject):
 
     @property
     def solar_transmittance(self):
-        """field `Solar Transmittance` Assumed independent of incidence angle.
+        """field `Solar Transmittance`
+
+        |  Assumed independent of incidence angle
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4037,13 +4157,15 @@ class WindowMaterialShade(DataObject):
 
     @property
     def solar_reflectance(self):
-        """field `Solar Reflectance` Assumed same for both sides Assumed
-        independent of incidence angle.
+        """field `Solar Reflectance`
+
+        |  Assumed same for both sides
+        |  Assumed independent of incidence angle
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4061,13 +4183,14 @@ class WindowMaterialShade(DataObject):
 
     @property
     def visible_transmittance(self):
-        """field `Visible Transmittance` Assumed independent of incidence
-        angle.
+        """field `Visible Transmittance`
+
+        |  Assumed independent of incidence angle
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4085,13 +4208,15 @@ class WindowMaterialShade(DataObject):
 
     @property
     def visible_reflectance(self):
-        """field `Visible Reflectance` Assumed same for both sides Assumed
-        independent of incidence angle.
+        """field `Visible Reflectance`
+
+        |  Assumed same for both sides
+        |  Assumed independent of incidence angle
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4111,10 +4236,11 @@ class WindowMaterialShade(DataObject):
     def infrared_hemispherical_emissivity(self):
         """field `Infrared Hemispherical Emissivity`
 
+        |  Units: dimensionless
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Infrared Hemispherical Emissivity`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4134,10 +4260,11 @@ class WindowMaterialShade(DataObject):
     def infrared_transmittance(self):
         """field `Infrared Transmittance`
 
+        |  Units: dimensionless
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Infrared Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4157,10 +4284,11 @@ class WindowMaterialShade(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4180,9 +4308,10 @@ class WindowMaterialShade(DataObject):
     def conductivity(self):
         """field `Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4202,13 +4331,14 @@ class WindowMaterialShade(DataObject):
     def shade_to_glass_distance(self):
         """field `Shade to Glass Distance`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.05
+        |  value >= 0.001
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Shade to Glass Distance`
-                Units: m
-                IP-Units: in
-                Default value: 0.05
-                value >= 0.001
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4228,10 +4358,11 @@ class WindowMaterialShade(DataObject):
     def top_opening_multiplier(self):
         """field `Top Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4251,10 +4382,11 @@ class WindowMaterialShade(DataObject):
     def bottom_opening_multiplier(self):
         """field `Bottom Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4274,10 +4406,11 @@ class WindowMaterialShade(DataObject):
     def leftside_opening_multiplier(self):
         """field `Left-Side Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Left-Side Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4298,10 +4431,11 @@ class WindowMaterialShade(DataObject):
     def rightside_opening_multiplier(self):
         """field `Right-Side Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Right-Side Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4322,10 +4456,11 @@ class WindowMaterialShade(DataObject):
     def airflow_permeability(self):
         """field `Airflow Permeability`
 
+        |  Units: dimensionless
+        |  value <= 0.8
+
         Args:
             value (float): value for IDD Field `Airflow Permeability`
-                Units: dimensionless
-                value <= 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4564,9 +4699,10 @@ class WindowMaterialComplexShade(DataObject):
     def layer_type(self):
         """field `Layer Type`
 
+        |  Default value: OtherShadingType
+
         Args:
             value (str): value for IDD Field `Layer Type`
-                Default value: OtherShadingType
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4586,10 +4722,11 @@ class WindowMaterialComplexShade(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  Default value: 0.002
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                Default value: 0.002
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4609,10 +4746,11 @@ class WindowMaterialComplexShade(DataObject):
     def conductivity(self):
         """field `Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4632,9 +4770,10 @@ class WindowMaterialComplexShade(DataObject):
     def ir_transmittance(self):
         """field `IR Transmittance`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `IR Transmittance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4654,10 +4793,11 @@ class WindowMaterialComplexShade(DataObject):
     def front_emissivity(self):
         """field `Front Emissivity`
 
+        |  Default value: 0.84
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Front Emissivity`
-                Default value: 0.84
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4677,10 +4817,11 @@ class WindowMaterialComplexShade(DataObject):
     def back_emissivity(self):
         """field `Back Emissivity`
 
+        |  Default value: 0.84
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Back Emissivity`
-                Default value: 0.84
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4700,9 +4841,10 @@ class WindowMaterialComplexShade(DataObject):
     def top_opening_multiplier(self):
         """field `Top Opening Multiplier`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4722,9 +4864,10 @@ class WindowMaterialComplexShade(DataObject):
     def bottom_opening_multiplier(self):
         """field `Bottom Opening Multiplier`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4744,9 +4887,10 @@ class WindowMaterialComplexShade(DataObject):
     def left_side_opening_multiplier(self):
         """field `Left Side Opening Multiplier`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Left Side Opening Multiplier`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4766,9 +4910,10 @@ class WindowMaterialComplexShade(DataObject):
     def right_side_opening_multiplier(self):
         """field `Right Side Opening Multiplier`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Right Side Opening Multiplier`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4788,10 +4933,11 @@ class WindowMaterialComplexShade(DataObject):
     def front_opening_multiplier(self):
         """field `Front Opening Multiplier`
 
+        |  Default value: 0.05
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Front Opening Multiplier`
-                Default value: 0.05
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4811,10 +4957,11 @@ class WindowMaterialComplexShade(DataObject):
     def slat_width(self):
         """field `Slat Width`
 
+        |  Units: m
+        |  Default value: 0.016
+
         Args:
             value (float): value for IDD Field `Slat Width`
-                Units: m
-                Default value: 0.016
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4832,12 +4979,14 @@ class WindowMaterialComplexShade(DataObject):
 
     @property
     def slat_spacing(self):
-        """field `Slat Spacing` Distance between adjacent slat faces.
+        """field `Slat Spacing`
+
+        |  Distance between adjacent slat faces
+        |  Units: m
+        |  Default value: 0.012
 
         Args:
             value (float): value for IDD Field `Slat Spacing`
-                Units: m
-                Default value: 0.012
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4855,13 +5004,15 @@ class WindowMaterialComplexShade(DataObject):
 
     @property
     def slat_thickness(self):
-        """field `Slat Thickness` Distance between top and bottom surfaces of
-        slat Slat is assumed to be rectangular in cross section and flat.
+        """field `Slat Thickness`
+
+        |  Distance between top and bottom surfaces of slat
+        |  Slat is assumed to be rectangular in cross section and flat
+        |  Units: m
+        |  Default value: 0.0006
 
         Args:
             value (float): value for IDD Field `Slat Thickness`
-                Units: m
-                Default value: 0.0006
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4881,12 +5032,13 @@ class WindowMaterialComplexShade(DataObject):
     def slat_angle(self):
         """field `Slat Angle`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value >= -90.0
+        |  value <= 90.0
+
         Args:
             value (float): value for IDD Field `Slat Angle`
-                Units: deg
-                Default value: 90.0
-                value >= -90.0
-                value <= 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4906,10 +5058,11 @@ class WindowMaterialComplexShade(DataObject):
     def slat_conductivity(self):
         """field `Slat Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 160.0
+
         Args:
             value (float): value for IDD Field `Slat Conductivity`
-                Units: W/m-K
-                Default value: 160.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4928,19 +5081,21 @@ class WindowMaterialComplexShade(DataObject):
     @property
     def slat_curve(self):
         """field `Slat Curve`
-        this value represents curvature radius of the slat.
-        if the slat is flat use zero.
-        if this value is not zero, then it must be > SlatWidth/2.
+
+        |  this value represents curvature radius of the slat.
+        |  if the slat is flat use zero.
+        |  if this value is not zero, then it must be > SlatWidth/2.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Slat Curve`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `slat_curve` or None if not set
+
         """
         return self["Slat Curve"]
 
@@ -5274,9 +5429,10 @@ class WindowMaterialBlind(DataObject):
     def slat_orientation(self):
         """field `Slat Orientation`
 
+        |  Default value: Horizontal
+
         Args:
             value (str): value for IDD Field `Slat Orientation`
-                Default value: Horizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5296,11 +5452,12 @@ class WindowMaterialBlind(DataObject):
     def slat_width(self):
         """field `Slat Width`
 
+        |  Units: m
+        |  IP-Units: in
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Slat Width`
-                Units: m
-                IP-Units: in
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5318,13 +5475,15 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_separation(self):
-        """field `Slat Separation` Distance between adjacent slat faces.
+        """field `Slat Separation`
+
+        |  Distance between adjacent slat faces
+        |  Units: m
+        |  IP-Units: in
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Slat Separation`
-                Units: m
-                IP-Units: in
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5342,15 +5501,17 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_thickness(self):
-        """field `Slat Thickness` Distance between top and bottom surfaces of
-        slat Slat is assumed to be rectangular in cross section and flat.
+        """field `Slat Thickness`
+
+        |  Distance between top and bottom surfaces of slat
+        |  Slat is assumed to be rectangular in cross section and flat
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.00025
+        |  value <= 0.1
 
         Args:
             value (float): value for IDD Field `Slat Thickness`
-                Units: m
-                IP-Units: in
-                Default value: 0.00025
-                value <= 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5369,27 +5530,29 @@ class WindowMaterialBlind(DataObject):
     @property
     def slat_angle(self):
         """field `Slat Angle`
-        If WindowProperty:ShadingControl for the window that incorporates this blind
-        has Type of Slat Angle Control for Blinds = FixedSlatAngle,
-        then this is the fixed value of the slat angle;
-        If WindowProperty:ShadingControl for the window that incorporates this blind
-        has Type of Slat Angle Control for Blinds = BlockBeamSolar,
-        then this is the slat angle when slat angle control
-        is not in effect (e.g., when there is no beam solar on the blind);
-        Not used if WindowProperty:ShadingControl for the window that incorporates this blind
-        has Type of Slat Angle Control for Blinds = ScheduledSlatAngle.
+
+        |  If WindowProperty:ShadingControl for the window that incorporates this blind
+        |  has Type of Slat Angle Control for Blinds = FixedSlatAngle,
+        |  then this is the fixed value of the slat angle;
+        |  If WindowProperty:ShadingControl for the window that incorporates this blind
+        |  has Type of Slat Angle Control for Blinds = BlockBeamSolar,
+        |  then this is the slat angle when slat angle control
+        |  is not in effect (e.g., when there is no beam solar on the blind);
+        |  Not used if WindowProperty:ShadingControl for the window that incorporates this blind
+        |  has Type of Slat Angle Control for Blinds = ScheduledSlatAngle.
+        |  Units: deg
+        |  Default value: 45.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Slat Angle`
-                Units: deg
-                Default value: 45.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `slat_angle` or None if not set
+
         """
         return self["Slat Angle"]
 
@@ -5400,12 +5563,14 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_conductivity(self):
-        """field `Slat Conductivity` default is for aluminum.
+        """field `Slat Conductivity`
+
+        |  default is for aluminum
+        |  Units: W/m-K
+        |  Default value: 221.0
 
         Args:
             value (float): value for IDD Field `Slat Conductivity`
-                Units: W/m-K
-                Default value: 221.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5425,9 +5590,10 @@ class WindowMaterialBlind(DataObject):
     def slat_beam_solar_transmittance(self):
         """field `Slat Beam Solar Transmittance`
 
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Slat Beam Solar Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5447,9 +5613,10 @@ class WindowMaterialBlind(DataObject):
     def front_side_slat_beam_solar_reflectance(self):
         """field `Front Side Slat Beam Solar Reflectance`
 
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Front Side Slat Beam Solar Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5469,9 +5636,10 @@ class WindowMaterialBlind(DataObject):
     def back_side_slat_beam_solar_reflectance(self):
         """field `Back Side Slat Beam Solar Reflectance`
 
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Back Side Slat Beam Solar Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5489,12 +5657,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_diffuse_solar_transmittance(self):
-        """field `Slat Diffuse Solar Transmittance` Must equal "Slat beam solar
-        transmittance".
+        """field `Slat Diffuse Solar Transmittance`
+
+        |  Must equal "Slat beam solar transmittance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Diffuse Solar Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5512,12 +5681,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def front_side_slat_diffuse_solar_reflectance(self):
-        """field `Front Side Slat Diffuse Solar Reflectance` Must equal "Front
-        Side Slat Beam Solar Reflectance".
+        """field `Front Side Slat Diffuse Solar Reflectance`
+
+        |  Must equal "Front Side Slat Beam Solar Reflectance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse Solar Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5536,12 +5706,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def back_side_slat_diffuse_solar_reflectance(self):
-        """field `Back Side Slat Diffuse Solar Reflectance` Must equal "Back
-        Side Slat Beam Solar Reflectance".
+        """field `Back Side Slat Diffuse Solar Reflectance`
+
+        |  Must equal "Back Side Slat Beam Solar Reflectance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse Solar Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5560,12 +5731,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_beam_visible_transmittance(self):
-        """field `Slat Beam Visible Transmittance` Required for detailed
-        daylighting calculation.
+        """field `Slat Beam Visible Transmittance`
+
+        |  Required for detailed daylighting calculation
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Beam Visible Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5583,12 +5755,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def front_side_slat_beam_visible_reflectance(self):
-        """field `Front Side Slat Beam Visible Reflectance` Required for
-        detailed daylighting calculation.
+        """field `Front Side Slat Beam Visible Reflectance`
+
+        |  Required for detailed daylighting calculation
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam Visible Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5607,12 +5780,13 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def back_side_slat_beam_visible_reflectance(self):
-        """field `Back Side Slat Beam Visible Reflectance` Required for
-        detailed daylighting calculation.
+        """field `Back Side Slat Beam Visible Reflectance`
+
+        |  Required for detailed daylighting calculation
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam Visible Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5631,12 +5805,14 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def slat_diffuse_visible_transmittance(self):
-        """field `Slat Diffuse Visible Transmittance` Used only for detailed
-        daylighting calculation Must equal "Slat Beam Visible Transmittance".
+        """field `Slat Diffuse Visible Transmittance`
+
+        |  Used only for detailed daylighting calculation
+        |  Must equal "Slat Beam Visible Transmittance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Diffuse Visible Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5654,13 +5830,14 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def front_side_slat_diffuse_visible_reflectance(self):
-        """field `Front Side Slat Diffuse Visible Reflectance` Required for
-        detailed daylighting calculation Must equal "Front Side Slat Beam
-        Visible Reflectance".
+        """field `Front Side Slat Diffuse Visible Reflectance`
+
+        |  Required for detailed daylighting calculation
+        |  Must equal "Front Side Slat Beam Visible Reflectance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse Visible Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5679,13 +5856,14 @@ class WindowMaterialBlind(DataObject):
 
     @property
     def back_side_slat_diffuse_visible_reflectance(self):
-        """field `Back Side Slat Diffuse Visible Reflectance` Required for
-        detailed daylighting calculation Must equal "Back Side Slat Beam
-        Visible Reflectance".
+        """field `Back Side Slat Diffuse Visible Reflectance`
+
+        |  Required for detailed daylighting calculation
+        |  Must equal "Back Side Slat Beam Visible Reflectance"
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse Visible Reflectance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5706,9 +5884,10 @@ class WindowMaterialBlind(DataObject):
     def slat_infrared_hemispherical_transmittance(self):
         """field `Slat Infrared Hemispherical Transmittance`
 
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Slat Infrared Hemispherical Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5729,10 +5908,11 @@ class WindowMaterialBlind(DataObject):
     def front_side_slat_infrared_hemispherical_emissivity(self):
         """field `Front Side Slat Infrared Hemispherical Emissivity`
 
+        |  Default value: 0.9
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Front Side Slat Infrared Hemispherical Emissivity`
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5753,10 +5933,11 @@ class WindowMaterialBlind(DataObject):
     def back_side_slat_infrared_hemispherical_emissivity(self):
         """field `Back Side Slat Infrared Hemispherical Emissivity`
 
+        |  Default value: 0.9
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Back Side Slat Infrared Hemispherical Emissivity`
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5777,13 +5958,14 @@ class WindowMaterialBlind(DataObject):
     def blind_to_glass_distance(self):
         """field `Blind to Glass Distance`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.05
+        |  value >= 0.01
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blind to Glass Distance`
-                Units: m
-                IP-Units: in
-                Default value: 0.05
-                value >= 0.01
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5803,10 +5985,11 @@ class WindowMaterialBlind(DataObject):
     def blind_top_opening_multiplier(self):
         """field `Blind Top Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blind Top Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5826,9 +6009,10 @@ class WindowMaterialBlind(DataObject):
     def blind_bottom_opening_multiplier(self):
         """field `Blind Bottom Opening Multiplier`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blind Bottom Opening Multiplier`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5848,10 +6032,11 @@ class WindowMaterialBlind(DataObject):
     def blind_left_side_opening_multiplier(self):
         """field `Blind Left Side Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blind Left Side Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5871,10 +6056,11 @@ class WindowMaterialBlind(DataObject):
     def blind_right_side_opening_multiplier(self):
         """field `Blind Right Side Opening Multiplier`
 
+        |  Default value: 0.5
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blind Right Side Opening Multiplier`
-                Default value: 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5893,21 +6079,23 @@ class WindowMaterialBlind(DataObject):
     @property
     def minimum_slat_angle(self):
         """field `Minimum Slat Angle`
-        Used only if WindowProperty:ShadingControl for the window that incorporates
-        this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
-        Type of Slat Angle Control for Blinds = ScheduledSlatAngle
-        or BlockBeamSolar)
+
+        |  Used only if WindowProperty:ShadingControl for the window that incorporates
+        |  this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
+        |  Type of Slat Angle Control for Blinds = ScheduledSlatAngle
+        |  or BlockBeamSolar)
+        |  Units: deg
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Minimum Slat Angle`
-                Units: deg
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_slat_angle` or None if not set
+
         """
         return self["Minimum Slat Angle"]
 
@@ -5919,22 +6107,24 @@ class WindowMaterialBlind(DataObject):
     @property
     def maximum_slat_angle(self):
         """field `Maximum Slat Angle`
-        Used only if WindowProperty:ShadingControl for the window that incorporates
-        this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
-        Type of Slat Angle Control for Blinds = ScheduledSlatAngle
-        or BlockBeamSolar)
+
+        |  Used only if WindowProperty:ShadingControl for the window that incorporates
+        |  this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
+        |  Type of Slat Angle Control for Blinds = ScheduledSlatAngle
+        |  or BlockBeamSolar)
+        |  Units: deg
+        |  Default value: 180.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Maximum Slat Angle`
-                Units: deg
-                Default value: 180.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_slat_angle` or None if not set
+
         """
         return self["Maximum Slat Angle"]
 
@@ -6108,7 +6298,9 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this window screen material.
+        """field `Name`
+
+        |  Enter a unique name for this window screen material.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6129,13 +6321,13 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def reflected_beam_transmittance_accounting_method(self):
-        """field `Reflected Beam Transmittance Accounting Method` Select the
-        method used to account for the beam solar reflected off the material
-        surface.
+        """field `Reflected Beam Transmittance Accounting Method`
+
+        |  Select the method used to account for the beam solar reflected off the material surface.
+        |  Default value: ModelAsDiffuse
 
         Args:
             value (str): value for IDD Field `Reflected Beam Transmittance Accounting Method`
-                Default value: ModelAsDiffuse
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6156,14 +6348,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def diffuse_solar_reflectance(self):
-        """field `Diffuse Solar Reflectance` Diffuse reflectance of the screen
-        material over the entire solar radiation spectrum. Assumed to be the
-        same for both sides of the screen.
+        """field `Diffuse Solar Reflectance`
+
+        |  Diffuse reflectance of the screen material over the entire solar radiation spectrum.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6181,15 +6374,16 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def diffuse_visible_reflectance(self):
-        """field `Diffuse Visible Reflectance` Diffuse visible reflectance of
-        the screen material averaged over the solar spectrum and weighted by
-        the response of the human eye. Assumed to be the same for both sides of
-        the screen.
+        """field `Diffuse Visible Reflectance`
+
+        |  Diffuse visible reflectance of the screen material averaged over the solar spectrum
+        |  and weighted by the response of the human eye.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6208,20 +6402,22 @@ class WindowMaterialScreen(DataObject):
     @property
     def thermal_hemispherical_emissivity(self):
         """field `Thermal Hemispherical Emissivity`
-        Long-wave emissivity of the screen material.
-        Assumed to be the same for both sides of the screen.
+
+        |  Long-wave emissivity of the screen material.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Thermal Hemispherical Emissivity`
-                Units: dimensionless
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_hemispherical_emissivity` or None if not set
+
         """
         return self["Thermal Hemispherical Emissivity"]
 
@@ -6232,13 +6428,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def conductivity(self):
-        """field `Conductivity` Thermal conductivity of the screen material.
-        Default is for aluminum.
+        """field `Conductivity`
+
+        |  Thermal conductivity of the screen material.
+        |  Default is for aluminum.
+        |  Units: W/m-K
+        |  Default value: 221.0
 
         Args:
             value (float): value for IDD Field `Conductivity`
-                Units: W/m-K
-                Default value: 221.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6256,13 +6454,14 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def screen_material_spacing(self):
-        """field `Screen Material Spacing` Spacing assumed to be the same in
-        both directions.
+        """field `Screen Material Spacing`
+
+        |  Spacing assumed to be the same in both directions.
+        |  Units: m
+        |  IP-Units: in
 
         Args:
             value (float): value for IDD Field `Screen Material Spacing`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6280,13 +6479,14 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def screen_material_diameter(self):
-        """field `Screen Material Diameter` Diameter assumed to be the same in
-        both directions.
+        """field `Screen Material Diameter`
+
+        |  Diameter assumed to be the same in both directions.
+        |  Units: m
+        |  IP-Units: in
 
         Args:
             value (float): value for IDD Field `Screen Material Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6304,16 +6504,17 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def screen_to_glass_distance(self):
-        """field `Screen to Glass Distance` Distance from the window screen to
-        the adjacent glass surface.
+        """field `Screen to Glass Distance`
+
+        |  Distance from the window screen to the adjacent glass surface.
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.025
+        |  value >= 0.001
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Screen to Glass Distance`
-                Units: m
-                IP-Units: in
-                Default value: 0.025
-                value >= 0.001
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6331,14 +6532,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def top_opening_multiplier(self):
-        """field `Top Opening Multiplier` Effective area for air flow at the
-        top of the screen divided by the perpendicular area between the glass
-        and the top of the screen.
+        """field `Top Opening Multiplier`
+
+        |  Effective area for air flow at the top of the screen divided by the perpendicular
+        |  area between the glass and the top of the screen.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6356,14 +6558,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def bottom_opening_multiplier(self):
-        """field `Bottom Opening Multiplier` Effective area for air flow at the
-        bottom of the screen divided by the perpendicular area between the
-        glass and the bottom of the screen.
+        """field `Bottom Opening Multiplier`
+
+        |  Effective area for air flow at the bottom of the screen divided by the perpendicular
+        |  area between the glass and the bottom of the screen.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6381,14 +6584,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def left_side_opening_multiplier(self):
-        """field `Left Side Opening Multiplier` Effective area for air flow at
-        the left side of the screen divided by the perpendicular area between
-        the glass and the left side of the screen.
+        """field `Left Side Opening Multiplier`
+
+        |  Effective area for air flow at the left side of the screen divided by the perpendicular
+        |  area between the glass and the left side of the screen.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Left Side Opening Multiplier`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6406,14 +6610,15 @@ class WindowMaterialScreen(DataObject):
 
     @property
     def right_side_opening_multiplier(self):
-        """field `Right Side Opening Multiplier` Effective area for air flow at
-        the right side of the screen divided by the perpendicular area between
-        the glass and the right side of the screen.
+        """field `Right Side Opening Multiplier`
+
+        |  Effective area for air flow at the right side of the screen divided by the perpendicular
+        |  area between the glass and the right side of the screen.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Right Side Opening Multiplier`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6432,19 +6637,21 @@ class WindowMaterialScreen(DataObject):
     @property
     def angle_of_resolution_for_screen_transmittance_output_map(self):
         """field `Angle of Resolution for Screen Transmittance Output Map`
-        Select the resolution of azimuth and altitude angles for the screen transmittance map.
-        A value of 0 means no transmittance map will be generated.
-        Valid values for this field are 0, 1, 2, 3 and 5.
+
+        |  Select the resolution of azimuth and altitude angles for the screen transmittance map.
+        |  A value of 0 means no transmittance map will be generated.
+        |  Valid values for this field are 0, 1, 2, 3 and 5.
+        |  Units: deg
 
         Args:
             value (int): value for IDD Field `Angle of Resolution for Screen Transmittance Output Map`
-                Units: deg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `angle_of_resolution_for_screen_transmittance_output_map` or None if not set
+
         """
         return self["Angle of Resolution for Screen Transmittance Output Map"]
 
@@ -6621,14 +6828,15 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def shade_beambeam_solar_transmittance(self):
         """field `Shade Beam-Beam Solar Transmittance`
-        The beam-beam solar transmittance at normal incidence.  This value is
-        the same as the openness area fraction of the shade material. Assumed
-        to be the same for front and back sides.
+
+        |  The beam-beam solar transmittance at normal incidence.  This value is
+        |  the same as the openness area fraction of the shade material. Assumed
+        |  to be the same for front and back sides.
+        |  Units: dimensionless
+        |  value <= 0.8
 
         Args:
             value (float): value for IDD Field `Shade Beam-Beam Solar Transmittance`
-                Units: dimensionless
-                value <= 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6648,13 +6856,14 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def front_side_shade_beamdiffuse_solar_transmittance(self):
         """field `Front Side Shade Beam-Diffuse Solar Transmittance`
-        The front side beam-diffuse solar transmittance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar transmittance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Shade Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6674,13 +6883,14 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def back_side_shade_beamdiffuse_solar_transmittance(self):
         """field `Back Side Shade Beam-Diffuse Solar Transmittance`
-        The back side beam-diffuse solar transmittance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar transmittance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Shade Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6700,13 +6910,14 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def front_side_shade_beamdiffuse_solar_reflectance(self):
         """field `Front Side Shade Beam-Diffuse Solar Reflectance`
-        The front side beam-diffuse solar reflectance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar reflectance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Shade Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6726,13 +6937,14 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def back_side_shade_beamdiffuse_solar_reflectance(self):
         """field `Back Side Shade Beam-Diffuse Solar Reflectance`
-        The back side beam-diffuse solar reflectance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar reflectance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Shade Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6752,14 +6964,15 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def shade_beambeam_visible_transmittance_at_normal_incidence(self):
         """field `Shade Beam-Beam Visible Transmittance at Normal Incidence`
-        The beam-beam visible transmittance at nromal incidence averaged over the
-        visible spectrum range of solar radiation. Assumed to be the same for
-        front and back sides of the shade.
+
+        |  The beam-beam visible transmittance at nromal incidence averaged over the
+        |  visible spectrum range of solar radiation. Assumed to be the same for
+        |  front and back sides of the shade.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Shade Beam-Beam Visible Transmittance at Normal Incidence`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6783,14 +6996,15 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def shade_beamdiffuse_visible_transmittance_at_normal_incidence(self):
         """field `Shade Beam-Diffuse Visible Transmittance at Normal Incidence`
-        The beam-diffuse visible transmittance at nromal incidence averaged over the
-        visible spectrum range of solar radiation. Assumed to be the same for
-        front and back sides of the shade.
+
+        |  The beam-diffuse visible transmittance at nromal incidence averaged over the
+        |  visible spectrum range of solar radiation. Assumed to be the same for
+        |  front and back sides of the shade.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Shade Beam-Diffuse Visible Transmittance at Normal Incidence`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6814,14 +7028,15 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def shade_beamdiffuse_visible_reflectance_at_normal_incidence(self):
         """field `Shade Beam-Diffuse Visible Reflectance at Normal Incidence`
-        The beam-diffuse visible reflectance at nromal incidence averaged over the
-        visible spectrum range of solar radiation. Assumed to be the same for
-        front and back sides of the shade.
+
+        |  The beam-diffuse visible reflectance at nromal incidence averaged over the
+        |  visible spectrum range of solar radiation. Assumed to be the same for
+        |  front and back sides of the shade.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Shade Beam-Diffuse Visible Reflectance at Normal Incidence`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6845,20 +7060,22 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def shade_material_infrared_transmittance(self):
         """field `Shade Material Infrared Transmittance`
-        The long-wave transmittance of the shade material at zero shade openness.
-        Assumed to be the same for front and back sides of the shade.
+
+        |  The long-wave transmittance of the shade material at zero shade openness.
+        |  Assumed to be the same for front and back sides of the shade.
+        |  Units: dimensionless
+        |  Default value: 0.05
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Shade Material Infrared Transmittance`
-                Units: dimensionless
-                Default value: 0.05
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `shade_material_infrared_transmittance` or None if not set
+
         """
         return self["Shade Material Infrared Transmittance"]
 
@@ -6870,21 +7087,23 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def front_side_shade_material_infrared_emissivity(self):
         """field `Front Side Shade Material Infrared Emissivity`
-        The front side long-wave emissivity of the shade material at zero shade
-        openness. Openness fraction is used to calculate the effective emissivity
-        value.
+
+        |  The front side long-wave emissivity of the shade material at zero shade
+        |  openness. Openness fraction is used to calculate the effective emissivity
+        |  value.
+        |  Units: dimensionless
+        |  Default value: 0.91
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Shade Material Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.91
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_shade_material_infrared_emissivity` or None if not set
+
         """
         return self["Front Side Shade Material Infrared Emissivity"]
 
@@ -6897,21 +7116,23 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
     @property
     def back_side_shade_material_infrared_emissivity(self):
         """field `Back Side Shade Material Infrared Emissivity`
-        The back side long-wave emissivity of the shade material at zero shade
-        openness. Openness fraction is used to calculate the effective emissivity
-        value.
+
+        |  The back side long-wave emissivity of the shade material at zero shade
+        |  openness. Openness fraction is used to calculate the effective emissivity
+        |  value.
+        |  Units: dimensionless
+        |  Default value: 0.91
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Shade Material Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.91
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_shade_material_infrared_emissivity` or None if not set
+
         """
         return self["Back Side Shade Material Infrared Emissivity"]
 
@@ -7106,14 +7327,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def drape_beambeam_solar_transmittance_at_normal_incidence(self):
         """field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
-        The beam-beam solar transmittance at normal incidence. This value is the
-        same as the openness area fraction of the drape fabric. Assumed to be
-        same for front and back sides.
+
+        |  The beam-beam solar transmittance at normal incidence. This value is the
+        |  same as the openness area fraction of the drape fabric. Assumed to be
+        |  same for front and back sides.
+        |  Units: dimensionless
+        |  value <= 0.2
 
         Args:
             value (float): value for IDD Field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
-                Units: dimensionless
-                value <= 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7135,14 +7357,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def front_side_drape_beamdiffuse_solar_transmittance(self):
         """field `Front Side Drape Beam-Diffuse Solar Transmittance`
-        The front side beam-diffuse solar transmittance at normal incidence averaged
-        over the entire spectrum of solar radiation. Assumed to be the same for front
-        and back sides.
+
+        |  The front side beam-diffuse solar transmittance at normal incidence averaged
+        |  over the entire spectrum of solar radiation. Assumed to be the same for front
+        |  and back sides.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Drape Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7162,14 +7385,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def back_side_drape_beamdiffuse_solar_transmittance(self):
         """field `Back Side Drape Beam-Diffuse Solar Transmittance`
-        The back side beam-diffuse solar transmittance at normal incidence averaged
-        over the entire spectrum of solar radiation. Assumed to be the same for front
-        and back sides.
+
+        |  The back side beam-diffuse solar transmittance at normal incidence averaged
+        |  over the entire spectrum of solar radiation. Assumed to be the same for front
+        |  and back sides.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Drape Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7189,13 +7413,14 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def front_side_drape_beamdiffuse_solar_reflectance(self):
         """field `Front Side Drape Beam-Diffuse Solar Reflectance`
-        The front side beam-diffuse solar reflectance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar reflectance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Drape Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7215,13 +7440,14 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def back_side_drape_beamdiffuse_solar_reflectance(self):
         """field `Back Side Drape Beam-Diffuse Solar Reflectance`
-        The back side beam-diffuse solar reflectance at normal incidence averaged
-        over the entire spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar reflectance at normal incidence averaged
+        |  over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Drape Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7241,13 +7467,14 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def drape_beambeam_visible_transmittance(self):
         """field `Drape Beam-Beam Visible Transmittance`
-        The beam-beam visible transmittance at normal incidence averaged over the
-        visible spectrum of solar radiation. Assumed same for front and back sides.
+
+        |  The beam-beam visible transmittance at normal incidence averaged over the
+        |  visible spectrum of solar radiation. Assumed same for front and back sides.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Drape Beam-Beam Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7267,14 +7494,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def drape_beamdiffuse_visible_transmittance(self):
         """field `Drape Beam-Diffuse Visible Transmittance`
-        The beam-diffuse visible transmittance at normal incidence averaged over the
-        visible spectrum range of solar radiation. Assumed to be the same for front
-        and back sides.
+
+        |  The beam-diffuse visible transmittance at normal incidence averaged over the
+        |  visible spectrum range of solar radiation. Assumed to be the same for front
+        |  and back sides.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Drape Beam-Diffuse Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7294,14 +7522,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def drape_beamdiffuse_visible_reflectance(self):
         """field `Drape Beam-Diffuse Visible Reflectance`
-        The beam-diffuse visible reflectance at normal incidence average over the
-        visible spectrum range of solar radiation. Assumed to be the same for front
-        and back sides.
+
+        |  The beam-diffuse visible reflectance at normal incidence average over the
+        |  visible spectrum range of solar radiation. Assumed to be the same for front
+        |  and back sides.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Drape Beam-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7321,20 +7550,22 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def drape_material_infrared_transmittance(self):
         """field `Drape Material Infrared Transmittance`
-        Long-wave transmittance of the drape fabric at zero openness fraction.
-        Assumed same for front and back sides.
+
+        |  Long-wave transmittance of the drape fabric at zero openness fraction.
+        |  Assumed same for front and back sides.
+        |  Units: dimensionless
+        |  Default value: 0.05
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Drape Material Infrared Transmittance`
-                Units: dimensionless
-                Default value: 0.05
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `drape_material_infrared_transmittance` or None if not set
+
         """
         return self["Drape Material Infrared Transmittance"]
 
@@ -7346,21 +7577,23 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def front_side_drape_material_infrared_emissivity(self):
         """field `Front Side Drape Material Infrared Emissivity`
-        Front side long-wave emissivity of the drape fabric at zero shade openness.
-        Openness fraction specified above is used to calculate the effective
-        emissivity value.
+
+        |  Front side long-wave emissivity of the drape fabric at zero shade openness.
+        |  Openness fraction specified above is used to calculate the effective
+        |  emissivity value.
+        |  Units: dimensionless
+        |  Default value: 0.87
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Drape Material Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.87
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_drape_material_infrared_emissivity` or None if not set
+
         """
         return self["Front Side Drape Material Infrared Emissivity"]
 
@@ -7373,21 +7606,23 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
     @property
     def back_side_drape_material_infrared_emissivity(self):
         """field `Back Side Drape Material Infrared Emissivity`
-        Back side long-wave emissivity of the drape fabric at zero shade openness.
-        Openness fraction specified above is used to calculate the effective
-        emissivity value.
+
+        |  Back side long-wave emissivity of the drape fabric at zero shade openness.
+        |  Openness fraction specified above is used to calculate the effective
+        |  emissivity value.
+        |  Units: dimensionless
+        |  Default value: 0.87
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Drape Material Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.87
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_drape_material_infrared_emissivity` or None if not set
+
         """
         return self["Back Side Drape Material Infrared Emissivity"]
 
@@ -7399,14 +7634,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @property
     def width_of_pleated_fabric(self):
-        """field `Width of Pleated Fabric` Width of the pleasted section of the
-        draped fabric. If the drape fabric is unpleated or is flat, then the
-        pleated section width is set to zero.
+        """field `Width of Pleated Fabric`
+
+        |  Width of the pleasted section of the draped fabric. If the drape fabric is
+        |  unpleated or is flat, then the pleated section width is set to zero.
+        |  Units: m
+        |  IP-Units: in
 
         Args:
             value (float): value for IDD Field `Width of Pleated Fabric`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7424,14 +7660,15 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @property
     def length_of_pleated_fabric(self):
-        """field `Length of Pleated Fabric` Length of the pleasted section of
-        the draped fabric. If the drape fabric is unpleated or is flat, then
-        the pleated section length is set to zero.
+        """field `Length of Pleated Fabric`
+
+        |  Length of the pleasted section of the draped fabric. If the drape fabric is
+        |  unpleated or is flat, then the pleated section length is set to zero.
+        |  Units: m
+        |  IP-Units: in
 
         Args:
             value (float): value for IDD Field `Length of Pleated Fabric`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7737,9 +7974,10 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     def slat_orientation(self):
         """field `Slat Orientation`
 
+        |  Default value: Horizontal
+
         Args:
             value (str): value for IDD Field `Slat Orientation`
-                Default value: Horizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7759,11 +7997,12 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     def slat_width(self):
         """field `Slat Width`
 
+        |  Units: m
+        |  IP-Units: in
+        |  value <= 0.025
+
         Args:
             value (float): value for IDD Field `Slat Width`
-                Units: m
-                IP-Units: in
-                value <= 0.025
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7781,13 +8020,15 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @property
     def slat_separation(self):
-        """field `Slat Separation` Distance between adjacent slat faces.
+        """field `Slat Separation`
+
+        |  Distance between adjacent slat faces
+        |  Units: m
+        |  IP-Units: in
+        |  value <= 0.025
 
         Args:
             value (float): value for IDD Field `Slat Separation`
-                Units: m
-                IP-Units: in
-                value <= 0.025
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7806,22 +8047,24 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def slat_crown(self):
         """field `Slat Crown`
-        Perpendicular length between the cord and the curve.
-        Slat is assumed to be rectangular in cross section
-        and flat. Crown=0.0625xSlat width
+
+        |  Perpendicular length between the cord and the curve.
+        |  Slat is assumed to be rectangular in cross section
+        |  and flat. Crown=0.0625xSlat width
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.0015
+        |  value <= 0.00156
 
         Args:
             value (float): value for IDD Field `Slat Crown`
-                Units: m
-                IP-Units: in
-                Default value: 0.0015
-                value <= 0.00156
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `slat_crown` or None if not set
+
         """
         return self["Slat Crown"]
 
@@ -7834,11 +8077,12 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     def slat_angle(self):
         """field `Slat Angle`
 
+        |  Units: deg
+        |  Default value: 45.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Slat Angle`
-                Units: deg
-                Default value: 45.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7857,12 +8101,13 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_beamdiffuse_solar_transmittance(self):
         """field `Front Side Slat Beam-Diffuse Solar Transmittance`
-        The front side beam-diffuse solar transmittance of the slat at normal
-        incidence averaged over the entire spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar transmittance of the slat at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Solar Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7882,13 +8127,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_beamdiffuse_solar_transmittance(self):
         """field `Back Side Slat Beam-Diffuse Solar Transmittance`
-        The back side beam-diffuse solar transmittance of the slat at normal
-        incidence averaged over the entire spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar transmittance of the slat at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7908,13 +8154,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_beamdiffuse_solar_reflectance(self):
         """field `Front Side Slat Beam-Diffuse Solar Reflectance`
-        The front side beam-diffuse solar reflectance of the slat at normal
-        incidence averaged over the entire spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar reflectance of the slat at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7934,13 +8181,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_beamdiffuse_solar_reflectance(self):
         """field `Back Side Slat Beam-Diffuse Solar Reflectance`
-        The back side beam-diffuse solar reflectance of the slat at normal
-        incidence averaged over the entire spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar reflectance of the slat at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7960,14 +8208,15 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_beamdiffuse_visible_transmittance(self):
         """field `Front Side Slat Beam-Diffuse Visible Transmittance`
-        The front side beam-diffuse visible transmittance of the slat
-        at normal incidence averaged over the visible spectrum range
-        of solar radiation.
+
+        |  The front side beam-diffuse visible transmittance of the slat
+        |  at normal incidence averaged over the visible spectrum range
+        |  of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7987,14 +8236,15 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_beamdiffuse_visible_transmittance(self):
         """field `Back Side Slat Beam-Diffuse Visible Transmittance`
-        The back side beam-diffuse visible transmittance of the slat
-        at normal incidence averaged over the visible spectrum range
-        of solar radiation.
+
+        |  The back side beam-diffuse visible transmittance of the slat
+        |  at normal incidence averaged over the visible spectrum range
+        |  of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8014,14 +8264,15 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_beamdiffuse_visible_reflectance(self):
         """field `Front Side Slat Beam-Diffuse Visible Reflectance`
-        The front side beam-diffuse visible reflectance of the slat
-        at normal incidence averaged over the visible spectrum range
-        of solar radiation.
+
+        |  The front side beam-diffuse visible reflectance of the slat
+        |  at normal incidence averaged over the visible spectrum range
+        |  of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8041,14 +8292,15 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_beamdiffuse_visible_reflectance(self):
         """field `Back Side Slat Beam-Diffuse Visible Reflectance`
-        The back side beam-diffuse visible reflectance of the slat
-        at normal incidence averaged over the visible spectrum range
-        of solar radiation.
+
+        |  The back side beam-diffuse visible reflectance of the slat
+        |  at normal incidence averaged over the visible spectrum range
+        |  of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8068,13 +8320,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def slat_diffusediffuse_solar_transmittance(self):
         """field `Slat Diffuse-Diffuse Solar Transmittance`
-        The beam-diffuse solar transmittance of the slat averaged
-        over the entire solar spectrum of solar radiation.
+
+        |  The beam-diffuse solar transmittance of the slat averaged
+        |  over the entire solar spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Diffuse-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8094,13 +8347,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_diffusediffuse_solar_reflectance(self):
         """field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
-        The front side beam-diffuse solar reflectance of the slat
-        averaged over the entire solar spectrum of solar radiation.
+
+        |  The front side beam-diffuse solar reflectance of the slat
+        |  averaged over the entire solar spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8120,13 +8374,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_diffusediffuse_solar_reflectance(self):
         """field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
-        The back side beam-diffuse solar reflectance of the slat
-        averaged over the entire solar spectrum of solar radiation.
+
+        |  The back side beam-diffuse solar reflectance of the slat
+        |  averaged over the entire solar spectrum of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8146,12 +8401,13 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def slat_diffusediffuse_visible_transmittance(self):
         """field `Slat Diffuse-Diffuse Visible Transmittance`
-        The beam-diffuse visible transmittance of the slat averaged
-        over the visible spectrum range of solar radiation.
+
+        |  The beam-diffuse visible transmittance of the slat averaged
+        |  over the visible spectrum range of solar radiation.
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Diffuse-Diffuse Visible Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8171,13 +8427,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_diffusediffuse_visible_reflectance(self):
         """field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
-        The front side beam-diffuse visible reflectance of the slat
-        averaged over the visible spectrum range of solar radiation.
+
+        |  The front side beam-diffuse visible reflectance of the slat
+        |  averaged over the visible spectrum range of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8197,13 +8454,14 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_diffusediffuse_visible_reflectance(self):
         """field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
-        The back side beam-diffuse visible reflectance of the slat
-        averaged over the visible spectrum range of solar radiation.
+
+        |  The back side beam-diffuse visible reflectance of the slat
+        |  averaged over the visible spectrum range of solar radiation.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8223,18 +8481,20 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def slat_infrared_transmittance(self):
         """field `Slat Infrared Transmittance`
-        Long-wave hemispherical transmittance of the slat material.
-        Assumed to be the same for both sides of the slat.
+
+        |  Long-wave hemispherical transmittance of the slat material.
+        |  Assumed to be the same for both sides of the slat.
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Slat Infrared Transmittance`
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `slat_infrared_transmittance` or None if not set
+
         """
         return self["Slat Infrared Transmittance"]
 
@@ -8246,19 +8506,21 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def front_side_slat_infrared_emissivity(self):
         """field `Front Side Slat Infrared Emissivity`
-        Front side long-wave hemispherical emissivity of the slat material.
+
+        |  Front side long-wave hemispherical emissivity of the slat material.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Slat Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_slat_infrared_emissivity` or None if not set
+
         """
         return self["Front Side Slat Infrared Emissivity"]
 
@@ -8270,19 +8532,21 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
     @property
     def back_side_slat_infrared_emissivity(self):
         """field `Back Side Slat Infrared Emissivity`
-        Back side long-wave hemispherical emissivity of the slat material.
+
+        |  Back side long-wave hemispherical emissivity of the slat material.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Slat Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_slat_infrared_emissivity` or None if not set
+
         """
         return self["Back Side Slat Infrared Emissivity"]
 
@@ -8293,15 +8557,16 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @property
     def slat_angle_control(self):
-        """field `Slat Angle Control` Used only if slat angle control is deired
-        to either maximize solar gain (MaximizeSolar), maximize visibiity while
-        eliminating beam solar radiation (BlockBeamSolar), or fixed slate angle
-        (FixedSlatAngle). If FixedSlatAngle is selected, the slat angle entered
-        above is used.
+        """field `Slat Angle Control`
+
+        |  Used only if slat angle control is deired to either maximize solar
+        |  gain (MaximizeSolar), maximize visibiity while eliminating beam solar
+        |  radiation (BlockBeamSolar), or fixed slate angle (FixedSlatAngle).
+        |  If FixedSlatAngle is selected, the slat angle entered above is used.
+        |  Default value: FixedSlatAngle
 
         Args:
             value (str): value for IDD Field `Slat Angle Control`
-                Default value: FixedSlatAngle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8447,7 +8712,9 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this window screen material.
+        """field `Name`
+
+        |  Enter a unique name for this window screen material.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8469,22 +8736,23 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beambeam_solar_transmittance(self):
         """field `Screen Beam-Beam Solar Transmittance`
-        The beam-beam transmittance of the screen material at normal incidence.
-        This input field is the same as the material oppenness area fraction
-        and can be autocalculated from the wire spacing and wire and diameter.
-        Assumed to be the same for both sides of the screen.
+
+        |  The beam-beam transmittance of the screen material at normal incidence.
+        |  This input field is the same as the material oppenness area fraction
+        |  and can be autocalculated from the wire spacing and wire and diameter.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value < 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Screen Beam-Beam Solar Transmittance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `screen_beambeam_solar_transmittance` or None if not set
+            float or "Autocalculate": the value of `screen_beambeam_solar_transmittance` or None if not set
         """
         return self["Screen Beam-Beam Solar Transmittance"]
 
@@ -8498,14 +8766,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beamdiffuse_solar_transmittance(self):
         """field `Screen Beam-Diffuse Solar Transmittance`
-        The beam-diffuse solar transmittance of the screen material at normal
-        incidence averaged over the entire spectrum of solar radiation.
-        Assumed to be the same for both sides of the screen.
+
+        |  The beam-diffuse solar transmittance of the screen material at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8525,14 +8794,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beamdiffuse_solar_reflectance(self):
         """field `Screen Beam-Diffuse Solar Reflectance`
-        The beam-diffuse solar reflectance of the screen material at normal
-        incidence averaged over the entire spectrum of solar radiation.
-        Assumed to be the same for both sides of the screen.
+
+        |  The beam-diffuse solar reflectance of the screen material at normal
+        |  incidence averaged over the entire spectrum of solar radiation.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8552,14 +8822,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beambeam_visible_transmittance(self):
         """field `Screen Beam-Beam Visible Transmittance`
-        The beam-beam visible transmittance of the screen material at normal
-        incidence averaged over the visible spectrum range of solar radiation.
-        Assumed to be the same for both sides of the screen.
+
+        |  The beam-beam visible transmittance of the screen material at normal
+        |  incidence averaged over the visible spectrum range of solar radiation.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Beam-Beam Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8579,14 +8850,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beamdiffuse_visible_transmittance(self):
         """field `Screen Beam-Diffuse Visible Transmittance`
-        The beam-diffuse visible transmittance of the screen material at normal
-        incidence averaged over the visible spectrum range of solar radiation.
-        Assumed to be the same for both sides of the screen.
+
+        |  The beam-diffuse visible transmittance of the screen material at normal
+        |  incidence averaged over the visible spectrum range of solar radiation.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Visible Transmittance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8606,14 +8878,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_beamdiffuse_visible_reflectance(self):
         """field `Screen Beam-Diffuse Visible Reflectance`
-        Beam-diffuse visible reflectance of the screen material at normal
-        incidence averaged over the visible spectrum range of solar radiation.
-        Assumed to be the same for both sides of the screen.
+
+        |  Beam-diffuse visible reflectance of the screen material at normal
+        |  incidence averaged over the visible spectrum range of solar radiation.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Visible Reflectance`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8633,20 +8906,22 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_infrared_transmittance(self):
         """field `Screen Infrared Transmittance`
-        The long-wave hemispherical transmittance of the screen material.
-        Assumed to be the same for both sides of the screen.
+
+        |  The long-wave hemispherical transmittance of the screen material.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  Default value: 0.02
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Infrared Transmittance`
-                Units: dimensionless
-                Default value: 0.02
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `screen_infrared_transmittance` or None if not set
+
         """
         return self["Screen Infrared Transmittance"]
 
@@ -8658,20 +8933,22 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
     @property
     def screen_infrared_emissivity(self):
         """field `Screen Infrared Emissivity`
-        The long-wave hemispherical emissivity of the screen material.
-        Assumed to be the same for both sides of the screen.
+
+        |  The long-wave hemispherical emissivity of the screen material.
+        |  Assumed to be the same for both sides of the screen.
+        |  Units: dimensionless
+        |  Default value: 0.93
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Screen Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.93
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `screen_infrared_emissivity` or None if not set
+
         """
         return self["Screen Infrared Emissivity"]
 
@@ -8682,14 +8959,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @property
     def screen_wire_spacing(self):
-        """field `Screen Wire Spacing` Spacing assumed to be the same in both
-        directions.
+        """field `Screen Wire Spacing`
+
+        |  Spacing assumed to be the same in both directions.
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.025
 
         Args:
             value (float): value for IDD Field `Screen Wire Spacing`
-                Units: m
-                IP-Units: in
-                Default value: 0.025
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8707,14 +8985,15 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @property
     def screen_wire_diameter(self):
-        """field `Screen Wire Diameter` Diameter assumed to be the same in both
-        directions.
+        """field `Screen Wire Diameter`
+
+        |  Diameter assumed to be the same in both directions.
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.005
 
         Args:
             value (float): value for IDD Field `Screen Wire Diameter`
-                Units: m
-                IP-Units: in
-                Default value: 0.005
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9083,7 +9362,8 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def window_glass_spectral_data_set_name(self):
         """field `Window Glass Spectral Data Set Name`
-        Used only when Optical Data Type = Spectral
+
+        |  Used only when Optical Data Type = Spectral
 
         Args:
             value (str): value for IDD Field `Window Glass Spectral Data Set Name`
@@ -9093,6 +9373,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
         Returns:
             str: the value of `window_glass_spectral_data_set_name` or None if not set
+
         """
         return self["Window Glass Spectral Data Set Name"]
 
@@ -9104,12 +9385,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beambeam_solar_transmittance(self):
         """field `Front Side Beam-Beam Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9129,12 +9411,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beambeam_solar_transmittance(self):
         """field `Back Side Beam-Beam Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9154,13 +9437,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beambeam_solar_reflectance(self):
         """field `Front Side Beam-Beam Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Front Side is side closest to outdoor air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Front Side is side closest to outdoor air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9180,13 +9464,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beambeam_solar_reflectance(self):
         """field `Back Side Beam-Beam Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Back Side is side closest to zone air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Back Side is side closest to zone air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9206,12 +9491,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beambeam_visible_solar_transmittance(self):
         """field `Front Side Beam-Beam Visible Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Visible Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9231,12 +9517,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beambeam_visible_solar_transmittance(self):
         """field `Back Side Beam-Beam Visible Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Visible Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9256,13 +9543,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beambeam_visible_solar_reflectance(self):
         """field `Front Side Beam-Beam Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Front Side is side closest to outdoor air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Front Side is side closest to outdoor air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Visible Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9282,13 +9570,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beambeam_visible_solar_reflectance(self):
         """field `Back Side Beam-Beam Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Back Side is side closest to zone air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Back Side is side closest to zone air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Visible Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9308,12 +9597,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beamdiffuse_solar_transmittance(self):
         """field `Front Side Beam-Diffuse Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9333,12 +9623,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beamdiffuse_solar_transmittance(self):
         """field `Back Side Beam-Diffuse Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9358,13 +9649,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beamdiffuse_solar_reflectance(self):
         """field `Front Side Beam-Diffuse Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Front Side is side closest to outdoor air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Front Side is side closest to outdoor air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9384,13 +9676,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beamdiffuse_solar_reflectance(self):
         """field `Back Side Beam-Diffuse Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Back Side is side closest to zone air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Back Side is side closest to zone air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9410,12 +9703,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beamdiffuse_visible_solar_transmittance(self):
         """field `Front Side Beam-Diffuse Visible Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Visible Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9435,12 +9729,13 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beamdiffuse_visible_solar_transmittance(self):
         """field `Back Side Beam-Diffuse Visible Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Visible Solar Transmittance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9460,13 +9755,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_beamdiffuse_visible_solar_reflectance(self):
         """field `Front Side Beam-Diffuse Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Front Side is side closest to outdoor air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Front Side is side closest to outdoor air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Visible Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9486,13 +9782,14 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_beamdiffuse_visible_solar_reflectance(self):
         """field `Back Side Beam-Diffuse Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        Back Side is side closest to zone air
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  Back Side is side closest to zone air
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Visible Solar Reflectance`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9512,23 +9809,24 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def diffusediffuse_solar_transmittance(self):
         """field `Diffuse-Diffuse Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
-        If this field is autocalculate, then the diffuse-diffuse solar
-        transmittance is automatically estimated from other inputs and used
-        in subsequent calculations. If this field is zero or positive, then
-        the value entered here will be used.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  If this field is autocalculate, then the diffuse-diffuse solar
+        |  transmittance is automatically estimated from other inputs and used
+        |  in subsequent calculations. If this field is zero or positive, then
+        |  the value entered here will be used.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuse-Diffuse Solar Transmittance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `diffusediffuse_solar_transmittance` or None if not set
+            float or "Autocalculate": the value of `diffusediffuse_solar_transmittance` or None if not set
         """
         return self["Diffuse-Diffuse Solar Transmittance"]
 
@@ -9542,23 +9840,24 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_diffusediffuse_solar_reflectance(self):
         """field `Front Side Diffuse-Diffuse Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        If this field is autocalculate, then the front diffuse-diffuse solar
-        reflectance is automatically estimated from other inputs and used in
-        subsequent calculations. If this field is zero or positive, then the value
-        entered here will be used.  Front Side is side closest to outdoor air.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  If this field is autocalculate, then the front diffuse-diffuse solar
+        |  reflectance is automatically estimated from other inputs and used in
+        |  subsequent calculations. If this field is zero or positive, then the value
+        |  entered here will be used.  Front Side is side closest to outdoor air.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Front Side Diffuse-Diffuse Solar Reflectance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `front_side_diffusediffuse_solar_reflectance` or None if not set
+            float or "Autocalculate": the value of `front_side_diffusediffuse_solar_reflectance` or None if not set
         """
         return self["Front Side Diffuse-Diffuse Solar Reflectance"]
 
@@ -9574,23 +9873,24 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_diffusediffuse_solar_reflectance(self):
         """field `Back Side Diffuse-Diffuse Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        If this field is autocalculate, then the back diffuse-diffuse solar
-        reflectance is automatically estimated from other inputs and used in
-        subsequent calculations. If this field is zero or positive, then the value
-        entered here will be used.  Back side is side closest to indoor air.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  If this field is autocalculate, then the back diffuse-diffuse solar
+        |  reflectance is automatically estimated from other inputs and used in
+        |  subsequent calculations. If this field is zero or positive, then the value
+        |  entered here will be used.  Back side is side closest to indoor air.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Back Side Diffuse-Diffuse Solar Reflectance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `back_side_diffusediffuse_solar_reflectance` or None if not set
+            float or "Autocalculate": the value of `back_side_diffusediffuse_solar_reflectance` or None if not set
         """
         return self["Back Side Diffuse-Diffuse Solar Reflectance"]
 
@@ -9606,20 +9906,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def diffusediffuse_visible_solar_transmittance(self):
         """field `Diffuse-Diffuse Visible Solar Transmittance`
-        Used only when Optical Data Type = SpectralAverage
-        This input field is not used currently.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  This input field is not used currently.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuse-Diffuse Visible Solar Transmittance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `diffusediffuse_visible_solar_transmittance` or None if not set
+            float or "Autocalculate": the value of `diffusediffuse_visible_solar_transmittance` or None if not set
         """
         return self["Diffuse-Diffuse Visible Solar Transmittance"]
 
@@ -9635,20 +9936,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_diffusediffuse_visible_solar_reflectance(self):
         """field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        This input field is not used currently.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  This input field is not used currently.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `front_side_diffusediffuse_visible_solar_reflectance` or None if not set
+            float or "Autocalculate": the value of `front_side_diffusediffuse_visible_solar_reflectance` or None if not set
         """
         return self["Front Side Diffuse-Diffuse Visible Solar Reflectance"]
 
@@ -9664,20 +9966,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_diffusediffuse_visible_solar_reflectance(self):
         """field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
-        Used only when Optical Data Type = SpectralAverage
-        This input field is not used currently.
+
+        |  Used only when Optical Data Type = SpectralAverage
+        |  This input field is not used currently.
+        |  Units: dimensionless
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
-                Units: dimensionless
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `back_side_diffusediffuse_visible_solar_reflectance` or None if not set
+            float or "Autocalculate": the value of `back_side_diffusediffuse_visible_solar_reflectance` or None if not set
         """
         return self["Back Side Diffuse-Diffuse Visible Solar Reflectance"]
 
@@ -9693,19 +9996,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def infrared_transmittance_applies_to_front_and_back(self):
         """field `Infrared Transmittance (applies to front and back)`
-        The long-wave hemispherical transmittance of the glazing.
-        Assumed to be the same for both sides of the glazing.
+
+        |  The long-wave hemispherical transmittance of the glazing.
+        |  Assumed to be the same for both sides of the glazing.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance (applies to front and back)`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `infrared_transmittance_applies_to_front_and_back` or None if not set
+
         """
         return self["Infrared Transmittance (applies to front and back)"]
 
@@ -9718,19 +10023,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def front_side_infrared_emissivity(self):
         """field `Front Side Infrared Emissivity`
-        The front side long-wave hemispherical emissivity of the glazing.
+
+        |  The front side long-wave hemispherical emissivity of the glazing.
+        |  Units: dimensionless
+        |  Default value: 0.84
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Front Side Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `front_side_infrared_emissivity` or None if not set
+
         """
         return self["Front Side Infrared Emissivity"]
 
@@ -9742,19 +10049,21 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
     @property
     def back_side_infrared_emissivity(self):
         """field `Back Side Infrared Emissivity`
-        The back side long-wave hemispherical emissivity of the glazing.
+
+        |  The back side long-wave hemispherical emissivity of the glazing.
+        |  Units: dimensionless
+        |  Default value: 0.84
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Back Side Infrared Emissivity`
-                Units: dimensionless
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `back_side_infrared_emissivity` or None if not set
+
         """
         return self["Back Side Infrared Emissivity"]
 
@@ -10311,10 +10620,11 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     def thickness(self):
         """field `Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10332,11 +10642,12 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @property
     def gap_vent_type(self):
-        """field `Gap Vent Type` Sealed means the gap is enclosed and gas
-        tight, i.e., no venting to indoor or outdoor environment.  VentedIndoor
-        means the gap is vented to indoor environment, and VentedOutdoor means
-        the gap is vented to the outdoor environment. The gap types
-        VentedIndoor and VentedOutdoor are used with gas type Air only.
+        """field `Gap Vent Type`
+
+        |  Sealed means the gap is enclosed and gas tight, i.e., no venting to indoor or
+        |  outdoor environment.  VentedIndoor means the gap is vented to indoor environment, and
+        |  VentedOutdoor means the gap is vented to the outdoor environment. The gap types
+        |  VentedIndoor and VentedOutdoor are used with gas type Air only.
 
         Args:
             value (str): value for IDD Field `Gap Vent Type`
@@ -10358,17 +10669,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def conductivity_coefficient_a(self):
         """field `Conductivity Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient A`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_a` or None if not set
+
         """
         return self["Conductivity Coefficient A"]
 
@@ -10380,17 +10693,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def conductivity_coefficient_b(self):
         """field `Conductivity Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K2
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient B`
-                Units: W/m-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_b` or None if not set
+
         """
         return self["Conductivity Coefficient B"]
 
@@ -10402,17 +10717,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def conductivity_coefficient_c(self):
         """field `Conductivity Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: W/m-K3
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient C`
-                Units: W/m-K3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `conductivity_coefficient_c` or None if not set
+
         """
         return self["Conductivity Coefficient C"]
 
@@ -10424,17 +10741,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def viscosity_coefficient_a(self):
         """field `Viscosity Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient A`
-                Units: kg/m-s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_a` or None if not set
+
         """
         return self["Viscosity Coefficient A"]
 
@@ -10446,17 +10765,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def viscosity_coefficient_b(self):
         """field `Viscosity Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s-K
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient B`
-                Units: kg/m-s-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_b` or None if not set
+
         """
         return self["Viscosity Coefficient B"]
 
@@ -10468,17 +10789,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def viscosity_coefficient_c(self):
         """field `Viscosity Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: kg/m-s-K2
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient C`
-                Units: kg/m-s-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `viscosity_coefficient_c` or None if not set
+
         """
         return self["Viscosity Coefficient C"]
 
@@ -10490,17 +10813,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def specific_heat_coefficient_a(self):
         """field `Specific Heat Coefficient A`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient A`
-                Units: J/kg-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_a` or None if not set
+
         """
         return self["Specific Heat Coefficient A"]
 
@@ -10512,17 +10837,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def specific_heat_coefficient_b(self):
         """field `Specific Heat Coefficient B`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K2
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient B`
-                Units: J/kg-K2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_b` or None if not set
+
         """
         return self["Specific Heat Coefficient B"]
 
@@ -10534,17 +10861,19 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def specific_heat_coefficient_c(self):
         """field `Specific Heat Coefficient C`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: J/kg-K3
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient C`
-                Units: J/kg-K3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `specific_heat_coefficient_c` or None if not set
+
         """
         return self["Specific Heat Coefficient C"]
 
@@ -10556,19 +10885,21 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def molecular_weight(self):
         """field `Molecular Weight`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
+        |  Units: g/mol
+        |  value >= 20.0
+        |  value <= 200.0
 
         Args:
             value (float): value for IDD Field `Molecular Weight`
-                Units: g/mol
-                value >= 20.0
-                value <= 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `molecular_weight` or None if not set
+
         """
         return self["Molecular Weight"]
 
@@ -10580,7 +10911,8 @@ class WindowMaterialGapEquivalentLayer(DataObject):
     @property
     def specific_heat_ratio(self):
         """field `Specific Heat Ratio`
-        Used only if Gas Type = Custom
+
+        |  Used only if Gas Type = Custom
 
         Args:
             value (float): value for IDD Field `Specific Heat Ratio`
@@ -10590,6 +10922,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
         Returns:
             float: the value of `specific_heat_ratio` or None if not set
+
         """
         return self["Specific Heat Ratio"]
 
@@ -10667,9 +11000,11 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @property
     def name(self):
-        """field `Name` Material Name that the moisture properties will be
-        added to. Additional material properties required to perform the EMPD
-        model. Effective Mean Penetration Depth (EMPD)
+        """field `Name`
+
+        |  Material Name that the moisture properties will be added to.
+        |  Additional material properties required to perform the EMPD model.
+        |  Effective Mean Penetration Depth (EMPD)
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10690,11 +11025,13 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @property
     def moisture_penetration_depth(self):
-        """field `Moisture Penetration Depth` This is the penetration depth.
+        """field `Moisture Penetration Depth`
+
+        |  This is the penetration depth
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Moisture Penetration Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10714,9 +11051,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
     def moisture_equation_coefficient_a(self):
         """field `Moisture Equation Coefficient a`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient a`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10736,9 +11074,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
     def moisture_equation_coefficient_b(self):
         """field `Moisture Equation Coefficient b`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient b`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10758,9 +11097,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
     def moisture_equation_coefficient_c(self):
         """field `Moisture Equation Coefficient c`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient c`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10780,9 +11120,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
     def moisture_equation_coefficient_d(self):
         """field `Moisture Equation Coefficient d`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient d`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11125,9 +11466,10 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @property
     def name(self):
-        """field `Name` Regular Material Name to which the additional
-        properties will be added. this the material name for the basic material
-        properties.
+        """field `Name`
+
+        |  Regular Material Name to which the additional properties will be added.
+        |  this the material name for the basic material properties.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11148,14 +11490,15 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @property
     def temperature_coefficient_for_thermal_conductivity(self):
-        """field `Temperature Coefficient for Thermal Conductivity` The base
-        temperature is 20C. This is the thermal conductivity change per degree
-        excursion from 20C. This variable conductivity function is overridden
-        by the VariableThermalConductivity object, if present.
+        """field `Temperature Coefficient for Thermal Conductivity`
+
+        |  The base temperature is 20C.
+        |  This is the thermal conductivity change per degree excursion from 20C.
+        |  This variable conductivity function is overridden by the VariableThermalConductivity object, if present.
+        |  Units: W/m-K2
 
         Args:
             value (float): value for IDD Field `Temperature Coefficient for Thermal Conductivity`
-                Units: W/m-K2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11175,17 +11518,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_1(self):
         """field `Temperature 1`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 1`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_1` or None if not set
+
         """
         return self["Temperature 1"]
 
@@ -11197,17 +11542,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_1(self):
         """field `Enthalpy 1`
-        for Temperature-enthalpy function corresponding to temperature 1
+
+        |  for Temperature-enthalpy function corresponding to temperature 1
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 1`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_1` or None if not set
+
         """
         return self["Enthalpy 1"]
 
@@ -11219,17 +11566,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_2(self):
         """field `Temperature 2`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_2` or None if not set
+
         """
         return self["Temperature 2"]
 
@@ -11241,17 +11590,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_2(self):
         """field `Enthalpy 2`
-        for Temperature-enthalpy function corresponding to temperature 2
+
+        |  for Temperature-enthalpy function corresponding to temperature 2
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 2`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_2` or None if not set
+
         """
         return self["Enthalpy 2"]
 
@@ -11263,17 +11614,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_3(self):
         """field `Temperature 3`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 3`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_3` or None if not set
+
         """
         return self["Temperature 3"]
 
@@ -11285,17 +11638,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_3(self):
         """field `Enthalpy 3`
-        for Temperature-enthalpy function corresponding to temperature 3
+
+        |  for Temperature-enthalpy function corresponding to temperature 3
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 3`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_3` or None if not set
+
         """
         return self["Enthalpy 3"]
 
@@ -11307,17 +11662,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_4(self):
         """field `Temperature 4`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 4`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_4` or None if not set
+
         """
         return self["Temperature 4"]
 
@@ -11329,17 +11686,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_4(self):
         """field `Enthalpy 4`
-        for Temperature-enthalpy function corresponding to temperature 4
+
+        |  for Temperature-enthalpy function corresponding to temperature 4
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 4`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_4` or None if not set
+
         """
         return self["Enthalpy 4"]
 
@@ -11351,17 +11710,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_5(self):
         """field `Temperature 5`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 5`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_5` or None if not set
+
         """
         return self["Temperature 5"]
 
@@ -11373,17 +11734,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_5(self):
         """field `Enthalpy 5`
-        for Temperature-enthalpy function corresponding to temperature 5
+
+        |  for Temperature-enthalpy function corresponding to temperature 5
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 5`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_5` or None if not set
+
         """
         return self["Enthalpy 5"]
 
@@ -11395,17 +11758,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_6(self):
         """field `Temperature 6`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 6`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_6` or None if not set
+
         """
         return self["Temperature 6"]
 
@@ -11417,17 +11782,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_6(self):
         """field `Enthalpy 6`
-        for Temperature-enthalpy function corresponding to temperature 6
+
+        |  for Temperature-enthalpy function corresponding to temperature 6
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 6`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_6` or None if not set
+
         """
         return self["Enthalpy 6"]
 
@@ -11439,17 +11806,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_7(self):
         """field `Temperature 7`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 7`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_7` or None if not set
+
         """
         return self["Temperature 7"]
 
@@ -11461,17 +11830,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_7(self):
         """field `Enthalpy 7`
-        for Temperature-enthalpy function corresponding to temperature 7
+
+        |  for Temperature-enthalpy function corresponding to temperature 7
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 7`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_7` or None if not set
+
         """
         return self["Enthalpy 7"]
 
@@ -11483,17 +11854,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_8(self):
         """field `Temperature 8`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 8`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_8` or None if not set
+
         """
         return self["Temperature 8"]
 
@@ -11505,17 +11878,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_8(self):
         """field `Enthalpy 8`
-        for Temperature-enthalpy function corresponding to temperature 8
+
+        |  for Temperature-enthalpy function corresponding to temperature 8
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 8`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_8` or None if not set
+
         """
         return self["Enthalpy 8"]
 
@@ -11527,17 +11902,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_9(self):
         """field `Temperature 9`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 9`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_9` or None if not set
+
         """
         return self["Temperature 9"]
 
@@ -11549,17 +11926,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_9(self):
         """field `Enthalpy 9`
-        for Temperature-enthalpy function corresponding to temperature 1
+
+        |  for Temperature-enthalpy function corresponding to temperature 1
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 9`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_9` or None if not set
+
         """
         return self["Enthalpy 9"]
 
@@ -11571,17 +11950,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_10(self):
         """field `Temperature 10`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 10`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_10` or None if not set
+
         """
         return self["Temperature 10"]
 
@@ -11593,17 +11974,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_10(self):
         """field `Enthalpy 10`
-        for Temperature-enthalpy function corresponding to temperature 2
+
+        |  for Temperature-enthalpy function corresponding to temperature 2
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 10`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_10` or None if not set
+
         """
         return self["Enthalpy 10"]
 
@@ -11615,17 +11998,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_11(self):
         """field `Temperature 11`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 11`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_11` or None if not set
+
         """
         return self["Temperature 11"]
 
@@ -11637,17 +12022,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_11(self):
         """field `Enthalpy 11`
-        for Temperature-enthalpy function corresponding to temperature 3
+
+        |  for Temperature-enthalpy function corresponding to temperature 3
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 11`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_11` or None if not set
+
         """
         return self["Enthalpy 11"]
 
@@ -11659,17 +12046,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_12(self):
         """field `Temperature 12`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 12`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_12` or None if not set
+
         """
         return self["Temperature 12"]
 
@@ -11681,17 +12070,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_12(self):
         """field `Enthalpy 12`
-        for Temperature-enthalpy function corresponding to temperature 14
+
+        |  for Temperature-enthalpy function corresponding to temperature 14
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 12`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_12` or None if not set
+
         """
         return self["Enthalpy 12"]
 
@@ -11703,17 +12094,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_13(self):
         """field `Temperature 13`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 13`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_13` or None if not set
+
         """
         return self["Temperature 13"]
 
@@ -11725,17 +12118,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_13(self):
         """field `Enthalpy 13`
-        for Temperature-enthalpy function corresponding to temperature 15
+
+        |  for Temperature-enthalpy function corresponding to temperature 15
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 13`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_13` or None if not set
+
         """
         return self["Enthalpy 13"]
 
@@ -11747,17 +12142,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_14(self):
         """field `Temperature 14`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 14`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_14` or None if not set
+
         """
         return self["Temperature 14"]
 
@@ -11769,17 +12166,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_14(self):
         """field `Enthalpy 14`
-        for Temperature-enthalpy function corresponding to temperature 16
+
+        |  for Temperature-enthalpy function corresponding to temperature 16
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 14`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_14` or None if not set
+
         """
         return self["Enthalpy 14"]
 
@@ -11791,17 +12190,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_15(self):
         """field `Temperature 15`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 15`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_15` or None if not set
+
         """
         return self["Temperature 15"]
 
@@ -11813,17 +12214,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_15(self):
         """field `Enthalpy 15`
-        for Temperature-enthalpy function corresponding to temperature 17
+
+        |  for Temperature-enthalpy function corresponding to temperature 17
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 15`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_15` or None if not set
+
         """
         return self["Enthalpy 15"]
 
@@ -11835,17 +12238,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def temperature_16(self):
         """field `Temperature 16`
-        for Temperature-enthalpy function
+
+        |  for Temperature-enthalpy function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 16`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_16` or None if not set
+
         """
         return self["Temperature 16"]
 
@@ -11857,17 +12262,19 @@ class MaterialPropertyPhaseChange(DataObject):
     @property
     def enthalpy_16(self):
         """field `Enthalpy 16`
-        for Temperature-enthalpy function corresponding to temperature 16
+
+        |  for Temperature-enthalpy function corresponding to temperature 16
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Enthalpy 16`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `enthalpy_16` or None if not set
+
         """
         return self["Enthalpy 16"]
 
@@ -12085,9 +12492,10 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @property
     def name(self):
-        """field `Name` Regular Material Name to which the additional
-        properties will be added. this the material name for the basic material
-        properties.
+        """field `Name`
+
+        |  Regular Material Name to which the additional properties will be added.
+        |  this the material name for the basic material properties.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12109,17 +12517,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_1(self):
         """field `Temperature 1`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 1`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_1` or None if not set
+
         """
         return self["Temperature 1"]
 
@@ -12131,17 +12541,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_1(self):
         """field `Thermal Conductivity 1`
-        for Temperature-Thermal Conductivity function corresponding to temperature 1
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 1
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 1`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_1` or None if not set
+
         """
         return self["Thermal Conductivity 1"]
 
@@ -12153,17 +12565,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_2(self):
         """field `Temperature 2`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_2` or None if not set
+
         """
         return self["Temperature 2"]
 
@@ -12175,17 +12589,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_2(self):
         """field `Thermal Conductivity 2`
-        for Temperature-Thermal Conductivity function corresponding to temperature 2
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 2
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 2`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_2` or None if not set
+
         """
         return self["Thermal Conductivity 2"]
 
@@ -12197,17 +12613,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_3(self):
         """field `Temperature 3`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 3`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_3` or None if not set
+
         """
         return self["Temperature 3"]
 
@@ -12219,17 +12637,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_3(self):
         """field `Thermal Conductivity 3`
-        for Temperature-Thermal Conductivity function corresponding to temperature 3
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 3
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 3`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_3` or None if not set
+
         """
         return self["Thermal Conductivity 3"]
 
@@ -12241,17 +12661,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_4(self):
         """field `Temperature 4`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 4`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_4` or None if not set
+
         """
         return self["Temperature 4"]
 
@@ -12263,17 +12685,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_4(self):
         """field `Thermal Conductivity 4`
-        for Temperature-Thermal Conductivity function corresponding to temperature 4
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 4
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 4`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_4` or None if not set
+
         """
         return self["Thermal Conductivity 4"]
 
@@ -12285,17 +12709,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_5(self):
         """field `Temperature 5`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 5`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_5` or None if not set
+
         """
         return self["Temperature 5"]
 
@@ -12307,17 +12733,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_5(self):
         """field `Thermal Conductivity 5`
-        for Temperature-Thermal Conductivity function corresponding to temperature 5
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 5
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 5`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_5` or None if not set
+
         """
         return self["Thermal Conductivity 5"]
 
@@ -12329,17 +12757,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_6(self):
         """field `Temperature 6`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 6`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_6` or None if not set
+
         """
         return self["Temperature 6"]
 
@@ -12351,17 +12781,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_6(self):
         """field `Thermal Conductivity 6`
-        for Temperature-Thermal Conductivity function corresponding to temperature 6
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 6
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 6`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_6` or None if not set
+
         """
         return self["Thermal Conductivity 6"]
 
@@ -12373,17 +12805,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_7(self):
         """field `Temperature 7`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 7`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_7` or None if not set
+
         """
         return self["Temperature 7"]
 
@@ -12395,17 +12829,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_7(self):
         """field `Thermal Conductivity 7`
-        for Temperature-Thermal Conductivity function corresponding to temperature 7
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 7
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 7`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_7` or None if not set
+
         """
         return self["Thermal Conductivity 7"]
 
@@ -12417,17 +12853,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_8(self):
         """field `Temperature 8`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 8`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_8` or None if not set
+
         """
         return self["Temperature 8"]
 
@@ -12439,17 +12877,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_8(self):
         """field `Thermal Conductivity 8`
-        for Temperature-Thermal Conductivity function corresponding to temperature 8
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 8
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 8`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_8` or None if not set
+
         """
         return self["Thermal Conductivity 8"]
 
@@ -12461,17 +12901,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_9(self):
         """field `Temperature 9`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 9`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_9` or None if not set
+
         """
         return self["Temperature 9"]
 
@@ -12483,17 +12925,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_9(self):
         """field `Thermal Conductivity 9`
-        for Temperature-Thermal Conductivity function corresponding to temperature 9
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 9
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 9`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_9` or None if not set
+
         """
         return self["Thermal Conductivity 9"]
 
@@ -12505,17 +12949,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def temperature_10(self):
         """field `Temperature 10`
-        for Temperature-Thermal Conductivity function
+
+        |  for Temperature-Thermal Conductivity function
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature 10`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_10` or None if not set
+
         """
         return self["Temperature 10"]
 
@@ -12527,17 +12973,19 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
     @property
     def thermal_conductivity_10(self):
         """field `Thermal Conductivity 10`
-        for Temperature-Thermal Conductivity function corresponding to temperature 10
+
+        |  for Temperature-Thermal Conductivity function corresponding to temperature 10
+        |  Units: W/m-K
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 10`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `thermal_conductivity_10` or None if not set
+
         """
         return self["Thermal Conductivity 10"]
 
@@ -12594,9 +13042,10 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` Material Name that the moisture properties
-        will be added to. This augments material properties needed for combined
-        heat and moisture transfer for surfaces.
+        """field `Material Name`
+
+        |  Material Name that the moisture properties will be added to.
+        |  This augments material properties needed for combined heat and moisture transfer for surfaces.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -12619,10 +13068,11 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
     def porosity(self):
         """field `Porosity`
 
+        |  Units: m3/m3
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Porosity`
-                Units: m3/m3
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12640,13 +13090,14 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
 
     @property
     def initial_water_content_ratio(self):
-        """field `Initial Water Content Ratio` units are the water/material
-        density ratio at the begining of each run period.
+        """field `Initial Water Content Ratio`
+
+        |  units are the water/material density ratio at the begining of each run period.
+        |  Units: kg/kg
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Initial Water Content Ratio`
-                Units: kg/kg
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13174,8 +13625,9 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` The Material Name that the moisture sorption
-        isotherm will be added to.
+        """field `Material Name`
+
+        |  The Material Name that the moisture sorption isotherm will be added to.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -13196,12 +13648,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def number_of_isotherm_coordinates(self):
-        """field `Number of Isotherm Coordinates` Number of data Coordinates.
+        """field `Number of Isotherm Coordinates`
+
+        |  Number of data Coordinates
+        |  value >= 1
+        |  value <= 25
 
         Args:
             value (int): value for IDD Field `Number of Isotherm Coordinates`
-                value >= 1
-                value <= 25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13219,13 +13673,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_1(self):
-        """field `Relative Humidity Fraction 1` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 1`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 1`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13245,9 +13700,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_1(self):
         """field `Moisture Content 1`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 1`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13265,13 +13721,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_2(self):
-        """field `Relative Humidity Fraction 2` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 2`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 2`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13291,9 +13748,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_2(self):
         """field `Moisture Content 2`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 2`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13311,13 +13769,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_3(self):
-        """field `Relative Humidity Fraction 3` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 3`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13337,9 +13796,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_3(self):
         """field `Moisture Content 3`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 3`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13357,13 +13817,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_4(self):
-        """field `Relative Humidity Fraction 4` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 4`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13383,9 +13844,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_4(self):
         """field `Moisture Content 4`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 4`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13403,13 +13865,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_5(self):
-        """field `Relative Humidity Fraction 5` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 5`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 5`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13429,9 +13892,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_5(self):
         """field `Moisture Content 5`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 5`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13449,13 +13913,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_6(self):
-        """field `Relative Humidity Fraction 6` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 6`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 6`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13475,9 +13940,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_6(self):
         """field `Moisture Content 6`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 6`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13495,13 +13961,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_7(self):
-        """field `Relative Humidity Fraction 7` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 7`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 7`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13521,9 +13988,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_7(self):
         """field `Moisture Content 7`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 7`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13541,13 +14009,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_8(self):
-        """field `Relative Humidity Fraction 8` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 8`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 8`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13567,9 +14036,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_8(self):
         """field `Moisture Content 8`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 8`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13587,13 +14057,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_9(self):
-        """field `Relative Humidity Fraction 9` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 9`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 9`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13613,9 +14084,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_9(self):
         """field `Moisture Content 9`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 9`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13633,13 +14105,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_10(self):
-        """field `Relative Humidity Fraction 10` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 10`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 10`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13659,9 +14132,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_10(self):
         """field `Moisture Content 10`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 10`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13679,13 +14153,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_11(self):
-        """field `Relative Humidity Fraction 11` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 11`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 11`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13705,9 +14180,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_11(self):
         """field `Moisture Content 11`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 11`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13725,13 +14201,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_12(self):
-        """field `Relative Humidity Fraction 12` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 12`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 12`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13751,9 +14228,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_12(self):
         """field `Moisture Content 12`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 12`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13771,13 +14249,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_13(self):
-        """field `Relative Humidity Fraction 13` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 13`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 13`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13797,9 +14276,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_13(self):
         """field `Moisture Content 13`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 13`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13817,13 +14297,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_14(self):
-        """field `Relative Humidity Fraction 14` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 14`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 14`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13843,9 +14324,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_14(self):
         """field `Moisture Content 14`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 14`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13863,13 +14345,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_15(self):
-        """field `Relative Humidity Fraction 15` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 15`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 15`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13889,9 +14372,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_15(self):
         """field `Moisture Content 15`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 15`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13909,13 +14393,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_16(self):
-        """field `Relative Humidity Fraction 16` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 16`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 16`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13935,9 +14420,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_16(self):
         """field `Moisture Content 16`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 16`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13955,13 +14441,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_17(self):
-        """field `Relative Humidity Fraction 17` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 17`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 17`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13981,9 +14468,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_17(self):
         """field `Moisture Content 17`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 17`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14001,13 +14489,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_18(self):
-        """field `Relative Humidity Fraction 18` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 18`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 18`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14027,9 +14516,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_18(self):
         """field `Moisture Content 18`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 18`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14047,13 +14537,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_19(self):
-        """field `Relative Humidity Fraction 19` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 19`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 19`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14073,9 +14564,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_19(self):
         """field `Moisture Content 19`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 19`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14093,13 +14585,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_20(self):
-        """field `Relative Humidity Fraction 20` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 20`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 20`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14119,9 +14612,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_20(self):
         """field `Moisture Content 20`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 20`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14139,13 +14633,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_21(self):
-        """field `Relative Humidity Fraction 21` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 21`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 21`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14165,9 +14660,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_21(self):
         """field `Moisture Content 21`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 21`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14185,13 +14681,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_22(self):
-        """field `Relative Humidity Fraction 22` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 22`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 22`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14211,9 +14708,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_22(self):
         """field `Moisture Content 22`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 22`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14231,13 +14729,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_23(self):
-        """field `Relative Humidity Fraction 23` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 23`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 23`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14257,9 +14756,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_23(self):
         """field `Moisture Content 23`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 23`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14277,13 +14777,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_24(self):
-        """field `Relative Humidity Fraction 24` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 24`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 24`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14303,9 +14804,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_24(self):
         """field `Moisture Content 24`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 24`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14323,13 +14825,14 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @property
     def relative_humidity_fraction_25(self):
-        """field `Relative Humidity Fraction 25` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 25`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 25`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14349,9 +14852,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
     def moisture_content_25(self):
         """field `Moisture Content 25`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 25`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14854,8 +15358,9 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` Material Name that the moisture properties
-        will be added to.
+        """field `Material Name`
+
+        |  Material Name that the moisture properties will be added to.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -14876,13 +15381,14 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @property
     def number_of_suction_points(self):
-        """field `Number of Suction points` Number of Suction Liquid Transport
-        Coefficient coordinates.
+        """field `Number of Suction points`
+
+        |  Number of Suction Liquid Transport Coefficient coordinates
+        |  value >= 1
+        |  value <= 25
 
         Args:
             value (int): value for IDD Field `Number of Suction points`
-                value >= 1
-                value <= 25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14902,9 +15408,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_1(self):
         """field `Moisture Content 1`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 1`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14924,9 +15431,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_1(self):
         """field `Liquid Transport Coefficient 1`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14946,9 +15454,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_2(self):
         """field `Moisture Content 2`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 2`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14968,9 +15477,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_2(self):
         """field `Liquid Transport Coefficient 2`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14990,9 +15500,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_3(self):
         """field `Moisture Content 3`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 3`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15012,9 +15523,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_3(self):
         """field `Liquid Transport Coefficient 3`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15034,9 +15546,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_4(self):
         """field `Moisture Content 4`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 4`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15056,9 +15569,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_4(self):
         """field `Liquid Transport Coefficient 4`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15078,9 +15592,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_5(self):
         """field `Moisture Content 5`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 5`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15100,9 +15615,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_5(self):
         """field `Liquid Transport Coefficient 5`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15122,9 +15638,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_6(self):
         """field `Moisture Content 6`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 6`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15144,9 +15661,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_6(self):
         """field `Liquid Transport Coefficient 6`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15166,9 +15684,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_7(self):
         """field `Moisture Content 7`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 7`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15188,9 +15707,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_7(self):
         """field `Liquid Transport Coefficient 7`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15210,9 +15730,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_8(self):
         """field `Moisture Content 8`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 8`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15232,9 +15753,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_8(self):
         """field `Liquid Transport Coefficient 8`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15254,9 +15776,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_9(self):
         """field `Moisture Content 9`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 9`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15276,9 +15799,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_9(self):
         """field `Liquid Transport Coefficient 9`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15298,9 +15822,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_10(self):
         """field `Moisture Content 10`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 10`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15320,9 +15845,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_10(self):
         """field `Liquid Transport Coefficient 10`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15342,9 +15868,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_11(self):
         """field `Moisture Content 11`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 11`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15364,9 +15891,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_11(self):
         """field `Liquid Transport Coefficient 11`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15386,9 +15914,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_12(self):
         """field `Moisture Content 12`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 12`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15408,9 +15937,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_12(self):
         """field `Liquid Transport Coefficient 12`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15430,9 +15960,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_13(self):
         """field `Moisture Content 13`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 13`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15452,9 +15983,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_13(self):
         """field `Liquid Transport Coefficient 13`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15474,9 +16006,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_14(self):
         """field `Moisture Content 14`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 14`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15496,9 +16029,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_14(self):
         """field `Liquid Transport Coefficient 14`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15518,9 +16052,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_15(self):
         """field `Moisture Content 15`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 15`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15540,9 +16075,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_15(self):
         """field `Liquid Transport Coefficient 15`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15562,9 +16098,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_16(self):
         """field `Moisture Content 16`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 16`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15584,9 +16121,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_16(self):
         """field `Liquid Transport Coefficient 16`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15606,9 +16144,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_17(self):
         """field `Moisture Content 17`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 17`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15628,9 +16167,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_17(self):
         """field `Liquid Transport Coefficient 17`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15650,9 +16190,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_18(self):
         """field `Moisture Content 18`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 18`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15672,9 +16213,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_18(self):
         """field `Liquid Transport Coefficient 18`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15694,9 +16236,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_19(self):
         """field `Moisture Content 19`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 19`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15716,9 +16259,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_19(self):
         """field `Liquid Transport Coefficient 19`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15738,9 +16282,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_20(self):
         """field `Moisture Content 20`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 20`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15760,9 +16305,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_20(self):
         """field `Liquid Transport Coefficient 20`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15782,9 +16328,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_21(self):
         """field `Moisture Content 21`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 21`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15804,9 +16351,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_21(self):
         """field `Liquid Transport Coefficient 21`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15826,9 +16374,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_22(self):
         """field `Moisture Content 22`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 22`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15848,9 +16397,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_22(self):
         """field `Liquid Transport Coefficient 22`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15870,9 +16420,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_23(self):
         """field `Moisture Content 23`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 23`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15892,9 +16443,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_23(self):
         """field `Liquid Transport Coefficient 23`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15914,9 +16466,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_24(self):
         """field `Moisture Content 24`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 24`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15936,9 +16489,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_24(self):
         """field `Liquid Transport Coefficient 24`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15958,9 +16512,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def moisture_content_25(self):
         """field `Moisture Content 25`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 25`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15980,9 +16535,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     def liquid_transport_coefficient_25(self):
         """field `Liquid Transport Coefficient 25`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16485,8 +17041,9 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` Moisture Material Name that the moisture
-        properties will be added to.
+        """field `Material Name`
+
+        |  Moisture Material Name that the moisture properties will be added to.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -16507,12 +17064,14 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @property
     def number_of_redistribution_points(self):
-        """field `Number of Redistribution points` number of data points.
+        """field `Number of Redistribution points`
+
+        |  number of data points
+        |  value >= 1
+        |  value <= 25
 
         Args:
             value (int): value for IDD Field `Number of Redistribution points`
-                value >= 1
-                value <= 25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16532,9 +17091,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_1(self):
         """field `Moisture Content 1`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 1`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16554,9 +17114,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_1(self):
         """field `Liquid Transport Coefficient 1`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16576,9 +17137,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_2(self):
         """field `Moisture Content 2`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 2`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16598,9 +17160,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_2(self):
         """field `Liquid Transport Coefficient 2`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16620,9 +17183,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_3(self):
         """field `Moisture Content 3`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 3`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16642,9 +17206,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_3(self):
         """field `Liquid Transport Coefficient 3`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16664,9 +17229,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_4(self):
         """field `Moisture Content 4`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 4`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16686,9 +17252,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_4(self):
         """field `Liquid Transport Coefficient 4`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16708,9 +17275,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_5(self):
         """field `Moisture Content 5`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 5`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16730,9 +17298,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_5(self):
         """field `Liquid Transport Coefficient 5`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16752,9 +17321,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_6(self):
         """field `Moisture Content 6`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 6`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16774,9 +17344,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_6(self):
         """field `Liquid Transport Coefficient 6`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16796,9 +17367,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_7(self):
         """field `Moisture Content 7`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 7`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16818,9 +17390,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_7(self):
         """field `Liquid Transport Coefficient 7`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16840,9 +17413,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_8(self):
         """field `Moisture Content 8`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 8`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16862,9 +17436,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_8(self):
         """field `Liquid Transport Coefficient 8`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16884,9 +17459,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_9(self):
         """field `Moisture Content 9`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 9`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16906,9 +17482,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_9(self):
         """field `Liquid Transport Coefficient 9`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16928,9 +17505,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_10(self):
         """field `Moisture Content 10`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 10`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16950,9 +17528,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_10(self):
         """field `Liquid Transport Coefficient 10`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16972,9 +17551,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_11(self):
         """field `Moisture Content 11`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 11`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16994,9 +17574,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_11(self):
         """field `Liquid Transport Coefficient 11`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17016,9 +17597,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_12(self):
         """field `Moisture Content 12`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 12`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17038,9 +17620,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_12(self):
         """field `Liquid Transport Coefficient 12`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17060,9 +17643,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_13(self):
         """field `Moisture Content 13`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 13`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17082,9 +17666,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_13(self):
         """field `Liquid Transport Coefficient 13`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17104,9 +17689,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_14(self):
         """field `Moisture Content 14`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 14`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17126,9 +17712,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_14(self):
         """field `Liquid Transport Coefficient 14`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17148,9 +17735,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_15(self):
         """field `Moisture Content 15`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 15`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17170,9 +17758,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_15(self):
         """field `Liquid Transport Coefficient 15`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17192,9 +17781,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_16(self):
         """field `Moisture Content 16`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 16`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17214,9 +17804,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_16(self):
         """field `Liquid Transport Coefficient 16`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17236,9 +17827,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_17(self):
         """field `Moisture Content 17`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 17`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17258,9 +17850,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_17(self):
         """field `Liquid Transport Coefficient 17`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17280,9 +17873,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_18(self):
         """field `Moisture Content 18`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 18`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17302,9 +17896,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_18(self):
         """field `Liquid Transport Coefficient 18`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17324,9 +17919,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_19(self):
         """field `Moisture Content 19`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 19`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17346,9 +17942,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_19(self):
         """field `Liquid Transport Coefficient 19`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17368,9 +17965,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_20(self):
         """field `Moisture Content 20`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 20`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17390,9 +17988,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_20(self):
         """field `Liquid Transport Coefficient 20`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17412,9 +18011,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_21(self):
         """field `Moisture Content 21`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 21`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17434,9 +18034,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_21(self):
         """field `Liquid Transport Coefficient 21`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17456,9 +18057,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_22(self):
         """field `Moisture Content 22`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 22`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17478,9 +18080,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_22(self):
         """field `Liquid Transport Coefficient 22`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17500,9 +18103,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_23(self):
         """field `Moisture Content 23`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 23`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17522,9 +18126,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_23(self):
         """field `Liquid Transport Coefficient 23`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17544,9 +18149,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_24(self):
         """field `Moisture Content 24`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 24`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17566,9 +18172,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_24(self):
         """field `Liquid Transport Coefficient 24`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17588,9 +18195,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def moisture_content_25(self):
         """field `Moisture Content 25`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 25`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17610,9 +18218,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     def liquid_transport_coefficient_25(self):
         """field `Liquid Transport Coefficient 25`
 
+        |  Units: m2/s
+
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
-                Units: m2/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18140,8 +18749,9 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` Moisture Material Name that the moisture
-        properties will be added to.
+        """field `Material Name`
+
+        |  Moisture Material Name that the moisture properties will be added to.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -18162,13 +18772,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def number_of_data_pairs(self):
-        """field `Number of Data Pairs` Water Vapor Diffusion Resistance
-        Factor.
+        """field `Number of Data Pairs`
+
+        |  Water Vapor Diffusion Resistance Factor
+        |  value >= 1
+        |  value <= 25
 
         Args:
             value (int): value for IDD Field `Number of Data Pairs`
-                value >= 1
-                value <= 25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18186,13 +18797,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_1(self):
-        """field `Relative Humidity Fraction 1` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 1`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 1`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18212,9 +18824,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_1(self):
         """field `Water Vapor Diffusion Resistance Factor 1`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18233,13 +18846,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_2(self):
-        """field `Relative Humidity Fraction 2` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 2`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 2`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18259,9 +18873,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_2(self):
         """field `Water Vapor Diffusion Resistance Factor 2`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 2`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18280,13 +18895,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_3(self):
-        """field `Relative Humidity Fraction 3` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 3`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18306,9 +18922,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_3(self):
         """field `Water Vapor Diffusion Resistance Factor 3`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 3`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18327,13 +18944,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_4(self):
-        """field `Relative Humidity Fraction 4` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 4`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18353,9 +18971,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_4(self):
         """field `Water Vapor Diffusion Resistance Factor 4`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 4`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18374,13 +18993,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_5(self):
-        """field `Relative Humidity Fraction 5` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 5`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 5`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18400,9 +19020,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_5(self):
         """field `Water Vapor Diffusion Resistance Factor 5`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 5`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18421,13 +19042,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_6(self):
-        """field `Relative Humidity Fraction 6` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 6`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 6`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18447,9 +19069,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_6(self):
         """field `Water Vapor Diffusion Resistance Factor 6`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 6`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18468,13 +19091,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_7(self):
-        """field `Relative Humidity Fraction 7` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 7`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 7`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18494,9 +19118,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_7(self):
         """field `Water Vapor Diffusion Resistance Factor 7`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 7`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18515,13 +19140,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_8(self):
-        """field `Relative Humidity Fraction 8` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 8`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 8`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18541,9 +19167,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_8(self):
         """field `Water Vapor Diffusion Resistance Factor 8`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 8`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18562,13 +19189,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_9(self):
-        """field `Relative Humidity Fraction 9` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 9`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 9`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18588,9 +19216,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_9(self):
         """field `Water Vapor Diffusion Resistance Factor 9`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 9`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18609,13 +19238,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_10(self):
-        """field `Relative Humidity Fraction 10` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 10`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 10`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18635,9 +19265,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_10(self):
         """field `Water Vapor Diffusion Resistance Factor 10`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 10`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18656,13 +19287,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_11(self):
-        """field `Relative Humidity Fraction 11` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 11`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 11`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18682,9 +19314,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_11(self):
         """field `Water Vapor Diffusion Resistance Factor 11`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 11`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18703,13 +19336,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_12(self):
-        """field `Relative Humidity Fraction 12` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 12`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 12`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18729,9 +19363,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_12(self):
         """field `Water Vapor Diffusion Resistance Factor 12`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 12`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18750,13 +19385,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_13(self):
-        """field `Relative Humidity Fraction 13` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 13`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 13`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18776,9 +19412,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_13(self):
         """field `Water Vapor Diffusion Resistance Factor 13`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 13`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18797,13 +19434,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_14(self):
-        """field `Relative Humidity Fraction 14` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 14`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 14`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18823,9 +19461,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_14(self):
         """field `Water Vapor Diffusion Resistance Factor 14`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 14`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18844,13 +19483,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_15(self):
-        """field `Relative Humidity Fraction 15` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 15`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 15`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18870,9 +19510,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_15(self):
         """field `Water Vapor Diffusion Resistance Factor 15`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 15`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18891,13 +19532,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_16(self):
-        """field `Relative Humidity Fraction 16` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 16`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 16`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18917,9 +19559,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_16(self):
         """field `Water Vapor Diffusion Resistance Factor 16`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 16`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18938,13 +19581,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_17(self):
-        """field `Relative Humidity Fraction 17` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 17`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 17`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18964,9 +19608,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_17(self):
         """field `Water Vapor Diffusion Resistance Factor 17`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 17`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18985,13 +19630,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_18(self):
-        """field `Relative Humidity Fraction 18` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 18`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 18`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19011,9 +19657,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_18(self):
         """field `Water Vapor Diffusion Resistance Factor 18`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 18`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19032,13 +19679,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_19(self):
-        """field `Relative Humidity Fraction 19` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 19`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 19`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19058,9 +19706,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_19(self):
         """field `Water Vapor Diffusion Resistance Factor 19`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 19`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19079,13 +19728,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_20(self):
-        """field `Relative Humidity Fraction 20` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 20`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 20`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19105,9 +19755,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_20(self):
         """field `Water Vapor Diffusion Resistance Factor 20`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 20`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19126,13 +19777,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_21(self):
-        """field `Relative Humidity Fraction 21` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 21`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 21`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19152,9 +19804,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_21(self):
         """field `Water Vapor Diffusion Resistance Factor 21`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 21`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19173,13 +19826,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_22(self):
-        """field `Relative Humidity Fraction 22` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 22`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 22`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19199,9 +19853,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_22(self):
         """field `Water Vapor Diffusion Resistance Factor 22`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 22`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19220,13 +19875,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_23(self):
-        """field `Relative Humidity Fraction 23` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 23`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 23`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19246,9 +19902,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_23(self):
         """field `Water Vapor Diffusion Resistance Factor 23`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 23`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19267,13 +19924,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_24(self):
-        """field `Relative Humidity Fraction 24` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 24`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 24`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19293,9 +19951,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_24(self):
         """field `Water Vapor Diffusion Resistance Factor 24`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 24`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19314,13 +19973,14 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @property
     def relative_humidity_fraction_25(self):
-        """field `Relative Humidity Fraction 25` The relative humidity is
-        entered as a fraction.
+        """field `Relative Humidity Fraction 25`
+
+        |  The relative humidity is entered as a fraction.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 25`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19340,9 +20000,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
     def water_vapor_diffusion_resistance_factor_25(self):
         """field `Water Vapor Diffusion Resistance Factor 25`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 25`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19846,8 +20507,9 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @property
     def material_name(self):
-        """field `Material Name` Moisture Material Name that the Thermal
-        Conductivity will be added to.
+        """field `Material Name`
+
+        |  Moisture Material Name that the Thermal Conductivity will be added to.
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -19868,12 +20530,14 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @property
     def number_of_thermal_coordinates(self):
-        """field `Number of Thermal Coordinates` number of data coordinates.
+        """field `Number of Thermal Coordinates`
+
+        |  number of data coordinates
+        |  value >= 1
+        |  value <= 25
 
         Args:
             value (int): value for IDD Field `Number of Thermal Coordinates`
-                value >= 1
-                value <= 25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19893,9 +20557,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_1(self):
         """field `Moisture Content 1`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 1`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19915,9 +20580,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_1(self):
         """field `Thermal Conductivity 1`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 1`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19937,9 +20603,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_2(self):
         """field `Moisture Content 2`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 2`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19959,9 +20626,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_2(self):
         """field `Thermal Conductivity 2`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 2`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19981,9 +20649,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_3(self):
         """field `Moisture Content 3`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 3`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20003,9 +20672,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_3(self):
         """field `Thermal Conductivity 3`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 3`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20025,9 +20695,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_4(self):
         """field `Moisture Content 4`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 4`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20047,9 +20718,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_4(self):
         """field `Thermal Conductivity 4`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 4`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20069,9 +20741,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_5(self):
         """field `Moisture Content 5`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 5`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20091,9 +20764,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_5(self):
         """field `Thermal Conductivity 5`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 5`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20113,9 +20787,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_6(self):
         """field `Moisture Content 6`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 6`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20135,9 +20810,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_6(self):
         """field `Thermal Conductivity 6`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 6`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20157,9 +20833,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_7(self):
         """field `Moisture Content 7`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 7`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20179,9 +20856,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_7(self):
         """field `Thermal Conductivity 7`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 7`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20201,9 +20879,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_8(self):
         """field `Moisture Content 8`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 8`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20223,9 +20902,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_8(self):
         """field `Thermal Conductivity 8`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 8`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20245,9 +20925,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_9(self):
         """field `Moisture Content 9`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 9`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20267,9 +20948,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_9(self):
         """field `Thermal Conductivity 9`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 9`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20289,9 +20971,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_10(self):
         """field `Moisture Content 10`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 10`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20311,9 +20994,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_10(self):
         """field `Thermal Conductivity 10`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 10`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20333,9 +21017,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_11(self):
         """field `Moisture Content 11`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 11`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20355,9 +21040,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_11(self):
         """field `Thermal Conductivity 11`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 11`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20377,9 +21063,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_12(self):
         """field `Moisture Content 12`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 12`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20399,9 +21086,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_12(self):
         """field `Thermal Conductivity 12`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 12`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20421,9 +21109,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_13(self):
         """field `Moisture Content 13`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 13`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20443,9 +21132,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_13(self):
         """field `Thermal Conductivity 13`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 13`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20465,9 +21155,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_14(self):
         """field `Moisture Content 14`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 14`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20487,9 +21178,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_14(self):
         """field `Thermal Conductivity 14`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 14`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20509,9 +21201,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_15(self):
         """field `Moisture Content 15`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 15`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20531,9 +21224,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_15(self):
         """field `Thermal Conductivity 15`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 15`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20553,9 +21247,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_16(self):
         """field `Moisture Content 16`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 16`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20575,9 +21270,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_16(self):
         """field `Thermal Conductivity 16`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 16`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20597,9 +21293,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_17(self):
         """field `Moisture Content 17`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 17`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20619,9 +21316,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_17(self):
         """field `Thermal Conductivity 17`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 17`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20641,9 +21339,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_18(self):
         """field `Moisture Content 18`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 18`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20663,9 +21362,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_18(self):
         """field `Thermal Conductivity 18`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 18`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20685,9 +21385,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_19(self):
         """field `Moisture Content 19`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 19`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20707,9 +21408,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_19(self):
         """field `Thermal Conductivity 19`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 19`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20729,9 +21431,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_20(self):
         """field `Moisture Content 20`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 20`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20751,9 +21454,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_20(self):
         """field `Thermal Conductivity 20`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 20`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20773,9 +21477,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_21(self):
         """field `Moisture Content 21`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 21`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20795,9 +21500,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_21(self):
         """field `Thermal Conductivity 21`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 21`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20817,9 +21523,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_22(self):
         """field `Moisture Content 22`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 22`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20839,9 +21546,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_22(self):
         """field `Thermal Conductivity 22`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 22`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20861,9 +21569,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_23(self):
         """field `Moisture Content 23`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 23`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20883,9 +21592,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_23(self):
         """field `Thermal Conductivity 23`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 23`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20905,9 +21615,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_24(self):
         """field `Moisture Content 24`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 24`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20927,9 +21638,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_24(self):
         """field `Thermal Conductivity 24`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 24`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20949,9 +21661,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def moisture_content_25(self):
         """field `Moisture Content 25`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Moisture Content 25`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20971,9 +21684,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     def thermal_conductivity_25(self):
         """field `Thermal Conductivity 25`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Thermal Conductivity 25`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21515,11 +22229,12 @@ class ConstructionCfactorUndergroundWall(DataObject):
     @property
     def cfactor(self):
         """field `C-Factor`
-        Enter C-Factor without film coefficients or soil
+
+        |  Enter C-Factor without film coefficients or soil
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `C-Factor`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21538,11 +22253,13 @@ class ConstructionCfactorUndergroundWall(DataObject):
 
     @property
     def height(self):
-        """field `Height` Enter height of the underground wall.
+        """field `Height`
+
+        |  Enter height of the underground wall
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21634,10 +22351,11 @@ class ConstructionFfactorGroundFloor(DataObject):
     def ffactor(self):
         """field `F-Factor`
 
+        |  Units: W/m-K
+        |  IP-Units: Btu/h-ft-F
+
         Args:
             value (float): value for IDD Field `F-Factor`
-                Units: W/m-K
-                IP-Units: Btu/h-ft-F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21656,11 +22374,13 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @property
     def area(self):
-        """field `Area` Enter area of the floor.
+        """field `Area`
+
+        |  Enter area of the floor
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21678,11 +22398,13 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @property
     def perimeterexposed(self):
-        """field `PerimeterExposed` Enter exposed perimeter of the floor.
+        """field `PerimeterExposed`
+
+        |  Enter exposed perimeter of the floor
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `PerimeterExposed`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21849,12 +22571,13 @@ class ConstructionInternalSource(DataObject):
 
     @property
     def source_present_after_layer_number(self):
-        """field `Source Present After Layer Number` refers to the list of
-        materials which follows.
+        """field `Source Present After Layer Number`
+
+        |  refers to the list of materials which follows
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Source Present After Layer Number`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21872,8 +22595,9 @@ class ConstructionInternalSource(DataObject):
 
     @property
     def temperature_calculation_requested_after_layer_number(self):
-        """field `Temperature Calculation Requested After Layer Number` refers
-        to the list of materials which follows.
+        """field `Temperature Calculation Requested After Layer Number`
+
+        |  refers to the list of materials which follows
 
         Args:
             value (int): value for IDD Field `Temperature Calculation Requested After Layer Number`
@@ -21896,18 +22620,20 @@ class ConstructionInternalSource(DataObject):
     @property
     def dimensions_for_the_ctf_calculation(self):
         """field `Dimensions for the CTF Calculation`
-        1 = 1-dimensional calculation, 2 = 2-dimensional calculation
+
+        |  1 = 1-dimensional calculation, 2 = 2-dimensional calculation
+        |  value >= 1
+        |  value <= 2
 
         Args:
             value (int): value for IDD Field `Dimensions for the CTF Calculation`
-                value >= 1
-                value <= 2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `dimensions_for_the_ctf_calculation` or None if not set
+
         """
         return self["Dimensions for the CTF Calculation"]
 
@@ -21918,13 +22644,14 @@ class ConstructionInternalSource(DataObject):
 
     @property
     def tube_spacing(self):
-        """field `Tube Spacing` uniform spacing between tubes or resistance
-        wires in direction perpendicular to main intended direction of heat
-        transfer.
+        """field `Tube Spacing`
+
+        |  uniform spacing between tubes or resistance wires in direction
+        |  perpendicular to main intended direction of heat transfer
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Tube Spacing`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22270,9 +22997,10 @@ class WindowThermalModelParams(DataObject):
     def standard(self):
         """field `standard`
 
+        |  Default value: ISO15099
+
         Args:
             value (str): value for IDD Field `standard`
-                Default value: ISO15099
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22292,9 +23020,10 @@ class WindowThermalModelParams(DataObject):
     def thermal_model(self):
         """field `Thermal Model`
 
+        |  Default value: ISO15099
+
         Args:
             value (str): value for IDD Field `Thermal Model`
-                Default value: ISO15099
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22314,10 +23043,11 @@ class WindowThermalModelParams(DataObject):
     def sdscalar(self):
         """field `SDScalar`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `SDScalar`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22337,9 +23067,10 @@ class WindowThermalModelParams(DataObject):
     def deflection_model(self):
         """field `Deflection Model`
 
+        |  Default value: NoDeflection
+
         Args:
             value (str): value for IDD Field `Deflection Model`
-                Default value: NoDeflection
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22359,10 +23090,11 @@ class WindowThermalModelParams(DataObject):
     def vacuum_pressure_limit(self):
         """field `Vacuum Pressure Limit`
 
+        |  Units: Pa
+        |  Default value: 13.238
+
         Args:
             value (float): value for IDD Field `Vacuum Pressure Limit`
-                Units: Pa
-                Default value: 13.238
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22380,13 +23112,14 @@ class WindowThermalModelParams(DataObject):
 
     @property
     def initial_temperature(self):
-        """field `Initial temperature` This is temperature in time of window
-        fabrication.
+        """field `Initial temperature`
+
+        |  This is temperature in time of window fabrication
+        |  Units: C
+        |  Default value: 25.0
 
         Args:
             value (float): value for IDD Field `Initial temperature`
-                Units: C
-                Default value: 25.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22404,13 +23137,14 @@ class WindowThermalModelParams(DataObject):
 
     @property
     def initial_pressure(self):
-        """field `Initial pressure` This is pressure in time of window
-        fabrication.
+        """field `Initial pressure`
+
+        |  This is pressure in time of window fabrication
+        |  Units: Pa
+        |  Default value: 101325.0
 
         Args:
             value (float): value for IDD Field `Initial pressure`
-                Units: Pa
-                Default value: 101325.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22727,9 +23461,10 @@ class ConstructionComplexFenestrationState(DataObject):
     def basis_type(self):
         """field `Basis Type`
 
+        |  Default value: LBNLWINDOW
+
         Args:
             value (str): value for IDD Field `Basis Type`
-                Default value: LBNLWINDOW
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22749,9 +23484,10 @@ class ConstructionComplexFenestrationState(DataObject):
     def basis_symmetry_type(self):
         """field `Basis Symmetry Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Basis Symmetry Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22995,8 +23731,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def cfs_gap_1_directional_front_absoptance_matrix_name(self):
-        """field `CFS Gap 1 Directional Front Absoptance Matrix Name` Reserved
-        for future use. Leave it blank for this version.
+        """field `CFS Gap 1 Directional Front Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `CFS Gap 1 Directional Front Absoptance Matrix Name`
@@ -23018,8 +23755,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def cfs_gap_1_directional_back_absoptance_matrix_name(self):
-        """field `CFS Gap 1 Directional Back Absoptance Matrix Name` Reserved
-        for future use. Leave it blank for this version.
+        """field `CFS Gap 1 Directional Back Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `CFS Gap 1 Directional Back Absoptance Matrix Name`
@@ -23127,8 +23865,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_2_directional_front_absoptance_matrix_name(self):
-        """field `Gap 2 Directional Front Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 2 Directional Front Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 2 Directional Front Absoptance Matrix Name`
@@ -23150,8 +23889,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_2_directional_back_absoptance_matrix_name(self):
-        """field `Gap 2 Directional Back Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 2 Directional Back Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 2 Directional Back Absoptance Matrix Name`
@@ -23259,8 +23999,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_3_directional_front_absoptance_matrix_name(self):
-        """field `Gap 3 Directional Front Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 3 Directional Front Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 3 Directional Front Absoptance Matrix Name`
@@ -23282,8 +24023,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_3_directional_back_absoptance_matrix_name(self):
-        """field `Gap 3 Directional Back Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 3 Directional Back Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 3 Directional Back Absoptance Matrix Name`
@@ -23391,8 +24133,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_4_directional_front_absoptance_matrix_name(self):
-        """field `Gap 4 Directional Front Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 4 Directional Front Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 4 Directional Front Absoptance Matrix Name`
@@ -23414,8 +24157,9 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @property
     def gap_4_directional_back_absoptance_matrix_name(self):
-        """field `Gap 4 Directional Back Absoptance Matrix Name` Reserved for
-        future use. Leave it blank for this version.
+        """field `Gap 4 Directional Back Absoptance Matrix Name`
+
+        |  Reserved for future use. Leave it blank for this version
 
         Args:
             value (str): value for IDD Field `Gap 4 Directional Back Absoptance Matrix Name`
@@ -23554,8 +24298,10 @@ class ConstructionWindowDataFile(DataObject):
 
     @property
     def file_name(self):
-        """field `File Name` default file name is "Window5DataFile.dat" limit
-        on this field is 100 characters.
+        """field `File Name`
+
+        |  default file name is "Window5DataFile.dat"
+        |  limit on this field is 100 characters.
 
         Args:
             value (str): value for IDD Field `File Name`

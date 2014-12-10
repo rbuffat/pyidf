@@ -78,9 +78,10 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -124,15 +125,16 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -282,9 +284,10 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -349,15 +352,16 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -369,9 +373,11 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
 
     @property
     def hot_water_or_steam_inlet_node_name(self):
-        """field `Hot Water or Steam Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Hot Water or Steam Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -434,19 +440,20 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -458,13 +465,14 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -484,9 +492,10 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -504,14 +513,14 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -643,9 +652,10 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -710,15 +720,16 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -731,9 +742,10 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     @property
     def zone_minimum_air_flow_input_method(self):
         """field `Zone Minimum Air Flow Input Method`
-        Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
-        FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
-        Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+
+        |  Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
+        |  FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
+        |  Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
 
         Args:
             value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
@@ -743,6 +755,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
 
         Returns:
             str: the value of `zone_minimum_air_flow_input_method` or None if not set
+
         """
         return self["Zone Minimum Air Flow Input Method"]
 
@@ -754,10 +767,11 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     @property
     def constant_minimum_air_flow_fraction(self):
         """field `Constant Minimum Air Flow Fraction`
-        This field is used if the field Zone Minimum Air Flow Input Method is Constant
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the following field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Constant
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the following field are entered, the larger result is used.
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
@@ -767,6 +781,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
 
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
+
         """
         return self["Constant Minimum Air Flow Fraction"]
 
@@ -778,20 +793,22 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     @property
     def fixed_minimum_air_flow_rate(self):
         """field `Fixed Minimum Air Flow Rate`
-        This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the previous field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the previous field are entered, the larger result is used.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fixed_minimum_air_flow_rate` or None if not set
+
         """
         return self["Fixed Minimum Air Flow Rate"]
 
@@ -803,10 +820,11 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     @property
     def minimum_air_flow_fraction_schedule_name(self):
         """field `Minimum Air Flow Fraction Schedule Name`
-        This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
-        Schedule values are fractions, 0.0 to 1.0.
-        If the field Constant Minimum Air Flow Fraction is blank, then the average of the
-        minimum and maximum schedule values is used for sizing normal-action reheat coils.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
+        |  Schedule values are fractions, 0.0 to 1.0.
+        |  If the field Constant Minimum Air Flow Fraction is blank, then the average of the
+        |  minimum and maximum schedule values is used for sizing normal-action reheat coils.
 
         Args:
             value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
@@ -816,6 +834,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
 
         Returns:
             str: the value of `minimum_air_flow_fraction_schedule_name` or None if not set
+
         """
         return self["Minimum Air Flow Fraction Schedule Name"]
 
@@ -828,12 +847,13 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based on the current number of occupants in the zone.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based on the current number of occupants in the zone.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        |  If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -843,6 +863,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -1056,9 +1077,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1079,9 +1101,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def damper_air_outlet_node_name(self):
-        """field `Damper Air Outlet Node Name` the outlet node of the damper
-        and the inlet node of the reheat coil this is an internal node to the
-        terminal unit and connects the damper and reheat coil.
+        """field `Damper Air Outlet Node Name`
+
+        |  the outlet node of the damper and the inlet node of the reheat coil
+        |  this is an internal node to the terminal unit and connects the damper and reheat coil
 
         Args:
             value (str): value for IDD Field `Damper Air Outlet Node Name`
@@ -1102,8 +1125,9 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` the inlet node to the terminal unit and
-        the damper.
+        """field `Air Inlet Node Name`
+
+        |  the inlet node to the terminal unit and the damper
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1126,15 +1150,16 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -1147,9 +1172,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def zone_minimum_air_flow_input_method(self):
         """field `Zone Minimum Air Flow Input Method`
-        Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
-        FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
-        Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+
+        |  Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
+        |  FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
+        |  Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
 
         Args:
             value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
@@ -1159,6 +1185,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
         Returns:
             str: the value of `zone_minimum_air_flow_input_method` or None if not set
+
         """
         return self["Zone Minimum Air Flow Input Method"]
 
@@ -1170,10 +1197,11 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def constant_minimum_air_flow_fraction(self):
         """field `Constant Minimum Air Flow Fraction`
-        This field is used if the field Zone Minimum Air Flow Input Method is Constant
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the following field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Constant
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the following field are entered, the larger result is used.
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
@@ -1183,6 +1211,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
+
         """
         return self["Constant Minimum Air Flow Fraction"]
 
@@ -1194,20 +1223,22 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def fixed_minimum_air_flow_rate(self):
         """field `Fixed Minimum Air Flow Rate`
-        This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the previous field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the previous field are entered, the larger result is used.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fixed_minimum_air_flow_rate` or None if not set
+
         """
         return self["Fixed Minimum Air Flow Rate"]
 
@@ -1219,10 +1250,11 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def minimum_air_flow_fraction_schedule_name(self):
         """field `Minimum Air Flow Fraction Schedule Name`
-        This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
-        Schedule values are fractions, 0.0 to 1.0.
-        If the field Constant Minimum Air Flow Fraction is blank, then the average of the
-        minimum and maximum schedule values is used for sizing normal-action reheat coils.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
+        |  Schedule values are fractions, 0.0 to 1.0.
+        |  If the field Constant Minimum Air Flow Fraction is blank, then the average of the
+        |  minimum and maximum schedule values is used for sizing normal-action reheat coils.
 
         Args:
             value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
@@ -1232,6 +1264,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
         Returns:
             str: the value of `minimum_air_flow_fraction_schedule_name` or None if not set
+
         """
         return self["Minimum Air Flow Fraction Schedule Name"]
 
@@ -1285,19 +1318,20 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -1309,13 +1343,14 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1333,8 +1368,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit
-        and the reheat coil. This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit and the reheat coil.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1357,9 +1394,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1379,9 +1417,10 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     def damper_heating_action(self):
         """field `Damper Heating Action`
 
+        |  Default value: Normal
+
         Args:
             value (str): value for IDD Field `Damper Heating Action`
-                Default value: Normal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1400,22 +1439,24 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def maximum_flow_per_zone_floor_area_during_reheat(self):
         """field `Maximum Flow per Zone Floor Area During Reheat`
-        Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
-        When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)
-        This optional field limits the maximum flow allowed in reheat mode.
-        If this field and the following field are left blank, the maximum flow will not be limited.
-        At no time will the maximum flow rate calculated here exceed the value of
-        Maximum Air Flow Rate.
+
+        |  Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
+        |  When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)
+        |  This optional field limits the maximum flow allowed in reheat mode.
+        |  If this field and the following field are left blank, the maximum flow will not be limited.
+        |  At no time will the maximum flow rate calculated here exceed the value of
+        |  Maximum Air Flow Rate.
+        |  Units: m3/s-m2
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow per Zone Floor Area During Reheat`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_per_zone_floor_area_during_reheat` or None if not set
+            float or "Autocalculate": the value of `maximum_flow_per_zone_floor_area_during_reheat` or None if not set
+
         """
         return self["Maximum Flow per Zone Floor Area During Reheat"]
 
@@ -1428,14 +1469,15 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def maximum_flow_fraction_during_reheat(self):
         """field `Maximum Flow Fraction During Reheat`
-        Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
-        When autocalculating, the maximum flow fraction is set to the ratio of
-        0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the
-        Maximum Air Flow Rate.
-        This optional field limits the maximum flow allowed in reheat mode.
-        If this field and the previous field are left blank, the maximum flow will not be limited.
-        At no time will the maximum flow rate calculated here exceed the value of
-        Maximum Air Flow Rate.
+
+        |  Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
+        |  When autocalculating, the maximum flow fraction is set to the ratio of
+        |  0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the
+        |  Maximum Air Flow Rate.
+        |  This optional field limits the maximum flow allowed in reheat mode.
+        |  If this field and the previous field are left blank, the maximum flow will not be limited.
+        |  At no time will the maximum flow rate calculated here exceed the value of
+        |  Maximum Air Flow Rate.
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow Fraction During Reheat`
@@ -1444,7 +1486,8 @@ class AirTerminalSingleDuctVavReheat(DataObject):
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_fraction_during_reheat` or None if not set
+            float or "Autocalculate": the value of `maximum_flow_fraction_during_reheat` or None if not set
+
         """
         return self["Maximum Flow Fraction During Reheat"]
 
@@ -1455,14 +1498,14 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1481,12 +1524,13 @@ class AirTerminalSingleDuctVavReheat(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based on the current number of occupants in the zone.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based on the current number of occupants in the zone.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        |  If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -1496,6 +1540,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -1678,9 +1723,10 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1703,15 +1749,16 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
     def maximum_cooling_air_flow_rate(self):
         """field `Maximum Cooling Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cooling Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_cooling_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_cooling_air_flow_rate` or None if not set
 
         """
         return self["Maximum Cooling Air Flow Rate"]
@@ -1725,15 +1772,16 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
     def maximum_heating_air_flow_rate(self):
         """field `Maximum Heating Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Heating Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_heating_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_heating_air_flow_rate` or None if not set
 
         """
         return self["Maximum Heating Air Flow Rate"]
@@ -1745,12 +1793,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def zone_minimum_air_flow_fraction(self):
-        """field `Zone Minimum Air Flow Fraction` fraction of cooling air flow
-        rate.
+        """field `Zone Minimum Air Flow Fraction`
+
+        |  fraction of cooling air flow rate
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1768,9 +1817,11 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` This field is not really used and will
-        be deleted from the object. The required information is gotten
-        internally or not needed by the program.
+        """field `Air Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1791,9 +1842,11 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` This field is not really used and will
-        be deleted from the object. The required information is gotten
-        internally or not needed by the program.
+        """field `Air Outlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1814,9 +1867,11 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def heating_coil_air_inlet_node_name(self):
-        """field `Heating Coil Air Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Heating Coil Air Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Heating Coil Air Inlet Node Name`
@@ -1837,9 +1892,11 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def hot_water_or_steam_inlet_node_name(self):
-        """field `Hot Water or Steam Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Hot Water or Steam Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -1944,19 +2001,20 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when heating
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when heating coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -1968,13 +2026,14 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when heating
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when heating coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1994,9 +2053,10 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
     def heating_convergence_tolerance(self):
         """field `Heating Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2099,9 +2159,10 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2122,8 +2183,10 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit.
-        This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2167,15 +2230,16 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -2187,11 +2251,13 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
 
     @property
     def zone_minimum_air_flow_fraction(self):
-        """field `Zone Minimum Air Flow Fraction` fraction of maximum air flow.
+        """field `Zone Minimum Air Flow Fraction`
+
+        |  fraction of maximum air flow
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2363,9 +2429,10 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2386,9 +2453,10 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def damper_air_outlet_node_name(self):
-        """field `Damper Air Outlet Node Name` the outlet node of the damper
-        and the inlet node of the reheat coil this is an internal node to the
-        terminal unit and connects the damper and reheat coil.
+        """field `Damper Air Outlet Node Name`
+
+        |  the outlet node of the damper and the inlet node of the reheat coil
+        |  this is an internal node to the terminal unit and connects the damper and reheat coil
 
         Args:
             value (str): value for IDD Field `Damper Air Outlet Node Name`
@@ -2409,8 +2477,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` the inlet node to the terminal unit and
-        the damper.
+        """field `Air Inlet Node Name`
+
+        |  the inlet node to the terminal unit and the damper
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -2433,15 +2502,16 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -2453,11 +2523,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def zone_minimum_air_flow_fraction(self):
-        """field `Zone Minimum Air Flow Fraction` fraction of maximum air flow.
+        """field `Zone Minimum Air Flow Fraction`
+
+        |  fraction of maximum air flow
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2475,9 +2547,11 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def hot_water_or_steam_inlet_node_name(self):
-        """field `Hot Water or Steam Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Hot Water or Steam Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -2540,19 +2614,20 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -2564,13 +2639,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2588,8 +2664,10 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit
-        and the reheat coil. This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit and the reheat coil.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2612,9 +2690,10 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2632,14 +2711,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2831,9 +2910,10 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2856,15 +2936,16 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -2878,15 +2959,16 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
     def maximum_primary_air_flow_rate(self):
         """field `Maximum Primary Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Primary Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_primary_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_primary_air_flow_rate` or None if not set
 
         """
         return self["Maximum Primary Air Flow Rate"]
@@ -2900,15 +2982,16 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
     def minimum_primary_air_flow_fraction(self):
         """field `Minimum Primary Air Flow Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Primary Air Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_primary_air_flow_fraction` or None if not set
+            float or "Autosize": the value of `minimum_primary_air_flow_fraction` or None if not set
 
         """
         return self["Minimum Primary Air Flow Fraction"]
@@ -3026,7 +3109,8 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
     @property
     def fan_name(self):
         """field `Fan Name`
-        Fan type must be Fan:ConstantVolume
+
+        |  Fan type must be Fan:ConstantVolume
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -3036,6 +3120,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
 
         Returns:
             str: the value of `fan_name` or None if not set
+
         """
         return self["Fan Name"]
 
@@ -3088,19 +3173,20 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -3112,13 +3198,14 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3136,9 +3223,11 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
 
     @property
     def hot_water_or_steam_inlet_node_name(self):
-        """field `Hot Water or Steam Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Hot Water or Steam Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -3161,9 +3250,10 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3364,9 +3454,10 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3389,15 +3480,16 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
     def maximum_primary_air_flow_rate(self):
         """field `Maximum Primary Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Primary Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_primary_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_primary_air_flow_rate` or None if not set
 
         """
         return self["Maximum Primary Air Flow Rate"]
@@ -3411,15 +3503,16 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
     def maximum_secondary_air_flow_rate(self):
         """field `Maximum Secondary Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Secondary Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_secondary_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_secondary_air_flow_rate` or None if not set
 
         """
         return self["Maximum Secondary Air Flow Rate"]
@@ -3433,15 +3526,16 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
     def minimum_primary_air_flow_fraction(self):
         """field `Minimum Primary Air Flow Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Primary Air Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_primary_air_flow_fraction` or None if not set
+            float or "Autosize": the value of `minimum_primary_air_flow_fraction` or None if not set
 
         """
         return self["Minimum Primary Air Flow Fraction"]
@@ -3453,18 +3547,19 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def fan_on_flow_fraction(self):
-        """field `Fan On Flow Fraction` the fraction of the primary air flow at
-        which fan turns on.
+        """field `Fan On Flow Fraction`
+
+        |  the fraction of the primary air flow at which fan turns on
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Fan On Flow Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `fan_on_flow_fraction` or None if not set
+            float or "Autosize": the value of `fan_on_flow_fraction` or None if not set
 
         """
         return self["Fan On Flow Fraction"]
@@ -3539,7 +3634,9 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def reheat_coil_air_inlet_node_name(self):
-        """field `Reheat Coil Air Inlet Node Name` mixer outlet node.
+        """field `Reheat Coil Air Inlet Node Name`
+
+        |  mixer outlet node
 
         Args:
             value (str): value for IDD Field `Reheat Coil Air Inlet Node Name`
@@ -3582,7 +3679,8 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
     @property
     def fan_name(self):
         """field `Fan Name`
-        Fan type must be Fan:ConstantVolume
+
+        |  Fan type must be Fan:ConstantVolume
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -3592,6 +3690,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
         Returns:
             str: the value of `fan_name` or None if not set
+
         """
         return self["Fan Name"]
 
@@ -3644,19 +3743,20 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """field `Maximum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Maximum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
@@ -3668,13 +3768,14 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """field `Minimum Hot Water or Steam Flow Rate` Not used when reheat
-        coil type is gas or electric.
+        """field `Minimum Hot Water or Steam Flow Rate`
+
+        |  Not used when reheat coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3692,9 +3793,11 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
 
     @property
     def hot_water_or_steam_inlet_node_name(self):
-        """field `Hot Water or Steam Inlet Node Name` This field is not really
-        used and will be deleted from the object. The required information is
-        gotten internally or not needed by the program.
+        """field `Hot Water or Steam Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -3717,9 +3820,10 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3935,9 +4039,10 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3960,15 +4065,16 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
     def maximum_total_air_flow_rate(self):
         """field `Maximum Total Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Total Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_total_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_total_air_flow_rate` or None if not set
 
         """
         return self["Maximum Total Air Flow Rate"]
@@ -3980,12 +4086,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def induction_ratio(self):
-        """field `Induction Ratio` ratio of induced air flow rate to primary
-        air flow rate.
+        """field `Induction Ratio`
+
+        |  ratio of induced air flow rate to primary air flow rate
+        |  Default value: 2.5
 
         Args:
             value (float): value for IDD Field `Induction Ratio`
-                Default value: 2.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4024,8 +4131,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def induced_air_inlet_node_name(self):
-        """field `Induced Air Inlet Node Name` should be a zone exhaust node,
-        also the heating coil inlet node.
+        """field `Induced Air Inlet Node Name`
+
+        |  should be a zone exhaust node, also the heating coil inlet node
 
         Args:
             value (str): value for IDD Field `Induced Air Inlet Node Name`
@@ -4046,7 +4154,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` should be a zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  should be a zone inlet node
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -4067,9 +4177,11 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def hot_water_inlet_node_name(self):
-        """field `Hot Water Inlet Node Name` This field is not really used and
-        will be deleted from the object. The required information is gotten
-        internally or not needed by the program.
+        """field `Hot Water Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water Inlet Node Name`
@@ -4090,9 +4202,11 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def cold_water_inlet_node_name(self):
-        """field `Cold Water Inlet Node Name` This field is not really used and
-        will be deleted from the object. The required information is gotten
-        internally or not needed by the program.
+        """field `Cold Water Inlet Node Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Cold Water Inlet Node Name`
@@ -4155,19 +4269,20 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def maximum_hot_water_flow_rate(self):
-        """field `Maximum Hot Water Flow Rate` Not used when heating coil type
-        is gas or electric.
+        """field `Maximum Hot Water Flow Rate`
+
+        |  Not used when heating coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_flow_rate` or None if not set
 
         """
         return self["Maximum Hot Water Flow Rate"]
@@ -4179,13 +4294,14 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
 
     @property
     def minimum_hot_water_flow_rate(self):
-        """field `Minimum Hot Water Flow Rate` Not used when heating coil type
-        is gas or electric.
+        """field `Minimum Hot Water Flow Rate`
+
+        |  Not used when heating coil type is gas or electric
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4205,9 +4321,10 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
     def heating_convergence_tolerance(self):
         """field `Heating Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4269,16 +4386,17 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
     def maximum_cold_water_flow_rate(self):
         """field `Maximum Cold Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_cold_water_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_cold_water_flow_rate` or None if not set
 
         """
         return self["Maximum Cold Water Flow Rate"]
@@ -4292,10 +4410,11 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
     def minimum_cold_water_flow_rate(self):
         """field `Minimum Cold Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Minimum Cold Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4315,9 +4434,10 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
     def cooling_convergence_tolerance(self):
         """field `Cooling Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4599,9 +4719,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4729,16 +4850,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def supply_air_volumetric_flow_rate(self):
         """field `Supply Air Volumetric Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Volumetric Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_volumetric_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_volumetric_flow_rate` or None if not set
 
         """
         return self["Supply Air Volumetric Flow Rate"]
@@ -4752,16 +4874,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def maximum_total_chilled_water_volumetric_flow_rate(self):
         """field `Maximum Total Chilled Water Volumetric Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_total_chilled_water_volumetric_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_total_chilled_water_volumetric_flow_rate` or None if not set
 
         """
         return self["Maximum Total Chilled Water Volumetric Flow Rate"]
@@ -4776,17 +4899,19 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
 
     @property
     def number_of_beams(self):
-        """field `Number of Beams` Number of individual beam units in the zone.
+        """field `Number of Beams`
+
+        |  Number of individual beam units in the zone
+        |  Default value: "autosize"
 
         Args:
             value (int or "Autosize"): value for IDD Field `Number of Beams`
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            int: the value of `number_of_beams` or None if not set
+            int or "Autosize": the value of `number_of_beams` or None if not set
 
         """
         return self["Number of Beams"]
@@ -4798,18 +4923,20 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
 
     @property
     def beam_length(self):
-        """field `Beam Length` Length of an individual beam unit.
+        """field `Beam Length`
+
+        |  Length of an individual beam unit
+        |  Units: m
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Beam Length`
-                Units: m
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `beam_length` or None if not set
+            float or "Autosize": the value of `beam_length` or None if not set
 
         """
         return self["Beam Length"]
@@ -4823,10 +4950,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def design_inlet_water_temperature(self):
         """field `Design Inlet Water Temperature`
 
+        |  Units: C
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `Design Inlet Water Temperature`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4846,10 +4974,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def design_outlet_water_temperature(self):
         """field `Design Outlet Water Temperature`
 
+        |  Units: C
+        |  Default value: 17.0
+
         Args:
             value (float): value for IDD Field `Design Outlet Water Temperature`
-                Units: C
-                Default value: 17.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4869,10 +4998,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def coil_surface_area_per_coil_length(self):
         """field `Coil Surface Area per Coil Length`
 
+        |  Units: m2/m
+        |  Default value: 5.422
+
         Args:
             value (float): value for IDD Field `Coil Surface Area per Coil Length`
-                Units: m2/m
-                Default value: 5.422
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4892,9 +5022,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def model_parameter_a(self):
         """field `Model Parameter a`
 
+        |  Default value: 15.3
+
         Args:
             value (float): value for IDD Field `Model Parameter a`
-                Default value: 15.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4935,9 +5066,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def model_parameter_n2(self):
         """field `Model Parameter n2`
 
+        |  Default value: 0.84
+
         Args:
             value (float): value for IDD Field `Model Parameter n2`
-                Default value: 0.84
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4957,9 +5089,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def model_parameter_n3(self):
         """field `Model Parameter n3`
 
+        |  Default value: 0.12
+
         Args:
             value (float): value for IDD Field `Model Parameter n3`
-                Default value: 0.12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4977,13 +5110,14 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
 
     @property
     def model_parameter_a0(self):
-        """field `Model Parameter a0` Free area of the coil in plan view per
-        unit beam length.
+        """field `Model Parameter a0`
+
+        |  Free area of the coil in plan view per unit beam length
+        |  Units: m2/m
+        |  Default value: 0.171
 
         Args:
             value (float): value for IDD Field `Model Parameter a0`
-                Units: m2/m
-                Default value: 0.171
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5003,9 +5137,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def model_parameter_k1(self):
         """field `Model Parameter K1`
 
+        |  Default value: 0.0057
+
         Args:
             value (float): value for IDD Field `Model Parameter K1`
-                Default value: 0.0057
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5025,9 +5160,10 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def model_parameter_n(self):
         """field `Model Parameter n`
 
+        |  Default value: 0.4
+
         Args:
             value (float): value for IDD Field `Model Parameter n`
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5047,16 +5183,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def coefficient_of_induction_kin(self):
         """field `Coefficient of Induction Kin`
 
+        |  Default value: "Autocalculate"
+        |  value <= 4.0
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient of Induction Kin`
-                Default value: "Autocalculate"
-                value <= 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_of_induction_kin` or None if not set
+            float or "Autocalculate": the value of `coefficient_of_induction_kin` or None if not set
 
         """
         return self["Coefficient of Induction Kin"]
@@ -5070,10 +5207,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
     def leaving_pipe_inside_diameter(self):
         """field `Leaving Pipe Inside Diameter`
 
+        |  Units: m
+        |  Default value: 0.0145
+
         Args:
             value (float): value for IDD Field `Leaving Pipe Inside Diameter`
-                Units: m
-                Default value: 0.0145
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5547,9 +5685,10 @@ class AirTerminalDualDuctConstantVolume(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5570,8 +5709,10 @@ class AirTerminalDualDuctConstantVolume(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit.
-        This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -5636,15 +5777,16 @@ class AirTerminalDualDuctConstantVolume(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -5755,9 +5897,10 @@ class AirTerminalDualDuctVav(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5778,8 +5921,10 @@ class AirTerminalDualDuctVav(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit.
-        This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -5844,15 +5989,16 @@ class AirTerminalDualDuctVav(DataObject):
     def maximum_damper_air_flow_rate(self):
         """field `Maximum Damper Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Damper Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_damper_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_damper_air_flow_rate` or None if not set
 
         """
         return self["Maximum Damper Air Flow Rate"]
@@ -5864,12 +6010,14 @@ class AirTerminalDualDuctVav(DataObject):
 
     @property
     def zone_minimum_air_flow_fraction(self):
-        """field `Zone Minimum Air Flow Fraction` fraction of maximum air flow.
+        """field `Zone Minimum Air Flow Fraction`
+
+        |  fraction of maximum air flow
+        |  Default value: 0.2
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5888,12 +6036,13 @@ class AirTerminalDualDuctVav(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based on the current number of occupants in the zone.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based on the current number of occupants in the zone.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        |  If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -5903,6 +6052,7 @@ class AirTerminalDualDuctVav(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -6014,9 +6164,10 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6037,8 +6188,10 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` The outlet node of the terminal unit.
-        This is also the zone inlet node.
+        """field `Air Outlet Node Name`
+
+        |  The outlet node of the terminal unit.
+        |  This is also the zone inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -6101,18 +6254,19 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
 
     @property
     def maximum_terminal_air_flow_rate(self):
-        """field `Maximum Terminal Air Flow Rate` If autosized this is the sum
-        of flow needed for cooling and maximum required outdoor air.
+        """field `Maximum Terminal Air Flow Rate`
+
+        |  If autosized this is the sum of flow needed for cooling and maximum required outdoor air
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Terminal Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_terminal_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_terminal_air_flow_rate` or None if not set
 
         """
         return self["Maximum Terminal Air Flow Rate"]
@@ -6125,11 +6279,12 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based mode selected in the next field.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based mode selected in the next field.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -6139,6 +6294,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -6150,10 +6306,10 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
 
     @property
     def per_person_ventilation_rate_mode(self):
-        """field `Per Person Ventilation Rate Mode` CurrentOccupancy models
-        demand controlled ventilation using the current number of people
-        DesignOccupancy uses the total Number of People in the zone and is
-        constant.
+        """field `Per Person Ventilation Rate Mode`
+
+        |  CurrentOccupancy models demand controlled ventilation using the current number of people
+        |  DesignOccupancy uses the total Number of People in the zone and is constant
 
         Args:
             value (str): value for IDD Field `Per Person Ventilation Rate Mode`
@@ -6338,13 +6494,14 @@ class ZoneHvacAirDistributionUnit(DataObject):
 
     @property
     def nominal_upstream_leakage_fraction(self):
-        """field `Nominal Upstream Leakage Fraction` fraction at system design
-        Flow; leakage Flow constant, leakage fraction varies with variable
-        system Flow Rate.
+        """field `Nominal Upstream Leakage Fraction`
+
+        |  fraction at system design Flow; leakage Flow constant, leakage fraction
+        |  varies with variable system Flow Rate.
+        |  value <= 0.3
 
         Args:
             value (float): value for IDD Field `Nominal Upstream Leakage Fraction`
-                value <= 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6364,9 +6521,10 @@ class ZoneHvacAirDistributionUnit(DataObject):
     def constant_downstream_leakage_fraction(self):
         """field `Constant Downstream Leakage Fraction`
 
+        |  value <= 0.3
+
         Args:
             value (float): value for IDD Field `Constant Downstream Leakage Fraction`
-                value <= 0.3
 
         Raises:
             ValueError: if `value` is not a valid value

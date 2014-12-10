@@ -431,9 +431,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def control_type(self):
         """field `Control Type`
 
+        |  Default value: ControlZone
+
         Args:
             value (str): value for IDD Field `Control Type`
-                Default value: ControlZone
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -493,13 +494,14 @@ class AvailabilityManagerOptimumStart(DataObject):
 
     @property
     def maximum_value_for_optimum_start_time(self):
-        """field `Maximum Value for Optimum Start Time` this is the maximum
-        number of hours that a system can start before occupancy.
+        """field `Maximum Value for Optimum Start Time`
+
+        |  this is the maximum number of hours that a system can start before occupancy
+        |  Units: hr
+        |  Default value: 6.0
 
         Args:
             value (float): value for IDD Field `Maximum Value for Optimum Start Time`
-                Units: hr
-                Default value: 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -519,9 +521,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def control_algorithm(self):
         """field `Control Algorithm`
 
+        |  Default value: AdaptiveASHRAE
+
         Args:
             value (str): value for IDD Field `Control Algorithm`
-                Default value: AdaptiveASHRAE
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -541,9 +544,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def constant_temperature_gradient_during_cooling(self):
         """field `Constant Temperature Gradient during Cooling`
 
+        |  Units: deltaC/hr
+
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Cooling`
-                Units: deltaC/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -564,9 +568,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def constant_temperature_gradient_during_heating(self):
         """field `Constant Temperature Gradient during Heating`
 
+        |  Units: deltaC/hr
+
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Heating`
-                Units: deltaC/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -587,9 +592,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def initial_temperature_gradient_during_cooling(self):
         """field `Initial Temperature Gradient during Cooling`
 
+        |  Units: deltaC/hr
+
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Cooling`
-                Units: deltaC/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -610,9 +616,10 @@ class AvailabilityManagerOptimumStart(DataObject):
     def initial_temperature_gradient_during_heating(self):
         """field `Initial Temperature Gradient during Heating`
 
+        |  Units: deltaC/hr
+
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Heating`
-                Units: deltaC/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -631,12 +638,13 @@ class AvailabilityManagerOptimumStart(DataObject):
 
     @property
     def constant_start_time(self):
-        """field `Constant Start Time` this is the number of hours before
-        occupancy for a system.
+        """field `Constant Start Time`
+
+        |  this is the number of hours before occupancy for a system
+        |  Units: hr
 
         Args:
             value (float): value for IDD Field `Constant Start Time`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -654,16 +662,17 @@ class AvailabilityManagerOptimumStart(DataObject):
 
     @property
     def number_of_previous_days(self):
-        """field `Number of Previous Days` this is the number of days that
-        their actual temperature gradients will be used in the
-        AdaptiveTemperatureGradient method.
+        """field `Number of Previous Days`
+
+        |  this is the number of days that their actual temperature
+        |  gradients will be used in the AdaptiveTemperatureGradient method
+        |  Units: days
+        |  Default value: 2
+        |  value >= 2
+        |  value <= 5
 
         Args:
             value (int): value for IDD Field `Number of Previous Days`
-                Units: days
-                Default value: 2
-                value >= 2
-                value <= 5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -821,19 +830,21 @@ class AvailabilityManagerNightCycle(DataObject):
     @property
     def control_type(self):
         """field `Control Type`
-        When AvailabilityManager:NightCycle is used in the zone component availability
-        manager assignment list, the key choices for Control Type would only be
-        StayOff and CycleOnControlZone
+
+        |  When AvailabilityManager:NightCycle is used in the zone component availability
+        |  manager assignment list, the key choices for Control Type would only be
+        |  StayOff and CycleOnControlZone
+        |  Default value: StayOff
 
         Args:
             value (str): value for IDD Field `Control Type`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `control_type` or None if not set
+
         """
         return self["Control Type"]
 
@@ -846,10 +857,11 @@ class AvailabilityManagerNightCycle(DataObject):
     def thermostat_tolerance(self):
         """field `Thermostat Tolerance`
 
+        |  Units: deltaC
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Thermostat Tolerance`
-                Units: deltaC
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -869,10 +881,11 @@ class AvailabilityManagerNightCycle(DataObject):
     def cycling_run_time(self):
         """field `Cycling Run Time`
 
+        |  Units: s
+        |  Default value: 3600.0
+
         Args:
             value (float): value for IDD Field `Cycling Run Time`
-                Units: s
-                Default value: 3600.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -891,9 +904,10 @@ class AvailabilityManagerNightCycle(DataObject):
     @property
     def control_zone_name(self):
         """field `Control Zone Name`
-        When AvailabilityManager:NightCycle is used in the zone component availability
-        manager assignment list, the Control Zone Name should be the name of the zone in which the
-        zone component is.
+
+        |  When AvailabilityManager:NightCycle is used in the zone component availability
+        |  manager assignment list, the Control Zone Name should be the name of the zone in which the
+        |  zone component is.
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -903,6 +917,7 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Returns:
             str: the value of `control_zone_name` or None if not set
+
         """
         return self["Control Zone Name"]
 
@@ -1032,9 +1047,10 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
     def temperature_difference_on_limit(self):
         """field `Temperature Difference On Limit`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Temperature Difference On Limit`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1052,12 +1068,13 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
     @property
     def temperature_difference_off_limit(self):
-        """field `Temperature Difference Off Limit` Defaults to Temperature
-        Difference On Limit.
+        """field `Temperature Difference Off Limit`
+
+        |  Defaults to Temperature Difference On Limit.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Temperature Difference Off Limit`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1158,9 +1175,10 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
     def temperature(self):
         """field `Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1261,9 +1279,10 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
     def temperature(self):
         """field `Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1371,9 +1390,10 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
     def temperature(self):
         """field `Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1391,8 +1411,9 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
     @property
     def applicability_schedule_name(self):
-        """field `Applicability Schedule Name` If blank, defaults to always
-        active.
+        """field `Applicability Schedule Name`
+
+        |  If blank, defaults to always active
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -1496,9 +1517,10 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
     def temperature(self):
         """field `Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1659,9 +1681,10 @@ class AvailabilityManagerNightVentilation(DataObject):
 
     @property
     def ventilation_temperature_schedule_name(self):
-        """field `Ventilation Temperature Schedule Name` One zone temperature
-        must be above this scheduled temperature for night ventilation to be
-        enabled.
+        """field `Ventilation Temperature Schedule Name`
+
+        |  One zone temperature must be above this scheduled temperature
+        |  for night ventilation to be enabled
 
         Args:
             value (str): value for IDD Field `Ventilation Temperature Schedule Name`
@@ -1682,14 +1705,15 @@ class AvailabilityManagerNightVentilation(DataObject):
 
     @property
     def ventilation_temperature_difference(self):
-        """field `Ventilation Temperature Difference` The outdoor air
-        temperature minus the control zone temperature must be greater than the
-        ventilation delta T.
+        """field `Ventilation Temperature Difference`
+
+        |  The outdoor air temperature minus the control zone temperature
+        |  must be greater than the ventilation delta T
+        |  Units: deltaC
+        |  Default value: 2.0
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Difference`
-                Units: deltaC
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1707,14 +1731,15 @@ class AvailabilityManagerNightVentilation(DataObject):
 
     @property
     def ventilation_temperature_low_limit(self):
-        """field `Ventilation Temperature Low Limit` Night ventilation is
-        disabled if any conditioned zone served by the system falls below this
-        temperature.
+        """field `Ventilation Temperature Low Limit`
+
+        |  Night ventilation is disabled if any conditioned zone served by
+        |  the system falls below this temperature
+        |  Units: C
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Low Limit`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1732,12 +1757,14 @@ class AvailabilityManagerNightVentilation(DataObject):
 
     @property
     def night_venting_flow_fraction(self):
-        """field `Night Venting Flow Fraction` the fraction (could be > 1) of
-        the design system Flow Rate at which night ventilation will be done.
+        """field `Night Venting Flow Fraction`
+
+        |  the fraction (could be > 1) of the design system Flow Rate at which
+        |  night ventilation will be done
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Night Venting Flow Fraction`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1756,9 +1783,10 @@ class AvailabilityManagerNightVentilation(DataObject):
     @property
     def control_zone_name(self):
         """field `Control Zone Name`
-        When AvailabilityManager:NightVentilation is used in the zone component availability
-        manager assignment list, the Control Zone Name should be the name of the zone in which the
-        zone component is.
+
+        |  When AvailabilityManager:NightVentilation is used in the zone component availability
+        |  manager assignment list, the Control Zone Name should be the name of the zone in which the
+        |  zone component is.
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -1768,6 +1796,7 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Returns:
             str: the value of `control_zone_name` or None if not set
+
         """
         return self["Control Zone Name"]
 
@@ -1976,9 +2005,10 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def hvac_air_loop_name(self):
         """field `HVAC Air Loop Name`
-        Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.
-        If this field is left blank, hybrid ventilation managers will be
-        simulated for zone equipment control
+
+        |  Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.
+        |  If this field is left blank, hybrid ventilation managers will be
+        |  simulated for zone equipment control
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -1988,6 +2018,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
+
         """
         return self["HVAC Air Loop Name"]
 
@@ -1998,9 +2029,10 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def controlled_zone_name(self):
-        """field `Controlled Zone Name` the controlled zone name should be a
-        zone where a thermostat or humidistat is located served by an air
-        primary loop.
+        """field `Controlled Zone Name`
+
+        |  the controlled zone name should be a zone where a thermostat or humidistat is located
+        |  served by an air primary loop.
 
         Args:
             value (str): value for IDD Field `Controlled Zone Name`
@@ -2021,14 +2053,14 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def ventilation_control_mode_schedule_name(self):
-        """field `Ventilation Control Mode Schedule Name` The Ventilation
-        control mode contains appropriate integer control types.
+        """field `Ventilation Control Mode Schedule Name`
 
-        0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)
-        1 = Temperature control
-        2 = Enthalpy control
-        3 = Dewpoint control
-        4 = Outdoor ventilation air control
+        |  The Ventilation control mode contains appropriate integer control types.
+        |  0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)
+        |  1 = Temperature control
+        |  2 = Enthalpy control
+        |  3 = Dewpoint control
+        |  4 = Outdoor ventilation air control
 
         Args:
             value (str): value for IDD Field `Ventilation Control Mode Schedule Name`
@@ -2049,12 +2081,14 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def use_weather_file_rain_indicators(self):
-        """field `Use Weather File Rain Indicators` If Yes, ventilation is
-        shutoff when there is rain If No, there is no rain control.
+        """field `Use Weather File Rain Indicators`
+
+        |  If Yes, ventilation is shutoff when there is rain
+        |  If No, there is no rain control
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2072,14 +2106,15 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def maximum_wind_speed(self):
-        """field `Maximum Wind Speed` this is the wind speed above which
-        ventilation is shutoff.
+        """field `Maximum Wind Speed`
+
+        |  this is the wind speed above which ventilation is shutoff
+        |  Units: m/s
+        |  Default value: 40.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
-                Units: m/s
-                Default value: 40.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2097,15 +2132,16 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def minimum_outdoor_temperature(self):
-        """field `Minimum Outdoor Temperature` this is the outdoor temperature
-        below which ventilation is shutoff.
+        """field `Minimum Outdoor Temperature`
+
+        |  this is the outdoor temperature below which ventilation is shutoff
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2123,15 +2159,16 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def maximum_outdoor_temperature(self):
-        """field `Maximum Outdoor Temperature` this is the outdoor temperature
-        above which ventilation is shutoff.
+        """field `Maximum Outdoor Temperature`
+
+        |  this is the outdoor temperature above which ventilation is shutoff
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2149,13 +2186,14 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def minimum_outdoor_enthalpy(self):
-        """field `Minimum Outdoor Enthalpy` this is the outdoor Enthalpy below
-        which ventilation is shutoff.
+        """field `Minimum Outdoor Enthalpy`
+
+        |  this is the outdoor Enthalpy below which ventilation is shutoff
+        |  Units: J/kg
+        |  value < 300000.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Enthalpy`
-                Units: J/kg
-                value < 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2173,13 +2211,14 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def maximum_outdoor_enthalpy(self):
-        """field `Maximum Outdoor Enthalpy` this is the outdoor Enthalpy above
-        which ventilation is shutoff.
+        """field `Maximum Outdoor Enthalpy`
+
+        |  this is the outdoor Enthalpy above which ventilation is shutoff
+        |  Units: J/kg
+        |  value < 300000.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Enthalpy`
-                Units: J/kg
-                value < 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2198,21 +2237,23 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def minimum_outdoor_dewpoint(self):
         """field `Minimum Outdoor Dewpoint`
-        this is the outdoor temperature below which ventilation is shutoff
-        Applicable only if Ventilation Control Mode = 3
+
+        |  this is the outdoor temperature below which ventilation is shutoff
+        |  Applicable only if Ventilation Control Mode = 3
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Dewpoint`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_outdoor_dewpoint` or None if not set
+
         """
         return self["Minimum Outdoor Dewpoint"]
 
@@ -2224,21 +2265,23 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def maximum_outdoor_dewpoint(self):
         """field `Maximum Outdoor Dewpoint`
-        this is the outdoor dewpoint above which ventilation is shutoff
-        Applicable only if Ventilation Control Mode = 3
+
+        |  this is the outdoor dewpoint above which ventilation is shutoff
+        |  Applicable only if Ventilation Control Mode = 3
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dewpoint`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_outdoor_dewpoint` or None if not set
+
         """
         return self["Maximum Outdoor Dewpoint"]
 
@@ -2250,7 +2293,8 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def minimum_outdoor_ventilation_air_schedule_name(self):
         """field `Minimum Outdoor Ventilation Air Schedule Name`
-        Used only if Ventilation Control Mode = 4
+
+        |  Used only if Ventilation Control Mode = 4
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Ventilation Air Schedule Name`
@@ -2260,6 +2304,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Returns:
             str: the value of `minimum_outdoor_ventilation_air_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Ventilation Air Schedule Name"]
 
@@ -2272,10 +2317,11 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def opening_factor_function_of_wind_speed_curve_name(self):
         """field `Opening Factor Function of Wind Speed Curve Name`
-        Table:OneIndependentVariable object can also be used
-        linear curve = a + b*WS
-        quadratic curve = a + b*WS + c*WS**2
-        WS = wind speed (m/s)
+
+        |  Table:OneIndependentVariable object can also be used
+        |  linear curve = a + b*WS
+        |  quadratic curve = a + b*WS + c*WS**2
+        |  WS = wind speed (m/s)
 
         Args:
             value (str): value for IDD Field `Opening Factor Function of Wind Speed Curve Name`
@@ -2285,6 +2331,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Returns:
             str: the value of `opening_factor_function_of_wind_speed_curve_name` or None if not set
+
         """
         return self["Opening Factor Function of Wind Speed Curve Name"]
 
@@ -2296,9 +2343,10 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def airflownetwork_control_type_schedule_name(self):
-        """field `AirflowNetwork Control Type Schedule Name` The schedule is
-        used to incorporate operation of AirflowNetwork large opening objects
-        and HVAC system operation.
+        """field `AirflowNetwork Control Type Schedule Name`
+
+        |  The schedule is used to incorporate operation of AirflowNetwork large opening
+        |  objects and HVAC system operation.
 
         Args:
             value (str): value for IDD Field `AirflowNetwork Control Type Schedule Name`
@@ -2320,9 +2368,11 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def simple_airflow_control_type_schedule_name(self):
-        """field `Simple Airflow Control Type Schedule Name` The schedule is
-        used to incorporate operation of simple airflow objects and HVAC system
-        operation. The simple airflow objects are Ventilation and Mixing only.
+        """field `Simple Airflow Control Type Schedule Name`
+
+        |  The schedule is used to incorporate operation of simple airflow objects and HVAC
+        |  system operation.
+        |  The simple airflow objects are Ventilation and Mixing only
 
         Args:
             value (str): value for IDD Field `Simple Airflow Control Type Schedule Name`
@@ -2345,13 +2395,14 @@ class AvailabilityManagerHybridVentilation(DataObject):
     @property
     def zoneventilation_object_name(self):
         """field `ZoneVentilation Object Name`
-        This fieldhas not been instrumented to work with
-        global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to
-        use, you must enter the single <Ventilation:DesignFlowRate> name in this field.
-        If it is a part of a global ventilation assignement the name will be
-        <Zone Name> <global Ventilation:DesignFlowRate> name.
-        The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC
-        will work in the same way as this ventilation object.
+
+        |  This fieldhas not been instrumented to work with
+        |  global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to
+        |  use, you must enter the single <Ventilation:DesignFlowRate> name in this field.
+        |  If it is a part of a global ventilation assignement the name will be
+        |  <Zone Name> <global Ventilation:DesignFlowRate> name.
+        |  The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC
+        |  will work in the same way as this ventilation object.
 
         Args:
             value (str): value for IDD Field `ZoneVentilation Object Name`
@@ -2361,6 +2412,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Returns:
             str: the value of `zoneventilation_object_name` or None if not set
+
         """
         return self["ZoneVentilation Object Name"]
 

@@ -73,9 +73,10 @@ class SurfacePropertyHeatTransferAlgorithm(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ConductionTransferFunction
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ConductionTransferFunction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -194,9 +195,10 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ConductionTransferFunction
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ConductionTransferFunction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -284,9 +286,10 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ConductionTransferFunction
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ConductionTransferFunction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -409,9 +412,10 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ConductionTransferFunction
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ConductionTransferFunction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -735,22 +739,24 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
     @property
     def combined_convective_or_radiative_film_coefficient(self):
         """field `Combined Convective/Radiative Film Coefficient`
-        if>0, this field becomes the exterior convective/radiative film coefficient
-        and the other fields are used to calculate the outdoor air temperature
-        then exterior surface temperature based on outdoor air and specified coefficient
-        if<=0, then remaining fields calculate the outside surface temperature
-        The following fields are used in the equation:
-        OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev
+
+        |  if>0, this field becomes the exterior convective/radiative film coefficient
+        |  and the other fields are used to calculate the outdoor air temperature
+        |  then exterior surface temperature based on outdoor air and specified coefficient
+        |  if<=0, then remaining fields calculate the outside surface temperature
+        |  The following fields are used in the equation:
+        |  OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Combined Convective/Radiative Film Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `combined_convective_or_radiative_film_coefficient` or None if not set
+
         """
         return self["Combined Convective/Radiative Film Coefficient"]
 
@@ -762,13 +768,13 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def constant_temperature(self):
-        """field `Constant Temperature` This parameter will be overwritten by
-        the values from the Constant Temperature Schedule Name (below) if one
-        is present.
+        """field `Constant Temperature`
+
+        |  This parameter will be overwritten by the values from the Constant Temperature Schedule Name (below) if one is present
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Constant Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -787,18 +793,20 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
     @property
     def constant_temperature_coefficient(self):
         """field `Constant Temperature Coefficient`
-        This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.
-        This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.
+
+        |  This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.
+        |  This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Constant Temperature Coefficient`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `constant_temperature_coefficient` or None if not set
+
         """
         return self["Constant Temperature Coefficient"]
 
@@ -810,6 +818,7 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
     @property
     def external_drybulb_temperature_coefficient(self):
         """field `External Dry-Bulb Temperature Coefficient`
+
 
         Args:
             value (float): value for IDD Field `External Dry-Bulb Temperature Coefficient`
@@ -894,9 +903,10 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def constant_temperature_schedule_name(self):
-        """field `Constant Temperature Schedule Name` Name of schedule for
-        values of constant temperature. Schedule values replace any value
-        specified in the field Constant Temperature.
+        """field `Constant Temperature Schedule Name`
+
+        |  Name of schedule for values of constant temperature.
+        |  Schedule values replace any value specified in the field Constant Temperature.
 
         Args:
             value (str): value for IDD Field `Constant Temperature Schedule Name`
@@ -918,12 +928,12 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
     @property
     def sinusoidal_variation_of_constant_temperature_coefficient(self):
         """field `Sinusoidal Variation of Constant Temperature Coefficient`
-        Optionally used to vary Constant Temperature Coefficient with unitary
-        sine wave.
+
+        |  Optionally used to vary Constant Temperature Coefficient with unitary sine wave
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -945,13 +955,14 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def period_of_sinusoidal_variation(self):
-        """field `Period of Sinusoidal Variation` Use with sinusoidal variation
-        to define the time period.
+        """field `Period of Sinusoidal Variation`
+
+        |  Use with sinusoidal variation to define the time period
+        |  Units: hr
+        |  Default value: 24.0
 
         Args:
             value (float): value for IDD Field `Period of Sinusoidal Variation`
-                Units: hr
-                Default value: 24.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -969,9 +980,10 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def previous_other_side_temperature_coefficient(self):
-        """field `Previous Other Side Temperature Coefficient` This coefficient
-        multiplies the other side temperature result from the previous zone
-        timestep.
+        """field `Previous Other Side Temperature Coefficient`
+
+        |  This coefficient multiplies the other side temperature result from the
+        |  previous zone timestep
 
         Args:
             value (float): value for IDD Field `Previous Other Side Temperature Coefficient`
@@ -993,13 +1005,14 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def minimum_other_side_temperature_limit(self):
-        """field `Minimum Other Side Temperature Limit` This field specifies a
-        lower limit for the other side temperature result. Blank indicates no
-        limit.
+        """field `Minimum Other Side Temperature Limit`
+
+        |  This field specifies a lower limit for the other side temperature result.
+        |  Blank indicates no limit
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Other Side Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1017,13 +1030,14 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
     @property
     def maximum_other_side_temperature_limit(self):
-        """field `Maximum Other Side Temperature Limit` This field specifies an
-        upper limit for the other side temperature result. Blank indicates no
-        limit.
+        """field `Maximum Other Side Temperature Limit`
+
+        |  This field specifies an upper limit for the other side temperature result.
+        |  Blank indicates no limit
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Other Side Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1098,23 +1112,25 @@ class SurfacePropertyOtherSideConditionsModel(DataObject):
     @property
     def type_of_modeling(self):
         """field `Type of Modeling`
-        GapConvectionRadiation provides boundary conditions for convection
-        and linearized thermal radiation across a gap or cavity
-        on the other side of the surface that are modeled sperately.
-        UndergroundPipingSystemSurface provides boundary conditions for
-        surfaces in contact with PipingSystem:Underground domains
-        GroundCoupledSurface provides boundary conditions for surfaces
-        in contact with GroundDomain objects
+
+        |  GapConvectionRadiation provides boundary conditions for convection
+        |  and linearized thermal radiation across a gap or cavity
+        |  on the other side of the surface that are modeled sperately.
+        |  UndergroundPipingSystemSurface provides boundary conditions for
+        |  surfaces in contact with PipingSystem:Underground domains
+        |  GroundCoupledSurface provides boundary conditions for surfaces
+        |  in contact with GroundDomain objects
+        |  Default value: GapConvectionRadiation
 
         Args:
             value (str): value for IDD Field `Type of Modeling`
-                Default value: GapConvectionRadiation
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `type_of_modeling` or None if not set
+
         """
         return self["Type of Modeling"]
 
@@ -2062,12 +2078,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_vertical_wall_equation_source(self):
-        """field `Simple Bouyancy Vertical Wall Equation Source` Applies to
-        zone with no HVAC or when HVAC is off This is for vertical walls.
+        """field `Simple Bouyancy Vertical Wall Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for vertical walls
+        |  Default value: FohannoPolidoriVerticalWall
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Vertical Wall Equation Source`
-                Default value: FohannoPolidoriVerticalWall
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2089,7 +2107,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_vertical_wall_user_curve_name(self):
         """field `Simple Bouyancy Vertical Wall User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Vertical Wall User Curve Name`
@@ -2099,6 +2118,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_vertical_wall_user_curve_name` or None if not set
+
         """
         return self["Simple Bouyancy Vertical Wall User Curve Name"]
 
@@ -2110,13 +2130,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_stable_horizontal_equation_source(self):
-        """field `Simple Bouyancy Stable Horizontal Equation Source` Applies to
-        zone with no HVAC or when HVAC is off This is for horizontal surfaces
-        with heat flow directed for stable thermal stratification.
+        """field `Simple Bouyancy Stable Horizontal Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        |  Default value: AlamdariHammondStableHorizontal
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
-                Default value: AlamdariHammondStableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2138,7 +2159,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_stable_horizontal_equation_user_curve_name(self):
         """field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
@@ -2148,6 +2170,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Simple Bouyancy Stable Horizontal Equation User Curve Name"]
@@ -2163,13 +2186,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_unstable_horizontal_equation_source(self):
-        """field `Simple Bouyancy Unstable Horizontal Equation Source` Applies
-        to zone with no HVAC or when HVAC is off This is for passive horizontal
-        surfaces with heat flow for unstable thermal stratification.
+        """field `Simple Bouyancy Unstable Horizontal Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for passive horizontal surfaces with heat flow for unstable thermal stratification
+        |  Default value: AlamdariHammondUnstableHorizontal
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
-                Default value: AlamdariHammondUnstableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2191,7 +2215,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_unstable_horizontal_equation_user_curve_name(self):
         """field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
@@ -2201,6 +2226,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Simple Bouyancy Unstable Horizontal Equation User Curve Name"]
@@ -2216,13 +2242,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_stable_tilted_equation_source(self):
-        """field `Simple Bouyancy Stable Tilted Equation Source` Applies to
-        zone with no HVAC or when HVAC is off This is for tilted surfaces with
-        heat flow for stable thermal stratification.
+        """field `Simple Bouyancy Stable Tilted Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for tilted surfaces with heat flow for stable thermal stratification
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2244,7 +2271,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_stable_tilted_equation_user_curve_name(self):
         """field `Simple Bouyancy Stable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
@@ -2254,6 +2282,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_stable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self["Simple Bouyancy Stable Tilted Equation User Curve Name"]
 
@@ -2267,13 +2296,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_unstable_tilted_equation_source(self):
-        """field `Simple Bouyancy Unstable Tilted Equation Source` Applies to
-        zone with no HVAC or when HVAC is off This is for tilted surfaces with
-        heat flow for unstable thermal stratification.
+        """field `Simple Bouyancy Unstable Tilted Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for tilted surfaces with heat flow for unstable thermal stratification
+        |  Default value: WaltonUnstableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2295,7 +2325,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_unstable_tilted_equation_user_curve_name(self):
         """field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
@@ -2305,6 +2336,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_unstable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self["Simple Bouyancy Unstable Tilted Equation User Curve Name"]
 
@@ -2319,12 +2351,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def simple_bouyancy_windows_equation_source(self):
-        """field `Simple Bouyancy Windows Equation Source` Applies to zone with
-        no HVAC or when HVAC is off This is for all window surfaces.
+        """field `Simple Bouyancy Windows Equation Source`
+
+        |  Applies to zone with no HVAC or when HVAC is off
+        |  This is for all window surfaces
+        |  Default value: ISO15099Windows
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Windows Equation Source`
-                Default value: ISO15099Windows
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2344,7 +2378,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def simple_bouyancy_windows_equation_user_curve_name(self):
         """field `Simple Bouyancy Windows Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Windows Equation User Curve Name`
@@ -2354,6 +2389,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `simple_bouyancy_windows_equation_user_curve_name` or None if not set
+
         """
         return self["Simple Bouyancy Windows Equation User Curve Name"]
 
@@ -2366,18 +2402,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_vertical_wall_equation_source(self):
         """field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for vertical walls
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for vertical walls
+        |  Default value: KhalifaEq3WallAwayFromHeat
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
-                Default value: KhalifaEq3WallAwayFromHeat
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_vertical_wall_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Vertical Wall Equation Source"]
 
@@ -2391,8 +2429,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name(self):
-        """field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
@@ -2402,6 +2442,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"]
@@ -2418,18 +2459,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_stable_horizontal_equation_source(self):
         """field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for passive horizontal surfaces with heat flow for stable thermal stratification
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for passive horizontal surfaces with heat flow for stable thermal stratification
+        |  Default value: AlamdariHammondStableHorizontal
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
-                Default value: AlamdariHammondStableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_horizontal_equation_source` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Stable Horizontal Equation Source"]
@@ -2446,8 +2489,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(
             self):
-        """field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
@@ -2457,6 +2502,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"]
@@ -2473,18 +2519,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_unstable_horizontal_equation_source(self):
         """field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for passive horizontal surfaces with heat flow for unstable thermal stratification
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for passive horizontal surfaces with heat flow for unstable thermal stratification
+        |  Default value: KhalifaEq4CeilingAwayFromHeat
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
-                Default value: KhalifaEq4CeilingAwayFromHeat
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_horizontal_equation_source` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Unstable Horizontal Equation Source"]
@@ -2501,8 +2549,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(
             self):
-        """field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Unstable Horizontal Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
@@ -2512,6 +2562,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"]
@@ -2528,18 +2579,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_heated_floor_equation_source(self):
         """field `Floor Heat Ceiling Cool Heated Floor Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for a floor with active heating elements
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for a floor with active heating elements
+        |  Default value: AwbiHattonHeatedFloor
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
-                Default value: AwbiHattonHeatedFloor
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_heated_floor_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Heated Floor Equation Source"]
 
@@ -2553,8 +2606,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def floor_heat_ceiling_cool_heated_floor_equation_user_curve_name(self):
-        """field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Heated Floor Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
@@ -2564,6 +2619,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"]
@@ -2580,18 +2636,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_chilled_ceiling_equation_source(self):
         """field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for a ceiling with active cooling elements
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for a ceiling with active cooling elements
+        |  Default value: KaradagChilledCeiling
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
-                Default value: KaradagChilledCeiling
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_chilled_ceiling_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Chilled Ceiling Equation Source"]
 
@@ -2605,8 +2663,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name(self):
-        """field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
@@ -2616,6 +2676,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"]
@@ -2632,18 +2693,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_stable_tilted_equation_source(self):
         """field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for tilted surfaces with heat flow for stable thermal stratification
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for tilted surfaces with heat flow for stable thermal stratification
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_tilted_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Stable Tilted Equation Source"]
 
@@ -2657,8 +2720,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name(self):
-        """field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
@@ -2668,6 +2733,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"]
@@ -2684,18 +2750,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_unstable_tilted_equation_source(self):
         """field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for tilted surfaces with heat flow for unstable thermal stratification
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for tilted surfaces with heat flow for unstable thermal stratification
+        |  Default value: WaltonUnstableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_tilted_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Unstable Tilted Equation Source"]
 
@@ -2709,8 +2777,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name(self):
-        """field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
@@ -2720,6 +2790,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"]
@@ -2736,18 +2807,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_window_equation_source(self):
         """field `Floor Heat Ceiling Cool Window Equation Source`
-        Applies to zone with in-floor heating and/or in-ceiling cooling
-        This is for all window surfaces
+
+        |  Applies to zone with in-floor heating and/or in-ceiling cooling
+        |  This is for all window surfaces
+        |  Default value: ISO15099Windows
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation Source`
-                Default value: ISO15099Windows
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_window_equation_source` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Window Equation Source"]
 
@@ -2762,7 +2835,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def floor_heat_ceiling_cool_window_equation_user_curve_name(self):
         """field `Floor Heat Ceiling Cool Window Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
@@ -2772,6 +2846,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_window_equation_user_curve_name` or None if not set
+
         """
         return self["Floor Heat Ceiling Cool Window Equation User Curve Name"]
 
@@ -2786,18 +2861,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_vertical_wall_equation_source(self):
         """field `Wall Panel Heating Vertical Wall Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for vertical walls that are not actively heated
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for vertical walls that are not actively heated
+        |  Default value: KhalifaEq6NonHeatedWalls
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation Source`
-                Default value: KhalifaEq6NonHeatedWalls
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_vertical_wall_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Vertical Wall Equation Source"]
 
@@ -2812,7 +2889,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_vertical_wall_equation_user_curve_name(self):
         """field `Wall Panel Heating Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
@@ -2822,6 +2900,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wall Panel Heating Vertical Wall Equation User Curve Name"]
@@ -2838,18 +2917,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_heated_wall_equation_source(self):
         """field `Wall Panel Heating Heated Wall Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for vertical walls that are being actively heated
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for vertical walls that are being actively heated
+        |  Default value: AwbiHattonHeatedWall
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation Source`
-                Default value: AwbiHattonHeatedWall
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_heated_wall_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Heated Wall Equation Source"]
 
@@ -2864,7 +2945,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_heated_wall_equation_user_curve_name(self):
         """field `Wall Panel Heating Heated Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
@@ -2874,6 +2956,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_heated_wall_equation_user_curve_name` or None if not set
+
         """
         return self["Wall Panel Heating Heated Wall Equation User Curve Name"]
 
@@ -2888,18 +2971,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_stable_horizontal_equation_source(self):
         """field `Wall Panel Heating Stable Horizontal Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for horizontal surfaces with heat flow directed for stable thermal stratification
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        |  Default value: AlamdariHammondStableHorizontal
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
-                Default value: AlamdariHammondStableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_stable_horizontal_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Stable Horizontal Equation Source"]
 
@@ -2913,8 +2998,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def wall_panel_heating_stable_horizontal_equation_user_curve_name(self):
-        """field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Wall Panel Heating Stable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
@@ -2924,6 +3011,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wall Panel Heating Stable Horizontal Equation User Curve Name"]
@@ -2940,18 +3028,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_unstable_horizontal_equation_source(self):
         """field `Wall Panel Heating Unstable Horizontal Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for horizontal surfaces with heat flow directed for unstable thermal stratification
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for horizontal surfaces with heat flow directed for unstable thermal stratification
+        |  Default value: KhalifaEq7Ceiling
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
-                Default value: KhalifaEq7Ceiling
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_unstable_horizontal_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Unstable Horizontal Equation Source"]
 
@@ -2965,8 +3055,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def wall_panel_heating_unstable_horizontal_equation_user_curve_name(self):
-        """field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Wall Panel Heating Unstable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
@@ -2976,6 +3068,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wall Panel Heating Unstable Horizontal Equation User Curve Name"]
@@ -2992,18 +3085,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_stable_tilted_equation_source(self):
         """field `Wall Panel Heating Stable Tilted Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for tilted surfaces with heat flow for stable thermal stratification
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for tilted surfaces with heat flow for stable thermal stratification
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_stable_tilted_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Stable Tilted Equation Source"]
 
@@ -3018,7 +3113,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_stable_tilted_equation_user_curve_name(self):
         """field `Wall Panel Heating Stable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
@@ -3028,6 +3124,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_stable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wall Panel Heating Stable Tilted Equation User Curve Name"]
@@ -3044,18 +3141,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_unstable_tilted_equation_source(self):
         """field `Wall Panel Heating Unstable Tilted Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for tilted surfaces with heat flow for unstable thermal stratification
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for tilted surfaces with heat flow for unstable thermal stratification
+        |  Default value: WaltonUnstableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_unstable_tilted_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Unstable Tilted Equation Source"]
 
@@ -3070,7 +3169,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_unstable_tilted_equation_user_curve_name(self):
         """field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
@@ -3080,6 +3180,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_unstable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wall Panel Heating Unstable Tilted Equation User Curve Name"]
@@ -3096,18 +3197,20 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_window_equation_source(self):
         """field `Wall Panel Heating Window Equation Source`
-        Applies to zone with in-wall panel heating
-        This is for all window surfaces
+
+        |  Applies to zone with in-wall panel heating
+        |  This is for all window surfaces
+        |  Default value: ISO15099Windows
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Window Equation Source`
-                Default value: ISO15099Windows
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wall_panel_heating_window_equation_source` or None if not set
+
         """
         return self["Wall Panel Heating Window Equation Source"]
 
@@ -3122,7 +3225,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def wall_panel_heating_window_equation_user_curve_name(self):
         """field `Wall Panel Heating Window Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Window Equation User Curve Name`
@@ -3132,6 +3236,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wall_panel_heating_window_equation_user_curve_name` or None if not set
+
         """
         return self["Wall Panel Heating Window Equation User Curve Name"]
 
@@ -3143,13 +3248,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_vertical_wall_equation_source(self):
-        """field `Convective Zone Heater Vertical Wall Equation Source` Applies
-        to zone with convective heater This is for vertical walls not directly
-        affected by heater.
+        """field `Convective Zone Heater Vertical Wall Equation Source`
+
+        |  Applies to zone with convective heater
+        |  This is for vertical walls not directly affected by heater
+        |  Default value: FohannoPolidoriVerticalWall
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation Source`
-                Default value: FohannoPolidoriVerticalWall
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3170,8 +3276,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_vertical_wall_equation_user_curve_name(self):
-        """field `Convective Zone Heater Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Vertical Wall Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
@@ -3181,6 +3289,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Vertical Wall Equation User Curve Name"]
@@ -3198,13 +3307,15 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     def convective_zone_heater_vertical_walls_near_heater_equation_source(
             self):
         """field `Convective Zone Heater Vertical Walls Near Heater Equation
-        Source` Applies to zone with convective heater This is for vertical
-        walls that are directly affected by heater Walls are considered "near"
-        when listed in field set for Fraction of Radiant Energy to Surface.
+        Source`
+
+        |  Applies to zone with convective heater
+        |  This is for vertical walls that are directly affected by heater
+        |  Walls are considered "near" when listed in field set for Fraction of Radiant Energy to Surface
+        |  Default value: KhalifaEq5WallNearHeat
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation Source`
-                Default value: KhalifaEq5WallNearHeat
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3228,8 +3339,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(
             self):
-        """field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Vertical Walls Near Heater Equation
+        User Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
@@ -3239,6 +3352,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"]
@@ -3255,12 +3369,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_stable_horizontal_equation_source(self):
         """field `Convective Zone Heater Stable Horizontal Equation Source`
-        Applies to zone with convective heater This is for horizontal surfaces
-        with heat flow directed for stable thermal stratification.
+
+        |  Applies to zone with convective heater
+        |  This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        |  Default value: AlamdariHammondStableHorizontal
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
-                Default value: AlamdariHammondStableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3283,8 +3398,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_stable_horizontal_equation_user_curve_name(
             self):
-        """field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Stable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
@@ -3294,6 +3411,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Stable Horizontal Equation User Curve Name"]
@@ -3310,12 +3428,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_unstable_horizontal_equation_source(self):
         """field `Convective Zone Heater Unstable Horizontal Equation Source`
-        Applies to zone with convective heater This is for horizontal surfaces
-        with heat flow directed for unstable thermal stratification.
+
+        |  Applies to zone with convective heater
+        |  This is for horizontal surfaces with heat flow directed for unstable thermal stratification
+        |  Default value: KhalifaEq7Ceiling
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
-                Default value: KhalifaEq7Ceiling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3339,8 +3458,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_unstable_horizontal_equation_user_curve_name(
             self):
-        """field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Unstable Horizontal Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
@@ -3350,6 +3471,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Unstable Horizontal Equation User Curve Name"]
@@ -3365,13 +3487,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_stable_tilted_equation_source(self):
-        """field `Convective Zone Heater Stable Tilted Equation Source` Applies
-        to zone with convective heater This is for tilted surfaces with heat
-        flow for stable thermal stratification.
+        """field `Convective Zone Heater Stable Tilted Equation Source`
+
+        |  Applies to zone with convective heater
+        |  This is for tilted surfaces with heat flow for stable thermal stratification
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3392,8 +3515,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_stable_tilted_equation_user_curve_name(self):
-        """field `Convective Zone Heater Stable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Stable Tilted Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
@@ -3403,6 +3528,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_stable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Stable Tilted Equation User Curve Name"]
@@ -3419,12 +3545,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_unstable_tilted_equation_source(self):
         """field `Convective Zone Heater Unstable Tilted Equation Source`
-        Applies to zone with convective heater This is for tilted surfaces with
-        heat flow for unstable thermal stratification.
+
+        |  Applies to zone with convective heater
+        |  This is for tilted surfaces with heat flow for unstable thermal stratification
+        |  Default value: WaltonUnstableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3445,8 +3572,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_unstable_tilted_equation_user_curve_name(self):
-        """field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Convective Zone Heater Unstable Tilted Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
@@ -3456,6 +3585,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_unstable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Convective Zone Heater Unstable Tilted Equation User Curve Name"]
@@ -3471,12 +3601,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def convective_zone_heater_windows_equation_source(self):
-        """field `Convective Zone Heater Windows Equation Source` Applies to
-        zone with convective heater This is for all window surfaces.
+        """field `Convective Zone Heater Windows Equation Source`
+
+        |  Applies to zone with convective heater
+        |  This is for all window surfaces
+        |  Default value: ISO15099Windows
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Windows Equation Source`
-                Default value: ISO15099Windows
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3498,7 +3630,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def convective_zone_heater_windows_equation_user_curve_name(self):
         """field `Convective Zone Heater Windows Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Windows Equation User Curve Name`
@@ -3508,6 +3641,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `convective_zone_heater_windows_equation_user_curve_name` or None if not set
+
         """
         return self["Convective Zone Heater Windows Equation User Curve Name"]
 
@@ -3521,13 +3655,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def central_air_diffuser_wall_equation_source(self):
-        """field `Central Air Diffuser Wall Equation Source` Applies to zone
-        with mechanical forced central air with diffusers This is for all wall
-        surfaces.
+        """field `Central Air Diffuser Wall Equation Source`
+
+        |  Applies to zone with mechanical forced central air with diffusers
+        |  This is for all wall surfaces
+        |  Default value: GoldsteinNovoselacCeilingDiffuserWalls
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Wall Equation Source`
-                Default value: GoldsteinNovoselacCeilingDiffuserWalls
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3549,7 +3684,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def central_air_diffuser_wall_equation_user_curve_name(self):
         """field `Central Air Diffuser Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Wall Equation User Curve Name`
@@ -3559,6 +3695,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `central_air_diffuser_wall_equation_user_curve_name` or None if not set
+
         """
         return self["Central Air Diffuser Wall Equation User Curve Name"]
 
@@ -3570,13 +3707,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def central_air_diffuser_ceiling_equation_source(self):
-        """field `Central Air Diffuser Ceiling Equation Source` Applies to zone
-        with mechanical forced central air with diffusers This is for all
-        ceiling surfaces.
+        """field `Central Air Diffuser Ceiling Equation Source`
+
+        |  Applies to zone with mechanical forced central air with diffusers
+        |  This is for all ceiling surfaces
+        |  Default value: FisherPedersenCeilingDiffuserCeiling
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Ceiling Equation Source`
-                Default value: FisherPedersenCeilingDiffuserCeiling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3598,7 +3736,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def central_air_diffuser_ceiling_equation_user_curve_name(self):
         """field `Central Air Diffuser Ceiling Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
@@ -3608,6 +3747,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `central_air_diffuser_ceiling_equation_user_curve_name` or None if not set
+
         """
         return self["Central Air Diffuser Ceiling Equation User Curve Name"]
 
@@ -3621,13 +3761,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def central_air_diffuser_floor_equation_source(self):
-        """field `Central Air Diffuser Floor Equation Source` Applies to zone
-        with mechanical forced central air with diffusers This is for all floor
-        surfaces.
+        """field `Central Air Diffuser Floor Equation Source`
+
+        |  Applies to zone with mechanical forced central air with diffusers
+        |  This is for all floor surfaces
+        |  Default value: GoldsteinNovoselacCeilingDiffuserFloor
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Floor Equation Source`
-                Default value: GoldsteinNovoselacCeilingDiffuserFloor
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3649,7 +3790,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def central_air_diffuser_floor_equation_user_curve_name(self):
         """field `Central Air Diffuser Floor Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Floor Equation User Curve Name`
@@ -3659,6 +3801,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `central_air_diffuser_floor_equation_user_curve_name` or None if not set
+
         """
         return self["Central Air Diffuser Floor Equation User Curve Name"]
 
@@ -3670,13 +3813,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def central_air_diffuser_window_equation_source(self):
-        """field `Central Air Diffuser Window Equation Source` Applies to zone
-        with mechanical forced central air with diffusers This is for all
-        window surfaces.
+        """field `Central Air Diffuser Window Equation Source`
+
+        |  Applies to zone with mechanical forced central air with diffusers
+        |  This is for all window surfaces
+        |  Default value: GoldsteinNovoselacCeilingDiffuserWindow
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Window Equation Source`
-                Default value: GoldsteinNovoselacCeilingDiffuserWindow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3698,7 +3842,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def central_air_diffuser_window_equation_user_curve_name(self):
         """field `Central Air Diffuser Window Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Window Equation User Curve Name`
@@ -3708,6 +3853,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `central_air_diffuser_window_equation_user_curve_name` or None if not set
+
         """
         return self["Central Air Diffuser Window Equation User Curve Name"]
 
@@ -3720,11 +3866,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_vertical_wall_equation_source(self):
         """field `Mechanical Zone Fan Circulation Vertical Wall Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: KhalifaEq3WallAwayFromHeat
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
-                Default value: KhalifaEq3WallAwayFromHeat
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3748,8 +3896,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(
             self):
-        """field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Vertical Wall Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
@@ -3759,6 +3909,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"]
@@ -3776,11 +3927,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     def mechanical_zone_fan_circulation_stable_horizontal_equation_source(
             self):
         """field `Mechanical Zone Fan Circulation Stable Horizontal Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: AlamdariHammondStableHorizontal
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
-                Default value: AlamdariHammondStableHorizontal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3804,8 +3957,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(
             self):
-        """field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Stable Horizontal Equation
+        User Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
@@ -3815,6 +3970,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"]
@@ -3832,11 +3988,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(
             self):
         """field `Mechanical Zone Fan Circulation Unstable Horizontal Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: KhalifaEq4CeilingAwayFromHeat
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
-                Default value: KhalifaEq4CeilingAwayFromHeat
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3860,8 +4018,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(
             self):
-        """field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Unstable Horizontal Equation
+        User Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
@@ -3871,6 +4031,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"]
@@ -3887,11 +4048,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_stable_tilted_equation_source(self):
         """field `Mechanical Zone Fan Circulation Stable Tilted Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3915,8 +4078,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(
             self):
-        """field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Stable Tilted Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
@@ -3926,6 +4091,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"]
@@ -3942,11 +4108,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_unstable_tilted_equation_source(self):
         """field `Mechanical Zone Fan Circulation Unstable Tilted Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: WaltonUnstableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3970,8 +4138,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(
             self):
-        """field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Unstable Tilted Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
@@ -3981,6 +4151,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"]
@@ -3997,11 +4168,12 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mechanical_zone_fan_circulation_window_equation_source(self):
         """field `Mechanical Zone Fan Circulation Window Equation Source`
-        reference choice fields.
+
+        |  reference choice fields
+        |  Default value: ISO15099Windows
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
-                Default value: ISO15099Windows
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4022,8 +4194,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mechanical_zone_fan_circulation_window_equation_user_curve_name(self):
-        """field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mechanical Zone Fan Circulation Window Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
@@ -4033,6 +4207,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_window_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mechanical Zone Fan Circulation Window Equation User Curve Name"]
@@ -4049,11 +4224,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(self):
         """field `Mixed Regime Bouyancy Assisting Flow on Walls Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedAssistedWall
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
-                Default value: BeausoleilMorrisonMixedAssistedWall
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4077,8 +4254,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(
             self):
-        """field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
@@ -4088,6 +4267,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"]
@@ -4104,11 +4284,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(self):
         """field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation
-        Source` reference choice fields.
+        Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedOpposingWall
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
-                Default value: BeausoleilMorrisonMixedOpposingWall
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4132,8 +4314,10 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(
             self):
-        """field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User
+        Curve Name`
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
@@ -4143,6 +4327,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"]
@@ -4158,12 +4343,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mixed_regime_stable_floor_equation_source(self):
-        """field `Mixed Regime Stable Floor Equation Source` reference choice
-        fields.
+        """field `Mixed Regime Stable Floor Equation Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedStableFloor
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Floor Equation Source`
-                Default value: BeausoleilMorrisonMixedStableFloor
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4185,7 +4371,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_stable_floor_equation_user_curve_name(self):
         """field `Mixed Regime Stable Floor Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Floor Equation User Curve Name`
@@ -4195,6 +4382,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_stable_floor_equation_user_curve_name` or None if not set
+
         """
         return self["Mixed Regime Stable Floor Equation User Curve Name"]
 
@@ -4206,12 +4394,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mixed_regime_unstable_floor_equation_source(self):
-        """field `Mixed Regime Unstable Floor Equation Source` reference choice
-        fields.
+        """field `Mixed Regime Unstable Floor Equation Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedUnstableFloor
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Floor Equation Source`
-                Default value: BeausoleilMorrisonMixedUnstableFloor
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4233,7 +4422,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_unstable_floor_equation_user_curve_name(self):
         """field `Mixed Regime Unstable Floor Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Floor Equation User Curve Name`
@@ -4243,6 +4433,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_unstable_floor_equation_user_curve_name` or None if not set
+
         """
         return self["Mixed Regime Unstable Floor Equation User Curve Name"]
 
@@ -4254,12 +4445,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mixed_regime_stable_ceiling_equation_source(self):
-        """field `Mixed Regime Stable Ceiling Equation Source` reference choice
-        fields.
+        """field `Mixed Regime Stable Ceiling Equation Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedStableCeiling
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation Source`
-                Default value: BeausoleilMorrisonMixedStableCeiling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4281,7 +4473,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_stable_ceiling_equation_user_curve_name(self):
         """field `Mixed Regime Stable Ceiling Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation User Curve Name`
@@ -4291,6 +4484,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_stable_ceiling_equation_user_curve_name` or None if not set
+
         """
         return self["Mixed Regime Stable Ceiling Equation User Curve Name"]
 
@@ -4302,12 +4496,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mixed_regime_unstable_ceiling_equation_source(self):
-        """field `Mixed Regime Unstable Ceiling Equation Source` reference
-        choice fields.
+        """field `Mixed Regime Unstable Ceiling Equation Source`
+
+        |  reference choice fields
+        |  Default value: BeausoleilMorrisonMixedUnstableCeiling
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation Source`
-                Default value: BeausoleilMorrisonMixedUnstableCeiling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4329,7 +4524,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_unstable_ceiling_equation_user_curve_name(self):
         """field `Mixed Regime Unstable Ceiling Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
@@ -4339,6 +4535,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_unstable_ceiling_equation_user_curve_name` or None if not set
+
         """
         return self["Mixed Regime Unstable Ceiling Equation User Curve Name"]
 
@@ -4352,11 +4549,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
     @property
     def mixed_regime_window_equation_source(self):
-        """field `Mixed Regime Window Equation Source` reference choice fields.
+        """field `Mixed Regime Window Equation Source`
+
+        |  reference choice fields
+        |  Default value: GoldsteinNovoselacCeilingDiffuserWindow
 
         Args:
             value (str): value for IDD Field `Mixed Regime Window Equation Source`
-                Default value: GoldsteinNovoselacCeilingDiffuserWindow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4377,7 +4576,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
     @property
     def mixed_regime_window_equation_user_curve_name(self):
         """field `Mixed Regime Window Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Mixed Regime Window Equation User Curve Name`
@@ -4387,6 +4587,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `mixed_regime_window_equation_user_curve_name` or None if not set
+
         """
         return self["Mixed Regime Window Equation User Curve Name"]
 
@@ -4581,9 +4782,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     def wind_convection_windward_vertical_wall_equation_source(self):
         """field `Wind Convection Windward Vertical Wall Equation Source`
 
+        |  Default value: TARPWindward
+
         Args:
             value (str): value for IDD Field `Wind Convection Windward Vertical Wall Equation Source`
-                Default value: TARPWindward
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4604,8 +4806,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def wind_convection_windward_equation_vertical_wall_user_curve_name(self):
-        """field `Wind Convection Windward Equation Vertical Wall User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Wind Convection Windward Equation Vertical Wall User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
@@ -4615,6 +4819,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wind_convection_windward_equation_vertical_wall_user_curve_name` or None if not set
+
         """
         return self[
             "Wind Convection Windward Equation Vertical Wall User Curve Name"]
@@ -4632,9 +4837,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     def wind_convection_leeward_vertical_wall_equation_source(self):
         """field `Wind Convection Leeward Vertical Wall Equation Source`
 
+        |  Default value: TARPLeeward
+
         Args:
             value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
-                Default value: TARPLeeward
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4655,8 +4861,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def wind_convection_leeward_vertical_wall_equation_user_curve_name(self):
-        """field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Wind Convection Leeward Vertical Wall Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
@@ -4666,6 +4874,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wind_convection_leeward_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Wind Convection Leeward Vertical Wall Equation User Curve Name"]
@@ -4683,9 +4892,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     def wind_convection_horizontal_roof_equation_source(self):
         """field `Wind Convection Horizontal Roof Equation Source`
 
+        |  Default value: ClearRoof
+
         Args:
             value (str): value for IDD Field `Wind Convection Horizontal Roof Equation Source`
-                Default value: ClearRoof
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4707,7 +4917,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     @property
     def wind_convection_horizontal_roof_user_curve_name(self):
         """field `Wind Convection Horizontal Roof User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Wind Convection Horizontal Roof User Curve Name`
@@ -4717,6 +4928,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `wind_convection_horizontal_roof_user_curve_name` or None if not set
+
         """
         return self["Wind Convection Horizontal Roof User Curve Name"]
 
@@ -4728,12 +4940,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def natural_convection_vertical_wall_equation_source(self):
-        """field `Natural Convection Vertical Wall Equation Source` This is for
-        vertical walls.
+        """field `Natural Convection Vertical Wall Equation Source`
+
+        |  This is for vertical walls
+        |  Default value: ASHRAEVerticalWall
 
         Args:
             value (str): value for IDD Field `Natural Convection Vertical Wall Equation Source`
-                Default value: ASHRAEVerticalWall
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4755,7 +4968,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     @property
     def natural_convection_vertical_wall_equation_user_curve_name(self):
         """field `Natural Convection Vertical Wall Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
@@ -4765,6 +4979,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `natural_convection_vertical_wall_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Natural Convection Vertical Wall Equation User Curve Name"]
@@ -4780,13 +4995,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def natural_convection_stable_horizontal_equation_source(self):
-        """field `Natural Convection Stable Horizontal Equation Source` This is
-        for horizontal surfaces with heat flow directed for stable thermal
-        stratification.
+        """field `Natural Convection Stable Horizontal Equation Source`
+
+        |  This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        |  Default value: WaltonStableHorizontalOrTilt
 
         Args:
             value (str): value for IDD Field `Natural Convection Stable Horizontal Equation Source`
-                Default value: WaltonStableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4807,8 +5022,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def natural_convection_stable_horizontal_equation_user_curve_name(self):
-        """field `Natural Convection Stable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Natural Convection Stable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
@@ -4818,6 +5035,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `natural_convection_stable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Natural Convection Stable Horizontal Equation User Curve Name"]
@@ -4835,9 +5053,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     def natural_convection_unstable_horizontal_equation_source(self):
         """field `Natural Convection Unstable Horizontal Equation Source`
 
+        |  Default value: WaltonUnstableHorizontalOrTilt
+
         Args:
             value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation Source`
-                Default value: WaltonUnstableHorizontalOrTilt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4858,8 +5077,10 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
     @property
     def natural_convection_unstable_horizontal_equation_user_curve_name(self):
-        """field `Natural Convection Unstable Horizontal Equation User Curve Name`
-        The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        """field `Natural Convection Unstable Horizontal Equation User Curve
+        Name`
+
+        |  The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
         Args:
             value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
@@ -4869,6 +5090,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
 
         Returns:
             str: the value of `natural_convection_unstable_horizontal_equation_user_curve_name` or None if not set
+
         """
         return self[
             "Natural Convection Unstable Horizontal Equation User Curve Name"]
@@ -4968,9 +5190,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
 
     @property
     def reference_temperature_for_convection_heat_transfer(self):
-        """field `Reference Temperature for Convection Heat Transfer` Controls
-        which temperature is differenced from surface temperature when using
-        the Hc value.
+        """field `Reference Temperature for Convection Heat Transfer`
+
+        |  Controls which temperature is differenced from surface temperature when using the Hc value
 
         Args:
             value (str): value for IDD Field `Reference Temperature for Convection Heat Transfer`
@@ -4993,8 +5215,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
     @property
     def hc_function_of_temperature_difference_curve_name(self):
         """field `Hc Function of Temperature Difference Curve Name`
-        Curve's "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))
-        Table:OneIndependentVariable objects can also be used
+
+        |  Curve's "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))
+        |  Table:OneIndependentVariable objects can also be used
 
         Args:
             value (str): value for IDD Field `Hc Function of Temperature Difference Curve Name`
@@ -5004,6 +5227,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hc_function_of_temperature_difference_curve_name` or None if not set
+
         """
         return self["Hc Function of Temperature Difference Curve Name"]
 
@@ -5016,10 +5240,12 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
     @property
     def hc_function_of_temperature_difference_divided_by_height_curve_name(
             self):
-        """field `Hc Function of Temperature Difference Divided by Height Curve Name`
-        Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
-        when used for an inside face the vertical length scale is the zone's interior height
-        Table:OneIndependentVariable object can also be used
+        """field `Hc Function of Temperature Difference Divided by Height Curve
+        Name`
+
+        |  Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
+        |  when used for an inside face the vertical length scale is the zone's interior height
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Hc Function of Temperature Difference Divided by Height Curve Name`
@@ -5029,6 +5255,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hc_function_of_temperature_difference_divided_by_height_curve_name` or None if not set
+
         """
         return self[
             "Hc Function of Temperature Difference Divided by Height Curve Name"]
@@ -5045,8 +5272,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
     @property
     def hc_function_of_air_change_rate_curve_name(self):
         """field `Hc Function of Air Change Rate Curve Name`
-        Curve's "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)
-        Table:OneIndependentVariable objects can also be used
+
+        |  Curve's "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)
+        |  Table:OneIndependentVariable objects can also be used
 
         Args:
             value (str): value for IDD Field `Hc Function of Air Change Rate Curve Name`
@@ -5056,6 +5284,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hc_function_of_air_change_rate_curve_name` or None if not set
+
         """
         return self["Hc Function of Air Change Rate Curve Name"]
 
@@ -5068,10 +5297,12 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
     @property
     def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(
             self):
-        """field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
-        Curve's "x" is mechanical system air flow rate (m3/s) divided by zone's length along
-        exterior walls (m).
-        Table:OneIndependentVariable object can also be used
+        """field `Hc Function of Air System Volume Flow Rate Divided by Zone
+        Perimeter Length Curve Name`
+
+        |  Curve's "x" is mechanical system air flow rate (m3/s) divided by zone's length along
+        |  exterior walls (m).
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
@@ -5081,6 +5312,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name` or None if not set
+
         """
         return self[
             "Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"]
@@ -5177,9 +5409,10 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
     def wind_speed_type_for_curve(self):
         """field `Wind Speed Type for Curve`
 
+        |  Default value: HeightAdjust
+
         Args:
             value (str): value for IDD Field `Wind Speed Type for Curve`
-                Default value: HeightAdjust
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5198,8 +5431,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
     @property
     def hf_function_of_wind_speed_curve_name(self):
         """field `Hf Function of Wind Speed Curve Name`
-        Curve's "x" is wind speed of the type determined in the previous field (m/s)
-        Table:OneIndependentVariable objects can also be used
+
+        |  Curve's "x" is wind speed of the type determined in the previous field (m/s)
+        |  Table:OneIndependentVariable objects can also be used
 
         Args:
             value (str): value for IDD Field `Hf Function of Wind Speed Curve Name`
@@ -5209,6 +5443,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hf_function_of_wind_speed_curve_name` or None if not set
+
         """
         return self["Hf Function of Wind Speed Curve Name"]
 
@@ -5220,8 +5455,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
     @property
     def hn_function_of_temperature_difference_curve_name(self):
         """field `Hn Function of Temperature Difference Curve Name`
-        Curve's "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))
-        Table:OneIndependentVariable object can also be used
+
+        |  Curve's "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Hn Function of Temperature Difference Curve Name`
@@ -5231,6 +5467,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hn_function_of_temperature_difference_curve_name` or None if not set
+
         """
         return self["Hn Function of Temperature Difference Curve Name"]
 
@@ -5243,10 +5480,12 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
     @property
     def hn_function_of_temperature_difference_divided_by_height_curve_name(
             self):
-        """field `Hn Function of Temperature Difference Divided by Height Curve Name`
-        Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
-        when used for an outside face the vertical length scale is the exterior facade's overall height
-        Table:OneIndependentVariable object can also be used
+        """field `Hn Function of Temperature Difference Divided by Height Curve
+        Name`
+
+        |  Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
+        |  when used for an outside face the vertical length scale is the exterior facade's overall height
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Hn Function of Temperature Difference Divided by Height Curve Name`
@@ -5256,6 +5495,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
 
         Returns:
             str: the value of `hn_function_of_temperature_difference_divided_by_height_curve_name` or None if not set
+
         """
         return self[
             "Hn Function of Temperature Difference Divided by Height Curve Name"]
@@ -5528,18 +5768,20 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_1(self):
         """field `Convection Coefficient 1`
-        used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 1`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `convection_coefficient_1` or None if not set
+
         """
         return self["Convection Coefficient 1"]
 
@@ -5551,8 +5793,9 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_1_schedule_name(self):
         """field `Convection Coefficient 1 Schedule Name`
-        used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
@@ -5562,6 +5805,7 @@ class SurfacePropertyConvectionCoefficients(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_1_schedule_name` or None if not set
+
         """
         return self["Convection Coefficient 1 Schedule Name"]
 
@@ -5573,7 +5817,8 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_1_user_curve_name(self):
         """field `Convection Coefficient 1 User Curve Name`
-        used if Convection Type = UserCurve
+
+        |  used if Convection Type = UserCurve
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
@@ -5583,6 +5828,7 @@ class SurfacePropertyConvectionCoefficients(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_1_user_curve_name` or None if not set
+
         """
         return self["Convection Coefficient 1 User Curve Name"]
 
@@ -5637,19 +5883,21 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_2(self):
         """field `Convection Coefficient 2`
-        used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
+        |  Units: W/m2-K
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 2`
-                Units: W/m2-K
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `convection_coefficient_2` or None if not set
+
         """
         return self["Convection Coefficient 2"]
 
@@ -5661,8 +5909,9 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_2_schedule_name(self):
         """field `Convection Coefficient 2 Schedule Name`
-        used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
@@ -5672,6 +5921,7 @@ class SurfacePropertyConvectionCoefficients(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_2_schedule_name` or None if not set
+
         """
         return self["Convection Coefficient 2 Schedule Name"]
 
@@ -5683,7 +5933,8 @@ class SurfacePropertyConvectionCoefficients(DataObject):
     @property
     def convection_coefficient_2_user_curve_name(self):
         """field `Convection Coefficient 2 User Curve Name`
-        used if Convection Type = UserCurve
+
+        |  used if Convection Type = UserCurve
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
@@ -5693,6 +5944,7 @@ class SurfacePropertyConvectionCoefficients(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_2_user_curve_name` or None if not set
+
         """
         return self["Convection Coefficient 2 User Curve Name"]
 
@@ -5973,18 +6225,20 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_1(self):
         """field `Convection Coefficient 1`
-        used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 1`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `convection_coefficient_1` or None if not set
+
         """
         return self["Convection Coefficient 1"]
 
@@ -5996,8 +6250,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_1_schedule_name(self):
         """field `Convection Coefficient 1 Schedule Name`
-        used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
@@ -6007,6 +6262,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_1_schedule_name` or None if not set
+
         """
         return self["Convection Coefficient 1 Schedule Name"]
 
@@ -6018,7 +6274,8 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_1_user_curve_name(self):
         """field `Convection Coefficient 1 User Curve Name`
-        used if Convection Type = UserCurve
+
+        |  used if Convection Type = UserCurve
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
@@ -6028,6 +6285,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_1_user_curve_name` or None if not set
+
         """
         return self["Convection Coefficient 1 User Curve Name"]
 
@@ -6082,19 +6340,21 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_2(self):
         """field `Convection Coefficient 2`
-        used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
+        |  Units: W/m2-K
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 2`
-                Units: W/m2-K
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `convection_coefficient_2` or None if not set
+
         """
         return self["Convection Coefficient 2"]
 
@@ -6106,8 +6366,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_2_schedule_name(self):
         """field `Convection Coefficient 2 Schedule Name`
-        used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
-        Default limits are Minimum >= 0.1 and Maximum <= 1000
+
+        |  used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
+        |  Default limits are Minimum >= 0.1 and Maximum <= 1000
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
@@ -6117,6 +6378,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_2_schedule_name` or None if not set
+
         """
         return self["Convection Coefficient 2 Schedule Name"]
 
@@ -6128,7 +6390,8 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     @property
     def convection_coefficient_2_user_curve_name(self):
         """field `Convection Coefficient 2 User Curve Name`
-        used if Convection Type = UserCurve
+
+        |  used if Convection Type = UserCurve
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
@@ -6138,6 +6401,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
 
         Returns:
             str: the value of `convection_coefficient_2_user_curve_name` or None if not set
+
         """
         return self["Convection Coefficient 2 User Curve Name"]
 
@@ -6241,9 +6505,10 @@ class SurfacePropertiesVaporCoefficients(DataObject):
     def constant_external_vapor_transfer_coefficient(self):
         """field `Constant External Vapor Transfer Coefficient`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Constant External Vapor Transfer Coefficient`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6264,9 +6529,10 @@ class SurfacePropertiesVaporCoefficients(DataObject):
     def external_vapor_coefficient_value(self):
         """field `External Vapor Coefficient Value`
 
+        |  Units: kg/Pa-s-m2
+
         Args:
             value (float): value for IDD Field `External Vapor Coefficient Value`
-                Units: kg/Pa-s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6286,9 +6552,10 @@ class SurfacePropertiesVaporCoefficients(DataObject):
     def constant_internal_vapor_transfer_coefficient(self):
         """field `Constant Internal vapor Transfer Coefficient`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Constant Internal vapor Transfer Coefficient`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6309,9 +6576,10 @@ class SurfacePropertiesVaporCoefficients(DataObject):
     def internal_vapor_coefficient_value(self):
         """field `Internal Vapor Coefficient Value`
 
+        |  Units: kg/Pa-s-m2
+
         Args:
             value (float): value for IDD Field `Internal Vapor Coefficient Value`
-                Units: kg/Pa-s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6484,7 +6752,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     @property
     def boundary_conditions_model_name(self):
         """field `Boundary Conditions Model Name`
-        Enter the name of a SurfaceProperty:OtherSideConditionsModel object
+
+        |  Enter the name of a SurfaceProperty:OtherSideConditionsModel object
 
         Args:
             value (str): value for IDD Field `Boundary Conditions Model Name`
@@ -6494,6 +6763,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
 
         Returns:
             str: the value of `boundary_conditions_model_name` or None if not set
+
         """
         return self["Boundary Conditions Model Name"]
 
@@ -6506,10 +6776,11 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     def area_fraction_of_openings(self):
         """field `Area Fraction of Openings`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Area Fraction of Openings`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6529,10 +6800,11 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     def thermal_emissivity_of_exterior_baffle_material(self):
         """field `Thermal Emissivity of Exterior Baffle Material`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Thermal Emissivity of Exterior Baffle Material`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6553,10 +6825,11 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     def solar_absorbtivity_of_exterior_baffle(self):
         """field `Solar Absorbtivity of Exterior Baffle`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Solar Absorbtivity of Exterior Baffle`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6576,9 +6849,10 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     def height_scale_for_buoyancydriven_ventilation(self):
         """field `Height Scale for Buoyancy-Driven Ventilation`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height Scale for Buoyancy-Driven Ventilation`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6597,12 +6871,13 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
 
     @property
     def effective_thickness_of_cavity_behind_exterior_baffle(self):
-        """field `Effective Thickness of Cavity Behind Exterior Baffle` if
-        corrugated, use average depth.
+        """field `Effective Thickness of Cavity Behind Exterior Baffle`
+
+        |  if corrugated, use average depth
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Effective Thickness of Cavity Behind Exterior Baffle`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6621,15 +6896,16 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
 
     @property
     def ratio_of_actual_surface_area_to_projected_surface_area(self):
-        """field `Ratio of Actual Surface Area to Projected Surface Area` this
-        parameter is used to help account for corrugations in the collector.
+        """field `Ratio of Actual Surface Area to Projected Surface Area`
+
+        |  this parameter is used to help account for corrugations in the collector
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value >= 0.8
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
-                Units: dimensionless
-                Default value: 1.0
-                value >= 0.8
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6673,11 +6949,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
     def effectiveness_for_perforations_with_respect_to_wind(self):
         """field `Effectiveness for Perforations with Respect to Wind`
 
+        |  Units: dimensionless
+        |  Default value: 0.25
+        |  value <= 1.5
+
         Args:
             value (float): value for IDD Field `Effectiveness for Perforations with Respect to Wind`
-                Units: dimensionless
-                Default value: 0.25
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6700,11 +6977,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         """field `Discharge Coefficient for Openings with Respect to Buoyancy
         Driven Flow`
 
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value <= 1.5
+
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
-                Units: dimensionless
-                Default value: 0.65
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value

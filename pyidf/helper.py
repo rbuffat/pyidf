@@ -43,6 +43,19 @@ class DataObject(object):
                 keys.append((field['name'], i))
         return keys
 
+    def field_keys(self):
+        keys = []
+        for field in self.schema['fields'].values():
+            keys.append(field['name'])
+        return keys
+
+    def extensible_field_keys(self):
+        keys = []
+        for i in range(len(self._extdata)):
+            for field in self.schema['extensible-fields'].values():
+                keys.append((field['name'], i))
+        return keys
+
     def __setitem__(self, key, value):
         if isinstance(key, six.string_types):
             key_lower = key.lower()
@@ -681,9 +694,41 @@ class DataObject(object):
             self._data[key] = None
         self._extdata = []
 
-    def items(self):
+    def all_items(self):
         items = []
         for key, field in self.schema['fields'].iteritems():
+            items.append((field['name'], self._data[key]))
+        for j, vals in enumerate(self._extdata):
+            for i, key in enumerate(self.schema['extensible-fields']):
+                field = self.schema['extensible-fields'][key]
+                items.append(((field['name'], j), vals[i]))
+        return items
+
+    def items(self):
+        items = []
+        # Calculate max elements to export
+        has_extensibles = False
+        for vals in self._extdata:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+                    break
+            if has_extensibles:
+                break
+
+        if has_extensibles:
+            maxel = len(self._data)
+        else:
+            maxel = 0
+            for i, key in reversed(list(enumerate(self._data.keys()))):
+                if self._data[key] is not None:
+                    maxel = i + 1
+                    break
+
+        maxel = max(maxel, self.schema['min-fields'])
+
+        for key in list(self.schema['fields'].keys())[0:maxel]:
+            field = self.field(key)
             items.append((field['name'], self._data[key]))
         for j, vals in enumerate(self._extdata):
             for i, key in enumerate(self.schema['extensible-fields']):

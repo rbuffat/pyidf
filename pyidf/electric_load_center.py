@@ -224,9 +224,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def rated_power_output(self):
         """field `Rated Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -267,9 +268,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def minimum_part_load_ratio(self):
         """field `Minimum Part Load Ratio`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -289,9 +291,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -331,9 +334,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def shaft_power_curve_name(self):
         """field `Shaft Power Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Shaft Power Curve Name`
@@ -343,6 +347,7 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `shaft_power_curve_name` or None if not set
+
         """
         return self["Shaft Power Curve Name"]
 
@@ -354,9 +359,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def jacket_heat_recovery_curve_name(self):
         """field `Jacket Heat Recovery Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Jacket Heat Recovery Curve Name`
@@ -366,6 +372,7 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `jacket_heat_recovery_curve_name` or None if not set
+
         """
         return self["Jacket Heat Recovery Curve Name"]
 
@@ -377,9 +384,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def lube_heat_recovery_curve_name(self):
         """field `Lube Heat Recovery Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Lube Heat Recovery Curve Name`
@@ -389,6 +397,7 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `lube_heat_recovery_curve_name` or None if not set
+
         """
         return self["Lube Heat Recovery Curve Name"]
 
@@ -400,9 +409,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def total_exhaust_energy_curve_name(self):
         """field `Total Exhaust Energy Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Total Exhaust Energy Curve Name`
@@ -412,6 +422,7 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `total_exhaust_energy_curve_name` or None if not set
+
         """
         return self["Total Exhaust Energy Curve Name"]
 
@@ -423,9 +434,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def exhaust_temperature_curve_name(self):
         """field `Exhaust Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Exhaust Temperature Curve Name`
@@ -435,6 +447,7 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Exhaust Temperature Curve Name"]
 
@@ -446,7 +459,8 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
-        curve = C1 * Generator Rated Power Output**C2
+
+        |  curve = C1 * Generator Rated Power Output**C2
 
         Args:
             value (float): value for IDD Field `Coefficient 1 of U-Factor Times Area Curve`
@@ -469,12 +483,13 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        curve = C1 * Generator Rated Power Output**C2
-        typical value .9
+
+        |  curve = C1 * Generator Rated Power Output**C2
+        |  typical value .9
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of U-Factor Times Area Curve`
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -495,9 +510,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
 
+        |  Units: (kg/s)/W
+
         Args:
             value (float): value for IDD Field `Maximum Exhaust Flow per Unit of Power Output`
-                Units: (kg/s)/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -518,9 +534,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def design_minimum_exhaust_temperature(self):
         """field `Design Minimum Exhaust Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Minimum Exhaust Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -540,9 +557,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -561,18 +579,20 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        if non-zero, then inlet, outlet nodes must be entered.
+
+        |  if non-zero, then inlet, outlet nodes must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -627,9 +647,10 @@ class GeneratorInternalCombustionEngine(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: Diesel
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: Diesel
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -649,11 +670,12 @@ class GeneratorInternalCombustionEngine(DataObject):
     def heat_recovery_maximum_temperature(self):
         """field `Heat Recovery Maximum Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Heat Recovery Maximum Temperature`
-                Units: C
-                Default value: 80.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -908,9 +930,10 @@ class GeneratorCombustionTurbine(DataObject):
     def rated_power_output(self):
         """field `Rated Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -951,9 +974,10 @@ class GeneratorCombustionTurbine(DataObject):
     def minimum_part_load_ratio(self):
         """field `Minimum Part Load Ratio`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -973,9 +997,10 @@ class GeneratorCombustionTurbine(DataObject):
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1015,11 +1040,12 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def part_load_based_fuel_input_curve_name(self):
         """field `Part Load Based Fuel Input Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
-        this curve is multiplied to the Temperature Based Fuel Input Curve
-        to determine Fuel Energy In
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
+        |  this curve is multiplied to the Temperature Based Fuel Input Curve
+        |  to determine Fuel Energy In
 
         Args:
             value (str): value for IDD Field `Part Load Based Fuel Input Curve Name`
@@ -1029,6 +1055,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `part_load_based_fuel_input_curve_name` or None if not set
+
         """
         return self["Part Load Based Fuel Input Curve Name"]
 
@@ -1040,11 +1067,12 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def temperature_based_fuel_input_curve_name(self):
         """field `Temperature Based Fuel Input Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*AT + c*AT**2
-        AT = Ambient Delta T
-        this curve is multiplied to the Part Load Based Fuel Input Curve
-        to determine Fuel Energy In
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*AT + c*AT**2
+        |  AT = Ambient Delta T
+        |  this curve is multiplied to the Part Load Based Fuel Input Curve
+        |  to determine Fuel Energy In
 
         Args:
             value (str): value for IDD Field `Temperature Based Fuel Input Curve Name`
@@ -1054,6 +1082,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `temperature_based_fuel_input_curve_name` or None if not set
+
         """
         return self["Temperature Based Fuel Input Curve Name"]
 
@@ -1066,9 +1095,10 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def exhaust_flow_curve_name(self):
         """field `Exhaust Flow Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*AT + c*AT**2
-        AT = Ambient Delta T
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*AT + c*AT**2
+        |  AT = Ambient Delta T
 
         Args:
             value (str): value for IDD Field `Exhaust Flow Curve Name`
@@ -1078,6 +1108,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_flow_curve_name` or None if not set
+
         """
         return self["Exhaust Flow Curve Name"]
 
@@ -1089,11 +1120,12 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def part_load_based_exhaust_temperature_curve_name(self):
         """field `Part Load Based Exhaust Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
-        this curve is multiplied to the Temperature Based Exhaust Temperature Curve
-        to determine Exhaust Temperature
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
+        |  this curve is multiplied to the Temperature Based Exhaust Temperature Curve
+        |  to determine Exhaust Temperature
 
         Args:
             value (str): value for IDD Field `Part Load Based Exhaust Temperature Curve Name`
@@ -1103,6 +1135,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `part_load_based_exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Part Load Based Exhaust Temperature Curve Name"]
 
@@ -1115,11 +1148,12 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def temperature_based_exhaust_temperature_curve_name(self):
         """field `Temperature Based Exhaust Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*AT + c*AT**2
-        AT = Ambient Delta T
-        this curve is multiplied to the Part Load Based Exhaust Temperatuer Curve
-        to determine Exhaust Temperature
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*AT + c*AT**2
+        |  AT = Ambient Delta T
+        |  this curve is multiplied to the Part Load Based Exhaust Temperatuer Curve
+        |  to determine Exhaust Temperature
 
         Args:
             value (str): value for IDD Field `Temperature Based Exhaust Temperature Curve Name`
@@ -1129,6 +1163,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `temperature_based_exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Temperature Based Exhaust Temperature Curve Name"]
 
@@ -1141,9 +1176,10 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def heat_recovery_lube_energy_curve_name(self):
         """field `Heat Recovery Lube Energy Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of Generator Load to Rated Power Output
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of Generator Load to Rated Power Output
 
         Args:
             value (str): value for IDD Field `Heat Recovery Lube Energy Curve Name`
@@ -1153,6 +1189,7 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_lube_energy_curve_name` or None if not set
+
         """
         return self["Heat Recovery Lube Energy Curve Name"]
 
@@ -1164,7 +1201,8 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
-        curve = C1 * Rated Power Output**C2
+
+        |  curve = C1 * Rated Power Output**C2
 
         Args:
             value (float): value for IDD Field `Coefficient 1 of U-Factor Times Area Curve`
@@ -1187,12 +1225,13 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        curve = C1 * Rated Power Output**C2
-        typical value .9
+
+        |  curve = C1 * Rated Power Output**C2
+        |  typical value .9
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of U-Factor Times Area Curve`
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1213,9 +1252,10 @@ class GeneratorCombustionTurbine(DataObject):
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
 
+        |  Units: (Kg/s)/W
+
         Args:
             value (float): value for IDD Field `Maximum Exhaust Flow per Unit of Power Output`
-                Units: (Kg/s)/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1236,9 +1276,10 @@ class GeneratorCombustionTurbine(DataObject):
     def design_minimum_exhaust_temperature(self):
         """field `Design Minimum Exhaust Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Minimum Exhaust Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1258,9 +1299,10 @@ class GeneratorCombustionTurbine(DataObject):
     def design_air_inlet_temperature(self):
         """field `Design Air Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Air Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1280,9 +1322,10 @@ class GeneratorCombustionTurbine(DataObject):
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1301,18 +1344,20 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        if non-zero, then inlet, outlet nodes must be entered.
+
+        |  if non-zero, then inlet, outlet nodes must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -1367,9 +1412,10 @@ class GeneratorCombustionTurbine(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: NaturalGas
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: NaturalGas
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1389,11 +1435,12 @@ class GeneratorCombustionTurbine(DataObject):
     def heat_recovery_maximum_temperature(self):
         """field `Heat Recovery Maximum Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Heat Recovery Maximum Temperature`
-                Units: C
-                Default value: 80.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1411,8 +1458,9 @@ class GeneratorCombustionTurbine(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -1798,9 +1846,10 @@ class GeneratorMicroTurbine(DataObject):
     def reference_electrical_power_output(self):
         """field `Reference Electrical Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Reference Electrical Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1820,9 +1869,10 @@ class GeneratorMicroTurbine(DataObject):
     def minimum_full_load_electrical_power_output(self):
         """field `Minimum Full Load Electrical Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Minimum Full Load Electrical Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1841,13 +1891,14 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def maximum_full_load_electrical_power_output(self):
-        """field `Maximum Full Load Electrical Power Output` If left blank,
-        Maximum Full Load Electrical Power Output will be set equal to the
-        Reference Electrical Power Output.
+        """field `Maximum Full Load Electrical Power Output`
+
+        |  If left blank, Maximum Full Load Electrical Power Output will be set
+        |  equal to the Reference Electrical Power Output.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Maximum Full Load Electrical Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1867,12 +1918,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def reference_electrical_efficiency_using_lower_heating_value(self):
         """field `Reference Electrical Efficiency Using Lower Heating Value`
-        Electric power output divided by fuel energy input (LHV basis) at
-        reference conditions.
+
+        |  Electric power output divided by fuel energy input (LHV basis)
+        |  at reference conditions.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Reference Electrical Efficiency Using Lower Heating Value`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1897,10 +1949,11 @@ class GeneratorMicroTurbine(DataObject):
     def reference_combustion_air_inlet_temperature(self):
         """field `Reference Combustion Air Inlet Temperature`
 
+        |  Units: C
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `Reference Combustion Air Inlet Temperature`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1921,10 +1974,11 @@ class GeneratorMicroTurbine(DataObject):
     def reference_combustion_air_inlet_humidity_ratio(self):
         """field `Reference Combustion Air Inlet Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.00638
+
         Args:
             value (float): value for IDD Field `Reference Combustion Air Inlet Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.00638
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1945,10 +1999,11 @@ class GeneratorMicroTurbine(DataObject):
     def reference_elevation(self):
         """field `Reference Elevation`
 
+        |  Units: m
+        |  value >= -300.0
+
         Args:
             value (float): value for IDD Field `Reference Elevation`
-                Units: m
-                value >= -300.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1967,11 +2022,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def electrical_power_function_of_temperature_and_elevation_curve_name(
             self):
-        """field `Electrical Power Function of Temperature and Elevation Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
-        T = combustion air inlet temperature (C)
-        Elev = elevation (m)
+        """field `Electrical Power Function of Temperature and Elevation Curve
+        Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
+        |  T = combustion air inlet temperature (C)
+        |  Elev = elevation (m)
 
         Args:
             value (str): value for IDD Field `Electrical Power Function of Temperature and Elevation Curve Name`
@@ -1981,6 +2038,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_power_function_of_temperature_and_elevation_curve_name` or None if not set
+
         """
         return self[
             "Electrical Power Function of Temperature and Elevation Curve Name"]
@@ -1997,9 +2055,10 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def electrical_efficiency_function_of_temperature_curve_name(self):
         """field `Electrical Efficiency Function of Temperature Curve Name`
-        Quadratic curve = a + b*T + c*T**2
-        Cubic curve = a + b*T + c*T**2 + d*T**3
-        T = combustion air inlet temperature (C)
+
+        |  Quadratic curve = a + b*T + c*T**2
+        |  Cubic curve = a + b*T + c*T**2 + d*T**3
+        |  T = combustion air inlet temperature (C)
 
         Args:
             value (str): value for IDD Field `Electrical Efficiency Function of Temperature Curve Name`
@@ -2009,6 +2068,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Electrical Efficiency Function of Temperature Curve Name"]
 
@@ -2024,10 +2084,11 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def electrical_efficiency_function_of_part_load_ratio_curve_name(self):
         """field `Electrical Efficiency Function of Part Load Ratio Curve Name`
-        Quadratic curve = a + b*PLR + c*PLR**2
-        Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
-        PLR = ratio of Generator Load to steady state Electrical Power Output at
-        current operating conditions
+
+        |  Quadratic curve = a + b*PLR + c*PLR**2
+        |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
+        |  PLR = ratio of Generator Load to steady state Electrical Power Output at
+        |  current operating conditions
 
         Args:
             value (str): value for IDD Field `Electrical Efficiency Function of Part Load Ratio Curve Name`
@@ -2037,6 +2098,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Electrical Efficiency Function of Part Load Ratio Curve Name"]
@@ -2054,9 +2116,10 @@ class GeneratorMicroTurbine(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: NaturalGas
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: NaturalGas
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2076,10 +2139,11 @@ class GeneratorMicroTurbine(DataObject):
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+        |  Default value: 50000.0
+
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
-                Default value: 50000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2099,10 +2163,11 @@ class GeneratorMicroTurbine(DataObject):
     def fuel_lower_heating_value(self):
         """field `Fuel Lower Heating Value`
 
+        |  Units: kJ/kg
+        |  Default value: 45450.0
+
         Args:
             value (float): value for IDD Field `Fuel Lower Heating Value`
-                Units: kJ/kg
-                Default value: 45450.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2120,12 +2185,14 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def standby_power(self):
-        """field `Standby Power` Electric power consumed when the generator is
-        available but not being called by the Electric Load Center.
+        """field `Standby Power`
+
+        |  Electric power consumed when the generator is available but not being called
+        |  by the Electric Load Center.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Standby Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2143,15 +2210,15 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def ancillary_power(self):
-        """field `Ancillary Power` Electric power consumed by ancillary
-        equipment (e.g., external fuel pressurization pump). Set to zero if
-        Reference Electrical Power Output is the 'net' value (ancillary power
-        already deducted). Input value is positive, but indicates negative
-        electric generation.
+        """field `Ancillary Power`
+
+        |  Electric power consumed by ancillary equipment (e.g., external fuel pressurization pump).
+        |  Set to zero if Reference Electrical Power Output is the 'net' value (ancillary power
+        |  already deducted). Input value is positive, but indicates negative electric generation.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Ancillary Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2170,11 +2237,12 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def ancillary_power_function_of_fuel_input_curve_name(self):
         """field `Ancillary Power Function of Fuel Input Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*mdot + c*mdot**2
-        mdot = fuel mass flow rate (kg/s)
-        If left blank, model assumes ancillary power defined in previous field is constant
-        whenever the generator is operating.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*mdot + c*mdot**2
+        |  mdot = fuel mass flow rate (kg/s)
+        |  If left blank, model assumes ancillary power defined in previous field is constant
+        |  whenever the generator is operating.
 
         Args:
             value (str): value for IDD Field `Ancillary Power Function of Fuel Input Curve Name`
@@ -2184,6 +2252,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `ancillary_power_function_of_fuel_input_curve_name` or None if not set
+
         """
         return self["Ancillary Power Function of Fuel Input Curve Name"]
 
@@ -2238,12 +2307,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def reference_thermal_efficiency_using_lower_heat_value(self):
         """field `Reference Thermal Efficiency Using Lower Heat Value`
-        Reference thermal efficiency (heat recovery to water) based on the
-        Lower Heating Value (LHV) of the fuel.
+
+        |  Reference thermal efficiency (heat recovery to water) based on the
+        |  Lower Heating Value (LHV) of the fuel.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Reference Thermal Efficiency Using Lower Heat Value`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2264,9 +2334,10 @@ class GeneratorMicroTurbine(DataObject):
     def reference_inlet_water_temperature(self):
         """field `Reference Inlet Water Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Reference Inlet Water Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2284,17 +2355,17 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def heat_recovery_water_flow_operating_mode(self):
-        """field `Heat Recovery Water Flow Operating Mode` PlantControl means
-        the heat recovery water flow rate is determined by the plant, but the
-        user needs to supply a heat recovery water flow rate. InternalControl
-        means the heat recovery water flow rate is controlled by this
-        generator. If 'InternalControl' is selected, then the user needs to
-        supply a reference heat recovery water flow rate and optionally the
-        name of a heat recovery flow rate modifier curve.
+        """field `Heat Recovery Water Flow Operating Mode`
+
+        |  PlantControl means the heat recovery water flow rate is determined by the plant,
+        |  but the user needs to supply a heat recovery water flow rate.
+        |  InternalControl means the heat recovery water flow rate is controlled by this generator.
+        |  If 'InternalControl' is selected, then the user needs to supply a reference heat
+        |  recovery water flow rate and optionally the name of a heat recovery flow rate modifier curve.
+        |  Default value: PlantControl
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Flow Operating Mode`
-                Default value: PlantControl
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2315,9 +2386,10 @@ class GeneratorMicroTurbine(DataObject):
     def reference_heat_recovery_water_flow_rate(self):
         """field `Reference Heat Recovery Water Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Reference Heat Recovery Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2337,13 +2409,15 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name(
             self):
-        """field `Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*T + c*T**2 + d*Pnet + e*Pnet + f*T*Pnet
-        T = heat recovery inlet water temperature
-        Pnet = net power output = electric power output - ancillary power
-        If left blank, model assumes the heat recovery water flow rate is constant whenever the
-        generator is operating, at the Reference HR Water Flow Rate defined in the previous field.
+        """field `Heat Recovery Water Flow Rate Function of Temperature and
+        Power Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*T + c*T**2 + d*Pnet + e*Pnet + f*T*Pnet
+        |  T = heat recovery inlet water temperature
+        |  Pnet = net power output = electric power output - ancillary power
+        |  If left blank, model assumes the heat recovery water flow rate is constant whenever the
+        |  generator is operating, at the Reference HR Water Flow Rate defined in the previous field.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name`
@@ -2353,6 +2427,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name` or None if not set
+
         """
         return self[
             "Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"]
@@ -2369,13 +2444,15 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def thermal_efficiency_function_of_temperature_and_elevation_curve_name(
             self):
-        """field `Thermal Efficiency Function of Temperature and Elevation Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Bicubic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev + g*T**3 + h*Elev**3 + i*T**2*Elev + j*T*Elev**2
-        Biquadratic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
-        T = combustion air inlet temperature (C)
-        Elev = elevation (m)
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+        """field `Thermal Efficiency Function of Temperature and Elevation
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Bicubic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev + g*T**3 + h*Elev**3 + i*T**2*Elev + j*T*Elev**2
+        |  Biquadratic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
+        |  T = combustion air inlet temperature (C)
+        |  Elev = elevation (m)
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Thermal Efficiency Function of Temperature and Elevation Curve Name`
@@ -2385,6 +2462,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `thermal_efficiency_function_of_temperature_and_elevation_curve_name` or None if not set
+
         """
         return self[
             "Thermal Efficiency Function of Temperature and Elevation Curve Name"]
@@ -2401,12 +2479,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def heat_recovery_rate_function_of_part_load_ratio_curve_name(self):
         """field `Heat Recovery Rate Function of Part Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*PLR + c*PLR**2
-        Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
-        PLR = ratio of Generator Load to steady state Electrical Power Output at
-        current operating conditions
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*PLR + c*PLR**2
+        |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
+        |  PLR = ratio of Generator Load to steady state Electrical Power Output at
+        |  current operating conditions
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Rate Function of Part Load Ratio Curve Name`
@@ -2416,6 +2495,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Heat Recovery Rate Function of Part Load Ratio Curve Name"]
@@ -2432,11 +2512,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def heat_recovery_rate_function_of_inlet_water_temperature_curve_name(
             self):
-        """field `Heat Recovery Rate Function of Inlet Water Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*T + c*T**2
-        T = inlet water temperature (C)
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+        """field `Heat Recovery Rate Function of Inlet Water Temperature Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*T + c*T**2
+        |  T = inlet water temperature (C)
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Rate Function of Inlet Water Temperature Curve Name`
@@ -2446,6 +2528,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_inlet_water_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heat Recovery Rate Function of Inlet Water Temperature Curve Name"]
@@ -2462,10 +2545,11 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def heat_recovery_rate_function_of_water_flow_rate_curve_name(self):
         """field `Heat Recovery Rate Function of Water Flow Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*Flow + c*Flow**2
-        Flow = flow rate of water through the heat exchanger (m3/s)
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*Flow + c*Flow**2
+        |  Flow = flow rate of water through the heat exchanger (m3/s)
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Rate Function of Water Flow Rate Curve Name`
@@ -2475,6 +2559,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_water_flow_rate_curve_name` or None if not set
+
         """
         return self[
             "Heat Recovery Rate Function of Water Flow Rate Curve Name"]
@@ -2492,9 +2577,10 @@ class GeneratorMicroTurbine(DataObject):
     def minimum_heat_recovery_water_flow_rate(self):
         """field `Minimum Heat Recovery Water Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Minimum Heat Recovery Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2514,9 +2600,10 @@ class GeneratorMicroTurbine(DataObject):
     def maximum_heat_recovery_water_flow_rate(self):
         """field `Maximum Heat Recovery Water Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Heat Recovery Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2536,9 +2623,10 @@ class GeneratorMicroTurbine(DataObject):
     def maximum_heat_recovery_water_temperature(self):
         """field `Maximum Heat Recovery Water Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Heat Recovery Water Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2557,7 +2645,9 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def combustion_air_inlet_node_name(self):
-        """field `Combustion Air Inlet Node Name` Must be an outdoor air node.
+        """field `Combustion Air Inlet Node Name`
+
+        |  Must be an outdoor air node.
 
         Args:
             value (str): value for IDD Field `Combustion Air Inlet Node Name`
@@ -2601,9 +2691,10 @@ class GeneratorMicroTurbine(DataObject):
     def reference_exhaust_air_mass_flow_rate(self):
         """field `Reference Exhaust Air Mass Flow Rate`
 
+        |  Units: kg/s
+
         Args:
             value (float): value for IDD Field `Reference Exhaust Air Mass Flow Rate`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2622,11 +2713,12 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def exhaust_air_flow_rate_function_of_temperature_curve_name(self):
         """field `Exhaust Air Flow Rate Function of Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*T + c*T**2
-        Cubic curve = a + b*T + c*T**2 + d*T**3
-        T = combustion air inlet temperature (C)
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*T + c*T**2
+        |  Cubic curve = a + b*T + c*T**2 + d*T**3
+        |  T = combustion air inlet temperature (C)
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Exhaust Air Flow Rate Function of Temperature Curve Name`
@@ -2636,6 +2728,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_flow_rate_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Exhaust Air Flow Rate Function of Temperature Curve Name"]
 
@@ -2651,12 +2744,13 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def exhaust_air_flow_rate_function_of_part_load_ratio_curve_name(self):
         """field `Exhaust Air Flow Rate Function of Part Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*PLR + c*PLR**2
-        Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
-        PLR = ratio of Generator Load to steady state Electrical Power Output at
-        current operating conditions.
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*PLR + c*PLR**2
+        |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
+        |  PLR = ratio of Generator Load to steady state Electrical Power Output at
+        |  current operating conditions.
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Exhaust Air Flow Rate Function of Part Load Ratio Curve Name`
@@ -2666,6 +2760,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_flow_rate_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"]
@@ -2681,8 +2776,9 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def nominal_exhaust_air_outlet_temperature(self):
-        """field `Nominal Exhaust Air Outlet Temperature` Exhaust air outlet
-        temperature at reference conditions.
+        """field `Nominal Exhaust Air Outlet Temperature`
+
+        |  Exhaust air outlet temperature at reference conditions.
 
         Args:
             value (float): value for IDD Field `Nominal Exhaust Air Outlet Temperature`
@@ -2704,11 +2800,12 @@ class GeneratorMicroTurbine(DataObject):
     @property
     def exhaust_air_temperature_function_of_temperature_curve_name(self):
         """field `Exhaust Air Temperature Function of Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*T + c*T**2
-        Cubic curve = a + b*T + c*T**2 + d*T**3
-        T = combustion air inlet temperature (C)
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*T + c*T**2
+        |  Cubic curve = a + b*T + c*T**2 + d*T**3
+        |  T = combustion air inlet temperature (C)
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Exhaust Air Temperature Function of Temperature Curve Name`
@@ -2718,6 +2815,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_temperature_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Exhaust Air Temperature Function of Temperature Curve Name"]
@@ -2733,13 +2831,15 @@ class GeneratorMicroTurbine(DataObject):
 
     @property
     def exhaust_air_temperature_function_of_part_load_ratio_curve_name(self):
-        """field `Exhaust Air Temperature Function of Part Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Quadratic curve = a + b*PLR + c*PLR**2
-        Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
-        PLR = ratio of Generator Load to steady state Electrical Power Output at
-        current operating conditions.
-        If field is left blank, model assumes this modifier equals 1 for entire simulation.
+        """field `Exhaust Air Temperature Function of Part Load Ratio Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Quadratic curve = a + b*PLR + c*PLR**2
+        |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
+        |  PLR = ratio of Generator Load to steady state Electrical Power Output at
+        |  current operating conditions.
+        |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
 
         Args:
             value (str): value for IDD Field `Exhaust Air Temperature Function of Part Load Ratio Curve Name`
@@ -2749,6 +2849,7 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_temperature_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Exhaust Air Temperature Function of Part Load Ratio Curve Name"]
@@ -2914,7 +3015,9 @@ class GeneratorPhotovoltaic(DataObject):
 
     @property
     def module_performance_name(self):
-        """field `Module Performance Name` PV array modeling details.
+        """field `Module Performance Name`
+
+        |  PV array modeling details
 
         Args:
             value (str): value for IDD Field `Module Performance Name`
@@ -2937,9 +3040,10 @@ class GeneratorPhotovoltaic(DataObject):
     def heat_transfer_integration_mode(self):
         """field `Heat Transfer Integration Mode`
 
+        |  Default value: Decoupled
+
         Args:
             value (str): value for IDD Field `Heat Transfer Integration Mode`
-                Default value: Decoupled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2958,19 +3062,21 @@ class GeneratorPhotovoltaic(DataObject):
     @property
     def number_of_series_strings_in_parallel(self):
         """field `Number of Series Strings in Parallel`
-        number of series-wired strings of PV modules that are in parallel
+
+        |  number of series-wired strings of PV modules that are in parallel
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Number of Series Strings in Parallel`
-                Units: dimensionless
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `number_of_series_strings_in_parallel` or None if not set
+
         """
         return self["Number of Series Strings in Parallel"]
 
@@ -2981,14 +3087,15 @@ class GeneratorPhotovoltaic(DataObject):
 
     @property
     def number_of_modules_in_series(self):
-        """field `Number of Modules in Series` Number of PV modules wired in
-        series for each string.
+        """field `Number of Modules in Series`
+
+        |  Number of PV modules wired in series for each string.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Number of Modules in Series`
-                Units: dimensionless
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3091,10 +3198,11 @@ class PhotovoltaicPerformanceSimple(DataObject):
     def fraction_of_surface_area_with_active_solar_cells(self):
         """field `Fraction of Surface Area with Active Solar Cells`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Surface Area with Active Solar Cells`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3135,17 +3243,19 @@ class PhotovoltaicPerformanceSimple(DataObject):
     @property
     def value_for_cell_efficiency_if_fixed(self):
         """field `Value for Cell Efficiency if Fixed`
-        Efficiency = (power generated [W])/(incident solar[W])
+
+        |  Efficiency = (power generated [W])/(incident solar[W])
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Value for Cell Efficiency if Fixed`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `value_for_cell_efficiency_if_fixed` or None if not set
+
         """
         return self["Value for Cell Efficiency if Fixed"]
 
@@ -3435,10 +3545,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def number_of_cells_in_series(self):
         """field `Number of Cells in Series`
 
+        |  Units: dimensionless
+        |  Default value: 36
+
         Args:
             value (int): value for IDD Field `Number of Cells in Series`
-                Units: dimensionless
-                Default value: 36
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3456,15 +3567,17 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
     @property
     def active_area(self):
-        """field `Active Area` The total power output of the array is
-        determined by the number of modules (see above).  The Active Area is
-        only used to calculate the PV Array Efficiency output variable.
+        """field `Active Area`
+
+        |  The total power output of the array is determined by the
+        |  number of modules (see above).  The Active Area is only
+        |  used to calculate the PV Array Efficiency output variable.
+        |  Units: m2
+        |  Default value: 0.89
+        |  value >= 0.1
 
         Args:
             value (float): value for IDD Field `Active Area`
-                Units: m2
-                Default value: 0.89
-                value >= 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3484,11 +3597,12 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def transmittance_absorptance_product(self):
         """field `Transmittance Absorptance Product`
 
+        |  Units: dimensionless
+        |  Default value: 0.95
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Transmittance Absorptance Product`
-                Units: dimensionless
-                Default value: 0.95
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3508,10 +3622,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def semiconductor_bandgap(self):
         """field `Semiconductor Bandgap`
 
+        |  Units: eV
+        |  Default value: 1.12
+
         Args:
             value (float): value for IDD Field `Semiconductor Bandgap`
-                Units: eV
-                Default value: 1.12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3531,10 +3646,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def shunt_resistance(self):
         """field `Shunt Resistance`
 
+        |  Units: ohms
+        |  Default value: 1000000.0
+
         Args:
             value (float): value for IDD Field `Shunt Resistance`
-                Units: ohms
-                Default value: 1000000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3554,10 +3670,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def short_circuit_current(self):
         """field `Short Circuit Current`
 
+        |  Units: A
+        |  Default value: 6.5
+
         Args:
             value (float): value for IDD Field `Short Circuit Current`
-                Units: A
-                Default value: 6.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3577,10 +3694,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def open_circuit_voltage(self):
         """field `Open Circuit Voltage`
 
+        |  Units: V
+        |  Default value: 21.6
+
         Args:
             value (float): value for IDD Field `Open Circuit Voltage`
-                Units: V
-                Default value: 21.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3600,10 +3718,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def reference_temperature(self):
         """field `Reference Temperature`
 
+        |  Units: C
+        |  Default value: 25.0
+
         Args:
             value (float): value for IDD Field `Reference Temperature`
-                Units: C
-                Default value: 25.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3623,10 +3742,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def reference_insolation(self):
         """field `Reference Insolation`
 
+        |  Units: W/m2
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Reference Insolation`
-                Units: W/m2
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3644,15 +3764,17 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
     @property
     def module_current_at_maximum_power(self):
-        """field `Module Current at Maximum Power` Single module current at the
-        maximum power point and reference conditions.  Module Current, Module
-        Voltage, Number of Modules in Parallel and Number of Modules in Series
-        determine the maximum power output of the array.
+        """field `Module Current at Maximum Power`
+
+        |  Single module current at the maximum power point
+        |  and reference conditions.  Module Current, Module Voltage,
+        |  Number of Modules in Parallel and Number of Modules in Series
+        |  determine the maximum power output of the array.
+        |  Units: A
+        |  Default value: 5.9
 
         Args:
             value (float): value for IDD Field `Module Current at Maximum Power`
-                Units: A
-                Default value: 5.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3670,15 +3792,17 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
     @property
     def module_voltage_at_maximum_power(self):
-        """field `Module Voltage at Maximum Power` Single module voltage at the
-        maximum power point and reference conditions.  Module Current, Module
-        Voltage, Number of Modules in Parallel and Number of Modules in Series
-        determine the maximum power output of the array.
+        """field `Module Voltage at Maximum Power`
+
+        |  Single module voltage at the maximum power point
+        |  and reference conditions.  Module Current, Module Voltage,
+        |  Number of Modules in Parallel and Number of Modules in Series
+        |  determine the maximum power output of the array.
+        |  Units: V
+        |  Default value: 17.0
 
         Args:
             value (float): value for IDD Field `Module Voltage at Maximum Power`
-                Units: V
-                Default value: 17.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3698,10 +3822,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def temperature_coefficient_of_short_circuit_current(self):
         """field `Temperature Coefficient of Short Circuit Current`
 
+        |  Units: A/K
+        |  Default value: 0.02
+
         Args:
             value (float): value for IDD Field `Temperature Coefficient of Short Circuit Current`
-                Units: A/K
-                Default value: 0.02
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3722,10 +3847,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def temperature_coefficient_of_open_circuit_voltage(self):
         """field `Temperature Coefficient of Open Circuit Voltage`
 
+        |  Units: V/K
+        |  Default value: -0.079
+
         Args:
             value (float): value for IDD Field `Temperature Coefficient of Open Circuit Voltage`
-                Units: V/K
-                Default value: -0.079
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3746,10 +3872,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def nominal_operating_cell_temperature_test_ambient_temperature(self):
         """field `Nominal Operating Cell Temperature Test Ambient Temperature`
 
+        |  Units: C
+        |  Default value: 20.0
+
         Args:
             value (float): value for IDD Field `Nominal Operating Cell Temperature Test Ambient Temperature`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3774,10 +3901,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def nominal_operating_cell_temperature_test_cell_temperature(self):
         """field `Nominal Operating Cell Temperature Test Cell Temperature`
 
+        |  Units: C
+        |  Default value: 40.0
+
         Args:
             value (float): value for IDD Field `Nominal Operating Cell Temperature Test Cell Temperature`
-                Units: C
-                Default value: 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3801,10 +3929,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def nominal_operating_cell_temperature_test_insolation(self):
         """field `Nominal Operating Cell Temperature Test Insolation`
 
+        |  Units: W/m2
+        |  Default value: 800.0
+
         Args:
             value (float): value for IDD Field `Nominal Operating Cell Temperature Test Insolation`
-                Units: W/m2
-                Default value: 800.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3825,10 +3954,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def module_heat_loss_coefficient(self):
         """field `Module Heat Loss Coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 30.0
+
         Args:
             value (float): value for IDD Field `Module Heat Loss Coefficient`
-                Units: W/m2-K
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3848,10 +3978,11 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
     def total_heat_capacity(self):
         """field `Total Heat Capacity`
 
+        |  Units: J/m2-K
+        |  Default value: 50000.0
+
         Args:
             value (float): value for IDD Field `Total Heat Capacity`
-                Units: J/m2-K
-                Default value: 50000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4229,12 +4360,14 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def active_area(self):
-        """field `Active Area` (m2, single module)
+        """field `Active Area`
+
+        |  (m2, single module)
+        |  Units: m2
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Active Area`
-                Units: m2
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4254,11 +4387,12 @@ class PhotovoltaicPerformanceSandia(DataObject):
     def number_of_cells_in_series(self):
         """field `Number of Cells in Series`
 
+        |  Units: dimensionless
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells in Series`
-                Units: dimensionless
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4278,11 +4412,12 @@ class PhotovoltaicPerformanceSandia(DataObject):
     def number_of_cells_in_parallel(self):
         """field `Number of Cells in Parallel`
 
+        |  Units: dimensionless
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells in Parallel`
-                Units: dimensionless
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4300,11 +4435,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def short_circuit_current(self):
-        """field `Short Circuit Current` (Amps)
+        """field `Short Circuit Current`
+
+        |  (Amps)
+        |  Units: A
 
         Args:
             value (float): value for IDD Field `Short Circuit Current`
-                Units: A
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4322,11 +4459,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def open_circuit_voltage(self):
-        """field `Open Circuit Voltage` (Volts)
+        """field `Open Circuit Voltage`
+
+        |  (Volts)
+        |  Units: V
 
         Args:
             value (float): value for IDD Field `Open Circuit Voltage`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4344,11 +4483,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def current_at_maximum_power_point(self):
-        """field `Current at Maximum Power Point` (Amps)
+        """field `Current at Maximum Power Point`
+
+        |  (Amps)
+        |  Units: A
 
         Args:
             value (float): value for IDD Field `Current at Maximum Power Point`
-                Units: A
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4366,11 +4507,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def voltage_at_maximum_power_point(self):
-        """field `Voltage at Maximum Power Point` (Volts)
+        """field `Voltage at Maximum Power Point`
+
+        |  (Volts)
+        |  Units: V
 
         Args:
             value (float): value for IDD Field `Voltage at Maximum Power Point`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4388,11 +4531,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_aisc(self):
-        """field `Sandia Database Parameter aIsc` (1/degC)
+        """field `Sandia Database Parameter aIsc`
+
+        |  (1/degC)
+        |  Units: 1/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter aIsc`
-                Units: 1/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4410,11 +4555,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_aimp(self):
-        """field `Sandia Database Parameter aImp` (1/degC)
+        """field `Sandia Database Parameter aImp`
+
+        |  (1/degC)
+        |  Units: 1/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter aImp`
-                Units: 1/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4432,11 +4579,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c0(self):
-        """field `Sandia Database Parameter c0` (nondimensional)
+        """field `Sandia Database Parameter c0`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c0`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4454,11 +4603,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c1(self):
-        """field `Sandia Database Parameter c1` (nondimensional)
+        """field `Sandia Database Parameter c1`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4476,11 +4627,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_bvoc0(self):
-        """field `Sandia Database Parameter BVoc0` (Volts/degC)
+        """field `Sandia Database Parameter BVoc0`
+
+        |  (Volts/degC)
+        |  Units: V/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter BVoc0`
-                Units: V/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4498,11 +4651,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_mbvoc(self):
-        """field `Sandia Database Parameter mBVoc` (Volts/degC)
+        """field `Sandia Database Parameter mBVoc`
+
+        |  (Volts/degC)
+        |  Units: V/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter mBVoc`
-                Units: V/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4520,11 +4675,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_bvmp0(self):
-        """field `Sandia Database Parameter BVmp0` (Volts/degC)
+        """field `Sandia Database Parameter BVmp0`
+
+        |  (Volts/degC)
+        |  Units: V/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter BVmp0`
-                Units: V/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4542,11 +4699,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_mbvmp(self):
-        """field `Sandia Database Parameter mBVmp` (Volts/degC)
+        """field `Sandia Database Parameter mBVmp`
+
+        |  (Volts/degC)
+        |  Units: V/K
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter mBVmp`
-                Units: V/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4564,11 +4723,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def diode_factor(self):
-        """field `Diode Factor` (nondimensional)
+        """field `Diode Factor`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Diode Factor`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4586,11 +4747,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c2(self):
-        """field `Sandia Database Parameter c2` (nondimensional)
+        """field `Sandia Database Parameter c2`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c2`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4608,11 +4771,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c3(self):
-        """field `Sandia Database Parameter c3` (nondimensional)
+        """field `Sandia Database Parameter c3`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c3`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4630,11 +4795,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a0(self):
-        """field `Sandia Database Parameter a0` (nondimensional)
+        """field `Sandia Database Parameter a0`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a0`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4652,11 +4819,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a1(self):
-        """field `Sandia Database Parameter a1` (nondimensional)
+        """field `Sandia Database Parameter a1`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4674,11 +4843,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a2(self):
-        """field `Sandia Database Parameter a2` (nondimensional)
+        """field `Sandia Database Parameter a2`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a2`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4696,11 +4867,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a3(self):
-        """field `Sandia Database Parameter a3` (nondimensional)
+        """field `Sandia Database Parameter a3`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a3`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4718,11 +4891,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a4(self):
-        """field `Sandia Database Parameter a4` (nondimensional)
+        """field `Sandia Database Parameter a4`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a4`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4740,11 +4915,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b0(self):
-        """field `Sandia Database Parameter b0` (nondimensional)
+        """field `Sandia Database Parameter b0`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b0`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4762,11 +4939,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b1(self):
-        """field `Sandia Database Parameter b1` (nondimensional)
+        """field `Sandia Database Parameter b1`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4784,11 +4963,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b2(self):
-        """field `Sandia Database Parameter b2` (nondimensional)
+        """field `Sandia Database Parameter b2`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b2`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4806,11 +4987,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b3(self):
-        """field `Sandia Database Parameter b3` (nondimensional)
+        """field `Sandia Database Parameter b3`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b3`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4828,11 +5011,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b4(self):
-        """field `Sandia Database Parameter b4` (nondimensional)
+        """field `Sandia Database Parameter b4`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b4`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4850,11 +5035,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b5(self):
-        """field `Sandia Database Parameter b5` (nondimensional)
+        """field `Sandia Database Parameter b5`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b5`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4872,11 +5059,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_deltatc(self):
-        """field `Sandia Database Parameter Delta(Tc)` (deg C)
+        """field `Sandia Database Parameter Delta(Tc)`
+
+        |  (deg C)
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter Delta(Tc)`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4894,11 +5083,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_fd(self):
-        """field `Sandia Database Parameter fd` (nondimensional)
+        """field `Sandia Database Parameter fd`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter fd`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4916,11 +5107,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_a(self):
-        """field `Sandia Database Parameter a` (nondimensional)
+        """field `Sandia Database Parameter a`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter a`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4938,11 +5131,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_b(self):
-        """field `Sandia Database Parameter b` (nondimensional)
+        """field `Sandia Database Parameter b`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter b`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4960,11 +5155,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c4(self):
-        """field `Sandia Database Parameter c4` (nondimensional)
+        """field `Sandia Database Parameter c4`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c4`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4982,11 +5179,13 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c5(self):
-        """field `Sandia Database Parameter c5` (nondimensional)
+        """field `Sandia Database Parameter c5`
+
+        |  (nondimensional)
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c5`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5004,7 +5203,9 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_ix0(self):
-        """field `Sandia Database Parameter Ix0` (Amps)
+        """field `Sandia Database Parameter Ix0`
+
+        |  (Amps)
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter Ix0`
@@ -5025,7 +5226,9 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_ixx0(self):
-        """field `Sandia Database Parameter Ixx0` (Amps)
+        """field `Sandia Database Parameter Ixx0`
+
+        |  (Amps)
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter Ixx0`
@@ -5046,7 +5249,9 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c6(self):
-        """field `Sandia Database Parameter c6` (nondimensional)
+        """field `Sandia Database Parameter c6`
+
+        |  (nondimensional)
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c6`
@@ -5067,7 +5272,9 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
     @property
     def sandia_database_parameter_c7(self):
-        """field `Sandia Database Parameter c7` (nondimensional)
+        """field `Sandia Database Parameter c7`
+
+        |  (nondimensional)
 
         Args:
             value (float): value for IDD Field `Sandia Database Parameter c7`
@@ -5197,7 +5404,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def power_module_name(self):
         """field `Power Module Name`
-        Enter the name of a Generator:FuelCell:PowerModule object.
+
+        |  Enter the name of a Generator:FuelCell:PowerModule object.
 
         Args:
             value (str): value for IDD Field `Power Module Name`
@@ -5207,6 +5415,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `power_module_name` or None if not set
+
         """
         return self["Power Module Name"]
 
@@ -5218,7 +5427,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def air_supply_name(self):
         """field `Air Supply Name`
-        Enter the name of a Generator:FuelCell:AirSupply object.
+
+        |  Enter the name of a Generator:FuelCell:AirSupply object.
 
         Args:
             value (str): value for IDD Field `Air Supply Name`
@@ -5228,6 +5438,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `air_supply_name` or None if not set
+
         """
         return self["Air Supply Name"]
 
@@ -5239,7 +5450,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def fuel_supply_name(self):
         """field `Fuel Supply Name`
-        Enter the name of a Generator:FuelSupply object.
+
+        |  Enter the name of a Generator:FuelSupply object.
 
         Args:
             value (str): value for IDD Field `Fuel Supply Name`
@@ -5249,6 +5461,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `fuel_supply_name` or None if not set
+
         """
         return self["Fuel Supply Name"]
 
@@ -5260,7 +5473,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def water_supply_name(self):
         """field `Water Supply Name`
-        Enter the name of a Generator:FuelCell:WaterSupply object.
+
+        |  Enter the name of a Generator:FuelCell:WaterSupply object.
 
         Args:
             value (str): value for IDD Field `Water Supply Name`
@@ -5270,6 +5484,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `water_supply_name` or None if not set
+
         """
         return self["Water Supply Name"]
 
@@ -5281,7 +5496,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def auxiliary_heater_name(self):
         """field `Auxiliary Heater Name`
-        Enter the name of a Generator:FuelCell:AuxiliaryHeater object.
+
+        |  Enter the name of a Generator:FuelCell:AuxiliaryHeater object.
 
         Args:
             value (str): value for IDD Field `Auxiliary Heater Name`
@@ -5291,6 +5507,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `auxiliary_heater_name` or None if not set
+
         """
         return self["Auxiliary Heater Name"]
 
@@ -5302,7 +5519,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def heat_exchanger_name(self):
         """field `Heat Exchanger Name`
-        Enter the name of a Generator:FuelCell:ExhaustGasToWaterHeatExchanger object.
+
+        |  Enter the name of a Generator:FuelCell:ExhaustGasToWaterHeatExchanger object.
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Name`
@@ -5312,6 +5530,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `heat_exchanger_name` or None if not set
+
         """
         return self["Heat Exchanger Name"]
 
@@ -5323,7 +5542,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def electrical_storage_name(self):
         """field `Electrical Storage Name`
-        Enter the name of a Generator:FuelCell:ElectricalStorage object.
+
+        |  Enter the name of a Generator:FuelCell:ElectricalStorage object.
 
         Args:
             value (str): value for IDD Field `Electrical Storage Name`
@@ -5333,6 +5553,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `electrical_storage_name` or None if not set
+
         """
         return self["Electrical Storage Name"]
 
@@ -5344,7 +5565,8 @@ class GeneratorFuelCell(DataObject):
     @property
     def inverter_name(self):
         """field `Inverter Name`
-        Enter the name of a Generator:FuelCell:Inverter object.
+
+        |  Enter the name of a Generator:FuelCell:Inverter object.
 
         Args:
             value (str): value for IDD Field `Inverter Name`
@@ -5354,6 +5576,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `inverter_name` or None if not set
+
         """
         return self["Inverter Name"]
 
@@ -5365,8 +5588,9 @@ class GeneratorFuelCell(DataObject):
     @property
     def stack_cooler_name(self):
         """field `Stack Cooler Name`
-        Enter the name of a Generator:FuelCell:StackCooler object.
-        optional, used for PEMFC
+
+        |  Enter the name of a Generator:FuelCell:StackCooler object.
+        |  optional, used for PEMFC
 
         Args:
             value (str): value for IDD Field `Stack Cooler Name`
@@ -5376,6 +5600,7 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `stack_cooler_name` or None if not set
+
         """
         return self["Stack Cooler Name"]
 
@@ -5705,7 +5930,8 @@ class GeneratorFuelCellPowerModule(DataObject):
     @property
     def efficiency_curve_name(self):
         """field `Efficiency Curve Name`
-        Table:OneIndependentVariable
+
+        |  Table:OneIndependentVariable
 
         Args:
             value (str): value for IDD Field `Efficiency Curve Name`
@@ -5715,6 +5941,7 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `efficiency_curve_name` or None if not set
+
         """
         return self["Efficiency Curve Name"]
 
@@ -5725,7 +5952,9 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def nominal_efficiency(self):
-        """field `Nominal Efficiency` This field is not used.
+        """field `Nominal Efficiency`
+
+        |  This field is not used.
 
         Args:
             value (float): value for IDD Field `Nominal Efficiency`
@@ -5746,11 +5975,13 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def nominal_electrical_power(self):
-        """field `Nominal Electrical Power` This field is not used.
+        """field `Nominal Electrical Power`
+
+        |  This field is not used
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Nominal Electrical Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5768,8 +5999,9 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def number_of_stops_at_start_of_simulation(self):
-        """field `Number of Stops at Start of Simulation` this is Nstops in
-        SOFC model specification.
+        """field `Number of Stops at Start of Simulation`
+
+        |  this is Nstops in SOFC model specification
 
         Args:
             value (float): value for IDD Field `Number of Stops at Start of Simulation`
@@ -5790,8 +6022,9 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def cycling_performance_degradation_coefficient(self):
-        """field `Cycling Performance Degradation Coefficient` this is D in
-        SOFC model specification.
+        """field `Cycling Performance Degradation Coefficient`
+
+        |  this is D in SOFC model specification
 
         Args:
             value (float): value for IDD Field `Cycling Performance Degradation Coefficient`
@@ -5815,9 +6048,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def number_of_run_hours_at_beginning_of_simulation(self):
         """field `Number of Run Hours at Beginning of Simulation`
 
+        |  Units: hr
+
         Args:
             value (float): value for IDD Field `Number of Run Hours at Beginning of Simulation`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5836,8 +6070,9 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def accumulated_run_time_degradation_coefficient(self):
-        """field `Accumulated Run Time Degradation Coefficient` this is L in
-        SOFC model specification.
+        """field `Accumulated Run Time Degradation Coefficient`
+
+        |  this is L in SOFC model specification
 
         Args:
             value (float): value for IDD Field `Accumulated Run Time Degradation Coefficient`
@@ -5861,9 +6096,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def run_time_degradation_initiation_time_threshold(self):
         """field `Run Time Degradation Initiation Time Threshold`
 
+        |  Units: hr
+
         Args:
             value (float): value for IDD Field `Run Time Degradation Initiation Time Threshold`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5882,12 +6118,13 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def power_up_transient_limit(self):
-        """field `Power Up Transient Limit` Maximum rate of change in elecrical
-        output [power increasing]
+        """field `Power Up Transient Limit`
+
+        |  Maximum rate of change in elecrical output [power increasing]
+        |  Units: W/s
 
         Args:
             value (float): value for IDD Field `Power Up Transient Limit`
-                Units: W/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5905,13 +6142,14 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def power_down_transient_limit(self):
-        """field `Power Down Transient Limit` Maximum rate of change in
-        elecrical output [power decreasing] Enter positive value for rate of
-        change.
+        """field `Power Down Transient Limit`
+
+        |  Maximum rate of change in elecrical output [power decreasing]
+        |  Enter positive value for rate of change
+        |  Units: W/s
 
         Args:
             value (float): value for IDD Field `Power Down Transient Limit`
-                Units: W/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5929,11 +6167,13 @@ class GeneratorFuelCellPowerModule(DataObject):
 
     @property
     def start_up_time(self):
-        """field `Start Up Time` Time from start up to normal operation.
+        """field `Start Up Time`
+
+        |  Time from start up to normal operation
+        |  Units: s
 
         Args:
             value (float): value for IDD Field `Start Up Time`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5953,9 +6193,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def start_up_fuel(self):
         """field `Start Up Fuel`
 
+        |  Units: kmol
+
         Args:
             value (float): value for IDD Field `Start Up Fuel`
-                Units: kmol
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5975,9 +6216,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def start_up_electricity_consumption(self):
         """field `Start Up Electricity Consumption`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Start Up Electricity Consumption`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5997,9 +6239,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def start_up_electricity_produced(self):
         """field `Start Up Electricity Produced`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Start Up Electricity Produced`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6019,9 +6262,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def shut_down_time(self):
         """field `Shut Down Time`
 
+        |  Units: s
+
         Args:
             value (float): value for IDD Field `Shut Down Time`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6041,9 +6285,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def shut_down_fuel(self):
         """field `Shut Down Fuel`
 
+        |  Units: kmol
+
         Args:
             value (float): value for IDD Field `Shut Down Fuel`
-                Units: kmol
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6063,9 +6308,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def shut_down_electricity_consumption(self):
         """field `Shut Down Electricity Consumption`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Shut Down Electricity Consumption`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6169,9 +6415,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def skin_loss_radiative_fraction(self):
         """field `Skin Loss Radiative Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6191,9 +6438,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def constant_skin_loss_rate(self):
         """field `Constant Skin Loss Rate`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Constant Skin Loss Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6213,9 +6461,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def skin_loss_ufactor_times_area_term(self):
         """field `Skin Loss U-Factor Times Area Term`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Skin Loss U-Factor Times Area Term`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6235,8 +6484,9 @@ class GeneratorFuelCellPowerModule(DataObject):
     @property
     def skin_loss_quadratic_curve_name(self):
         """field `Skin Loss Quadratic Curve Name`
-        Table:OneIndependentVariable object can also be used
-        curve is function of fuel use rate
+
+        |  Table:OneIndependentVariable object can also be used
+        |  curve is function of fuel use rate
 
         Args:
             value (str): value for IDD Field `Skin Loss Quadratic Curve Name`
@@ -6246,6 +6496,7 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `skin_loss_quadratic_curve_name` or None if not set
+
         """
         return self["Skin Loss Quadratic Curve Name"]
 
@@ -6258,9 +6509,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def dilution_air_flow_rate(self):
         """field `Dilution Air Flow Rate`
 
+        |  Units: kmol/s
+
         Args:
             value (float): value for IDD Field `Dilution Air Flow Rate`
-                Units: kmol/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6280,9 +6532,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def stack_heat_loss_to_dilution_air(self):
         """field `Stack Heat loss to Dilution Air`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Stack Heat loss to Dilution Air`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6344,9 +6597,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def minimum_operating_point(self):
         """field `Minimum Operating Point`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Minimum Operating Point`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6366,9 +6620,10 @@ class GeneratorFuelCellPowerModule(DataObject):
     def maximum_operating_point(self):
         """field `Maximum Operating Point`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Operating Point`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6564,7 +6819,8 @@ class GeneratorFuelCellAirSupply(DataObject):
     @property
     def blower_power_curve_name(self):
         """field `Blower Power Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Blower Power Curve Name`
@@ -6574,6 +6830,7 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `blower_power_curve_name` or None if not set
+
         """
         return self["Blower Power Curve Name"]
 
@@ -6586,9 +6843,10 @@ class GeneratorFuelCellAirSupply(DataObject):
     def blower_heat_loss_factor(self):
         """field `Blower Heat Loss Factor`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Blower Heat Loss Factor`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6627,8 +6885,10 @@ class GeneratorFuelCellAirSupply(DataObject):
 
     @property
     def stoichiometric_ratio(self):
-        """field `Stoichiometric Ratio` This is the excess air "stoics" the
-        value entered is incremented by 1 in the model.
+        """field `Stoichiometric Ratio`
+
+        |  This is the excess air "stoics"
+        |  the value entered is incremented by 1 in the model.
 
         Args:
             value (float): value for IDD Field `Stoichiometric Ratio`
@@ -6650,7 +6910,8 @@ class GeneratorFuelCellAirSupply(DataObject):
     @property
     def air_rate_function_of_electric_power_curve_name(self):
         """field `Air Rate Function of Electric Power Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Air Rate Function of Electric Power Curve Name`
@@ -6660,6 +6921,7 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_rate_function_of_electric_power_curve_name` or None if not set
+
         """
         return self["Air Rate Function of Electric Power Curve Name"]
 
@@ -6693,7 +6955,8 @@ class GeneratorFuelCellAirSupply(DataObject):
     @property
     def air_rate_function_of_fuel_rate_curve_name(self):
         """field `Air Rate Function of Fuel Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Air Rate Function of Fuel Rate Curve Name`
@@ -6703,6 +6966,7 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_rate_function_of_fuel_rate_curve_name` or None if not set
+
         """
         return self["Air Rate Function of Fuel Rate Curve Name"]
 
@@ -6758,9 +7022,10 @@ class GeneratorFuelCellAirSupply(DataObject):
     def number_of_userdefined_constituents(self):
         """field `Number of UserDefined Constituents`
 
+        |  value <= 5.0
+
         Args:
             value (float): value for IDD Field `Number of UserDefined Constituents`
-                value <= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6918,7 +7183,8 @@ class GeneratorFuelCellWaterSupply(DataObject):
     @property
     def reformer_water_flow_rate_function_of_fuel_rate_curve_name(self):
         """field `Reformer Water Flow Rate Function of Fuel Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Reformer Water Flow Rate Function of Fuel Rate Curve Name`
@@ -6928,6 +7194,7 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `reformer_water_flow_rate_function_of_fuel_rate_curve_name` or None if not set
+
         """
         return self[
             "Reformer Water Flow Rate Function of Fuel Rate Curve Name"]
@@ -6944,7 +7211,8 @@ class GeneratorFuelCellWaterSupply(DataObject):
     @property
     def reformer_water_pump_power_function_of_fuel_rate_curve_name(self):
         """field `Reformer Water Pump Power Function of Fuel Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Reformer Water Pump Power Function of Fuel Rate Curve Name`
@@ -6954,6 +7222,7 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `reformer_water_pump_power_function_of_fuel_rate_curve_name` or None if not set
+
         """
         return self[
             "Reformer Water Pump Power Function of Fuel Rate Curve Name"]
@@ -7252,9 +7521,10 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     def skin_loss_ufactor_times_area_value(self):
         """field `Skin Loss U-Factor Times Area Value`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Skin Loss U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7338,9 +7608,10 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     def maximum_heating_capacity_in_watts(self):
         """field `Maximum Heating Capacity in Watts`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Heating Capacity in Watts`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7360,9 +7631,10 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     def minimum_heating_capacity_in_watts(self):
         """field `Minimum Heating Capacity in Watts`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Minimum Heating Capacity in Watts`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7382,9 +7654,10 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     def maximum_heating_capacity_in_kmol_per_second(self):
         """field `Maximum Heating Capacity in Kmol per Second`
 
+        |  Units: kmol/s
+
         Args:
             value (float): value for IDD Field `Maximum Heating Capacity in Kmol per Second`
-                Units: kmol/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7405,9 +7678,10 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     def minimum_heating_capacity_in_kmol_per_second(self):
         """field `Minimum Heating Capacity in Kmol per Second`
 
+        |  Units: kmol/s
+
         Args:
             value (float): value for IDD Field `Minimum Heating Capacity in Kmol per Second`
-                Units: kmol/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7685,9 +7959,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
     def heat_recovery_water_maximum_flow_rate(self):
         """field `Heat Recovery Water Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Heat Recovery Water Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7938,9 +8213,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
     def method_3_gas_area(self):
         """field `Method 3 Gas Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Method 3 Gas Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8023,9 +8299,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
     def method_3_water_area(self):
         """field `Method 3 Water Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Method 3 Water Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8108,9 +8385,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
     def method_4_condensation_threshold(self):
         """field `Method 4 Condensation Threshold`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Method 4 Condensation Threshold`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8256,9 +8534,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def nominal_charging_energetic_efficiency(self):
         """field `Nominal Charging Energetic Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Nominal Charging Energetic Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8278,9 +8557,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def nominal_discharging_energetic_efficiency(self):
         """field `Nominal Discharging Energetic Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Nominal Discharging Energetic Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8301,9 +8581,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def simple_maximum_capacity(self):
         """field `Simple Maximum Capacity`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Simple Maximum Capacity`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8323,9 +8604,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def simple_maximum_power_draw(self):
         """field `Simple Maximum Power Draw`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Simple Maximum Power Draw`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8345,9 +8627,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def simple_maximum_power_store(self):
         """field `Simple Maximum Power Store`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Simple Maximum Power Store`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8367,9 +8650,10 @@ class GeneratorFuelCellElectricalStorage(DataObject):
     def initial_charge_state(self):
         """field `Initial Charge State`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Initial Charge State`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8482,9 +8766,10 @@ class GeneratorFuelCellInverter(DataObject):
     def inverter_efficiency(self):
         """field `Inverter Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Inverter Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8503,7 +8788,8 @@ class GeneratorFuelCellInverter(DataObject):
     @property
     def efficiency_function_of_dc_power_curve_name(self):
         """field `Efficiency Function of DC Power Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Efficiency Function of DC Power Curve Name`
@@ -8513,6 +8799,7 @@ class GeneratorFuelCellInverter(DataObject):
 
         Returns:
             str: the value of `efficiency_function_of_dc_power_curve_name` or None if not set
+
         """
         return self["Efficiency Function of DC Power Curve Name"]
 
@@ -8764,9 +9051,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def nominal_stack_temperature(self):
         """field `Nominal Stack Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Nominal Stack Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8786,9 +9074,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def actual_stack_temperature(self):
         """field `Actual Stack Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Actual Stack Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8892,9 +9181,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_coolant_flow_rate(self):
         """field `Stack Coolant Flow Rate`
 
+        |  Units: kg/s
+
         Args:
             value (float): value for IDD Field `Stack Coolant Flow Rate`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8914,9 +9204,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_cooler_ufactor_times_area_value(self):
         """field `Stack Cooler U-Factor Times Area Value`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Stack Cooler U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8936,6 +9227,7 @@ class GeneratorFuelCellStackCooler(DataObject):
     @property
     def fscogen_adjustment_factor(self):
         """field `Fs-cogen Adjustment Factor`
+
 
         Args:
             value (float): value for IDD Field `Fs-cogen Adjustment Factor`
@@ -8959,9 +9251,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_cogeneration_exchanger_area(self):
         """field `Stack Cogeneration Exchanger Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Stack Cogeneration Exchanger Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8981,9 +9274,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_cogeneration_exchanger_nominal_flow_rate(self):
         """field `Stack Cogeneration Exchanger Nominal Flow Rate`
 
+        |  Units: kg/s
+
         Args:
             value (float): value for IDD Field `Stack Cogeneration Exchanger Nominal Flow Rate`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9005,9 +9299,10 @@ class GeneratorFuelCellStackCooler(DataObject):
         """field `Stack Cogeneration Exchanger Nominal Heat Transfer
         Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9060,9 +9355,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_cooler_pump_power(self):
         """field `Stack Cooler Pump Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Stack Cooler Pump Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9082,9 +9378,10 @@ class GeneratorFuelCellStackCooler(DataObject):
     def stack_cooler_pump_heat_loss_fraction(self):
         """field `Stack Cooler Pump Heat Loss Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Stack Cooler Pump Heat Loss Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9270,7 +9567,8 @@ class GeneratorMicroChp(DataObject):
     @property
     def performance_parameters_name(self):
         """field `Performance Parameters Name`
-        Enter the name of a Generator:MicroCHP:NonNormalizedParameters object.
+
+        |  Enter the name of a Generator:MicroCHP:NonNormalizedParameters object.
 
         Args:
             value (str): value for IDD Field `Performance Parameters Name`
@@ -9280,6 +9578,7 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `performance_parameters_name` or None if not set
+
         """
         return self["Performance Parameters Name"]
 
@@ -9396,7 +9695,8 @@ class GeneratorMicroChp(DataObject):
     @property
     def generator_fuel_supply_name(self):
         """field `Generator Fuel Supply Name`
-        Enter the name of a Generator:FuelSupply object.
+
+        |  Enter the name of a Generator:FuelSupply object.
 
         Args:
             value (str): value for IDD Field `Generator Fuel Supply Name`
@@ -9406,6 +9706,7 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `generator_fuel_supply_name` or None if not set
+
         """
         return self["Generator Fuel Supply Name"]
 
@@ -9416,9 +9717,10 @@ class GeneratorMicroChp(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9692,9 +9994,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def maximum_electric_power(self):
         """field `Maximum Electric Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9714,9 +10017,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def minimum_electric_power(self):
         """field `Minimum Electric Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Minimum Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9736,9 +10040,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def minimum_cooling_water_flow_rate(self):
         """field `Minimum Cooling Water Flow Rate`
 
+        |  Units: kg/s
+
         Args:
             value (float): value for IDD Field `Minimum Cooling Water Flow Rate`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9758,9 +10063,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def maximum_cooling_water_temperature(self):
         """field `Maximum Cooling Water Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Cooling Water Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9779,8 +10085,9 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def electrical_efficiency_curve_name(self):
         """field `Electrical Efficiency Curve Name`
-        TriQuadratic
-        Table:MultiVariableLookup object can also be used
+
+        |  TriQuadratic
+        |  Table:MultiVariableLookup object can also be used
 
         Args:
             value (str): value for IDD Field `Electrical Efficiency Curve Name`
@@ -9790,6 +10097,7 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_curve_name` or None if not set
+
         """
         return self["Electrical Efficiency Curve Name"]
 
@@ -9801,8 +10109,9 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def thermal_efficiency_curve_name(self):
         """field `Thermal Efficiency Curve Name`
-        TriQuadratic
-        Table:MultiVariableLookup object can also be used
+
+        |  TriQuadratic
+        |  Table:MultiVariableLookup object can also be used
 
         Args:
             value (str): value for IDD Field `Thermal Efficiency Curve Name`
@@ -9812,6 +10121,7 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `thermal_efficiency_curve_name` or None if not set
+
         """
         return self["Thermal Efficiency Curve Name"]
 
@@ -9844,7 +10154,8 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def cooling_water_flow_rate_curve_name(self):
         """field `Cooling Water Flow Rate Curve Name`
-        Table:TwoIndependentVariables object can also be used
+
+        |  Table:TwoIndependentVariables object can also be used
 
         Args:
             value (str): value for IDD Field `Cooling Water Flow Rate Curve Name`
@@ -9854,6 +10165,7 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `cooling_water_flow_rate_curve_name` or None if not set
+
         """
         return self["Cooling Water Flow Rate Curve Name"]
 
@@ -9865,7 +10177,8 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def air_flow_rate_curve_name(self):
         """field `Air Flow Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Air Flow Rate Curve Name`
@@ -9875,6 +10188,7 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `air_flow_rate_curve_name` or None if not set
+
         """
         return self["Air Flow Rate Curve Name"]
 
@@ -9887,9 +10201,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def maximum_net_electrical_power_rate_of_change(self):
         """field `Maximum Net Electrical Power Rate of Change`
 
+        |  Units: W/s
+
         Args:
             value (float): value for IDD Field `Maximum Net Electrical Power Rate of Change`
-                Units: W/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9910,9 +10225,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def maximum_fuel_flow_rate_of_change(self):
         """field `Maximum Fuel Flow Rate of Change`
 
+        |  Units: kg/s2
+
         Args:
             value (float): value for IDD Field `Maximum Fuel Flow Rate of Change`
-                Units: kg/s2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9932,9 +10248,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def heat_exchanger_ufactor_times_area_value(self):
         """field `Heat Exchanger U-Factor Times Area Value`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Heat Exchanger U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9955,9 +10272,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def skin_loss_ufactor_times_area_value(self):
         """field `Skin Loss U-Factor Times Area Value`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Skin Loss U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10001,9 +10319,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
         """field `Aggregated Thermal Mass of Energy Conversion Portion of
         Generator`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Aggregated Thermal Mass of Energy Conversion Portion of Generator`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10029,9 +10348,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
         """field `Aggregated Thermal Mass of Heat Recovery Portion of
         Generator`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Aggregated Thermal Mass of Heat Recovery Portion of Generator`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10056,9 +10376,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def standby_power(self):
         """field `Standby Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Standby Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10076,8 +10397,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
     @property
     def warm_up_mode(self):
-        """field `Warm Up Mode` Stirling engines use Nominal Engine Temperature
-        Internal combustion engines use Time Delay.
+        """field `Warm Up Mode`
+
+        |  Stirling engines use Nominal Engine Temperature
+        |  Internal combustion engines use Time Delay
 
         Args:
             value (str): value for IDD Field `Warm Up Mode`
@@ -10121,9 +10444,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def nominal_engine_operating_temperature(self):
         """field `Nominal Engine Operating Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Nominal Engine Operating Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10185,9 +10509,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def warm_up_delay_time(self):
         """field `Warm Up Delay Time`
 
+        |  Units: s
+
         Args:
             value (float): value for IDD Field `Warm Up Delay Time`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10207,9 +10532,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def cool_down_power(self):
         """field `Cool Down Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Cool Down Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10229,9 +10555,10 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     def cool_down_delay_time(self):
         """field `Cool Down Delay Time`
 
+        |  Units: s
+
         Args:
             value (float): value for IDD Field `Cool Down Delay Time`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10822,7 +11149,8 @@ class GeneratorFuelSupply(DataObject):
     @property
     def compressor_power_function_of_fuel_rate_curve_name(self):
         """field `Compressor Power Function of Fuel Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Compressor Power Function of Fuel Rate Curve Name`
@@ -10832,6 +11160,7 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `compressor_power_function_of_fuel_rate_curve_name` or None if not set
+
         """
         return self["Compressor Power Function of Fuel Rate Curve Name"]
 
@@ -10845,9 +11174,10 @@ class GeneratorFuelSupply(DataObject):
     def compressor_heat_loss_factor(self):
         """field `Compressor Heat Loss Factor`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Compressor Heat Loss Factor`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10888,9 +11218,10 @@ class GeneratorFuelSupply(DataObject):
     def liquid_generic_fuel_lower_heating_value(self):
         """field `Liquid Generic Fuel Lower Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Liquid Generic Fuel Lower Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10911,9 +11242,10 @@ class GeneratorFuelSupply(DataObject):
     def liquid_generic_fuel_higher_heating_value(self):
         """field `Liquid Generic Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Liquid Generic Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10934,9 +11266,10 @@ class GeneratorFuelSupply(DataObject):
     def liquid_generic_fuel_molecular_weight(self):
         """field `Liquid Generic Fuel Molecular Weight`
 
+        |  Units: g/mol
+
         Args:
             value (float): value for IDD Field `Liquid Generic Fuel Molecular Weight`
-                Units: g/mol
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10978,9 +11311,10 @@ class GeneratorFuelSupply(DataObject):
     def number_of_constituents_in_gaseous_constituent_fuel_supply(self):
         """field `Number of Constituents in Gaseous Constituent Fuel Supply`
 
+        |  value <= 12.0
+
         Args:
             value (float): value for IDD Field `Number of Constituents in Gaseous Constituent Fuel Supply`
-                value <= 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11026,9 +11360,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_1_molar_fraction(self):
         """field `Constituent 1 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 1 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11069,9 +11404,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_2_molar_fraction(self):
         """field `Constituent 2 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 2 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11112,9 +11448,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_3_molar_fraction(self):
         """field `Constituent 3 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 3 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11155,9 +11492,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_4_molar_fraction(self):
         """field `Constituent 4 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 4 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11198,9 +11536,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_5_molar_fraction(self):
         """field `Constituent 5 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 5 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11241,9 +11580,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_6_molar_fraction(self):
         """field `Constituent 6 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 6 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11284,9 +11624,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_7_molar_fraction(self):
         """field `Constituent 7 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 7 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11327,9 +11668,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_8_molar_fraction(self):
         """field `Constituent 8 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 8 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11370,9 +11712,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_9_molar_fraction(self):
         """field `Constituent 9 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 9 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11413,9 +11756,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_10_molar_fraction(self):
         """field `Constituent 10 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 10 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11456,9 +11800,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_11_molar_fraction(self):
         """field `Constituent 11 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 11 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11499,9 +11844,10 @@ class GeneratorFuelSupply(DataObject):
     def constituent_12_molar_fraction(self):
         """field `Constituent 12 Molar Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Constituent 12 Molar Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11792,9 +12138,10 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -11816,17 +12163,19 @@ class GeneratorWindTurbine(DataObject):
     @property
     def rotor_type(self):
         """field `Rotor Type`
-        allowed values are: Horizontal Axis Wind Turbine or Vertical Axis Wind Turbine
+
+        |  allowed values are: Horizontal Axis Wind Turbine or Vertical Axis Wind Turbine
+        |  Default value: HorizontalAxisWindTurbine
 
         Args:
             value (str): value for IDD Field `Rotor Type`
-                Default value: HorizontalAxisWindTurbine
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `rotor_type` or None if not set
+
         """
         return self["Rotor Type"]
 
@@ -11838,20 +12187,22 @@ class GeneratorWindTurbine(DataObject):
     @property
     def power_control(self):
         """field `Power Control`
-        Constant power output is obtained in the last three control types
-        when the wind speed exceeds the rated wind speed.
-        allowd values are: Fixed Speed Fixed Pitch, Fixed Speed Variable Pitch,
-        Variable Speed Fixed Pitch or Variable Speed Variable Pitch
+
+        |  Constant power output is obtained in the last three control types
+        |  when the wind speed exceeds the rated wind speed.
+        |  allowd values are: Fixed Speed Fixed Pitch, Fixed Speed Variable Pitch,
+        |  Variable Speed Fixed Pitch or Variable Speed Variable Pitch
+        |  Default value: VariableSpeedVariablePitch
 
         Args:
             value (str): value for IDD Field `Power Control`
-                Default value: VariableSpeedVariablePitch
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `power_control` or None if not set
+
         """
         return self["Power Control"]
 
@@ -11864,9 +12215,10 @@ class GeneratorWindTurbine(DataObject):
     def rated_rotor_speed(self):
         """field `Rated Rotor Speed`
 
+        |  Units: rev/min
+
         Args:
             value (float): value for IDD Field `Rated Rotor Speed`
-                Units: rev/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11884,13 +12236,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def rotor_diameter(self):
-        """field `Rotor Diameter` This field is the diameter of the
-        perpendicular circle of the Vertical Axis Wind Turbine system from the
-        upright pole on the ground.
+        """field `Rotor Diameter`
+
+        |  This field is the diameter of the perpendicular circle of the Vertical Axis Wind Turbine system
+        |  from the upright pole on the ground.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Rotor Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11908,13 +12261,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def overall_height(self):
-        """field `Overall Height` This field is the height of the hub for the
-        Horizontal Axis Wind Turbines and of the pole for the Vertical Axis
-        Wind Turbines.
+        """field `Overall Height`
+
+        |  This field is the height of the hub for the Horizontal Axis Wind Turbines and
+        |  of the pole for the Vertical Axis Wind Turbines.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Overall Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11934,10 +12288,11 @@ class GeneratorWindTurbine(DataObject):
     def number_of_blades(self):
         """field `Number of Blades`
 
+        |  Default value: 3.0
+        |  value >= 2.0
+
         Args:
             value (float): value for IDD Field `Number of Blades`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11955,13 +12310,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def rated_power(self):
-        """field `Rated Power` This field is the nominal power at the rated
-        wind speed. Users should input maximum power in case of Fixed Speed
-        Fixed Pitch control type.
+        """field `Rated Power`
+
+        |  This field is the nominal power at the rated wind speed.
+        |  Users should input maximum power in case of Fixed Speed Fixed Pitch control type.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11981,9 +12337,10 @@ class GeneratorWindTurbine(DataObject):
     def rated_wind_speed(self):
         """field `Rated Wind Speed`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Rated Wind Speed`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12003,9 +12360,10 @@ class GeneratorWindTurbine(DataObject):
     def cut_in_wind_speed(self):
         """field `Cut In Wind Speed`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Cut In Wind Speed`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12025,9 +12383,10 @@ class GeneratorWindTurbine(DataObject):
     def cut_out_wind_speed(self):
         """field `Cut Out Wind Speed`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Cut Out Wind Speed`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12047,10 +12406,11 @@ class GeneratorWindTurbine(DataObject):
     def fraction_system_efficiency(self):
         """field `Fraction system Efficiency`
 
+        |  Default value: 0.835
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction system Efficiency`
-                Default value: 0.835
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12070,10 +12430,11 @@ class GeneratorWindTurbine(DataObject):
     def maximum_tip_speed_ratio(self):
         """field `Maximum Tip Speed Ratio`
 
+        |  Default value: 5.0
+        |  value <= 12.0
+
         Args:
             value (float): value for IDD Field `Maximum Tip Speed Ratio`
-                Default value: 5.0
-                value <= 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12091,13 +12452,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def maximum_power_coefficient(self):
-        """field `Maximum Power Coefficient` This field should be input if the
-        rotor type is Horizontal Axis Wind Turbine.
+        """field `Maximum Power Coefficient`
+
+        |  This field should be input if the rotor type is Horizontal Axis Wind Turbine
+        |  Default value: 0.25
+        |  value <= 0.59
 
         Args:
             value (float): value for IDD Field `Maximum Power Coefficient`
-                Default value: 0.25
-                value <= 0.59
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12117,9 +12479,10 @@ class GeneratorWindTurbine(DataObject):
     def annual_local_average_wind_speed(self):
         """field `Annual Local Average Wind Speed`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Annual Local Average Wind Speed`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12139,10 +12502,11 @@ class GeneratorWindTurbine(DataObject):
     def height_for_local_average_wind_speed(self):
         """field `Height for Local Average Wind Speed`
 
+        |  Units: m
+        |  Default value: 50.0
+
         Args:
             value (float): value for IDD Field `Height for Local Average Wind Speed`
-                Units: m
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12162,9 +12526,10 @@ class GeneratorWindTurbine(DataObject):
     def blade_chord_area(self):
         """field `Blade Chord Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Blade Chord Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12182,13 +12547,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def blade_drag_coefficient(self):
-        """field `Blade Drag Coefficient` This field is only for Vertical Axis
-        Wind Turbine.. The user must input this field if the rotor type is
-        Vertical Axis Wind Turbine.
+        """field `Blade Drag Coefficient`
+
+        |  This field is only for Vertical Axis Wind Turbine..
+        |  The user must input this field if the rotor type is Vertical Axis Wind Turbine.
+        |  Default value: 0.9
 
         Args:
             value (float): value for IDD Field `Blade Drag Coefficient`
-                Default value: 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12206,13 +12572,14 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def blade_lift_coefficient(self):
-        """field `Blade Lift Coefficient` This field is only for Vertical Axis
-        Wind Turbine.. The user must input this field if the rotor type is
-        Vertical Axis Wind Turbine.
+        """field `Blade Lift Coefficient`
+
+        |  This field is only for Vertical Axis Wind Turbine..
+        |  The user must input this field if the rotor type is Vertical Axis Wind Turbine.
+        |  Default value: 0.05
 
         Args:
             value (float): value for IDD Field `Blade Lift Coefficient`
-                Default value: 0.05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12230,16 +12597,19 @@ class GeneratorWindTurbine(DataObject):
 
     @property
     def power_coefficient_c1(self):
-        """field `Power Coefficient C1` This field is only available for
-        Horizontal Axis Wind Turbine. The user should input all six parameters
-        so that the analytic approximation is assumed. The simple approximation
-        will be assumed, if any field C1 through C6 is not input. Leave this
-        field blank, if the manufacturers's data is unavailable so that the
-        simple approximation will be assumed.
+        """field `Power Coefficient C1`
+
+        |  This field is only available for Horizontal Axis Wind Turbine.
+        |  The user should input all six parameters
+        |  so that the analytic approximation is assumed.
+        |  The simple approximation will be assumed,
+        |  if any field C1 through C6 is not input.
+        |  Leave this field blank, if the manufacturers's data is unavailable
+        |  so that the simple approximation will be assumed.
+        |  Default value: 0.5176
 
         Args:
             value (float): value for IDD Field `Power Coefficient C1`
-                Default value: 0.5176
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12259,9 +12629,10 @@ class GeneratorWindTurbine(DataObject):
     def power_coefficient_c2(self):
         """field `Power Coefficient C2`
 
+        |  Default value: 116.0
+
         Args:
             value (float): value for IDD Field `Power Coefficient C2`
-                Default value: 116.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12281,9 +12652,10 @@ class GeneratorWindTurbine(DataObject):
     def power_coefficient_c3(self):
         """field `Power Coefficient C3`
 
+        |  Default value: 0.4
+
         Args:
             value (float): value for IDD Field `Power Coefficient C3`
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12324,9 +12696,10 @@ class GeneratorWindTurbine(DataObject):
     def power_coefficient_c5(self):
         """field `Power Coefficient C5`
 
+        |  Default value: 5.0
+
         Args:
             value (float): value for IDD Field `Power Coefficient C5`
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12346,9 +12719,10 @@ class GeneratorWindTurbine(DataObject):
     def power_coefficient_c6(self):
         """field `Power Coefficient C6`
 
+        |  Default value: 21.0
+
         Args:
             value (float): value for IDD Field `Power Coefficient C6`
-                Default value: 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12608,9 +12982,10 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -12631,8 +13006,10 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` enter name of zone to receive inverter losses as
-        heat if blank then inverter is assumed to be outdoors.
+        """field `Zone Name`
+
+        |  enter name of zone to receive inverter losses as heat
+        |  if blank then inverter is assumed to be outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -12655,9 +13032,10 @@ class ElectricLoadCenterInverterSimple(DataObject):
     def radiative_fraction(self):
         """field `Radiative Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12677,9 +13055,10 @@ class ElectricLoadCenterInverterSimple(DataObject):
     def inverter_efficiency(self):
         """field `Inverter Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Inverter Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12823,9 +13202,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -12846,8 +13226,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter name of zone to receive inverter losses as
-        heat if blank then inverter is assumed to be outdoors.
+        """field `Zone Name`
+
+        |  Enter name of zone to receive inverter losses as heat
+        |  if blank then inverter is assumed to be outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -12890,9 +13272,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     @property
     def efficiency_function_of_power_curve_name(self):
         """field `Efficiency Function of Power Curve Name`
-        curve describes efficiency as a function of power
-        curve is normalized relative to rated power in next field
-        Table:OneIndependentVariable object can also be used
+
+        |  curve describes efficiency as a function of power
+        |  curve is normalized relative to rated power in next field
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Efficiency Function of Power Curve Name`
@@ -12902,6 +13285,7 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             str: the value of `efficiency_function_of_power_curve_name` or None if not set
+
         """
         return self["Efficiency Function of Power Curve Name"]
 
@@ -12915,9 +13299,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def rated_maximum_continuous_input_power(self):
         """field `Rated Maximum Continuous Input Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Maximum Continuous Input Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12937,9 +13322,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def minimum_efficiency(self):
         """field `Minimum Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12959,9 +13345,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def maximum_efficiency(self):
         """field `Maximum Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12981,9 +13368,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def minimum_power_output(self):
         """field `Minimum Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Minimum Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13003,9 +13391,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def maximum_power_output(self):
         """field `Maximum Power Output`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Power Output`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13025,9 +13414,10 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
     def ancillary_power_consumed_in_standby(self):
         """field `Ancillary Power Consumed In Standby`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Ancillary Power Consumed In Standby`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13193,9 +13583,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -13216,8 +13607,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter name of zone to receive inverter losses as
-        heat if blank then inverter is assumed to be outdoors.
+        """field `Zone Name`
+
+        |  Enter name of zone to receive inverter losses as heat
+        |  if blank then inverter is assumed to be outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -13240,9 +13633,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def radiative_fraction(self):
         """field `Radiative Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13262,9 +13656,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def rated_maximum_continuous_output_power(self):
         """field `Rated Maximum Continuous Output Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Maximum Continuous Output Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13284,9 +13679,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def night_tare_loss_power(self):
         """field `Night Tare Loss Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Night Tare Loss Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13306,9 +13702,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def nominal_voltage_input(self):
         """field `Nominal Voltage Input`
 
+        |  Units: V
+
         Args:
             value (float): value for IDD Field `Nominal Voltage Input`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13328,9 +13725,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_10_power_and_nominal_voltage(self):
         """field `Efficiency at 10% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 10% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13351,9 +13749,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_20_power_and_nominal_voltage(self):
         """field `Efficiency at 20% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 20% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13374,9 +13773,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_30_power_and_nominal_voltage(self):
         """field `Efficiency at 30% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 30% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13397,9 +13797,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_50_power_and_nominal_voltage(self):
         """field `Efficiency at 50% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 50% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13420,9 +13821,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_75_power_and_nominal_voltage(self):
         """field `Efficiency at 75% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 75% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13443,9 +13845,10 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
     def efficiency_at_100_power_and_nominal_voltage(self):
         """field `Efficiency at 100% Power and Nominal Voltage`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency at 100% Power and Nominal Voltage`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13586,9 +13989,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -13609,8 +14013,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter name of zone to receive storage losses as
-        heat if blank then storage is assumed to be outdoors.
+        """field `Zone Name`
+
+        |  Enter name of zone to receive storage losses as heat
+        |  if blank then storage is assumed to be outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -13633,9 +14039,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def radiative_fraction_for_zone_heat_gains(self):
         """field `Radiative Fraction for Zone Heat Gains`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Radiative Fraction for Zone Heat Gains`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13655,9 +14062,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def nominal_energetic_efficiency_for_charging(self):
         """field `Nominal Energetic Efficiency for Charging`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Nominal Energetic Efficiency for Charging`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13678,9 +14086,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def nominal_discharging_energetic_efficiency(self):
         """field `Nominal Discharging Energetic Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Nominal Discharging Energetic Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13701,9 +14110,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def maximum_storage_capacity(self):
         """field `Maximum Storage Capacity`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Maximum Storage Capacity`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13723,9 +14133,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def maximum_power_for_discharging(self):
         """field `Maximum Power for Discharging`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Power for Discharging`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13745,9 +14156,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def maximum_power_for_charging(self):
         """field `Maximum Power for Charging`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Maximum Power for Charging`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13767,9 +14179,10 @@ class ElectricLoadCenterStorageSimple(DataObject):
     def initial_state_of_charge(self):
         """field `Initial State of Charge`
 
+        |  Units: J
+
         Args:
             value (float): value for IDD Field `Initial State of Charge`
-                Units: J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14011,9 +14424,10 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -14034,9 +14448,10 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter name of zone to receive electrical storage
-        losses as heat if blank then electrical storage losses are dissipated
-        to outdoors.
+        """field `Zone Name`
+
+        |  Enter name of zone to receive electrical storage losses as heat
+        |  if blank then electrical storage losses are dissipated to outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -14059,9 +14474,10 @@ class ElectricLoadCenterStorageBattery(DataObject):
     def radiative_fraction(self):
         """field `Radiative Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14079,15 +14495,17 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def number_of_battery_modules_in_parallel(self):
-        """field `Number of Battery Modules in Parallel` A module usually
-        consists of several cells. The total number of modules in the battery
-        bank is equal to number of modules in parallel times number of modules
-        in series.
+        """field `Number of Battery Modules in Parallel`
+
+        |  A module usually consists of several cells.
+        |  The total number of modules in the battery bank
+        |  is equal to number of modules in parallel times
+        |  number of modules in series.
+        |  Default value: 1
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Number of Battery Modules in Parallel`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14105,15 +14523,17 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def number_of_battery_modules_in_series(self):
-        """field `Number of Battery Modules in Series` A module usually
-        consists of several cells. The total number of modules in the battery
-        bank is equal to number of modules in parallel times number of modules
-        in series.
+        """field `Number of Battery Modules in Series`
+
+        |  A module usually consists of several cells.
+        |  The total number of modules in the battery bank
+        |  is equal to number of modules in parallel times
+        |  number of modules in series.
+        |  Default value: 1
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Number of Battery Modules in Series`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14131,12 +14551,14 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def maximum_module_capacity(self):
-        """field `Maximum Module Capacity` The capacity is for each module. A
-        model parameter from manufactures data or test data.
+        """field `Maximum Module Capacity`
+
+        |  The capacity is for each module.
+        |  A model parameter from manufactures data or test data.
+        |  Units: Ah
 
         Args:
             value (float): value for IDD Field `Maximum Module Capacity`
-                Units: Ah
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14154,13 +14576,15 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def initial_fractional_state_of_charge(self):
-        """field `Initial Fractional State of Charge` The state of charge is
-        evaluated based on the maximum capacity defined in the next field.
+        """field `Initial Fractional State of Charge`
+
+        |  The state of charge is evaluated based on the
+        |  maximum capacity defined in the next field.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Initial Fractional State of Charge`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14178,12 +14602,13 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def fraction_of_available_charge_capacity(self):
-        """field `Fraction of Available Charge Capacity` A model parameter
-        usually derived from test data by curve fitting.
+        """field `Fraction of Available Charge Capacity`
+
+        |  A model parameter usually derived from test data by curve fitting.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Available Charge Capacity`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14201,12 +14626,13 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def change_rate_from_bound_charge_to_available_charge(self):
-        """field `Change Rate from Bound Charge to Available Charge` A model
-        parameter usually derived from test data by curve fitting.
+        """field `Change Rate from Bound Charge to Available Charge`
+
+        |  A model parameter usually derived from test data by curve fitting.
+        |  Units: 1/hr
 
         Args:
             value (float): value for IDD Field `Change Rate from Bound Charge to Available Charge`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14225,12 +14651,13 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def fully_charged_module_open_circuit_voltage(self):
-        """field `Fully Charged Module Open Circuit Voltage` The voltage is for
-        each battery module.
+        """field `Fully Charged Module Open Circuit Voltage`
+
+        |  The voltage is for each battery module.
+        |  Units: V
 
         Args:
             value (float): value for IDD Field `Fully Charged Module Open Circuit Voltage`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14249,12 +14676,13 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def fully_discharged_module_open_circuit_voltage(self):
-        """field `Fully Discharged Module Open Circuit Voltage` The voltage is
-        for each battery module.
+        """field `Fully Discharged Module Open Circuit Voltage`
+
+        |  The voltage is for each battery module.
+        |  Units: V
 
         Args:
             value (float): value for IDD Field `Fully Discharged Module Open Circuit Voltage`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14274,8 +14702,9 @@ class ElectricLoadCenterStorageBattery(DataObject):
     @property
     def voltage_change_curve_name_for_charging(self):
         """field `Voltage Change Curve Name for Charging`
-        Table:OneIndependentVariable object can also be used
-        Determines how the open circuit voltage change with state of charge relative to the fully discharged state.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines how the open circuit voltage change with state of charge relative to the fully discharged state.
 
         Args:
             value (str): value for IDD Field `Voltage Change Curve Name for Charging`
@@ -14285,6 +14714,7 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `voltage_change_curve_name_for_charging` or None if not set
+
         """
         return self["Voltage Change Curve Name for Charging"]
 
@@ -14296,8 +14726,9 @@ class ElectricLoadCenterStorageBattery(DataObject):
     @property
     def voltage_change_curve_name_for_discharging(self):
         """field `Voltage Change Curve Name for Discharging`
-        Table:OneIndependentVariable object can also be used
-        Determines how the open circuit voltage change with state of charge relative to the fully charged state.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines how the open circuit voltage change with state of charge relative to the fully charged state.
 
         Args:
             value (str): value for IDD Field `Voltage Change Curve Name for Discharging`
@@ -14307,6 +14738,7 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `voltage_change_curve_name_for_discharging` or None if not set
+
         """
         return self["Voltage Change Curve Name for Discharging"]
 
@@ -14318,13 +14750,15 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def module_internal_electrical_resistance(self):
-        """field `Module Internal Electrical Resistance` A model parameter from
-        manufacture or derived from test data. Internal resistance is assumed
-        to be constant. The internal resistance is for each battery module.
+        """field `Module Internal Electrical Resistance`
+
+        |  A model parameter from manufacture or derived from test data.
+        |  Internal resistance is assumed to be constant.
+        |  The internal resistance is for each battery module.
+        |  Units: ohms
 
         Args:
             value (float): value for IDD Field `Module Internal Electrical Resistance`
-                Units: ohms
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14342,12 +14776,13 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def maximum_module_discharging_current(self):
-        """field `Maximum Module Discharging Current` The constraint on
-        discharging current is for each battery module.
+        """field `Maximum Module Discharging Current`
+
+        |  The constraint on discharging current is for each battery module.
+        |  Units: A
 
         Args:
             value (float): value for IDD Field `Maximum Module Discharging Current`
-                Units: A
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14366,11 +14801,12 @@ class ElectricLoadCenterStorageBattery(DataObject):
     @property
     def module_cutoff_voltage(self):
         """field `Module Cut-off Voltage`
-        The voltage constraint is for each battery module.
+
+        |  The voltage constraint is for each battery module.
+        |  Units: V
 
         Args:
             value (float): value for IDD Field `Module Cut-off Voltage`
-                Units: V
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14389,13 +14825,15 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def module_charge_rate_limit(self):
-        """field `Module Charge Rate Limit` units 1/hr Charge rate limit is the
-        division between charging current the remaining capacity. The
-        constraint on charging current is for each module.
+        """field `Module Charge Rate Limit`
+
+        |  units 1/hr
+        |  Charge rate limit is the division between charging current the remaining capacity.
+        |  The constraint on charging current is for each module.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Module Charge Rate Limit`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14415,9 +14853,10 @@ class ElectricLoadCenterStorageBattery(DataObject):
     def battery_life_calculation(self):
         """field `Battery Life Calculation`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Battery Life Calculation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14435,13 +14874,14 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
     @property
     def number_of_cycle_bins(self):
-        """field `Number of Cycle Bins` Only required when battery life
-        calculation is activated.
+        """field `Number of Cycle Bins`
+
+        |  Only required when battery life calculation is activated
+        |  Default value: 10
+        |  value >= 5
 
         Args:
             value (int): value for IDD Field `Number of Cycle Bins`
-                Default value: 10
-                value >= 5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14460,9 +14900,10 @@ class ElectricLoadCenterStorageBattery(DataObject):
     @property
     def battery_life_curve_name(self):
         """field `Battery Life Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Determines the number of cycles to failure in relation to cycle range.
-        Only required when battery life calculation is activated.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines the number of cycles to failure in relation to cycle range.
+        |  Only required when battery life calculation is activated.
 
         Args:
             value (str): value for IDD Field `Battery Life Curve Name`
@@ -14472,6 +14913,7 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `battery_life_curve_name` or None if not set
+
         """
         return self["Battery Life Curve Name"]
 
@@ -14696,9 +15138,10 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -14719,13 +15162,15 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def transformer_usage(self):
-        """field `Transformer Usage` A transformer can be used to transfer
-        electric energy from utility grid to building (PowerInFromGrid)or from
-        building onsite generation to the grid (PowerOutFromOnsiteGeneration)
+        """field `Transformer Usage`
+
+        |  A transformer can be used to transfer electric energy from utility grid to
+        |  building (PowerInFromGrid)or from building onsite generation to
+        |  the grid (PowerOutFromOnsiteGeneration)
+        |  Default value: PowerInFromGrid
 
         Args:
             value (str): value for IDD Field `Transformer Usage`
-                Default value: PowerInFromGrid
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14743,8 +15188,10 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter name of zone to receive transformer losses
-        as heat if blank then transformer losses are dissipated to outdoors.
+        """field `Zone Name`
+
+        |  Enter name of zone to receive transformer losses as heat
+        |  if blank then transformer losses are dissipated to outdoors
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -14767,9 +15214,10 @@ class ElectricLoadCenterTransformer(DataObject):
     def radiative_fraction(self):
         """field `Radiative Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14787,12 +15235,13 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def rated_capacity(self):
-        """field `Rated Capacity` the unit is VA, instead of kVA as usually
-        shown on transformer nameplates.
+        """field `Rated Capacity`
+
+        |  the unit is VA, instead of kVA as usually shown on transformer nameplates.
+        |  Units: VA
 
         Args:
             value (float): value for IDD Field `Rated Capacity`
-                Units: VA
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14810,12 +15259,14 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def phase(self):
-        """field `Phase` Must be single or three phase transformer. NOT used in
-        the current model.
+        """field `Phase`
+
+        |  Must be single or three phase transformer.
+        |  NOT used in the current model.
+        |  Default value: 3
 
         Args:
             value (int): value for IDD Field `Phase`
-                Default value: 3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14833,11 +15284,13 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def conductor_material(self):
-        """field `Conductor Material` Winding material used by the transformer.
+        """field `Conductor Material`
+
+        |  Winding material used by the transformer.
+        |  Default value: Aluminum
 
         Args:
             value (str): value for IDD Field `Conductor Material`
-                Default value: Aluminum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14857,12 +15310,13 @@ class ElectricLoadCenterTransformer(DataObject):
     def full_load_temperature_rise(self):
         """field `Full Load Temperature Rise`
 
+        |  Units: C
+        |  Default value: 150.0
+        |  value >= 50.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Full Load Temperature Rise`
-                Units: C
-                Default value: 150.0
-                value >= 50.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14882,10 +15336,11 @@ class ElectricLoadCenterTransformer(DataObject):
     def fraction_of_eddy_current_losses(self):
         """field `Fraction of Eddy Current Losses`
 
+        |  Default value: 0.1
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Eddy Current Losses`
-                Default value: 0.1
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14903,13 +15358,15 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define transformer
-        performance by specifying load and no load losses at rated conditions
-        or nameplate efficiency and maximum efficiency.
+        """field `Performance Input Method`
+
+        |  User can define transformer performance by specifying
+        |  load and no load losses at rated conditions or
+        |  nameplate efficiency and maximum efficiency
+        |  Default value: RatedLosses
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: RatedLosses
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14927,12 +15384,13 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def rated_no_load_loss(self):
-        """field `Rated No Load Loss` Only required when RatedLosses is the
-        performance input method.
+        """field `Rated No Load Loss`
+
+        |  Only required when RatedLosses is the performance input method
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated No Load Loss`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14950,12 +15408,13 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def rated_load_loss(self):
-        """field `Rated Load Loss` Only required when RatedLosses is the
-        performance input method.
+        """field `Rated Load Loss`
+
+        |  Only required when RatedLosses is the performance input method
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Load Loss`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14973,13 +15432,14 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def nameplate_efficiency(self):
-        """field `Nameplate Efficiency` Only required when NominalEfficiency is
-        the performance input method.
+        """field `Nameplate Efficiency`
+
+        |  Only required when NominalEfficiency is the performance input method
+        |  Default value: 0.98
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Nameplate Efficiency`
-                Default value: 0.98
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14997,14 +15457,15 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def per_unit_load_for_nameplate_efficiency(self):
-        """field `Per Unit Load for Nameplate Efficiency` Percentage of the
-        rated capacity at which the nameplate efficiency is defined Only
-        required when NominalEfficiency is the performance input method.
+        """field `Per Unit Load for Nameplate Efficiency`
+
+        |  Percentage of the rated capacity at which the nameplate efficiency is defined
+        |  Only required when NominalEfficiency is the performance input method
+        |  Default value: 0.35
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Per Unit Load for Nameplate Efficiency`
-                Default value: 0.35
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15022,16 +15483,17 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def reference_temperature_for_nameplate_efficiency(self):
-        """field `Reference Temperature for Nameplate Efficiency` Conductor
-        operating temperature at which the nameplate efficiency is defined Only
-        required when NominalEfficiency is the performance input method.
+        """field `Reference Temperature for Nameplate Efficiency`
+
+        |  Conductor operating temperature at which the nameplate efficiency is defined
+        |  Only required when NominalEfficiency is the performance input method
+        |  Units: C
+        |  Default value: 75.0
+        |  value >= 20.0
+        |  value <= 150.0
 
         Args:
             value (float): value for IDD Field `Reference Temperature for Nameplate Efficiency`
-                Units: C
-                Default value: 75.0
-                value >= 20.0
-                value <= 150.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15050,13 +15512,14 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def per_unit_load_for_maximum_efficiency(self):
-        """field `Per Unit Load for Maximum Efficiency` Percentage of the rate
-        capacity at which the maximum efficiency is obtained Only required when
-        NominalEfficiency is the performance input method.
+        """field `Per Unit Load for Maximum Efficiency`
+
+        |  Percentage of the rate capacity at which the maximum efficiency is obtained
+        |  Only required when NominalEfficiency is the performance input method
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Per Unit Load for Maximum Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15074,12 +15537,13 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def consider_transformer_loss_for_utility_cost(self):
-        """field `Consider Transformer Loss for Utility Cost` Only required
-        when the transformer is used for power in from the utility grid.
+        """field `Consider Transformer Loss for Utility Cost`
+
+        |  Only required when the transformer is used for power in from the utility grid
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Consider Transformer Loss for Utility Cost`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15276,8 +15740,9 @@ class ElectricLoadCenterDistribution(DataObject):
 
     @property
     def generator_operation_scheme_type(self):
-        """field `Generator Operation Scheme Type` required if Generator List
-        is entered.
+        """field `Generator Operation Scheme Type`
+
+        |  required if Generator List is entered.
 
         Args:
             value (str): value for IDD Field `Generator Operation Scheme Type`
@@ -15300,9 +15765,10 @@ class ElectricLoadCenterDistribution(DataObject):
     def demand_limit_scheme_purchased_electric_demand_limit(self):
         """field `Demand Limit Scheme Purchased Electric Demand Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Demand Limit Scheme Purchased Electric Demand Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15322,7 +15788,8 @@ class ElectricLoadCenterDistribution(DataObject):
     @property
     def track_schedule_name_scheme_schedule_name(self):
         """field `Track Schedule Name Scheme Schedule Name`
-        required when Generator Operation Scheme Type=TrackSchedule
+
+        |  required when Generator Operation Scheme Type=TrackSchedule
 
         Args:
             value (str): value for IDD Field `Track Schedule Name Scheme Schedule Name`
@@ -15332,6 +15799,7 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `track_schedule_name_scheme_schedule_name` or None if not set
+
         """
         return self["Track Schedule Name Scheme Schedule Name"]
 
@@ -15344,7 +15812,8 @@ class ElectricLoadCenterDistribution(DataObject):
     @property
     def track_meter_scheme_meter_name(self):
         """field `Track Meter Scheme Meter Name`
-        required when Generator Operation Scheme Type=TrackMeter
+
+        |  required when Generator Operation Scheme Type=TrackMeter
 
         Args:
             value (str): value for IDD Field `Track Meter Scheme Meter Name`
@@ -15354,6 +15823,7 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `track_meter_scheme_meter_name` or None if not set
+
         """
         return self["Track Meter Scheme Meter Name"]
 
@@ -15366,9 +15836,10 @@ class ElectricLoadCenterDistribution(DataObject):
     def electrical_buss_type(self):
         """field `Electrical Buss Type`
 
+        |  Default value: AlternatingCurrent
+
         Args:
             value (str): value for IDD Field `Electrical Buss Type`
-                Default value: AlternatingCurrent
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15387,8 +15858,9 @@ class ElectricLoadCenterDistribution(DataObject):
     @property
     def inverter_object_name(self):
         """field `Inverter Object Name`
-        required when Electrical Buss Type=DirectCurrentWithInverter, DirectCurrentWithInverterDCStorage,
-        or DirectCurrentWithInverterACStorage
+
+        |  required when Electrical Buss Type=DirectCurrentWithInverter, DirectCurrentWithInverterDCStorage,
+        |  or DirectCurrentWithInverterACStorage
 
         Args:
             value (str): value for IDD Field `Inverter Object Name`
@@ -15398,6 +15870,7 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `inverter_object_name` or None if not set
+
         """
         return self["Inverter Object Name"]
 
@@ -15409,8 +15882,9 @@ class ElectricLoadCenterDistribution(DataObject):
     @property
     def electrical_storage_object_name(self):
         """field `Electrical Storage Object Name`
-        required when Electrical Buss Type=AlternatingCurrentWithStorage, DirectCurrentWithInverterDCStorage,
-        or DirectCurrentWithInverterACStorage
+
+        |  required when Electrical Buss Type=AlternatingCurrentWithStorage, DirectCurrentWithInverterDCStorage,
+        |  or DirectCurrentWithInverterACStorage
 
         Args:
             value (str): value for IDD Field `Electrical Storage Object Name`
@@ -15420,6 +15894,7 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `electrical_storage_object_name` or None if not set
+
         """
         return self["Electrical Storage Object Name"]
 
@@ -15430,8 +15905,9 @@ class ElectricLoadCenterDistribution(DataObject):
 
     @property
     def transformer_object_name(self):
-        """field `Transformer Object Name` required when power needs to be
-        output from onsite generation to the grid via transformer.
+        """field `Transformer Object Name`
+
+        |  required when power needs to be output from onsite generation to the grid via transformer
 
         Args:
             value (str): value for IDD Field `Transformer Object Name`

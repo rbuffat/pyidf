@@ -78,8 +78,9 @@ class ScheduleTypeLimits(DataObject):
 
     @property
     def name(self):
-        """field `Name` used to validate schedule types in various schedule
-        objects.
+        """field `Name`
+
+        |  used to validate schedule types in various schedule objects
 
         Args:
             value (str): value for IDD Field `Name`
@@ -101,17 +102,19 @@ class ScheduleTypeLimits(DataObject):
     @property
     def lower_limit_value(self):
         """field `Lower Limit Value`
-        lower limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 0.0
+
+        |  lower limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 0.0
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Lower Limit Value`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `lower_limit_value` or None if not set
+
         """
         return self["Lower Limit Value"]
 
@@ -123,17 +126,19 @@ class ScheduleTypeLimits(DataObject):
     @property
     def upper_limit_value(self):
         """field `Upper Limit Value`
-        upper limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 1.0
+
+        |  upper limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 1.0
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Upper Limit Value`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `upper_limit_value` or None if not set
+
         """
         return self["Upper Limit Value"]
 
@@ -144,10 +149,12 @@ class ScheduleTypeLimits(DataObject):
 
     @property
     def numeric_type(self):
-        """field `Numeric Type` Numeric type is either Continuous (all numbers
-        within the min and max are valid or Discrete (only integer numbers
-        between min and max are valid.  (Could also allow REAL and INTEGER to
-        mean the same things)
+        """field `Numeric Type`
+
+        |  Numeric type is either Continuous (all numbers within the min and
+        |  max are valid or Discrete (only integer numbers between min and
+        |  max are valid.  (Could also allow REAL and INTEGER to mean the
+        |  same things)
 
         Args:
             value (str): value for IDD Field `Numeric Type`
@@ -169,25 +176,27 @@ class ScheduleTypeLimits(DataObject):
     @property
     def unit_type(self):
         """field `Unit Type`
-        Temperature (C or F)
-        DeltaTemperature (C or F)
-        PrecipitationRate (m/hr or ft/hr)
-        Angle (degrees)
-        Convection Coefficient (W/m2-K or Btu/sqft-hr-F)
-        Activity Level (W/person)
-        Velocity (m/s or ft/min)
-        Capacity (W or Btu/h)
-        Power (W)
+
+        |  Temperature (C or F)
+        |  DeltaTemperature (C or F)
+        |  PrecipitationRate (m/hr or ft/hr)
+        |  Angle (degrees)
+        |  Convection Coefficient (W/m2-K or Btu/sqft-hr-F)
+        |  Activity Level (W/person)
+        |  Velocity (m/s or ft/min)
+        |  Capacity (W or Btu/h)
+        |  Power (W)
+        |  Default value: Dimensionless
 
         Args:
             value (str): value for IDD Field `Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `unit_type` or None if not set
+
         """
         return self["Unit Type"]
 
@@ -1065,15 +1074,15 @@ class ScheduleDayInterval(DataObject):
 
     @property
     def interpolate_to_timestep(self):
-        """field `Interpolate to Timestep` when the interval does not match the
-        user specified timestep a Yes choice will average between the intervals
-        request (to timestep resolution.  a No choice will use the interval
-        value at the simulation timestep without regard to if it matches the
-        boundary or not.
+        """field `Interpolate to Timestep`
+
+        |  when the interval does not match the user specified timestep a Yes choice will average between the intervals request (to
+        |  timestep resolution.  a No choice will use the interval value at the simulation timestep without regard to if it matches
+        |  the boundary or not.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Interpolate to Timestep`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1234,15 +1243,15 @@ class ScheduleDayList(DataObject):
 
     @property
     def interpolate_to_timestep(self):
-        """field `Interpolate to Timestep` when the interval does not match the
-        user specified timestep a "Yes" choice will average between the
-        intervals request (to timestep resolution.  a "No" choice will use the
-        interval value at the simulation timestep without regard to if it
-        matches the boundary or not.
+        """field `Interpolate to Timestep`
+
+        |  when the interval does not match the user specified timestep a "Yes" choice will average between the intervals request (to
+        |  timestep resolution.  a "No" choice will use the interval value at the simulation timestep without regard to if it matches
+        |  the boundary or not.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Interpolate to Timestep`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1260,12 +1269,14 @@ class ScheduleDayList(DataObject):
 
     @property
     def minutes_per_item(self):
-        """field `Minutes per Item` Must be evenly divisible into 60.
+        """field `Minutes per Item`
+
+        |  Must be evenly divisible into 60
+        |  value >= 1
+        |  value <= 60
 
         Args:
             value (int): value for IDD Field `Minutes per Item`
-                value >= 1
-                value <= 60
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1448,6 +1459,7 @@ class ScheduleWeekDaily(DataObject):
     def sunday_scheduleday_name(self):
         """field `Sunday Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `Sunday Schedule:Day Name`
 
@@ -1469,6 +1481,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def monday_scheduleday_name(self):
         """field `Monday Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `Monday Schedule:Day Name`
@@ -1492,6 +1505,7 @@ class ScheduleWeekDaily(DataObject):
     def tuesday_scheduleday_name(self):
         """field `Tuesday Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `Tuesday Schedule:Day Name`
 
@@ -1513,6 +1527,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def wednesday_scheduleday_name(self):
         """field `Wednesday Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `Wednesday Schedule:Day Name`
@@ -1536,6 +1551,7 @@ class ScheduleWeekDaily(DataObject):
     def thursday_scheduleday_name(self):
         """field `Thursday Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `Thursday Schedule:Day Name`
 
@@ -1557,6 +1573,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def friday_scheduleday_name(self):
         """field `Friday Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `Friday Schedule:Day Name`
@@ -1580,6 +1597,7 @@ class ScheduleWeekDaily(DataObject):
     def saturday_scheduleday_name(self):
         """field `Saturday Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `Saturday Schedule:Day Name`
 
@@ -1601,6 +1619,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def holiday_scheduleday_name(self):
         """field `Holiday Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `Holiday Schedule:Day Name`
@@ -1624,6 +1643,7 @@ class ScheduleWeekDaily(DataObject):
     def summerdesignday_scheduleday_name(self):
         """field `SummerDesignDay Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `SummerDesignDay Schedule:Day Name`
 
@@ -1645,6 +1665,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def winterdesignday_scheduleday_name(self):
         """field `WinterDesignDay Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `WinterDesignDay Schedule:Day Name`
@@ -1668,6 +1689,7 @@ class ScheduleWeekDaily(DataObject):
     def customday1_scheduleday_name(self):
         """field `CustomDay1 Schedule:Day Name`
 
+
         Args:
             value (str): value for IDD Field `CustomDay1 Schedule:Day Name`
 
@@ -1689,6 +1711,7 @@ class ScheduleWeekDaily(DataObject):
     @property
     def customday2_scheduleday_name(self):
         """field `CustomDay2 Schedule:Day Name`
+
 
         Args:
             value (str): value for IDD Field `CustomDay2 Schedule:Day Name`
@@ -2392,9 +2415,10 @@ class ScheduleFile(DataObject):
     def column_number(self):
         """field `Column Number`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Column Number`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2433,14 +2457,16 @@ class ScheduleFile(DataObject):
 
     @property
     def number_of_hours_of_data(self):
-        """field `Number of Hours of Data` 8760 hours does not account for leap
-        years, 8784 does. should be either 8760 or 8784.
+        """field `Number of Hours of Data`
+
+        |  8760 hours does not account for leap years, 8784 does.
+        |  should be either 8760 or 8784
+        |  Default value: 8760.0
+        |  value >= 8760.0
+        |  value <= 8784.0
 
         Args:
             value (float): value for IDD Field `Number of Hours of Data`
-                Default value: 8760.0
-                value >= 8760.0
-                value <= 8784.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2460,9 +2486,10 @@ class ScheduleFile(DataObject):
     def column_separator(self):
         """field `Column Separator`
 
+        |  Default value: Comma
+
         Args:
             value (str): value for IDD Field `Column Separator`
-                Default value: Comma
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2480,15 +2507,15 @@ class ScheduleFile(DataObject):
 
     @property
     def interpolate_to_timestep(self):
-        """field `Interpolate to Timestep` when the interval does not match the
-        user specified timestep a "Yes" choice will average between the
-        intervals request (to timestep resolution.  a "No" choice will use the
-        interval value at the simulation timestep without regard to if it
-        matches the boundary or not.
+        """field `Interpolate to Timestep`
+
+        |  when the interval does not match the user specified timestep a "Yes" choice will average between the intervals request (to
+        |  timestep resolution.  a "No" choice will use the interval value at the simulation timestep without regard to if it matches
+        |  the boundary or not.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Interpolate to Timestep`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2506,12 +2533,14 @@ class ScheduleFile(DataObject):
 
     @property
     def minutes_per_item(self):
-        """field `Minutes per Item` Must be evenly divisible into 60.
+        """field `Minutes per Item`
+
+        |  Must be evenly divisible into 60
+        |  value >= 1
+        |  value <= 60
 
         Args:
             value (int): value for IDD Field `Minutes per Item`
-                value >= 1
-                value <= 60
 
         Raises:
             ValueError: if `value` is not a valid value

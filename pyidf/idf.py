@@ -5,7 +5,7 @@ It is based on a modified Energy+.idd specification file.
 
 Do not expect (yet) that it actually works!
 
-Generation date: 2014-12-08
+Generation date: 2014-12-10
 
 """
 import six
@@ -14,62 +14,6 @@ import logging
 import pyidf
 import datetime
 from collections import OrderedDict
-from pyidf.internal_gains import *
-from pyidf.water_heaters_and_thermal_storage import *
-from pyidf.demand_limiting_controls import *
-from pyidf.variable_refrigerant_flow_equipment import *
-from pyidf.condenser_equipment_and_heat_exchangers import *
-from pyidf.exterior_equipment import *
-from pyidf.energy_management_system import *
-from pyidf.schedules import *
-from pyidf.non import *
-from pyidf.location_and_climate import *
-from pyidf.unitary_equipment import *
-from pyidf.economics import *
-from pyidf.zone_hvac_radiative import *
-from pyidf.parametrics import *
-from pyidf.external_interface import *
-from pyidf.performance_tables import *
-from pyidf.water_systems import *
-from pyidf.fluid_properties import *
-from pyidf.coils import *
-from pyidf.evaporative_coolers import *
-from pyidf.humidifiers_and_dehumidifiers import *
-from pyidf.zone_hvac_controls_and_thermostats import *
-from pyidf.simulation_parameters import *
-from pyidf.operational_faults import *
-from pyidf.performance_curves import *
-from pyidf.output_reporting import *
-from pyidf.fans import *
-from pyidf.compliance_objects import *
-from pyidf.refrigeration import *
-from pyidf.advanced_construction import *
-from pyidf.heat_recovery import *
-from pyidf.daylighting import *
-from pyidf.node import *
-from pyidf.plant import *
-from pyidf.zone_hvac_forced_air_units import *
-from pyidf.plant_heating_and_cooling_equipment import *
-from pyidf.solar_collectors import *
-from pyidf.zone_hvac_air_loop_terminal_units import *
-from pyidf.surface_construction_elements import *
-from pyidf.pumps import *
-from pyidf.zone_hvac_equipment_connections import *
-from pyidf.setpoint_managers import *
-from pyidf.hvac_design_objects import *
-from pyidf.zone_airflow import *
-from pyidf.room_air_models import *
-from pyidf.user_defined_hvac_and_plant_component_models import *
-from pyidf.thermal_zones_and_surfaces import *
-from pyidf.system_availability_managers import *
-from pyidf.natural_ventilation_and_duct_leakage import *
-from pyidf.detailed_ground_heat_transfer import *
-from pyidf.air_distribution import *
-from pyidf.controllers import *
-from pyidf.hvac_templates import *
-from pyidf.energyplus import *
-from pyidf.electric_load_center import *
-
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -254,7 +198,7 @@ class IDF(object):
                                         j = i + 1
                                         while j < cval:
                                             jval = vals[j][1].lower()
-                                            if "for" in jval or "until" in jval:
+                                            if "for" in jval or "until" in jval or "interpolate" in jval or "through" in jval:
                                                 break
                                             j += 1
                                         val = ",".join(
@@ -8311,1623 +8255,2356 @@ class IDF(object):
 
         """
         if internal_name.lower() == "lead input":
+            from pyidf.energyplus import LeadInput
             return LeadInput()
         if internal_name.lower() == "simulation data":
+            from pyidf.energyplus import SimulationData
             return SimulationData()
         if internal_name.lower() == "version":
+            from pyidf.simulation_parameters import Version
             return Version()
         if internal_name.lower() == "simulationcontrol":
+            from pyidf.simulation_parameters import SimulationControl
             return SimulationControl()
         if internal_name.lower() == "building":
+            from pyidf.simulation_parameters import Building
             return Building()
         if internal_name.lower() == "shadowcalculation":
+            from pyidf.simulation_parameters import ShadowCalculation
             return ShadowCalculation()
         if internal_name.lower() == "surfaceconvectionalgorithm:inside":
+            from pyidf.simulation_parameters import SurfaceConvectionAlgorithmInside
             return SurfaceConvectionAlgorithmInside()
         if internal_name.lower() == "surfaceconvectionalgorithm:outside":
+            from pyidf.simulation_parameters import SurfaceConvectionAlgorithmOutside
             return SurfaceConvectionAlgorithmOutside()
         if internal_name.lower() == "heatbalancealgorithm":
+            from pyidf.simulation_parameters import HeatBalanceAlgorithm
             return HeatBalanceAlgorithm()
         if internal_name.lower(
         ) == "heatbalancesettings:conductionfinitedifference":
+            from pyidf.simulation_parameters import HeatBalanceSettingsConductionFiniteDifference
             return HeatBalanceSettingsConductionFiniteDifference()
         if internal_name.lower() == "zoneairheatbalancealgorithm":
+            from pyidf.simulation_parameters import ZoneAirHeatBalanceAlgorithm
             return ZoneAirHeatBalanceAlgorithm()
         if internal_name.lower() == "zoneaircontaminantbalance":
+            from pyidf.simulation_parameters import ZoneAirContaminantBalance
             return ZoneAirContaminantBalance()
         if internal_name.lower() == "zoneairmassflowconservation":
+            from pyidf.simulation_parameters import ZoneAirMassFlowConservation
             return ZoneAirMassFlowConservation()
         if internal_name.lower(
         ) == "zonecapacitancemultiplier:researchspecial":
+            from pyidf.simulation_parameters import ZoneCapacitanceMultiplierResearchSpecial
             return ZoneCapacitanceMultiplierResearchSpecial()
         if internal_name.lower() == "timestep":
+            from pyidf.simulation_parameters import Timestep
             return Timestep()
         if internal_name.lower() == "convergencelimits":
+            from pyidf.simulation_parameters import ConvergenceLimits
             return ConvergenceLimits()
         if internal_name.lower() == "programcontrol":
+            from pyidf.simulation_parameters import ProgramControl
             return ProgramControl()
         if internal_name.lower() == "compliance:building":
+            from pyidf.compliance_objects import ComplianceBuilding
             return ComplianceBuilding()
         if internal_name.lower() == "site:location":
+            from pyidf.location_and_climate import SiteLocation
             return SiteLocation()
         if internal_name.lower() == "sizingperiod:designday":
+            from pyidf.location_and_climate import SizingPeriodDesignDay
             return SizingPeriodDesignDay()
         if internal_name.lower() == "sizingperiod:weatherfiledays":
+            from pyidf.location_and_climate import SizingPeriodWeatherFileDays
             return SizingPeriodWeatherFileDays()
         if internal_name.lower() == "sizingperiod:weatherfileconditiontype":
+            from pyidf.location_and_climate import SizingPeriodWeatherFileConditionType
             return SizingPeriodWeatherFileConditionType()
         if internal_name.lower() == "runperiod":
+            from pyidf.location_and_climate import RunPeriod
             return RunPeriod()
         if internal_name.lower() == "runperiod:customrange":
+            from pyidf.location_and_climate import RunPeriodCustomRange
             return RunPeriodCustomRange()
         if internal_name.lower() == "runperiodcontrol:specialdays":
+            from pyidf.location_and_climate import RunPeriodControlSpecialDays
             return RunPeriodControlSpecialDays()
         if internal_name.lower() == "runperiodcontrol:daylightsavingtime":
+            from pyidf.location_and_climate import RunPeriodControlDaylightSavingTime
             return RunPeriodControlDaylightSavingTime()
         if internal_name.lower() == "weatherproperty:skytemperature":
+            from pyidf.location_and_climate import WeatherPropertySkyTemperature
             return WeatherPropertySkyTemperature()
         if internal_name.lower() == "site:weatherstation":
+            from pyidf.location_and_climate import SiteWeatherStation
             return SiteWeatherStation()
         if internal_name.lower() == "site:heightvariation":
+            from pyidf.location_and_climate import SiteHeightVariation
             return SiteHeightVariation()
         if internal_name.lower() == "site:groundtemperature:buildingsurface":
+            from pyidf.location_and_climate import SiteGroundTemperatureBuildingSurface
             return SiteGroundTemperatureBuildingSurface()
         if internal_name.lower() == "site:groundtemperature:fcfactormethod":
+            from pyidf.location_and_climate import SiteGroundTemperatureFcfactorMethod
             return SiteGroundTemperatureFcfactorMethod()
         if internal_name.lower() == "site:groundtemperature:shallow":
+            from pyidf.location_and_climate import SiteGroundTemperatureShallow
             return SiteGroundTemperatureShallow()
         if internal_name.lower() == "site:groundtemperature:deep":
+            from pyidf.location_and_climate import SiteGroundTemperatureDeep
             return SiteGroundTemperatureDeep()
         if internal_name.lower() == "site:grounddomain":
+            from pyidf.location_and_climate import SiteGroundDomain
             return SiteGroundDomain()
         if internal_name.lower() == "site:groundreflectance":
+            from pyidf.location_and_climate import SiteGroundReflectance
             return SiteGroundReflectance()
         if internal_name.lower() == "site:groundreflectance:snowmodifier":
+            from pyidf.location_and_climate import SiteGroundReflectanceSnowModifier
             return SiteGroundReflectanceSnowModifier()
         if internal_name.lower() == "site:watermainstemperature":
+            from pyidf.location_and_climate import SiteWaterMainsTemperature
             return SiteWaterMainsTemperature()
         if internal_name.lower() == "site:precipitation":
+            from pyidf.location_and_climate import SitePrecipitation
             return SitePrecipitation()
         if internal_name.lower() == "roofirrigation":
+            from pyidf.location_and_climate import RoofIrrigation
             return RoofIrrigation()
         if internal_name.lower() == "site:solarandvisiblespectrum":
+            from pyidf.location_and_climate import SiteSolarAndVisibleSpectrum
             return SiteSolarAndVisibleSpectrum()
         if internal_name.lower() == "site:spectrumdata":
+            from pyidf.location_and_climate import SiteSpectrumData
             return SiteSpectrumData()
         if internal_name.lower() == "scheduletypelimits":
+            from pyidf.schedules import ScheduleTypeLimits
             return ScheduleTypeLimits()
         if internal_name.lower() == "schedule:day:hourly":
+            from pyidf.schedules import ScheduleDayHourly
             return ScheduleDayHourly()
         if internal_name.lower() == "schedule:day:interval":
+            from pyidf.schedules import ScheduleDayInterval
             return ScheduleDayInterval()
         if internal_name.lower() == "schedule:day:list":
+            from pyidf.schedules import ScheduleDayList
             return ScheduleDayList()
         if internal_name.lower() == "schedule:week:daily":
+            from pyidf.schedules import ScheduleWeekDaily
             return ScheduleWeekDaily()
         if internal_name.lower() == "schedule:week:compact":
+            from pyidf.schedules import ScheduleWeekCompact
             return ScheduleWeekCompact()
         if internal_name.lower() == "schedule:year":
+            from pyidf.schedules import ScheduleYear
             return ScheduleYear()
         if internal_name.lower() == "schedule:compact":
+            from pyidf.schedules import ScheduleCompact
             return ScheduleCompact()
         if internal_name.lower() == "schedule:constant":
+            from pyidf.schedules import ScheduleConstant
             return ScheduleConstant()
         if internal_name.lower() == "schedule:file":
+            from pyidf.schedules import ScheduleFile
             return ScheduleFile()
         if internal_name.lower() == "material":
+            from pyidf.surface_construction_elements import Material
             return Material()
         if internal_name.lower() == "material:nomass":
+            from pyidf.surface_construction_elements import MaterialNoMass
             return MaterialNoMass()
         if internal_name.lower() == "material:infraredtransparent":
+            from pyidf.surface_construction_elements import MaterialInfraredTransparent
             return MaterialInfraredTransparent()
         if internal_name.lower() == "material:airgap":
+            from pyidf.surface_construction_elements import MaterialAirGap
             return MaterialAirGap()
         if internal_name.lower() == "material:roofvegetation":
+            from pyidf.surface_construction_elements import MaterialRoofVegetation
             return MaterialRoofVegetation()
         if internal_name.lower() == "windowmaterial:simpleglazingsystem":
+            from pyidf.surface_construction_elements import WindowMaterialSimpleGlazingSystem
             return WindowMaterialSimpleGlazingSystem()
         if internal_name.lower() == "windowmaterial:glazing":
+            from pyidf.surface_construction_elements import WindowMaterialGlazing
             return WindowMaterialGlazing()
         if internal_name.lower(
         ) == "windowmaterial:glazinggroup:thermochromic":
+            from pyidf.surface_construction_elements import WindowMaterialGlazingGroupThermochromic
             return WindowMaterialGlazingGroupThermochromic()
         if internal_name.lower(
         ) == "windowmaterial:glazing:refractionextinctionmethod":
+            from pyidf.surface_construction_elements import WindowMaterialGlazingRefractionExtinctionMethod
             return WindowMaterialGlazingRefractionExtinctionMethod()
         if internal_name.lower() == "windowmaterial:gas":
+            from pyidf.surface_construction_elements import WindowMaterialGas
             return WindowMaterialGas()
         if internal_name.lower() == "windowgap:supportpillar":
+            from pyidf.surface_construction_elements import WindowGapSupportPillar
             return WindowGapSupportPillar()
         if internal_name.lower() == "windowgap:deflectionstate":
+            from pyidf.surface_construction_elements import WindowGapDeflectionState
             return WindowGapDeflectionState()
         if internal_name.lower() == "windowmaterial:gasmixture":
+            from pyidf.surface_construction_elements import WindowMaterialGasMixture
             return WindowMaterialGasMixture()
         if internal_name.lower() == "windowmaterial:gap":
+            from pyidf.surface_construction_elements import WindowMaterialGap
             return WindowMaterialGap()
         if internal_name.lower() == "windowmaterial:shade":
+            from pyidf.surface_construction_elements import WindowMaterialShade
             return WindowMaterialShade()
         if internal_name.lower() == "windowmaterial:complexshade":
+            from pyidf.surface_construction_elements import WindowMaterialComplexShade
             return WindowMaterialComplexShade()
         if internal_name.lower() == "windowmaterial:blind":
+            from pyidf.surface_construction_elements import WindowMaterialBlind
             return WindowMaterialBlind()
         if internal_name.lower() == "windowmaterial:screen":
+            from pyidf.surface_construction_elements import WindowMaterialScreen
             return WindowMaterialScreen()
         if internal_name.lower() == "windowmaterial:shade:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialShadeEquivalentLayer
             return WindowMaterialShadeEquivalentLayer()
         if internal_name.lower() == "windowmaterial:drape:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialDrapeEquivalentLayer
             return WindowMaterialDrapeEquivalentLayer()
         if internal_name.lower() == "windowmaterial:blind:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialBlindEquivalentLayer
             return WindowMaterialBlindEquivalentLayer()
         if internal_name.lower() == "windowmaterial:screen:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialScreenEquivalentLayer
             return WindowMaterialScreenEquivalentLayer()
         if internal_name.lower() == "windowmaterial:glazing:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialGlazingEquivalentLayer
             return WindowMaterialGlazingEquivalentLayer()
         if internal_name.lower() == "construction:windowequivalentlayer":
+            from pyidf.surface_construction_elements import ConstructionWindowEquivalentLayer
             return ConstructionWindowEquivalentLayer()
         if internal_name.lower() == "windowmaterial:gap:equivalentlayer":
+            from pyidf.surface_construction_elements import WindowMaterialGapEquivalentLayer
             return WindowMaterialGapEquivalentLayer()
         if internal_name.lower(
         ) == "materialproperty:moisturepenetrationdepth:settings":
+            from pyidf.surface_construction_elements import MaterialPropertyMoisturePenetrationDepthSettings
             return MaterialPropertyMoisturePenetrationDepthSettings()
         if internal_name.lower() == "materialproperty:phasechange":
+            from pyidf.surface_construction_elements import MaterialPropertyPhaseChange
             return MaterialPropertyPhaseChange()
         if internal_name.lower(
         ) == "materialproperty:variablethermalconductivity":
+            from pyidf.surface_construction_elements import MaterialPropertyVariableThermalConductivity
             return MaterialPropertyVariableThermalConductivity()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:settings":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferSettings
             return MaterialPropertyHeatAndMoistureTransferSettings()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:sorptionisotherm":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferSorptionIsotherm
             return MaterialPropertyHeatAndMoistureTransferSorptionIsotherm()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:suction":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferSuction
             return MaterialPropertyHeatAndMoistureTransferSuction()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:redistribution":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferRedistribution
             return MaterialPropertyHeatAndMoistureTransferRedistribution()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:diffusion":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferDiffusion
             return MaterialPropertyHeatAndMoistureTransferDiffusion()
         if internal_name.lower(
         ) == "materialproperty:heatandmoisturetransfer:thermalconductivity":
+            from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferThermalConductivity
             return MaterialPropertyHeatAndMoistureTransferThermalConductivity()
         if internal_name.lower() == "materialproperty:glazingspectraldata":
+            from pyidf.surface_construction_elements import MaterialPropertyGlazingSpectralData
             return MaterialPropertyGlazingSpectralData()
         if internal_name.lower() == "construction":
+            from pyidf.surface_construction_elements import Construction
             return Construction()
         if internal_name.lower() == "construction:cfactorundergroundwall":
+            from pyidf.surface_construction_elements import ConstructionCfactorUndergroundWall
             return ConstructionCfactorUndergroundWall()
         if internal_name.lower() == "construction:ffactorgroundfloor":
+            from pyidf.surface_construction_elements import ConstructionFfactorGroundFloor
             return ConstructionFfactorGroundFloor()
         if internal_name.lower() == "construction:internalsource":
+            from pyidf.surface_construction_elements import ConstructionInternalSource
             return ConstructionInternalSource()
         if internal_name.lower() == "windowthermalmodel:params":
+            from pyidf.surface_construction_elements import WindowThermalModelParams
             return WindowThermalModelParams()
         if internal_name.lower() == "construction:complexfenestrationstate":
+            from pyidf.surface_construction_elements import ConstructionComplexFenestrationState
             return ConstructionComplexFenestrationState()
         if internal_name.lower() == "construction:windowdatafile":
+            from pyidf.surface_construction_elements import ConstructionWindowDataFile
             return ConstructionWindowDataFile()
         if internal_name.lower() == "globalgeometryrules":
+            from pyidf.thermal_zones_and_surfaces import GlobalGeometryRules
             return GlobalGeometryRules()
         if internal_name.lower() == "geometrytransform":
+            from pyidf.thermal_zones_and_surfaces import GeometryTransform
             return GeometryTransform()
         if internal_name.lower() == "zone":
+            from pyidf.thermal_zones_and_surfaces import Zone
             return Zone()
         if internal_name.lower() == "zonelist":
+            from pyidf.thermal_zones_and_surfaces import ZoneList
             return ZoneList()
         if internal_name.lower() == "zonegroup":
+            from pyidf.thermal_zones_and_surfaces import ZoneGroup
             return ZoneGroup()
         if internal_name.lower() == "buildingsurface:detailed":
+            from pyidf.thermal_zones_and_surfaces import BuildingSurfaceDetailed
             return BuildingSurfaceDetailed()
         if internal_name.lower() == "wall:detailed":
+            from pyidf.thermal_zones_and_surfaces import WallDetailed
             return WallDetailed()
         if internal_name.lower() == "roofceiling:detailed":
+            from pyidf.thermal_zones_and_surfaces import RoofCeilingDetailed
             return RoofCeilingDetailed()
         if internal_name.lower() == "floor:detailed":
+            from pyidf.thermal_zones_and_surfaces import FloorDetailed
             return FloorDetailed()
         if internal_name.lower() == "wall:exterior":
+            from pyidf.thermal_zones_and_surfaces import WallExterior
             return WallExterior()
         if internal_name.lower() == "wall:adiabatic":
+            from pyidf.thermal_zones_and_surfaces import WallAdiabatic
             return WallAdiabatic()
         if internal_name.lower() == "wall:underground":
+            from pyidf.thermal_zones_and_surfaces import WallUnderground
             return WallUnderground()
         if internal_name.lower() == "wall:interzone":
+            from pyidf.thermal_zones_and_surfaces import WallInterzone
             return WallInterzone()
         if internal_name.lower() == "roof":
+            from pyidf.thermal_zones_and_surfaces import Roof
             return Roof()
         if internal_name.lower() == "ceiling:adiabatic":
+            from pyidf.thermal_zones_and_surfaces import CeilingAdiabatic
             return CeilingAdiabatic()
         if internal_name.lower() == "ceiling:interzone":
+            from pyidf.thermal_zones_and_surfaces import CeilingInterzone
             return CeilingInterzone()
         if internal_name.lower() == "floor:groundcontact":
+            from pyidf.thermal_zones_and_surfaces import FloorGroundContact
             return FloorGroundContact()
         if internal_name.lower() == "floor:adiabatic":
+            from pyidf.thermal_zones_and_surfaces import FloorAdiabatic
             return FloorAdiabatic()
         if internal_name.lower() == "floor:interzone":
+            from pyidf.thermal_zones_and_surfaces import FloorInterzone
             return FloorInterzone()
         if internal_name.lower() == "fenestrationsurface:detailed":
+            from pyidf.thermal_zones_and_surfaces import FenestrationSurfaceDetailed
             return FenestrationSurfaceDetailed()
         if internal_name.lower() == "window":
+            from pyidf.thermal_zones_and_surfaces import Window
             return Window()
         if internal_name.lower() == "door":
+            from pyidf.thermal_zones_and_surfaces import Door
             return Door()
         if internal_name.lower() == "glazeddoor":
+            from pyidf.thermal_zones_and_surfaces import GlazedDoor
             return GlazedDoor()
         if internal_name.lower() == "window:interzone":
+            from pyidf.thermal_zones_and_surfaces import WindowInterzone
             return WindowInterzone()
         if internal_name.lower() == "door:interzone":
+            from pyidf.thermal_zones_and_surfaces import DoorInterzone
             return DoorInterzone()
         if internal_name.lower() == "glazeddoor:interzone":
+            from pyidf.thermal_zones_and_surfaces import GlazedDoorInterzone
             return GlazedDoorInterzone()
         if internal_name.lower() == "windowproperty:shadingcontrol":
+            from pyidf.thermal_zones_and_surfaces import WindowPropertyShadingControl
             return WindowPropertyShadingControl()
         if internal_name.lower() == "windowproperty:frameanddivider":
+            from pyidf.thermal_zones_and_surfaces import WindowPropertyFrameAndDivider
             return WindowPropertyFrameAndDivider()
         if internal_name.lower() == "windowproperty:airflowcontrol":
+            from pyidf.thermal_zones_and_surfaces import WindowPropertyAirflowControl
             return WindowPropertyAirflowControl()
         if internal_name.lower() == "windowproperty:stormwindow":
+            from pyidf.thermal_zones_and_surfaces import WindowPropertyStormWindow
             return WindowPropertyStormWindow()
         if internal_name.lower() == "internalmass":
+            from pyidf.thermal_zones_and_surfaces import InternalMass
             return InternalMass()
         if internal_name.lower() == "shading:site":
+            from pyidf.thermal_zones_and_surfaces import ShadingSite
             return ShadingSite()
         if internal_name.lower() == "shading:building":
+            from pyidf.thermal_zones_and_surfaces import ShadingBuilding
             return ShadingBuilding()
         if internal_name.lower() == "shading:site:detailed":
+            from pyidf.thermal_zones_and_surfaces import ShadingSiteDetailed
             return ShadingSiteDetailed()
         if internal_name.lower() == "shading:building:detailed":
+            from pyidf.thermal_zones_and_surfaces import ShadingBuildingDetailed
             return ShadingBuildingDetailed()
         if internal_name.lower() == "shading:overhang":
+            from pyidf.thermal_zones_and_surfaces import ShadingOverhang
             return ShadingOverhang()
         if internal_name.lower() == "shading:overhang:projection":
+            from pyidf.thermal_zones_and_surfaces import ShadingOverhangProjection
             return ShadingOverhangProjection()
         if internal_name.lower() == "shading:fin":
+            from pyidf.thermal_zones_and_surfaces import ShadingFin
             return ShadingFin()
         if internal_name.lower() == "shading:fin:projection":
+            from pyidf.thermal_zones_and_surfaces import ShadingFinProjection
             return ShadingFinProjection()
         if internal_name.lower() == "shading:zone:detailed":
+            from pyidf.thermal_zones_and_surfaces import ShadingZoneDetailed
             return ShadingZoneDetailed()
         if internal_name.lower() == "shadingproperty:reflectance":
+            from pyidf.thermal_zones_and_surfaces import ShadingPropertyReflectance
             return ShadingPropertyReflectance()
         if internal_name.lower() == "surfaceproperty:heattransferalgorithm":
+            from pyidf.advanced_construction import SurfacePropertyHeatTransferAlgorithm
             return SurfacePropertyHeatTransferAlgorithm()
         if internal_name.lower(
         ) == "surfaceproperty:heattransferalgorithm:multiplesurface":
+            from pyidf.advanced_construction import SurfacePropertyHeatTransferAlgorithmMultipleSurface
             return SurfacePropertyHeatTransferAlgorithmMultipleSurface()
         if internal_name.lower(
         ) == "surfaceproperty:heattransferalgorithm:surfacelist":
+            from pyidf.advanced_construction import SurfacePropertyHeatTransferAlgorithmSurfaceList
             return SurfacePropertyHeatTransferAlgorithmSurfaceList()
         if internal_name.lower(
         ) == "surfaceproperty:heattransferalgorithm:construction":
+            from pyidf.advanced_construction import SurfacePropertyHeatTransferAlgorithmConstruction
             return SurfacePropertyHeatTransferAlgorithmConstruction()
         if internal_name.lower() == "surfacecontrol:movableinsulation":
+            from pyidf.advanced_construction import SurfaceControlMovableInsulation
             return SurfaceControlMovableInsulation()
         if internal_name.lower() == "surfaceproperty:othersidecoefficients":
+            from pyidf.advanced_construction import SurfacePropertyOtherSideCoefficients
             return SurfacePropertyOtherSideCoefficients()
         if internal_name.lower() == "surfaceproperty:othersideconditionsmodel":
+            from pyidf.advanced_construction import SurfacePropertyOtherSideConditionsModel
             return SurfacePropertyOtherSideConditionsModel()
         if internal_name.lower(
         ) == "surfaceconvectionalgorithm:inside:adaptivemodelselections":
+            from pyidf.advanced_construction import SurfaceConvectionAlgorithmInsideAdaptiveModelSelections
             return SurfaceConvectionAlgorithmInsideAdaptiveModelSelections()
         if internal_name.lower(
         ) == "surfaceconvectionalgorithm:outside:adaptivemodelselections":
+            from pyidf.advanced_construction import SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections
             return SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections()
         if internal_name.lower(
         ) == "surfaceconvectionalgorithm:inside:usercurve":
+            from pyidf.advanced_construction import SurfaceConvectionAlgorithmInsideUserCurve
             return SurfaceConvectionAlgorithmInsideUserCurve()
         if internal_name.lower(
         ) == "surfaceconvectionalgorithm:outside:usercurve":
+            from pyidf.advanced_construction import SurfaceConvectionAlgorithmOutsideUserCurve
             return SurfaceConvectionAlgorithmOutsideUserCurve()
         if internal_name.lower() == "surfaceproperty:convectioncoefficients":
+            from pyidf.advanced_construction import SurfacePropertyConvectionCoefficients
             return SurfacePropertyConvectionCoefficients()
         if internal_name.lower(
         ) == "surfaceproperty:convectioncoefficients:multiplesurface":
+            from pyidf.advanced_construction import SurfacePropertyConvectionCoefficientsMultipleSurface
             return SurfacePropertyConvectionCoefficientsMultipleSurface()
         if internal_name.lower() == "surfaceproperties:vaporcoefficients":
+            from pyidf.advanced_construction import SurfacePropertiesVaporCoefficients
             return SurfacePropertiesVaporCoefficients()
         if internal_name.lower(
         ) == "surfaceproperty:exteriornaturalventedcavity":
+            from pyidf.advanced_construction import SurfacePropertyExteriorNaturalVentedCavity
             return SurfacePropertyExteriorNaturalVentedCavity()
         if internal_name.lower() == "surfaceproperty:solarincidentinside":
+            from pyidf.advanced_construction import SurfacePropertySolarIncidentInside
             return SurfacePropertySolarIncidentInside()
         if internal_name.lower(
         ) == "complexfenestrationproperty:solarabsorbedlayers":
+            from pyidf.advanced_construction import ComplexFenestrationPropertySolarAbsorbedLayers
             return ComplexFenestrationPropertySolarAbsorbedLayers()
         if internal_name.lower(
         ) == "zoneproperty:userviewfactors:bysurfacename":
+            from pyidf.advanced_construction import ZonePropertyUserViewFactorsBySurfaceName
             return ZonePropertyUserViewFactorsBySurfaceName()
         if internal_name.lower() == "groundheattransfer:control":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferControl
             return GroundHeatTransferControl()
         if internal_name.lower() == "groundheattransfer:slab:materials":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabMaterials
             return GroundHeatTransferSlabMaterials()
         if internal_name.lower() == "groundheattransfer:slab:matlprops":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabMatlProps
             return GroundHeatTransferSlabMatlProps()
         if internal_name.lower() == "groundheattransfer:slab:boundconds":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBoundConds
             return GroundHeatTransferSlabBoundConds()
         if internal_name.lower() == "groundheattransfer:slab:bldgprops":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBldgProps
             return GroundHeatTransferSlabBldgProps()
         if internal_name.lower() == "groundheattransfer:slab:insulation":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabInsulation
             return GroundHeatTransferSlabInsulation()
         if internal_name.lower() == "groundheattransfer:slab:equivalentslab":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabEquivalentSlab
             return GroundHeatTransferSlabEquivalentSlab()
         if internal_name.lower() == "groundheattransfer:slab:autogrid":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabAutoGrid
             return GroundHeatTransferSlabAutoGrid()
         if internal_name.lower() == "groundheattransfer:slab:manualgrid":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabManualGrid
             return GroundHeatTransferSlabManualGrid()
         if internal_name.lower() == "groundheattransfer:slab:xface":
+            from pyidf.room_air_models import GroundHeatTransferSlabXface
             return GroundHeatTransferSlabXface()
         if internal_name.lower() == "groundheattransfer:slab:yface":
+            from pyidf.room_air_models import GroundHeatTransferSlabYface
             return GroundHeatTransferSlabYface()
         if internal_name.lower() == "groundheattransfer:slab:zface":
+            from pyidf.room_air_models import GroundHeatTransferSlabZface
             return GroundHeatTransferSlabZface()
         if internal_name.lower(
         ) == "groundheattransfer:basement:simparameters":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSimParameters
             return GroundHeatTransferBasementSimParameters()
         if internal_name.lower() == "groundheattransfer:basement:matlprops":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementMatlProps
             return GroundHeatTransferBasementMatlProps()
         if internal_name.lower() == "groundheattransfer:basement:insulation":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementInsulation
             return GroundHeatTransferBasementInsulation()
         if internal_name.lower() == "groundheattransfer:basement:surfaceprops":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSurfaceProps
             return GroundHeatTransferBasementSurfaceProps()
         if internal_name.lower() == "groundheattransfer:basement:bldgdata":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementBldgData
             return GroundHeatTransferBasementBldgData()
         if internal_name.lower() == "groundheattransfer:basement:interior":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementInterior
             return GroundHeatTransferBasementInterior()
         if internal_name.lower() == "groundheattransfer:basement:combldg":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementComBldg
             return GroundHeatTransferBasementComBldg()
         if internal_name.lower() == "groundheattransfer:basement:equivslab":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementEquivSlab
             return GroundHeatTransferBasementEquivSlab()
         if internal_name.lower(
         ) == "groundheattransfer:basement:equivautogrid":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementEquivAutoGrid
             return GroundHeatTransferBasementEquivAutoGrid()
         if internal_name.lower() == "groundheattransfer:basement:autogrid":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementAutoGrid
             return GroundHeatTransferBasementAutoGrid()
         if internal_name.lower() == "groundheattransfer:basement:manualgrid":
+            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementManualGrid
             return GroundHeatTransferBasementManualGrid()
         if internal_name.lower() == "groundheattransfer:basement:xface":
+            from pyidf.room_air_models import GroundHeatTransferBasementXface
             return GroundHeatTransferBasementXface()
         if internal_name.lower() == "groundheattransfer:basement:yface":
+            from pyidf.room_air_models import GroundHeatTransferBasementYface
             return GroundHeatTransferBasementYface()
         if internal_name.lower() == "groundheattransfer:basement:zface":
+            from pyidf.room_air_models import GroundHeatTransferBasementZface
             return GroundHeatTransferBasementZface()
         if internal_name.lower() == "roomairmodeltype":
+            from pyidf.room_air_models import RoomAirModelType
             return RoomAirModelType()
         if internal_name.lower() == "roomair:temperaturepattern:userdefined":
+            from pyidf.room_air_models import RoomAirTemperaturePatternUserDefined
             return RoomAirTemperaturePatternUserDefined()
         if internal_name.lower(
         ) == "roomair:temperaturepattern:constantgradient":
+            from pyidf.room_air_models import RoomAirTemperaturePatternConstantGradient
             return RoomAirTemperaturePatternConstantGradient()
         if internal_name.lower() == "roomair:temperaturepattern:twogradient":
+            from pyidf.room_air_models import RoomAirTemperaturePatternTwoGradient
             return RoomAirTemperaturePatternTwoGradient()
         if internal_name.lower(
         ) == "roomair:temperaturepattern:nondimensionalheight":
+            from pyidf.room_air_models import RoomAirTemperaturePatternNondimensionalHeight
             return RoomAirTemperaturePatternNondimensionalHeight()
         if internal_name.lower(
         ) == "roomair:temperaturepattern:surfacemapping":
+            from pyidf.room_air_models import RoomAirTemperaturePatternSurfaceMapping
             return RoomAirTemperaturePatternSurfaceMapping()
         if internal_name.lower() == "roomair:node":
+            from pyidf.room_air_models import RoomAirNode
             return RoomAirNode()
         if internal_name.lower(
         ) == "roomairsettings:onenodedisplacementventilation":
+            from pyidf.room_air_models import RoomAirSettingsOneNodeDisplacementVentilation
             return RoomAirSettingsOneNodeDisplacementVentilation()
         if internal_name.lower(
         ) == "roomairsettings:threenodedisplacementventilation":
+            from pyidf.room_air_models import RoomAirSettingsThreeNodeDisplacementVentilation
             return RoomAirSettingsThreeNodeDisplacementVentilation()
         if internal_name.lower() == "roomairsettings:crossventilation":
+            from pyidf.room_air_models import RoomAirSettingsCrossVentilation
             return RoomAirSettingsCrossVentilation()
         if internal_name.lower(
         ) == "roomairsettings:underfloorairdistributioninterior":
+            from pyidf.room_air_models import RoomAirSettingsUnderFloorAirDistributionInterior
             return RoomAirSettingsUnderFloorAirDistributionInterior()
         if internal_name.lower(
         ) == "roomairsettings:underfloorairdistributionexterior":
+            from pyidf.room_air_models import RoomAirSettingsUnderFloorAirDistributionExterior
             return RoomAirSettingsUnderFloorAirDistributionExterior()
         if internal_name.lower() == "people":
+            from pyidf.internal_gains import People
             return People()
         if internal_name.lower() == "comfortviewfactorangles":
+            from pyidf.internal_gains import ComfortViewFactorAngles
             return ComfortViewFactorAngles()
         if internal_name.lower() == "lights":
+            from pyidf.internal_gains import Lights
             return Lights()
         if internal_name.lower() == "electricequipment":
+            from pyidf.internal_gains import ElectricEquipment
             return ElectricEquipment()
         if internal_name.lower() == "gasequipment":
+            from pyidf.internal_gains import GasEquipment
             return GasEquipment()
         if internal_name.lower() == "hotwaterequipment":
+            from pyidf.internal_gains import HotWaterEquipment
             return HotWaterEquipment()
         if internal_name.lower() == "steamequipment":
+            from pyidf.internal_gains import SteamEquipment
             return SteamEquipment()
         if internal_name.lower() == "otherequipment":
+            from pyidf.internal_gains import OtherEquipment
             return OtherEquipment()
         if internal_name.lower(
         ) == "zonebaseboard:outdoortemperaturecontrolled":
+            from pyidf.internal_gains import ZoneBaseboardOutdoorTemperatureControlled
             return ZoneBaseboardOutdoorTemperatureControlled()
         if internal_name.lower(
         ) == "zonecontaminantsourceandsink:carbondioxide":
+            from pyidf.internal_gains import ZoneContaminantSourceAndSinkCarbonDioxide
             return ZoneContaminantSourceAndSinkCarbonDioxide()
         if internal_name.lower(
         ) == "zonecontaminantsourceandsink:generic:constant":
+            from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericConstant
             return ZoneContaminantSourceAndSinkGenericConstant()
         if internal_name.lower(
         ) == "surfacecontaminantsourceandsink:generic:pressuredriven":
+            from pyidf.internal_gains import SurfaceContaminantSourceAndSinkGenericPressureDriven
             return SurfaceContaminantSourceAndSinkGenericPressureDriven()
         if internal_name.lower(
         ) == "zonecontaminantsourceandsink:generic:cutoffmodel":
+            from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericCutoffModel
             return ZoneContaminantSourceAndSinkGenericCutoffModel()
         if internal_name.lower(
         ) == "zonecontaminantsourceandsink:generic:decaysource":
+            from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericDecaySource
             return ZoneContaminantSourceAndSinkGenericDecaySource()
         if internal_name.lower(
         ) == "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion":
+            from pyidf.internal_gains import SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion
             return SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion()
         if internal_name.lower(
         ) == "surfacecontaminantsourceandsink:generic:depositionvelocitysink":
+            from pyidf.internal_gains import SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink
             return SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink()
         if internal_name.lower(
         ) == "zonecontaminantsourceandsink:generic:depositionratesink":
+            from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericDepositionRateSink
             return ZoneContaminantSourceAndSinkGenericDepositionRateSink()
         if internal_name.lower() == "daylighting:controls":
+            from pyidf.daylighting import DaylightingControls
             return DaylightingControls()
         if internal_name.lower() == "daylighting:delight:controls":
+            from pyidf.daylighting import DaylightingDelightControls
             return DaylightingDelightControls()
         if internal_name.lower() == "daylighting:delight:referencepoint":
+            from pyidf.daylighting import DaylightingDelightReferencePoint
             return DaylightingDelightReferencePoint()
         if internal_name.lower() == "daylighting:delight:complexfenestration":
+            from pyidf.daylighting import DaylightingDelightComplexFenestration
             return DaylightingDelightComplexFenestration()
         if internal_name.lower() == "daylightingdevice:tubular":
+            from pyidf.daylighting import DaylightingDeviceTubular
             return DaylightingDeviceTubular()
         if internal_name.lower() == "daylightingdevice:shelf":
+            from pyidf.daylighting import DaylightingDeviceShelf
             return DaylightingDeviceShelf()
         if internal_name.lower() == "daylightingdevice:lightwell":
+            from pyidf.daylighting import DaylightingDeviceLightWell
             return DaylightingDeviceLightWell()
         if internal_name.lower() == "output:daylightfactors":
+            from pyidf.daylighting import OutputDaylightFactors
             return OutputDaylightFactors()
         if internal_name.lower() == "output:illuminancemap":
+            from pyidf.daylighting import OutputIlluminanceMap
             return OutputIlluminanceMap()
         if internal_name.lower() == "outputcontrol:illuminancemap:style":
+            from pyidf.daylighting import OutputControlIlluminanceMapStyle
             return OutputControlIlluminanceMapStyle()
         if internal_name.lower() == "zoneinfiltration:designflowrate":
+            from pyidf.zone_airflow import ZoneInfiltrationDesignFlowRate
             return ZoneInfiltrationDesignFlowRate()
         if internal_name.lower() == "zoneinfiltration:effectiveleakagearea":
+            from pyidf.zone_airflow import ZoneInfiltrationEffectiveLeakageArea
             return ZoneInfiltrationEffectiveLeakageArea()
         if internal_name.lower() == "zoneinfiltration:flowcoefficient":
+            from pyidf.zone_airflow import ZoneInfiltrationFlowCoefficient
             return ZoneInfiltrationFlowCoefficient()
         if internal_name.lower() == "zoneventilation:designflowrate":
+            from pyidf.zone_airflow import ZoneVentilationDesignFlowRate
             return ZoneVentilationDesignFlowRate()
         if internal_name.lower() == "zoneventilation:windandstackopenarea":
+            from pyidf.zone_airflow import ZoneVentilationWindandStackOpenArea
             return ZoneVentilationWindandStackOpenArea()
         if internal_name.lower() == "zoneairbalance:outdoorair":
+            from pyidf.zone_airflow import ZoneAirBalanceOutdoorAir
             return ZoneAirBalanceOutdoorAir()
         if internal_name.lower() == "zonemixing":
+            from pyidf.zone_airflow import ZoneMixing
             return ZoneMixing()
         if internal_name.lower() == "zonecrossmixing":
+            from pyidf.zone_airflow import ZoneCrossMixing
             return ZoneCrossMixing()
         if internal_name.lower() == "zonerefrigerationdoormixing":
+            from pyidf.zone_airflow import ZoneRefrigerationDoorMixing
             return ZoneRefrigerationDoorMixing()
         if internal_name.lower() == "zoneearthtube":
+            from pyidf.zone_airflow import ZoneEarthtube
             return ZoneEarthtube()
         if internal_name.lower() == "zonecooltower:shower":
+            from pyidf.zone_airflow import ZoneCoolTowerShower
             return ZoneCoolTowerShower()
         if internal_name.lower() == "zonethermalchimney":
+            from pyidf.zone_airflow import ZoneThermalChimney
             return ZoneThermalChimney()
         if internal_name.lower() == "airflownetwork:simulationcontrol":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkSimulationControl
             return AirflowNetworkSimulationControl()
         if internal_name.lower() == "airflownetwork:multizone:zone":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneZone
             return AirflowNetworkMultiZoneZone()
         if internal_name.lower() == "airflownetwork:multizone:surface":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneSurface
             return AirflowNetworkMultiZoneSurface()
         if internal_name.lower(
         ) == "airflownetwork:multizone:referencecrackconditions":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneReferenceCrackConditions
             return AirflowNetworkMultiZoneReferenceCrackConditions()
         if internal_name.lower() == "airflownetwork:multizone:surface:crack":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneSurfaceCrack
             return AirflowNetworkMultiZoneSurfaceCrack()
         if internal_name.lower(
         ) == "airflownetwork:multizone:surface:effectiveleakagearea":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea
             return AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea()
         if internal_name.lower(
         ) == "airflownetwork:multizone:component:detailedopening":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneComponentDetailedOpening
             return AirflowNetworkMultiZoneComponentDetailedOpening()
         if internal_name.lower(
         ) == "airflownetwork:multizone:component:simpleopening":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneComponentSimpleOpening
             return AirflowNetworkMultiZoneComponentSimpleOpening()
         if internal_name.lower(
         ) == "airflownetwork:multizone:component:horizontalopening":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneComponentHorizontalOpening
             return AirflowNetworkMultiZoneComponentHorizontalOpening()
         if internal_name.lower(
         ) == "airflownetwork:multizone:component:zoneexhaustfan":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneComponentZoneExhaustFan
             return AirflowNetworkMultiZoneComponentZoneExhaustFan()
         if internal_name.lower() == "airflownetwork:multizone:externalnode":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneExternalNode
             return AirflowNetworkMultiZoneExternalNode()
         if internal_name.lower(
         ) == "airflownetwork:multizone:windpressurecoefficientarray":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneWindPressureCoefficientArray
             return AirflowNetworkMultiZoneWindPressureCoefficientArray()
         if internal_name.lower(
         ) == "airflownetwork:multizone:windpressurecoefficientvalues":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneWindPressureCoefficientValues
             return AirflowNetworkMultiZoneWindPressureCoefficientValues()
         if internal_name.lower() == "airflownetwork:distribution:node":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionNode
             return AirflowNetworkDistributionNode()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:leak":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentLeak
             return AirflowNetworkDistributionComponentLeak()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:leakageratio":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentLeakageRatio
             return AirflowNetworkDistributionComponentLeakageRatio()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:duct":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentDuct
             return AirflowNetworkDistributionComponentDuct()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:fan":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentFan
             return AirflowNetworkDistributionComponentFan()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:coil":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentCoil
             return AirflowNetworkDistributionComponentCoil()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:heatexchanger":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentHeatExchanger
             return AirflowNetworkDistributionComponentHeatExchanger()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:terminalunit":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentTerminalUnit
             return AirflowNetworkDistributionComponentTerminalUnit()
         if internal_name.lower(
         ) == "airflownetwork:distribution:component:constantpressuredrop":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentConstantPressureDrop
             return AirflowNetworkDistributionComponentConstantPressureDrop()
         if internal_name.lower() == "airflownetwork:distribution:linkage":
+            from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionLinkage
             return AirflowNetworkDistributionLinkage()
         if internal_name.lower() == "exterior:lights":
+            from pyidf.exterior_equipment import ExteriorLights
             return ExteriorLights()
         if internal_name.lower() == "exterior:fuelequipment":
+            from pyidf.exterior_equipment import ExteriorFuelEquipment
             return ExteriorFuelEquipment()
         if internal_name.lower() == "exterior:waterequipment":
+            from pyidf.exterior_equipment import ExteriorWaterEquipment
             return ExteriorWaterEquipment()
         if internal_name.lower() == "hvactemplate:thermostat":
+            from pyidf.hvac_templates import HvactemplateThermostat
             return HvactemplateThermostat()
         if internal_name.lower() == "hvactemplate:zone:idealloadsairsystem":
+            from pyidf.hvac_templates import HvactemplateZoneIdealLoadsAirSystem
             return HvactemplateZoneIdealLoadsAirSystem()
         if internal_name.lower() == "hvactemplate:zone:baseboardheat":
+            from pyidf.hvac_templates import HvactemplateZoneBaseboardHeat
             return HvactemplateZoneBaseboardHeat()
         if internal_name.lower() == "hvactemplate:zone:fancoil":
+            from pyidf.hvac_templates import HvactemplateZoneFanCoil
             return HvactemplateZoneFanCoil()
         if internal_name.lower() == "hvactemplate:zone:ptac":
+            from pyidf.hvac_templates import HvactemplateZonePtac
             return HvactemplateZonePtac()
         if internal_name.lower() == "hvactemplate:zone:pthp":
+            from pyidf.hvac_templates import HvactemplateZonePthp
             return HvactemplateZonePthp()
         if internal_name.lower() == "hvactemplate:zone:watertoairheatpump":
+            from pyidf.hvac_templates import HvactemplateZoneWaterToAirHeatPump
             return HvactemplateZoneWaterToAirHeatPump()
         if internal_name.lower() == "hvactemplate:zone:vrf":
+            from pyidf.hvac_templates import HvactemplateZoneVrf
             return HvactemplateZoneVrf()
         if internal_name.lower() == "hvactemplate:zone:unitary":
+            from pyidf.hvac_templates import HvactemplateZoneUnitary
             return HvactemplateZoneUnitary()
         if internal_name.lower() == "hvactemplate:zone:vav":
+            from pyidf.hvac_templates import HvactemplateZoneVav
             return HvactemplateZoneVav()
         if internal_name.lower() == "hvactemplate:zone:vav:fanpowered":
+            from pyidf.hvac_templates import HvactemplateZoneVavFanPowered
             return HvactemplateZoneVavFanPowered()
         if internal_name.lower() == "hvactemplate:zone:vav:heatandcool":
+            from pyidf.hvac_templates import HvactemplateZoneVavHeatAndCool
             return HvactemplateZoneVavHeatAndCool()
         if internal_name.lower() == "hvactemplate:zone:constantvolume":
+            from pyidf.hvac_templates import HvactemplateZoneConstantVolume
             return HvactemplateZoneConstantVolume()
         if internal_name.lower() == "hvactemplate:zone:dualduct":
+            from pyidf.hvac_templates import HvactemplateZoneDualDuct
             return HvactemplateZoneDualDuct()
         if internal_name.lower() == "hvactemplate:system:vrf":
+            from pyidf.hvac_templates import HvactemplateSystemVrf
             return HvactemplateSystemVrf()
         if internal_name.lower() == "hvactemplate:system:unitary":
+            from pyidf.hvac_templates import HvactemplateSystemUnitary
             return HvactemplateSystemUnitary()
         if internal_name.lower(
         ) == "hvactemplate:system:unitaryheatpump:airtoair":
+            from pyidf.hvac_templates import HvactemplateSystemUnitaryHeatPumpAirToAir
             return HvactemplateSystemUnitaryHeatPumpAirToAir()
         if internal_name.lower() == "hvactemplate:system:unitarysystem":
+            from pyidf.hvac_templates import HvactemplateSystemUnitarySystem
             return HvactemplateSystemUnitarySystem()
         if internal_name.lower() == "hvactemplate:system:vav":
+            from pyidf.hvac_templates import HvactemplateSystemVav
             return HvactemplateSystemVav()
         if internal_name.lower() == "hvactemplate:system:packagedvav":
+            from pyidf.hvac_templates import HvactemplateSystemPackagedVav
             return HvactemplateSystemPackagedVav()
         if internal_name.lower() == "hvactemplate:system:constantvolume":
+            from pyidf.hvac_templates import HvactemplateSystemConstantVolume
             return HvactemplateSystemConstantVolume()
         if internal_name.lower() == "hvactemplate:system:dualduct":
+            from pyidf.hvac_templates import HvactemplateSystemDualDuct
             return HvactemplateSystemDualDuct()
         if internal_name.lower() == "hvactemplate:system:dedicatedoutdoorair":
+            from pyidf.hvac_templates import HvactemplateSystemDedicatedOutdoorAir
             return HvactemplateSystemDedicatedOutdoorAir()
         if internal_name.lower() == "hvactemplate:plant:chilledwaterloop":
+            from pyidf.hvac_templates import HvactemplatePlantChilledWaterLoop
             return HvactemplatePlantChilledWaterLoop()
         if internal_name.lower() == "hvactemplate:plant:chiller":
+            from pyidf.hvac_templates import HvactemplatePlantChiller
             return HvactemplatePlantChiller()
         if internal_name.lower(
         ) == "hvactemplate:plant:chiller:objectreference":
+            from pyidf.hvac_templates import HvactemplatePlantChillerObjectReference
             return HvactemplatePlantChillerObjectReference()
         if internal_name.lower() == "hvactemplate:plant:tower":
+            from pyidf.hvac_templates import HvactemplatePlantTower
             return HvactemplatePlantTower()
         if internal_name.lower() == "hvactemplate:plant:tower:objectreference":
+            from pyidf.hvac_templates import HvactemplatePlantTowerObjectReference
             return HvactemplatePlantTowerObjectReference()
         if internal_name.lower() == "hvactemplate:plant:hotwaterloop":
+            from pyidf.hvac_templates import HvactemplatePlantHotWaterLoop
             return HvactemplatePlantHotWaterLoop()
         if internal_name.lower() == "hvactemplate:plant:boiler":
+            from pyidf.hvac_templates import HvactemplatePlantBoiler
             return HvactemplatePlantBoiler()
         if internal_name.lower(
         ) == "hvactemplate:plant:boiler:objectreference":
+            from pyidf.hvac_templates import HvactemplatePlantBoilerObjectReference
             return HvactemplatePlantBoilerObjectReference()
         if internal_name.lower() == "hvactemplate:plant:mixedwaterloop":
+            from pyidf.hvac_templates import HvactemplatePlantMixedWaterLoop
             return HvactemplatePlantMixedWaterLoop()
         if internal_name.lower() == "designspecification:outdoorair":
+            from pyidf.hvac_design_objects import DesignSpecificationOutdoorAir
             return DesignSpecificationOutdoorAir()
         if internal_name.lower() == "designspecification:zoneairdistribution":
+            from pyidf.hvac_design_objects import DesignSpecificationZoneAirDistribution
             return DesignSpecificationZoneAirDistribution()
         if internal_name.lower() == "sizing:parameters":
+            from pyidf.hvac_design_objects import SizingParameters
             return SizingParameters()
         if internal_name.lower() == "sizing:zone":
+            from pyidf.hvac_design_objects import SizingZone
             return SizingZone()
         if internal_name.lower() == "designspecification:zonehvac:sizing":
+            from pyidf.hvac_design_objects import DesignSpecificationZoneHvacSizing
             return DesignSpecificationZoneHvacSizing()
         if internal_name.lower() == "sizing:system":
+            from pyidf.hvac_design_objects import SizingSystem
             return SizingSystem()
         if internal_name.lower() == "sizing:plant":
+            from pyidf.hvac_design_objects import SizingPlant
             return SizingPlant()
         if internal_name.lower() == "outputcontrol:sizing:style":
+            from pyidf.hvac_design_objects import OutputControlSizingStyle
             return OutputControlSizingStyle()
         if internal_name.lower() == "zonecontrol:humidistat":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlHumidistat
             return ZoneControlHumidistat()
         if internal_name.lower() == "zonecontrol:thermostat":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlThermostat
             return ZoneControlThermostat()
         if internal_name.lower(
         ) == "zonecontrol:thermostat:operativetemperature":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlThermostatOperativeTemperature
             return ZoneControlThermostatOperativeTemperature()
         if internal_name.lower() == "zonecontrol:thermostat:thermalcomfort":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlThermostatThermalComfort
             return ZoneControlThermostatThermalComfort()
         if internal_name.lower(
         ) == "zonecontrol:thermostat:temperatureandhumidity":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlThermostatTemperatureAndHumidity
             return ZoneControlThermostatTemperatureAndHumidity()
         if internal_name.lower() == "thermostatsetpoint:singleheating":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointSingleHeating
             return ThermostatSetpointSingleHeating()
         if internal_name.lower() == "thermostatsetpoint:singlecooling":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointSingleCooling
             return ThermostatSetpointSingleCooling()
         if internal_name.lower(
         ) == "thermostatsetpoint:singleheatingorcooling":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointSingleHeatingOrCooling
             return ThermostatSetpointSingleHeatingOrCooling()
         if internal_name.lower() == "thermostatsetpoint:dualsetpoint":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointDualSetpoint
             return ThermostatSetpointDualSetpoint()
         if internal_name.lower(
         ) == "thermostatsetpoint:thermalcomfort:fanger:singleheating":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointThermalComfortFangerSingleHeating
             return ThermostatSetpointThermalComfortFangerSingleHeating()
         if internal_name.lower(
         ) == "thermostatsetpoint:thermalcomfort:fanger:singlecooling":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointThermalComfortFangerSingleCooling
             return ThermostatSetpointThermalComfortFangerSingleCooling()
         if internal_name.lower(
         ) == "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling
             return ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling()
         if internal_name.lower(
         ) == "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint":
+            from pyidf.zone_hvac_controls_and_thermostats import ThermostatSetpointThermalComfortFangerDualSetpoint
             return ThermostatSetpointThermalComfortFangerDualSetpoint()
         if internal_name.lower(
         ) == "zonecontrol:thermostat:stageddualsetpoint":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlThermostatStagedDualSetpoint
             return ZoneControlThermostatStagedDualSetpoint()
         if internal_name.lower() == "zonecontrol:contaminantcontroller":
+            from pyidf.zone_hvac_controls_and_thermostats import ZoneControlContaminantController
             return ZoneControlContaminantController()
         if internal_name.lower() == "zonehvac:idealloadsairsystem":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacIdealLoadsAirSystem
             return ZoneHvacIdealLoadsAirSystem()
         if internal_name.lower() == "zonehvac:fourpipefancoil":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacFourPipeFanCoil
             return ZoneHvacFourPipeFanCoil()
         if internal_name.lower() == "zonehvac:windowairconditioner":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacWindowAirConditioner
             return ZoneHvacWindowAirConditioner()
         if internal_name.lower() == "zonehvac:packagedterminalairconditioner":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacPackagedTerminalAirConditioner
             return ZoneHvacPackagedTerminalAirConditioner()
         if internal_name.lower() == "zonehvac:packagedterminalheatpump":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacPackagedTerminalHeatPump
             return ZoneHvacPackagedTerminalHeatPump()
         if internal_name.lower() == "zonehvac:watertoairheatpump":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacWaterToAirHeatPump
             return ZoneHvacWaterToAirHeatPump()
         if internal_name.lower() == "zonehvac:dehumidifier:dx":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacDehumidifierDx
             return ZoneHvacDehumidifierDx()
         if internal_name.lower() == "zonehvac:energyrecoveryventilator":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacEnergyRecoveryVentilator
             return ZoneHvacEnergyRecoveryVentilator()
         if internal_name.lower(
         ) == "zonehvac:energyrecoveryventilator:controller":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacEnergyRecoveryVentilatorController
             return ZoneHvacEnergyRecoveryVentilatorController()
         if internal_name.lower() == "zonehvac:unitventilator":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacUnitVentilator
             return ZoneHvacUnitVentilator()
         if internal_name.lower() == "zonehvac:unitheater":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacUnitHeater
             return ZoneHvacUnitHeater()
         if internal_name.lower() == "zonehvac:evaporativecoolerunit":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacEvaporativeCoolerUnit
             return ZoneHvacEvaporativeCoolerUnit()
         if internal_name.lower() == "zonehvac:outdoorairunit":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacOutdoorAirUnit
             return ZoneHvacOutdoorAirUnit()
         if internal_name.lower() == "zonehvac:outdoorairunit:equipmentlist":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacOutdoorAirUnitEquipmentList
             return ZoneHvacOutdoorAirUnitEquipmentList()
         if internal_name.lower(
         ) == "zonehvac:terminalunit:variablerefrigerantflow":
+            from pyidf.zone_hvac_forced_air_units import ZoneHvacTerminalUnitVariableRefrigerantFlow
             return ZoneHvacTerminalUnitVariableRefrigerantFlow()
         if internal_name.lower(
         ) == "zonehvac:baseboard:radiantconvective:water":
+            from pyidf.zone_hvac_radiative import ZoneHvacBaseboardRadiantConvectiveWater
             return ZoneHvacBaseboardRadiantConvectiveWater()
         if internal_name.lower(
         ) == "zonehvac:baseboard:radiantconvective:steam":
+            from pyidf.zone_hvac_radiative import ZoneHvacBaseboardRadiantConvectiveSteam
             return ZoneHvacBaseboardRadiantConvectiveSteam()
         if internal_name.lower(
         ) == "zonehvac:baseboard:radiantconvective:electric":
+            from pyidf.zone_hvac_radiative import ZoneHvacBaseboardRadiantConvectiveElectric
             return ZoneHvacBaseboardRadiantConvectiveElectric()
         if internal_name.lower() == "zonehvac:baseboard:convective:water":
+            from pyidf.zone_hvac_radiative import ZoneHvacBaseboardConvectiveWater
             return ZoneHvacBaseboardConvectiveWater()
         if internal_name.lower() == "zonehvac:baseboard:convective:electric":
+            from pyidf.zone_hvac_radiative import ZoneHvacBaseboardConvectiveElectric
             return ZoneHvacBaseboardConvectiveElectric()
         if internal_name.lower(
         ) == "zonehvac:lowtemperatureradiant:variableflow":
+            from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantVariableFlow
             return ZoneHvacLowTemperatureRadiantVariableFlow()
         if internal_name.lower(
         ) == "zonehvac:lowtemperatureradiant:constantflow":
+            from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantConstantFlow
             return ZoneHvacLowTemperatureRadiantConstantFlow()
         if internal_name.lower() == "zonehvac:lowtemperatureradiant:electric":
+            from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantElectric
             return ZoneHvacLowTemperatureRadiantElectric()
         if internal_name.lower(
         ) == "zonehvac:lowtemperatureradiant:surfacegroup":
+            from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantSurfaceGroup
             return ZoneHvacLowTemperatureRadiantSurfaceGroup()
         if internal_name.lower() == "zonehvac:hightemperatureradiant":
+            from pyidf.zone_hvac_radiative import ZoneHvacHighTemperatureRadiant
             return ZoneHvacHighTemperatureRadiant()
         if internal_name.lower() == "zonehvac:ventilatedslab":
+            from pyidf.zone_hvac_radiative import ZoneHvacVentilatedSlab
             return ZoneHvacVentilatedSlab()
         if internal_name.lower() == "zonehvac:ventilatedslab:slabgroup":
+            from pyidf.zone_hvac_radiative import ZoneHvacVentilatedSlabSlabGroup
             return ZoneHvacVentilatedSlabSlabGroup()
         if internal_name.lower() == "airterminal:singleduct:uncontrolled":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctUncontrolled
             return AirTerminalSingleDuctUncontrolled()
         if internal_name.lower(
         ) == "airterminal:singleduct:constantvolume:reheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctConstantVolumeReheat
             return AirTerminalSingleDuctConstantVolumeReheat()
         if internal_name.lower() == "airterminal:singleduct:vav:noreheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavNoReheat
             return AirTerminalSingleDuctVavNoReheat()
         if internal_name.lower() == "airterminal:singleduct:vav:reheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavReheat
             return AirTerminalSingleDuctVavReheat()
         if internal_name.lower(
         ) == "airterminal:singleduct:vav:reheat:variablespeedfan":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavReheatVariableSpeedFan
             return AirTerminalSingleDuctVavReheatVariableSpeedFan()
         if internal_name.lower(
         ) == "airterminal:singleduct:vav:heatandcool:noreheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavHeatAndCoolNoReheat
             return AirTerminalSingleDuctVavHeatAndCoolNoReheat()
         if internal_name.lower(
         ) == "airterminal:singleduct:vav:heatandcool:reheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavHeatAndCoolReheat
             return AirTerminalSingleDuctVavHeatAndCoolReheat()
         if internal_name.lower() == "airterminal:singleduct:seriespiu:reheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctSeriesPiuReheat
             return AirTerminalSingleDuctSeriesPiuReheat()
         if internal_name.lower(
         ) == "airterminal:singleduct:parallelpiu:reheat":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctParallelPiuReheat
             return AirTerminalSingleDuctParallelPiuReheat()
         if internal_name.lower(
         ) == "airterminal:singleduct:constantvolume:fourpipeinduction":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctConstantVolumeFourPipeInduction
             return AirTerminalSingleDuctConstantVolumeFourPipeInduction()
         if internal_name.lower(
         ) == "airterminal:singleduct:constantvolume:cooledbeam":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctConstantVolumeCooledBeam
             return AirTerminalSingleDuctConstantVolumeCooledBeam()
         if internal_name.lower() == "airterminal:singleduct:inletsidemixer":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctInletSideMixer
             return AirTerminalSingleDuctInletSideMixer()
         if internal_name.lower() == "airterminal:singleduct:supplysidemixer":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctSupplySideMixer
             return AirTerminalSingleDuctSupplySideMixer()
         if internal_name.lower() == "airterminal:dualduct:constantvolume":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalDualDuctConstantVolume
             return AirTerminalDualDuctConstantVolume()
         if internal_name.lower() == "airterminal:dualduct:vav":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalDualDuctVav
             return AirTerminalDualDuctVav()
         if internal_name.lower() == "airterminal:dualduct:vav:outdoorair":
+            from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalDualDuctVavOutdoorAir
             return AirTerminalDualDuctVavOutdoorAir()
         if internal_name.lower() == "zonehvac:airdistributionunit":
+            from pyidf.zone_hvac_air_loop_terminal_units import ZoneHvacAirDistributionUnit
             return ZoneHvacAirDistributionUnit()
         if internal_name.lower() == "zonehvac:equipmentlist":
+            from pyidf.zone_hvac_equipment_connections import ZoneHvacEquipmentList
             return ZoneHvacEquipmentList()
         if internal_name.lower() == "zonehvac:equipmentconnections":
+            from pyidf.zone_hvac_equipment_connections import ZoneHvacEquipmentConnections
             return ZoneHvacEquipmentConnections()
         if internal_name.lower() == "fan:constantvolume":
+            from pyidf.fans import FanConstantVolume
             return FanConstantVolume()
         if internal_name.lower() == "fan:variablevolume":
+            from pyidf.fans import FanVariableVolume
             return FanVariableVolume()
         if internal_name.lower() == "fan:onoff":
+            from pyidf.fans import FanOnOff
             return FanOnOff()
         if internal_name.lower() == "fan:zoneexhaust":
+            from pyidf.fans import FanZoneExhaust
             return FanZoneExhaust()
         if internal_name.lower() == "fanperformance:nightventilation":
+            from pyidf.fans import FanPerformanceNightVentilation
             return FanPerformanceNightVentilation()
         if internal_name.lower() == "fan:componentmodel":
+            from pyidf.fans import FanComponentModel
             return FanComponentModel()
         if internal_name.lower() == "coil:cooling:water":
+            from pyidf.coils import CoilCoolingWater
             return CoilCoolingWater()
         if internal_name.lower() == "coil:cooling:water:detailedgeometry":
+            from pyidf.coils import CoilCoolingWaterDetailedGeometry
             return CoilCoolingWaterDetailedGeometry()
         if internal_name.lower() == "coil:cooling:dx:singlespeed":
+            from pyidf.coils import CoilCoolingDxSingleSpeed
             return CoilCoolingDxSingleSpeed()
         if internal_name.lower() == "coil:cooling:dx:twospeed":
+            from pyidf.coils import CoilCoolingDxTwoSpeed
             return CoilCoolingDxTwoSpeed()
         if internal_name.lower() == "coil:cooling:dx:multispeed":
+            from pyidf.coils import CoilCoolingDxMultiSpeed
             return CoilCoolingDxMultiSpeed()
         if internal_name.lower() == "coil:cooling:dx:variablespeed":
+            from pyidf.coils import CoilCoolingDxVariableSpeed
             return CoilCoolingDxVariableSpeed()
         if internal_name.lower(
         ) == "coil:cooling:dx:twostagewithhumiditycontrolmode":
+            from pyidf.coils import CoilCoolingDxTwoStageWithHumidityControlMode
             return CoilCoolingDxTwoStageWithHumidityControlMode()
         if internal_name.lower() == "coilperformance:dx:cooling":
+            from pyidf.coils import CoilPerformanceDxCooling
             return CoilPerformanceDxCooling()
         if internal_name.lower() == "coil:cooling:dx:variablerefrigerantflow":
+            from pyidf.coils import CoilCoolingDxVariableRefrigerantFlow
             return CoilCoolingDxVariableRefrigerantFlow()
         if internal_name.lower() == "coil:heating:dx:variablerefrigerantflow":
+            from pyidf.coils import CoilHeatingDxVariableRefrigerantFlow
             return CoilHeatingDxVariableRefrigerantFlow()
         if internal_name.lower() == "coil:heating:water":
+            from pyidf.coils import CoilHeatingWater
             return CoilHeatingWater()
         if internal_name.lower() == "coil:heating:steam":
+            from pyidf.coils import CoilHeatingSteam
             return CoilHeatingSteam()
         if internal_name.lower() == "coil:heating:electric":
+            from pyidf.coils import CoilHeatingElectric
             return CoilHeatingElectric()
         if internal_name.lower() == "coil:heating:electric:multistage":
+            from pyidf.coils import CoilHeatingElectricMultiStage
             return CoilHeatingElectricMultiStage()
         if internal_name.lower() == "coil:heating:gas":
+            from pyidf.coils import CoilHeatingGas
             return CoilHeatingGas()
         if internal_name.lower() == "coil:heating:gas:multistage":
+            from pyidf.coils import CoilHeatingGasMultiStage
             return CoilHeatingGasMultiStage()
         if internal_name.lower() == "coil:heating:desuperheater":
+            from pyidf.coils import CoilHeatingDesuperheater
             return CoilHeatingDesuperheater()
         if internal_name.lower() == "coil:heating:dx:singlespeed":
+            from pyidf.coils import CoilHeatingDxSingleSpeed
             return CoilHeatingDxSingleSpeed()
         if internal_name.lower() == "coil:heating:dx:multispeed":
+            from pyidf.coils import CoilHeatingDxMultiSpeed
             return CoilHeatingDxMultiSpeed()
         if internal_name.lower() == "coil:heating:dx:variablespeed":
+            from pyidf.coils import CoilHeatingDxVariableSpeed
             return CoilHeatingDxVariableSpeed()
         if internal_name.lower(
         ) == "coil:cooling:watertoairheatpump:parameterestimation":
+            from pyidf.coils import CoilCoolingWaterToAirHeatPumpParameterEstimation
             return CoilCoolingWaterToAirHeatPumpParameterEstimation()
         if internal_name.lower(
         ) == "coil:heating:watertoairheatpump:parameterestimation":
+            from pyidf.coils import CoilHeatingWaterToAirHeatPumpParameterEstimation
             return CoilHeatingWaterToAirHeatPumpParameterEstimation()
         if internal_name.lower(
         ) == "coil:cooling:watertoairheatpump:equationfit":
+            from pyidf.coils import CoilCoolingWaterToAirHeatPumpEquationFit
             return CoilCoolingWaterToAirHeatPumpEquationFit()
         if internal_name.lower(
         ) == "coil:cooling:watertoairheatpump:variablespeedequationfit":
+            from pyidf.coils import CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit
             return CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit()
         if internal_name.lower(
         ) == "coil:heating:watertoairheatpump:equationfit":
+            from pyidf.coils import CoilHeatingWaterToAirHeatPumpEquationFit
             return CoilHeatingWaterToAirHeatPumpEquationFit()
         if internal_name.lower(
         ) == "coil:heating:watertoairheatpump:variablespeedequationfit":
+            from pyidf.coils import CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit
             return CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit()
         if internal_name.lower() == "coil:waterheating:airtowaterheatpump":
+            from pyidf.coils import CoilWaterHeatingAirToWaterHeatPump
             return CoilWaterHeatingAirToWaterHeatPump()
         if internal_name.lower() == "coil:waterheating:desuperheater":
+            from pyidf.coils import CoilWaterHeatingDesuperheater
             return CoilWaterHeatingDesuperheater()
         if internal_name.lower() == "coilsystem:cooling:dx":
+            from pyidf.coils import CoilSystemCoolingDx
             return CoilSystemCoolingDx()
         if internal_name.lower() == "coilsystem:heating:dx":
+            from pyidf.coils import CoilSystemHeatingDx
             return CoilSystemHeatingDx()
         if internal_name.lower(
         ) == "coilsystem:cooling:water:heatexchangerassisted":
+            from pyidf.coils import CoilSystemCoolingWaterHeatExchangerAssisted
             return CoilSystemCoolingWaterHeatExchangerAssisted()
         if internal_name.lower(
         ) == "coilsystem:cooling:dx:heatexchangerassisted":
+            from pyidf.coils import CoilSystemCoolingDxHeatExchangerAssisted
             return CoilSystemCoolingDxHeatExchangerAssisted()
         if internal_name.lower(
         ) == "coil:cooling:dx:singlespeed:thermalstorage":
+            from pyidf.coils import CoilCoolingDxSingleSpeedThermalStorage
             return CoilCoolingDxSingleSpeedThermalStorage()
         if internal_name.lower() == "evaporativecooler:direct:celdekpad":
+            from pyidf.evaporative_coolers import EvaporativeCoolerDirectCelDekPad
             return EvaporativeCoolerDirectCelDekPad()
         if internal_name.lower() == "evaporativecooler:indirect:celdekpad":
+            from pyidf.evaporative_coolers import EvaporativeCoolerIndirectCelDekPad
             return EvaporativeCoolerIndirectCelDekPad()
         if internal_name.lower() == "evaporativecooler:indirect:wetcoil":
+            from pyidf.evaporative_coolers import EvaporativeCoolerIndirectWetCoil
             return EvaporativeCoolerIndirectWetCoil()
         if internal_name.lower(
         ) == "evaporativecooler:indirect:researchspecial":
+            from pyidf.evaporative_coolers import EvaporativeCoolerIndirectResearchSpecial
             return EvaporativeCoolerIndirectResearchSpecial()
         if internal_name.lower() == "evaporativecooler:direct:researchspecial":
+            from pyidf.evaporative_coolers import EvaporativeCoolerDirectResearchSpecial
             return EvaporativeCoolerDirectResearchSpecial()
         if internal_name.lower() == "humidifier:steam:electric":
+            from pyidf.humidifiers_and_dehumidifiers import HumidifierSteamElectric
             return HumidifierSteamElectric()
         if internal_name.lower() == "dehumidifier:desiccant:nofans":
+            from pyidf.humidifiers_and_dehumidifiers import DehumidifierDesiccantNoFans
             return DehumidifierDesiccantNoFans()
         if internal_name.lower() == "dehumidifier:desiccant:system":
+            from pyidf.humidifiers_and_dehumidifiers import DehumidifierDesiccantSystem
             return DehumidifierDesiccantSystem()
         if internal_name.lower() == "heatexchanger:airtoair:flatplate":
+            from pyidf.heat_recovery import HeatExchangerAirToAirFlatPlate
             return HeatExchangerAirToAirFlatPlate()
         if internal_name.lower() == "heatexchanger:airtoair:sensibleandlatent":
+            from pyidf.heat_recovery import HeatExchangerAirToAirSensibleAndLatent
             return HeatExchangerAirToAirSensibleAndLatent()
         if internal_name.lower() == "heatexchanger:desiccant:balancedflow":
+            from pyidf.heat_recovery import HeatExchangerDesiccantBalancedFlow
             return HeatExchangerDesiccantBalancedFlow()
         if internal_name.lower(
         ) == "heatexchanger:desiccant:balancedflow:performancedatatype1":
+            from pyidf.heat_recovery import HeatExchangerDesiccantBalancedFlowPerformanceDataType1
             return HeatExchangerDesiccantBalancedFlowPerformanceDataType1()
         if internal_name.lower() == "airloophvac:unitarysystem":
+            from pyidf.unitary_equipment import AirLoopHvacUnitarySystem
             return AirLoopHvacUnitarySystem()
         if internal_name.lower(
         ) == "unitarysystemperformance:heatpump:multispeed":
+            from pyidf.unitary_equipment import UnitarySystemPerformanceHeatPumpMultispeed
             return UnitarySystemPerformanceHeatPumpMultispeed()
         if internal_name.lower() == "airloophvac:unitary:furnace:heatonly":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryFurnaceHeatOnly
             return AirLoopHvacUnitaryFurnaceHeatOnly()
         if internal_name.lower() == "airloophvac:unitary:furnace:heatcool":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryFurnaceHeatCool
             return AirLoopHvacUnitaryFurnaceHeatCool()
         if internal_name.lower() == "airloophvac:unitaryheatonly":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatOnly
             return AirLoopHvacUnitaryHeatOnly()
         if internal_name.lower() == "airloophvac:unitaryheatcool":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatCool
             return AirLoopHvacUnitaryHeatCool()
         if internal_name.lower() == "airloophvac:unitaryheatpump:airtoair":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatPumpAirToAir
             return AirLoopHvacUnitaryHeatPumpAirToAir()
         if internal_name.lower() == "airloophvac:unitaryheatpump:watertoair":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatPumpWaterToAir
             return AirLoopHvacUnitaryHeatPumpWaterToAir()
         if internal_name.lower(
         ) == "airloophvac:unitaryheatcool:vavchangeoverbypass":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatCoolVavchangeoverBypass
             return AirLoopHvacUnitaryHeatCoolVavchangeoverBypass()
         if internal_name.lower(
         ) == "airloophvac:unitaryheatpump:airtoair:multispeed":
+            from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed
             return AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed()
         if internal_name.lower() == "airconditioner:variablerefrigerantflow":
+            from pyidf.variable_refrigerant_flow_equipment import AirConditionerVariableRefrigerantFlow
             return AirConditionerVariableRefrigerantFlow()
         if internal_name.lower() == "zoneterminalunitlist":
+            from pyidf.variable_refrigerant_flow_equipment import ZoneTerminalUnitList
             return ZoneTerminalUnitList()
         if internal_name.lower() == "controller:watercoil":
+            from pyidf.controllers import ControllerWaterCoil
             return ControllerWaterCoil()
         if internal_name.lower() == "controller:outdoorair":
+            from pyidf.controllers import ControllerOutdoorAir
             return ControllerOutdoorAir()
         if internal_name.lower() == "controller:mechanicalventilation":
+            from pyidf.controllers import ControllerMechanicalVentilation
             return ControllerMechanicalVentilation()
         if internal_name.lower() == "airloophvac:controllerlist":
+            from pyidf.controllers import AirLoopHvacControllerList
             return AirLoopHvacControllerList()
         if internal_name.lower() == "airloophvac":
+            from pyidf.air_distribution import AirLoopHvac
             return AirLoopHvac()
         if internal_name.lower(
         ) == "airloophvac:outdoorairsystem:equipmentlist":
+            from pyidf.air_distribution import AirLoopHvacOutdoorAirSystemEquipmentList
             return AirLoopHvacOutdoorAirSystemEquipmentList()
         if internal_name.lower() == "airloophvac:outdoorairsystem":
+            from pyidf.air_distribution import AirLoopHvacOutdoorAirSystem
             return AirLoopHvacOutdoorAirSystem()
         if internal_name.lower() == "outdoorair:mixer":
+            from pyidf.air_distribution import OutdoorAirMixer
             return OutdoorAirMixer()
         if internal_name.lower() == "airloophvac:zonesplitter":
+            from pyidf.air_distribution import AirLoopHvacZoneSplitter
             return AirLoopHvacZoneSplitter()
         if internal_name.lower() == "airloophvac:supplyplenum":
+            from pyidf.air_distribution import AirLoopHvacSupplyPlenum
             return AirLoopHvacSupplyPlenum()
         if internal_name.lower() == "airloophvac:supplypath":
+            from pyidf.air_distribution import AirLoopHvacSupplyPath
             return AirLoopHvacSupplyPath()
         if internal_name.lower() == "airloophvac:zonemixer":
+            from pyidf.air_distribution import AirLoopHvacZoneMixer
             return AirLoopHvacZoneMixer()
         if internal_name.lower() == "airloophvac:returnplenum":
+            from pyidf.air_distribution import AirLoopHvacReturnPlenum
             return AirLoopHvacReturnPlenum()
         if internal_name.lower() == "airloophvac:returnpath":
+            from pyidf.air_distribution import AirLoopHvacReturnPath
             return AirLoopHvacReturnPath()
         if internal_name.lower() == "branch":
+            from pyidf.node import Branch
             return Branch()
         if internal_name.lower() == "branchlist":
+            from pyidf.pumps import BranchList
             return BranchList()
         if internal_name.lower() == "connector:splitter":
+            from pyidf.node import ConnectorSplitter
             return ConnectorSplitter()
         if internal_name.lower() == "connector:mixer":
+            from pyidf.node import ConnectorMixer
             return ConnectorMixer()
         if internal_name.lower() == "connectorlist":
+            from pyidf.node import ConnectorList
             return ConnectorList()
         if internal_name.lower() == "nodelist":
+            from pyidf.node import NodeList
             return NodeList()
         if internal_name.lower() == "outdoorair:node":
+            from pyidf.node import OutdoorAirNode
             return OutdoorAirNode()
         if internal_name.lower() == "outdoorair:nodelist":
+            from pyidf.node import OutdoorAirNodeList
             return OutdoorAirNodeList()
         if internal_name.lower() == "pipe:adiabatic":
+            from pyidf.node import PipeAdiabatic
             return PipeAdiabatic()
         if internal_name.lower() == "pipe:adiabatic:steam":
+            from pyidf.node import PipeAdiabaticSteam
             return PipeAdiabaticSteam()
         if internal_name.lower() == "pipe:indoor":
+            from pyidf.node import PipeIndoor
             return PipeIndoor()
         if internal_name.lower() == "pipe:outdoor":
+            from pyidf.node import PipeOutdoor
             return PipeOutdoor()
         if internal_name.lower() == "pipe:underground":
+            from pyidf.node import PipeUnderground
             return PipeUnderground()
         if internal_name.lower() == "pipingsystem:underground:domain":
+            from pyidf.node import PipingSystemUndergroundDomain
             return PipingSystemUndergroundDomain()
         if internal_name.lower() == "pipingsystem:underground:pipecircuit":
+            from pyidf.node import PipingSystemUndergroundPipeCircuit
             return PipingSystemUndergroundPipeCircuit()
         if internal_name.lower() == "pipingsystem:underground:pipesegment":
+            from pyidf.node import PipingSystemUndergroundPipeSegment
             return PipingSystemUndergroundPipeSegment()
         if internal_name.lower() == "duct":
+            from pyidf.node import Duct
             return Duct()
         if internal_name.lower() == "pump:variablespeed":
+            from pyidf.pumps import PumpVariableSpeed
             return PumpVariableSpeed()
         if internal_name.lower() == "pump:constantspeed":
+            from pyidf.pumps import PumpConstantSpeed
             return PumpConstantSpeed()
         if internal_name.lower() == "pump:variablespeed:condensate":
+            from pyidf.pumps import PumpVariableSpeedCondensate
             return PumpVariableSpeedCondensate()
         if internal_name.lower() == "headeredpumps:constantspeed":
+            from pyidf.pumps import HeaderedPumpsConstantSpeed
             return HeaderedPumpsConstantSpeed()
         if internal_name.lower() == "headeredpumps:variablespeed":
+            from pyidf.pumps import HeaderedPumpsVariableSpeed
             return HeaderedPumpsVariableSpeed()
         if internal_name.lower() == "temperingvalve":
+            from pyidf.plant import TemperingValve
             return TemperingValve()
         if internal_name.lower() == "loadprofile:plant":
+            from pyidf.non import LoadProfilePlant
             return LoadProfilePlant()
         if internal_name.lower() == "solarcollectorperformance:flatplate":
+            from pyidf.solar_collectors import SolarCollectorPerformanceFlatPlate
             return SolarCollectorPerformanceFlatPlate()
         if internal_name.lower() == "solarcollector:flatplate:water":
+            from pyidf.solar_collectors import SolarCollectorFlatPlateWater
             return SolarCollectorFlatPlateWater()
         if internal_name.lower(
         ) == "solarcollector:flatplate:photovoltaicthermal":
+            from pyidf.solar_collectors import SolarCollectorFlatPlatePhotovoltaicThermal
             return SolarCollectorFlatPlatePhotovoltaicThermal()
         if internal_name.lower(
         ) == "solarcollectorperformance:photovoltaicthermal:simple":
+            from pyidf.solar_collectors import SolarCollectorPerformancePhotovoltaicThermalSimple
             return SolarCollectorPerformancePhotovoltaicThermalSimple()
         if internal_name.lower() == "solarcollector:integralcollectorstorage":
+            from pyidf.solar_collectors import SolarCollectorIntegralCollectorStorage
             return SolarCollectorIntegralCollectorStorage()
         if internal_name.lower(
         ) == "solarcollectorperformance:integralcollectorstorage":
+            from pyidf.solar_collectors import SolarCollectorPerformanceIntegralCollectorStorage
             return SolarCollectorPerformanceIntegralCollectorStorage()
         if internal_name.lower() == "solarcollector:unglazedtranspired":
+            from pyidf.solar_collectors import SolarCollectorUnglazedTranspired
             return SolarCollectorUnglazedTranspired()
         if internal_name.lower(
         ) == "solarcollector:unglazedtranspired:multisystem":
+            from pyidf.solar_collectors import SolarCollectorUnglazedTranspiredMultisystem
             return SolarCollectorUnglazedTranspiredMultisystem()
         if internal_name.lower() == "boiler:hotwater":
+            from pyidf.plant_heating_and_cooling_equipment import BoilerHotWater
             return BoilerHotWater()
         if internal_name.lower() == "boiler:steam":
+            from pyidf.plant_heating_and_cooling_equipment import BoilerSteam
             return BoilerSteam()
         if internal_name.lower() == "chiller:electric:eir":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerElectricEir
             return ChillerElectricEir()
         if internal_name.lower() == "chiller:electric:reformulatedeir":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerElectricReformulatedEir
             return ChillerElectricReformulatedEir()
         if internal_name.lower() == "chiller:electric":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerElectric
             return ChillerElectric()
         if internal_name.lower() == "chiller:absorption:indirect":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerAbsorptionIndirect
             return ChillerAbsorptionIndirect()
         if internal_name.lower() == "chiller:absorption":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerAbsorption
             return ChillerAbsorption()
         if internal_name.lower() == "chiller:constantcop":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerConstantCop
             return ChillerConstantCop()
         if internal_name.lower() == "chiller:enginedriven":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerEngineDriven
             return ChillerEngineDriven()
         if internal_name.lower() == "chiller:combustionturbine":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerCombustionTurbine
             return ChillerCombustionTurbine()
         if internal_name.lower() == "chillerheater:absorption:directfired":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerHeaterAbsorptionDirectFired
             return ChillerHeaterAbsorptionDirectFired()
         if internal_name.lower() == "chillerheater:absorption:doubleeffect":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerHeaterAbsorptionDoubleEffect
             return ChillerHeaterAbsorptionDoubleEffect()
         if internal_name.lower(
         ) == "heatpump:watertowater:equationfit:heating":
+            from pyidf.plant_heating_and_cooling_equipment import HeatPumpWaterToWaterEquationFitHeating
             return HeatPumpWaterToWaterEquationFitHeating()
         if internal_name.lower(
         ) == "heatpump:watertowater:equationfit:cooling":
+            from pyidf.plant_heating_and_cooling_equipment import HeatPumpWaterToWaterEquationFitCooling
             return HeatPumpWaterToWaterEquationFitCooling()
         if internal_name.lower(
         ) == "heatpump:watertowater:parameterestimation:cooling":
+            from pyidf.plant_heating_and_cooling_equipment import HeatPumpWaterToWaterParameterEstimationCooling
             return HeatPumpWaterToWaterParameterEstimationCooling()
         if internal_name.lower(
         ) == "heatpump:watertowater:parameterestimation:heating":
+            from pyidf.plant_heating_and_cooling_equipment import HeatPumpWaterToWaterParameterEstimationHeating
             return HeatPumpWaterToWaterParameterEstimationHeating()
         if internal_name.lower() == "districtcooling":
+            from pyidf.plant_heating_and_cooling_equipment import DistrictCooling
             return DistrictCooling()
         if internal_name.lower() == "districtheating":
+            from pyidf.plant_heating_and_cooling_equipment import DistrictHeating
             return DistrictHeating()
         if internal_name.lower() == "plantcomponent:temperaturesource":
+            from pyidf.plant_heating_and_cooling_equipment import PlantComponentTemperatureSource
             return PlantComponentTemperatureSource()
         if internal_name.lower() == "centralheatpumpsystem":
+            from pyidf.plant_heating_and_cooling_equipment import CentralHeatPumpSystem
             return CentralHeatPumpSystem()
         if internal_name.lower() == "chillerheaterperformance:electric:eir":
+            from pyidf.plant_heating_and_cooling_equipment import ChillerHeaterPerformanceElectricEir
             return ChillerHeaterPerformanceElectricEir()
         if internal_name.lower() == "coolingtower:singlespeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerSingleSpeed
             return CoolingTowerSingleSpeed()
         if internal_name.lower() == "coolingtower:twospeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerTwoSpeed
             return CoolingTowerTwoSpeed()
         if internal_name.lower() == "coolingtower:variablespeed:merkel":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerVariableSpeedMerkel
             return CoolingTowerVariableSpeedMerkel()
         if internal_name.lower() == "coolingtower:variablespeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerVariableSpeed
             return CoolingTowerVariableSpeed()
         if internal_name.lower() == "coolingtowerperformance:cooltools":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerPerformanceCoolTools
             return CoolingTowerPerformanceCoolTools()
         if internal_name.lower() == "coolingtowerperformance:yorkcalc":
+            from pyidf.condenser_equipment_and_heat_exchangers import CoolingTowerPerformanceYorkCalc
             return CoolingTowerPerformanceYorkCalc()
         if internal_name.lower() == "evaporativefluidcooler:singlespeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import EvaporativeFluidCoolerSingleSpeed
             return EvaporativeFluidCoolerSingleSpeed()
         if internal_name.lower() == "evaporativefluidcooler:twospeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import EvaporativeFluidCoolerTwoSpeed
             return EvaporativeFluidCoolerTwoSpeed()
         if internal_name.lower() == "fluidcooler:singlespeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import FluidCoolerSingleSpeed
             return FluidCoolerSingleSpeed()
         if internal_name.lower() == "fluidcooler:twospeed":
+            from pyidf.condenser_equipment_and_heat_exchangers import FluidCoolerTwoSpeed
             return FluidCoolerTwoSpeed()
         if internal_name.lower() == "groundheatexchanger:vertical":
+            from pyidf.condenser_equipment_and_heat_exchangers import GroundHeatExchangerVertical
             return GroundHeatExchangerVertical()
         if internal_name.lower() == "groundheatexchanger:pond":
+            from pyidf.condenser_equipment_and_heat_exchangers import GroundHeatExchangerPond
             return GroundHeatExchangerPond()
         if internal_name.lower() == "groundheatexchanger:surface":
+            from pyidf.condenser_equipment_and_heat_exchangers import GroundHeatExchangerSurface
             return GroundHeatExchangerSurface()
         if internal_name.lower() == "groundheatexchanger:horizontaltrench":
+            from pyidf.condenser_equipment_and_heat_exchangers import GroundHeatExchangerHorizontalTrench
             return GroundHeatExchangerHorizontalTrench()
         if internal_name.lower() == "heatexchanger:fluidtofluid":
+            from pyidf.condenser_equipment_and_heat_exchangers import HeatExchangerFluidToFluid
             return HeatExchangerFluidToFluid()
         if internal_name.lower() == "waterheater:mixed":
+            from pyidf.water_heaters_and_thermal_storage import WaterHeaterMixed
             return WaterHeaterMixed()
         if internal_name.lower() == "waterheater:stratified":
+            from pyidf.water_heaters_and_thermal_storage import WaterHeaterStratified
             return WaterHeaterStratified()
         if internal_name.lower() == "waterheater:sizing":
+            from pyidf.water_heaters_and_thermal_storage import WaterHeaterSizing
             return WaterHeaterSizing()
         if internal_name.lower() == "waterheater:heatpump":
+            from pyidf.water_heaters_and_thermal_storage import WaterHeaterHeatPump
             return WaterHeaterHeatPump()
         if internal_name.lower() == "thermalstorage:ice:simple":
+            from pyidf.water_heaters_and_thermal_storage import ThermalStorageIceSimple
             return ThermalStorageIceSimple()
         if internal_name.lower() == "thermalstorage:ice:detailed":
+            from pyidf.water_heaters_and_thermal_storage import ThermalStorageIceDetailed
             return ThermalStorageIceDetailed()
         if internal_name.lower() == "thermalstorage:chilledwater:mixed":
+            from pyidf.water_heaters_and_thermal_storage import ThermalStorageChilledWaterMixed
             return ThermalStorageChilledWaterMixed()
         if internal_name.lower() == "thermalstorage:chilledwater:stratified":
+            from pyidf.water_heaters_and_thermal_storage import ThermalStorageChilledWaterStratified
             return ThermalStorageChilledWaterStratified()
         if internal_name.lower() == "plantloop":
+            from pyidf.plant import PlantLoop
             return PlantLoop()
         if internal_name.lower() == "condenserloop":
+            from pyidf.plant import CondenserLoop
             return CondenserLoop()
         if internal_name.lower() == "plantequipmentlist":
+            from pyidf.plant import PlantEquipmentList
             return PlantEquipmentList()
         if internal_name.lower() == "condenserequipmentlist":
+            from pyidf.plant import CondenserEquipmentList
             return CondenserEquipmentList()
         if internal_name.lower() == "plantequipmentoperation:uncontrolled":
+            from pyidf.plant import PlantEquipmentOperationUncontrolled
             return PlantEquipmentOperationUncontrolled()
         if internal_name.lower() == "plantequipmentoperation:coolingload":
+            from pyidf.plant import PlantEquipmentOperationCoolingLoad
             return PlantEquipmentOperationCoolingLoad()
         if internal_name.lower() == "plantequipmentoperation:heatingload":
+            from pyidf.plant import PlantEquipmentOperationHeatingLoad
             return PlantEquipmentOperationHeatingLoad()
         if internal_name.lower() == "plantequipmentoperation:outdoordrybulb":
+            from pyidf.plant import PlantEquipmentOperationOutdoorDryBulb
             return PlantEquipmentOperationOutdoorDryBulb()
         if internal_name.lower() == "plantequipmentoperation:outdoorwetbulb":
+            from pyidf.plant import PlantEquipmentOperationOutdoorWetBulb
             return PlantEquipmentOperationOutdoorWetBulb()
         if internal_name.lower(
         ) == "plantequipmentoperation:outdoorrelativehumidity":
+            from pyidf.plant import PlantEquipmentOperationOutdoorRelativeHumidity
             return PlantEquipmentOperationOutdoorRelativeHumidity()
         if internal_name.lower() == "plantequipmentoperation:outdoordewpoint":
+            from pyidf.plant import PlantEquipmentOperationOutdoorDewpoint
             return PlantEquipmentOperationOutdoorDewpoint()
         if internal_name.lower(
         ) == "plantequipmentoperation:componentsetpoint":
+            from pyidf.plant import PlantEquipmentOperationComponentSetpoint
             return PlantEquipmentOperationComponentSetpoint()
         if internal_name.lower(
         ) == "plantequipmentoperation:outdoordrybulbdifference":
+            from pyidf.plant import PlantEquipmentOperationOutdoorDryBulbDifference
             return PlantEquipmentOperationOutdoorDryBulbDifference()
         if internal_name.lower(
         ) == "plantequipmentoperation:outdoorwetbulbdifference":
+            from pyidf.plant import PlantEquipmentOperationOutdoorWetBulbDifference
             return PlantEquipmentOperationOutdoorWetBulbDifference()
         if internal_name.lower(
         ) == "plantequipmentoperation:outdoordewpointdifference":
+            from pyidf.plant import PlantEquipmentOperationOutdoorDewpointDifference
             return PlantEquipmentOperationOutdoorDewpointDifference()
         if internal_name.lower() == "plantequipmentoperationschemes":
+            from pyidf.plant import PlantEquipmentOperationSchemes
             return PlantEquipmentOperationSchemes()
         if internal_name.lower() == "condenserequipmentoperationschemes":
+            from pyidf.plant import CondenserEquipmentOperationSchemes
             return CondenserEquipmentOperationSchemes()
         if internal_name.lower() == "energymanagementsystem:sensor":
+            from pyidf.energy_management_system import EnergyManagementSystemSensor
             return EnergyManagementSystemSensor()
         if internal_name.lower() == "energymanagementsystem:actuator":
+            from pyidf.energy_management_system import EnergyManagementSystemActuator
             return EnergyManagementSystemActuator()
         if internal_name.lower(
         ) == "energymanagementsystem:programcallingmanager":
+            from pyidf.energy_management_system import EnergyManagementSystemProgramCallingManager
             return EnergyManagementSystemProgramCallingManager()
         if internal_name.lower() == "energymanagementsystem:program":
+            from pyidf.energy_management_system import EnergyManagementSystemProgram
             return EnergyManagementSystemProgram()
         if internal_name.lower() == "energymanagementsystem:subroutine":
+            from pyidf.energy_management_system import EnergyManagementSystemSubroutine
             return EnergyManagementSystemSubroutine()
         if internal_name.lower() == "energymanagementsystem:globalvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemGlobalVariable
             return EnergyManagementSystemGlobalVariable()
         if internal_name.lower() == "energymanagementsystem:outputvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemOutputVariable
             return EnergyManagementSystemOutputVariable()
         if internal_name.lower(
         ) == "energymanagementsystem:meteredoutputvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemMeteredOutputVariable
             return EnergyManagementSystemMeteredOutputVariable()
         if internal_name.lower() == "energymanagementsystem:trendvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemTrendVariable
             return EnergyManagementSystemTrendVariable()
         if internal_name.lower() == "energymanagementsystem:internalvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemInternalVariable
             return EnergyManagementSystemInternalVariable()
         if internal_name.lower(
         ) == "energymanagementsystem:curveortableindexvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemCurveOrTableIndexVariable
             return EnergyManagementSystemCurveOrTableIndexVariable()
         if internal_name.lower(
         ) == "energymanagementsystem:constructionindexvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemConstructionIndexVariable
             return EnergyManagementSystemConstructionIndexVariable()
         if internal_name.lower() == "externalinterface":
+            from pyidf.external_interface import ExternalInterface
             return ExternalInterface()
         if internal_name.lower() == "externalinterface:schedule":
+            from pyidf.external_interface import ExternalInterfaceSchedule
             return ExternalInterfaceSchedule()
         if internal_name.lower() == "externalinterface:variable":
+            from pyidf.external_interface import ExternalInterfaceVariable
             return ExternalInterfaceVariable()
         if internal_name.lower() == "externalinterface:actuator":
+            from pyidf.external_interface import ExternalInterfaceActuator
             return ExternalInterfaceActuator()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitimport":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitImport
             return ExternalInterfaceFunctionalMockupUnitImport()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitimport:from:variable":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitImportFromVariable
             return ExternalInterfaceFunctionalMockupUnitImportFromVariable()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitimport:to:schedule":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitImportToSchedule
             return ExternalInterfaceFunctionalMockupUnitImportToSchedule()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitimport:to:actuator":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitImportToActuator
             return ExternalInterfaceFunctionalMockupUnitImportToActuator()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitimport:to:variable":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitImportToVariable
             return ExternalInterfaceFunctionalMockupUnitImportToVariable()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitexport:from:variable":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportFromVariable
             return ExternalInterfaceFunctionalMockupUnitExportFromVariable()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitexport:to:schedule":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportToSchedule
             return ExternalInterfaceFunctionalMockupUnitExportToSchedule()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitexport:to:actuator":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportToActuator
             return ExternalInterfaceFunctionalMockupUnitExportToActuator()
         if internal_name.lower(
         ) == "externalinterface:functionalmockupunitexport:to:variable":
+            from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportToVariable
             return ExternalInterfaceFunctionalMockupUnitExportToVariable()
         if internal_name.lower() == "zonehvac:forcedair:userdefined":
+            from pyidf.user_defined_hvac_and_plant_component_models import ZoneHvacForcedAirUserDefined
             return ZoneHvacForcedAirUserDefined()
         if internal_name.lower() == "airterminal:singleduct:userdefined":
+            from pyidf.user_defined_hvac_and_plant_component_models import AirTerminalSingleDuctUserDefined
             return AirTerminalSingleDuctUserDefined()
         if internal_name.lower() == "coil:userdefined":
+            from pyidf.user_defined_hvac_and_plant_component_models import CoilUserDefined
             return CoilUserDefined()
         if internal_name.lower() == "plantcomponent:userdefined":
+            from pyidf.user_defined_hvac_and_plant_component_models import PlantComponentUserDefined
             return PlantComponentUserDefined()
         if internal_name.lower() == "plantequipmentoperation:userdefined":
+            from pyidf.user_defined_hvac_and_plant_component_models import PlantEquipmentOperationUserDefined
             return PlantEquipmentOperationUserDefined()
         if internal_name.lower() == "availabilitymanager:scheduled":
+            from pyidf.system_availability_managers import AvailabilityManagerScheduled
             return AvailabilityManagerScheduled()
         if internal_name.lower() == "availabilitymanager:scheduledon":
+            from pyidf.system_availability_managers import AvailabilityManagerScheduledOn
             return AvailabilityManagerScheduledOn()
         if internal_name.lower() == "availabilitymanager:scheduledoff":
+            from pyidf.system_availability_managers import AvailabilityManagerScheduledOff
             return AvailabilityManagerScheduledOff()
         if internal_name.lower() == "availabilitymanager:optimumstart":
+            from pyidf.system_availability_managers import AvailabilityManagerOptimumStart
             return AvailabilityManagerOptimumStart()
         if internal_name.lower() == "availabilitymanager:nightcycle":
+            from pyidf.system_availability_managers import AvailabilityManagerNightCycle
             return AvailabilityManagerNightCycle()
         if internal_name.lower(
         ) == "availabilitymanager:differentialthermostat":
+            from pyidf.system_availability_managers import AvailabilityManagerDifferentialThermostat
             return AvailabilityManagerDifferentialThermostat()
         if internal_name.lower(
         ) == "availabilitymanager:hightemperatureturnoff":
+            from pyidf.system_availability_managers import AvailabilityManagerHighTemperatureTurnOff
             return AvailabilityManagerHighTemperatureTurnOff()
         if internal_name.lower(
         ) == "availabilitymanager:hightemperatureturnon":
+            from pyidf.system_availability_managers import AvailabilityManagerHighTemperatureTurnOn
             return AvailabilityManagerHighTemperatureTurnOn()
         if internal_name.lower(
         ) == "availabilitymanager:lowtemperatureturnoff":
+            from pyidf.system_availability_managers import AvailabilityManagerLowTemperatureTurnOff
             return AvailabilityManagerLowTemperatureTurnOff()
         if internal_name.lower() == "availabilitymanager:lowtemperatureturnon":
+            from pyidf.system_availability_managers import AvailabilityManagerLowTemperatureTurnOn
             return AvailabilityManagerLowTemperatureTurnOn()
         if internal_name.lower() == "availabilitymanager:nightventilation":
+            from pyidf.system_availability_managers import AvailabilityManagerNightVentilation
             return AvailabilityManagerNightVentilation()
         if internal_name.lower() == "availabilitymanager:hybridventilation":
+            from pyidf.system_availability_managers import AvailabilityManagerHybridVentilation
             return AvailabilityManagerHybridVentilation()
         if internal_name.lower() == "availabilitymanagerassignmentlist":
+            from pyidf.system_availability_managers import AvailabilityManagerAssignmentList
             return AvailabilityManagerAssignmentList()
         if internal_name.lower() == "setpointmanager:scheduled":
+            from pyidf.setpoint_managers import SetpointManagerScheduled
             return SetpointManagerScheduled()
         if internal_name.lower() == "setpointmanager:scheduled:dualsetpoint":
+            from pyidf.setpoint_managers import SetpointManagerScheduledDualSetpoint
             return SetpointManagerScheduledDualSetpoint()
         if internal_name.lower() == "setpointmanager:outdoorairreset":
+            from pyidf.setpoint_managers import SetpointManagerOutdoorAirReset
             return SetpointManagerOutdoorAirReset()
         if internal_name.lower() == "setpointmanager:singlezone:reheat":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneReheat
             return SetpointManagerSingleZoneReheat()
         if internal_name.lower() == "setpointmanager:singlezone:heating":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneHeating
             return SetpointManagerSingleZoneHeating()
         if internal_name.lower() == "setpointmanager:singlezone:cooling":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneCooling
             return SetpointManagerSingleZoneCooling()
         if internal_name.lower(
         ) == "setpointmanager:singlezone:humidity:minimum":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneHumidityMinimum
             return SetpointManagerSingleZoneHumidityMinimum()
         if internal_name.lower(
         ) == "setpointmanager:singlezone:humidity:maximum":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneHumidityMaximum
             return SetpointManagerSingleZoneHumidityMaximum()
         if internal_name.lower() == "setpointmanager:mixedair":
+            from pyidf.setpoint_managers import SetpointManagerMixedAir
             return SetpointManagerMixedAir()
         if internal_name.lower() == "setpointmanager:outdoorairpretreat":
+            from pyidf.setpoint_managers import SetpointManagerOutdoorAirPretreat
             return SetpointManagerOutdoorAirPretreat()
         if internal_name.lower() == "setpointmanager:warmest":
+            from pyidf.setpoint_managers import SetpointManagerWarmest
             return SetpointManagerWarmest()
         if internal_name.lower() == "setpointmanager:coldest":
+            from pyidf.setpoint_managers import SetpointManagerColdest
             return SetpointManagerColdest()
         if internal_name.lower() == "setpointmanager:returnairbypassflow":
+            from pyidf.setpoint_managers import SetpointManagerReturnAirBypassFlow
             return SetpointManagerReturnAirBypassFlow()
         if internal_name.lower() == "setpointmanager:warmesttemperatureflow":
+            from pyidf.setpoint_managers import SetpointManagerWarmestTemperatureFlow
             return SetpointManagerWarmestTemperatureFlow()
         if internal_name.lower(
         ) == "setpointmanager:multizone:heating:average":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneHeatingAverage
             return SetpointManagerMultiZoneHeatingAverage()
         if internal_name.lower(
         ) == "setpointmanager:multizone:cooling:average":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneCoolingAverage
             return SetpointManagerMultiZoneCoolingAverage()
         if internal_name.lower(
         ) == "setpointmanager:multizone:minimumhumidity:average":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneMinimumHumidityAverage
             return SetpointManagerMultiZoneMinimumHumidityAverage()
         if internal_name.lower(
         ) == "setpointmanager:multizone:maximumhumidity:average":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneMaximumHumidityAverage
             return SetpointManagerMultiZoneMaximumHumidityAverage()
         if internal_name.lower(
         ) == "setpointmanager:multizone:humidity:minimum":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneHumidityMinimum
             return SetpointManagerMultiZoneHumidityMinimum()
         if internal_name.lower(
         ) == "setpointmanager:multizone:humidity:maximum":
+            from pyidf.setpoint_managers import SetpointManagerMultiZoneHumidityMaximum
             return SetpointManagerMultiZoneHumidityMaximum()
         if internal_name.lower(
         ) == "setpointmanager:followoutdoorairtemperature":
+            from pyidf.setpoint_managers import SetpointManagerFollowOutdoorAirTemperature
             return SetpointManagerFollowOutdoorAirTemperature()
         if internal_name.lower(
         ) == "setpointmanager:followsystemnodetemperature":
+            from pyidf.setpoint_managers import SetpointManagerFollowSystemNodeTemperature
             return SetpointManagerFollowSystemNodeTemperature()
         if internal_name.lower() == "setpointmanager:followgroundtemperature":
+            from pyidf.setpoint_managers import SetpointManagerFollowGroundTemperature
             return SetpointManagerFollowGroundTemperature()
         if internal_name.lower() == "setpointmanager:condenserenteringreset":
+            from pyidf.setpoint_managers import SetpointManagerCondenserEnteringReset
             return SetpointManagerCondenserEnteringReset()
         if internal_name.lower(
         ) == "setpointmanager:condenserenteringreset:ideal":
+            from pyidf.setpoint_managers import SetpointManagerCondenserEnteringResetIdeal
             return SetpointManagerCondenserEnteringResetIdeal()
         if internal_name.lower(
         ) == "setpointmanager:singlezone:onestagecooling":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneOneStageCooling
             return SetpointManagerSingleZoneOneStageCooling()
         if internal_name.lower(
         ) == "setpointmanager:singlezone:onestageheating":
+            from pyidf.setpoint_managers import SetpointManagerSingleZoneOneStageHeating
             return SetpointManagerSingleZoneOneStageHeating()
         if internal_name.lower() == "refrigeration:case":
+            from pyidf.refrigeration import RefrigerationCase
             return RefrigerationCase()
         if internal_name.lower() == "refrigeration:compressorrack":
+            from pyidf.refrigeration import RefrigerationCompressorRack
             return RefrigerationCompressorRack()
         if internal_name.lower() == "refrigeration:caseandwalkinlist":
+            from pyidf.refrigeration import RefrigerationCaseAndWalkInList
             return RefrigerationCaseAndWalkInList()
         if internal_name.lower() == "refrigeration:condenser:aircooled":
+            from pyidf.refrigeration import RefrigerationCondenserAirCooled
             return RefrigerationCondenserAirCooled()
         if internal_name.lower(
         ) == "refrigeration:condenser:evaporativecooled":
+            from pyidf.refrigeration import RefrigerationCondenserEvaporativeCooled
             return RefrigerationCondenserEvaporativeCooled()
         if internal_name.lower() == "refrigeration:condenser:watercooled":
+            from pyidf.refrigeration import RefrigerationCondenserWaterCooled
             return RefrigerationCondenserWaterCooled()
         if internal_name.lower() == "refrigeration:condenser:cascade":
+            from pyidf.refrigeration import RefrigerationCondenserCascade
             return RefrigerationCondenserCascade()
         if internal_name.lower() == "refrigeration:gascooler:aircooled":
+            from pyidf.refrigeration import RefrigerationGasCoolerAirCooled
             return RefrigerationGasCoolerAirCooled()
         if internal_name.lower() == "refrigeration:transferloadlist":
+            from pyidf.refrigeration import RefrigerationTransferLoadList
             return RefrigerationTransferLoadList()
         if internal_name.lower() == "refrigeration:subcooler":
+            from pyidf.refrigeration import RefrigerationSubcooler
             return RefrigerationSubcooler()
         if internal_name.lower() == "refrigeration:compressor":
+            from pyidf.refrigeration import RefrigerationCompressor
             return RefrigerationCompressor()
         if internal_name.lower() == "refrigeration:compressorlist":
+            from pyidf.refrigeration import RefrigerationCompressorList
             return RefrigerationCompressorList()
         if internal_name.lower() == "refrigeration:system":
+            from pyidf.refrigeration import RefrigerationSystem
             return RefrigerationSystem()
         if internal_name.lower() == "refrigeration:transcriticalsystem":
+            from pyidf.refrigeration import RefrigerationTranscriticalSystem
             return RefrigerationTranscriticalSystem()
         if internal_name.lower() == "refrigeration:secondarysystem":
+            from pyidf.refrigeration import RefrigerationSecondarySystem
             return RefrigerationSecondarySystem()
         if internal_name.lower() == "refrigeration:walkin":
+            from pyidf.refrigeration import RefrigerationWalkIn
             return RefrigerationWalkIn()
         if internal_name.lower() == "refrigeration:airchiller":
+            from pyidf.refrigeration import RefrigerationAirChiller
             return RefrigerationAirChiller()
         if internal_name.lower() == "zonehvac:refrigerationchillerset":
+            from pyidf.refrigeration import ZoneHvacRefrigerationChillerSet
             return ZoneHvacRefrigerationChillerSet()
         if internal_name.lower() == "demandmanagerassignmentlist":
+            from pyidf.demand_limiting_controls import DemandManagerAssignmentList
             return DemandManagerAssignmentList()
         if internal_name.lower() == "demandmanager:exteriorlights":
+            from pyidf.demand_limiting_controls import DemandManagerExteriorLights
             return DemandManagerExteriorLights()
         if internal_name.lower() == "demandmanager:lights":
+            from pyidf.demand_limiting_controls import DemandManagerLights
             return DemandManagerLights()
         if internal_name.lower() == "demandmanager:electricequipment":
+            from pyidf.demand_limiting_controls import DemandManagerElectricEquipment
             return DemandManagerElectricEquipment()
         if internal_name.lower() == "demandmanager:thermostats":
+            from pyidf.demand_limiting_controls import DemandManagerThermostats
             return DemandManagerThermostats()
         if internal_name.lower() == "generator:internalcombustionengine":
+            from pyidf.electric_load_center import GeneratorInternalCombustionEngine
             return GeneratorInternalCombustionEngine()
         if internal_name.lower() == "generator:combustionturbine":
+            from pyidf.electric_load_center import GeneratorCombustionTurbine
             return GeneratorCombustionTurbine()
         if internal_name.lower() == "generator:microturbine":
+            from pyidf.electric_load_center import GeneratorMicroTurbine
             return GeneratorMicroTurbine()
         if internal_name.lower() == "generator:photovoltaic":
+            from pyidf.electric_load_center import GeneratorPhotovoltaic
             return GeneratorPhotovoltaic()
         if internal_name.lower() == "photovoltaicperformance:simple":
+            from pyidf.electric_load_center import PhotovoltaicPerformanceSimple
             return PhotovoltaicPerformanceSimple()
         if internal_name.lower(
         ) == "photovoltaicperformance:equivalentone-diode":
+            from pyidf.electric_load_center import PhotovoltaicPerformanceEquivalentOneDiode
             return PhotovoltaicPerformanceEquivalentOneDiode()
         if internal_name.lower() == "photovoltaicperformance:sandia":
+            from pyidf.electric_load_center import PhotovoltaicPerformanceSandia
             return PhotovoltaicPerformanceSandia()
         if internal_name.lower() == "generator:fuelcell":
+            from pyidf.electric_load_center import GeneratorFuelCell
             return GeneratorFuelCell()
         if internal_name.lower() == "generator:fuelcell:powermodule":
+            from pyidf.electric_load_center import GeneratorFuelCellPowerModule
             return GeneratorFuelCellPowerModule()
         if internal_name.lower() == "generator:fuelcell:airsupply":
+            from pyidf.electric_load_center import GeneratorFuelCellAirSupply
             return GeneratorFuelCellAirSupply()
         if internal_name.lower() == "generator:fuelcell:watersupply":
+            from pyidf.electric_load_center import GeneratorFuelCellWaterSupply
             return GeneratorFuelCellWaterSupply()
         if internal_name.lower() == "generator:fuelcell:auxiliaryheater":
+            from pyidf.electric_load_center import GeneratorFuelCellAuxiliaryHeater
             return GeneratorFuelCellAuxiliaryHeater()
         if internal_name.lower(
         ) == "generator:fuelcell:exhaustgastowaterheatexchanger":
+            from pyidf.electric_load_center import GeneratorFuelCellExhaustGasToWaterHeatExchanger
             return GeneratorFuelCellExhaustGasToWaterHeatExchanger()
         if internal_name.lower() == "generator:fuelcell:electricalstorage":
+            from pyidf.electric_load_center import GeneratorFuelCellElectricalStorage
             return GeneratorFuelCellElectricalStorage()
         if internal_name.lower() == "generator:fuelcell:inverter":
+            from pyidf.electric_load_center import GeneratorFuelCellInverter
             return GeneratorFuelCellInverter()
         if internal_name.lower() == "generator:fuelcell:stackcooler":
+            from pyidf.electric_load_center import GeneratorFuelCellStackCooler
             return GeneratorFuelCellStackCooler()
         if internal_name.lower() == "generator:microchp":
+            from pyidf.electric_load_center import GeneratorMicroChp
             return GeneratorMicroChp()
         if internal_name.lower(
         ) == "generator:microchp:nonnormalizedparameters":
+            from pyidf.electric_load_center import GeneratorMicroChpNonNormalizedParameters
             return GeneratorMicroChpNonNormalizedParameters()
         if internal_name.lower() == "generator:fuelsupply":
+            from pyidf.electric_load_center import GeneratorFuelSupply
             return GeneratorFuelSupply()
         if internal_name.lower() == "generator:windturbine":
+            from pyidf.electric_load_center import GeneratorWindTurbine
             return GeneratorWindTurbine()
         if internal_name.lower() == "electricloadcenter:generators":
+            from pyidf.electric_load_center import ElectricLoadCenterGenerators
             return ElectricLoadCenterGenerators()
         if internal_name.lower() == "electricloadcenter:inverter:simple":
+            from pyidf.electric_load_center import ElectricLoadCenterInverterSimple
             return ElectricLoadCenterInverterSimple()
         if internal_name.lower(
         ) == "electricloadcenter:inverter:functionofpower":
+            from pyidf.electric_load_center import ElectricLoadCenterInverterFunctionOfPower
             return ElectricLoadCenterInverterFunctionOfPower()
         if internal_name.lower() == "electricloadcenter:inverter:lookuptable":
+            from pyidf.electric_load_center import ElectricLoadCenterInverterLookUpTable
             return ElectricLoadCenterInverterLookUpTable()
         if internal_name.lower() == "electricloadcenter:storage:simple":
+            from pyidf.electric_load_center import ElectricLoadCenterStorageSimple
             return ElectricLoadCenterStorageSimple()
         if internal_name.lower() == "electricloadcenter:storage:battery":
+            from pyidf.electric_load_center import ElectricLoadCenterStorageBattery
             return ElectricLoadCenterStorageBattery()
         if internal_name.lower() == "electricloadcenter:transformer":
+            from pyidf.electric_load_center import ElectricLoadCenterTransformer
             return ElectricLoadCenterTransformer()
         if internal_name.lower() == "electricloadcenter:distribution":
+            from pyidf.electric_load_center import ElectricLoadCenterDistribution
             return ElectricLoadCenterDistribution()
         if internal_name.lower() == "wateruse:equipment":
+            from pyidf.water_systems import WaterUseEquipment
             return WaterUseEquipment()
         if internal_name.lower() == "wateruse:connections":
+            from pyidf.water_systems import WaterUseConnections
             return WaterUseConnections()
         if internal_name.lower() == "wateruse:storage":
+            from pyidf.water_systems import WaterUseStorage
             return WaterUseStorage()
         if internal_name.lower() == "wateruse:well":
+            from pyidf.water_systems import WaterUseWell
             return WaterUseWell()
         if internal_name.lower() == "wateruse:raincollector":
+            from pyidf.water_systems import WaterUseRainCollector
             return WaterUseRainCollector()
         if internal_name.lower(
         ) == "faultmodel:temperaturesensoroffset:outdoorair":
+            from pyidf.operational_faults import FaultModelTemperatureSensorOffsetOutdoorAir
             return FaultModelTemperatureSensorOffsetOutdoorAir()
         if internal_name.lower(
         ) == "faultmodel:humiditysensoroffset:outdoorair":
+            from pyidf.operational_faults import FaultModelHumiditySensorOffsetOutdoorAir
             return FaultModelHumiditySensorOffsetOutdoorAir()
         if internal_name.lower(
         ) == "faultmodel:enthalpysensoroffset:outdoorair":
+            from pyidf.operational_faults import FaultModelEnthalpySensorOffsetOutdoorAir
             return FaultModelEnthalpySensorOffsetOutdoorAir()
         if internal_name.lower(
         ) == "faultmodel:pressuresensoroffset:outdoorair":
+            from pyidf.operational_faults import FaultModelPressureSensorOffsetOutdoorAir
             return FaultModelPressureSensorOffsetOutdoorAir()
         if internal_name.lower(
         ) == "faultmodel:temperaturesensoroffset:returnair":
+            from pyidf.operational_faults import FaultModelTemperatureSensorOffsetReturnAir
             return FaultModelTemperatureSensorOffsetReturnAir()
         if internal_name.lower(
         ) == "faultmodel:enthalpysensoroffset:returnair":
+            from pyidf.operational_faults import FaultModelEnthalpySensorOffsetReturnAir
             return FaultModelEnthalpySensorOffsetReturnAir()
         if internal_name.lower() == "faultmodel:fouling:coil":
+            from pyidf.operational_faults import FaultModelFoulingCoil
             return FaultModelFoulingCoil()
         if internal_name.lower() == "matrix:twodimension":
+            from pyidf.refrigeration import MatrixTwoDimension
             return MatrixTwoDimension()
         if internal_name.lower() == "curve:linear":
+            from pyidf.performance_curves import CurveLinear
             return CurveLinear()
         if internal_name.lower() == "curve:quadlinear":
+            from pyidf.performance_curves import CurveQuadLinear
             return CurveQuadLinear()
         if internal_name.lower() == "curve:quadratic":
+            from pyidf.performance_curves import CurveQuadratic
             return CurveQuadratic()
         if internal_name.lower() == "curve:cubic":
+            from pyidf.performance_curves import CurveCubic
             return CurveCubic()
         if internal_name.lower() == "curve:quartic":
+            from pyidf.performance_curves import CurveQuartic
             return CurveQuartic()
         if internal_name.lower() == "curve:exponent":
+            from pyidf.performance_curves import CurveExponent
             return CurveExponent()
         if internal_name.lower() == "curve:bicubic":
+            from pyidf.performance_curves import CurveBicubic
             return CurveBicubic()
         if internal_name.lower() == "curve:biquadratic":
+            from pyidf.performance_curves import CurveBiquadratic
             return CurveBiquadratic()
         if internal_name.lower() == "curve:quadraticlinear":
+            from pyidf.performance_curves import CurveQuadraticLinear
             return CurveQuadraticLinear()
         if internal_name.lower() == "curve:triquadratic":
+            from pyidf.performance_curves import CurveTriquadratic
             return CurveTriquadratic()
         if internal_name.lower() == "curve:functional:pressuredrop":
+            from pyidf.performance_curves import CurveFunctionalPressureDrop
             return CurveFunctionalPressureDrop()
         if internal_name.lower() == "curve:fanpressurerise":
+            from pyidf.performance_curves import CurveFanPressureRise
             return CurveFanPressureRise()
         if internal_name.lower() == "curve:exponentialskewnormal":
+            from pyidf.performance_curves import CurveExponentialSkewNormal
             return CurveExponentialSkewNormal()
         if internal_name.lower() == "curve:sigmoid":
+            from pyidf.performance_curves import CurveSigmoid
             return CurveSigmoid()
         if internal_name.lower() == "curve:rectangularhyperbola1":
+            from pyidf.performance_curves import CurveRectangularHyperbola1
             return CurveRectangularHyperbola1()
         if internal_name.lower() == "curve:rectangularhyperbola2":
+            from pyidf.performance_curves import CurveRectangularHyperbola2
             return CurveRectangularHyperbola2()
         if internal_name.lower() == "curve:exponentialdecay":
+            from pyidf.performance_curves import CurveExponentialDecay
             return CurveExponentialDecay()
         if internal_name.lower() == "curve:doubleexponentialdecay":
+            from pyidf.performance_curves import CurveDoubleExponentialDecay
             return CurveDoubleExponentialDecay()
         if internal_name.lower() == "table:oneindependentvariable":
+            from pyidf.performance_tables import TableOneIndependentVariable
             return TableOneIndependentVariable()
         if internal_name.lower() == "table:twoindependentvariables":
+            from pyidf.performance_tables import TableTwoIndependentVariables
             return TableTwoIndependentVariables()
         if internal_name.lower() == "table:multivariablelookup":
+            from pyidf.performance_tables import TableMultiVariableLookup
             return TableMultiVariableLookup()
         if internal_name.lower() == "fluidproperties:name":
+            from pyidf.fluid_properties import FluidPropertiesName
             return FluidPropertiesName()
         if internal_name.lower() == "fluidproperties:glycolconcentration":
+            from pyidf.fluid_properties import FluidPropertiesGlycolConcentration
             return FluidPropertiesGlycolConcentration()
         if internal_name.lower() == "fluidproperties:temperatures":
+            from pyidf.fluid_properties import FluidPropertiesTemperatures
             return FluidPropertiesTemperatures()
         if internal_name.lower() == "fluidproperties:saturated":
+            from pyidf.fluid_properties import FluidPropertiesSaturated
             return FluidPropertiesSaturated()
         if internal_name.lower() == "fluidproperties:superheated":
+            from pyidf.fluid_properties import FluidPropertiesSuperheated
             return FluidPropertiesSuperheated()
         if internal_name.lower() == "fluidproperties:concentration":
+            from pyidf.fluid_properties import FluidPropertiesConcentration
             return FluidPropertiesConcentration()
         if internal_name.lower() == "currencytype":
+            from pyidf.economics import CurrencyType
             return CurrencyType()
         if internal_name.lower() == "componentcost:adjustments":
+            from pyidf.economics import ComponentCostAdjustments
             return ComponentCostAdjustments()
         if internal_name.lower() == "componentcost:reference":
+            from pyidf.economics import ComponentCostReference
             return ComponentCostReference()
         if internal_name.lower() == "componentcost:lineitem":
+            from pyidf.economics import ComponentCostLineItem
             return ComponentCostLineItem()
         if internal_name.lower() == "utilitycost:tariff":
+            from pyidf.economics import UtilityCostTariff
             return UtilityCostTariff()
         if internal_name.lower() == "utilitycost:qualify":
+            from pyidf.economics import UtilityCostQualify
             return UtilityCostQualify()
         if internal_name.lower() == "utilitycost:charge:simple":
+            from pyidf.economics import UtilityCostChargeSimple
             return UtilityCostChargeSimple()
         if internal_name.lower() == "utilitycost:charge:block":
+            from pyidf.economics import UtilityCostChargeBlock
             return UtilityCostChargeBlock()
         if internal_name.lower() == "utilitycost:ratchet":
+            from pyidf.economics import UtilityCostRatchet
             return UtilityCostRatchet()
         if internal_name.lower() == "utilitycost:variable":
+            from pyidf.economics import UtilityCostVariable
             return UtilityCostVariable()
         if internal_name.lower() == "utilitycost:computation":
+            from pyidf.economics import UtilityCostComputation
             return UtilityCostComputation()
         if internal_name.lower() == "lifecyclecost:parameters":
+            from pyidf.economics import LifeCycleCostParameters
             return LifeCycleCostParameters()
         if internal_name.lower() == "lifecyclecost:recurringcosts":
+            from pyidf.economics import LifeCycleCostRecurringCosts
             return LifeCycleCostRecurringCosts()
         if internal_name.lower() == "lifecyclecost:nonrecurringcost":
+            from pyidf.economics import LifeCycleCostNonrecurringCost
             return LifeCycleCostNonrecurringCost()
         if internal_name.lower() == "lifecyclecost:usepriceescalation":
+            from pyidf.economics import LifeCycleCostUsePriceEscalation
             return LifeCycleCostUsePriceEscalation()
         if internal_name.lower() == "lifecyclecost:useadjustment":
+            from pyidf.economics import LifeCycleCostUseAdjustment
             return LifeCycleCostUseAdjustment()
         if internal_name.lower() == "parametric:setvalueforrun":
+            from pyidf.parametrics import ParametricSetValueForRun
             return ParametricSetValueForRun()
         if internal_name.lower() == "parametric:logic":
+            from pyidf.parametrics import ParametricLogic
             return ParametricLogic()
         if internal_name.lower() == "parametric:runcontrol":
+            from pyidf.parametrics import ParametricRunControl
             return ParametricRunControl()
         if internal_name.lower() == "parametric:filenamesuffix":
+            from pyidf.parametrics import ParametricFileNameSuffix
             return ParametricFileNameSuffix()
         if internal_name.lower() == "output:variabledictionary":
+            from pyidf.output_reporting import OutputVariableDictionary
             return OutputVariableDictionary()
         if internal_name.lower() == "output:surfaces:list":
+            from pyidf.output_reporting import OutputSurfacesList
             return OutputSurfacesList()
         if internal_name.lower() == "output:surfaces:drawing":
+            from pyidf.output_reporting import OutputSurfacesDrawing
             return OutputSurfacesDrawing()
         if internal_name.lower() == "output:schedules":
+            from pyidf.output_reporting import OutputSchedules
             return OutputSchedules()
         if internal_name.lower() == "output:constructions":
+            from pyidf.output_reporting import OutputConstructions
             return OutputConstructions()
         if internal_name.lower() == "output:energymanagementsystem":
+            from pyidf.output_reporting import OutputEnergyManagementSystem
             return OutputEnergyManagementSystem()
         if internal_name.lower() == "outputcontrol:surfacecolorscheme":
+            from pyidf.output_reporting import OutputControlSurfaceColorScheme
             return OutputControlSurfaceColorScheme()
         if internal_name.lower() == "output:table:summaryreports":
+            from pyidf.output_reporting import OutputTableSummaryReports
             return OutputTableSummaryReports()
         if internal_name.lower() == "output:table:timebins":
+            from pyidf.output_reporting import OutputTableTimeBins
             return OutputTableTimeBins()
         if internal_name.lower() == "output:table:monthly":
+            from pyidf.output_reporting import OutputTableMonthly
             return OutputTableMonthly()
         if internal_name.lower() == "outputcontrol:table:style":
+            from pyidf.output_reporting import OutputControlTableStyle
             return OutputControlTableStyle()
         if internal_name.lower() == "outputcontrol:reportingtolerances":
+            from pyidf.output_reporting import OutputControlReportingTolerances
             return OutputControlReportingTolerances()
         if internal_name.lower() == "output:variable":
+            from pyidf.output_reporting import OutputVariable
             return OutputVariable()
         if internal_name.lower() == "output:meter":
+            from pyidf.output_reporting import OutputMeter
             return OutputMeter()
         if internal_name.lower() == "output:meter:meterfileonly":
+            from pyidf.output_reporting import OutputMeterMeterFileOnly
             return OutputMeterMeterFileOnly()
         if internal_name.lower() == "output:meter:cumulative":
+            from pyidf.output_reporting import OutputMeterCumulative
             return OutputMeterCumulative()
         if internal_name.lower() == "output:meter:cumulative:meterfileonly":
+            from pyidf.output_reporting import OutputMeterCumulativeMeterFileOnly
             return OutputMeterCumulativeMeterFileOnly()
         if internal_name.lower() == "meter:custom":
+            from pyidf.output_reporting import MeterCustom
             return MeterCustom()
         if internal_name.lower() == "meter:customdecrement":
+            from pyidf.output_reporting import MeterCustomDecrement
             return MeterCustomDecrement()
         if internal_name.lower() == "output:sqlite":
+            from pyidf.output_reporting import OutputSqlite
             return OutputSqlite()
         if internal_name.lower() == "output:environmentalimpactfactors":
+            from pyidf.output_reporting import OutputEnvironmentalImpactFactors
             return OutputEnvironmentalImpactFactors()
         if internal_name.lower() == "environmentalimpactfactors":
+            from pyidf.output_reporting import EnvironmentalImpactFactors
             return EnvironmentalImpactFactors()
         if internal_name.lower() == "fuelfactors":
+            from pyidf.output_reporting import FuelFactors
             return FuelFactors()
         if internal_name.lower() == "output:diagnostics":
+            from pyidf.output_reporting import OutputDiagnostics
             return OutputDiagnostics()
         if internal_name.lower() == "output:debuggingdata":
+            from pyidf.output_reporting import OutputDebuggingData
             return OutputDebuggingData()
         if internal_name.lower() == "output:preprocessormessage":
+            from pyidf.output_reporting import OutputPreprocessorMessage
             return OutputPreprocessorMessage()
         raise ValueError(
             "No DataDictionary known for {}".format(internal_name))
@@ -9978,6 +10655,7 @@ class IDF(object):
         return False
 
     def keys(self):
+        """Present data objects."""
         keys = []
         for group in self._data:
             for key in self._data[group]:

@@ -127,8 +127,9 @@ class SetpointManagerScheduled(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -227,9 +228,10 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -289,8 +291,9 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which temperature
-        will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -446,9 +449,10 @@ class SetpointManagerOutdoorAirReset(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -468,9 +472,10 @@ class SetpointManagerOutdoorAirReset(DataObject):
     def setpoint_at_outdoor_low_temperature(self):
         """field `Setpoint at Outdoor Low Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor Low Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -490,9 +495,10 @@ class SetpointManagerOutdoorAirReset(DataObject):
     def outdoor_low_temperature(self):
         """field `Outdoor Low Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Outdoor Low Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -512,9 +518,10 @@ class SetpointManagerOutdoorAirReset(DataObject):
     def setpoint_at_outdoor_high_temperature(self):
         """field `Setpoint at Outdoor High Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor High Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -534,9 +541,10 @@ class SetpointManagerOutdoorAirReset(DataObject):
     def outdoor_high_temperature(self):
         """field `Outdoor High Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Outdoor High Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -554,8 +562,9 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which temperature
-        will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -576,10 +585,11 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def schedule_name(self):
-        """field `Schedule Name` Optional input.
+        """field `Schedule Name`
 
-        Schedule allows scheduling of the outdoor air reset rule - a schedule value
-        of 1 means use the first rule; a value of 2 means use the second rule.
+        |  Optional input.
+        |  Schedule allows scheduling of the outdoor air reset rule - a schedule value
+        |  of 1 means use the first rule; a value of 2 means use the second rule.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -600,12 +610,13 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def setpoint_at_outdoor_low_temperature_2(self):
-        """field `Setpoint at Outdoor Low Temperature 2` 2nd outdoor air
-        temperature reset rule.
+        """field `Setpoint at Outdoor Low Temperature 2`
+
+        |  2nd outdoor air temperature reset rule
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor Low Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -623,12 +634,13 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def outdoor_low_temperature_2(self):
-        """field `Outdoor Low Temperature 2` 2nd outdoor air temperature reset
-        rule.
+        """field `Outdoor Low Temperature 2`
+
+        |  2nd outdoor air temperature reset rule
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Outdoor Low Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -646,12 +658,13 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def setpoint_at_outdoor_high_temperature_2(self):
-        """field `Setpoint at Outdoor High Temperature 2` 2nd outdoor air
-        temperature reset rule.
+        """field `Setpoint at Outdoor High Temperature 2`
+
+        |  2nd outdoor air temperature reset rule
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor High Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -669,12 +682,13 @@ class SetpointManagerOutdoorAirReset(DataObject):
 
     @property
     def outdoor_high_temperature_2(self):
-        """field `Outdoor High Temperature 2` 2nd outdoor air temperature reset
-        rule.
+        """field `Outdoor High Temperature 2`
+
+        |  2nd outdoor air temperature reset rule
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Outdoor High Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -797,9 +811,10 @@ class SetpointManagerSingleZoneReheat(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -819,10 +834,11 @@ class SetpointManagerSingleZoneReheat(DataObject):
     def minimum_supply_air_temperature(self):
         """field `Minimum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: -99.0
+
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -842,10 +858,11 @@ class SetpointManagerSingleZoneReheat(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 99.0
+
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -926,8 +943,9 @@ class SetpointManagerSingleZoneReheat(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1053,9 +1071,10 @@ class SetpointManagerSingleZoneHeating(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1075,10 +1094,11 @@ class SetpointManagerSingleZoneHeating(DataObject):
     def minimum_supply_air_temperature(self):
         """field `Minimum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: -99.0
+
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1098,10 +1118,11 @@ class SetpointManagerSingleZoneHeating(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 99.0
+
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1182,8 +1203,9 @@ class SetpointManagerSingleZoneHeating(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1309,9 +1331,10 @@ class SetpointManagerSingleZoneCooling(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1331,10 +1354,11 @@ class SetpointManagerSingleZoneCooling(DataObject):
     def minimum_supply_air_temperature(self):
         """field `Minimum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: -99.0
+
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1354,10 +1378,11 @@ class SetpointManagerSingleZoneCooling(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 99.0
+
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1438,8 +1463,9 @@ class SetpointManagerSingleZoneCooling(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1536,9 +1562,11 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
 
     @property
     def control_variable(self):
-        """field `Control Variable` This field is not really used and will be
-        deleted from the object. The required information is gotten internally
-        or not needed by the program.
+        """field `Control Variable`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -1559,9 +1587,11 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
 
     @property
     def schedule_name(self):
-        """field `Schedule Name` This field is not really used and will be
-        deleted from the object. The required information is gotten internally
-        or not needed by the program.
+        """field `Schedule Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -1582,8 +1612,9 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which humidity
-        ratio setpoint will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which humidity ratio setpoint will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1604,8 +1635,9 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
 
     @property
     def control_zone_air_node_name(self):
-        """field `Control Zone Air Node Name` Name of the zone air node for the
-        humidity control zone.
+        """field `Control Zone Air Node Name`
+
+        |  Name of the zone air node for the humidity control zone
 
         Args:
             value (str): value for IDD Field `Control Zone Air Node Name`
@@ -1702,9 +1734,11 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
 
     @property
     def control_variable(self):
-        """field `Control Variable` This field is not really used and will be
-        deleted from the object. The required information is gotten internally
-        or not needed by the program.
+        """field `Control Variable`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -1725,9 +1759,11 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
 
     @property
     def schedule_name(self):
-        """field `Schedule Name` This field is not really used and will be
-        deleted from the object. The required information is gotten internally
-        or not needed by the program.
+        """field `Schedule Name`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -1748,8 +1784,9 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which humidity
-        ratio setpoint will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which humidity ratio setpoint will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1770,8 +1807,9 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
 
     @property
     def control_zone_air_node_name(self):
-        """field `Control Zone Air Node Name` Name of the zone air node for the
-        humidity control zone.
+        """field `Control Zone Air Node Name`
+
+        |  Name of the zone air node for the humidity control zone
 
         Args:
             value (str): value for IDD Field `Control Zone Air Node Name`
@@ -1878,9 +1916,10 @@ class SetpointManagerMixedAir(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1961,8 +2000,9 @@ class SetpointManagerMixedAir(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2136,13 +2176,14 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def minimum_setpoint_temperature(self):
-        """field `Minimum Setpoint Temperature` Applicable only if Control
-        variable is Temperature.
+        """field `Minimum Setpoint Temperature`
+
+        |  Applicable only if Control variable is Temperature
+        |  Units: C
+        |  Default value: -99.0
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2160,13 +2201,14 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def maximum_setpoint_temperature(self):
-        """field `Maximum Setpoint Temperature` Applicable only if Control
-        variable is Temperature.
+        """field `Maximum Setpoint Temperature`
+
+        |  Applicable only if Control variable is Temperature
+        |  Units: C
+        |  Default value: 99.0
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2184,16 +2226,16 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def minimum_setpoint_humidity_ratio(self):
-        """field `Minimum Setpoint Humidity Ratio` Applicable only if Control
-        variable is.
+        """field `Minimum Setpoint Humidity Ratio`
 
-        MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        |  Applicable only if Control variable is
+        |  MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        |  Units: kgWater/kgDryAir
+        |  Default value: 1e-05
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 1e-05
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2211,16 +2253,16 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def maximum_setpoint_humidity_ratio(self):
-        """field `Maximum Setpoint Humidity Ratio` Applicable only if Control
-        variable is.
+        """field `Maximum Setpoint Humidity Ratio`
 
-        MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        |  Applicable only if Control variable is
+        |  MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        |  Units: kgWater/kgDryAir
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2238,9 +2280,12 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def reference_setpoint_node_name(self):
-        """field `Reference Setpoint Node Name` The current setpoint at this
-        node is the desired condition for the Mixed Air Node This node must
-        have a valid setpoint which has been set by another setpoint manager.
+        """field `Reference Setpoint Node Name`
+
+        |  The current setpoint at this node is the
+        |  desired condition for the Mixed Air Node
+        |  This node must have a valid setpoint
+        |  which has been set by another setpoint manager
 
         Args:
             value (str): value for IDD Field `Reference Setpoint Node Name`
@@ -2261,7 +2306,9 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def mixed_air_stream_node_name(self):
-        """field `Mixed Air Stream Node Name` Name of Mixed Air Node.
+        """field `Mixed Air Stream Node Name`
+
+        |  Name of Mixed Air Node
 
         Args:
             value (str): value for IDD Field `Mixed Air Stream Node Name`
@@ -2282,8 +2329,9 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def outdoor_air_stream_node_name(self):
-        """field `Outdoor Air Stream Node Name` Name of Outdoor Air Stream
-        Node.
+        """field `Outdoor Air Stream Node Name`
+
+        |  Name of Outdoor Air Stream Node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Stream Node Name`
@@ -2304,7 +2352,9 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def return_air_stream_node_name(self):
-        """field `Return Air Stream Node Name` Name of Return Air Stream Node.
+        """field `Return Air Stream Node Name`
+
+        |  Name of Return Air Stream Node
 
         Args:
             value (str): value for IDD Field `Return Air Stream Node Name`
@@ -2325,8 +2375,10 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature or humidity ratio will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature or humidity
+        |  ratio will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2448,9 +2500,10 @@ class SetpointManagerWarmest(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2468,7 +2521,9 @@ class SetpointManagerWarmest(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -2491,10 +2546,11 @@ class SetpointManagerWarmest(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 12.0
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2514,10 +2570,11 @@ class SetpointManagerWarmest(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2537,9 +2594,10 @@ class SetpointManagerWarmest(DataObject):
     def strategy(self):
         """field `Strategy`
 
+        |  Default value: MaximumTemperature
+
         Args:
             value (str): value for IDD Field `Strategy`
-                Default value: MaximumTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2557,8 +2615,9 @@ class SetpointManagerWarmest(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2681,9 +2740,10 @@ class SetpointManagerColdest(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2701,7 +2761,9 @@ class SetpointManagerColdest(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object.
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -2724,10 +2786,11 @@ class SetpointManagerColdest(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 20.0
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2747,10 +2810,11 @@ class SetpointManagerColdest(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 50.0
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2770,9 +2834,10 @@ class SetpointManagerColdest(DataObject):
     def strategy(self):
         """field `Strategy`
 
+        |  Default value: MinimumTemperature
+
         Args:
             value (str): value for IDD Field `Strategy`
-                Default value: MinimumTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2790,8 +2855,9 @@ class SetpointManagerColdest(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2884,9 +2950,10 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Flow
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Flow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2904,7 +2971,9 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object.
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3075,7 +3144,9 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object.
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3098,10 +3169,11 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 12.0
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3121,10 +3193,11 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3142,20 +3215,20 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
 
     @property
     def strategy(self):
-        """field `Strategy` For TemperatureFirst the manager tries to find the
-        highest setpoint temperature that will satisfy all the zone cooling
-        loads at minimum supply air flow rate. If this setpoint temperature is
-        less than the minimum, the setpoint temperature is set to the minimum,
-        and the supply air flow rate is increased to meet the loads. For
-        FlowFirst the manager tries to find the lowest supply air flow rate
-        that will satisfy all the zone cooling loads at the maximum setpoint
-        temperature. If this flow is greater than the maximum, the flow is set
-        to the maximum and the setpoint temperature is reduced to satisfy the
-        cooling loads.
+        """field `Strategy`
+
+        |  For TemperatureFirst the manager tries to find the highest setpoint temperature
+        |  that will satisfy all the zone cooling loads at minimum supply air flow rate.
+        |  If this setpoint temperature is less than the minimum, the setpoint temperature is set
+        |  to the minimum, and the supply air flow rate is increased to meet the loads.
+        |  For FlowFirst the manager tries to find the lowest supply air flow rate
+        |  that will satisfy all the zone cooling loads at the maximum setpoint temperature.
+        |  If this flow is greater than the maximum, the flow is set to the maximum and the
+        |  setpoint temperature is reduced to satisfy the cooling loads.
+        |  Default value: TemperatureFirst
 
         Args:
             value (str): value for IDD Field `Strategy`
-                Default value: TemperatureFirst
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3173,8 +3246,9 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3195,14 +3269,15 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
 
     @property
     def minimum_turndown_ratio(self):
-        """field `Minimum Turndown Ratio` Fraction of the maximum supply air
-        flow rate. Used to define the minimum supply flow for the
-        TemperatureFirst strategy.
+        """field `Minimum Turndown Ratio`
+
+        |  Fraction of the maximum supply air flow rate.
+        |  Used to define the minimum supply flow for the TemperatureFirst strategy.
+        |  Units: dimensionless
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Turndown Ratio`
-                Units: dimensionless
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3300,7 +3375,9 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3323,10 +3400,11 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 20.0
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3346,10 +3424,11 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 50.0
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3367,8 +3446,9 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3469,7 +3549,9 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3492,10 +3574,11 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 12.0
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
-                Default value: 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3515,10 +3598,11 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3536,8 +3620,9 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3638,7 +3723,9 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3661,10 +3748,11 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
     def minimum_setpoint_humidity_ratio(self):
         """field `Minimum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.005
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.005
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3684,10 +3772,11 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
     def maximum_setpoint_humidity_ratio(self):
         """field `Maximum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.012
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.012
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3705,8 +3794,9 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the humidity
-        ratio will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the humidity ratio will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3807,7 +3897,9 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3830,10 +3922,11 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
     def minimum_setpoint_humidity_ratio(self):
         """field `Minimum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.008
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3853,10 +3946,11 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
     def maximum_setpoint_humidity_ratio(self):
         """field `Maximum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.015
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.015
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3874,8 +3968,9 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the humidity
-        ratio will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the humidity ratio will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3977,7 +4072,9 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -4000,10 +4097,11 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
     def minimum_setpoint_humidity_ratio(self):
         """field `Minimum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.005
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.005
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4023,10 +4121,11 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
     def maximum_setpoint_humidity_ratio(self):
         """field `Maximum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.012
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.012
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4044,8 +4143,9 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the humidity
-        ratio will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the humidity ratio will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4147,7 +4247,9 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
 
     @property
     def hvac_air_loop_name(self):
-        """field `HVAC Air Loop Name` Enter the name of an AirLoopHVAC object.
+        """field `HVAC Air Loop Name`
+
+        |  Enter the name of an AirLoopHVAC object
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -4170,10 +4272,11 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
     def minimum_setpoint_humidity_ratio(self):
         """field `Minimum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.008
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4193,10 +4296,11 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
     def maximum_setpoint_humidity_ratio(self):
         """field `Maximum Setpoint Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.015
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.015
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4214,8 +4318,9 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the humidity
-        ratio will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the humidity ratio will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4337,9 +4442,10 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4359,9 +4465,10 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     def reference_temperature_type(self):
         """field `Reference Temperature Type`
 
+        |  Default value: OutdoorAirWetBulb
+
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
-                Default value: OutdoorAirWetBulb
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4381,9 +4488,10 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     def offset_temperature_difference(self):
         """field `Offset Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4403,9 +4511,10 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4425,9 +4534,10 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4445,8 +4555,9 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4579,9 +4690,10 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4622,9 +4734,10 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
     def reference_temperature_type(self):
         """field `Reference Temperature Type`
 
+        |  Default value: NodeDryBulb
+
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
-                Default value: NodeDryBulb
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4644,9 +4757,10 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
     def offset_temperature_difference(self):
         """field `Offset Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4666,9 +4780,10 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
     def maximum_limit_setpoint_temperature(self):
         """field `Maximum Limit Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Limit Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4688,9 +4803,10 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
     def minimum_limit_setpoint_temperature(self):
         """field `Minimum Limit Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Limit Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4708,8 +4824,9 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4835,9 +4952,10 @@ class SetpointManagerFollowGroundTemperature(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4879,9 +4997,10 @@ class SetpointManagerFollowGroundTemperature(DataObject):
     def offset_temperature_difference(self):
         """field `Offset Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4901,9 +5020,10 @@ class SetpointManagerFollowGroundTemperature(DataObject):
     def maximum_setpoint_temperature(self):
         """field `Maximum Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4923,9 +5043,10 @@ class SetpointManagerFollowGroundTemperature(DataObject):
     def minimum_setpoint_temperature(self):
         """field `Minimum Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4943,8 +5064,9 @@ class SetpointManagerFollowGroundTemperature(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5084,9 +5206,10 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5105,9 +5228,10 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     @property
     def default_condenser_entering_water_temperature_schedule_name(self):
         """field `Default Condenser Entering Water Temperature Schedule Name`
-        This scheduled setpoint value is only used in a given timestep if the
-        "Optimized" Condenser Entering Temperature does not fall within the
-        prescribed boundary conditions.
+
+        |  This scheduled setpoint value is only used in a given timestep if the
+        |  "Optimized" Condenser Entering Temperature does not fall within the prescribed
+        |  boundary conditions.
 
         Args:
             value (str): value for IDD Field `Default Condenser Entering Water Temperature Schedule Name`
@@ -5134,7 +5258,8 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     @property
     def minimum_design_wetbulb_temperature_curve_name(self):
         """field `Minimum Design Wetbulb Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Minimum Design Wetbulb Temperature Curve Name`
@@ -5144,6 +5269,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
 
         Returns:
             str: the value of `minimum_design_wetbulb_temperature_curve_name` or None if not set
+
         """
         return self["Minimum Design Wetbulb Temperature Curve Name"]
 
@@ -5156,7 +5282,8 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     @property
     def minimum_outside_air_wetbulb_temperature_curve_name(self):
         """field `Minimum Outside Air Wetbulb Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Minimum Outside Air Wetbulb Temperature Curve Name`
@@ -5166,6 +5293,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
 
         Returns:
             str: the value of `minimum_outside_air_wetbulb_temperature_curve_name` or None if not set
+
         """
         return self["Minimum Outside Air Wetbulb Temperature Curve Name"]
 
@@ -5178,7 +5306,8 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     @property
     def optimized_cond_entering_water_temperature_curve_name(self):
         """field `Optimized Cond Entering Water Temperature Curve Name`
-        Table:OneIndependentVariable
+
+        |  Table:OneIndependentVariable
 
         Args:
             value (str): value for IDD Field `Optimized Cond Entering Water Temperature Curve Name`
@@ -5188,6 +5317,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
 
         Returns:
             str: the value of `optimized_cond_entering_water_temperature_curve_name` or None if not set
+
         """
         return self["Optimized Cond Entering Water Temperature Curve Name"]
 
@@ -5201,10 +5331,11 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     def minimum_lift(self):
         """field `Minimum Lift`
 
+        |  Units: deltaC
+        |  Default value: 11.1
+
         Args:
             value (float): value for IDD Field `Minimum Lift`
-                Units: deltaC
-                Default value: 11.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5224,10 +5355,11 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     def maximum_condenser_entering_water_temperature(self):
         """field `Maximum Condenser Entering Water Temperature`
 
+        |  Units: C
+        |  Default value: 32.0
+
         Args:
             value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
-                Units: C
-                Default value: 32.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5248,10 +5380,11 @@ class SetpointManagerCondenserEnteringReset(DataObject):
     def cooling_tower_design_inlet_air_wetbulb_temperature(self):
         """field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: 25.56
+
         Args:
             value (float): value for IDD Field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
-                Units: C
-                Default value: 25.56
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5270,8 +5403,9 @@ class SetpointManagerCondenserEnteringReset(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5374,9 +5508,10 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
     def control_variable(self):
         """field `Control Variable`
 
+        |  Default value: Temperature
+
         Args:
             value (str): value for IDD Field `Control Variable`
-                Default value: Temperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5396,10 +5531,11 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
     def minimum_lift(self):
         """field `Minimum Lift`
 
+        |  Units: deltaC
+        |  Default value: 11.1
+
         Args:
             value (float): value for IDD Field `Minimum Lift`
-                Units: deltaC
-                Default value: 11.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5419,10 +5555,11 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
     def maximum_condenser_entering_water_temperature(self):
         """field `Maximum Condenser Entering Water Temperature`
 
+        |  Units: C
+        |  Default value: 32.0
+
         Args:
             value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
-                Units: C
-                Default value: 32.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5441,8 +5578,9 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which control
-        variable will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which control variable will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5542,13 +5680,14 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
 
     @property
     def cooling_stage_on_supply_air_setpoint_temperature(self):
-        """field `Cooling Stage On Supply Air Setpoint Temperature` This is the
-        setpoint value applied when cooling device is to cycle ON.
+        """field `Cooling Stage On Supply Air Setpoint Temperature`
+
+        |  This is the setpoint value applied when cooling device is to cycle ON
+        |  Units: C
+        |  Default value: -99.0
 
         Args:
             value (float): value for IDD Field `Cooling Stage On Supply Air Setpoint Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5567,13 +5706,14 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
 
     @property
     def cooling_stage_off_supply_air_setpoint_temperature(self):
-        """field `Cooling Stage Off Supply Air Setpoint Temperature` This is
-        the setpoint value applied when cooling device is to cycle OFF.
+        """field `Cooling Stage Off Supply Air Setpoint Temperature`
+
+        |  This is the setpoint value applied when cooling device is to cycle OFF
+        |  Units: C
+        |  Default value: 99.0
 
         Args:
             value (float): value for IDD Field `Cooling Stage Off Supply Air Setpoint Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5613,8 +5753,9 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5715,13 +5856,14 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
 
     @property
     def heating_stage_on_supply_air_setpoint_temperature(self):
-        """field `Heating Stage On Supply Air Setpoint Temperature` This is the
-        setpoint value applied when heating device is to cycle ON.
+        """field `Heating Stage On Supply Air Setpoint Temperature`
+
+        |  This is the setpoint value applied when heating device is to cycle ON
+        |  Units: C
+        |  Default value: 99.0
 
         Args:
             value (float): value for IDD Field `Heating Stage On Supply Air Setpoint Temperature`
-                Units: C
-                Default value: 99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5740,13 +5882,14 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
 
     @property
     def heating_stage_off_supply_air_setpoint_temperature(self):
-        """field `Heating Stage Off Supply Air Setpoint Temperature` This is
-        the setpoint value applied when heating device is to cycle OFF.
+        """field `Heating Stage Off Supply Air Setpoint Temperature`
+
+        |  This is the setpoint value applied when heating device is to cycle OFF
+        |  Units: C
+        |  Default value: -99.0
 
         Args:
             value (float): value for IDD Field `Heating Stage Off Supply Air Setpoint Temperature`
-                Units: C
-                Default value: -99.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5786,8 +5929,9 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
 
     @property
     def setpoint_node_or_nodelist_name(self):
-        """field `Setpoint Node or NodeList Name` Node(s) at which the
-        temperature will be set.
+        """field `Setpoint Node or NodeList Name`
+
+        |  Node(s) at which the temperature will be set
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`

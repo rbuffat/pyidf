@@ -50,8 +50,10 @@ class EnergyManagementSystemSensor(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -74,6 +76,7 @@ class EnergyManagementSystemSensor(DataObject):
     def outputvariable_or_outputmeter_index_key_name(self):
         """field `Output:Variable or Output:Meter Index Key Name`
 
+
         Args:
             value (str): value for IDD Field `Output:Variable or Output:Meter Index Key Name`
 
@@ -95,6 +98,7 @@ class EnergyManagementSystemSensor(DataObject):
     @property
     def outputvariable_or_outputmeter_name(self):
         """field `Output:Variable or Output:Meter Name`
+
 
         Args:
             value (str): value for IDD Field `Output:Variable or Output:Meter Name`
@@ -161,8 +165,10 @@ class EnergyManagementSystemActuator(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -300,7 +306,9 @@ class EnergyManagementSystemProgramCallingManager(DataObject):
 
     @property
     def name(self):
-        """field `Name` no spaces allowed in name.
+        """field `Name`
+
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -407,7 +415,9 @@ class EnergyManagementSystemProgram(DataObject):
 
     @property
     def name(self):
-        """field `Name` no spaces allowed in name.
+        """field `Name`
+
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -493,7 +503,9 @@ class EnergyManagementSystemSubroutine(DataObject):
 
     @property
     def name(self):
-        """field `Name` no spaces allowed in name.
+        """field `Name`
+
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -693,7 +705,9 @@ class EnergyManagementSystemOutputVariable(DataObject):
 
     @property
     def ems_variable_name(self):
-        """field `EMS Variable Name` must be an acceptable EMS variable.
+        """field `EMS Variable Name`
+
+        |  must be an acceptable EMS variable
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -756,8 +770,9 @@ class EnergyManagementSystemOutputVariable(DataObject):
 
     @property
     def ems_program_or_subroutine_name(self):
-        """field `EMS Program or Subroutine Name` optional for global scope
-        variables, required for local scope variables.
+        """field `EMS Program or Subroutine Name`
+
+        |  optional for global scope variables, required for local scope variables
 
         Args:
             value (str): value for IDD Field `EMS Program or Subroutine Name`
@@ -778,8 +793,10 @@ class EnergyManagementSystemOutputVariable(DataObject):
 
     @property
     def units(self):
-        """field `Units` optional but will result in dimensionless units for
-        blank EnergyPlus units are standard SI units.
+        """field `Units`
+
+        |  optional but will result in dimensionless units for blank
+        |  EnergyPlus units are standard SI units
 
         Args:
             value (str): value for IDD Field `Units`
@@ -943,8 +960,9 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
     @property
     def ems_variable_name(self):
-        """field `EMS Variable Name` must be an acceptable EMS variable, no
-        spaces.
+        """field `EMS Variable Name`
+
+        |  must be an acceptable EMS variable, no spaces
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -986,8 +1004,9 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
     @property
     def ems_program_or_subroutine_name(self):
-        """field `EMS Program or Subroutine Name` optional for global scope
-        variables, required for local scope variables.
+        """field `EMS Program or Subroutine Name`
+
+        |  optional for global scope variables, required for local scope variables
 
         Args:
             value (str): value for IDD Field `EMS Program or Subroutine Name`
@@ -1008,8 +1027,9 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
     @property
     def resource_type(self):
-        """field `Resource Type` choose the type of fuel, water, electricity,
-        pollution or heat rate that should be metered.
+        """field `Resource Type`
+
+        |  choose the type of fuel, water, electricity, pollution or heat rate that should be metered.
 
         Args:
             value (str): value for IDD Field `Resource Type`
@@ -1030,8 +1050,9 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
     @property
     def group_type(self):
-        """field `Group Type` choose a general classification, building
-        (internal services), HVAC (air sytems), or plant (hydronic systems)
+        """field `Group Type`
+
+        |  choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)
 
         Args:
             value (str): value for IDD Field `Group Type`
@@ -1053,7 +1074,8 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
     @property
     def enduse_category(self):
         """field `End-Use Category`
-        choose how the metered output should be classified for end-use category
+
+        |  choose how the metered output should be classified for end-use category
 
         Args:
             value (str): value for IDD Field `End-Use Category`
@@ -1076,7 +1098,8 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
     @property
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
-        enter a user-defined subcategory for this metered output
+
+        |  enter a user-defined subcategory for this metered output
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -1098,8 +1121,10 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
     @property
     def units(self):
-        """field `Units` optional but will result in dimensionless units for
-        blank EnergyPlus units are standard SI units.
+        """field `Units`
+
+        |  optional but will result in dimensionless units for blank
+        |  EnergyPlus units are standard SI units
 
         Args:
             value (str): value for IDD Field `Units`
@@ -1160,7 +1185,9 @@ class EnergyManagementSystemTrendVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` no spaces allowed in name.
+        """field `Name`
+
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1181,7 +1208,9 @@ class EnergyManagementSystemTrendVariable(DataObject):
 
     @property
     def ems_variable_name(self):
-        """field `EMS Variable Name` must be a global scope EMS variable.
+        """field `EMS Variable Name`
+
+        |  must be a global scope EMS variable
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -1204,9 +1233,10 @@ class EnergyManagementSystemTrendVariable(DataObject):
     def number_of_timesteps_to_be_logged(self):
         """field `Number of Timesteps to be Logged`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Timesteps to be Logged`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1262,8 +1292,10 @@ class EnergyManagementSystemInternalVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1357,8 +1389,10 @@ class EnergyManagementSystemCurveOrTableIndexVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1431,8 +1465,10 @@ class EnergyManagementSystemConstructionIndexVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`

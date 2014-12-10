@@ -180,11 +180,12 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
     def temperature_sensor_offset(self):
         """field `Temperature Sensor Offset`
 
+        |  Units: deltaC
+        |  value > -10.0
+        |  value < 10.0
+
         Args:
             value (float): value for IDD Field `Temperature Sensor Offset`
-                Units: deltaC
-                value > -10.0
-                value < 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -373,11 +374,12 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
     def humidity_sensor_offset(self):
         """field `Humidity Sensor Offset`
 
+        |  Units: kgWater/kgDryAir
+        |  value > -0.02
+        |  value < 0.02
+
         Args:
             value (float): value for IDD Field `Humidity Sensor Offset`
-                Units: kgWater/kgDryAir
-                value > -0.02
-                value < 0.02
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -566,11 +568,12 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
     def enthalpy_sensor_offset(self):
         """field `Enthalpy Sensor Offset`
 
+        |  Units: J/kg
+        |  value > -20000.0
+        |  value < 20000.0
+
         Args:
             value (float): value for IDD Field `Enthalpy Sensor Offset`
-                Units: J/kg
-                value > -20000.0
-                value < 20000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -759,11 +762,12 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
     def pressure_sensor_offset(self):
         """field `Pressure Sensor Offset`
 
+        |  Units: Pa
+        |  value > -10000.0
+        |  value < 10000.0
+
         Args:
             value (float): value for IDD Field `Pressure Sensor Offset`
-                Units: Pa
-                value > -10000.0
-                value < 10000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -952,11 +956,12 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
     def temperature_sensor_offset(self):
         """field `Temperature Sensor Offset`
 
+        |  Units: deltaC
+        |  value > -10.0
+        |  value < 10.0
+
         Args:
             value (float): value for IDD Field `Temperature Sensor Offset`
-                Units: deltaC
-                value > -10.0
-                value < 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1145,11 +1150,12 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
     def enthalpy_sensor_offset(self):
         """field `Enthalpy Sensor Offset`
 
+        |  Units: J/kg
+        |  value > -20000.0
+        |  value < 20000.0
+
         Args:
             value (float): value for IDD Field `Enthalpy Sensor Offset`
-                Units: J/kg
-                value > -20000.0
-                value < 20000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1356,9 +1362,10 @@ class FaultModelFoulingCoil(DataObject):
     def fouling_input_method(self):
         """field `Fouling Input Method`
 
+        |  Default value: FouledUARated
+
         Args:
             value (str): value for IDD Field `Fouling Input Method`
-                Default value: FouledUARated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1377,18 +1384,20 @@ class FaultModelFoulingCoil(DataObject):
     @property
     def uafouled(self):
         """field `UAFouled`
-        Fouling coil UA value under rating conditions
-        For Fouling Input Method: FouledUARated
+
+        |  Fouling coil UA value under rating conditions
+        |  For Fouling Input Method: FouledUARated
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `UAFouled`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `uafouled` or None if not set
+
         """
         return self["UAFouled"]
 
@@ -1400,17 +1409,19 @@ class FaultModelFoulingCoil(DataObject):
     @property
     def water_side_fouling_factor(self):
         """field `Water Side Fouling Factor`
-        For Fouling Input Method: FoulingFactor
+
+        |  For Fouling Input Method: FoulingFactor
+        |  Units: m2-K/W
 
         Args:
             value (float): value for IDD Field `Water Side Fouling Factor`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `water_side_fouling_factor` or None if not set
+
         """
         return self["Water Side Fouling Factor"]
 
@@ -1422,17 +1433,19 @@ class FaultModelFoulingCoil(DataObject):
     @property
     def air_side_fouling_factor(self):
         """field `Air Side Fouling Factor`
-        For Fouling Input Method: FoulingFactor
+
+        |  For Fouling Input Method: FoulingFactor
+        |  Units: m2-K/W
 
         Args:
             value (float): value for IDD Field `Air Side Fouling Factor`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_side_fouling_factor` or None if not set
+
         """
         return self["Air Side Fouling Factor"]
 
@@ -1444,17 +1457,19 @@ class FaultModelFoulingCoil(DataObject):
     @property
     def outside_coil_surface_area(self):
         """field `Outside Coil Surface Area`
-        For Fouling Input Method: FoulingFactor
+
+        |  For Fouling Input Method: FoulingFactor
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Outside Coil Surface Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outside_coil_surface_area` or None if not set
+
         """
         return self["Outside Coil Surface Area"]
 
@@ -1466,18 +1481,20 @@ class FaultModelFoulingCoil(DataObject):
     @property
     def inside_to_outside_coil_surface_area_ratio(self):
         """field `Inside to Outside Coil Surface Area Ratio`
-        For Fouling Input Method: FoulingFactor
+
+        |  For Fouling Input Method: FoulingFactor
+        |  Units: dimensionless
+        |  Default value: 0.07
 
         Args:
             value (float): value for IDD Field `Inside to Outside Coil Surface Area Ratio`
-                Units: dimensionless
-                Default value: 0.07
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `inside_to_outside_coil_surface_area_ratio` or None if not set
+
         """
         return self["Inside to Outside Coil Surface Area Ratio"]
 

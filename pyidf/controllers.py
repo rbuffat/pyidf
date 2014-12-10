@@ -126,11 +126,12 @@ class ControllerWaterCoil(DataObject):
     @property
     def control_variable(self):
         """field `Control Variable`
-        keys HumidityRatio or TemperatureAndHumidityRatio
-        requires a ZoneControl:Humidistat object along
-        with SetpointManager:SingleZone:Humidity:Maximum,
-        SetpointManager:MultiZone:MaximumHumidity:Average, or
-        SetpointManager:Multizone:Humidity:Maximum object
+
+        |  keys HumidityRatio or TemperatureAndHumidityRatio
+        |  requires a ZoneControl:Humidistat object along
+        |  with SetpointManager:SingleZone:Humidity:Maximum,
+        |  SetpointManager:MultiZone:MaximumHumidity:Average, or
+        |  SetpointManager:Multizone:Humidity:Maximum object
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -140,6 +141,7 @@ class ControllerWaterCoil(DataObject):
 
         Returns:
             str: the value of `control_variable` or None if not set
+
         """
         return self["Control Variable"]
 
@@ -150,9 +152,11 @@ class ControllerWaterCoil(DataObject):
 
     @property
     def action(self):
-        """field `Action` Leave blank to have this automatically selected from
-        coil type. Chilled water coils should be reverse action Hot water coils
-        should be normal action.
+        """field `Action`
+
+        |  Leave blank to have this automatically selected from coil type.
+        |  Chilled water coils should be reverse action
+        |  Hot water coils should be normal action
 
         Args:
             value (str): value for IDD Field `Action`
@@ -238,16 +242,17 @@ class ControllerWaterCoil(DataObject):
     def controller_convergence_tolerance(self):
         """field `Controller Convergence Tolerance`
 
+        |  Units: deltaC
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Controller Convergence Tolerance`
-                Units: deltaC
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `controller_convergence_tolerance` or None if not set
+            float or "Autosize": the value of `controller_convergence_tolerance` or None if not set
 
         """
         return self["Controller Convergence Tolerance"]
@@ -261,15 +266,16 @@ class ControllerWaterCoil(DataObject):
     def maximum_actuated_flow(self):
         """field `Maximum Actuated Flow`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Actuated Flow`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_actuated_flow` or None if not set
+            float or "Autosize": the value of `maximum_actuated_flow` or None if not set
 
         """
         return self["Maximum Actuated Flow"]
@@ -283,10 +289,11 @@ class ControllerWaterCoil(DataObject):
     def minimum_actuated_flow(self):
         """field `Minimum Actuated Flow`
 
+        |  Units: m3/s
+        |  Default value: 1e-07
+
         Args:
             value (float): value for IDD Field `Minimum Actuated Flow`
-                Units: m3/s
-                Default value: 1e-07
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -625,7 +632,8 @@ class ControllerOutdoorAir(DataObject):
     @property
     def actuator_node_name(self):
         """field `Actuator Node Name`
-        Outdoor air inlet node entering the first pre-treat component if any
+
+        |  Outdoor air inlet node entering the first pre-treat component if any
 
         Args:
             value (str): value for IDD Field `Actuator Node Name`
@@ -635,6 +643,7 @@ class ControllerOutdoorAir(DataObject):
 
         Returns:
             str: the value of `actuator_node_name` or None if not set
+
         """
         return self["Actuator Node Name"]
 
@@ -647,15 +656,16 @@ class ControllerOutdoorAir(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -669,15 +679,16 @@ class ControllerOutdoorAir(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -691,9 +702,10 @@ class ControllerOutdoorAir(DataObject):
     def economizer_control_type(self):
         """field `Economizer Control Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Control Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -713,9 +725,10 @@ class ControllerOutdoorAir(DataObject):
     def economizer_control_action_type(self):
         """field `Economizer Control Action Type`
 
+        |  Default value: ModulateFlow
+
         Args:
             value (str): value for IDD Field `Economizer Control Action Type`
-                Default value: ModulateFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -734,13 +747,14 @@ class ControllerOutdoorAir(DataObject):
     @property
     def economizer_maximum_limit_drybulb_temperature(self):
         """field `Economizer Maximum Limit Dry-Bulb Temperature`
-        Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+
+        |  Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
+        |  economizer control type. No input or blank input means this limit is
+        |  not operative. Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -759,14 +773,15 @@ class ControllerOutdoorAir(DataObject):
 
     @property
     def economizer_maximum_limit_enthalpy(self):
-        """field `Economizer Maximum Limit Enthalpy` Enter the maximum outdoor
-        enthalpy limit for FixedEnthalpy economizer control type. No input or
-        blank input means this limit is not operative Limit is applied
-        regardless of economizer control type.
+        """field `Economizer Maximum Limit Enthalpy`
+
+        |  Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -784,14 +799,15 @@ class ControllerOutdoorAir(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -811,11 +827,12 @@ class ControllerOutdoorAir(DataObject):
     @property
     def electronic_enthalpy_limit_curve_name(self):
         """field `Electronic Enthalpy Limit Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Enter the name of a quadratic or cubic curve which defines the maximum outdoor
-        humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
-        economizer control type. No input or blank input means this limit is not operative
-        Limit is applied regardless of economizer control type.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Enter the name of a quadratic or cubic curve which defines the maximum outdoor
+        |  humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
+        |  economizer control type. No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
 
         Args:
             value (str): value for IDD Field `Electronic Enthalpy Limit Curve Name`
@@ -825,6 +842,7 @@ class ControllerOutdoorAir(DataObject):
 
         Returns:
             str: the value of `electronic_enthalpy_limit_curve_name` or None if not set
+
         """
         return self["Electronic Enthalpy Limit Curve Name"]
 
@@ -836,13 +854,14 @@ class ControllerOutdoorAir(DataObject):
     @property
     def economizer_minimum_limit_drybulb_temperature(self):
         """field `Economizer Minimum Limit Dry-Bulb Temperature`
-        Enter the minimum outdoor dry-bulb temperature limit for economizer control.
-        No input or blank input means this limit is not operative
-        Limit is applied regardless of economizer control type.
+
+        |  Enter the minimum outdoor dry-bulb temperature limit for economizer control.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -863,9 +882,10 @@ class ControllerOutdoorAir(DataObject):
     def lockout_type(self):
         """field `Lockout Type`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Lockout Type`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -885,9 +905,10 @@ class ControllerOutdoorAir(DataObject):
     def minimum_limit_type(self):
         """field `Minimum Limit Type`
 
+        |  Default value: ProportionalMinimum
+
         Args:
             value (str): value for IDD Field `Minimum Limit Type`
-                Default value: ProportionalMinimum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -905,8 +926,9 @@ class ControllerOutdoorAir(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the minimum outdoor air flow rate.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the minimum outdoor air flow rate
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -927,8 +949,9 @@ class ControllerOutdoorAir(DataObject):
 
     @property
     def minimum_fraction_of_outdoor_air_schedule_name(self):
-        """field `Minimum Fraction of Outdoor Air Schedule Name` schedule
-        values multiply the design/mixed air flow rate.
+        """field `Minimum Fraction of Outdoor Air Schedule Name`
+
+        |  schedule values multiply the design/mixed air flow rate
 
         Args:
             value (str): value for IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
@@ -950,8 +973,9 @@ class ControllerOutdoorAir(DataObject):
 
     @property
     def maximum_fraction_of_outdoor_air_schedule_name(self):
-        """field `Maximum Fraction of Outdoor Air Schedule Name` schedule
-        values multiply the design/mixed air flow rate.
+        """field `Maximum Fraction of Outdoor Air Schedule Name`
+
+        |  schedule values multiply the design/mixed air flow rate
 
         Args:
             value (str): value for IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
@@ -974,9 +998,10 @@ class ControllerOutdoorAir(DataObject):
     @property
     def mechanical_ventilation_controller_name(self):
         """field `Mechanical Ventilation Controller Name`
-        Enter the name of a Controller:MechanicalVentilation object.
-        Optional field for defining outdoor ventilation air based on flow rate per unit floor
-        area and flow rate per person. Simplified method of demand-controlled ventilation.
+
+        |  Enter the name of a Controller:MechanicalVentilation object.
+        |  Optional field for defining outdoor ventilation air based on flow rate per unit floor
+        |  area and flow rate per person. Simplified method of demand-controlled ventilation.
 
         Args:
             value (str): value for IDD Field `Mechanical Ventilation Controller Name`
@@ -986,6 +1011,7 @@ class ControllerOutdoorAir(DataObject):
 
         Returns:
             str: the value of `mechanical_ventilation_controller_name` or None if not set
+
         """
         return self["Mechanical Ventilation Controller Name"]
 
@@ -997,11 +1023,12 @@ class ControllerOutdoorAir(DataObject):
     @property
     def time_of_day_economizer_control_schedule_name(self):
         """field `Time of Day Economizer Control Schedule Name`
-        Optional schedule to simulate "push-button" type economizer control.
-        Schedule values greater than 0 indicate time-of-day economizer control is enabled.
-        Economizer control may be used with or without the high humidity control option.
-        When used together, high humidity control has priority over economizer control.
-        If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+
+        |  Optional schedule to simulate "push-button" type economizer control.
+        |  Schedule values greater than 0 indicate time-of-day economizer control is enabled.
+        |  Economizer control may be used with or without the high humidity control option.
+        |  When used together, high humidity control has priority over economizer control.
+        |  If the field Economizer Control Type = NoEconomizer, then this option is disabled.
 
         Args:
             value (str): value for IDD Field `Time of Day Economizer Control Schedule Name`
@@ -1011,6 +1038,7 @@ class ControllerOutdoorAir(DataObject):
 
         Returns:
             str: the value of `time_of_day_economizer_control_schedule_name` or None if not set
+
         """
         return self["Time of Day Economizer Control Schedule Name"]
 
@@ -1023,20 +1051,22 @@ class ControllerOutdoorAir(DataObject):
     @property
     def high_humidity_control(self):
         """field `High Humidity Control`
-        Optional field to enable modified outdoor air flow rates based on zone relative humidity.
-        Select Yes to modify outdoor air flow rate based on a zone humidistat.
-        Select No to disable this feature.
-        If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+
+        |  Optional field to enable modified outdoor air flow rates based on zone relative humidity.
+        |  Select Yes to modify outdoor air flow rate based on a zone humidistat.
+        |  Select No to disable this feature.
+        |  If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `High Humidity Control`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `high_humidity_control` or None if not set
+
         """
         return self["High Humidity Control"]
 
@@ -1048,8 +1078,9 @@ class ControllerOutdoorAir(DataObject):
     @property
     def humidistat_control_zone_name(self):
         """field `Humidistat Control Zone Name`
-        Enter the name of the zone where the humidistat is located.
-        This field is only used when the field High Humidity Control = Yes.
+
+        |  Enter the name of the zone where the humidistat is located.
+        |  This field is only used when the field High Humidity Control = Yes.
 
         Args:
             value (str): value for IDD Field `Humidistat Control Zone Name`
@@ -1059,6 +1090,7 @@ class ControllerOutdoorAir(DataObject):
 
         Returns:
             str: the value of `humidistat_control_zone_name` or None if not set
+
         """
         return self["Humidistat Control Zone Name"]
 
@@ -1070,20 +1102,22 @@ class ControllerOutdoorAir(DataObject):
     @property
     def high_humidity_outdoor_air_flow_ratio(self):
         """field `High Humidity Outdoor Air Flow Ratio`
-        Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
-        flow rates are active based on high indoor humidity.
-        The minimum value must be greater than 0.
-        This field is only used when the field High Humidity Control = Yes.
+
+        |  Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
+        |  flow rates are active based on high indoor humidity.
+        |  The minimum value must be greater than 0.
+        |  This field is only used when the field High Humidity Control = Yes.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `high_humidity_outdoor_air_flow_ratio` or None if not set
+
         """
         return self["High Humidity Outdoor Air Flow Ratio"]
 
@@ -1095,21 +1129,23 @@ class ControllerOutdoorAir(DataObject):
     @property
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self):
         """field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
-        If No is selected, the outdoor air flow rate is modified any time indoor relative
-        humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
-        flow rate is modified any time the indoor relative humidity is above the humidistat
-        setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
-        This field is only used when the field High Humidity Control = Yes.
+
+        |  If No is selected, the outdoor air flow rate is modified any time indoor relative
+        |  humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
+        |  flow rate is modified any time the indoor relative humidity is above the humidistat
+        |  setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
+        |  This field is only used when the field High Humidity Control = Yes.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `control_high_indoor_humidity_based_on_outdoor_humidity_ratio` or None if not set
+
         """
         return self[
             "Control High Indoor Humidity Based on Outdoor Humidity Ratio"]
@@ -1126,15 +1162,17 @@ class ControllerOutdoorAir(DataObject):
     @property
     def heat_recovery_bypass_control_type(self):
         """field `Heat Recovery Bypass Control Type`
-        BypassWhenWithinEconomizerLimits specifies that heat recovery is active
-        only when the economizer is off because conditions are outside the
-        economizer control limits BypassWhenOAFlowGreaterThanMinimum specifies
-        enhanced economizer controls to allow heat recovery when economizer is
-        active (within limits) but the outdoor air flow rate is at the minimum.
+
+        |  BypassWhenWithinEconomizerLimits specifies that heat recovery
+        |  is active only when the economizer is off because conditions
+        |  are outside the economizer control limits
+        |  BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer
+        |  controls to allow heat recovery when economizer is active
+        |  (within limits) but the outdoor air flow rate is at the minimum.
+        |  Default value: BypassWhenWithinEconomizerLimits
 
         Args:
             value (str): value for IDD Field `Heat Recovery Bypass Control Type`
-                Default value: BypassWhenWithinEconomizerLimits
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1266,8 +1304,9 @@ class ControllerMechanicalVentilation(DataObject):
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
-        Schedule values greater than 0 indicate mechanical ventilation is enabled
+
+        |  If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
+        |  Schedule values greater than 0 indicate mechanical ventilation is enabled
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1277,6 +1316,7 @@ class ControllerMechanicalVentilation(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
@@ -1289,9 +1329,10 @@ class ControllerMechanicalVentilation(DataObject):
     def demand_controlled_ventilation(self):
         """field `Demand Controlled Ventilation`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1311,9 +1352,10 @@ class ControllerMechanicalVentilation(DataObject):
     def system_outdoor_air_method(self):
         """field `System Outdoor Air Method`
 
+        |  Default value: VentilationRateProcedure
+
         Args:
             value (str): value for IDD Field `System Outdoor Air Method`
-                Default value: VentilationRateProcedure
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1333,10 +1375,11 @@ class ControllerMechanicalVentilation(DataObject):
     def zone_maximum_outdoor_air_fraction(self):
         """field `Zone Maximum Outdoor Air Fraction`
 
+        |  Units: dimensionless
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value

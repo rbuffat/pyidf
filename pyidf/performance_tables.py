@@ -203,12 +203,14 @@ class TableOneIndependentVariable(DataObject):
 
     @property
     def minimum_value_of_x(self):
-        """field `Minimum Value of X` used only when Interpolation Type is
-        Evaluate Curve to Limits.
+        """field `Minimum Value of X`
+
+        |  used only when Interpolation Type is Evaluate Curve
+        |  to Limits
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -226,12 +228,14 @@ class TableOneIndependentVariable(DataObject):
 
     @property
     def maximum_value_of_x(self):
-        """field `Maximum Value of X` used only when Interpolation Type is
-        Evaluate Curve to Limits.
+        """field `Maximum Value of X`
+
+        |  used only when Interpolation Type is Evaluate Curve
+        |  to Limits
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -249,13 +253,16 @@ class TableOneIndependentVariable(DataObject):
 
     @property
     def minimum_table_output(self):
-        """field `Minimum Table Output` Specify the minimum value calculated by
-        this table lookup object used only when Interpolation Type is Evaluate
-        Curve to Limits.
+        """field `Minimum Table Output`
+
+        |  Specify the minimum value calculated by this table
+        |  lookup object
+        |  used only when Interpolation Type is Evaluate Curve
+        |  to Limits
+        |  Units are based on field `A5`
 
         Args:
             value (float): value for IDD Field `Minimum Table Output`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -273,13 +280,16 @@ class TableOneIndependentVariable(DataObject):
 
     @property
     def maximum_table_output(self):
-        """field `Maximum Table Output` Specify the maximum value calculated by
-        this table lookup object used only when Interpolation Type is Evaluate
-        Curve to Limits.
+        """field `Maximum Table Output`
+
+        |  Specify the maximum value calculated by this table
+        |  lookup object
+        |  used only when Interpolation Type is Evaluate Curve
+        |  to Limits
+        |  Units are based on field `A5`
 
         Args:
             value (float): value for IDD Field `Maximum Table Output`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -299,9 +309,10 @@ class TableOneIndependentVariable(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -321,9 +332,10 @@ class TableOneIndependentVariable(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -342,11 +354,12 @@ class TableOneIndependentVariable(DataObject):
     @property
     def normalization_reference(self):
         """field `Normalization Reference`
-        This field is used to normalize the following ouput data.
-        The minimum and maximum table output fields are also normalized.
-        If this field is blank or 1, the table data presented
-        in the following fields will be used with normalization
-        reference set to 1.
+
+        |  This field is used to normalize the following ouput data.
+        |  The minimum and maximum table output fields are also normalized.
+        |  If this field is blank or 1, the table data presented
+        |  in the following fields will be used with normalization
+        |  reference set to 1.
 
         Args:
             value (float): value for IDD Field `Normalization Reference`
@@ -356,6 +369,7 @@ class TableOneIndependentVariable(DataObject):
 
         Returns:
             float: the value of `normalization_reference` or None if not set
+
         """
         return self["Normalization Reference"]
 
@@ -609,9 +623,10 @@ class TableTwoIndependentVariables(DataObject):
     def interpolation_method(self):
         """field `Interpolation Method`
 
+        |  Default value: LagrangeInterpolationLinearExtrapolation
+
         Args:
             value (str): value for IDD Field `Interpolation Method`
-                Default value: LagrangeInterpolationLinearExtrapolation
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -633,9 +648,10 @@ class TableTwoIndependentVariables(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of X`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -655,9 +671,10 @@ class TableTwoIndependentVariables(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of X`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -677,9 +694,10 @@ class TableTwoIndependentVariables(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of Y`
 
+        |  Units are based on field `A5`
+
         Args:
             value (float): value for IDD Field `Minimum Value of Y`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -699,9 +717,10 @@ class TableTwoIndependentVariables(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of Y`
 
+        |  Units are based on field `A5`
+
         Args:
             value (float): value for IDD Field `Maximum Value of Y`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -719,12 +738,13 @@ class TableTwoIndependentVariables(DataObject):
 
     @property
     def minimum_table_output(self):
-        """field `Minimum Table Output` Specify the minimum value calculated by
-        this table lookup object.
+        """field `Minimum Table Output`
+
+        |  Specify the minimum value calculated by this table lookup object
+        |  Units are based on field `A6`
 
         Args:
             value (float): value for IDD Field `Minimum Table Output`
-                Units are based on field `A6`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -742,12 +762,13 @@ class TableTwoIndependentVariables(DataObject):
 
     @property
     def maximum_table_output(self):
-        """field `Maximum Table Output` Specify the maximum value calculated by
-        this table lookup object.
+        """field `Maximum Table Output`
+
+        |  Specify the maximum value calculated by this table lookup object
+        |  Units are based on field `A6`
 
         Args:
             value (float): value for IDD Field `Maximum Table Output`
-                Units are based on field `A6`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -767,9 +788,10 @@ class TableTwoIndependentVariables(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -789,9 +811,10 @@ class TableTwoIndependentVariables(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for Y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -811,9 +834,10 @@ class TableTwoIndependentVariables(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -831,10 +855,11 @@ class TableTwoIndependentVariables(DataObject):
 
     @property
     def normalization_reference(self):
-        """field `Normalization Reference` This field is used to normalize the
-        following output data. The minimum and maximum table output fields are
-        also normalized. If this field is blank or 1, the table data presented
-        below will be used.
+        """field `Normalization Reference`
+
+        |  This field is used to normalize the following output data.
+        |  The minimum and maximum table output fields are also normalized.
+        |  If this field is blank or 1, the table data presented below will be used.
 
         Args:
             value (float): value for IDD Field `Normalization Reference`
@@ -1370,9 +1395,10 @@ class TableMultiVariableLookup(DataObject):
     def interpolation_method(self):
         """field `Interpolation Method`
 
+        |  Default value: LagrangeInterpolationLinearExtrapolation
+
         Args:
             value (str): value for IDD Field `Interpolation Method`
-                Default value: LagrangeInterpolationLinearExtrapolation
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1394,11 +1420,12 @@ class TableMultiVariableLookup(DataObject):
     def number_of_interpolation_points(self):
         """field `Number of Interpolation Points`
 
+        |  Default value: 3
+        |  value > 1
+        |  value <= 4
+
         Args:
             value (int): value for IDD Field `Number of Interpolation Points`
-                Default value: 3
-                value > 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1417,8 +1444,9 @@ class TableMultiVariableLookup(DataObject):
     @property
     def curve_type(self):
         """field `Curve Type`
-        The curve types BiCubic and TriQuadratic may not
-        be used with Interpolation Method = EvaluateCurveToLimits
+
+        |  The curve types BiCubic and TriQuadratic may not
+        |  be used with Interpolation Method = EvaluateCurveToLimits
 
         Args:
             value (str): value for IDD Field `Curve Type`
@@ -1428,6 +1456,7 @@ class TableMultiVariableLookup(DataObject):
 
         Returns:
             str: the value of `curve_type` or None if not set
+
         """
         return self["Curve Type"]
 
@@ -1440,9 +1469,10 @@ class TableMultiVariableLookup(DataObject):
     def table_data_format(self):
         """field `Table Data Format`
 
+        |  Default value: SingleLineIndependentVariableWithMatrix
+
         Args:
             value (str): value for IDD Field `Table Data Format`
-                Default value: SingleLineIndependentVariableWithMatrix
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1485,9 +1515,10 @@ class TableMultiVariableLookup(DataObject):
     def x1_sort_order(self):
         """field `X1 Sort Order`
 
+        |  Default value: Ascending
+
         Args:
             value (str): value for IDD Field `X1 Sort Order`
-                Default value: Ascending
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1507,9 +1538,10 @@ class TableMultiVariableLookup(DataObject):
     def x2_sort_order(self):
         """field `X2 Sort Order`
 
+        |  Default value: Ascending
+
         Args:
             value (str): value for IDD Field `X2 Sort Order`
-                Default value: Ascending
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1528,10 +1560,11 @@ class TableMultiVariableLookup(DataObject):
     @property
     def normalization_reference(self):
         """field `Normalization Reference`
-        This field is used to normalize the table output data.
-        The minimum and maximum table output fields are also normalized.
-        If this field is blank or 1, the table data will be directly used.
-        This field is not allowed to be set equal to 0.
+
+        |  This field is used to normalize the table output data.
+        |  The minimum and maximum table output fields are also normalized.
+        |  If this field is blank or 1, the table data will be directly used.
+        |  This field is not allowed to be set equal to 0.
 
         Args:
             value (float): value for IDD Field `Normalization Reference`
@@ -1541,6 +1574,7 @@ class TableMultiVariableLookup(DataObject):
 
         Returns:
             float: the value of `normalization_reference` or None if not set
+
         """
         return self["Normalization Reference"]
 
@@ -1553,9 +1587,10 @@ class TableMultiVariableLookup(DataObject):
     def minimum_value_of_x1(self):
         """field `Minimum Value of X1`
 
+        |  Units are based on field `A8`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X1`
-                Units are based on field `A8`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1575,9 +1610,10 @@ class TableMultiVariableLookup(DataObject):
     def maximum_value_of_x1(self):
         """field `Maximum Value of X1`
 
+        |  Units are based on field `A8`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X1`
-                Units are based on field `A8`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1597,9 +1633,10 @@ class TableMultiVariableLookup(DataObject):
     def minimum_value_of_x2(self):
         """field `Minimum Value of X2`
 
+        |  Units are based on field `A9`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X2`
-                Units are based on field `A9`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1619,9 +1656,10 @@ class TableMultiVariableLookup(DataObject):
     def maximum_value_of_x2(self):
         """field `Maximum Value of X2`
 
+        |  Units are based on field `A9`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X2`
-                Units are based on field `A9`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1641,9 +1679,10 @@ class TableMultiVariableLookup(DataObject):
     def minimum_value_of_x3(self):
         """field `Minimum Value of X3`
 
+        |  Units are based on field `A10`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X3`
-                Units are based on field `A10`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1663,9 +1702,10 @@ class TableMultiVariableLookup(DataObject):
     def maximum_value_of_x3(self):
         """field `Maximum Value of X3`
 
+        |  Units are based on field `A10`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X3`
-                Units are based on field `A10`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1685,9 +1725,10 @@ class TableMultiVariableLookup(DataObject):
     def minimum_value_of_x4(self):
         """field `Minimum Value of X4`
 
+        |  Units are based on field `A11`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X4`
-                Units are based on field `A11`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1707,9 +1748,10 @@ class TableMultiVariableLookup(DataObject):
     def maximum_value_of_x4(self):
         """field `Maximum Value of X4`
 
+        |  Units are based on field `A11`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X4`
-                Units are based on field `A11`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1729,9 +1771,10 @@ class TableMultiVariableLookup(DataObject):
     def minimum_value_of_x5(self):
         """field `Minimum Value of X5`
 
+        |  Units are based on field `A12`
+
         Args:
             value (float): value for IDD Field `Minimum Value of X5`
-                Units are based on field `A12`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1751,9 +1794,10 @@ class TableMultiVariableLookup(DataObject):
     def maximum_value_of_x5(self):
         """field `Maximum Value of X5`
 
+        |  Units are based on field `A12`
+
         Args:
             value (float): value for IDD Field `Maximum Value of X5`
-                Units are based on field `A12`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1771,12 +1815,13 @@ class TableMultiVariableLookup(DataObject):
 
     @property
     def minimum_table_output(self):
-        """field `Minimum Table Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Table Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A13`
 
         Args:
             value (float): value for IDD Field `Minimum Table Output`
-                Units are based on field `A13`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1794,12 +1839,13 @@ class TableMultiVariableLookup(DataObject):
 
     @property
     def maximum_table_output(self):
-        """field `Maximum Table Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Table Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A13`
 
         Args:
             value (float): value for IDD Field `Maximum Table Output`
-                Units are based on field `A13`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1819,9 +1865,10 @@ class TableMultiVariableLookup(DataObject):
     def input_unit_type_for_x1(self):
         """field `Input Unit Type for X1`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X1`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1841,9 +1888,10 @@ class TableMultiVariableLookup(DataObject):
     def input_unit_type_for_x2(self):
         """field `Input Unit Type for X2`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X2`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1863,9 +1911,10 @@ class TableMultiVariableLookup(DataObject):
     def input_unit_type_for_x3(self):
         """field `Input Unit Type for X3`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X3`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1885,9 +1934,10 @@ class TableMultiVariableLookup(DataObject):
     def input_unit_type_for_x4(self):
         """field `Input Unit Type for X4`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X4`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1907,9 +1957,10 @@ class TableMultiVariableLookup(DataObject):
     def input_unit_type_for_x5(self):
         """field `Input Unit Type for X5`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X5`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1929,9 +1980,10 @@ class TableMultiVariableLookup(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1951,9 +2003,10 @@ class TableMultiVariableLookup(DataObject):
     def number_of_independent_variables(self):
         """field `Number of Independent Variables`
 
+        |  value <= 5
+
         Args:
             value (int): value for IDD Field `Number of Independent Variables`
-                value <= 5
 
         Raises:
             ValueError: if `value` is not a valid value

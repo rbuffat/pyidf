@@ -381,16 +381,17 @@ class PumpVariableSpeed(DataObject):
     def rated_flow_rate(self):
         """field `Rated Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_flow_rate` or None if not set
+            float or "Autosize": the value of `rated_flow_rate` or None if not set
 
         """
         return self["Rated Flow Rate"]
@@ -402,13 +403,15 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -427,19 +430,21 @@ class PumpVariableSpeed(DataObject):
     @property
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+
+        |  If this field is autosized, an impeller efficiency of 0.78 is assumed.
+        |  autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power_consumption` or None if not set
+            float or "Autosize": the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
@@ -451,19 +456,21 @@ class PumpVariableSpeed(DataObject):
     @property
     def motor_efficiency(self):
         """field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+
+        |  This is the motor efficiency only. When the Rated Power Consumption if autosized,
+        |  an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_efficiency` or None if not set
+
         """
         return self["Motor Efficiency"]
 
@@ -476,9 +483,10 @@ class PumpVariableSpeed(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -521,9 +529,10 @@ class PumpVariableSpeed(DataObject):
     def coefficient_2_of_the_part_load_performance_curve(self):
         """field `Coefficient 2 of the Part Load Performance Curve`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -586,13 +595,14 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def minimum_flow_rate(self):
-        """field `Minimum Flow Rate` This value can be zero and will be
-        defaulted to that if not specified.
+        """field `Minimum Flow Rate`
+
+        |  This value can be zero and will be defaulted to that if not specified.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Minimum Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -612,9 +622,10 @@ class PumpVariableSpeed(DataObject):
     def pump_control_type(self):
         """field `Pump Control Type`
 
+        |  Default value: Continuous
+
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Continuous
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -632,10 +643,11 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the rated flow rate of
-        the pump on a time basis. Default is that the pump is on and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations.
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the rated flow rate of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -657,15 +669,16 @@ class PumpVariableSpeed(DataObject):
     @property
     def pump_curve_name(self):
         """field `Pump Curve Name`
-        This references any single independent variable polynomial curve in order to
-        do pressure vs. flow calculations for this pump.  The available types are then:
-        Linear, Quadratic, Cubic, and Quartic
-        The non-dimensional pump pressure relationship is of the following form:
-        (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-        Where the nondimensional variables are defined as:
-        delP = rho * ((N/60)^2) * (D^2) * psi
-        mdot = rho * (N/60) * (D^3) * phi
-        Table:OneIndependentVariable object can also be used
+
+        |  This references any single independent variable polynomial curve in order to
+        |  do pressure vs. flow calculations for this pump.  The available types are then:
+        |  Linear, Quadratic, Cubic, and Quartic
+        |  The non-dimensional pump pressure relationship is of the following form:
+        |  (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
+        |  Where the nondimensional variables are defined as:
+        |  delP = rho * ((N/60)^2) * (D^2) * psi
+        |  mdot = rho * (N/60) * (D^3) * phi
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Pump Curve Name`
@@ -675,6 +688,7 @@ class PumpVariableSpeed(DataObject):
 
         Returns:
             str: the value of `pump_curve_name` or None if not set
+
         """
         return self["Pump Curve Name"]
 
@@ -685,11 +699,13 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def impeller_diameter(self):
-        """field `Impeller Diameter` "D" in above expression in field A6.
+        """field `Impeller Diameter`
+
+        |  "D" in above expression in field A6
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Impeller Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -728,10 +744,11 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def pump_rpm_schedule_name(self):
-        """field `Pump rpm Schedule Name` Modifies the rpm of the pump on a
-        time basis. Default is that the pump is on and runs according to its
-        other operational requirements specified above.  The schedule is for
-        special pump operations.
+        """field `Pump rpm Schedule Name`
+
+        |  Modifies the rpm of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump rpm Schedule Name`
@@ -754,9 +771,10 @@ class PumpVariableSpeed(DataObject):
     def minimum_pressure_schedule(self):
         """field `Minimum Pressure Schedule`
 
+        |  Units: Pa
+
         Args:
             value (str): value for IDD Field `Minimum Pressure Schedule`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -776,9 +794,10 @@ class PumpVariableSpeed(DataObject):
     def maximum_pressure_schedule(self):
         """field `Maximum Pressure Schedule`
 
+        |  Units: Pa
+
         Args:
             value (str): value for IDD Field `Maximum Pressure Schedule`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -798,9 +817,10 @@ class PumpVariableSpeed(DataObject):
     def minimum_rpm_schedule(self):
         """field `Minimum RPM Schedule`
 
+        |  Units: Rotations Per Minute
+
         Args:
             value (str): value for IDD Field `Minimum RPM Schedule`
-                Units: Rotations Per Minute
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -820,9 +840,10 @@ class PumpVariableSpeed(DataObject):
     def maximum_rpm_schedule(self):
         """field `Maximum RPM Schedule`
 
+        |  Units: Rotations Per Minute
+
         Args:
             value (str): value for IDD Field `Maximum RPM Schedule`
-                Units: Rotations Per Minute
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -840,8 +861,9 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` optional, if used pump losses transfered to zone
-        as internal gains.
+        """field `Zone Name`
+
+        |  optional, if used pump losses transfered to zone as internal gains
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -862,13 +884,14 @@ class PumpVariableSpeed(DataObject):
 
     @property
     def skin_loss_radiative_fraction(self):
-        """field `Skin Loss Radiative Fraction` optional. If zone identified in
-        previous field then this determines the split between convection and
-        radiation for the skin losses.
+        """field `Skin Loss Radiative Fraction`
+
+        |  optional. If zone identified in previous field then this determines
+        |  the split between convection and radiation for the skin losses
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1091,16 +1114,17 @@ class PumpConstantSpeed(DataObject):
     def rated_flow_rate(self):
         """field `Rated Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_flow_rate` or None if not set
+            float or "Autosize": the value of `rated_flow_rate` or None if not set
 
         """
         return self["Rated Flow Rate"]
@@ -1112,13 +1136,15 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1137,19 +1163,21 @@ class PumpConstantSpeed(DataObject):
     @property
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+
+        |  If this field is autosized, an impeller efficiency of 0.78 is assumed.
+        |  autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power_consumption` or None if not set
+            float or "Autosize": the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
@@ -1161,19 +1189,21 @@ class PumpConstantSpeed(DataObject):
     @property
     def motor_efficiency(self):
         """field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+
+        |  This is the motor efficiency only. When the Rated Power Consumption if autosized,
+        |  an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_efficiency` or None if not set
+
         """
         return self["Motor Efficiency"]
 
@@ -1186,9 +1216,10 @@ class PumpConstantSpeed(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1209,9 +1240,10 @@ class PumpConstantSpeed(DataObject):
     def pump_control_type(self):
         """field `Pump Control Type`
 
+        |  Default value: Continuous
+
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Continuous
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1229,10 +1261,11 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the rated flow rate of
-        the pump on a time basis. Default is that the pump is on and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations.
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the rated flow rate of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -1254,15 +1287,16 @@ class PumpConstantSpeed(DataObject):
     @property
     def pump_curve_name(self):
         """field `Pump Curve Name`
-        This references any single independent variable polynomial curve in order to
-        do pressure vs. flow calculations for this pump.  The available types are then:
-        Linear, Quadratic, Cubic, and Quartic
-        The non-dimensional pump pressure relationship is of the following form:
-        (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-        Where the nondimensional variables are defined as:
-        delP = rho * ((N/60)^2) * (D^2) * psi
-        mdot = rho * (N/60) * (D^3) * phi
-        Table:OneIndependentVariable object can also be used
+
+        |  This references any single independent variable polynomial curve in order to
+        |  do pressure vs. flow calculations for this pump.  The available types are then:
+        |  Linear, Quadratic, Cubic, and Quartic
+        |  The non-dimensional pump pressure relationship is of the following form:
+        |  (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
+        |  Where the nondimensional variables are defined as:
+        |  delP = rho * ((N/60)^2) * (D^2) * psi
+        |  mdot = rho * (N/60) * (D^3) * phi
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Pump Curve Name`
@@ -1272,6 +1306,7 @@ class PumpConstantSpeed(DataObject):
 
         Returns:
             str: the value of `pump_curve_name` or None if not set
+
         """
         return self["Pump Curve Name"]
 
@@ -1282,11 +1317,13 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def impeller_diameter(self):
-        """field `Impeller Diameter` "D" in above expression in field A6.
+        """field `Impeller Diameter`
+
+        |  "D" in above expression in field A6
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Impeller Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1304,11 +1341,13 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def rotational_speed(self):
-        """field `Rotational Speed` "N" in above expression in field A6.
+        """field `Rotational Speed`
+
+        |  "N" in above expression in field A6
+        |  Units: rev/min
 
         Args:
             value (float): value for IDD Field `Rotational Speed`
-                Units: rev/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1326,8 +1365,9 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` optional, if used pump losses transfered to zone
-        as internal gains.
+        """field `Zone Name`
+
+        |  optional, if used pump losses transfered to zone as internal gains
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1348,13 +1388,14 @@ class PumpConstantSpeed(DataObject):
 
     @property
     def skin_loss_radiative_fraction(self):
-        """field `Skin Loss Radiative Fraction` optional. If zone identified in
-        previous field then this determines the split between convection and
-        radiation for the skin losses.
+        """field `Skin Loss Radiative Fraction`
+
+        |  optional. If zone identified in previous field then this determines
+        |  the split between convection and radiation for the skin losses
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1577,16 +1618,17 @@ class PumpVariableSpeedCondensate(DataObject):
     def rated_flow_rate(self):
         """field `Rated Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_flow_rate` or None if not set
+            float or "Autosize": the value of `rated_flow_rate` or None if not set
 
         """
         return self["Rated Flow Rate"]
@@ -1598,13 +1640,15 @@ class PumpVariableSpeedCondensate(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1623,19 +1667,21 @@ class PumpVariableSpeedCondensate(DataObject):
     @property
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+
+        |  If this field is autosized, an impeller efficiency of 0.78 is assumed.
+        |  autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power_consumption` or None if not set
+            float or "Autosize": the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
@@ -1647,19 +1693,21 @@ class PumpVariableSpeedCondensate(DataObject):
     @property
     def motor_efficiency(self):
         """field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+
+        |  This is the motor efficiency only. When the Rated Power Consumption if autosized,
+        |  an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_efficiency` or None if not set
+
         """
         return self["Motor Efficiency"]
 
@@ -1672,9 +1720,10 @@ class PumpVariableSpeedCondensate(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1717,9 +1766,10 @@ class PumpVariableSpeedCondensate(DataObject):
     def coefficient_2_of_the_part_load_performance_curve(self):
         """field `Coefficient 2 of the Part Load Performance Curve`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1782,10 +1832,11 @@ class PumpVariableSpeedCondensate(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the rated flow rate of
-        the pump on a time basis. Default is that the pump is on and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations.
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the rated flow rate of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -1806,8 +1857,9 @@ class PumpVariableSpeedCondensate(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` optional, if used pump losses transfered to zone
-        as internal gains.
+        """field `Zone Name`
+
+        |  optional, if used pump losses transfered to zone as internal gains
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1828,13 +1880,14 @@ class PumpVariableSpeedCondensate(DataObject):
 
     @property
     def skin_loss_radiative_fraction(self):
-        """field `Skin Loss Radiative Fraction` optional. If zone identified in
-        previous field then this determines the split between convection and
-        radiation for the skin losses.
+        """field `Skin Loss Radiative Fraction`
+
+        |  optional. If zone identified in previous field then this determines
+        |  the split between convection and radiation for the skin losses
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2048,20 +2101,21 @@ class HeaderedPumpsConstantSpeed(DataObject):
 
     @property
     def total_rated_flow_rate(self):
-        """field `Total Rated Flow Rate` If the field is not autosized set to
-        the flow rate to the total flow when all pumps are running at full
-        load.
+        """field `Total Rated Flow Rate`
+
+        |  If the field is not autosized set to the flow rate to
+        |  the total flow when all pumps are running at full load
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Total Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `total_rated_flow_rate` or None if not set
+            float or "Autosize": the value of `total_rated_flow_rate` or None if not set
 
         """
         return self["Total Rated Flow Rate"]
@@ -2096,9 +2150,10 @@ class HeaderedPumpsConstantSpeed(DataObject):
     def flow_sequencing_control_scheme(self):
         """field `Flow Sequencing Control Scheme`
 
+        |  Default value: Sequential
+
         Args:
             value (str): value for IDD Field `Flow Sequencing Control Scheme`
-                Default value: Sequential
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2116,13 +2171,15 @@ class HeaderedPumpsConstantSpeed(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2141,21 +2198,23 @@ class HeaderedPumpsConstantSpeed(DataObject):
     @property
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
-        If the field is not autosized set to the power consumed by the pump bank
-        when all the pumps are running at nominal flow
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+
+        |  If the field is not autosized set to the power consumed by the pump bank
+        |  when all the pumps are running at nominal flow
+        |  If this field is autosized, an impeller efficiency of 0.78 is assumed.
+        |  autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power_consumption` or None if not set
+            float or "Autosize": the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
@@ -2167,19 +2226,21 @@ class HeaderedPumpsConstantSpeed(DataObject):
     @property
     def motor_efficiency(self):
         """field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+
+        |  This is the motor efficiency only. When the Rated Power Consumption if autosized,
+        |  an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_efficiency` or None if not set
+
         """
         return self["Motor Efficiency"]
 
@@ -2192,9 +2253,10 @@ class HeaderedPumpsConstantSpeed(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2215,9 +2277,10 @@ class HeaderedPumpsConstantSpeed(DataObject):
     def pump_control_type(self):
         """field `Pump Control Type`
 
+        |  Default value: Continuous
+
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Continuous
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2235,10 +2298,11 @@ class HeaderedPumpsConstantSpeed(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the rated flow rate of
-        the pump on a time basis. Default is that the pump is on and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations.
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the rated flow rate of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -2259,8 +2323,9 @@ class HeaderedPumpsConstantSpeed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` optional, if used pump losses transfered to zone
-        as internal gains.
+        """field `Zone Name`
+
+        |  optional, if used pump losses transfered to zone as internal gains
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2281,13 +2346,14 @@ class HeaderedPumpsConstantSpeed(DataObject):
 
     @property
     def skin_loss_radiative_fraction(self):
-        """field `Skin Loss Radiative Fraction` optional. If zone identified in
-        previous field then this determines the split between convection and
-        radiation for the skin losses.
+        """field `Skin Loss Radiative Fraction`
+
+        |  optional. If zone identified in previous field then this determines
+        |  the split between convection and radiation for the skin losses
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2543,20 +2609,21 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def total_rated_flow_rate(self):
-        """field `Total Rated Flow Rate` If the field is not autosized set to
-        the flow rate to the total flow when all pumps are running at full
-        load.
+        """field `Total Rated Flow Rate`
+
+        |  If the field is not autosized set to the flow rate to
+        |  the total flow when all pumps are running at full load
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Total Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `total_rated_flow_rate` or None if not set
+            float or "Autosize": the value of `total_rated_flow_rate` or None if not set
 
         """
         return self["Total Rated Flow Rate"]
@@ -2591,9 +2658,10 @@ class HeaderedPumpsVariableSpeed(DataObject):
     def flow_sequencing_control_scheme(self):
         """field `Flow Sequencing Control Scheme`
 
+        |  Default value: Sequential
+
         Args:
             value (str): value for IDD Field `Flow Sequencing Control Scheme`
-                Default value: Sequential
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2611,13 +2679,15 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2636,21 +2706,23 @@ class HeaderedPumpsVariableSpeed(DataObject):
     @property
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
-        If the field is not autosized set to the power consumed by the pump bank
-        when all the pumps are running at nominal flow
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+
+        |  If the field is not autosized set to the power consumed by the pump bank
+        |  when all the pumps are running at nominal flow
+        |  If this field is autosized, an impeller efficiency of 0.78 is assumed.
+        |  autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power_consumption` or None if not set
+            float or "Autosize": the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
@@ -2662,19 +2734,21 @@ class HeaderedPumpsVariableSpeed(DataObject):
     @property
     def motor_efficiency(self):
         """field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+
+        |  This is the motor efficiency only. When the Rated Power Consumption if autosized,
+        |  an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_efficiency` or None if not set
+
         """
         return self["Motor Efficiency"]
 
@@ -2687,9 +2761,10 @@ class HeaderedPumpsVariableSpeed(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2732,9 +2807,10 @@ class HeaderedPumpsVariableSpeed(DataObject):
     def coefficient_2_of_the_part_load_performance_curve(self):
         """field `Coefficient 2 of the Part Load Performance Curve`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2797,12 +2873,13 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def minimum_flow_rate_fraction(self):
-        """field `Minimum Flow Rate Fraction` This value can be zero and will
-        be defaulted to that if not specified.
+        """field `Minimum Flow Rate Fraction`
+
+        |  This value can be zero and will be defaulted to that if not specified.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Minimum Flow Rate Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2822,9 +2899,10 @@ class HeaderedPumpsVariableSpeed(DataObject):
     def pump_control_type(self):
         """field `Pump Control Type`
 
+        |  Default value: Continuous
+
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Continuous
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2842,10 +2920,11 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the rated flow rate of
-        the pump on a time basis. Default is that the pump is on and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations.
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the rated flow rate of the pump on a time basis. Default is
+        |  that the pump is on and runs according to its other operational requirements
+        |  specified above.  The schedule is for special pump operations.
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -2866,8 +2945,9 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` optional, if used pump losses transfered to zone
-        as internal gains.
+        """field `Zone Name`
+
+        |  optional, if used pump losses transfered to zone as internal gains
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2888,13 +2968,14 @@ class HeaderedPumpsVariableSpeed(DataObject):
 
     @property
     def skin_loss_radiative_fraction(self):
-        """field `Skin Loss Radiative Fraction` optional. If zone identified in
-        previous field then this determines the split between convection and
-        radiation for the skin losses.
+        """field `Skin Loss Radiative Fraction`
+
+        |  optional. If zone identified in previous field then this determines
+        |  the split between convection and radiation for the skin losses
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value

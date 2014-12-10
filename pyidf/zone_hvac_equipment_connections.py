@@ -269,7 +269,8 @@ class ZoneHvacEquipmentConnections(DataObject):
     @property
     def zone_conditioning_equipment_list_name(self):
         """field `Zone Conditioning Equipment List Name`
-        Enter the name of a ZoneHVAC:EquipmentList object.
+
+        |  Enter the name of a ZoneHVAC:EquipmentList object.
 
         Args:
             value (str): value for IDD Field `Zone Conditioning Equipment List Name`
@@ -279,6 +280,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
         Returns:
             str: the value of `zone_conditioning_equipment_list_name` or None if not set
+
         """
         return self["Zone Conditioning Equipment List Name"]
 

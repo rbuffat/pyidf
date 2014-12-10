@@ -226,23 +226,24 @@ class RoomAirModelType(DataObject):
     @property
     def roomair_modeling_type(self):
         """field `Room-Air Modeling Type`
-        Complete mixing air model
-        UserDefined Room Air Temperature Patterns
-        needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone
-        Mundt roomair model for displacement ventilation with single floor air node
-        needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone
-        (UCSD three-node displacement ventilation model)
-        needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone
-        (UCSD two-zone cross ventilation model)
-        needs RoomAirSettings:CrossVentilation object referencing this Zone
-        2-Node UFAD model for interior zones
-        needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone
-        (2-Node UFAD model for exterior zones)
-        needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone
+
+        |  Complete mixing air model
+        |  UserDefined Room Air Temperature Patterns
+        |  needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone
+        |  Mundt roomair model for displacement ventilation with single floor air node
+        |  needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone
+        |  (UCSD three-node displacement ventilation model)
+        |  needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone
+        |  (UCSD two-zone cross ventilation model)
+        |  needs RoomAirSettings:CrossVentilation object referencing this Zone
+        |  2-Node UFAD model for interior zones
+        |  needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone
+        |  (2-Node UFAD model for exterior zones)
+        |  needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone
+        |  Default value: Mixing
 
         Args:
             value (str): value for IDD Field `Room-Air Modeling Type`
-                Default value: Mixing
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -263,9 +264,10 @@ class RoomAirModelType(DataObject):
     def air_temperature_coupling_strategy(self):
         """field `Air Temperature Coupling Strategy`
 
+        |  Default value: Direct
+
         Args:
             value (str): value for IDD Field `Air Temperature Coupling Strategy`
-                Default value: Direct
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -372,9 +374,10 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        Availability schedule name for this model. Schedule value > 0 means the model is
-        active. Schedule value = 0 means the model is inactive and the zone will be modeled
-        as fully mixed (Mixing). If this field is blank, the model is always active.
+
+        |  Availability schedule name for this model. Schedule value > 0 means the model is
+        |  active. Schedule value = 0 means the model is inactive and the zone will be modeled
+        |  as fully mixed (Mixing). If this field is blank, the model is always active.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -384,6 +387,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
@@ -395,9 +399,10 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
     @property
     def pattern_control_schedule_name(self):
         """field `Pattern Control Schedule Name`
-        The schedule should contain integer values that
-        correspond to unique Control Integer fields in
-        one of the RoomAir:TemperaturePattern:* objects.
+
+        |  The schedule should contain integer values that
+        |  correspond to unique Control Integer fields in
+        |  one of the RoomAir:TemperaturePattern:* objects.
 
         Args:
             value (str): value for IDD Field `Pattern Control Schedule Name`
@@ -407,6 +412,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
         Returns:
             str: the value of `pattern_control_schedule_name` or None if not set
+
         """
         return self["Pattern Control Schedule Name"]
 
@@ -502,8 +508,9 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @property
     def control_integer_for_pattern_control_schedule_name(self):
-        """field `Control Integer for Pattern Control Schedule Name` reference
-        this entry in Schedule Name.
+        """field `Control Integer for Pattern Control Schedule Name`
+
+        |  reference this entry in Schedule Name
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -527,11 +534,11 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
     def thermostat_offset(self):
         """field `Thermostat Offset`
 
-        = (Temp at thermostat- Mean Air Temp)
+        |  = (Temp at thermostat- Mean Air Temp)
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -551,11 +558,11 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
     def return_air_offset(self):
         """field `Return Air Offset`
 
-        = (Tleaving - Mean Air Temp )
+        |  = (Tleaving - Mean Air Temp )
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -575,11 +582,11 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
     def exhaust_air_offset(self):
         """field `Exhaust Air Offset`
 
-        = (Texhaust - Mean Air Temp) deg C
+        |  = (Texhaust - Mean Air Temp) deg C
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -597,12 +604,13 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @property
     def temperature_gradient(self):
-        """field `Temperature Gradient` Slope of temperature change in vertical
-        direction.
+        """field `Temperature Gradient`
+
+        |  Slope of temperature change in vertical direction
+        |  Units: K/m
 
         Args:
             value (float): value for IDD Field `Temperature Gradient`
-                Units: K/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -757,8 +765,9 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @property
     def control_integer_for_pattern_control_schedule_name(self):
-        """field `Control Integer for Pattern Control Schedule Name` reference
-        this entry in Schedule Name.
+        """field `Control Integer for Pattern Control Schedule Name`
+
+        |  reference this entry in Schedule Name
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -782,11 +791,11 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def thermostat_height(self):
         """field `Thermostat Height`
 
-        = Distance from floor of zone
+        |  = Distance from floor of zone
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -806,11 +815,11 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def return_air_height(self):
         """field `Return Air Height`
 
-        = Distance from floor of zone
+        |  = Distance from floor of zone
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Return Air Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -830,11 +839,11 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def exhaust_air_height(self):
         """field `Exhaust Air Height`
 
-        = Distance from floor of zone
+        |  = Distance from floor of zone
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Exhaust Air Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -852,12 +861,13 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @property
     def temperature_gradient_lower_bound(self):
-        """field `Temperature Gradient Lower Bound` Slope of temperature change
-        in vertical direction.
+        """field `Temperature Gradient Lower Bound`
+
+        |  Slope of temperature change in vertical direction
+        |  Units: K/m
 
         Args:
             value (float): value for IDD Field `Temperature Gradient Lower Bound`
-                Units: K/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -875,12 +885,13 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @property
     def temperature_gradient_upper_bound(self):
-        """field `Temperature Gradient Upper  Bound` Slope of temperature
-        change in vertical direction.
+        """field `Temperature Gradient Upper  Bound`
+
+        |  Slope of temperature change in vertical direction
+        |  Units: K/m
 
         Args:
             value (float): value for IDD Field `Temperature Gradient Upper  Bound`
-                Units: K/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -921,9 +932,10 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def upper_temperature_bound(self):
         """field `Upper Temperature Bound`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Upper Temperature Bound`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -943,9 +955,10 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def lower_temperature_bound(self):
         """field `Lower Temperature Bound`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Lower Temperature Bound`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -965,9 +978,10 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def upper_heat_rate_bound(self):
         """field `Upper Heat Rate Bound`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Upper Heat Rate Bound`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -987,9 +1001,10 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
     def lower_heat_rate_bound(self):
         """field `Lower Heat Rate Bound`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Lower Heat Rate Bound`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1102,8 +1117,9 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @property
     def control_integer_for_pattern_control_schedule_name(self):
-        """field `Control Integer for Pattern Control Schedule Name` this value
-        should appear in as a schedule value.
+        """field `Control Integer for Pattern Control Schedule Name`
+
+        |  this value should appear in as a schedule value
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -1127,11 +1143,11 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
     def thermostat_offset(self):
         """field `Thermostat Offset`
 
-        = (Temp at thermostat- Mean Air Temp)
+        |  = (Temp at thermostat- Mean Air Temp)
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1151,11 +1167,11 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
     def return_air_offset(self):
         """field `Return Air Offset`
 
-        = (Temp leaving - Mean Air Temp ) deg C
+        |  = (Temp leaving - Mean Air Temp ) deg C
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1175,16 +1191,16 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
     def exhaust_air_offset(self):
         """field `Exhaust Air Offset`
 
-        = (Temp exhaust - Mean Air Temp) deg C
-        the remaining fields have pairs that describe the relative
-        temperature pattern in the vertical direction of a zone
-        Zeta is the nondimensional height (in z-direction). on [0..1]
-        DeltaTai =  (Tai - MAT) in units of deg. C
-        relative deg C on [-10.0 .. 20.0 ]
+        |  = (Temp exhaust - Mean Air Temp) deg C
+        |  the remaining fields have pairs that describe the relative
+        |  temperature pattern in the vertical direction of a zone
+        |  Zeta is the nondimensional height (in z-direction). on [0..1]
+        |  DeltaTai =  (Tai - MAT) in units of deg. C
+        |  relative deg C on [-10.0 .. 20.0 ]
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1344,8 +1360,9 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @property
     def control_integer_for_pattern_control_schedule_name(self):
-        """field `Control Integer for Pattern Control Schedule Name` reference
-        this entry in schedule.
+        """field `Control Integer for Pattern Control Schedule Name`
+
+        |  reference this entry in schedule
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -1369,11 +1386,11 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
     def thermostat_offset(self):
         """field `Thermostat Offset`
 
-        = (Temp at thermostat- Mean Air Temp)
+        |  = (Temp at thermostat- Mean Air Temp)
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1393,11 +1410,11 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
     def return_air_offset(self):
         """field `Return Air Offset`
 
-        = (Tleaving - Mean Air Temp ) deg C
+        |  = (Tleaving - Mean Air Temp ) deg C
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1417,11 +1434,11 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
     def exhaust_air_offset(self):
         """field `Exhaust Air Offset`
 
-        = (Texhaust - Mean Air Temp) deg C
+        |  = (Texhaust - Mean Air Temp) deg C
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1749,9 +1766,10 @@ class RoomAirNode(DataObject):
     def height_of_nodal_control_volume_center(self):
         """field `Height of Nodal Control Volume Center`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height of Nodal Control Volume Center`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2275,9 +2293,10 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
     def fraction_of_convective_internal_loads_added_to_floor_air(self):
         """field `Fraction of Convective Internal Loads Added to Floor Air`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Convective Internal Loads Added to Floor Air`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2301,9 +2320,10 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
     def fraction_of_infiltration_internal_loads_added_to_floor_air(self):
         """field `Fraction of Infiltration Internal Loads Added to Floor Air`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Infiltration Internal Loads Added to Floor Air`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2396,8 +2416,9 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of Zone being described. Any existing zone
-        name.
+        """field `Zone Name`
+
+        |  Name of Zone being described. Any existing zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2419,9 +2440,10 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
     @property
     def gain_distribution_schedule_name(self):
         """field `Gain Distribution Schedule Name`
-        Distribution of the convective heat gains between the occupied and mixed zones.
-        0<= Accepted Value <= 1.
-        In the DV model 1 means all convective gains in the lower layer.
+
+        |  Distribution of the convective heat gains between the occupied and mixed zones.
+        |  0<= Accepted Value <= 1.
+        |  In the DV model 1 means all convective gains in the lower layer.
 
         Args:
             value (str): value for IDD Field `Gain Distribution Schedule Name`
@@ -2431,6 +2453,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
         Returns:
             str: the value of `gain_distribution_schedule_name` or None if not set
+
         """
         return self["Gain Distribution Schedule Name"]
 
@@ -2441,14 +2464,15 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @property
     def number_of_plumes_per_occupant(self):
-        """field `Number of Plumes per Occupant` Used only in the UCSD
-        displacement ventilation model. Effective number of separate plumes per
-        occupant in the occupied zone. Plumes that merge together in the
-        occupied zone count as one.
+        """field `Number of Plumes per Occupant`
+
+        |  Used only in the UCSD displacement ventilation model.
+        |  Effective number of separate plumes per occupant in the occupied zone.
+        |  Plumes that merge together in the occupied zone count as one.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Number of Plumes per Occupant`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2466,13 +2490,14 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @property
     def thermostat_height(self):
-        """field `Thermostat Height` Height of thermostat/temperature control
-        sensor above floor.
+        """field `Thermostat Height`
+
+        |  Height of thermostat/temperature control sensor above floor
+        |  Units: m
+        |  Default value: 1.1
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
-                Units: m
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2490,13 +2515,14 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @property
     def comfort_height(self):
-        """field `Comfort Height` Height at which air temperature is calculated
-        for comfort purposes.
+        """field `Comfort Height`
+
+        |  Height at which air temperature is calculated for comfort purposes
+        |  Units: m
+        |  Default value: 1.1
 
         Args:
             value (float): value for IDD Field `Comfort Height`
-                Units: m
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2514,18 +2540,19 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @property
     def temperature_difference_threshold_for_reporting(self):
-        """field `Temperature Difference Threshold for Reporting` Minimum
-        temperature difference between predicted upper and lower layer
-        temperatures above which DV auxilliary outputs are calculated. These
-        outputs are 'DV Transition Height', 'DV Fraction Min Recommended Flow
-        Rate' 'DV Average Temp Gradient' and 'DV Maximum Temp Gradient'.  They
-        are set to negative values when the temperature difference is less than
-        the threshold and the output 'DV Zone Is Mixed' is set to 1.
+        """field `Temperature Difference Threshold for Reporting`
+
+        |  Minimum temperature difference between predicted upper and lower layer
+        |  temperatures above which DV auxilliary outputs are calculated.
+        |  These outputs are 'DV Transition Height', 'DV Fraction Min Recommended Flow Rate'
+        |  'DV Average Temp Gradient' and 'DV Maximum Temp Gradient'.  They
+        |  are set to negative values when the temperature difference is less than the
+        |  threshold and the output 'DV Zone Is Mixed' is set to 1
+        |  Units: deltaC
+        |  Default value: 0.4
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
-                Units: deltaC
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2588,8 +2615,9 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of Zone being described. Any existing zone
-        name.
+        """field `Zone Name`
+
+        |  Name of Zone being described. Any existing zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2611,9 +2639,10 @@ class RoomAirSettingsCrossVentilation(DataObject):
     @property
     def gain_distribution_schedule_name(self):
         """field `Gain Distribution Schedule Name`
-        Distribution of the convective heat gains between the jet and recirculation zones.
-        0<= Accepted Value <= 1.
-        In the CV model 1 means all convective gains in the jet region.
+
+        |  Distribution of the convective heat gains between the jet and recirculation zones.
+        |  0<= Accepted Value <= 1.
+        |  In the CV model 1 means all convective gains in the jet region.
 
         Args:
             value (str): value for IDD Field `Gain Distribution Schedule Name`
@@ -2623,6 +2652,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
         Returns:
             str: the value of `gain_distribution_schedule_name` or None if not set
+
         """
         return self["Gain Distribution Schedule Name"]
 
@@ -2634,9 +2664,10 @@ class RoomAirSettingsCrossVentilation(DataObject):
     @property
     def airflow_region_used_for_thermal_comfort_evaluation(self):
         """field `Airflow Region Used for Thermal Comfort Evaluation`
-        Required field whenever thermal comfort is predicted
-        defines Air temperature and Airflow velocity that will be used in the Fanger model
-        conditions must refer to one of the two regions: jet or recirculation
+
+        |  Required field whenever thermal comfort is predicted
+        |  defines Air temperature and Airflow velocity that will be used in the Fanger model
+        |  conditions must refer to one of the two regions: jet or recirculation
 
         Args:
             value (str): value for IDD Field `Airflow Region Used for Thermal Comfort Evaluation`
@@ -2646,6 +2677,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
         Returns:
             str: the value of `airflow_region_used_for_thermal_comfort_evaluation` or None if not set
+
         """
         return self["Airflow Region Used for Thermal Comfort Evaluation"]
 
@@ -2819,7 +2851,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of Zone with underfloor air distribution.
+        """field `Zone Name`
+
+        |  Name of Zone with underfloor air distribution
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2840,17 +2874,19 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @property
     def number_of_diffusers(self):
-        """field `Number of Diffusers` Total number of diffusers in this zone.
+        """field `Number of Diffusers`
+
+        |  Total number of diffusers in this zone
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Diffusers`
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_diffusers` or None if not set
+            float or "Autocalculate": the value of `number_of_diffusers` or None if not set
 
         """
         return self["Number of Diffusers"]
@@ -2864,16 +2900,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     def power_per_plume(self):
         """field `Power per Plume`
 
+        |  Units: W
+        |  Default value: "autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
-                Units: W
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `power_per_plume` or None if not set
+            float or "Autocalculate": the value of `power_per_plume` or None if not set
 
         """
         return self["Power per Plume"]
@@ -2887,16 +2924,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     def design_effective_area_of_diffuser(self):
         """field `Design Effective Area of Diffuser`
 
+        |  Units: m2
+        |  Default value: "Autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
-                Units: m2
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_effective_area_of_diffuser` or None if not set
+            float or "Autocalculate": the value of `design_effective_area_of_diffuser` or None if not set
 
         """
         return self["Design Effective Area of Diffuser"]
@@ -2910,17 +2948,18 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     def diffuser_slot_angle_from_vertical(self):
         """field `Diffuser Slot Angle from Vertical`
 
+        |  Units: deg
+        |  Default value: "Autocalculate"
+        |  value <= 90.0
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
-                Units: deg
-                Default value: "Autocalculate"
-                value <= 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `diffuser_slot_angle_from_vertical` or None if not set
+            float or "Autocalculate": the value of `diffuser_slot_angle_from_vertical` or None if not set
 
         """
         return self["Diffuser Slot Angle from Vertical"]
@@ -2932,13 +2971,14 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @property
     def thermostat_height(self):
-        """field `Thermostat Height` Height of thermostat/temperature control
-        sensor above floor.
+        """field `Thermostat Height`
+
+        |  Height of thermostat/temperature control sensor above floor
+        |  Units: m
+        |  Default value: 1.2
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
-                Units: m
-                Default value: 1.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2956,13 +2996,14 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @property
     def comfort_height(self):
-        """field `Comfort Height` Height at which air temperature is calculated
-        for comfort purposes.
+        """field `Comfort Height`
+
+        |  Height at which air temperature is calculated for comfort purposes
+        |  Units: m
+        |  Default value: 1.1
 
         Args:
             value (float): value for IDD Field `Comfort Height`
-                Units: m
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2980,17 +3021,18 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @property
     def temperature_difference_threshold_for_reporting(self):
-        """field `Temperature Difference Threshold for Reporting` Minimum
-        temperature difference between predicted upper and lower layer
-        temperatures above which UFAD auxilliary outputs are calculated. These
-        outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
-        are set to zero values when the temperature difference is less than the
-        threshold and the output 'UF Zone Is Mixed' is set to 1.
+        """field `Temperature Difference Threshold for Reporting`
+
+        |  Minimum temperature difference between predicted upper and lower layer
+        |  temperatures above which UFAD auxilliary outputs are calculated.
+        |  These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
+        |  are set to zero values when the temperature difference is less than the
+        |  threshold and the output 'UF Zone Is Mixed' is set to 1
+        |  Units: deltaC
+        |  Default value: 0.4
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
-                Units: deltaC
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3011,9 +3053,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     def floor_diffuser_type(self):
         """field `Floor Diffuser Type`
 
+        |  Default value: Swirl
+
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
-                Default value: Swirl
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3032,18 +3075,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def transition_height(self):
         """field `Transition Height`
-        user-specified height above floor of boundary between occupied and upper subzones
+
+        |  user-specified height above floor of boundary between occupied and upper subzones
+        |  Units: m
+        |  Default value: 1.7
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Transition Height`
-                Units: m
-                Default value: 1.7
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `transition_height` or None if not set
+            float or "Autocalculate": the value of `transition_height` or None if not set
+
         """
         return self["Transition Height"]
 
@@ -3055,18 +3100,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def coefficient_a(self):
         """field `Coefficient A`
-        Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient A`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_a` or None if not set
+            float or "Autocalculate": the value of `coefficient_a` or None if not set
+
         """
         return self["Coefficient A"]
 
@@ -3078,18 +3125,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def coefficient_b(self):
         """field `Coefficient B`
-        Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient B`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_b` or None if not set
+            float or "Autocalculate": the value of `coefficient_b` or None if not set
+
         """
         return self["Coefficient B"]
 
@@ -3101,18 +3150,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def coefficient_c(self):
         """field `Coefficient C`
-        Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient C`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_c` or None if not set
+            float or "Autocalculate": the value of `coefficient_c` or None if not set
+
         """
         return self["Coefficient C"]
 
@@ -3124,18 +3175,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def coefficient_d(self):
         """field `Coefficient D`
-        Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient D`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_d` or None if not set
+            float or "Autocalculate": the value of `coefficient_d` or None if not set
+
         """
         return self["Coefficient D"]
 
@@ -3147,18 +3200,20 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
     @property
     def coefficient_e(self):
         """field `Coefficient E`
-        Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient E`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_e` or None if not set
+            float or "Autocalculate": the value of `coefficient_e` or None if not set
+
         """
         return self["Coefficient E"]
 
@@ -3329,8 +3384,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of Zone being described. Any existing zone
-        name.
+        """field `Zone Name`
+
+        |  Name of Zone being described. Any existing zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3353,15 +3409,16 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     def number_of_diffusers_per_zone(self):
         """field `Number of Diffusers per Zone`
 
+        |  Default value: "Autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Diffusers per Zone`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_diffusers_per_zone` or None if not set
+            float or "Autocalculate": the value of `number_of_diffusers_per_zone` or None if not set
 
         """
         return self["Number of Diffusers per Zone"]
@@ -3375,16 +3432,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     def power_per_plume(self):
         """field `Power per Plume`
 
+        |  Units: W
+        |  Default value: "autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
-                Units: W
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `power_per_plume` or None if not set
+            float or "Autocalculate": the value of `power_per_plume` or None if not set
 
         """
         return self["Power per Plume"]
@@ -3398,16 +3456,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     def design_effective_area_of_diffuser(self):
         """field `Design Effective Area of Diffuser`
 
+        |  Units: m2
+        |  Default value: "Autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
-                Units: m2
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_effective_area_of_diffuser` or None if not set
+            float or "Autocalculate": the value of `design_effective_area_of_diffuser` or None if not set
 
         """
         return self["Design Effective Area of Diffuser"]
@@ -3421,17 +3480,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     def diffuser_slot_angle_from_vertical(self):
         """field `Diffuser Slot Angle from Vertical`
 
+        |  Units: deg
+        |  Default value: "autocalculate"
+        |  value <= 90.0
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
-                Units: deg
-                Default value: "autocalculate"
-                value <= 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `diffuser_slot_angle_from_vertical` or None if not set
+            float or "Autocalculate": the value of `diffuser_slot_angle_from_vertical` or None if not set
 
         """
         return self["Diffuser Slot Angle from Vertical"]
@@ -3443,13 +3503,14 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @property
     def thermostat_height(self):
-        """field `Thermostat Height` Height of thermostat/temperature control
-        sensor above floor.
+        """field `Thermostat Height`
+
+        |  Height of thermostat/temperature control sensor above floor
+        |  Units: m
+        |  Default value: 1.2
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
-                Units: m
-                Default value: 1.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3467,13 +3528,14 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @property
     def comfort_height(self):
-        """field `Comfort Height` Height at which Air temperature is calculated
-        for comfort purposes.
+        """field `Comfort Height`
+
+        |  Height at which Air temperature is calculated for comfort purposes
+        |  Units: m
+        |  Default value: 1.1
 
         Args:
             value (float): value for IDD Field `Comfort Height`
-                Units: m
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3491,17 +3553,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @property
     def temperature_difference_threshold_for_reporting(self):
-        """field `Temperature Difference Threshold for Reporting` Minimum
-        temperature difference between upper and lower layer temperatures above
-        which UFAD auxilliary outputs are calculated. These outputs are 'UF
-        Transition Height'and 'UF Average Temp Gradient'.  They are set to zero
-        values when the temperature difference is less than the threshold and
-        the output 'UF Zone Is Mixed' is set to 1.
+        """field `Temperature Difference Threshold for Reporting`
+
+        |  Minimum temperature difference between upper and lower layer
+        |  temperatures above which UFAD auxilliary outputs are calculated.
+        |  These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
+        |  are set to zero values when the temperature difference is less than the
+        |  threshold and the output 'UF Zone Is Mixed' is set to 1
+        |  Units: deltaC
+        |  Default value: 0.4
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
-                Units: deltaC
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3522,9 +3585,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     def floor_diffuser_type(self):
         """field `Floor Diffuser Type`
 
+        |  Default value: Swirl
+
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
-                Default value: Swirl
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3543,18 +3607,20 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def transition_height(self):
         """field `Transition Height`
-        User-specified height above floor of boundary between occupied and upper subzones
+
+        |  User-specified height above floor of boundary between occupied and upper subzones
+        |  Units: m
+        |  Default value: 1.7
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Transition Height`
-                Units: m
-                Default value: 1.7
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `transition_height` or None if not set
+            float or "Autocalculate": the value of `transition_height` or None if not set
+
         """
         return self["Transition Height"]
 
@@ -3566,17 +3632,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2(self):
         """field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
+            float or "Autocalculate": the value of `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
         """
         return self[
             "Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
@@ -3594,17 +3661,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2(self):
         """field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
+            float or "Autocalculate": the value of `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
         """
         return self[
             "Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
@@ -3622,17 +3690,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2(self):
         """field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
+            float or "Autocalculate": the value of `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
         """
         return self[
             "Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
@@ -3650,17 +3719,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2(self):
         """field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
+            float or "Autocalculate": the value of `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
         """
         return self[
             "Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
@@ -3678,17 +3748,18 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     @property
     def coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2(self):
         """field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-        Kc is the fraction of the total zone load attributable to the lower subzone
+
+        |  Kc is the fraction of the total zone load attributable to the lower subzone
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
+            float or "Autocalculate": the value of `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2` or None if not set
         """
         return self[
             "Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]

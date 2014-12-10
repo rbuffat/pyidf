@@ -89,7 +89,7 @@ class ExteriorLights(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in schedule should be fraction applied to capacity of the exterior lights equipment, generally (0.0 - 1.0)
+        |  units in schedule should be fraction applied to capacity of the exterior lights equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -112,10 +112,11 @@ class ExteriorLights(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -133,8 +134,9 @@ class ExteriorLights(DataObject):
 
     @property
     def control_option(self):
-        """field `Control Option` Astronomical Clock option overrides schedule
-        to turn lights off when sun is up.
+        """field `Control Option`
+
+        |  Astronomical Clock option overrides schedule to turn lights off when sun is up
 
         Args:
             value (str): value for IDD Field `Control Option`
@@ -157,9 +159,10 @@ class ExteriorLights(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -290,7 +293,7 @@ class ExteriorFuelEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in schedule should be fraction applied to capacity of the exterior fuel equipment, generally (0.0 - 1.0)
+        |  units in schedule should be fraction applied to capacity of the exterior fuel equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -313,10 +316,11 @@ class ExteriorFuelEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -336,9 +340,10 @@ class ExteriorFuelEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -437,9 +442,10 @@ class ExteriorWaterEquipment(DataObject):
     def fuel_use_type(self):
         """field `Fuel Use Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fuel Use Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -459,7 +465,7 @@ class ExteriorWaterEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to capacity of the exterior water equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to capacity of the exterior water equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -482,9 +488,10 @@ class ExteriorWaterEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -504,9 +511,10 @@ class ExteriorWaterEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value

@@ -96,8 +96,9 @@ class ZoneControlHumidistat(DataObject):
 
     @property
     def humidifying_relative_humidity_setpoint_schedule_name(self):
-        """field `Humidifying Relative Humidity Setpoint Schedule Name` hourly
-        schedule values should be in Relative Humidity (percent)
+        """field `Humidifying Relative Humidity Setpoint Schedule Name`
+
+        |  hourly schedule values should be in Relative Humidity (percent)
 
         Args:
             value (str): value for IDD Field `Humidifying Relative Humidity Setpoint Schedule Name`
@@ -120,7 +121,8 @@ class ZoneControlHumidistat(DataObject):
     @property
     def dehumidifying_relative_humidity_setpoint_schedule_name(self):
         """field `Dehumidifying Relative Humidity Setpoint Schedule Name`
-        hourly schedule values should be in Relative Humidity (percent)
+
+        |  hourly schedule values should be in Relative Humidity (percent)
 
         Args:
             value (str): value for IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
@@ -298,11 +300,11 @@ class ZoneControlThermostat(DataObject):
 
     @property
     def control_type_schedule_name(self):
-        """field `Control Type Schedule Name` This schedule contains
-        appropriate control types for thermostat.
+        """field `Control Type Schedule Name`
 
-        Control types are integers: 0 - Uncontrolled (floating, no thermostat), 1 = ThermostatSetpoint:SingleHeating,
-        2 = ThermostatSetpoint:SingleCooling, 3 = ThermostatSetpoint:SingleHeatingOrCooling, 4 = ThermostatSetpoint:DualSetpoint
+        |  This schedule contains appropriate control types for thermostat.
+        |  Control types are integers: 0 - Uncontrolled (floating, no thermostat), 1 = ThermostatSetpoint:SingleHeating,
+        |  2 = ThermostatSetpoint:SingleCooling, 3 = ThermostatSetpoint:SingleHeatingOrCooling, 4 = ThermostatSetpoint:DualSetpoint
 
         Args:
             value (str): value for IDD Field `Control Type Schedule Name`
@@ -345,8 +347,9 @@ class ZoneControlThermostat(DataObject):
     @property
     def control_1_name(self):
         """field `Control 1 Name`
-        Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
-        Schedule values in these objects list actual setpoint temperatures for the control types
+
+        |  Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Control 1 Name`
@@ -356,6 +359,7 @@ class ZoneControlThermostat(DataObject):
 
         Returns:
             str: the value of `control_1_name` or None if not set
+
         """
         return self["Control 1 Name"]
 
@@ -388,8 +392,9 @@ class ZoneControlThermostat(DataObject):
     @property
     def control_2_name(self):
         """field `Control 2 Name`
-        Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
-        Schedule values in these objects list actual setpoint temperatures for the control types
+
+        |  Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Control 2 Name`
@@ -399,6 +404,7 @@ class ZoneControlThermostat(DataObject):
 
         Returns:
             str: the value of `control_2_name` or None if not set
+
         """
         return self["Control 2 Name"]
 
@@ -431,8 +437,9 @@ class ZoneControlThermostat(DataObject):
     @property
     def control_3_name(self):
         """field `Control 3 Name`
-        Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
-        Schedule values in these objects list actual setpoint temperatures for the control types
+
+        |  Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Control 3 Name`
@@ -442,6 +449,7 @@ class ZoneControlThermostat(DataObject):
 
         Returns:
             str: the value of `control_3_name` or None if not set
+
         """
         return self["Control 3 Name"]
 
@@ -474,8 +482,9 @@ class ZoneControlThermostat(DataObject):
     @property
     def control_4_name(self):
         """field `Control 4 Name`
-        Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
-        Schedule values in these objects list actual setpoint temperatures for the control types
+
+        |  Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Control 4 Name`
@@ -485,6 +494,7 @@ class ZoneControlThermostat(DataObject):
 
         Returns:
             str: the value of `control_4_name` or None if not set
+
         """
         return self["Control 4 Name"]
 
@@ -547,9 +557,10 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
     @property
     def thermostat_name(self):
         """field `Thermostat Name`
-        Enter the name of a ZoneControl:Thermostat object.
-        This object modifies a ZoneControl:Thermostat object to add a
-        radiative fraction.
+
+        |  Enter the name of a ZoneControl:Thermostat object.
+        |  This object modifies a ZoneControl:Thermostat object to add a
+        |  radiative fraction.
 
         Args:
             value (str): value for IDD Field `Thermostat Name`
@@ -559,6 +570,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
 
         Returns:
             str: the value of `thermostat_name` or None if not set
+
         """
         return self["Thermostat Name"]
 
@@ -592,9 +604,10 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
     def fixed_radiative_fraction(self):
         """field `Fixed Radiative Fraction`
 
+        |  value < 0.9
+
         Args:
             value (float): value for IDD Field `Fixed Radiative Fraction`
-                value < 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -613,7 +626,8 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
     @property
     def radiative_fraction_schedule_name(self):
         """field `Radiative Fraction Schedule Name`
-        Schedule values of 0.0 indicate no operative temperature control
+
+        |  Schedule values of 0.0 indicate no operative temperature control
 
         Args:
             value (str): value for IDD Field `Radiative Fraction Schedule Name`
@@ -623,6 +637,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
 
         Returns:
             str: the value of `radiative_fraction_schedule_name` or None if not set
+
         """
         return self["Radiative Fraction Schedule Name"]
 
@@ -827,18 +842,20 @@ class ZoneControlThermostatThermalComfort(DataObject):
     @property
     def averaging_method(self):
         """field `Averaging Method`
-        The method used to calculate thermal comfort dry-bulb temperature setpoint
-        for multiple people objects in a zone
+
+        |  The method used to calculate thermal comfort dry-bulb temperature setpoint
+        |  for multiple people objects in a zone
+        |  Default value: PeopleAverage
 
         Args:
             value (str): value for IDD Field `Averaging Method`
-                Default value: PeopleAverage
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `averaging_method` or None if not set
+
         """
         return self["Averaging Method"]
 
@@ -850,7 +867,8 @@ class ZoneControlThermostatThermalComfort(DataObject):
     @property
     def specific_people_name(self):
         """field `Specific People Name`
-        Used only when Averaging Method = SpecificObject in the previous field.
+
+        |  Used only when Averaging Method = SpecificObject in the previous field.
 
         Args:
             value (str): value for IDD Field `Specific People Name`
@@ -860,6 +878,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
         Returns:
             str: the value of `specific_people_name` or None if not set
+
         """
         return self["Specific People Name"]
 
@@ -872,10 +891,11 @@ class ZoneControlThermostatThermalComfort(DataObject):
     def minimum_drybulb_temperature_setpoint(self):
         """field `Minimum Dry-Bulb Temperature Setpoint`
 
+        |  Units: C
+        |  value <= 50.0
+
         Args:
             value (float): value for IDD Field `Minimum Dry-Bulb Temperature Setpoint`
-                Units: C
-                value <= 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -896,11 +916,12 @@ class ZoneControlThermostatThermalComfort(DataObject):
     def maximum_drybulb_temperature_setpoint(self):
         """field `Maximum Dry-Bulb Temperature Setpoint`
 
+        |  Units: C
+        |  Default value: 50.0
+        |  value <= 50.0
+
         Args:
             value (float): value for IDD Field `Maximum Dry-Bulb Temperature Setpoint`
-                Units: C
-                Default value: 50.0
-                value <= 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -919,15 +940,14 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
     @property
     def thermal_comfort_control_type_schedule_name(self):
-        """field `Thermal Comfort Control Type Schedule Name` The Thermal
-        Comfort Control Type Schedule contains values that are appropriate
-        control types.
+        """field `Thermal Comfort Control Type Schedule Name`
 
-        Thermal Comfort Control types are integers: 0 - Uncontrolled (floating),
-        1 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
-        2 = ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
-        3 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling
-        4 = ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint
+        |  The Thermal Comfort Control Type Schedule contains values that are appropriate control types.
+        |  Thermal Comfort Control types are integers: 0 - Uncontrolled (floating),
+        |  1 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
+        |  2 = ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
+        |  3 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling
+        |  4 = ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Control Type Schedule Name`
@@ -970,9 +990,10 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
     @property
     def thermal_comfort_control_1_name(self):
-        """field `Thermal Comfort Control 1 Name` Control type names are names
-        for individual control type objects. Schedule values in these objects
-        list actual setpoint temperatures for the control types.
+        """field `Thermal Comfort Control 1 Name`
+
+        |  Control type names are names for individual control type objects.
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Control 1 Name`
@@ -1014,9 +1035,10 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
     @property
     def thermal_comfort_control_2_name(self):
-        """field `Thermal Comfort Control 2 Name` Control Type names are names
-        for individual control type objects. Schedule values in these objects
-        list actual setpoint temperatures for the control types.
+        """field `Thermal Comfort Control 2 Name`
+
+        |  Control Type names are names for individual control type objects.
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Control 2 Name`
@@ -1058,9 +1080,10 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
     @property
     def thermal_comfort_control_3_name(self):
-        """field `Thermal Comfort Control 3 Name` Control type names are names
-        for individual control type objects. Schedule values in these objects
-        list actual setpoint temperatures for the control types.
+        """field `Thermal Comfort Control 3 Name`
+
+        |  Control type names are names for individual control type objects.
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Control 3 Name`
@@ -1102,9 +1125,10 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
     @property
     def thermal_comfort_control_4_name(self):
-        """field `Thermal Comfort Control 4 Name` Control type names are names
-        for individual control type objects. Schedule values in these objects
-        list actual setpoint temperatures for the control types.
+        """field `Thermal Comfort Control 4 Name`
+
+        |  Control type names are names for individual control type objects.
+        |  Schedule values in these objects list actual setpoint temperatures for the control types
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Control 4 Name`
@@ -1206,14 +1230,15 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     @property
     def thermostat_name(self):
         """field `Thermostat Name`
-        Enter the name of a ZoneControl:Thermostat object whose operation is to be modified to
-        effect temperature control based on zone air humidity conditions. If the ZoneControl:
-        Thermostat object references a ZoneList, simply enter the name of the ZoneControl:Thermostat
-        object and this temperature and humidity thermostat control will be applied to all zones
-        in the ZoneList. If the ZoneControl:Thermostat object references a ZoneList but it is
-        desired that only a single zone within the ZoneList be controlled based on temperature and
-        humidity control, then the name to be put here is <Zone Name> <Thermostat Name> where the
-        Thermostat Name is the the name of the ZoneControl:Thermostat object.
+
+        |  Enter the name of a ZoneControl:Thermostat object whose operation is to be modified to
+        |  effect temperature control based on zone air humidity conditions. If the ZoneControl:
+        |  Thermostat object references a ZoneList, simply enter the name of the ZoneControl:Thermostat
+        |  object and this temperature and humidity thermostat control will be applied to all zones
+        |  in the ZoneList. If the ZoneControl:Thermostat object references a ZoneList but it is
+        |  desired that only a single zone within the ZoneList be controlled based on temperature and
+        |  humidity control, then the name to be put here is <Zone Name> <Thermostat Name> where the
+        |  Thermostat Name is the the name of the ZoneControl:Thermostat object.
 
         Args:
             value (str): value for IDD Field `Thermostat Name`
@@ -1223,6 +1248,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
 
         Returns:
             str: the value of `thermostat_name` or None if not set
+
         """
         return self["Thermostat Name"]
 
@@ -1234,7 +1260,8 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     @property
     def dehumidifying_relative_humidity_setpoint_schedule_name(self):
         """field `Dehumidifying Relative Humidity Setpoint Schedule Name`
-        Schedule values should be in Relative Humidity (percent)
+
+        |  Schedule values should be in Relative Humidity (percent)
 
         Args:
             value (str): value for IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
@@ -1260,9 +1287,10 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
 
+        |  Default value: Overcool
+
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: Overcool
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1282,9 +1310,10 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     def overcool_range_input_method(self):
         """field `Overcool Range Input Method`
 
+        |  Default value: Constant
+
         Args:
             value (str): value for IDD Field `Overcool Range Input Method`
-                Default value: Constant
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1303,22 +1332,24 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     @property
     def overcool_constant_range(self):
         """field `Overcool Constant Range`
-        Maximum Overcool temperature range for cooling setpoint reduction.
-        Used with Dehumidification Control Type = Overcool.
-        A value of 0.0 indicates no zone temperature overcooling will be provided to
-        gain additional dehumidification.
+
+        |  Maximum Overcool temperature range for cooling setpoint reduction.
+        |  Used with Dehumidification Control Type = Overcool.
+        |  A value of 0.0 indicates no zone temperature overcooling will be provided to
+        |  gain additional dehumidification.
+        |  Units: deltaC
+        |  Default value: 1.7
+        |  value <= 3.0
 
         Args:
             value (float): value for IDD Field `Overcool Constant Range`
-                Units: deltaC
-                Default value: 1.7
-                value <= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `overcool_constant_range` or None if not set
+
         """
         return self["Overcool Constant Range"]
 
@@ -1330,9 +1361,10 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     @property
     def overcool_range_schedule_name(self):
         """field `Overcool Range Schedule Name`
-        Schedule values of 0.0 indicates no zone temperature overcooling will be
-        provided to gain additional dehumidification.
-        Schedule values should be >= 0 and <= 3 (deltaC).
+
+        |  Schedule values of 0.0 indicates no zone temperature overcooling will be
+        |  provided to gain additional dehumidification.
+        |  Schedule values should be >= 0 and <= 3 (deltaC).
 
         Args:
             value (str): value for IDD Field `Overcool Range Schedule Name`
@@ -1342,6 +1374,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
 
         Returns:
             str: the value of `overcool_range_schedule_name` or None if not set
+
         """
         return self["Overcool Range Schedule Name"]
 
@@ -1353,21 +1386,23 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     @property
     def overcool_control_ratio(self):
         """field `Overcool Control Ratio`
-        The value of this input field is used to adjust the cooling setpoint temperature
-        (established by the associated ZoneControl:Thermostat object) downward based on the
-        difference between the zone air relative humidity level and the dehumidifying
-        relative humidity setpoint.
+
+        |  The value of this input field is used to adjust the cooling setpoint temperature
+        |  (established by the associated ZoneControl:Thermostat object) downward based on the
+        |  difference between the zone air relative humidity level and the dehumidifying
+        |  relative humidity setpoint.
+        |  Units: percent/K
+        |  Default value: 3.6
 
         Args:
             value (float): value for IDD Field `Overcool Control Ratio`
-                Units: percent/K
-                Default value: 3.6
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `overcool_control_ratio` or None if not set
+
         """
         return self["Overcool Control Ratio"]
 
@@ -1757,8 +1792,9 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
 
     @property
     def fanger_thermal_comfort_schedule_name(self):
-        """field `Fanger Thermal Comfort Schedule Name` Schedule values should
-        be Predicted Mean Vote (PMV)
+        """field `Fanger Thermal Comfort Schedule Name`
+
+        |  Schedule values should be Predicted Mean Vote (PMV)
 
         Args:
             value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
@@ -1832,8 +1868,9 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
 
     @property
     def fanger_thermal_comfort_schedule_name(self):
-        """field `Fanger Thermal Comfort Schedule Name` Schedule values should
-        be Predicted Mean Vote (PMV)
+        """field `Fanger Thermal Comfort Schedule Name`
+
+        |  Schedule values should be Predicted Mean Vote (PMV)
 
         Args:
             value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
@@ -1908,8 +1945,9 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
 
     @property
     def fanger_thermal_comfort_schedule_name(self):
-        """field `Fanger Thermal Comfort Schedule Name` Schedule values should
-        be Predicted Mean Vote (PMV)
+        """field `Fanger Thermal Comfort Schedule Name`
+
+        |  Schedule values should be Predicted Mean Vote (PMV)
 
         Args:
             value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
@@ -1991,8 +2029,9 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
 
     @property
     def fanger_thermal_comfort_heating_schedule_name(self):
-        """field `Fanger Thermal Comfort Heating Schedule Name` Schedule values
-        should be Predicted Mean Vote (PMV)
+        """field `Fanger Thermal Comfort Heating Schedule Name`
+
+        |  Schedule values should be Predicted Mean Vote (PMV)
 
         Args:
             value (str): value for IDD Field `Fanger Thermal Comfort Heating Schedule Name`
@@ -2014,8 +2053,9 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
 
     @property
     def fanger_thermal_comfort_cooling_schedule_name(self):
-        """field `Fanger Thermal Comfort Cooling Schedule Name` Schedule values
-        should be Predicted Mean Vote (PMV)
+        """field `Fanger Thermal Comfort Cooling Schedule Name`
+
+        |  Schedule values should be Predicted Mean Vote (PMV)
 
         Args:
             value (str): value for IDD Field `Fanger Thermal Comfort Cooling Schedule Name`
@@ -2236,13 +2276,14 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
 
     @property
     def number_of_heating_stages(self):
-        """field `Number of Heating Stages` Enter the number of the following
-        sets of data for heating temperature offset.
+        """field `Number of Heating Stages`
+
+        |  Enter the number of the following sets of data for heating temperature offset
+        |  value >= 1
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Heating Stages`
-                value >= 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2284,10 +2325,11 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     def heating_throttling_temperature_range(self):
         """field `Heating Throttling Temperature Range`
 
+        |  Units: deltaC
+        |  Default value: 1.1
+
         Args:
             value (float): value for IDD Field `Heating Throttling Temperature Range`
-                Units: deltaC
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2306,21 +2348,23 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_1_heating_temperature_offset(self):
         """field `Stage 1 Heating Temperature Offset`
-        The heating temperature offset is used to determine heating stage number for
-        multi stage equipment.
-        When the temperature difference of the heating setpoint and the controlled zone
-        temperature at previous time step is less than Stage 1 value and greater than
-        Stage 2 value, the stage number is 1.
+
+        |  The heating temperature offset is used to determine heating stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the heating setpoint and the controlled zone
+        |  temperature at previous time step is less than Stage 1 value and greater than
+        |  Stage 2 value, the stage number is 1.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 1 Heating Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_1_heating_temperature_offset` or None if not set
+
         """
         return self["Stage 1 Heating Temperature Offset"]
 
@@ -2332,22 +2376,24 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_2_heating_temperature_offset(self):
         """field `Stage 2 Heating Temperature Offset`
-        The heating temperature offset is used to determine heating stage number for
-        multi stage equipment.
-        When the temperature difference of the heating setpoint and the controlled zone
-        temperature at previous time step is less than Stage 2 value and greater than
-        Stage 3 value, the stage number is 2.
-        The value of this field has to be less the value at the previous field.
+
+        |  The heating temperature offset is used to determine heating stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the heating setpoint and the controlled zone
+        |  temperature at previous time step is less than Stage 2 value and greater than
+        |  Stage 3 value, the stage number is 2.
+        |  The value of this field has to be less the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 2 Heating Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_2_heating_temperature_offset` or None if not set
+
         """
         return self["Stage 2 Heating Temperature Offset"]
 
@@ -2359,22 +2405,24 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_3_heating_temperature_offset(self):
         """field `Stage 3 Heating Temperature Offset`
-        The heating temperature offset is used to determine heating stage number for
-        multi stage equipment.
-        When the temperature difference of the heating setpoint and the controlled zone
-        temperature at previous time step is less than Stage 3 value and greater than
-        Stage 4 value, the stage number is 3.
-        The value of this field has to be less the value at the previous field.
+
+        |  The heating temperature offset is used to determine heating stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the heating setpoint and the controlled zone
+        |  temperature at previous time step is less than Stage 3 value and greater than
+        |  Stage 4 value, the stage number is 3.
+        |  The value of this field has to be less the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 3 Heating Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_3_heating_temperature_offset` or None if not set
+
         """
         return self["Stage 3 Heating Temperature Offset"]
 
@@ -2386,21 +2434,23 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_4_heating_temperature_offset(self):
         """field `Stage 4 Heating Temperature Offset`
-        The heating temperature offset is used to determine heating stage number for
-        multi stage equipment.
-        When the temperature difference of the heating setpoint and the controlled zone
-        temperature at previous time step is less than Stage 4 value, the stage number is 4.
-        The value of this field has to be less the value at the previous field.
+
+        |  The heating temperature offset is used to determine heating stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the heating setpoint and the controlled zone
+        |  temperature at previous time step is less than Stage 4 value, the stage number is 4.
+        |  The value of this field has to be less the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 4 Heating Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_4_heating_temperature_offset` or None if not set
+
         """
         return self["Stage 4 Heating Temperature Offset"]
 
@@ -2411,13 +2461,14 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
 
     @property
     def number_of_cooling_stages(self):
-        """field `Number of Cooling Stages` Enter the number of the following
-        sets of data for cooling temperature offset.
+        """field `Number of Cooling Stages`
+
+        |  Enter the number of the following sets of data for cooling temperature offset
+        |  value >= 1
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Cooling Stages`
-                value >= 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2459,10 +2510,11 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     def cooling_throttling_temperature_range(self):
         """field `Cooling Throttling Temperature Range`
 
+        |  Units: deltaC
+        |  Default value: 1.1
+
         Args:
             value (float): value for IDD Field `Cooling Throttling Temperature Range`
-                Units: deltaC
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2481,21 +2533,23 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_1_cooling_temperature_offset(self):
         """field `Stage 1 Cooling Temperature Offset`
-        The cooling temperature offset is used to determine cooling stage number for
-        multi stage equipment.
-        When the temperature difference of the cooling setpoint and the controlled zone
-        temperature at previous time step is greater than Stage 1 value and less than
-        Stage 2 value, the stage number is 1.
+
+        |  The cooling temperature offset is used to determine cooling stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the cooling setpoint and the controlled zone
+        |  temperature at previous time step is greater than Stage 1 value and less than
+        |  Stage 2 value, the stage number is 1.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 1 Cooling Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_1_cooling_temperature_offset` or None if not set
+
         """
         return self["Stage 1 Cooling Temperature Offset"]
 
@@ -2507,22 +2561,24 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_2_cooling_temperature_offset(self):
         """field `Stage 2 Cooling Temperature Offset`
-        The cooling temperature offset is used to determine cooling stage number for
-        multi stage equipment.
-        When the temperature difference of the cooling setpoint and the controlled zone
-        temperature at previous time step is greater than Stage 2 value and less than
-        Stage 3 value, the stage number is 2.
-        The value of this field has to be greater than the value at the previous field.
+
+        |  The cooling temperature offset is used to determine cooling stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the cooling setpoint and the controlled zone
+        |  temperature at previous time step is greater than Stage 2 value and less than
+        |  Stage 3 value, the stage number is 2.
+        |  The value of this field has to be greater than the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 2 Cooling Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_2_cooling_temperature_offset` or None if not set
+
         """
         return self["Stage 2 Cooling Temperature Offset"]
 
@@ -2534,22 +2590,24 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_3_cooling_temperature_offset(self):
         """field `Stage 3 Cooling Temperature Offset`
-        The cooling temperature offset is used to determine cooling stage number for
-        multi stage equipment.
-        When the temperature difference of the cooling setpoint and the controlled zone
-        temperature at previous time step is greater than Stage 3 value and less than
-        Stage 4 value, the stage number is 3.
-        The value of this field has to be greater than the value at the previous field.
+
+        |  The cooling temperature offset is used to determine cooling stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the cooling setpoint and the controlled zone
+        |  temperature at previous time step is greater than Stage 3 value and less than
+        |  Stage 4 value, the stage number is 3.
+        |  The value of this field has to be greater than the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 3 Cooling Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_3_cooling_temperature_offset` or None if not set
+
         """
         return self["Stage 3 Cooling Temperature Offset"]
 
@@ -2561,21 +2619,23 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     @property
     def stage_4_cooling_temperature_offset(self):
         """field `Stage 4 Cooling Temperature Offset`
-        The cooling temperature offset is used to determine cooling stage number for
-        multi stage equipment.
-        When the temperature difference of the cooling setpoint and the controlled zone
-        temperature at previous time step is greater than Stage 4 value, the stage number is 4.
-        The value of this field has to be greater than the value at the previous field.
+
+        |  The cooling temperature offset is used to determine cooling stage number for
+        |  multi stage equipment.
+        |  When the temperature difference of the cooling setpoint and the controlled zone
+        |  temperature at previous time step is greater than Stage 4 value, the stage number is 4.
+        |  The value of this field has to be greater than the value at the previous field.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Stage 4 Cooling Temperature Offset`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `stage_4_cooling_temperature_offset` or None if not set
+
         """
         return self["Stage 4 Cooling Temperature Offset"]
 
@@ -2696,9 +2756,9 @@ class ZoneControlContaminantController(DataObject):
     @property
     def carbon_dioxide_control_availability_schedule_name(self):
         """field `Carbon Dioxide Control Availability Schedule Name`
-        Availability schedule name for CO2 controller. Schedule value > 0 means
-        the CO2 controller is enabled. If this field is blank, then CO2
-        controller is always enabled.
+
+        |  Availability schedule name for CO2 controller. Schedule value > 0 means the CO2
+        |  controller is enabled. If this field is blank, then CO2  controller is always enabled.
 
         Args:
             value (str): value for IDD Field `Carbon Dioxide Control Availability Schedule Name`
@@ -2720,8 +2780,9 @@ class ZoneControlContaminantController(DataObject):
 
     @property
     def carbon_dioxide_setpoint_schedule_name(self):
-        """field `Carbon Dioxide Setpoint Schedule Name` Schedule values should
-        be carbon dioxide concentration in parts per million (ppm)
+        """field `Carbon Dioxide Setpoint Schedule Name`
+
+        |  Schedule values should be carbon dioxide concentration in parts per million (ppm)
 
         Args:
             value (str): value for IDD Field `Carbon Dioxide Setpoint Schedule Name`
@@ -2743,10 +2804,11 @@ class ZoneControlContaminantController(DataObject):
     @property
     def minimum_carbon_dioxide_concentration_schedule_name(self):
         """field `Minimum Carbon Dioxide Concentration Schedule Name`
-        Schedule values should be carbon dioxide concentration in parts per
-        million (ppm)
-        This field is used when the field System Outdoor Air Method =
-        ProportionalControl in Controller:MechanicalVentilation
+
+        |  Schedule values should be carbon dioxide concentration in parts per
+        |  million (ppm)
+        |  This field is used when the field System Outdoor Air Method =
+        |  ProportionalControl in Controller:MechanicalVentilation
 
         Args:
             value (str): value for IDD Field `Minimum Carbon Dioxide Concentration Schedule Name`
@@ -2756,6 +2818,7 @@ class ZoneControlContaminantController(DataObject):
 
         Returns:
             str: the value of `minimum_carbon_dioxide_concentration_schedule_name` or None if not set
+
         """
         return self["Minimum Carbon Dioxide Concentration Schedule Name"]
 
@@ -2768,9 +2831,10 @@ class ZoneControlContaminantController(DataObject):
     @property
     def generic_contaminant_control_availability_schedule_name(self):
         """field `Generic Contaminant Control Availability Schedule Name`
-        Availability schedule name for generic contaminant controller. Schedule
-        value > 0 means the generic contaminant controller is enabled. If this
-        field is blank, then generic contaminant controller is always enabled.
+
+        |  Availability schedule name for generic contaminant controller. Schedule value > 0 means
+        |  the generic contaminant controller is enabled. If this field is blank, then generic
+        |  contaminant controller is always enabled.
 
         Args:
             value (str): value for IDD Field `Generic Contaminant Control Availability Schedule Name`
@@ -2795,10 +2859,11 @@ class ZoneControlContaminantController(DataObject):
     @property
     def generic_contaminant_setpoint_schedule_name(self):
         """field `Generic Contaminant Setpoint Schedule Name`
-        Schedule values should be generic contaminant concentration in parts per
-        million (ppm)
-        This field is used when the field System Outdoor Air Method =
-        IndoorAirQualityProcedureGenericContaminant in Controller:MechanicalVentilation
+
+        |  Schedule values should be generic contaminant concentration in parts per
+        |  million (ppm)
+        |  This field is used when the field System Outdoor Air Method =
+        |  IndoorAirQualityProcedureGenericContaminant in Controller:MechanicalVentilation
 
         Args:
             value (str): value for IDD Field `Generic Contaminant Setpoint Schedule Name`
@@ -2808,6 +2873,7 @@ class ZoneControlContaminantController(DataObject):
 
         Returns:
             str: the value of `generic_contaminant_setpoint_schedule_name` or None if not set
+
         """
         return self["Generic Contaminant Setpoint Schedule Name"]
 

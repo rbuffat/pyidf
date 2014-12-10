@@ -9,6 +9,6 @@ setup(name='pyidf',
       author='Rene Buffat',
       author_email='buffat@gmail.com',
       license='Apache License 2.0',
-      classifiers=['Development Status :: 2 - Pre-Alpha'],
+      classifiers=['Development Status :: 3 - Alpha'],
       packages=['pyidf'],
       keywords=['EnergyPlus', 'IDF'])

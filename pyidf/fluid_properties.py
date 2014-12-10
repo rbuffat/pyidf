@@ -157,7 +157,8 @@ class FluidPropertiesGlycolConcentration(DataObject):
     @property
     def glycol_type(self):
         """field `Glycol Type`
-        or UserDefined Fluid (must show up as a glycol in FluidProperties:Name object)
+
+        |  or UserDefined Fluid (must show up as a glycol in FluidProperties:Name object)
 
         Args:
             value (str): value for IDD Field `Glycol Type`
@@ -167,6 +168,7 @@ class FluidPropertiesGlycolConcentration(DataObject):
 
         Returns:
             str: the value of `glycol_type` or None if not set
+
         """
         return self["Glycol Type"]
 
@@ -200,9 +202,10 @@ class FluidPropertiesGlycolConcentration(DataObject):
     def glycol_concentration(self):
         """field `Glycol Concentration`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Glycol Concentration`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2271,9 +2274,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_1(self):
         """field `Temperature 1`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 1`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2293,9 +2297,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_2(self):
         """field `Temperature 2`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 2`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2315,9 +2320,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_3(self):
         """field `Temperature 3`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 3`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2337,9 +2343,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_4(self):
         """field `Temperature 4`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 4`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2359,9 +2366,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_5(self):
         """field `Temperature 5`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 5`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2381,9 +2389,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_6(self):
         """field `Temperature 6`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 6`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2403,9 +2412,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_7(self):
         """field `Temperature 7`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 7`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2425,9 +2435,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_8(self):
         """field `Temperature 8`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 8`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2447,9 +2458,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_9(self):
         """field `Temperature 9`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 9`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2469,9 +2481,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_10(self):
         """field `Temperature 10`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 10`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2491,9 +2504,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_11(self):
         """field `Temperature 11`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 11`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2513,9 +2527,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_12(self):
         """field `Temperature 12`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 12`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2535,9 +2550,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_13(self):
         """field `Temperature 13`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 13`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2557,9 +2573,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_14(self):
         """field `Temperature 14`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 14`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2579,9 +2596,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_15(self):
         """field `Temperature 15`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 15`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2601,9 +2619,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_16(self):
         """field `Temperature 16`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 16`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2623,9 +2642,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_17(self):
         """field `Temperature 17`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 17`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2645,9 +2665,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_18(self):
         """field `Temperature 18`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 18`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2667,9 +2688,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_19(self):
         """field `Temperature 19`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 19`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2689,9 +2711,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_20(self):
         """field `Temperature 20`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 20`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2711,9 +2734,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_21(self):
         """field `Temperature 21`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 21`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2733,9 +2757,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_22(self):
         """field `Temperature 22`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 22`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2755,9 +2780,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_23(self):
         """field `Temperature 23`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 23`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2777,9 +2803,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_24(self):
         """field `Temperature 24`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 24`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2799,9 +2826,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_25(self):
         """field `Temperature 25`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 25`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2821,9 +2849,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_26(self):
         """field `Temperature 26`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 26`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2843,9 +2872,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_27(self):
         """field `Temperature 27`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 27`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2865,9 +2895,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_28(self):
         """field `Temperature 28`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 28`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2887,9 +2918,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_29(self):
         """field `Temperature 29`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 29`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2909,9 +2941,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_30(self):
         """field `Temperature 30`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 30`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2931,9 +2964,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_31(self):
         """field `Temperature 31`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 31`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2953,9 +2987,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_32(self):
         """field `Temperature 32`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 32`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2975,9 +3010,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_33(self):
         """field `Temperature 33`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 33`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2997,9 +3033,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_34(self):
         """field `Temperature 34`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 34`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3019,9 +3056,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_35(self):
         """field `Temperature 35`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 35`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3041,9 +3079,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_36(self):
         """field `Temperature 36`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 36`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3063,9 +3102,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_37(self):
         """field `Temperature 37`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 37`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3085,9 +3125,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_38(self):
         """field `Temperature 38`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 38`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3107,9 +3148,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_39(self):
         """field `Temperature 39`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 39`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3129,9 +3171,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_40(self):
         """field `Temperature 40`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 40`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3151,9 +3194,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_41(self):
         """field `Temperature 41`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 41`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3173,9 +3217,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_42(self):
         """field `Temperature 42`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 42`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3195,9 +3240,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_43(self):
         """field `Temperature 43`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 43`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3217,9 +3263,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_44(self):
         """field `Temperature 44`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 44`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3239,9 +3286,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_45(self):
         """field `Temperature 45`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 45`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3261,9 +3309,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_46(self):
         """field `Temperature 46`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 46`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3283,9 +3332,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_47(self):
         """field `Temperature 47`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 47`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3305,9 +3355,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_48(self):
         """field `Temperature 48`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 48`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3327,9 +3378,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_49(self):
         """field `Temperature 49`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 49`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3349,9 +3401,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_50(self):
         """field `Temperature 50`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 50`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3371,9 +3424,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_51(self):
         """field `Temperature 51`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 51`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3393,9 +3447,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_52(self):
         """field `Temperature 52`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 52`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3415,9 +3470,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_53(self):
         """field `Temperature 53`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 53`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3437,9 +3493,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_54(self):
         """field `Temperature 54`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 54`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3459,9 +3516,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_55(self):
         """field `Temperature 55`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 55`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3481,9 +3539,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_56(self):
         """field `Temperature 56`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 56`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3503,9 +3562,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_57(self):
         """field `Temperature 57`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 57`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3525,9 +3585,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_58(self):
         """field `Temperature 58`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 58`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3547,9 +3608,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_59(self):
         """field `Temperature 59`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 59`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3569,9 +3631,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_60(self):
         """field `Temperature 60`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 60`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3591,9 +3654,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_61(self):
         """field `Temperature 61`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 61`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3613,9 +3677,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_62(self):
         """field `Temperature 62`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 62`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3635,9 +3700,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_63(self):
         """field `Temperature 63`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 63`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3657,9 +3723,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_64(self):
         """field `Temperature 64`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 64`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3679,9 +3746,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_65(self):
         """field `Temperature 65`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 65`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3701,9 +3769,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_66(self):
         """field `Temperature 66`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 66`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3723,9 +3792,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_67(self):
         """field `Temperature 67`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 67`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3745,9 +3815,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_68(self):
         """field `Temperature 68`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 68`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3767,9 +3838,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_69(self):
         """field `Temperature 69`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 69`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3789,9 +3861,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_70(self):
         """field `Temperature 70`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 70`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3811,9 +3884,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_71(self):
         """field `Temperature 71`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 71`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3833,9 +3907,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_72(self):
         """field `Temperature 72`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 72`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3855,9 +3930,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_73(self):
         """field `Temperature 73`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 73`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3877,9 +3953,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_74(self):
         """field `Temperature 74`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 74`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3899,9 +3976,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_75(self):
         """field `Temperature 75`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 75`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3921,9 +3999,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_76(self):
         """field `Temperature 76`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 76`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3943,9 +4022,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_77(self):
         """field `Temperature 77`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 77`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3965,9 +4045,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_78(self):
         """field `Temperature 78`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 78`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3987,9 +4068,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_79(self):
         """field `Temperature 79`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 79`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4009,9 +4091,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_80(self):
         """field `Temperature 80`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 80`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4031,9 +4114,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_81(self):
         """field `Temperature 81`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 81`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4053,9 +4137,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_82(self):
         """field `Temperature 82`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 82`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4075,9 +4160,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_83(self):
         """field `Temperature 83`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 83`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4097,9 +4183,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_84(self):
         """field `Temperature 84`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 84`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4119,9 +4206,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_85(self):
         """field `Temperature 85`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 85`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4141,9 +4229,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_86(self):
         """field `Temperature 86`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 86`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4163,9 +4252,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_87(self):
         """field `Temperature 87`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 87`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4185,9 +4275,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_88(self):
         """field `Temperature 88`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 88`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4207,9 +4298,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_89(self):
         """field `Temperature 89`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 89`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4229,9 +4321,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_90(self):
         """field `Temperature 90`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 90`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4251,9 +4344,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_91(self):
         """field `Temperature 91`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 91`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4273,9 +4367,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_92(self):
         """field `Temperature 92`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 92`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4295,9 +4390,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_93(self):
         """field `Temperature 93`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 93`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4317,9 +4413,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_94(self):
         """field `Temperature 94`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 94`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4339,9 +4436,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_95(self):
         """field `Temperature 95`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 95`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4361,9 +4459,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_96(self):
         """field `Temperature 96`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 96`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4383,9 +4482,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_97(self):
         """field `Temperature 97`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 97`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4405,9 +4505,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_98(self):
         """field `Temperature 98`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 98`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4427,9 +4528,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_99(self):
         """field `Temperature 99`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 99`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4449,9 +4551,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_100(self):
         """field `Temperature 100`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 100`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4471,9 +4574,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_101(self):
         """field `Temperature 101`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 101`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4493,9 +4597,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_102(self):
         """field `Temperature 102`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 102`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4515,9 +4620,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_103(self):
         """field `Temperature 103`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 103`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4537,9 +4643,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_104(self):
         """field `Temperature 104`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 104`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4559,9 +4666,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_105(self):
         """field `Temperature 105`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 105`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4581,9 +4689,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_106(self):
         """field `Temperature 106`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 106`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4603,9 +4712,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_107(self):
         """field `Temperature 107`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 107`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4625,9 +4735,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_108(self):
         """field `Temperature 108`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 108`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4647,9 +4758,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_109(self):
         """field `Temperature 109`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 109`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4669,9 +4781,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_110(self):
         """field `Temperature 110`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 110`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4691,9 +4804,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_111(self):
         """field `Temperature 111`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 111`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4713,9 +4827,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_112(self):
         """field `Temperature 112`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 112`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4735,9 +4850,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_113(self):
         """field `Temperature 113`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 113`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4757,9 +4873,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_114(self):
         """field `Temperature 114`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 114`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4779,9 +4896,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_115(self):
         """field `Temperature 115`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 115`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4801,9 +4919,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_116(self):
         """field `Temperature 116`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 116`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4823,9 +4942,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_117(self):
         """field `Temperature 117`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 117`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4845,9 +4965,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_118(self):
         """field `Temperature 118`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 118`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4867,9 +4988,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_119(self):
         """field `Temperature 119`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 119`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4889,9 +5011,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_120(self):
         """field `Temperature 120`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 120`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4911,9 +5034,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_121(self):
         """field `Temperature 121`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 121`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4933,9 +5057,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_122(self):
         """field `Temperature 122`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 122`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4955,9 +5080,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_123(self):
         """field `Temperature 123`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 123`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4977,9 +5103,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_124(self):
         """field `Temperature 124`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 124`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4999,9 +5126,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_125(self):
         """field `Temperature 125`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 125`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5021,9 +5149,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_126(self):
         """field `Temperature 126`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 126`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5043,9 +5172,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_127(self):
         """field `Temperature 127`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 127`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5065,9 +5195,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_128(self):
         """field `Temperature 128`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 128`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5087,9 +5218,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_129(self):
         """field `Temperature 129`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 129`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5109,9 +5241,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_130(self):
         """field `Temperature 130`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 130`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5131,9 +5264,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_131(self):
         """field `Temperature 131`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 131`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5153,9 +5287,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_132(self):
         """field `Temperature 132`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 132`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5175,9 +5310,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_133(self):
         """field `Temperature 133`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 133`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5197,9 +5333,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_134(self):
         """field `Temperature 134`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 134`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5219,9 +5356,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_135(self):
         """field `Temperature 135`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 135`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5241,9 +5379,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_136(self):
         """field `Temperature 136`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 136`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5263,9 +5402,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_137(self):
         """field `Temperature 137`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 137`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5285,9 +5425,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_138(self):
         """field `Temperature 138`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 138`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5307,9 +5448,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_139(self):
         """field `Temperature 139`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 139`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5329,9 +5471,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_140(self):
         """field `Temperature 140`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 140`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5351,9 +5494,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_141(self):
         """field `Temperature 141`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 141`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5373,9 +5517,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_142(self):
         """field `Temperature 142`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 142`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5395,9 +5540,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_143(self):
         """field `Temperature 143`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 143`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5417,9 +5563,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_144(self):
         """field `Temperature 144`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 144`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5439,9 +5586,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_145(self):
         """field `Temperature 145`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 145`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5461,9 +5609,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_146(self):
         """field `Temperature 146`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 146`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5483,9 +5632,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_147(self):
         """field `Temperature 147`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 147`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5505,9 +5655,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_148(self):
         """field `Temperature 148`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 148`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5527,9 +5678,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_149(self):
         """field `Temperature 149`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 149`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5549,9 +5701,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_150(self):
         """field `Temperature 150`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 150`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5571,9 +5724,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_151(self):
         """field `Temperature 151`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 151`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5593,9 +5747,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_152(self):
         """field `Temperature 152`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 152`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5615,9 +5770,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_153(self):
         """field `Temperature 153`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 153`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5637,9 +5793,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_154(self):
         """field `Temperature 154`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 154`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5659,9 +5816,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_155(self):
         """field `Temperature 155`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 155`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5681,9 +5839,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_156(self):
         """field `Temperature 156`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 156`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5703,9 +5862,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_157(self):
         """field `Temperature 157`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 157`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5725,9 +5885,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_158(self):
         """field `Temperature 158`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 158`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5747,9 +5908,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_159(self):
         """field `Temperature 159`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 159`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5769,9 +5931,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_160(self):
         """field `Temperature 160`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 160`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5791,9 +5954,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_161(self):
         """field `Temperature 161`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 161`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5813,9 +5977,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_162(self):
         """field `Temperature 162`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 162`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5835,9 +6000,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_163(self):
         """field `Temperature 163`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 163`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5857,9 +6023,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_164(self):
         """field `Temperature 164`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 164`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5879,9 +6046,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_165(self):
         """field `Temperature 165`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 165`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5901,9 +6069,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_166(self):
         """field `Temperature 166`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 166`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5923,9 +6092,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_167(self):
         """field `Temperature 167`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 167`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5945,9 +6115,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_168(self):
         """field `Temperature 168`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 168`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5967,9 +6138,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_169(self):
         """field `Temperature 169`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 169`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5989,9 +6161,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_170(self):
         """field `Temperature 170`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 170`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6011,9 +6184,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_171(self):
         """field `Temperature 171`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 171`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6033,9 +6207,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_172(self):
         """field `Temperature 172`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 172`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6055,9 +6230,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_173(self):
         """field `Temperature 173`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 173`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6077,9 +6253,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_174(self):
         """field `Temperature 174`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 174`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6099,9 +6276,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_175(self):
         """field `Temperature 175`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 175`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6121,9 +6299,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_176(self):
         """field `Temperature 176`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 176`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6143,9 +6322,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_177(self):
         """field `Temperature 177`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 177`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6165,9 +6345,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_178(self):
         """field `Temperature 178`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 178`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6187,9 +6368,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_179(self):
         """field `Temperature 179`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 179`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6209,9 +6391,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_180(self):
         """field `Temperature 180`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 180`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6231,9 +6414,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_181(self):
         """field `Temperature 181`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 181`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6253,9 +6437,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_182(self):
         """field `Temperature 182`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 182`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6275,9 +6460,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_183(self):
         """field `Temperature 183`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 183`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6297,9 +6483,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_184(self):
         """field `Temperature 184`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 184`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6319,9 +6506,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_185(self):
         """field `Temperature 185`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 185`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6341,9 +6529,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_186(self):
         """field `Temperature 186`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 186`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6363,9 +6552,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_187(self):
         """field `Temperature 187`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 187`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6385,9 +6575,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_188(self):
         """field `Temperature 188`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 188`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6407,9 +6598,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_189(self):
         """field `Temperature 189`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 189`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6429,9 +6621,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_190(self):
         """field `Temperature 190`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 190`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6451,9 +6644,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_191(self):
         """field `Temperature 191`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 191`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6473,9 +6667,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_192(self):
         """field `Temperature 192`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 192`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6495,9 +6690,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_193(self):
         """field `Temperature 193`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 193`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6517,9 +6713,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_194(self):
         """field `Temperature 194`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 194`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6539,9 +6736,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_195(self):
         """field `Temperature 195`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 195`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6561,9 +6759,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_196(self):
         """field `Temperature 196`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 196`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6583,9 +6782,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_197(self):
         """field `Temperature 197`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 197`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6605,9 +6805,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_198(self):
         """field `Temperature 198`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 198`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6627,9 +6828,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_199(self):
         """field `Temperature 199`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 199`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6649,9 +6851,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_200(self):
         """field `Temperature 200`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 200`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6671,9 +6874,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_201(self):
         """field `Temperature 201`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 201`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6693,9 +6897,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_202(self):
         """field `Temperature 202`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 202`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6715,9 +6920,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_203(self):
         """field `Temperature 203`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 203`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6737,9 +6943,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_204(self):
         """field `Temperature 204`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 204`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6759,9 +6966,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_205(self):
         """field `Temperature 205`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 205`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6781,9 +6989,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_206(self):
         """field `Temperature 206`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 206`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6803,9 +7012,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_207(self):
         """field `Temperature 207`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 207`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6825,9 +7035,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_208(self):
         """field `Temperature 208`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 208`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6847,9 +7058,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_209(self):
         """field `Temperature 209`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 209`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6869,9 +7081,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_210(self):
         """field `Temperature 210`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 210`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6891,9 +7104,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_211(self):
         """field `Temperature 211`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 211`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6913,9 +7127,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_212(self):
         """field `Temperature 212`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 212`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6935,9 +7150,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_213(self):
         """field `Temperature 213`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 213`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6957,9 +7173,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_214(self):
         """field `Temperature 214`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 214`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6979,9 +7196,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_215(self):
         """field `Temperature 215`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 215`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7001,9 +7219,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_216(self):
         """field `Temperature 216`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 216`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7023,9 +7242,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_217(self):
         """field `Temperature 217`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 217`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7045,9 +7265,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_218(self):
         """field `Temperature 218`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 218`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7067,9 +7288,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_219(self):
         """field `Temperature 219`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 219`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7089,9 +7311,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_220(self):
         """field `Temperature 220`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 220`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7111,9 +7334,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_221(self):
         """field `Temperature 221`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 221`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7133,9 +7357,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_222(self):
         """field `Temperature 222`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 222`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7155,9 +7380,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_223(self):
         """field `Temperature 223`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 223`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7177,9 +7403,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_224(self):
         """field `Temperature 224`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 224`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7199,9 +7426,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_225(self):
         """field `Temperature 225`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 225`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7221,9 +7449,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_226(self):
         """field `Temperature 226`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 226`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7243,9 +7472,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_227(self):
         """field `Temperature 227`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 227`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7265,9 +7495,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_228(self):
         """field `Temperature 228`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 228`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7287,9 +7518,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_229(self):
         """field `Temperature 229`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 229`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7309,9 +7541,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_230(self):
         """field `Temperature 230`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 230`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7331,9 +7564,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_231(self):
         """field `Temperature 231`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 231`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7353,9 +7587,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_232(self):
         """field `Temperature 232`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 232`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7375,9 +7610,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_233(self):
         """field `Temperature 233`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 233`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7397,9 +7633,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_234(self):
         """field `Temperature 234`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 234`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7419,9 +7656,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_235(self):
         """field `Temperature 235`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 235`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7441,9 +7679,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_236(self):
         """field `Temperature 236`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 236`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7463,9 +7702,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_237(self):
         """field `Temperature 237`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 237`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7485,9 +7725,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_238(self):
         """field `Temperature 238`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 238`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7507,9 +7748,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_239(self):
         """field `Temperature 239`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 239`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7529,9 +7771,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_240(self):
         """field `Temperature 240`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 240`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7551,9 +7794,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_241(self):
         """field `Temperature 241`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 241`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7573,9 +7817,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_242(self):
         """field `Temperature 242`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 242`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7595,9 +7840,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_243(self):
         """field `Temperature 243`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 243`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7617,9 +7863,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_244(self):
         """field `Temperature 244`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 244`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7639,9 +7886,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_245(self):
         """field `Temperature 245`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 245`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7661,9 +7909,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_246(self):
         """field `Temperature 246`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 246`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7683,9 +7932,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_247(self):
         """field `Temperature 247`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 247`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7705,9 +7955,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_248(self):
         """field `Temperature 248`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 248`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7727,9 +7978,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_249(self):
         """field `Temperature 249`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 249`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7749,9 +8001,10 @@ class FluidPropertiesTemperatures(DataObject):
     def temperature_250(self):
         """field `Temperature 250`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Temperature 250`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9592,10 +9845,11 @@ class FluidPropertiesSaturated(DataObject):
     @property
     def fluid_property_type(self):
         """field `Fluid Property Type`
-        Enthalpy Units are J/kg
-        Density Units are kg/m3
-        SpecificHeat Units are J/kg-K
-        Pressure Units are Pa
+
+        |  Enthalpy Units are J/kg
+        |  Density Units are kg/m3
+        |  SpecificHeat Units are J/kg-K
+        |  Pressure Units are Pa
 
         Args:
             value (str): value for IDD Field `Fluid Property Type`
@@ -9605,6 +9859,7 @@ class FluidPropertiesSaturated(DataObject):
 
         Returns:
             str: the value of `fluid_property_type` or None if not set
+
         """
         return self["Fluid Property Type"]
 
@@ -9616,8 +9871,9 @@ class FluidPropertiesSaturated(DataObject):
     @property
     def fluid_phase(self):
         """field `Fluid Phase`
-        Fluid=saturated fluid
-        FluidGas=saturated vapor
+
+        |  Fluid=saturated fluid
+        |  FluidGas=saturated vapor
 
         Args:
             value (str): value for IDD Field `Fluid Phase`
@@ -9627,6 +9883,7 @@ class FluidPropertiesSaturated(DataObject):
 
         Returns:
             str: the value of `fluid_phase` or None if not set
+
         """
         return self["Fluid Phase"]
 
@@ -9638,7 +9895,8 @@ class FluidPropertiesSaturated(DataObject):
     @property
     def temperature_values_name(self):
         """field `Temperature Values Name`
-        Enter the name of a FluidProperties:Temperatures object.
+
+        |  Enter the name of a FluidProperties:Temperatures object.
 
         Args:
             value (str): value for IDD Field `Temperature Values Name`
@@ -9648,6 +9906,7 @@ class FluidPropertiesSaturated(DataObject):
 
         Returns:
             str: the value of `temperature_values_name` or None if not set
+
         """
         return self["Temperature Values Name"]
 
@@ -9660,9 +9919,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_1(self):
         """field `Property Value 1`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 1`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9682,9 +9942,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_2(self):
         """field `Property Value 2`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 2`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9704,9 +9965,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_3(self):
         """field `Property Value 3`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 3`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9726,9 +9988,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_4(self):
         """field `Property Value 4`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 4`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9748,9 +10011,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_5(self):
         """field `Property Value 5`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 5`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9770,9 +10034,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_6(self):
         """field `Property Value 6`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 6`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9792,9 +10057,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_7(self):
         """field `Property Value 7`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 7`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9814,9 +10080,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_8(self):
         """field `Property Value 8`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 8`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9836,9 +10103,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_9(self):
         """field `Property Value 9`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 9`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9858,9 +10126,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_10(self):
         """field `Property Value 10`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 10`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9880,9 +10149,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_11(self):
         """field `Property Value 11`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 11`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9902,9 +10172,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_12(self):
         """field `Property Value 12`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 12`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9924,9 +10195,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_13(self):
         """field `Property Value 13`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 13`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9946,9 +10218,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_14(self):
         """field `Property Value 14`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 14`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9968,9 +10241,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_15(self):
         """field `Property Value 15`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 15`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9990,9 +10264,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_16(self):
         """field `Property Value 16`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 16`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10012,9 +10287,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_17(self):
         """field `Property Value 17`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 17`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10034,9 +10310,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_18(self):
         """field `Property Value 18`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 18`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10056,9 +10333,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_19(self):
         """field `Property Value 19`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 19`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10078,9 +10356,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_20(self):
         """field `Property Value 20`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 20`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10100,9 +10379,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_21(self):
         """field `Property Value 21`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 21`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10122,9 +10402,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_22(self):
         """field `Property Value 22`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 22`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10144,9 +10425,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_23(self):
         """field `Property Value 23`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 23`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10166,9 +10448,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_24(self):
         """field `Property Value 24`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 24`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10188,9 +10471,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_25(self):
         """field `Property Value 25`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 25`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10210,9 +10494,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_26(self):
         """field `Property Value 26`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 26`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10232,9 +10517,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_27(self):
         """field `Property Value 27`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 27`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10254,9 +10540,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_28(self):
         """field `Property Value 28`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 28`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10276,9 +10563,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_29(self):
         """field `Property Value 29`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 29`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10298,9 +10586,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_30(self):
         """field `Property Value 30`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 30`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10320,9 +10609,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_31(self):
         """field `Property Value 31`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 31`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10342,9 +10632,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_32(self):
         """field `Property Value 32`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 32`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10364,9 +10655,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_33(self):
         """field `Property Value 33`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 33`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10386,9 +10678,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_34(self):
         """field `Property Value 34`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 34`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10408,9 +10701,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_35(self):
         """field `Property Value 35`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 35`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10430,9 +10724,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_36(self):
         """field `Property Value 36`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 36`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10452,9 +10747,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_37(self):
         """field `Property Value 37`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 37`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10474,9 +10770,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_38(self):
         """field `Property Value 38`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 38`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10496,9 +10793,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_39(self):
         """field `Property Value 39`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 39`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10518,9 +10816,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_40(self):
         """field `Property Value 40`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 40`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10540,9 +10839,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_41(self):
         """field `Property Value 41`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 41`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10562,9 +10862,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_42(self):
         """field `Property Value 42`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 42`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10584,9 +10885,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_43(self):
         """field `Property Value 43`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 43`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10606,9 +10908,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_44(self):
         """field `Property Value 44`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 44`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10628,9 +10931,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_45(self):
         """field `Property Value 45`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 45`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10650,9 +10954,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_46(self):
         """field `Property Value 46`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 46`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10672,9 +10977,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_47(self):
         """field `Property Value 47`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 47`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10694,9 +11000,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_48(self):
         """field `Property Value 48`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 48`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10716,9 +11023,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_49(self):
         """field `Property Value 49`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 49`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10738,9 +11046,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_50(self):
         """field `Property Value 50`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 50`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10760,9 +11069,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_51(self):
         """field `Property Value 51`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 51`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10782,9 +11092,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_52(self):
         """field `Property Value 52`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 52`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10804,9 +11115,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_53(self):
         """field `Property Value 53`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 53`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10826,9 +11138,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_54(self):
         """field `Property Value 54`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 54`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10848,9 +11161,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_55(self):
         """field `Property Value 55`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 55`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10870,9 +11184,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_56(self):
         """field `Property Value 56`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 56`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10892,9 +11207,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_57(self):
         """field `Property Value 57`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 57`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10914,9 +11230,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_58(self):
         """field `Property Value 58`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 58`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10936,9 +11253,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_59(self):
         """field `Property Value 59`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 59`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10958,9 +11276,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_60(self):
         """field `Property Value 60`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 60`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10980,9 +11299,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_61(self):
         """field `Property Value 61`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 61`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11002,9 +11322,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_62(self):
         """field `Property Value 62`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 62`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11024,9 +11345,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_63(self):
         """field `Property Value 63`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 63`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11046,9 +11368,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_64(self):
         """field `Property Value 64`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 64`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11068,9 +11391,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_65(self):
         """field `Property Value 65`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 65`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11090,9 +11414,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_66(self):
         """field `Property Value 66`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 66`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11112,9 +11437,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_67(self):
         """field `Property Value 67`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 67`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11134,9 +11460,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_68(self):
         """field `Property Value 68`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 68`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11156,9 +11483,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_69(self):
         """field `Property Value 69`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 69`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11178,9 +11506,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_70(self):
         """field `Property Value 70`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 70`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11200,9 +11529,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_71(self):
         """field `Property Value 71`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 71`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11222,9 +11552,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_72(self):
         """field `Property Value 72`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 72`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11244,9 +11575,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_73(self):
         """field `Property Value 73`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 73`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11266,9 +11598,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_74(self):
         """field `Property Value 74`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 74`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11288,9 +11621,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_75(self):
         """field `Property Value 75`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 75`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11310,9 +11644,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_76(self):
         """field `Property Value 76`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 76`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11332,9 +11667,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_77(self):
         """field `Property Value 77`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 77`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11354,9 +11690,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_78(self):
         """field `Property Value 78`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 78`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11376,9 +11713,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_79(self):
         """field `Property Value 79`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 79`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11398,9 +11736,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_80(self):
         """field `Property Value 80`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 80`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11420,9 +11759,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_81(self):
         """field `Property Value 81`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 81`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11442,9 +11782,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_82(self):
         """field `Property Value 82`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 82`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11464,9 +11805,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_83(self):
         """field `Property Value 83`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 83`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11486,9 +11828,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_84(self):
         """field `Property Value 84`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 84`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11508,9 +11851,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_85(self):
         """field `Property Value 85`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 85`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11530,9 +11874,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_86(self):
         """field `Property Value 86`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 86`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11552,9 +11897,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_87(self):
         """field `Property Value 87`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 87`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11574,9 +11920,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_88(self):
         """field `Property Value 88`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 88`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11596,9 +11943,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_89(self):
         """field `Property Value 89`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 89`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11618,9 +11966,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_90(self):
         """field `Property Value 90`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 90`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11640,9 +11989,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_91(self):
         """field `Property Value 91`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 91`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11662,9 +12012,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_92(self):
         """field `Property Value 92`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 92`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11684,9 +12035,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_93(self):
         """field `Property Value 93`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 93`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11706,9 +12058,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_94(self):
         """field `Property Value 94`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 94`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11728,9 +12081,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_95(self):
         """field `Property Value 95`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 95`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11750,9 +12104,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_96(self):
         """field `Property Value 96`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 96`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11772,9 +12127,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_97(self):
         """field `Property Value 97`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 97`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11794,9 +12150,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_98(self):
         """field `Property Value 98`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 98`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11816,9 +12173,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_99(self):
         """field `Property Value 99`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 99`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11838,9 +12196,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_100(self):
         """field `Property Value 100`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 100`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11860,9 +12219,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_101(self):
         """field `Property Value 101`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 101`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11882,9 +12242,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_102(self):
         """field `Property Value 102`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 102`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11904,9 +12265,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_103(self):
         """field `Property Value 103`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 103`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11926,9 +12288,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_104(self):
         """field `Property Value 104`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 104`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11948,9 +12311,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_105(self):
         """field `Property Value 105`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 105`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11970,9 +12334,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_106(self):
         """field `Property Value 106`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 106`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11992,9 +12357,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_107(self):
         """field `Property Value 107`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 107`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12014,9 +12380,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_108(self):
         """field `Property Value 108`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 108`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12036,9 +12403,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_109(self):
         """field `Property Value 109`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 109`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12058,9 +12426,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_110(self):
         """field `Property Value 110`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 110`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12080,9 +12449,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_111(self):
         """field `Property Value 111`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 111`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12102,9 +12472,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_112(self):
         """field `Property Value 112`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 112`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12124,9 +12495,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_113(self):
         """field `Property Value 113`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 113`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12146,9 +12518,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_114(self):
         """field `Property Value 114`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 114`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12168,9 +12541,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_115(self):
         """field `Property Value 115`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 115`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12190,9 +12564,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_116(self):
         """field `Property Value 116`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 116`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12212,9 +12587,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_117(self):
         """field `Property Value 117`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 117`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12234,9 +12610,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_118(self):
         """field `Property Value 118`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 118`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12256,9 +12633,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_119(self):
         """field `Property Value 119`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 119`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12278,9 +12656,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_120(self):
         """field `Property Value 120`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 120`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12300,9 +12679,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_121(self):
         """field `Property Value 121`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 121`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12322,9 +12702,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_122(self):
         """field `Property Value 122`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 122`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12344,9 +12725,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_123(self):
         """field `Property Value 123`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 123`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12366,9 +12748,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_124(self):
         """field `Property Value 124`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 124`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12388,9 +12771,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_125(self):
         """field `Property Value 125`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 125`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12410,9 +12794,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_126(self):
         """field `Property Value 126`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 126`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12432,9 +12817,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_127(self):
         """field `Property Value 127`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 127`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12454,9 +12840,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_128(self):
         """field `Property Value 128`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 128`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12476,9 +12863,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_129(self):
         """field `Property Value 129`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 129`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12498,9 +12886,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_130(self):
         """field `Property Value 130`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 130`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12520,9 +12909,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_131(self):
         """field `Property Value 131`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 131`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12542,9 +12932,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_132(self):
         """field `Property Value 132`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 132`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12564,9 +12955,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_133(self):
         """field `Property Value 133`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 133`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12586,9 +12978,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_134(self):
         """field `Property Value 134`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 134`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12608,9 +13001,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_135(self):
         """field `Property Value 135`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 135`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12630,9 +13024,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_136(self):
         """field `Property Value 136`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 136`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12652,9 +13047,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_137(self):
         """field `Property Value 137`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 137`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12674,9 +13070,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_138(self):
         """field `Property Value 138`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 138`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12696,9 +13093,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_139(self):
         """field `Property Value 139`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 139`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12718,9 +13116,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_140(self):
         """field `Property Value 140`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 140`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12740,9 +13139,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_141(self):
         """field `Property Value 141`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 141`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12762,9 +13162,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_142(self):
         """field `Property Value 142`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 142`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12784,9 +13185,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_143(self):
         """field `Property Value 143`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 143`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12806,9 +13208,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_144(self):
         """field `Property Value 144`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 144`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12828,9 +13231,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_145(self):
         """field `Property Value 145`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 145`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12850,9 +13254,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_146(self):
         """field `Property Value 146`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 146`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12872,9 +13277,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_147(self):
         """field `Property Value 147`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 147`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12894,9 +13300,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_148(self):
         """field `Property Value 148`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 148`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12916,9 +13323,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_149(self):
         """field `Property Value 149`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 149`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12938,9 +13346,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_150(self):
         """field `Property Value 150`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 150`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12960,9 +13369,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_151(self):
         """field `Property Value 151`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 151`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12982,9 +13392,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_152(self):
         """field `Property Value 152`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 152`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13004,9 +13415,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_153(self):
         """field `Property Value 153`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 153`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13026,9 +13438,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_154(self):
         """field `Property Value 154`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 154`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13048,9 +13461,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_155(self):
         """field `Property Value 155`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 155`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13070,9 +13484,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_156(self):
         """field `Property Value 156`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 156`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13092,9 +13507,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_157(self):
         """field `Property Value 157`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 157`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13114,9 +13530,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_158(self):
         """field `Property Value 158`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 158`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13136,9 +13553,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_159(self):
         """field `Property Value 159`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 159`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13158,9 +13576,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_160(self):
         """field `Property Value 160`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 160`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13180,9 +13599,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_161(self):
         """field `Property Value 161`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 161`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13202,9 +13622,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_162(self):
         """field `Property Value 162`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 162`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13224,9 +13645,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_163(self):
         """field `Property Value 163`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 163`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13246,9 +13668,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_164(self):
         """field `Property Value 164`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 164`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13268,9 +13691,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_165(self):
         """field `Property Value 165`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 165`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13290,9 +13714,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_166(self):
         """field `Property Value 166`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 166`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13312,9 +13737,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_167(self):
         """field `Property Value 167`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 167`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13334,9 +13760,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_168(self):
         """field `Property Value 168`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 168`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13356,9 +13783,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_169(self):
         """field `Property Value 169`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 169`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13378,9 +13806,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_170(self):
         """field `Property Value 170`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 170`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13400,9 +13829,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_171(self):
         """field `Property Value 171`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 171`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13422,9 +13852,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_172(self):
         """field `Property Value 172`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 172`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13444,9 +13875,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_173(self):
         """field `Property Value 173`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 173`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13466,9 +13898,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_174(self):
         """field `Property Value 174`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 174`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13488,9 +13921,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_175(self):
         """field `Property Value 175`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 175`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13510,9 +13944,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_176(self):
         """field `Property Value 176`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 176`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13532,9 +13967,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_177(self):
         """field `Property Value 177`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 177`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13554,9 +13990,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_178(self):
         """field `Property Value 178`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 178`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13576,9 +14013,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_179(self):
         """field `Property Value 179`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 179`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13598,9 +14036,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_180(self):
         """field `Property Value 180`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 180`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13620,9 +14059,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_181(self):
         """field `Property Value 181`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 181`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13642,9 +14082,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_182(self):
         """field `Property Value 182`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 182`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13664,9 +14105,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_183(self):
         """field `Property Value 183`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 183`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13686,9 +14128,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_184(self):
         """field `Property Value 184`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 184`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13708,9 +14151,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_185(self):
         """field `Property Value 185`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 185`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13730,9 +14174,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_186(self):
         """field `Property Value 186`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 186`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13752,9 +14197,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_187(self):
         """field `Property Value 187`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 187`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13774,9 +14220,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_188(self):
         """field `Property Value 188`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 188`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13796,9 +14243,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_189(self):
         """field `Property Value 189`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 189`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13818,9 +14266,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_190(self):
         """field `Property Value 190`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 190`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13840,9 +14289,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_191(self):
         """field `Property Value 191`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 191`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13862,9 +14312,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_192(self):
         """field `Property Value 192`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 192`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13884,9 +14335,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_193(self):
         """field `Property Value 193`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 193`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13906,9 +14358,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_194(self):
         """field `Property Value 194`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 194`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13928,9 +14381,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_195(self):
         """field `Property Value 195`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 195`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13950,9 +14404,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_196(self):
         """field `Property Value 196`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 196`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13972,9 +14427,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_197(self):
         """field `Property Value 197`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 197`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13994,9 +14450,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_198(self):
         """field `Property Value 198`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 198`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14016,9 +14473,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_199(self):
         """field `Property Value 199`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 199`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14038,9 +14496,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_200(self):
         """field `Property Value 200`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 200`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14060,9 +14519,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_201(self):
         """field `Property Value 201`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 201`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14082,9 +14542,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_202(self):
         """field `Property Value 202`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 202`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14104,9 +14565,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_203(self):
         """field `Property Value 203`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 203`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14126,9 +14588,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_204(self):
         """field `Property Value 204`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 204`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14148,9 +14611,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_205(self):
         """field `Property Value 205`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 205`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14170,9 +14634,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_206(self):
         """field `Property Value 206`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 206`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14192,9 +14657,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_207(self):
         """field `Property Value 207`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 207`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14214,9 +14680,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_208(self):
         """field `Property Value 208`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 208`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14236,9 +14703,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_209(self):
         """field `Property Value 209`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 209`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14258,9 +14726,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_210(self):
         """field `Property Value 210`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 210`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14280,9 +14749,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_211(self):
         """field `Property Value 211`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 211`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14302,9 +14772,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_212(self):
         """field `Property Value 212`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 212`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14324,9 +14795,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_213(self):
         """field `Property Value 213`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 213`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14346,9 +14818,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_214(self):
         """field `Property Value 214`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 214`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14368,9 +14841,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_215(self):
         """field `Property Value 215`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 215`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14390,9 +14864,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_216(self):
         """field `Property Value 216`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 216`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14412,9 +14887,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_217(self):
         """field `Property Value 217`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 217`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14434,9 +14910,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_218(self):
         """field `Property Value 218`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 218`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14456,9 +14933,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_219(self):
         """field `Property Value 219`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 219`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14478,9 +14956,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_220(self):
         """field `Property Value 220`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 220`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14500,9 +14979,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_221(self):
         """field `Property Value 221`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 221`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14522,9 +15002,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_222(self):
         """field `Property Value 222`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 222`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14544,9 +15025,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_223(self):
         """field `Property Value 223`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 223`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14566,9 +15048,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_224(self):
         """field `Property Value 224`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 224`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14588,9 +15071,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_225(self):
         """field `Property Value 225`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 225`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14610,9 +15094,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_226(self):
         """field `Property Value 226`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 226`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14632,9 +15117,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_227(self):
         """field `Property Value 227`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 227`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14654,9 +15140,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_228(self):
         """field `Property Value 228`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 228`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14676,9 +15163,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_229(self):
         """field `Property Value 229`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 229`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14698,9 +15186,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_230(self):
         """field `Property Value 230`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 230`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14720,9 +15209,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_231(self):
         """field `Property Value 231`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 231`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14742,9 +15232,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_232(self):
         """field `Property Value 232`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 232`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14764,9 +15255,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_233(self):
         """field `Property Value 233`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 233`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14786,9 +15278,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_234(self):
         """field `Property Value 234`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 234`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14808,9 +15301,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_235(self):
         """field `Property Value 235`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 235`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14830,9 +15324,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_236(self):
         """field `Property Value 236`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 236`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14852,9 +15347,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_237(self):
         """field `Property Value 237`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 237`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14874,9 +15370,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_238(self):
         """field `Property Value 238`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 238`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14896,9 +15393,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_239(self):
         """field `Property Value 239`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 239`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14918,9 +15416,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_240(self):
         """field `Property Value 240`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 240`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14940,9 +15439,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_241(self):
         """field `Property Value 241`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 241`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14962,9 +15462,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_242(self):
         """field `Property Value 242`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 242`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14984,9 +15485,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_243(self):
         """field `Property Value 243`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 243`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15006,9 +15508,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_244(self):
         """field `Property Value 244`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 244`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15028,9 +15531,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_245(self):
         """field `Property Value 245`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 245`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15050,9 +15554,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_246(self):
         """field `Property Value 246`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 246`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15072,9 +15577,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_247(self):
         """field `Property Value 247`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 247`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15094,9 +15600,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_248(self):
         """field `Property Value 248`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 248`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15116,9 +15623,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_249(self):
         """field `Property Value 249`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 249`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15138,9 +15646,10 @@ class FluidPropertiesSaturated(DataObject):
     def property_value_250(self):
         """field `Property Value 250`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 250`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16978,8 +17487,10 @@ class FluidPropertiesSuperheated(DataObject):
 
     @property
     def fluid_property_type(self):
-        """field `Fluid Property Type` Enthalpy Units are J/kg Density Units
-        are kg/m3.
+        """field `Fluid Property Type`
+
+        |  Enthalpy Units are J/kg
+        |  Density Units are kg/m3
 
         Args:
             value (str): value for IDD Field `Fluid Property Type`
@@ -17001,7 +17512,8 @@ class FluidPropertiesSuperheated(DataObject):
     @property
     def temperature_values_name(self):
         """field `Temperature Values Name`
-        Enter the name of a FluidProperties:Temperatures object.
+
+        |  Enter the name of a FluidProperties:Temperatures object.
 
         Args:
             value (str): value for IDD Field `Temperature Values Name`
@@ -17011,6 +17523,7 @@ class FluidPropertiesSuperheated(DataObject):
 
         Returns:
             str: the value of `temperature_values_name` or None if not set
+
         """
         return self["Temperature Values Name"]
 
@@ -17021,11 +17534,13 @@ class FluidPropertiesSuperheated(DataObject):
 
     @property
     def pressure(self):
-        """field `Pressure` pressure for this list of properties.
+        """field `Pressure`
+
+        |  pressure for this list of properties
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Pressure`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17045,9 +17560,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_1(self):
         """field `Property Value 1`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 1`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17067,9 +17583,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_2(self):
         """field `Property Value 2`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 2`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17089,9 +17606,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_3(self):
         """field `Property Value 3`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 3`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17111,9 +17629,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_4(self):
         """field `Property Value 4`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 4`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17133,9 +17652,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_5(self):
         """field `Property Value 5`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 5`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17155,9 +17675,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_6(self):
         """field `Property Value 6`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 6`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17177,9 +17698,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_7(self):
         """field `Property Value 7`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 7`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17199,9 +17721,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_8(self):
         """field `Property Value 8`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 8`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17221,9 +17744,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_9(self):
         """field `Property Value 9`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 9`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17243,9 +17767,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_10(self):
         """field `Property Value 10`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 10`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17265,9 +17790,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_11(self):
         """field `Property Value 11`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 11`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17287,9 +17813,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_12(self):
         """field `Property Value 12`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 12`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17309,9 +17836,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_13(self):
         """field `Property Value 13`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 13`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17331,9 +17859,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_14(self):
         """field `Property Value 14`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 14`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17353,9 +17882,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_15(self):
         """field `Property Value 15`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 15`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17375,9 +17905,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_16(self):
         """field `Property Value 16`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 16`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17397,9 +17928,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_17(self):
         """field `Property Value 17`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 17`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17419,9 +17951,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_18(self):
         """field `Property Value 18`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 18`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17441,9 +17974,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_19(self):
         """field `Property Value 19`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 19`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17463,9 +17997,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_20(self):
         """field `Property Value 20`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 20`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17485,9 +18020,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_21(self):
         """field `Property Value 21`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 21`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17507,9 +18043,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_22(self):
         """field `Property Value 22`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 22`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17529,9 +18066,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_23(self):
         """field `Property Value 23`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 23`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17551,9 +18089,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_24(self):
         """field `Property Value 24`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 24`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17573,9 +18112,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_25(self):
         """field `Property Value 25`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 25`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17595,9 +18135,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_26(self):
         """field `Property Value 26`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 26`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17617,9 +18158,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_27(self):
         """field `Property Value 27`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 27`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17639,9 +18181,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_28(self):
         """field `Property Value 28`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 28`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17661,9 +18204,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_29(self):
         """field `Property Value 29`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 29`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17683,9 +18227,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_30(self):
         """field `Property Value 30`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 30`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17705,9 +18250,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_31(self):
         """field `Property Value 31`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 31`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17727,9 +18273,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_32(self):
         """field `Property Value 32`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 32`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17749,9 +18296,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_33(self):
         """field `Property Value 33`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 33`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17771,9 +18319,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_34(self):
         """field `Property Value 34`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 34`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17793,9 +18342,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_35(self):
         """field `Property Value 35`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 35`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17815,9 +18365,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_36(self):
         """field `Property Value 36`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 36`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17837,9 +18388,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_37(self):
         """field `Property Value 37`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 37`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17859,9 +18411,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_38(self):
         """field `Property Value 38`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 38`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17881,9 +18434,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_39(self):
         """field `Property Value 39`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 39`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17903,9 +18457,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_40(self):
         """field `Property Value 40`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 40`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17925,9 +18480,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_41(self):
         """field `Property Value 41`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 41`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17947,9 +18503,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_42(self):
         """field `Property Value 42`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 42`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17969,9 +18526,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_43(self):
         """field `Property Value 43`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 43`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17991,9 +18549,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_44(self):
         """field `Property Value 44`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 44`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18013,9 +18572,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_45(self):
         """field `Property Value 45`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 45`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18035,9 +18595,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_46(self):
         """field `Property Value 46`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 46`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18057,9 +18618,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_47(self):
         """field `Property Value 47`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 47`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18079,9 +18641,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_48(self):
         """field `Property Value 48`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 48`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18101,9 +18664,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_49(self):
         """field `Property Value 49`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 49`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18123,9 +18687,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_50(self):
         """field `Property Value 50`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 50`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18145,9 +18710,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_51(self):
         """field `Property Value 51`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 51`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18167,9 +18733,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_52(self):
         """field `Property Value 52`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 52`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18189,9 +18756,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_53(self):
         """field `Property Value 53`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 53`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18211,9 +18779,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_54(self):
         """field `Property Value 54`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 54`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18233,9 +18802,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_55(self):
         """field `Property Value 55`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 55`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18255,9 +18825,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_56(self):
         """field `Property Value 56`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 56`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18277,9 +18848,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_57(self):
         """field `Property Value 57`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 57`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18299,9 +18871,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_58(self):
         """field `Property Value 58`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 58`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18321,9 +18894,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_59(self):
         """field `Property Value 59`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 59`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18343,9 +18917,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_60(self):
         """field `Property Value 60`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 60`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18365,9 +18940,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_61(self):
         """field `Property Value 61`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 61`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18387,9 +18963,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_62(self):
         """field `Property Value 62`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 62`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18409,9 +18986,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_63(self):
         """field `Property Value 63`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 63`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18431,9 +19009,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_64(self):
         """field `Property Value 64`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 64`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18453,9 +19032,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_65(self):
         """field `Property Value 65`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 65`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18475,9 +19055,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_66(self):
         """field `Property Value 66`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 66`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18497,9 +19078,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_67(self):
         """field `Property Value 67`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 67`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18519,9 +19101,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_68(self):
         """field `Property Value 68`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 68`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18541,9 +19124,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_69(self):
         """field `Property Value 69`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 69`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18563,9 +19147,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_70(self):
         """field `Property Value 70`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 70`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18585,9 +19170,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_71(self):
         """field `Property Value 71`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 71`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18607,9 +19193,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_72(self):
         """field `Property Value 72`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 72`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18629,9 +19216,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_73(self):
         """field `Property Value 73`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 73`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18651,9 +19239,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_74(self):
         """field `Property Value 74`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 74`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18673,9 +19262,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_75(self):
         """field `Property Value 75`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 75`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18695,9 +19285,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_76(self):
         """field `Property Value 76`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 76`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18717,9 +19308,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_77(self):
         """field `Property Value 77`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 77`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18739,9 +19331,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_78(self):
         """field `Property Value 78`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 78`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18761,9 +19354,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_79(self):
         """field `Property Value 79`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 79`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18783,9 +19377,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_80(self):
         """field `Property Value 80`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 80`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18805,9 +19400,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_81(self):
         """field `Property Value 81`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 81`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18827,9 +19423,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_82(self):
         """field `Property Value 82`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 82`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18849,9 +19446,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_83(self):
         """field `Property Value 83`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 83`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18871,9 +19469,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_84(self):
         """field `Property Value 84`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 84`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18893,9 +19492,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_85(self):
         """field `Property Value 85`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 85`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18915,9 +19515,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_86(self):
         """field `Property Value 86`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 86`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18937,9 +19538,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_87(self):
         """field `Property Value 87`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 87`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18959,9 +19561,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_88(self):
         """field `Property Value 88`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 88`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18981,9 +19584,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_89(self):
         """field `Property Value 89`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 89`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19003,9 +19607,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_90(self):
         """field `Property Value 90`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 90`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19025,9 +19630,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_91(self):
         """field `Property Value 91`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 91`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19047,9 +19653,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_92(self):
         """field `Property Value 92`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 92`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19069,9 +19676,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_93(self):
         """field `Property Value 93`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 93`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19091,9 +19699,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_94(self):
         """field `Property Value 94`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 94`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19113,9 +19722,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_95(self):
         """field `Property Value 95`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 95`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19135,9 +19745,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_96(self):
         """field `Property Value 96`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 96`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19157,9 +19768,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_97(self):
         """field `Property Value 97`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 97`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19179,9 +19791,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_98(self):
         """field `Property Value 98`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 98`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19201,9 +19814,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_99(self):
         """field `Property Value 99`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 99`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19223,9 +19837,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_100(self):
         """field `Property Value 100`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 100`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19245,9 +19860,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_101(self):
         """field `Property Value 101`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 101`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19267,9 +19883,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_102(self):
         """field `Property Value 102`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 102`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19289,9 +19906,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_103(self):
         """field `Property Value 103`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 103`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19311,9 +19929,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_104(self):
         """field `Property Value 104`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 104`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19333,9 +19952,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_105(self):
         """field `Property Value 105`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 105`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19355,9 +19975,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_106(self):
         """field `Property Value 106`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 106`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19377,9 +19998,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_107(self):
         """field `Property Value 107`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 107`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19399,9 +20021,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_108(self):
         """field `Property Value 108`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 108`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19421,9 +20044,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_109(self):
         """field `Property Value 109`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 109`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19443,9 +20067,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_110(self):
         """field `Property Value 110`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 110`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19465,9 +20090,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_111(self):
         """field `Property Value 111`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 111`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19487,9 +20113,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_112(self):
         """field `Property Value 112`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 112`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19509,9 +20136,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_113(self):
         """field `Property Value 113`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 113`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19531,9 +20159,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_114(self):
         """field `Property Value 114`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 114`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19553,9 +20182,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_115(self):
         """field `Property Value 115`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 115`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19575,9 +20205,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_116(self):
         """field `Property Value 116`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 116`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19597,9 +20228,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_117(self):
         """field `Property Value 117`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 117`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19619,9 +20251,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_118(self):
         """field `Property Value 118`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 118`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19641,9 +20274,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_119(self):
         """field `Property Value 119`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 119`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19663,9 +20297,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_120(self):
         """field `Property Value 120`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 120`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19685,9 +20320,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_121(self):
         """field `Property Value 121`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 121`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19707,9 +20343,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_122(self):
         """field `Property Value 122`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 122`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19729,9 +20366,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_123(self):
         """field `Property Value 123`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 123`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19751,9 +20389,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_124(self):
         """field `Property Value 124`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 124`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19773,9 +20412,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_125(self):
         """field `Property Value 125`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 125`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19795,9 +20435,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_126(self):
         """field `Property Value 126`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 126`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19817,9 +20458,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_127(self):
         """field `Property Value 127`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 127`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19839,9 +20481,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_128(self):
         """field `Property Value 128`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 128`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19861,9 +20504,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_129(self):
         """field `Property Value 129`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 129`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19883,9 +20527,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_130(self):
         """field `Property Value 130`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 130`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19905,9 +20550,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_131(self):
         """field `Property Value 131`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 131`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19927,9 +20573,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_132(self):
         """field `Property Value 132`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 132`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19949,9 +20596,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_133(self):
         """field `Property Value 133`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 133`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19971,9 +20619,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_134(self):
         """field `Property Value 134`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 134`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19993,9 +20642,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_135(self):
         """field `Property Value 135`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 135`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20015,9 +20665,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_136(self):
         """field `Property Value 136`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 136`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20037,9 +20688,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_137(self):
         """field `Property Value 137`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 137`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20059,9 +20711,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_138(self):
         """field `Property Value 138`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 138`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20081,9 +20734,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_139(self):
         """field `Property Value 139`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 139`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20103,9 +20757,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_140(self):
         """field `Property Value 140`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 140`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20125,9 +20780,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_141(self):
         """field `Property Value 141`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 141`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20147,9 +20803,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_142(self):
         """field `Property Value 142`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 142`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20169,9 +20826,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_143(self):
         """field `Property Value 143`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 143`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20191,9 +20849,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_144(self):
         """field `Property Value 144`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 144`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20213,9 +20872,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_145(self):
         """field `Property Value 145`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 145`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20235,9 +20895,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_146(self):
         """field `Property Value 146`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 146`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20257,9 +20918,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_147(self):
         """field `Property Value 147`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 147`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20279,9 +20941,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_148(self):
         """field `Property Value 148`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 148`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20301,9 +20964,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_149(self):
         """field `Property Value 149`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 149`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20323,9 +20987,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_150(self):
         """field `Property Value 150`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 150`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20345,9 +21010,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_151(self):
         """field `Property Value 151`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 151`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20367,9 +21033,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_152(self):
         """field `Property Value 152`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 152`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20389,9 +21056,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_153(self):
         """field `Property Value 153`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 153`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20411,9 +21079,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_154(self):
         """field `Property Value 154`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 154`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20433,9 +21102,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_155(self):
         """field `Property Value 155`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 155`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20455,9 +21125,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_156(self):
         """field `Property Value 156`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 156`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20477,9 +21148,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_157(self):
         """field `Property Value 157`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 157`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20499,9 +21171,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_158(self):
         """field `Property Value 158`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 158`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20521,9 +21194,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_159(self):
         """field `Property Value 159`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 159`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20543,9 +21217,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_160(self):
         """field `Property Value 160`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 160`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20565,9 +21240,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_161(self):
         """field `Property Value 161`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 161`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20587,9 +21263,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_162(self):
         """field `Property Value 162`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 162`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20609,9 +21286,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_163(self):
         """field `Property Value 163`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 163`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20631,9 +21309,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_164(self):
         """field `Property Value 164`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 164`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20653,9 +21332,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_165(self):
         """field `Property Value 165`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 165`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20675,9 +21355,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_166(self):
         """field `Property Value 166`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 166`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20697,9 +21378,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_167(self):
         """field `Property Value 167`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 167`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20719,9 +21401,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_168(self):
         """field `Property Value 168`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 168`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20741,9 +21424,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_169(self):
         """field `Property Value 169`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 169`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20763,9 +21447,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_170(self):
         """field `Property Value 170`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 170`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20785,9 +21470,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_171(self):
         """field `Property Value 171`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 171`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20807,9 +21493,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_172(self):
         """field `Property Value 172`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 172`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20829,9 +21516,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_173(self):
         """field `Property Value 173`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 173`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20851,9 +21539,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_174(self):
         """field `Property Value 174`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 174`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20873,9 +21562,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_175(self):
         """field `Property Value 175`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 175`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20895,9 +21585,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_176(self):
         """field `Property Value 176`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 176`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20917,9 +21608,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_177(self):
         """field `Property Value 177`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 177`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20939,9 +21631,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_178(self):
         """field `Property Value 178`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 178`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20961,9 +21654,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_179(self):
         """field `Property Value 179`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 179`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20983,9 +21677,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_180(self):
         """field `Property Value 180`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 180`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21005,9 +21700,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_181(self):
         """field `Property Value 181`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 181`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21027,9 +21723,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_182(self):
         """field `Property Value 182`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 182`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21049,9 +21746,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_183(self):
         """field `Property Value 183`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 183`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21071,9 +21769,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_184(self):
         """field `Property Value 184`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 184`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21093,9 +21792,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_185(self):
         """field `Property Value 185`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 185`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21115,9 +21815,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_186(self):
         """field `Property Value 186`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 186`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21137,9 +21838,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_187(self):
         """field `Property Value 187`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 187`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21159,9 +21861,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_188(self):
         """field `Property Value 188`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 188`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21181,9 +21884,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_189(self):
         """field `Property Value 189`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 189`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21203,9 +21907,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_190(self):
         """field `Property Value 190`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 190`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21225,9 +21930,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_191(self):
         """field `Property Value 191`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 191`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21247,9 +21953,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_192(self):
         """field `Property Value 192`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 192`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21269,9 +21976,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_193(self):
         """field `Property Value 193`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 193`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21291,9 +21999,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_194(self):
         """field `Property Value 194`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 194`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21313,9 +22022,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_195(self):
         """field `Property Value 195`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 195`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21335,9 +22045,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_196(self):
         """field `Property Value 196`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 196`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21357,9 +22068,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_197(self):
         """field `Property Value 197`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 197`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21379,9 +22091,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_198(self):
         """field `Property Value 198`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 198`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21401,9 +22114,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_199(self):
         """field `Property Value 199`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 199`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21423,9 +22137,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_200(self):
         """field `Property Value 200`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 200`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21445,9 +22160,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_201(self):
         """field `Property Value 201`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 201`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21467,9 +22183,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_202(self):
         """field `Property Value 202`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 202`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21489,9 +22206,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_203(self):
         """field `Property Value 203`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 203`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21511,9 +22229,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_204(self):
         """field `Property Value 204`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 204`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21533,9 +22252,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_205(self):
         """field `Property Value 205`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 205`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21555,9 +22275,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_206(self):
         """field `Property Value 206`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 206`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21577,9 +22298,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_207(self):
         """field `Property Value 207`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 207`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21599,9 +22321,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_208(self):
         """field `Property Value 208`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 208`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21621,9 +22344,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_209(self):
         """field `Property Value 209`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 209`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21643,9 +22367,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_210(self):
         """field `Property Value 210`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 210`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21665,9 +22390,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_211(self):
         """field `Property Value 211`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 211`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21687,9 +22413,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_212(self):
         """field `Property Value 212`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 212`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21709,9 +22436,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_213(self):
         """field `Property Value 213`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 213`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21731,9 +22459,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_214(self):
         """field `Property Value 214`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 214`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21753,9 +22482,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_215(self):
         """field `Property Value 215`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 215`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21775,9 +22505,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_216(self):
         """field `Property Value 216`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 216`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21797,9 +22528,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_217(self):
         """field `Property Value 217`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 217`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21819,9 +22551,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_218(self):
         """field `Property Value 218`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 218`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21841,9 +22574,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_219(self):
         """field `Property Value 219`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 219`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21863,9 +22597,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_220(self):
         """field `Property Value 220`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 220`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21885,9 +22620,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_221(self):
         """field `Property Value 221`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 221`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21907,9 +22643,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_222(self):
         """field `Property Value 222`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 222`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21929,9 +22666,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_223(self):
         """field `Property Value 223`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 223`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21951,9 +22689,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_224(self):
         """field `Property Value 224`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 224`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21973,9 +22712,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_225(self):
         """field `Property Value 225`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 225`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21995,9 +22735,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_226(self):
         """field `Property Value 226`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 226`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22017,9 +22758,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_227(self):
         """field `Property Value 227`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 227`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22039,9 +22781,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_228(self):
         """field `Property Value 228`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 228`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22061,9 +22804,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_229(self):
         """field `Property Value 229`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 229`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22083,9 +22827,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_230(self):
         """field `Property Value 230`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 230`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22105,9 +22850,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_231(self):
         """field `Property Value 231`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 231`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22127,9 +22873,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_232(self):
         """field `Property Value 232`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 232`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22149,9 +22896,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_233(self):
         """field `Property Value 233`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 233`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22171,9 +22919,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_234(self):
         """field `Property Value 234`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 234`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22193,9 +22942,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_235(self):
         """field `Property Value 235`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 235`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22215,9 +22965,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_236(self):
         """field `Property Value 236`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 236`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22237,9 +22988,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_237(self):
         """field `Property Value 237`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 237`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22259,9 +23011,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_238(self):
         """field `Property Value 238`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 238`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22281,9 +23034,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_239(self):
         """field `Property Value 239`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 239`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22303,9 +23057,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_240(self):
         """field `Property Value 240`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 240`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22325,9 +23080,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_241(self):
         """field `Property Value 241`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 241`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22347,9 +23103,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_242(self):
         """field `Property Value 242`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 242`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22369,9 +23126,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_243(self):
         """field `Property Value 243`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 243`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22391,9 +23149,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_244(self):
         """field `Property Value 244`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 244`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22413,9 +23172,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_245(self):
         """field `Property Value 245`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 245`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22435,9 +23195,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_246(self):
         """field `Property Value 246`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 246`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22457,9 +23218,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_247(self):
         """field `Property Value 247`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 247`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22479,9 +23241,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_248(self):
         """field `Property Value 248`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 248`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22501,9 +23264,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_249(self):
         """field `Property Value 249`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 249`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22523,9 +23287,10 @@ class FluidPropertiesSuperheated(DataObject):
     def property_value_250(self):
         """field `Property Value 250`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 250`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24345,8 +25110,9 @@ class FluidPropertiesConcentration(DataObject):
 
     @property
     def fluid_name(self):
-        """field `Fluid Name` should not be any of the defaults (Water,
-        EthyleneGlycol, or PropyleneGlycol)
+        """field `Fluid Name`
+
+        |  should not be any of the defaults (Water, EthyleneGlycol, or PropyleneGlycol)
 
         Args:
             value (str): value for IDD Field `Fluid Name`
@@ -24368,10 +25134,11 @@ class FluidPropertiesConcentration(DataObject):
     @property
     def fluid_property_type(self):
         """field `Fluid Property Type`
-        Density Units are kg/m3
-        SpecificHeat Units are J/kg-K
-        Conductivity Units are W/m-K
-        Viscosity Units are N-s/m2
+
+        |  Density Units are kg/m3
+        |  SpecificHeat Units are J/kg-K
+        |  Conductivity Units are W/m-K
+        |  Viscosity Units are N-s/m2
 
         Args:
             value (str): value for IDD Field `Fluid Property Type`
@@ -24381,6 +25148,7 @@ class FluidPropertiesConcentration(DataObject):
 
         Returns:
             str: the value of `fluid_property_type` or None if not set
+
         """
         return self["Fluid Property Type"]
 
@@ -24392,7 +25160,8 @@ class FluidPropertiesConcentration(DataObject):
     @property
     def temperature_values_name(self):
         """field `Temperature Values Name`
-        Enter the name of a FluidProperties:Temperatures object.
+
+        |  Enter the name of a FluidProperties:Temperatures object.
 
         Args:
             value (str): value for IDD Field `Temperature Values Name`
@@ -24402,6 +25171,7 @@ class FluidPropertiesConcentration(DataObject):
 
         Returns:
             str: the value of `temperature_values_name` or None if not set
+
         """
         return self["Temperature Values Name"]
 
@@ -24412,13 +25182,14 @@ class FluidPropertiesConcentration(DataObject):
 
     @property
     def concentration(self):
-        """field `Concentration` Glycol concentration for this list of
-        properties entered as a fraction.
+        """field `Concentration`
+
+        |  Glycol concentration for this list of properties entered as a fraction
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Concentration`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24438,9 +25209,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_1(self):
         """field `Property Value 1`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 1`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24460,9 +25232,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_2(self):
         """field `Property Value 2`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 2`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24482,9 +25255,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_3(self):
         """field `Property Value 3`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 3`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24504,9 +25278,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_4(self):
         """field `Property Value 4`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 4`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24526,9 +25301,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_5(self):
         """field `Property Value 5`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 5`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24548,9 +25324,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_6(self):
         """field `Property Value 6`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 6`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24570,9 +25347,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_7(self):
         """field `Property Value 7`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 7`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24592,9 +25370,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_8(self):
         """field `Property Value 8`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 8`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24614,9 +25393,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_9(self):
         """field `Property Value 9`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 9`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24636,9 +25416,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_10(self):
         """field `Property Value 10`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 10`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24658,9 +25439,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_11(self):
         """field `Property Value 11`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 11`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24680,9 +25462,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_12(self):
         """field `Property Value 12`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 12`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24702,9 +25485,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_13(self):
         """field `Property Value 13`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 13`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24724,9 +25508,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_14(self):
         """field `Property Value 14`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 14`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24746,9 +25531,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_15(self):
         """field `Property Value 15`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 15`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24768,9 +25554,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_16(self):
         """field `Property Value 16`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 16`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24790,9 +25577,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_17(self):
         """field `Property Value 17`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 17`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24812,9 +25600,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_18(self):
         """field `Property Value 18`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 18`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24834,9 +25623,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_19(self):
         """field `Property Value 19`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 19`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24856,9 +25646,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_20(self):
         """field `Property Value 20`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 20`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24878,9 +25669,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_21(self):
         """field `Property Value 21`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 21`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24900,9 +25692,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_22(self):
         """field `Property Value 22`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 22`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24922,9 +25715,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_23(self):
         """field `Property Value 23`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 23`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24944,9 +25738,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_24(self):
         """field `Property Value 24`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 24`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24966,9 +25761,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_25(self):
         """field `Property Value 25`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 25`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24988,9 +25784,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_26(self):
         """field `Property Value 26`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 26`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25010,9 +25807,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_27(self):
         """field `Property Value 27`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 27`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25032,9 +25830,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_28(self):
         """field `Property Value 28`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 28`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25054,9 +25853,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_29(self):
         """field `Property Value 29`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 29`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25076,9 +25876,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_30(self):
         """field `Property Value 30`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 30`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25098,9 +25899,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_31(self):
         """field `Property Value 31`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 31`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25120,9 +25922,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_32(self):
         """field `Property Value 32`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 32`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25142,9 +25945,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_33(self):
         """field `Property Value 33`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 33`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25164,9 +25968,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_34(self):
         """field `Property Value 34`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 34`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25186,9 +25991,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_35(self):
         """field `Property Value 35`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 35`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25208,9 +26014,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_36(self):
         """field `Property Value 36`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 36`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25230,9 +26037,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_37(self):
         """field `Property Value 37`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 37`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25252,9 +26060,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_38(self):
         """field `Property Value 38`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 38`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25274,9 +26083,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_39(self):
         """field `Property Value 39`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 39`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25296,9 +26106,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_40(self):
         """field `Property Value 40`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 40`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25318,9 +26129,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_41(self):
         """field `Property Value 41`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 41`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25340,9 +26152,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_42(self):
         """field `Property Value 42`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 42`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25362,9 +26175,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_43(self):
         """field `Property Value 43`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 43`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25384,9 +26198,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_44(self):
         """field `Property Value 44`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 44`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25406,9 +26221,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_45(self):
         """field `Property Value 45`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 45`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25428,9 +26244,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_46(self):
         """field `Property Value 46`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 46`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25450,9 +26267,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_47(self):
         """field `Property Value 47`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 47`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25472,9 +26290,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_48(self):
         """field `Property Value 48`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 48`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25494,9 +26313,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_49(self):
         """field `Property Value 49`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 49`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25516,9 +26336,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_50(self):
         """field `Property Value 50`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 50`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25538,9 +26359,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_51(self):
         """field `Property Value 51`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 51`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25560,9 +26382,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_52(self):
         """field `Property Value 52`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 52`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25582,9 +26405,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_53(self):
         """field `Property Value 53`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 53`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25604,9 +26428,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_54(self):
         """field `Property Value 54`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 54`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25626,9 +26451,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_55(self):
         """field `Property Value 55`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 55`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25648,9 +26474,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_56(self):
         """field `Property Value 56`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 56`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25670,9 +26497,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_57(self):
         """field `Property Value 57`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 57`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25692,9 +26520,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_58(self):
         """field `Property Value 58`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 58`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25714,9 +26543,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_59(self):
         """field `Property Value 59`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 59`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25736,9 +26566,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_60(self):
         """field `Property Value 60`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 60`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25758,9 +26589,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_61(self):
         """field `Property Value 61`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 61`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25780,9 +26612,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_62(self):
         """field `Property Value 62`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 62`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25802,9 +26635,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_63(self):
         """field `Property Value 63`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 63`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25824,9 +26658,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_64(self):
         """field `Property Value 64`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 64`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25846,9 +26681,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_65(self):
         """field `Property Value 65`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 65`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25868,9 +26704,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_66(self):
         """field `Property Value 66`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 66`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25890,9 +26727,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_67(self):
         """field `Property Value 67`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 67`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25912,9 +26750,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_68(self):
         """field `Property Value 68`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 68`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25934,9 +26773,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_69(self):
         """field `Property Value 69`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 69`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25956,9 +26796,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_70(self):
         """field `Property Value 70`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 70`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25978,9 +26819,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_71(self):
         """field `Property Value 71`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 71`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26000,9 +26842,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_72(self):
         """field `Property Value 72`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 72`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26022,9 +26865,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_73(self):
         """field `Property Value 73`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 73`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26044,9 +26888,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_74(self):
         """field `Property Value 74`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 74`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26066,9 +26911,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_75(self):
         """field `Property Value 75`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 75`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26088,9 +26934,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_76(self):
         """field `Property Value 76`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 76`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26110,9 +26957,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_77(self):
         """field `Property Value 77`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 77`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26132,9 +26980,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_78(self):
         """field `Property Value 78`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 78`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26154,9 +27003,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_79(self):
         """field `Property Value 79`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 79`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26176,9 +27026,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_80(self):
         """field `Property Value 80`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 80`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26198,9 +27049,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_81(self):
         """field `Property Value 81`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 81`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26220,9 +27072,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_82(self):
         """field `Property Value 82`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 82`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26242,9 +27095,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_83(self):
         """field `Property Value 83`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 83`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26264,9 +27118,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_84(self):
         """field `Property Value 84`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 84`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26286,9 +27141,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_85(self):
         """field `Property Value 85`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 85`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26308,9 +27164,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_86(self):
         """field `Property Value 86`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 86`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26330,9 +27187,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_87(self):
         """field `Property Value 87`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 87`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26352,9 +27210,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_88(self):
         """field `Property Value 88`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 88`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26374,9 +27233,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_89(self):
         """field `Property Value 89`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 89`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26396,9 +27256,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_90(self):
         """field `Property Value 90`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 90`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26418,9 +27279,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_91(self):
         """field `Property Value 91`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 91`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26440,9 +27302,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_92(self):
         """field `Property Value 92`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 92`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26462,9 +27325,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_93(self):
         """field `Property Value 93`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 93`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26484,9 +27348,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_94(self):
         """field `Property Value 94`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 94`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26506,9 +27371,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_95(self):
         """field `Property Value 95`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 95`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26528,9 +27394,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_96(self):
         """field `Property Value 96`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 96`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26550,9 +27417,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_97(self):
         """field `Property Value 97`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 97`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26572,9 +27440,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_98(self):
         """field `Property Value 98`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 98`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26594,9 +27463,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_99(self):
         """field `Property Value 99`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 99`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26616,9 +27486,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_100(self):
         """field `Property Value 100`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 100`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26638,9 +27509,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_101(self):
         """field `Property Value 101`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 101`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26660,9 +27532,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_102(self):
         """field `Property Value 102`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 102`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26682,9 +27555,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_103(self):
         """field `Property Value 103`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 103`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26704,9 +27578,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_104(self):
         """field `Property Value 104`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 104`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26726,9 +27601,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_105(self):
         """field `Property Value 105`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 105`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26748,9 +27624,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_106(self):
         """field `Property Value 106`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 106`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26770,9 +27647,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_107(self):
         """field `Property Value 107`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 107`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26792,9 +27670,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_108(self):
         """field `Property Value 108`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 108`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26814,9 +27693,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_109(self):
         """field `Property Value 109`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 109`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26836,9 +27716,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_110(self):
         """field `Property Value 110`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 110`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26858,9 +27739,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_111(self):
         """field `Property Value 111`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 111`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26880,9 +27762,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_112(self):
         """field `Property Value 112`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 112`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26902,9 +27785,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_113(self):
         """field `Property Value 113`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 113`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26924,9 +27808,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_114(self):
         """field `Property Value 114`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 114`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26946,9 +27831,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_115(self):
         """field `Property Value 115`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 115`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26968,9 +27854,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_116(self):
         """field `Property Value 116`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 116`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26990,9 +27877,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_117(self):
         """field `Property Value 117`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 117`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27012,9 +27900,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_118(self):
         """field `Property Value 118`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 118`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27034,9 +27923,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_119(self):
         """field `Property Value 119`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 119`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27056,9 +27946,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_120(self):
         """field `Property Value 120`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 120`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27078,9 +27969,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_121(self):
         """field `Property Value 121`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 121`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27100,9 +27992,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_122(self):
         """field `Property Value 122`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 122`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27122,9 +28015,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_123(self):
         """field `Property Value 123`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 123`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27144,9 +28038,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_124(self):
         """field `Property Value 124`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 124`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27166,9 +28061,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_125(self):
         """field `Property Value 125`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 125`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27188,9 +28084,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_126(self):
         """field `Property Value 126`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 126`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27210,9 +28107,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_127(self):
         """field `Property Value 127`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 127`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27232,9 +28130,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_128(self):
         """field `Property Value 128`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 128`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27254,9 +28153,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_129(self):
         """field `Property Value 129`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 129`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27276,9 +28176,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_130(self):
         """field `Property Value 130`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 130`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27298,9 +28199,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_131(self):
         """field `Property Value 131`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 131`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27320,9 +28222,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_132(self):
         """field `Property Value 132`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 132`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27342,9 +28245,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_133(self):
         """field `Property Value 133`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 133`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27364,9 +28268,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_134(self):
         """field `Property Value 134`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 134`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27386,9 +28291,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_135(self):
         """field `Property Value 135`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 135`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27408,9 +28314,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_136(self):
         """field `Property Value 136`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 136`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27430,9 +28337,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_137(self):
         """field `Property Value 137`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 137`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27452,9 +28360,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_138(self):
         """field `Property Value 138`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 138`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27474,9 +28383,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_139(self):
         """field `Property Value 139`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 139`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27496,9 +28406,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_140(self):
         """field `Property Value 140`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 140`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27518,9 +28429,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_141(self):
         """field `Property Value 141`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 141`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27540,9 +28452,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_142(self):
         """field `Property Value 142`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 142`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27562,9 +28475,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_143(self):
         """field `Property Value 143`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 143`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27584,9 +28498,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_144(self):
         """field `Property Value 144`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 144`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27606,9 +28521,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_145(self):
         """field `Property Value 145`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 145`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27628,9 +28544,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_146(self):
         """field `Property Value 146`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 146`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27650,9 +28567,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_147(self):
         """field `Property Value 147`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 147`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27672,9 +28590,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_148(self):
         """field `Property Value 148`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 148`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27694,9 +28613,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_149(self):
         """field `Property Value 149`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 149`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27716,9 +28636,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_150(self):
         """field `Property Value 150`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 150`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27738,9 +28659,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_151(self):
         """field `Property Value 151`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 151`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27760,9 +28682,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_152(self):
         """field `Property Value 152`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 152`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27782,9 +28705,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_153(self):
         """field `Property Value 153`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 153`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27804,9 +28728,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_154(self):
         """field `Property Value 154`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 154`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27826,9 +28751,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_155(self):
         """field `Property Value 155`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 155`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27848,9 +28774,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_156(self):
         """field `Property Value 156`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 156`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27870,9 +28797,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_157(self):
         """field `Property Value 157`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 157`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27892,9 +28820,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_158(self):
         """field `Property Value 158`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 158`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27914,9 +28843,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_159(self):
         """field `Property Value 159`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 159`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27936,9 +28866,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_160(self):
         """field `Property Value 160`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 160`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27958,9 +28889,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_161(self):
         """field `Property Value 161`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 161`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27980,9 +28912,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_162(self):
         """field `Property Value 162`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 162`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28002,9 +28935,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_163(self):
         """field `Property Value 163`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 163`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28024,9 +28958,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_164(self):
         """field `Property Value 164`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 164`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28046,9 +28981,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_165(self):
         """field `Property Value 165`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 165`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28068,9 +29004,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_166(self):
         """field `Property Value 166`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 166`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28090,9 +29027,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_167(self):
         """field `Property Value 167`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 167`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28112,9 +29050,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_168(self):
         """field `Property Value 168`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 168`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28134,9 +29073,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_169(self):
         """field `Property Value 169`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 169`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28156,9 +29096,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_170(self):
         """field `Property Value 170`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 170`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28178,9 +29119,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_171(self):
         """field `Property Value 171`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 171`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28200,9 +29142,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_172(self):
         """field `Property Value 172`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 172`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28222,9 +29165,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_173(self):
         """field `Property Value 173`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 173`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28244,9 +29188,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_174(self):
         """field `Property Value 174`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 174`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28266,9 +29211,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_175(self):
         """field `Property Value 175`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 175`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28288,9 +29234,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_176(self):
         """field `Property Value 176`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 176`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28310,9 +29257,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_177(self):
         """field `Property Value 177`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 177`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28332,9 +29280,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_178(self):
         """field `Property Value 178`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 178`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28354,9 +29303,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_179(self):
         """field `Property Value 179`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 179`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28376,9 +29326,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_180(self):
         """field `Property Value 180`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 180`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28398,9 +29349,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_181(self):
         """field `Property Value 181`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 181`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28420,9 +29372,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_182(self):
         """field `Property Value 182`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 182`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28442,9 +29395,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_183(self):
         """field `Property Value 183`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 183`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28464,9 +29418,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_184(self):
         """field `Property Value 184`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 184`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28486,9 +29441,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_185(self):
         """field `Property Value 185`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 185`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28508,9 +29464,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_186(self):
         """field `Property Value 186`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 186`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28530,9 +29487,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_187(self):
         """field `Property Value 187`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 187`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28552,9 +29510,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_188(self):
         """field `Property Value 188`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 188`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28574,9 +29533,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_189(self):
         """field `Property Value 189`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 189`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28596,9 +29556,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_190(self):
         """field `Property Value 190`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 190`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28618,9 +29579,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_191(self):
         """field `Property Value 191`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 191`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28640,9 +29602,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_192(self):
         """field `Property Value 192`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 192`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28662,9 +29625,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_193(self):
         """field `Property Value 193`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 193`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28684,9 +29648,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_194(self):
         """field `Property Value 194`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 194`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28706,9 +29671,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_195(self):
         """field `Property Value 195`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 195`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28728,9 +29694,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_196(self):
         """field `Property Value 196`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 196`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28750,9 +29717,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_197(self):
         """field `Property Value 197`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 197`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28772,9 +29740,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_198(self):
         """field `Property Value 198`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 198`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28794,9 +29763,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_199(self):
         """field `Property Value 199`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 199`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28816,9 +29786,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_200(self):
         """field `Property Value 200`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 200`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28838,9 +29809,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_201(self):
         """field `Property Value 201`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 201`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28860,9 +29832,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_202(self):
         """field `Property Value 202`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 202`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28882,9 +29855,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_203(self):
         """field `Property Value 203`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 203`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28904,9 +29878,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_204(self):
         """field `Property Value 204`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 204`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28926,9 +29901,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_205(self):
         """field `Property Value 205`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 205`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28948,9 +29924,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_206(self):
         """field `Property Value 206`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 206`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28970,9 +29947,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_207(self):
         """field `Property Value 207`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 207`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28992,9 +29970,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_208(self):
         """field `Property Value 208`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 208`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29014,9 +29993,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_209(self):
         """field `Property Value 209`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 209`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29036,9 +30016,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_210(self):
         """field `Property Value 210`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 210`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29058,9 +30039,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_211(self):
         """field `Property Value 211`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 211`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29080,9 +30062,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_212(self):
         """field `Property Value 212`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 212`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29102,9 +30085,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_213(self):
         """field `Property Value 213`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 213`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29124,9 +30108,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_214(self):
         """field `Property Value 214`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 214`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29146,9 +30131,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_215(self):
         """field `Property Value 215`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 215`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29168,9 +30154,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_216(self):
         """field `Property Value 216`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 216`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29190,9 +30177,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_217(self):
         """field `Property Value 217`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 217`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29212,9 +30200,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_218(self):
         """field `Property Value 218`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 218`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29234,9 +30223,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_219(self):
         """field `Property Value 219`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 219`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29256,9 +30246,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_220(self):
         """field `Property Value 220`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 220`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29278,9 +30269,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_221(self):
         """field `Property Value 221`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 221`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29300,9 +30292,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_222(self):
         """field `Property Value 222`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 222`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29322,9 +30315,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_223(self):
         """field `Property Value 223`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 223`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29344,9 +30338,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_224(self):
         """field `Property Value 224`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 224`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29366,9 +30361,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_225(self):
         """field `Property Value 225`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 225`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29388,9 +30384,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_226(self):
         """field `Property Value 226`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 226`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29410,9 +30407,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_227(self):
         """field `Property Value 227`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 227`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29432,9 +30430,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_228(self):
         """field `Property Value 228`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 228`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29454,9 +30453,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_229(self):
         """field `Property Value 229`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 229`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29476,9 +30476,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_230(self):
         """field `Property Value 230`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 230`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29498,9 +30499,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_231(self):
         """field `Property Value 231`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 231`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29520,9 +30522,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_232(self):
         """field `Property Value 232`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 232`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29542,9 +30545,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_233(self):
         """field `Property Value 233`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 233`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29564,9 +30568,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_234(self):
         """field `Property Value 234`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 234`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29586,9 +30591,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_235(self):
         """field `Property Value 235`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 235`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29608,9 +30614,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_236(self):
         """field `Property Value 236`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 236`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29630,9 +30637,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_237(self):
         """field `Property Value 237`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 237`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29652,9 +30660,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_238(self):
         """field `Property Value 238`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 238`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29674,9 +30683,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_239(self):
         """field `Property Value 239`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 239`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29696,9 +30706,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_240(self):
         """field `Property Value 240`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 240`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29718,9 +30729,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_241(self):
         """field `Property Value 241`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 241`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29740,9 +30752,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_242(self):
         """field `Property Value 242`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 242`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29762,9 +30775,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_243(self):
         """field `Property Value 243`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 243`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29784,9 +30798,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_244(self):
         """field `Property Value 244`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 244`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29806,9 +30821,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_245(self):
         """field `Property Value 245`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 245`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29828,9 +30844,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_246(self):
         """field `Property Value 246`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 246`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29850,9 +30867,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_247(self):
         """field `Property Value 247`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 247`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29872,9 +30890,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_248(self):
         """field `Property Value 248`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 248`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29894,9 +30913,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_249(self):
         """field `Property Value 249`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 249`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29916,9 +30936,10 @@ class FluidPropertiesConcentration(DataObject):
     def property_value_250(self):
         """field `Property Value 250`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Property Value 250`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value

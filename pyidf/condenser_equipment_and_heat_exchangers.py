@@ -326,7 +326,9 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` Tower Name.
+        """field `Name`
+
+        |  Tower Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -347,7 +349,9 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of tower water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of tower water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -368,7 +372,9 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of tower water outlet node.
+        """field `Water Outlet Node Name`
+
+        |  Name of tower water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -389,19 +395,20 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def design_water_flow_rate(self):
-        """field `Design Water Flow Rate` Leave field blank if tower
-        performance input method is NominalCapacity.
+        """field `Design Water Flow Rate`
+
+        |  Leave field blank if tower performance input method is NominalCapacity
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -415,15 +422,16 @@ class CoolingTowerSingleSpeed(DataObject):
     def design_air_flow_rate(self):
         """field `Design Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate` or None if not set
 
         """
         return self["Design Air Flow Rate"]
@@ -435,18 +443,20 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def design_fan_power(self):
-        """field `Design Fan Power` This is the fan motor electric input power.
+        """field `Design Fan Power`
+
+        |  This is the fan motor electric input power
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_fan_power` or None if not set
+            float or "Autosize": the value of `design_fan_power` or None if not set
 
         """
         return self["Design Fan Power"]
@@ -459,18 +469,19 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def design_ufactor_times_area_value(self):
         """field `Design U-Factor Times Area Value`
-        Leave field blank if tower performance input method is NominalCapacity
+
+        |  Leave field blank if tower performance input method is NominalCapacity
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design U-Factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `design_ufactor_times_area_value` or None if not set
         """
         return self["Design U-Factor Times Area Value"]
 
@@ -485,15 +496,16 @@ class CoolingTowerSingleSpeed(DataObject):
     def free_convection_air_flow_rate(self):
         """field `Free Convection Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `free_convection_air_flow_rate` or None if not set
 
         """
         return self["Free Convection Air Flow Rate"]
@@ -505,13 +517,14 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def free_convection_air_flow_rate_sizing_factor(self):
-        """field `Free Convection Air Flow Rate Sizing Factor` This field is
-        only used if the previous field is set to autocalculate.
+        """field `Free Convection Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Air Flow Rate Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -532,16 +545,17 @@ class CoolingTowerSingleSpeed(DataObject):
     def free_convection_ufactor_times_area_value(self):
         """field `Free Convection U-Factor Times Area Value`
 
+        |  Units: W/K
+        |  value <= 300000.0
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection U-Factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `free_convection_ufactor_times_area_value` or None if not set
         """
         return self["Free Convection U-Factor Times Area Value"]
 
@@ -555,13 +569,14 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def free_convection_ufactor_times_area_value_sizing_factor(self):
         """field `Free Convection U-Factor Times Area Value Sizing Factor`
-        This field is only used if the previous field is set to autocalculate and
-        the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -582,14 +597,15 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define tower thermal
-        performance by specifying the tower UA, the Design Air Flow Rate and
-        the Design Water Flow Rate, or by specifying the tower nominal
-        capacity.
+        """field `Performance Input Method`
+
+        |  User can define tower thermal performance by specifying the tower UA,
+        |  the Design Air Flow Rate and the Design Water Flow Rate,
+        |  or by specifying the tower nominal capacity
+        |  Default value: UFactorTimesAreaAndDesignWaterFlowRate
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: UFactorTimesAreaAndDesignWaterFlowRate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -611,9 +627,10 @@ class CoolingTowerSingleSpeed(DataObject):
     def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self):
         """field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
 
+        |  Default value: 1.25
+
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -637,21 +654,23 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def nominal_capacity(self):
         """field `Nominal Capacity`
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
-        (3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower
-        heat rejection at these operating conditions.
+
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
+        |  (3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower
+        |  heat rejection at these operating conditions.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `nominal_capacity` or None if not set
+
         """
         return self["Nominal Capacity"]
 
@@ -663,22 +682,24 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def free_convection_capacity(self):
         """field `Free Convection Capacity`
-        Tower capacity in free convection regime with entering water at 35C (95F),
-        leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
-        and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
-        5.382E-8 m3/s per watt of nominal tower capacity (3 gpm/ton). Tower free
-        convection capacity times (1.25) gives the actual tower heat rejection at these
-        operating conditions.
+
+        |  Tower capacity in free convection regime with entering water at 35C (95F),
+        |  leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
+        |  and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
+        |  5.382E-8 m3/s per watt of nominal tower capacity (3 gpm/ton). Tower free
+        |  convection capacity times (1.25) gives the actual tower heat rejection at these
+        |  operating conditions.
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_capacity` or None if not set
+            float or "Autocalculate": the value of `free_convection_capacity` or None if not set
+
         """
         return self["Free Convection Capacity"]
 
@@ -689,13 +710,14 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def free_convection_nominal_capacity_sizing_factor(self):
-        """field `Free Convection Nominal Capacity Sizing Factor` This field is
-        only used if the previous field is set to autocalculate.
+        """field `Free Convection Nominal Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -714,14 +736,15 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def basin_heater_capacity(self):
-        """field `Basin Heater Capacity` This heater maintains the basin water
-        temperature at the basin heater setpoint temperature when the outdoor
-        air temperature falls below the setpoint temperature. The basin heater
-        only operates when water is not flowing through the tower.
+        """field `Basin Heater Capacity`
+
+        |  This heater maintains the basin water temperature at the basin heater setpoint
+        |  temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when water is not flowing through the tower.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -740,19 +763,21 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature when the basin heater turns on
+
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -764,10 +789,11 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -777,6 +803,7 @@ class CoolingTowerSingleSpeed(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -809,21 +836,23 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def evaporation_loss_factor(self):
         """field `Evaporation Loss Factor`
-        Rate of water evaporation from the cooling tower and lost to the outdoor air [%/K]
-        Evaporation loss is calculated as percentage of the circulating condenser water rate
-        Value entered here is percent-per-degree K of temperature drop in the condenser water
-        Typical values are from 0.15 to 0.27 [%/K].
+
+        |  Rate of water evaporation from the cooling tower and lost to the outdoor air [%/K]
+        |  Evaporation loss is calculated as percentage of the circulating condenser water rate
+        |  Value entered here is percent-per-degree K of temperature drop in the condenser water
+        |  Typical values are from 0.15 to 0.27 [%/K].
+        |  Units: percent/K
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporation_loss_factor` or None if not set
+
         """
         return self["Evaporation Loss Factor"]
 
@@ -835,19 +864,21 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def drift_loss_percent(self):
         """field `Drift Loss Percent`
-        Rate of drift loss as a percentage of circulating condenser water flow rate
-        Typical values are between 0.002 and 0.2% The default value is 0.008%
+
+        |  Rate of drift loss as a percentage of circulating condenser water flow rate
+        |  Typical values are between 0.002 and 0.2% The default value is 0.008%
+        |  Units: percent
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `drift_loss_percent` or None if not set
+
         """
         return self["Drift Loss Percent"]
 
@@ -880,22 +911,24 @@ class CoolingTowerSingleSpeed(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the cooling tower.
-        Blowdown is water intentionally drained from the tower in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        Typical values for tower operation are 3 to 5.  The default value is 3.
+
+        |  Characterizes the rate of blowdown in the cooling tower.
+        |  Blowdown is water intentionally drained from the tower in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Typical values for tower operation are 3 to 5.  The default value is 3.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 
@@ -906,11 +939,12 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining a small amount of
-        water in the tower basin to purge scale or other contaminants to reduce
-        their concentration in order to maintain an acceptable level of water
-        quality. Schedule values should reflect water usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining a small amount
+        |  of water in the tower basin to purge scale or other contaminants to reduce their
+        |  concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -953,8 +987,9 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -977,9 +1012,10 @@ class CoolingTowerSingleSpeed(DataObject):
     def capacity_control(self):
         """field `Capacity Control`
 
+        |  Default value: FanCycling
+
         Args:
             value (str): value for IDD Field `Capacity Control`
-                Default value: FanCycling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -999,10 +1035,11 @@ class CoolingTowerSingleSpeed(DataObject):
     def number_of_cells(self):
         """field `Number of Cells`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1022,9 +1059,10 @@ class CoolingTowerSingleSpeed(DataObject):
     def cell_control(self):
         """field `Cell Control`
 
+        |  Default value: MinimalCell
+
         Args:
             value (str): value for IDD Field `Cell Control`
-                Default value: MinimalCell
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1042,13 +1080,14 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def cell_minimum_water_flow_rate_fraction(self):
-        """field `Cell Minimum  Water Flow Rate Fraction` The allowable minimal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Minimum  Water Flow Rate Fraction`
+
+        |  The allowable minimal fraction of the nominal flow rate per cell
+        |  Default value: 0.33
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
-                Default value: 0.33
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1066,13 +1105,14 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def cell_maximum_water_flow_rate_fraction(self):
-        """field `Cell Maximum Water Flow Rate Fraction` The allowable maximal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Maximum Water Flow Rate Fraction`
+
+        |  The allowable maximal fraction of the nominal flow rate per cell
+        |  Default value: 2.5
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
-                Default value: 2.5
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1090,12 +1130,13 @@ class CoolingTowerSingleSpeed(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1496,7 +1537,9 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` Tower Name.
+        """field `Name`
+
+        |  Tower Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1517,7 +1560,9 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of tower Water Inlet Node.
+        """field `Water Inlet Node Name`
+
+        |  Name of tower Water Inlet Node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -1538,7 +1583,9 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of tower Water Outlet Node.
+        """field `Water Outlet Node Name`
+
+        |  Name of tower Water Outlet Node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -1559,19 +1606,20 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def design_water_flow_rate(self):
-        """field `Design Water Flow Rate` Leave field blank if Tower
-        Performance Input Method is NominalCapacity.
+        """field `Design Water Flow Rate`
+
+        |  Leave field blank if Tower Performance Input Method is NominalCapacity
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -1585,15 +1633,16 @@ class CoolingTowerTwoSpeed(DataObject):
     def high_fan_speed_air_flow_rate(self):
         """field `High Fan Speed Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_air_flow_rate` or None if not set
+            float or "Autosize": the value of `high_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["High Fan Speed Air Flow Rate"]
@@ -1605,19 +1654,20 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def high_fan_speed_fan_power(self):
-        """field `High Fan Speed Fan Power` This is the fan motor electric
-        input power at high speed.
+        """field `High Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at high speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_fan_power` or None if not set
+            float or "Autosize": the value of `high_fan_speed_fan_power` or None if not set
 
         """
         return self["High Fan Speed Fan Power"]
@@ -1630,18 +1680,19 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def high_fan_speed_ufactor_times_area_value(self):
         """field `High Fan Speed U-Factor Times Area Value`
-        Leave field blank if Tower Performance Input Method is NominalCapacity
+
+        |  Leave field blank if Tower Performance Input Method is NominalCapacity
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed U-Factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `high_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["High Fan Speed U-Factor Times Area Value"]
 
@@ -1654,19 +1705,20 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate(self):
-        """field `Low Fan Speed Air Flow Rate` Low speed air flow rate must be
-        less than high speed air flow rate Low speed air flow rate must be
-        greater than free convection air flow rate.
+        """field `Low Fan Speed Air Flow Rate`
+
+        |  Low speed air flow rate must be less than high speed air flow rate
+        |  Low speed air flow rate must be greater than free convection air flow rate
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["Low Fan Speed Air Flow Rate"]
@@ -1678,13 +1730,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate_sizing_factor(self):
-        """field `Low Fan Speed Air Flow Rate Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.5
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
-                Default value: 0.5
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1703,19 +1756,20 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power(self):
-        """field `Low Fan Speed Fan Power` This is the fan motor electric input
-        power at low speed.
+        """field `Low Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at low speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_fan_power` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_fan_power` or None if not set
 
         """
         return self["Low Fan Speed Fan Power"]
@@ -1727,13 +1781,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power_sizing_factor(self):
-        """field `Low Fan Speed Fan Power Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Fan Power Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.16
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
-                Default value: 0.16
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1752,20 +1807,21 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_value(self):
         """field `Low Fan Speed U-Factor Times Area Value`
-        Leave field blank if tower Performance Input Method is NominalCapacity
-        Low speed tower UA must be less than high speed tower UA
-        Low speed tower UA must be greater than free convection tower UA
+
+        |  Leave field blank if tower Performance Input Method is NominalCapacity
+        |  Low speed tower UA must be less than high speed tower UA
+        |  Low speed tower UA must be greater than free convection tower UA
+        |  Units: W/K
+        |  value <= 300000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-Factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["Low Fan Speed U-Factor Times Area Value"]
 
@@ -1779,13 +1835,14 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_sizing_factor(self):
         """field `Low Fan Speed U-Factor Times Area Sizing Factor`
-        This field is only used if the previous field is set to autocalculate and
-        the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.6
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
-                Default value: 0.6
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1806,15 +1863,16 @@ class CoolingTowerTwoSpeed(DataObject):
     def free_convection_regime_air_flow_rate(self):
         """field `Free Convection Regime Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_regime_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `free_convection_regime_air_flow_rate` or None if not set
 
         """
         return self["Free Convection Regime Air Flow Rate"]
@@ -1826,13 +1884,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def free_convection_regime_air_flow_rate_sizing_factor(self):
-        """field `Free Convection Regime Air Flow Rate Sizing Factor` This
-        field is only used if the previous field is set to autocalculate.
+        """field `Free Convection Regime Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1852,18 +1911,19 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def free_convection_regime_ufactor_times_area_value(self):
         """field `Free Convection Regime U-Factor Times Area Value`
-        Leave field blank if Tower Performance Input Method is NominalCapacity
+
+        |  Leave field blank if Tower Performance Input Method is NominalCapacity
+        |  Units: W/K
+        |  value <= 300000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime U-Factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_regime_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `free_convection_regime_ufactor_times_area_value` or None if not set
         """
         return self["Free Convection Regime U-Factor Times Area Value"]
 
@@ -1877,13 +1937,14 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def free_convection_ufactor_times_area_value_sizing_factor(self):
         """field `Free Convection U-Factor Times Area Value Sizing Factor`
-        This field is only used if the previous field is set to autocalculate and
-        the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1904,14 +1965,15 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define tower thermal
-        performance by specifying the tower UA, the Design Air Flow Rate and
-        the Design Water Flow Rate, or by specifying the tower nominal
-        capacity.
+        """field `Performance Input Method`
+
+        |  User can define tower thermal performance by specifying the tower UA,
+        |  the Design Air Flow Rate and the Design Water Flow Rate,
+        |  or by specifying the tower nominal capacity
+        |  Default value: UFactorTimesAreaAndDesignWaterFlowRate
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: UFactorTimesAreaAndDesignWaterFlowRate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1933,9 +1995,10 @@ class CoolingTowerTwoSpeed(DataObject):
     def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self):
         """field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
 
+        |  Default value: 1.25
+
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1959,22 +2022,24 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def high_speed_nominal_capacity(self):
         """field `High Speed Nominal Capacity`
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature, with the tower fan operating at high speed. Design water
-        flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity
-        times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
-        gives the actual tower heat rejection at these operating conditions.
+
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature, with the tower fan operating at high speed. Design water
+        |  flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity
+        |  times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
+        |  gives the actual tower heat rejection at these operating conditions.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `High Speed Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `high_speed_nominal_capacity` or None if not set
+
         """
         return self["High Speed Nominal Capacity"]
 
@@ -1986,23 +2051,25 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def low_speed_nominal_capacity(self):
         """field `Low Speed Nominal Capacity`
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature, with the tower fan operating at low speed. Design water flow
-        rate assumed to be 5.382E-8 m3/s per watt of tower high-speed nominal capacity
-        (3 gpm/ton). Nominal tower capacity times the Heat Rejection Capacity and Nominal
-        Capacity Sizing Ratio (e.g. 1.25) gives the actual tower heat
-        rejection at these operating conditions.
+
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature, with the tower fan operating at low speed. Design water flow
+        |  rate assumed to be 5.382E-8 m3/s per watt of tower high-speed nominal capacity
+        |  (3 gpm/ton). Nominal tower capacity times the Heat Rejection Capacity and Nominal
+        |  Capacity Sizing Ratio (e.g. 1.25) gives the actual tower heat
+        |  rejection at these operating conditions.
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_nominal_capacity` or None if not set
+            float or "Autocalculate": the value of `low_speed_nominal_capacity` or None if not set
+
         """
         return self["Low Speed Nominal Capacity"]
 
@@ -2013,13 +2080,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def low_speed_nominal_capacity_sizing_factor(self):
-        """field `Low Speed Nominal Capacity Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Speed Nominal Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.5
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Low Speed Nominal Capacity Sizing Factor`
-                Default value: 0.5
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2039,22 +2107,24 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def free_convection_nominal_capacity(self):
         """field `Free Convection Nominal Capacity`
-        Tower capacity in free convection regime with entering water at 35C (95F),
-        leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
-        and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
-        5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower
-        free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
-        (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
+
+        |  Tower capacity in free convection regime with entering water at 35C (95F),
+        |  leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
+        |  and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
+        |  5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower
+        |  free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
+        |  (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_nominal_capacity` or None if not set
+            float or "Autocalculate": the value of `free_convection_nominal_capacity` or None if not set
+
         """
         return self["Free Convection Nominal Capacity"]
 
@@ -2065,13 +2135,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def free_convection_nominal_capacity_sizing_factor(self):
-        """field `Free Convection Nominal Capacity Sizing Factor` This field is
-        only used if the previous field is set to autocalculate.
+        """field `Free Convection Nominal Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2090,14 +2161,15 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def basin_heater_capacity(self):
-        """field `Basin Heater Capacity` This heater maintains the basin water
-        temperature at the basin heater setpoint temperature when the outdoor
-        air temperature falls below the setpoint temperature. The basin heater
-        only operates when water is not flowing through the tower.
+        """field `Basin Heater Capacity`
+
+        |  This heater maintains the basin water temperature at the basin heater setpoint
+        |  temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when water is not flowing through the tower.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2116,19 +2188,21 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature when the basin heater turns on
+
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -2140,10 +2214,11 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -2153,6 +2228,7 @@ class CoolingTowerTwoSpeed(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -2185,21 +2261,23 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def evaporation_loss_factor(self):
         """field `Evaporation Loss Factor`
-        Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
-        Evaporation loss is calculated as percentage of the circulating condenser water rate
-        Value entered here is percent-per-degree K of temperature drop in the condenser water
-        Typical values are from 0.15 to 0.27 [%/K].
+
+        |  Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
+        |  Evaporation loss is calculated as percentage of the circulating condenser water rate
+        |  Value entered here is percent-per-degree K of temperature drop in the condenser water
+        |  Typical values are from 0.15 to 0.27 [%/K].
+        |  Units: percent/K
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporation_loss_factor` or None if not set
+
         """
         return self["Evaporation Loss Factor"]
 
@@ -2211,19 +2289,21 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def drift_loss_percent(self):
         """field `Drift Loss Percent`
-        Rate of drift loss as a percentage of circulating condenser water flow rate
-        Typical values are between 0.002 and 0.2% The default value is 0.008%
+
+        |  Rate of drift loss as a percentage of circulating condenser water flow rate
+        |  Typical values are between 0.002 and 0.2% The default value is 0.008%
+        |  Units: percent
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `drift_loss_percent` or None if not set
+
         """
         return self["Drift Loss Percent"]
 
@@ -2256,22 +2336,24 @@ class CoolingTowerTwoSpeed(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the cooling tower.
-        Blowdown is water intentionally drained from the tower in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        Typical values for tower operation are 3 to 5.  The default value is 3.
+
+        |  Characterizes the rate of blowdown in the cooling tower.
+        |  Blowdown is water intentionally drained from the tower in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Typical values for tower operation are 3 to 5.  The default value is 3.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 
@@ -2282,11 +2364,12 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining some amount of water
-        in the tower basin to purge scale or other contaminants to reduce their
-        concentration in order to maintain an acceptable level of water
-        quality. Schedule values should reflect water usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining some amount
+        |  of water in the tower basin to purge scale or other contaminants to reduce their
+        |  concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -2329,8 +2412,9 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -2353,10 +2437,11 @@ class CoolingTowerTwoSpeed(DataObject):
     def number_of_cells(self):
         """field `Number of Cells`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2376,9 +2461,10 @@ class CoolingTowerTwoSpeed(DataObject):
     def cell_control(self):
         """field `Cell Control`
 
+        |  Default value: MinimalCell
+
         Args:
             value (str): value for IDD Field `Cell Control`
-                Default value: MinimalCell
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2396,13 +2482,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def cell_minimum_water_flow_rate_fraction(self):
-        """field `Cell Minimum  Water Flow Rate Fraction` The allowable mininal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Minimum  Water Flow Rate Fraction`
+
+        |  The allowable mininal fraction of the nominal flow rate per cell
+        |  Default value: 0.33
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
-                Default value: 0.33
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2420,13 +2507,14 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def cell_maximum_water_flow_rate_fraction(self):
-        """field `Cell Maximum Water Flow Rate Fraction` The allowable maximal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Maximum Water Flow Rate Fraction`
+
+        |  The allowable maximal fraction of the nominal flow rate per cell
+        |  Default value: 2.5
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
-                Default value: 2.5
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2444,12 +2532,13 @@ class CoolingTowerTwoSpeed(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2836,7 +2925,9 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def name(self):
-        """field `Name` Tower Name.
+        """field `Name`
+
+        |  Tower Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2857,7 +2948,9 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of tower water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of tower water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -2878,7 +2971,9 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of tower water outlet node.
+        """field `Water Outlet Node Name`
+
+        |  Name of tower water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -2899,14 +2994,15 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define tower thermal
-        performance by specifying the tower UA, the Design Air Flow Rate and
-        the Design Water Flow Rate, or by specifying the tower nominal
-        capacity.
+        """field `Performance Input Method`
+
+        |  User can define tower thermal performance by specifying the tower UA,
+        |  the Design Air Flow Rate and the Design Water Flow Rate,
+        |  or by specifying the tower nominal capacity
+        |  Default value: NominalCapacity
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: NominalCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2926,9 +3022,10 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self):
         """field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
 
+        |  Default value: 1.25
+
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2952,22 +3049,24 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def nominal_capacity(self):
         """field `Nominal Capacity`
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature, with the tower fan operating at Design Air Flow Rate (full speed). Design water
-        flow rate is as set in Design Water Flow Rate per Unit of Nominal Capacity. Nominal tower capacity
-        times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
-        gives the actual tower heat rejection at these operating conditions.
+
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature, with the tower fan operating at Design Air Flow Rate (full speed). Design water
+        |  flow rate is as set in Design Water Flow Rate per Unit of Nominal Capacity. Nominal tower capacity
+        |  times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
+        |  gives the actual tower heat rejection at these operating conditions.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
+
         """
         return self["Nominal Capacity"]
 
@@ -2979,23 +3078,25 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def free_convection_nominal_capacity(self):
         """field `Free Convection Nominal Capacity`
-        required field when performance method is NominalCapacity
-        Tower capacity in free convection regime with entering water at 35C (95F),
-        leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
-        and 35C (95F) dry-bulb temperature. Design water flow rate is as set
-        in Design Water Flow Rate per Unit of Nominal Capacity. Tower
-        free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
-        (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
+
+        |  required field when performance method is NominalCapacity
+        |  Tower capacity in free convection regime with entering water at 35C (95F),
+        |  leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
+        |  and 35C (95F) dry-bulb temperature. Design water flow rate is as set
+        |  in Design Water Flow Rate per Unit of Nominal Capacity. Tower
+        |  free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
+        |  (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_nominal_capacity` or None if not set
+            float or "Autocalculate": the value of `free_convection_nominal_capacity` or None if not set
+
         """
         return self["Free Convection Nominal Capacity"]
 
@@ -3006,13 +3107,14 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def free_convection_nominal_capacity_sizing_factor(self):
-        """field `Free Convection Nominal Capacity Sizing Factor` This field is
-        only used if the previous field is set to autocalculate.
+        """field `Free Convection Nominal Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3033,16 +3135,17 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -3054,14 +3157,14 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def design_water_flow_rate_per_unit_of_nominal_capacity(self):
-        """field `Design Water Flow Rate per Unit of Nominal Capacity` This
-        field is only used if the previous is set to autocalculate and
-        performance input method is NominalCapacity.
+        """field `Design Water Flow Rate per Unit of Nominal Capacity`
+
+        |  This field is only used if the previous is set to autocalculate and performance input method is NominalCapacity
+        |  Units: m3/s-W
+        |  Default value: 5.382e-08
 
         Args:
             value (float): value for IDD Field `Design Water Flow Rate per Unit of Nominal Capacity`
-                Units: m3/s-W
-                Default value: 5.382e-08
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3082,18 +3185,19 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def design_air_flow_rate(self):
-        """field `Design Air Flow Rate` This is the air flow rate at full fan
-        speed.
+        """field `Design Air Flow Rate`
+
+        |  This is the air flow rate at full fan speed
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `design_air_flow_rate` or None if not set
 
         """
         return self["Design Air Flow Rate"]
@@ -3105,16 +3209,16 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def design_air_flow_rate_per_unit_of_nominal_capacity(self):
-        """field `Design Air Flow Rate Per Unit of Nominal Capacity` This field
-        is only used if the previous is set to autocalculate When field is left
-        blank the default scaling factor is adjusted for elevation to increase
-        volume flow at altitude When field has a value the scaling factor is
-        used without adjusting for elevation.
+        """field `Design Air Flow Rate Per Unit of Nominal Capacity`
+
+        |  This field is only used if the previous is set to autocalculate
+        |  When field is left blank the default scaling factor is adjusted for elevation to increase volume flow at altitude
+        |  When field has a value the scaling factor is used without adjusting for elevation
+        |  Units: m3/s-W
+        |  Default value: 2.76316e-05
 
         Args:
             value (float): value for IDD Field `Design Air Flow Rate Per Unit of Nominal Capacity`
-                Units: m3/s-W
-                Default value: 2.76316e-05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3136,20 +3240,22 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def minimum_air_flow_rate_ratio(self):
         """field `Minimum Air Flow Rate Ratio`
-        Enter the minimum air flow rate ratio. This is typically determined by the variable
-        speed drive that controls the fan motor speed. Valid entries are from 0.1 to 0.5.
+
+        |  Enter the minimum air flow rate ratio. This is typically determined by the variable
+        |  speed drive that controls the fan motor speed. Valid entries are from 0.1 to 0.5.
+        |  Default value: 0.2
+        |  value >= 0.1
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Minimum Air Flow Rate Ratio`
-                Default value: 0.2
-                value >= 0.1
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_air_flow_rate_ratio` or None if not set
+
         """
         return self["Minimum Air Flow Rate Ratio"]
 
@@ -3160,19 +3266,20 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def design_fan_power(self):
-        """field `Design Fan Power` This is the fan motor electric input power
-        at high speed.
+        """field `Design Fan Power`
+
+        |  This is the fan motor electric input power at high speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_fan_power` or None if not set
+            float or "Autocalculate": the value of `design_fan_power` or None if not set
 
         """
         return self["Design Fan Power"]
@@ -3184,15 +3291,15 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def design_fan_power_per_unit_of_nominal_capacity(self):
-        """field `Design Fan Power Per Unit of Nominal Capacity` This field is
-        only used if the previous is set to autocalculate.
+        """field `Design Fan Power Per Unit of Nominal Capacity`
 
-        [W/W] Watts of fan power per Watt of tower nominal capacity
+        |  This field is only used if the previous is set to autocalculate
+        |  [W/W] Watts of fan power per Watt of tower nominal capacity
+        |  Units: dimensionless
+        |  Default value: 0.0105
 
         Args:
             value (float): value for IDD Field `Design Fan Power Per Unit of Nominal Capacity`
-                Units: dimensionless
-                Default value: 0.0105
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3211,15 +3318,17 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def fan_power_modifier_function_of_air_flow_rate_ratio_curve_name(self):
-        """field `Fan Power Modifier Function of Air Flow Rate Ratio Curve Name`
-        Any curve or table with one independent variable can be used:
-        Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
-        Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
-        Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
-        Table:OneIndependentVariable
-        cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
-        quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
-        x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
+        """field `Fan Power Modifier Function of Air Flow Rate Ratio Curve
+        Name`
+
+        |  Any curve or table with one independent variable can be used:
+        |  Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
+        |  Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
+        |  Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
+        |  Table:OneIndependentVariable
+        |  cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
+        |  quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
+        |  x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
 
         Args:
             value (str): value for IDD Field `Fan Power Modifier Function of Air Flow Rate Ratio Curve Name`
@@ -3229,6 +3338,7 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
         Returns:
             str: the value of `fan_power_modifier_function_of_air_flow_rate_ratio_curve_name` or None if not set
+
         """
         return self[
             "Fan Power Modifier Function of Air Flow Rate Ratio Curve Name"]
@@ -3246,15 +3356,16 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def free_convection_regime_air_flow_rate(self):
         """field `Free Convection Regime Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_regime_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `free_convection_regime_air_flow_rate` or None if not set
 
         """
         return self["Free Convection Regime Air Flow Rate"]
@@ -3266,13 +3377,14 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def free_convection_regime_air_flow_rate_sizing_factor(self):
-        """field `Free Convection Regime Air Flow Rate Sizing Factor` This
-        field is only used if the previous field is set to autocalculate.
+        """field `Free Convection Regime Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3292,18 +3404,19 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def design_air_flow_rate_ufactor_times_area_value(self):
         """field `Design Air Flow Rate U-Factor Times Area Value`
-        required field when performance method is UFactorTimesAreaAndDesignWaterFlowRate
-        when performance method is NominalCapacity the program will solve for this UA
+
+        |  required field when performance method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  when performance method is NominalCapacity the program will solve for this UA
+        |  Units: W/K
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
         """
         return self["Design Air Flow Rate U-Factor Times Area Value"]
 
@@ -3317,19 +3430,20 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def free_convection_regime_ufactor_times_area_value(self):
         """field `Free Convection Regime U-Factor Times Area Value`
-        required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
-        Leave field blank if performance input method is NominalCapacity
+
+        |  required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Leave field blank if performance input method is NominalCapacity
+        |  Units: W/K
+        |  value <= 300000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime U-Factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_regime_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `free_convection_regime_ufactor_times_area_value` or None if not set
         """
         return self["Free Convection Regime U-Factor Times Area Value"]
 
@@ -3343,14 +3457,15 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def free_convection_ufactor_times_area_value_sizing_factor(self):
         """field `Free Convection U-Factor Times Area Value Sizing Factor`
-        required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
-        This field is only used if the previous field is set to autocalculate and
-        the performance input method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the performance input method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.1
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
-                Default value: 0.1
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3373,15 +3488,16 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def ufactor_times_area_modifier_function_of_air_flow_ratio_curve_name(
             self):
         """field `U-Factor Times Area Modifier Function of Air Flow Ratio Curve Name`
-        This curve describes how tower's design UA changes with variable air flow rate
-        Any curve or table with one independent variable can be used:
-        Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
-        Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
-        Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
-        Table:OneIndependentVariable
-        cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
-        quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
-        x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
+
+        |  This curve describes how tower's design UA changes with variable air flow rate
+        |  Any curve or table with one independent variable can be used:
+        |  Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
+        |  Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
+        |  Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
+        |  Table:OneIndependentVariable
+        |  cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
+        |  quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
+        |  x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Air Flow Ratio Curve Name`
@@ -3409,16 +3525,17 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def ufactor_times_area_modifier_function_of_wetbulb_temperature_difference_curve_name(
             self):
         """field `U-Factor Times Area Modifier Function of Wetbulb Temperature Difference Curve Name`
-        curve describes how tower UA changes with outdoor air wetbulb temperature difference from design wetbulb
-        Any curve or table with one independent variable can be used:
-        Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
-        Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
-        Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
-        Table:OneIndependentVariable
-        cubic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3
-        quartic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3 + e*DeltaWB**4
-        x = DeltaWB = (design wetbulb temperature in C - current wetbulb temperature in C)
-        where design wetbulb temperature of entering air is 25.56C (78F)
+
+        |  curve describes how tower UA changes with outdoor air wetbulb temperature difference from design wetbulb
+        |  Any curve or table with one independent variable can be used:
+        |  Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
+        |  Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
+        |  Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
+        |  Table:OneIndependentVariable
+        |  cubic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3
+        |  quartic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3 + e*DeltaWB**4
+        |  x = DeltaWB = (design wetbulb temperature in C - current wetbulb temperature in C)
+        |  where design wetbulb temperature of entering air is 25.56C (78F)
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Wetbulb Temperature Difference Curve Name`
@@ -3446,15 +3563,16 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def ufactor_times_area_modifier_function_of_water_flow_ratio_curve_name(
             self):
         """field `U-Factor Times Area Modifier Function of Water Flow Ratio Curve Name`
-        curve describes how tower UA changes with the flow rate of condenser water through the tower
-        Any curve or table with one independent variable can be used:
-        Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
-        Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
-        Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
-        Table:OneIndependentVariable
-        cubic curve = a + b*WFR + c*WFR**2 + d*WFR**3
-        quartic curve = a + b*WFR + c*WFR**2 + d*WFR**3 + e*WFR**4
-        x = WFR = Ratio of current operationg water flow rate to Design Water Flow Rate
+
+        |  curve describes how tower UA changes with the flow rate of condenser water through the tower
+        |  Any curve or table with one independent variable can be used:
+        |  Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,
+        |  Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,
+        |  Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,
+        |  Table:OneIndependentVariable
+        |  cubic curve = a + b*WFR + c*WFR**2 + d*WFR**3
+        |  quartic curve = a + b*WFR + c*WFR**2 + d*WFR**3 + e*WFR**4
+        |  x = WFR = Ratio of current operationg water flow rate to Design Water Flow Rate
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Water Flow Ratio Curve Name`
@@ -3480,14 +3598,15 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def basin_heater_capacity(self):
-        """field `Basin Heater Capacity` This heater maintains the basin water
-        temperature at the basin heater setpoint temperature when the outdoor
-        air temperature falls below the setpoint temperature. The basin heater
-        only operates when water is not flowing through the tower.
+        """field `Basin Heater Capacity`
+
+        |  This heater maintains the basin water temperature at the basin heater setpoint
+        |  temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when water is not flowing through the tower.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3506,19 +3625,21 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature when the basin heater turns on
+
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -3530,10 +3651,11 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -3543,6 +3665,7 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -3575,21 +3698,23 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def evaporation_loss_factor(self):
         """field `Evaporation Loss Factor`
-        Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
-        Evaporation loss is calculated as percentage of the circulating condenser water rate
-        Value entered here is percent-per-degree K of temperature drop in the condenser water
-        Typical values are from 0.15 to 0.27 [%/K].
+
+        |  Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
+        |  Evaporation loss is calculated as percentage of the circulating condenser water rate
+        |  Value entered here is percent-per-degree K of temperature drop in the condenser water
+        |  Typical values are from 0.15 to 0.27 [%/K].
+        |  Units: percent/K
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporation_loss_factor` or None if not set
+
         """
         return self["Evaporation Loss Factor"]
 
@@ -3601,19 +3726,21 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def drift_loss_percent(self):
         """field `Drift Loss Percent`
-        Rate of drift loss as a percentage of circulating condenser water flow rate
-        Typical values are between 0.002 and 0.2% The default value is 0.008%
+
+        |  Rate of drift loss as a percentage of circulating condenser water flow rate
+        |  Typical values are between 0.002 and 0.2% The default value is 0.008%
+        |  Units: percent
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `drift_loss_percent` or None if not set
+
         """
         return self["Drift Loss Percent"]
 
@@ -3646,22 +3773,24 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the cooling tower.
-        Blowdown is water intentionally drained from the tower in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        Typical values for tower operation are 3 to 5.  The default value is 3.
+
+        |  Characterizes the rate of blowdown in the cooling tower.
+        |  Blowdown is water intentionally drained from the tower in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Typical values for tower operation are 3 to 5.  The default value is 3.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 
@@ -3672,11 +3801,12 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining some amount of water
-        in the tower basin to purge scale or other contaminants to reduce their
-        concentration in order to maintain an acceptable level of water
-        quality. Schedule values should reflect water usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining some amount
+        |  of water in the tower basin to purge scale or other contaminants to reduce their
+        |  concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -3719,8 +3849,9 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -3743,10 +3874,11 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def number_of_cells(self):
         """field `Number of Cells`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3766,9 +3898,10 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
     def cell_control(self):
         """field `Cell Control`
 
+        |  Default value: MinimalCell
+
         Args:
             value (str): value for IDD Field `Cell Control`
-                Default value: MinimalCell
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3786,13 +3919,14 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def cell_minimum_water_flow_rate_fraction(self):
-        """field `Cell Minimum  Water Flow Rate Fraction` The allowable mininal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Minimum  Water Flow Rate Fraction`
+
+        |  The allowable mininal fraction of the nominal flow rate per cell
+        |  Default value: 0.33
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
-                Default value: 0.33
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3810,13 +3944,14 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def cell_maximum_water_flow_rate_fraction(self):
-        """field `Cell Maximum Water Flow Rate Fraction` The allowable maximal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Maximum Water Flow Rate Fraction`
+
+        |  The allowable maximal fraction of the nominal flow rate per cell
+        |  Default value: 2.5
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
-                Default value: 2.5
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3834,12 +3969,13 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4141,7 +4277,9 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` Tower Name.
+        """field `Name`
+
+        |  Tower Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4162,7 +4300,9 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of tower water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of tower water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -4183,7 +4323,9 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of tower water outlet node.
+        """field `Water Outlet Node Name`
+
+        |  Name of tower water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -4204,12 +4346,14 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def model_type(self):
-        """field `Model Type` Determines the coefficients and form of the
-        equation for calculating approach temperature.
+        """field `Model Type`
+
+        |  Determines the coefficients and form of the equation for calculating
+        |  approach temperature
+        |  Default value: YorkCalc
 
         Args:
             value (str): value for IDD Field `Model Type`
-                Default value: YorkCalc
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4227,9 +4371,10 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def model_coefficient_name(self):
-        """field `Model Coefficient Name` Name of the tower model coefficient
-        object. Used only when tower Model Type is either CoolToolsUserDefined
-        or YorkCalcUserDefined.
+        """field `Model Coefficient Name`
+
+        |  Name of the tower model coefficient object.
+        |  Used only when tower Model Type is either CoolToolsUserDefined or YorkCalcUserDefined.
 
         Args:
             value (str): value for IDD Field `Model Coefficient Name`
@@ -4251,13 +4396,14 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def design_inlet_air_wetbulb_temperature(self):
         """field `Design Inlet Air Wet-Bulb Temperature`
-        Enter the tower's design inlet air wet-bulb temperature
+
+        |  Enter the tower's design inlet air wet-bulb temperature
+        |  Units: C
+        |  Default value: 25.6
+        |  value >= 20.0
 
         Args:
             value (float): value for IDD Field `Design Inlet Air Wet-Bulb Temperature`
-                Units: C
-                Default value: 25.6
-                value >= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4277,21 +4423,23 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def design_approach_temperature(self):
         """field `Design Approach Temperature`
-        Enter the approach temperature corresponding to the design inlet air
-        wet-bulb temperature and design range temperature.
-        Design approach temp = outlet water temperature minus inlet air wet-bulb temperature
-        at design conditions.
+
+        |  Enter the approach temperature corresponding to the design inlet air
+        |  wet-bulb temperature and design range temperature.
+        |  Design approach temp = outlet water temperature minus inlet air wet-bulb temperature
+        |  at design conditions.
+        |  Units: deltaC
+        |  Default value: 3.9
 
         Args:
             value (float): value for IDD Field `Design Approach Temperature`
-                Units: deltaC
-                Default value: 3.9
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_approach_temperature` or None if not set
+
         """
         return self["Design Approach Temperature"]
 
@@ -4303,21 +4451,23 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def design_range_temperature(self):
         """field `Design Range Temperature`
-        Enter the range temperature corresponding to the design inlet air
-        wet-bulb temperature and design approach temperature.
-        Design range = inlet water temperature minus outlet water temperature
-        at design conditions.
+
+        |  Enter the range temperature corresponding to the design inlet air
+        |  wet-bulb temperature and design approach temperature.
+        |  Design range = inlet water temperature minus outlet water temperature
+        |  at design conditions.
+        |  Units: deltaC
+        |  Default value: 5.6
 
         Args:
             value (float): value for IDD Field `Design Range Temperature`
-                Units: deltaC
-                Default value: 5.6
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_range_temperature` or None if not set
+
         """
         return self["Design Range Temperature"]
 
@@ -4328,19 +4478,20 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def design_water_flow_rate(self):
-        """field `Design Water Flow Rate` Water flow rate through the tower at
-        design conditions.
+        """field `Design Water Flow Rate`
+
+        |  Water flow rate through the tower at design conditions
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -4352,18 +4503,19 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def design_air_flow_rate(self):
-        """field `Design Air Flow Rate` Design (maximum) air flow rate through
-        the tower.
+        """field `Design Air Flow Rate`
+
+        |  Design (maximum) air flow rate through the tower
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate` or None if not set
 
         """
         return self["Design Air Flow Rate"]
@@ -4376,19 +4528,21 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def design_fan_power(self):
         """field `Design Fan Power`
-        Enter the fan motor electric input power at design (max) air flow through the tower
-        Standard conversion for horsepower is 1 HP = 745.7 W
+
+        |  Enter the fan motor electric input power at design (max) air flow through the tower
+        |  Standard conversion for horsepower is 1 HP = 745.7 W
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_fan_power` or None if not set
+            float or "Autosize": the value of `design_fan_power` or None if not set
+
         """
         return self["Design Fan Power"]
 
@@ -4400,12 +4554,13 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def fan_power_ratio_function_of_air_flow_rate_ratio_curve_name(self):
         """field `Fan Power Ratio Function of Air Flow Rate Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        FPR = a + b*AFR + c*AFR**2 + d*AFR**3
-        FPR = fraction of the design fan power
-        AFR = fraction of the design air flow rate
-        If left blank, then fan power is assumed to be proportional to
-        (air flow rate ratio)^3
+
+        |  Table:OneIndependentVariable object can also be used
+        |  FPR = a + b*AFR + c*AFR**2 + d*AFR**3
+        |  FPR = fraction of the design fan power
+        |  AFR = fraction of the design air flow rate
+        |  If left blank, then fan power is assumed to be proportional to
+        |  (air flow rate ratio)^3
 
         Args:
             value (str): value for IDD Field `Fan Power Ratio Function of Air Flow Rate Ratio Curve Name`
@@ -4415,6 +4570,7 @@ class CoolingTowerVariableSpeed(DataObject):
 
         Returns:
             str: the value of `fan_power_ratio_function_of_air_flow_rate_ratio_curve_name` or None if not set
+
         """
         return self[
             "Fan Power Ratio Function of Air Flow Rate Ratio Curve Name"]
@@ -4431,20 +4587,22 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def minimum_air_flow_rate_ratio(self):
         """field `Minimum Air Flow Rate Ratio`
-        Enter the minimum air flow rate ratio. This is typically determined by the variable
-        speed drive that controls the fan motor speed. Valid entries are from 0.2 to 0.5.
+
+        |  Enter the minimum air flow rate ratio. This is typically determined by the variable
+        |  speed drive that controls the fan motor speed. Valid entries are from 0.2 to 0.5.
+        |  Default value: 0.2
+        |  value >= 0.2
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Minimum Air Flow Rate Ratio`
-                Default value: 0.2
-                value >= 0.2
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_air_flow_rate_ratio` or None if not set
+
         """
         return self["Minimum Air Flow Rate Ratio"]
 
@@ -4456,22 +4614,24 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def fraction_of_tower_capacity_in_free_convection_regime(self):
         """field `Fraction of Tower Capacity in Free Convection Regime`
-        Enter the fraction of tower capacity in the free convection regime. This is the
-        fraction of the tower capacity, at the current inlet air wet-bulb temperature,
-        that is available when the tower fan is off. Manufacturers typically estimate the
-        free convection capacity at approximately 10-15%. Values are entered as a fraction
-        and can range from 0 to 0.2.
+
+        |  Enter the fraction of tower capacity in the free convection regime. This is the
+        |  fraction of the tower capacity, at the current inlet air wet-bulb temperature,
+        |  that is available when the tower fan is off. Manufacturers typically estimate the
+        |  free convection capacity at approximately 10-15%. Values are entered as a fraction
+        |  and can range from 0 to 0.2.
+        |  Default value: 0.125
+        |  value <= 0.2
 
         Args:
             value (float): value for IDD Field `Fraction of Tower Capacity in Free Convection Regime`
-                Default value: 0.125
-                value <= 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fraction_of_tower_capacity_in_free_convection_regime` or None if not set
+
         """
         return self["Fraction of Tower Capacity in Free Convection Regime"]
 
@@ -4485,14 +4645,15 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def basin_heater_capacity(self):
-        """field `Basin Heater Capacity` This heater maintains the basin water
-        temperature at the basin heater setpoint temperature when the outdoor
-        air temperature falls below the setpoint temperature. The basin heater
-        only operates when water is not flowing through the tower.
+        """field `Basin Heater Capacity`
+
+        |  This heater maintains the basin water temperature at the basin heater setpoint
+        |  temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when water is not flowing through the tower.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4511,19 +4672,21 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature when the basin heater turns on
+
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -4535,10 +4698,11 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -4548,6 +4712,7 @@ class CoolingTowerVariableSpeed(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -4580,21 +4745,23 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def evaporation_loss_factor(self):
         """field `Evaporation Loss Factor`
-        Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
-        Evaporation loss is calculated as percentage of the circulating condenser water rate
-        Value entered here is percent-per-degree K of temperature drop in the condenser water
-        Typical values are from 0.15 to 0.27 [percent/K].
+
+        |  Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
+        |  Evaporation loss is calculated as percentage of the circulating condenser water rate
+        |  Value entered here is percent-per-degree K of temperature drop in the condenser water
+        |  Typical values are from 0.15 to 0.27 [percent/K].
+        |  Units: percent/K
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporation_loss_factor` or None if not set
+
         """
         return self["Evaporation Loss Factor"]
 
@@ -4606,18 +4773,20 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def drift_loss_percent(self):
         """field `Drift Loss Percent`
-        Rate of drift loss as a percentage of circulating condenser water flow rate
-        Typical values are between 0.002 and 0.2% The default value is 0.008%
+
+        |  Rate of drift loss as a percentage of circulating condenser water flow rate
+        |  Typical values are between 0.002 and 0.2% The default value is 0.008%
+        |  Units: percent
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `drift_loss_percent` or None if not set
+
         """
         return self["Drift Loss Percent"]
 
@@ -4650,22 +4819,24 @@ class CoolingTowerVariableSpeed(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the cooling tower.
-        Blowdown is water intentionally drained from the tower in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        Typical values for tower operation are 3 to 5.  The default value is 3.
+
+        |  Characterizes the rate of blowdown in the cooling tower.
+        |  Blowdown is water intentionally drained from the tower in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Typical values for tower operation are 3 to 5.  The default value is 3.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 
@@ -4676,11 +4847,12 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining a small amount of
-        water in the tower basin to purge scale or other contaminants to reduce
-        their concentration in order to maintain an acceptable level of water
-        quality. Schedule values should reflect water usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining a small amount
+        |  of water in the tower basin to purge scale or other contaminants to reduce their
+        |  concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -4723,8 +4895,9 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -4747,10 +4920,11 @@ class CoolingTowerVariableSpeed(DataObject):
     def number_of_cells(self):
         """field `Number of Cells`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Cells`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4770,9 +4944,10 @@ class CoolingTowerVariableSpeed(DataObject):
     def cell_control(self):
         """field `Cell Control`
 
+        |  Default value: MinimalCell
+
         Args:
             value (str): value for IDD Field `Cell Control`
-                Default value: MinimalCell
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4790,13 +4965,14 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def cell_minimum_water_flow_rate_fraction(self):
-        """field `Cell Minimum  Water Flow Rate Fraction` The allowable mininal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Minimum  Water Flow Rate Fraction`
+
+        |  The allowable mininal fraction of the nominal flow rate per cell
+        |  Default value: 0.33
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
-                Default value: 0.33
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4814,13 +4990,14 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def cell_maximum_water_flow_rate_fraction(self):
-        """field `Cell Maximum Water Flow Rate Fraction` The allowable maximal
-        fraction of the nominal flow rate per cell.
+        """field `Cell Maximum Water Flow Rate Fraction`
+
+        |  The allowable maximal fraction of the nominal flow rate per cell
+        |  Default value: 2.5
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
-                Default value: 2.5
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4838,12 +5015,13 @@ class CoolingTowerVariableSpeed(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5216,12 +5394,13 @@ class CoolingTowerPerformanceCoolTools(DataObject):
     @property
     def minimum_inlet_air_wetbulb_temperature(self):
         """field `Minimum Inlet Air Wet-Bulb Temperature`
-        Minimum valid inlet air wet-bulb temperature for this approach
-        temperature correlation.
+
+        |  Minimum valid inlet air wet-bulb temperature for this approach
+        |  temperature correlation.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5241,12 +5420,13 @@ class CoolingTowerPerformanceCoolTools(DataObject):
     @property
     def maximum_inlet_air_wetbulb_temperature(self):
         """field `Maximum Inlet Air Wet-Bulb Temperature`
-        Maximum valid inlet air wet-bulb temperature for this approach
-        temperature correlation.
+
+        |  Maximum valid inlet air wet-bulb temperature for this approach
+        |  temperature correlation.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5265,12 +5445,14 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def minimum_range_temperature(self):
-        """field `Minimum Range Temperature` Minimum valid range temperature
-        for this approach temperature correlation.
+        """field `Minimum Range Temperature`
+
+        |  Minimum valid range temperature for this approach temperature
+        |  correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Minimum Range Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5288,12 +5470,14 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def maximum_range_temperature(self):
-        """field `Maximum Range Temperature` Maximum valid range temperature
-        for this approach temperature correlation.
+        """field `Maximum Range Temperature`
+
+        |  Maximum valid range temperature for this approach temperature
+        |  correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Maximum Range Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5311,12 +5495,13 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def minimum_approach_temperature(self):
-        """field `Minimum Approach Temperature` Minimum valid approach
-        temperature for this correlation.
+        """field `Minimum Approach Temperature`
+
+        |  Minimum valid approach temperature for this correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Minimum Approach Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5334,12 +5519,13 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def maximum_approach_temperature(self):
-        """field `Maximum Approach Temperature` Maximum valid approach
-        temperature for this correlation.
+        """field `Maximum Approach Temperature`
+
+        |  Maximum valid approach temperature for this correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Maximum Approach Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5357,8 +5543,10 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def minimum_water_flow_rate_ratio(self):
-        """field `Minimum Water Flow Rate Ratio` Minimum valid water flow rate
-        ratio for this approach temperature correlation.
+        """field `Minimum Water Flow Rate Ratio`
+
+        |  Minimum valid water flow rate ratio for this approach
+        |  temperature correlation.
 
         Args:
             value (float): value for IDD Field `Minimum Water Flow Rate Ratio`
@@ -5379,8 +5567,10 @@ class CoolingTowerPerformanceCoolTools(DataObject):
 
     @property
     def maximum_water_flow_rate_ratio(self):
-        """field `Maximum Water Flow Rate Ratio` Maximum valid water flow rate
-        ratio for this approach temperature correlation.
+        """field `Maximum Water Flow Rate Ratio`
+
+        |  Maximum valid water flow rate ratio for this approach
+        |  temperature correlation.
 
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate Ratio`
@@ -6442,12 +6632,13 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
     @property
     def minimum_inlet_air_wetbulb_temperature(self):
         """field `Minimum Inlet Air Wet-Bulb Temperature`
-        Minimum valid inlet air wet-bulb temperature for this approach
-        temperature correlation.
+
+        |  Minimum valid inlet air wet-bulb temperature for this approach
+        |  temperature correlation.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6467,12 +6658,13 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
     @property
     def maximum_inlet_air_wetbulb_temperature(self):
         """field `Maximum Inlet Air Wet-Bulb Temperature`
-        Maximum valid inlet air wet-bulb temperature for this approach
-        temperature correlation.
+
+        |  Maximum valid inlet air wet-bulb temperature for this approach
+        |  temperature correlation.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6491,12 +6683,14 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def minimum_range_temperature(self):
-        """field `Minimum Range Temperature` Minimum valid range temperature
-        for this approach temperature correlation.
+        """field `Minimum Range Temperature`
+
+        |  Minimum valid range temperature for this approach temperature
+        |  correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Minimum Range Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6514,12 +6708,14 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def maximum_range_temperature(self):
-        """field `Maximum Range Temperature` Maximum valid range temperature
-        for this approach temperature correlation.
+        """field `Maximum Range Temperature`
+
+        |  Maximum valid range temperature for this approach temperature
+        |  correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Maximum Range Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6537,12 +6733,13 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def minimum_approach_temperature(self):
-        """field `Minimum Approach Temperature` Minimum valid approach
-        temperature for this correlation.
+        """field `Minimum Approach Temperature`
+
+        |  Minimum valid approach temperature for this correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Minimum Approach Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6560,12 +6757,13 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def maximum_approach_temperature(self):
-        """field `Maximum Approach Temperature` Maximum valid approach
-        temperature for this correlation.
+        """field `Maximum Approach Temperature`
+
+        |  Maximum valid approach temperature for this correlation.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Maximum Approach Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6583,8 +6781,10 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def minimum_water_flow_rate_ratio(self):
-        """field `Minimum Water Flow Rate Ratio` Minimum valid water flow rate
-        ratio for this approach temperature correlation.
+        """field `Minimum Water Flow Rate Ratio`
+
+        |  Minimum valid water flow rate ratio for this approach
+        |  temperature correlation.
 
         Args:
             value (float): value for IDD Field `Minimum Water Flow Rate Ratio`
@@ -6605,8 +6805,10 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def maximum_water_flow_rate_ratio(self):
-        """field `Maximum Water Flow Rate Ratio` Maximum valid water flow rate
-        ratio for this approach temperature correlation.
+        """field `Maximum Water Flow Rate Ratio`
+
+        |  Maximum valid water flow rate ratio for this approach
+        |  temperature correlation.
 
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate Ratio`
@@ -6627,8 +6829,10 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
 
     @property
     def maximum_liquid_to_gas_ratio(self):
-        """field `Maximum Liquid to Gas Ratio` Maximum liquid (water) to gas
-        (air) ratio for this approach temperature correlation.
+        """field `Maximum Liquid to Gas Ratio`
+
+        |  Maximum liquid (water) to gas (air) ratio for this approach
+        |  temperature correlation.
 
         Args:
             value (float): value for IDD Field `Maximum Liquid to Gas Ratio`
@@ -7451,7 +7655,9 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` Fluid Cooler Name.
+        """field `Name`
+
+        |  Fluid Cooler Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7472,7 +7678,9 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of Fluid Cooler water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of Fluid Cooler water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -7493,8 +7701,9 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of Fluid Cooler water outlet
-        node.
+        """field `Water Outlet Node Name`
+
+        |  Name of Fluid Cooler water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -7517,15 +7726,16 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def design_air_flow_rate(self):
         """field `Design Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate` or None if not set
 
         """
         return self["Design Air Flow Rate"]
@@ -7537,19 +7747,20 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def design_air_flow_rate_fan_power(self):
-        """field `Design Air Flow Rate Fan Power` This is the fan motor
-        electric input power.
+        """field `Design Air Flow Rate Fan Power`
+
+        |  This is the fan motor electric input power
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate_fan_power` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate_fan_power` or None if not set
 
         """
         return self["Design Air Flow Rate Fan Power"]
@@ -7563,10 +7774,11 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def design_spray_water_flow_rate(self):
         """field `Design Spray Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Design Spray Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7584,10 +7796,11 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define fluid cooler
-        thermal performance by specifying the fluid cooler UA and the Design
-        Water Flow Rate, or by specifying the fluid cooler Standard Design
-        Capacity or by specifying Design Capacity for Non standard conditions.
+        """field `Performance Input Method`
+
+        |  User can define fluid cooler thermal performance by specifying the fluid cooler UA
+        |  and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design
+        |  Capacity or by specifying Design Capacity for Non standard conditions.
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -7608,8 +7821,9 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -7632,9 +7846,10 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self):
         """field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
 
+        |  Default value: 1.25
+
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7658,30 +7873,32 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def standard_design_capacity(self):
         """field `Standard Design Capacity`
-        Standard design capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
-        (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
-        Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
-        heat rejection at these operating conditions.
-        Only used for Performance Input Method = StandardDesignCapacity;
-        for other input methods, this field is ignored.
-        The standard conditions mentioned above for Standard design capacity are already
-        specified in the EnergyPlus. So the input fields such as design entering water
-        temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
-        provided in the input, will be ignored for the StandardDesignCapacity performance input
-        method. Also, the standard conditions are for water as a fluid type so this performance input
-        method can only be used with water as a fluid type (as specified in CondenserLoop object).
+
+        |  Standard design capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
+        |  (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
+        |  Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
+        |  heat rejection at these operating conditions.
+        |  Only used for Performance Input Method = StandardDesignCapacity;
+        |  for other input methods, this field is ignored.
+        |  The standard conditions mentioned above for Standard design capacity are already
+        |  specified in the EnergyPlus. So the input fields such as design entering water
+        |  temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
+        |  provided in the input, will be ignored for the StandardDesignCapacity performance input
+        |  method. Also, the standard conditions are for water as a fluid type so this performance input
+        |  method can only be used with water as a fluid type (as specified in CondenserLoop object).
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Standard Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `standard_design_capacity` or None if not set
+
         """
         return self["Standard Design Capacity"]
 
@@ -7693,19 +7910,20 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def design_air_flow_rate_ufactor_times_area_value(self):
         """field `Design Air Flow Rate U-factor Times Area Value`
-        Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
-        for other Performance Input Methods, this field is ignored.
+
+        |  Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
         """
         return self["Design Air Flow Rate U-factor Times Area Value"]
 
@@ -7719,18 +7937,20 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
-        Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity.
+
+        |  Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
+
         """
         return self["Design Water Flow Rate"]
 
@@ -7742,18 +7962,20 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def user_specified_design_capacity(self):
         """field `User Specified Design Capacity`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `User Specified Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `user_specified_design_capacity` or None if not set
+
         """
         return self["User Specified Design Capacity"]
 
@@ -7765,20 +7987,22 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def design_entering_water_temperature(self):
         """field `Design Entering Water Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Water Temperature must be greater than Design Entering Air Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Water Temperature must be greater than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_water_temperature` or None if not set
+
         """
         return self["Design Entering Water Temperature"]
 
@@ -7790,21 +8014,23 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def design_entering_air_temperature(self):
         """field `Design Entering Air Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
-        Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
+        |  Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_air_temperature` or None if not set
+
         """
         return self["Design Entering Air Temperature"]
 
@@ -7816,15 +8042,16 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     @property
     def design_entering_air_wetbulb_temperature(self):
         """field `Design Entering Air Wet-bulb Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
-        Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
+        |  Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7845,9 +8072,10 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def capacity_control(self):
         """field `Capacity Control`
 
+        |  Default value: FanCycling
+
         Args:
             value (str): value for IDD Field `Capacity Control`
-                Default value: FanCycling
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7865,12 +8093,13 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7890,9 +8119,10 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def evaporation_loss_mode(self):
         """field `Evaporation Loss Mode`
 
+        |  Default value: SaturatedExit
+
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
-                Default value: SaturatedExit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7910,13 +8140,14 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def evaporation_loss_factor(self):
-        """field `Evaporation Loss Factor` Rate of water evaporation from the
-        Fluid Cooler and lost to the outdoor air [%/K] Empirical correlation is
-        used to calculate default loss factor if it not explicitly provided.
+        """field `Evaporation Loss Factor`
+
+        |  Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]
+        |  Empirical correlation is used to calculate default loss factor if it not explicitly provided.
+        |  Units: percent/K
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7934,15 +8165,16 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def drift_loss_percent(self):
-        """field `Drift Loss Percent` Rate of drift loss as a percentage of
-        circulating spray water flow rate Default value for this field in under
-        investigation. For now Cooling towers drift loss percent default value
-        is taken here.
+        """field `Drift Loss Percent`
+
+        |  Rate of drift loss as a percentage of circulating spray water flow rate
+        |  Default value for this field in under investigation. For now Cooling towers drift loss
+        |  percent default value is taken here.
+        |  Units: percent
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7962,9 +8194,10 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
     def blowdown_calculation_mode(self):
         """field `Blowdown Calculation Mode`
 
+        |  Default value: ConcentrationRatio
+
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
-                Default value: ConcentrationRatio
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7982,19 +8215,19 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def blowdown_concentration_ratio(self):
-        """field `Blowdown Concentration Ratio` Characterizes the rate of
-        blowdown in the Evaporative Fluid Cooler. Blowdown is water
-        intentionally drained from the basin in order to offset the build up of
-        solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        Default value for this field in under investigation. For now Cooling
-        towers Blowdown Concentration Ratio percent default value is taken
-        here.
+        """field `Blowdown Concentration Ratio`
+
+        |  Characterizes the rate of blowdown in the Evaporative Fluid Cooler.
+        |  Blowdown is water intentionally drained from the basin in order to offset the build
+        |  up of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Default value for this field in under investigation. For now Cooling towers
+        |  Blowdown Concentration Ratio percent default value is taken here.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8012,11 +8245,12 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining a small amount of
-        water in the Fluid Cooler basin to purge scale or other contaminants to
-        reduce their concentration in order to maintain an acceptable level of
-        water quality. Schedule values should reflect water usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining a small
+        |  amount of water in the Fluid Cooler basin to purge scale or other contaminants to
+        |  reduce their concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -8370,7 +8604,9 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` fluid cooler name.
+        """field `Name`
+
+        |  fluid cooler name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8391,7 +8627,9 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of fluid cooler water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of fluid cooler water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -8412,8 +8650,9 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of fluid cooler water outlet
-        node.
+        """field `Water Outlet Node Name`
+
+        |  Name of fluid cooler water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -8436,15 +8675,16 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     def high_fan_speed_air_flow_rate(self):
         """field `High Fan Speed Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_air_flow_rate` or None if not set
+            float or "Autosize": the value of `high_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["High Fan Speed Air Flow Rate"]
@@ -8456,19 +8696,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def high_fan_speed_fan_power(self):
-        """field `High Fan Speed Fan Power` This is the fan motor electric
-        input power at high speed.
+        """field `High Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at high speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_fan_power` or None if not set
+            float or "Autosize": the value of `high_fan_speed_fan_power` or None if not set
 
         """
         return self["High Fan Speed Fan Power"]
@@ -8480,18 +8721,19 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate(self):
-        """field `Low Fan Speed Air Flow Rate` Low speed air flow rate must be
-        less than high speed air flow rate.
+        """field `Low Fan Speed Air Flow Rate`
+
+        |  Low speed air flow rate must be less than high speed air flow rate
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["Low Fan Speed Air Flow Rate"]
@@ -8503,12 +8745,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate_sizing_factor(self):
-        """field `Low Fan Speed Air Flow Rate Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8527,19 +8770,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power(self):
-        """field `Low Fan Speed Fan Power` This is the fan motor electric input
-        power at low speed.
+        """field `Low Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at low speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_fan_power` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_fan_power` or None if not set
 
         """
         return self["Low Fan Speed Fan Power"]
@@ -8551,12 +8795,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power_sizing_factor(self):
-        """field `Low Fan Speed Fan Power Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Fan Power Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.16
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
-                Default value: 0.16
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8576,10 +8821,11 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     def design_spray_water_flow_rate(self):
         """field `Design Spray Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Design Spray Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8597,10 +8843,11 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define fluid cooler
-        thermal performance by specifying the fluid cooler UA and the Design
-        Water Flow Rate, or by specifying the fluid cooler Standard Design
-        Capacity or by specifying Design Capacity for Non standard conditions.
+        """field `Performance Input Method`
+
+        |  User can define fluid cooler thermal performance by specifying the fluid cooler UA
+        |  and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design
+        |  Capacity or by specifying Design Capacity for Non standard conditions.
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -8621,8 +8868,9 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -8645,9 +8893,10 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self):
         """field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
 
+        |  Default value: 1.25
+
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8671,30 +8920,32 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def high_speed_standard_design_capacity(self):
         """field `High Speed Standard Design Capacity`
-        Standard design capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
-        (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
-        Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
-        heat rejection at these operating conditions.
-        Only used for Performance Input Method = StandardDesignCapacity;
-        for other input methods, this field is ignored.
-        The standard conditions mentioned above for Standard design capacity are already
-        specified in the EnergyPlus. So the input fields such as design entering water
-        temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
-        provided in the input, will be ignored for the StandardDesignCapacity performance input
-        method. Also, the standard conditions are for water as a fluid type so this performance input
-        method can only be used with water as a fluid type (as specified in CondenserLoop object).
+
+        |  Standard design capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
+        |  (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
+        |  Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
+        |  heat rejection at these operating conditions.
+        |  Only used for Performance Input Method = StandardDesignCapacity;
+        |  for other input methods, this field is ignored.
+        |  The standard conditions mentioned above for Standard design capacity are already
+        |  specified in the EnergyPlus. So the input fields such as design entering water
+        |  temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
+        |  provided in the input, will be ignored for the StandardDesignCapacity performance input
+        |  method. Also, the standard conditions are for water as a fluid type so this performance input
+        |  method can only be used with water as a fluid type (as specified in CondenserLoop object).
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `High Speed Standard Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `high_speed_standard_design_capacity` or None if not set
+
         """
         return self["High Speed Standard Design Capacity"]
 
@@ -8706,30 +8957,32 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def low_speed_standard_design_capacity(self):
         """field `Low Speed Standard Design Capacity`
-        Standard design capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
-        (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
-        Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
-        heat rejection at these operating conditions.
-        Only used for Performance Input Method = StandardDesignCapacity;
-        for other input methods, this field is ignored.
-        The standard conditions mentioned above for Standard design capacity are already
-        specified in the EnergyPlus. So the input fields such as design entering water
-        temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
-        provided in the input, will be ignored for the StandardDesignCapacity performance input
-        method. Also, the standard conditions are for water as a fluid type so this performance input
-        method can only be used with water as a fluid type (as specified in CondenserLoop object).
+
+        |  Standard design capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
+        |  (3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and
+        |  Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler
+        |  heat rejection at these operating conditions.
+        |  Only used for Performance Input Method = StandardDesignCapacity;
+        |  for other input methods, this field is ignored.
+        |  The standard conditions mentioned above for Standard design capacity are already
+        |  specified in the EnergyPlus. So the input fields such as design entering water
+        |  temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if
+        |  provided in the input, will be ignored for the StandardDesignCapacity performance input
+        |  method. Also, the standard conditions are for water as a fluid type so this performance input
+        |  method can only be used with water as a fluid type (as specified in CondenserLoop object).
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Standard Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_standard_design_capacity` or None if not set
+            float or "Autocalculate": the value of `low_speed_standard_design_capacity` or None if not set
+
         """
         return self["Low Speed Standard Design Capacity"]
 
@@ -8740,12 +8993,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_speed_standard_capacity_sizing_factor(self):
-        """field `Low Speed Standard Capacity Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Speed Standard Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Low Speed Standard Capacity Sizing Factor`
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8765,19 +9019,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def high_fan_speed_ufactor_times_area_value(self):
         """field `High Fan Speed U-factor Times Area Value`
-        Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
-        for other Performance Input Methods, this field is ignored.
+
+        |  Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed U-factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `high_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["High Fan Speed U-factor Times Area Value"]
 
@@ -8791,20 +9046,21 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_value(self):
         """field `Low Fan Speed U-factor Times Area Value`
-        Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
-        for other input methods, this field is ignored.
-        Low speed fluid cooler UA must be less than high speed fluid cooler UA
+
+        |  Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
+        |  for other input methods, this field is ignored.
+        |  Low speed fluid cooler UA must be less than high speed fluid cooler UA
+        |  Units: W/K
+        |  value <= 300000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["Low Fan Speed U-factor Times Area Value"]
 
@@ -8818,12 +9074,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_sizing_factor(self):
         """field `Low Fan Speed U-Factor Times Area Sizing Factor`
-        This field is only used if the previous field is set to autocalculate and
-        the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.6
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
-                Default value: 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8843,18 +9100,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
-        Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity
+
+        |  Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
+
         """
         return self["Design Water Flow Rate"]
 
@@ -8866,18 +9125,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def high_speed_user_specified_design_capacity(self):
         """field `High Speed User Specified Design Capacity`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `High Speed User Specified Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `high_speed_user_specified_design_capacity` or None if not set
+
         """
         return self["High Speed User Specified Design Capacity"]
 
@@ -8890,18 +9151,20 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def low_speed_user_specified_design_capacity(self):
         """field `Low Speed User Specified Design Capacity`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed User Specified Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_user_specified_design_capacity` or None if not set
+            float or "Autocalculate": the value of `low_speed_user_specified_design_capacity` or None if not set
+
         """
         return self["Low Speed User Specified Design Capacity"]
 
@@ -8913,12 +9176,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_speed_user_specified_design_capacity_sizing_factor(self):
-        """field `Low Speed User Specified Design Capacity Sizing Factor` This
-        field is only used if the previous field is set to autocalculate.
+        """field `Low Speed User Specified Design Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Low Speed User Specified Design Capacity Sizing Factor`
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8940,20 +9204,22 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def design_entering_water_temperature(self):
         """field `Design Entering Water Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Water Temperature must be greater than Design Entering Air Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Water Temperature must be greater than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_water_temperature` or None if not set
+
         """
         return self["Design Entering Water Temperature"]
 
@@ -8965,21 +9231,23 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def design_entering_air_temperature(self):
         """field `Design Entering Air Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
-        Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
+        |  Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_air_temperature` or None if not set
+
         """
         return self["Design Entering Air Temperature"]
 
@@ -8991,15 +9259,16 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     @property
     def design_entering_air_wetbulb_temperature(self):
         """field `Design Entering Air Wet-bulb Temperature`
-        Only used for Performance Input Method = UserSpecifiedDesignCapacity;
-        for other Performance Input Methods, this field is ignored.
-        Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
-        Temperature.
+
+        |  Only used for Performance Input Method = UserSpecifiedDesignCapacity;
+        |  for other Performance Input Methods, this field is ignored.
+        |  Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
+        |  Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9018,12 +9287,13 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def high_speed_sizing_factor(self):
-        """field `High Speed Sizing Factor` Multiplies the autosized capacity
-        and flow rates.
+        """field `High Speed Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `High Speed Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9043,9 +9313,10 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     def evaporation_loss_mode(self):
         """field `Evaporation Loss Mode`
 
+        |  Default value: SaturatedExit
+
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
-                Default value: SaturatedExit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9063,13 +9334,14 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def evaporation_loss_factor(self):
-        """field `Evaporation Loss Factor` Rate of water evaporation from the
-        Fluid Cooler and lost to the outdoor air [%/K] Empirical correlation is
-        used to calculate default loss factor if it not explicitly provided.
+        """field `Evaporation Loss Factor`
+
+        |  Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]
+        |  Empirical correlation is used to calculate default loss factor if it not explicitly provided.
+        |  Units: percent/K
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
-                Units: percent/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9087,13 +9359,14 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def drift_loss_percent(self):
-        """field `Drift Loss Percent` Default value is under investigation. For
-        now cooling towers default value is taken.
+        """field `Drift Loss Percent`
+
+        |  Default value is under investigation. For now cooling towers default value is taken.
+        |  Units: percent
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
-                Units: percent
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9113,9 +9386,10 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
     def blowdown_calculation_mode(self):
         """field `Blowdown Calculation Mode`
 
+        |  Default value: ConcentrationRatio
+
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
-                Default value: ConcentrationRatio
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9133,18 +9407,18 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def blowdown_concentration_ratio(self):
-        """field `Blowdown Concentration Ratio` Characterizes the rate of
-        blowdown in the Evaporative Fluid Cooler. Blowdown is water
-        intentionally drained from the Evaporative Fluid Cooler in order to
-        offset the build up of solids in the water that would otherwise occur
-        because of evaporation. Ratio of solids in the blowdown water to solids
-        in the make up water. Default value is under investigation. For now
-        cooling towers default value is taken.
+        """field `Blowdown Concentration Ratio`
+
+        |  Characterizes the rate of blowdown in the Evaporative Fluid Cooler.
+        |  Blowdown is water intentionally drained from the Evaporative Fluid Cooler in order to offset the
+        |  build up of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  Default value is under investigation. For now cooling towers default value is taken.
+        |  Default value: 3.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                Default value: 3.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9162,12 +9436,12 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
 
     @property
     def blowdown_makeup_water_usage_schedule_name(self):
-        """field `Blowdown Makeup Water Usage Schedule Name` Makeup water usage
-        due to blowdown results from occasionally draining some amount of water
-        in the Evaporative Fluid Cooler basin to purge scale or other
-        contaminants to reduce their concentration in order to maintain an
-        acceptable level of water quality. Schedule values should reflect water
-        usage in m3/s.
+        """field `Blowdown Makeup Water Usage Schedule Name`
+
+        |  Makeup water usage due to blowdown results from occasionally draining some amount
+        |  of water in the Evaporative Fluid Cooler basin to purge scale or other contaminants to reduce
+        |  their concentration in order to maintain an acceptable level of water quality.
+        |  Schedule values should reflect water usage in m3/s.
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -9339,7 +9613,9 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` fluid cooler name.
+        """field `Name`
+
+        |  fluid cooler name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9360,7 +9636,9 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of fluid cooler water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of fluid cooler water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -9381,8 +9659,9 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of fluid cooler water outlet
-        node.
+        """field `Water Outlet Node Name`
+
+        |  Name of fluid cooler water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -9403,13 +9682,14 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define fluid cooler
-        thermal performance by specifying the fluid cooler UA and the Design
-        Water Flow Rate, or by specifying the fluid cooler nominal capacity.
+        """field `Performance Input Method`
+
+        |  User can define fluid cooler thermal performance by specifying the fluid cooler UA
+        |  and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity
+        |  Default value: NominalCapacity
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: NominalCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9428,18 +9708,19 @@ class FluidCoolerSingleSpeed(DataObject):
     @property
     def design_air_flow_rate_ufactor_times_area_value(self):
         """field `Design Air Flow Rate U-factor Times Area Value`
-        Leave field blank if fluid cooler Performance Input Method is NominalCapacity
+
+        |  Leave field blank if fluid cooler Performance Input Method is NominalCapacity
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate_ufactor_times_area_value` or None if not set
         """
         return self["Design Air Flow Rate U-factor Times Area Value"]
 
@@ -9452,11 +9733,13 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def nominal_capacity(self):
-        """field `Nominal Capacity` Nominal fluid cooler capacity.
+        """field `Nominal Capacity`
+
+        |  Nominal fluid cooler capacity
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9474,14 +9757,15 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def design_entering_water_temperature(self):
-        """field `Design Entering Water Temperature` Design Entering Water
-        Temperature must be specified for both the performance input methods
-        and its value must be greater than Design Entering Air Temperature.
+        """field `Design Entering Water Temperature`
+
+        |  Design Entering Water Temperature must be specified for both the performance input methods and
+        |  its value must be greater than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9500,19 +9784,21 @@ class FluidCoolerSingleSpeed(DataObject):
     @property
     def design_entering_air_temperature(self):
         """field `Design Entering Air Temperature`
-        Design Entering Air Temperature must be specified for both the performance input methods and
-        its value must be greater than Design Entering Air Wet-bulb Temperature.
+
+        |  Design Entering Air Temperature must be specified for both the performance input methods and
+        |  its value must be greater than Design Entering Air Wet-bulb Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_air_temperature` or None if not set
+
         """
         return self["Design Entering Air Temperature"]
 
@@ -9524,19 +9810,21 @@ class FluidCoolerSingleSpeed(DataObject):
     @property
     def design_entering_air_wetbulb_temperature(self):
         """field `Design Entering Air Wetbulb Temperature`
-        Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
-        its value must be less than Design Entering Air Temperature.
+
+        |  Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
+        |  its value must be less than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wetbulb Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_air_wetbulb_temperature` or None if not set
+
         """
         return self["Design Entering Air Wetbulb Temperature"]
 
@@ -9550,16 +9838,17 @@ class FluidCoolerSingleSpeed(DataObject):
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -9573,15 +9862,16 @@ class FluidCoolerSingleSpeed(DataObject):
     def design_air_flow_rate(self):
         """field `Design Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate` or None if not set
 
         """
         return self["Design Air Flow Rate"]
@@ -9593,19 +9883,20 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def design_air_flow_rate_fan_power(self):
-        """field `Design Air Flow Rate Fan Power` This is the fan motor
-        electric input power.
+        """field `Design Air Flow Rate Fan Power`
+
+        |  This is the fan motor electric input power
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Air Flow Rate Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_air_flow_rate_fan_power` or None if not set
+            float or "Autosize": the value of `design_air_flow_rate_fan_power` or None if not set
 
         """
         return self["Design Air Flow Rate Fan Power"]
@@ -9617,8 +9908,9 @@ class FluidCoolerSingleSpeed(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """field `Outdoor Air Inlet Node Name` Enter the name of an outdoor air
-        node.
+        """field `Outdoor Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -9837,7 +10129,9 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def name(self):
-        """field `Name` fluid cooler name.
+        """field `Name`
+
+        |  fluid cooler name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9858,7 +10152,9 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def water_inlet_node_name(self):
-        """field `Water Inlet Node Name` Name of fluid cooler water inlet node.
+        """field `Water Inlet Node Name`
+
+        |  Name of fluid cooler water inlet node
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -9879,8 +10175,9 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def water_outlet_node_name(self):
-        """field `Water Outlet Node Name` Name of fluid cooler water outlet
-        node.
+        """field `Water Outlet Node Name`
+
+        |  Name of fluid cooler water outlet node
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -9901,13 +10198,14 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def performance_input_method(self):
-        """field `Performance Input Method` User can define fluid cooler
-        thermal performance by specifying the fluid cooler UA and the Design
-        Water Flow Rate, or by specifying the fluid cooler nominal capacity.
+        """field `Performance Input Method`
+
+        |  User can define fluid cooler thermal performance by specifying the fluid cooler UA
+        |  and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity
+        |  Default value: NominalCapacity
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
-                Default value: NominalCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9926,18 +10224,19 @@ class FluidCoolerTwoSpeed(DataObject):
     @property
     def high_fan_speed_ufactor_times_area_value(self):
         """field `High Fan Speed U-factor Times Area Value`
-        Leave field blank if fluid cooler Performance Input Method is NominalCapacity
+
+        |  Leave field blank if fluid cooler Performance Input Method is NominalCapacity
+        |  Units: W/K
+        |  value <= 2100000.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed U-factor Times Area Value`
-                Units: W/K
-                value <= 2100000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `high_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["High Fan Speed U-factor Times Area Value"]
 
@@ -9951,20 +10250,21 @@ class FluidCoolerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_value(self):
         """field `Low Fan Speed U-factor Times Area Value`
-        Leave field blank if fluid cooler Performance Input Method is NominalCapacity
-        Low speed fluid cooler UA must be less than high speed fluid cooler UA
-        Low speed fluid cooler UA must be greater than free convection fluid cooler UA
+
+        |  Leave field blank if fluid cooler Performance Input Method is NominalCapacity
+        |  Low speed fluid cooler UA must be less than high speed fluid cooler UA
+        |  Low speed fluid cooler UA must be greater than free convection fluid cooler UA
+        |  Units: W/K
+        |  value <= 300000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-factor Times Area Value`
-                Units: W/K
-                value <= 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_ufactor_times_area_value` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_ufactor_times_area_value` or None if not set
         """
         return self["Low Fan Speed U-factor Times Area Value"]
 
@@ -9978,12 +10278,13 @@ class FluidCoolerTwoSpeed(DataObject):
     @property
     def low_fan_speed_ufactor_times_area_sizing_factor(self):
         """field `Low Fan Speed U-Factor Times Area Sizing Factor`
-        This field is only used if the previous field is set to autocalculate and
-        the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
+        |  Default value: 0.6
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
-                Default value: 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10002,12 +10303,13 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def high_speed_nominal_capacity(self):
-        """field `High Speed Nominal Capacity` Nominal fluid cooler capacity at
-        high fan speed.
+        """field `High Speed Nominal Capacity`
+
+        |  Nominal fluid cooler capacity at high fan speed
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `High Speed Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10025,18 +10327,19 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_speed_nominal_capacity(self):
-        """field `Low Speed Nominal Capacity` Nominal fluid cooler capacity at
-        low fan speed.
+        """field `Low Speed Nominal Capacity`
+
+        |  Nominal fluid cooler capacity at low fan speed
+        |  Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_nominal_capacity` or None if not set
+            float or "Autocalculate": the value of `low_speed_nominal_capacity` or None if not set
 
         """
         return self["Low Speed Nominal Capacity"]
@@ -10048,13 +10351,14 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_speed_nominal_capacity_sizing_factor(self):
-        """field `Low Speed Nominal Capacity Sizing Factor` This field is only
-        used if the previous field is set to autocalculate and the Performance
-        Input Method is NominalCapacity.
+        """field `Low Speed Nominal Capacity Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate and
+        |  the Performance Input Method is NominalCapacity
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Low Speed Nominal Capacity Sizing Factor`
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10073,14 +10377,15 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def design_entering_water_temperature(self):
-        """field `Design Entering Water Temperature` Design Entering Water
-        Temperature must be specified for both the performance input methods
-        and its value must be greater than Design Entering Air Temperature.
+        """field `Design Entering Water Temperature`
+
+        |  Design Entering Water Temperature must be specified for both the performance input methods and
+        |  its value must be greater than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10099,19 +10404,21 @@ class FluidCoolerTwoSpeed(DataObject):
     @property
     def design_entering_air_temperature(self):
         """field `Design Entering Air Temperature`
-        Design Entering Air Temperature must be specified for both the performance input methods and
-        its value must be greater than Design Entering Air Wet-bulb Temperature.
+
+        |  Design Entering Air Temperature must be specified for both the performance input methods and
+        |  its value must be greater than Design Entering Air Wet-bulb Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_entering_air_temperature` or None if not set
+
         """
         return self["Design Entering Air Temperature"]
 
@@ -10123,13 +10430,14 @@ class FluidCoolerTwoSpeed(DataObject):
     @property
     def design_entering_air_wetbulb_temperature(self):
         """field `Design Entering Air Wet-bulb Temperature`
-        Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
-        its value must be less than Design Entering Air Temperature.
+
+        |  Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
+        |  its value must be less than Design Entering Air Temperature.
+        |  Units: C
+        |  IP-Units: F
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
-                Units: C
-                IP-Units: F
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10150,16 +10458,17 @@ class FluidCoolerTwoSpeed(DataObject):
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -10171,18 +10480,19 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def high_fan_speed_air_flow_rate(self):
-        """field `High Fan Speed Air Flow Rate` Air Flow Rate at High Fan Speed
-        must be greater than Air Flow Rate at Low Fan Speed.
+        """field `High Fan Speed Air Flow Rate`
+
+        |  Air Flow Rate at High Fan Speed must be greater than Air Flow Rate at Low Fan Speed
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_air_flow_rate` or None if not set
+            float or "Autosize": the value of `high_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["High Fan Speed Air Flow Rate"]
@@ -10194,19 +10504,20 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def high_fan_speed_fan_power(self):
-        """field `High Fan Speed Fan Power` This is the fan motor electric
-        input power at high speed.
+        """field `High Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at high speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_fan_speed_fan_power` or None if not set
+            float or "Autosize": the value of `high_fan_speed_fan_power` or None if not set
 
         """
         return self["High Fan Speed Fan Power"]
@@ -10218,18 +10529,19 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate(self):
-        """field `Low Fan Speed Air Flow Rate` Air Flow Rate at Low Fan Speed
-        must be less than Air Flow Rate at High Fan Speed.
+        """field `Low Fan Speed Air Flow Rate`
+
+        |  Air Flow Rate at Low Fan Speed must be less than Air Flow Rate at High Fan Speed
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_air_flow_rate` or None if not set
 
         """
         return self["Low Fan Speed Air Flow Rate"]
@@ -10241,12 +10553,13 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_air_flow_rate_sizing_factor(self):
-        """field `Low Fan Speed Air Flow Rate Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Air Flow Rate Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10265,19 +10578,20 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power(self):
-        """field `Low Fan Speed Fan Power` This is the fan motor electric input
-        power at low speed.
+        """field `Low Fan Speed Fan Power`
+
+        |  This is the fan motor electric input power at low speed
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_fan_speed_fan_power` or None if not set
+            float or "Autocalculate": the value of `low_fan_speed_fan_power` or None if not set
 
         """
         return self["Low Fan Speed Fan Power"]
@@ -10289,12 +10603,13 @@ class FluidCoolerTwoSpeed(DataObject):
 
     @property
     def low_fan_speed_fan_power_sizing_factor(self):
-        """field `Low Fan Speed Fan Power Sizing Factor` This field is only
-        used if the previous field is set to autocalculate.
+        """field `Low Fan Speed Fan Power Sizing Factor`
+
+        |  This field is only used if the previous field is set to autocalculate.
+        |  Default value: 0.16
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
-                Default value: 0.16
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11983,10 +12298,11 @@ class GroundHeatExchangerVertical(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12027,9 +12343,10 @@ class GroundHeatExchangerVertical(DataObject):
     def bore_hole_length(self):
         """field `Bore Hole Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Bore Hole Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12049,9 +12366,10 @@ class GroundHeatExchangerVertical(DataObject):
     def bore_hole_radius(self):
         """field `Bore Hole Radius`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Bore Hole Radius`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12071,9 +12389,10 @@ class GroundHeatExchangerVertical(DataObject):
     def ground_thermal_conductivity(self):
         """field `Ground Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Ground Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12093,9 +12412,10 @@ class GroundHeatExchangerVertical(DataObject):
     def ground_thermal_heat_capacity(self):
         """field `Ground Thermal Heat Capacity`
 
+        |  Units: J/m3-K
+
         Args:
             value (float): value for IDD Field `Ground Thermal Heat Capacity`
-                Units: J/m3-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12115,9 +12435,10 @@ class GroundHeatExchangerVertical(DataObject):
     def ground_temperature(self):
         """field `Ground Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Ground Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12137,10 +12458,11 @@ class GroundHeatExchangerVertical(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12160,9 +12482,10 @@ class GroundHeatExchangerVertical(DataObject):
     def grout_thermal_conductivity(self):
         """field `Grout Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Grout Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12182,9 +12505,10 @@ class GroundHeatExchangerVertical(DataObject):
     def pipe_thermal_conductivity(self):
         """field `Pipe Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12204,10 +12528,11 @@ class GroundHeatExchangerVertical(DataObject):
     def pipe_out_diameter(self):
         """field `Pipe Out Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Pipe Out Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12227,9 +12552,10 @@ class GroundHeatExchangerVertical(DataObject):
     def utube_distance(self):
         """field `U-Tube Distance`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `U-Tube Distance`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12250,10 +12576,11 @@ class GroundHeatExchangerVertical(DataObject):
     def pipe_thickness(self):
         """field `Pipe Thickness`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Pipe Thickness`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12294,10 +12621,11 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_reference_ratio(self):
         """field `G-Function Reference Ratio`
 
+        |  Units: dimensionless
+        |  Default value: 0.0005
+
         Args:
             value (float): value for IDD Field `G-Function Reference Ratio`
-                Units: dimensionless
-                Default value: 0.0005
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12318,9 +12646,10 @@ class GroundHeatExchangerVertical(DataObject):
     def number_of_data_pairs_of_the_g_function(self):
         """field `Number of Data Pairs of the G Function`
 
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Number of Data Pairs of the G Function`
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12339,6 +12668,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_1(self):
         """field `G-Function Ln(T/Ts) Value 1`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 1`
@@ -12362,6 +12692,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_1(self):
         """field `G-Function G Value 1`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 1`
 
@@ -12383,6 +12714,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_2(self):
         """field `G-Function Ln(T/Ts) Value 2`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 2`
@@ -12406,6 +12738,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_2(self):
         """field `G-Function G Value 2`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 2`
 
@@ -12427,6 +12760,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_3(self):
         """field `G-Function Ln(T/Ts) Value 3`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 3`
@@ -12450,6 +12784,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_3(self):
         """field `G-Function G Value 3`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 3`
 
@@ -12471,6 +12806,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_4(self):
         """field `G-Function Ln(T/Ts) Value 4`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 4`
@@ -12494,6 +12830,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_4(self):
         """field `G-Function G Value 4`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 4`
 
@@ -12515,6 +12852,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_5(self):
         """field `G-Function Ln(T/Ts) Value 5`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 5`
@@ -12538,6 +12876,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_5(self):
         """field `G-Function G Value 5`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 5`
 
@@ -12559,6 +12898,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_6(self):
         """field `G-Function Ln(T/Ts) Value 6`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 6`
@@ -12582,6 +12922,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_6(self):
         """field `G-Function G Value 6`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 6`
 
@@ -12603,6 +12944,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_7(self):
         """field `G-Function Ln(T/Ts) Value 7`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 7`
@@ -12626,6 +12968,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_7(self):
         """field `G-Function G Value 7`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 7`
 
@@ -12647,6 +12990,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_8(self):
         """field `G-Function Ln(T/Ts) Value 8`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 8`
@@ -12670,6 +13014,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_8(self):
         """field `G-Function G Value 8`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 8`
 
@@ -12691,6 +13036,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_9(self):
         """field `G-Function Ln(T/Ts) Value 9`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 9`
@@ -12714,6 +13060,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_9(self):
         """field `G-Function G Value 9`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 9`
 
@@ -12735,6 +13082,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_10(self):
         """field `G-Function Ln(T/Ts) Value 10`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 10`
@@ -12758,6 +13106,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_10(self):
         """field `G-Function G Value 10`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 10`
 
@@ -12779,6 +13128,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_11(self):
         """field `G-Function Ln(T/Ts) Value 11`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 11`
@@ -12802,6 +13152,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_11(self):
         """field `G-Function G Value 11`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 11`
 
@@ -12823,6 +13174,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_12(self):
         """field `G-Function Ln(T/Ts) Value 12`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 12`
@@ -12846,6 +13198,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_12(self):
         """field `G-Function G Value 12`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 12`
 
@@ -12867,6 +13220,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_13(self):
         """field `G-Function Ln(T/Ts) Value 13`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 13`
@@ -12890,6 +13244,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_13(self):
         """field `G-Function G Value 13`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 13`
 
@@ -12911,6 +13266,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_14(self):
         """field `G-Function Ln(T/Ts) Value 14`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 14`
@@ -12934,6 +13290,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_14(self):
         """field `G-Function G Value 14`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 14`
 
@@ -12955,6 +13312,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_15(self):
         """field `G-Function Ln(T/Ts) Value 15`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 15`
@@ -12978,6 +13336,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_15(self):
         """field `G-Function G Value 15`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 15`
 
@@ -12999,6 +13358,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_16(self):
         """field `G-Function Ln(T/Ts) Value 16`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 16`
@@ -13022,6 +13382,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_16(self):
         """field `G-Function G Value 16`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 16`
 
@@ -13043,6 +13404,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_17(self):
         """field `G-Function Ln(T/Ts) Value 17`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 17`
@@ -13066,6 +13428,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_17(self):
         """field `G-Function G Value 17`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 17`
 
@@ -13087,6 +13450,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_18(self):
         """field `G-Function Ln(T/Ts) Value 18`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 18`
@@ -13110,6 +13474,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_18(self):
         """field `G-Function G Value 18`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 18`
 
@@ -13131,6 +13496,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_19(self):
         """field `G-Function Ln(T/Ts) Value 19`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 19`
@@ -13154,6 +13520,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_19(self):
         """field `G-Function G Value 19`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 19`
 
@@ -13175,6 +13542,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_20(self):
         """field `G-Function Ln(T/Ts) Value 20`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 20`
@@ -13198,6 +13566,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_20(self):
         """field `G-Function G Value 20`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 20`
 
@@ -13219,6 +13588,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_21(self):
         """field `G-Function Ln(T/Ts) Value 21`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 21`
@@ -13242,6 +13612,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_21(self):
         """field `G-Function G Value 21`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 21`
 
@@ -13263,6 +13634,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_22(self):
         """field `G-Function Ln(T/Ts) Value 22`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 22`
@@ -13286,6 +13658,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_22(self):
         """field `G-Function G Value 22`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 22`
 
@@ -13307,6 +13680,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_23(self):
         """field `G-Function Ln(T/Ts) Value 23`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 23`
@@ -13330,6 +13704,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_23(self):
         """field `G-Function G Value 23`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 23`
 
@@ -13351,6 +13726,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_24(self):
         """field `G-Function Ln(T/Ts) Value 24`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 24`
@@ -13374,6 +13750,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_24(self):
         """field `G-Function G Value 24`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 24`
 
@@ -13395,6 +13772,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_25(self):
         """field `G-Function Ln(T/Ts) Value 25`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 25`
@@ -13418,6 +13796,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_25(self):
         """field `G-Function G Value 25`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 25`
 
@@ -13439,6 +13818,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_26(self):
         """field `G-Function Ln(T/Ts) Value 26`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 26`
@@ -13462,6 +13842,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_26(self):
         """field `G-Function G Value 26`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 26`
 
@@ -13483,6 +13864,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_27(self):
         """field `G-Function Ln(T/Ts) Value 27`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 27`
@@ -13506,6 +13888,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_27(self):
         """field `G-Function G Value 27`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 27`
 
@@ -13527,6 +13910,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_28(self):
         """field `G-Function Ln(T/Ts) Value 28`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 28`
@@ -13550,6 +13934,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_28(self):
         """field `G-Function G Value 28`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 28`
 
@@ -13571,6 +13956,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_29(self):
         """field `G-Function Ln(T/Ts) Value 29`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 29`
@@ -13594,6 +13980,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_29(self):
         """field `G-Function G Value 29`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 29`
 
@@ -13615,6 +14002,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_30(self):
         """field `G-Function Ln(T/Ts) Value 30`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 30`
@@ -13638,6 +14026,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_30(self):
         """field `G-Function G Value 30`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 30`
 
@@ -13659,6 +14048,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_31(self):
         """field `G-Function Ln(T/Ts) Value 31`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 31`
@@ -13682,6 +14072,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_31(self):
         """field `G-Function G Value 31`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 31`
 
@@ -13703,6 +14094,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_32(self):
         """field `G-Function Ln(T/Ts) Value 32`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 32`
@@ -13726,6 +14118,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_32(self):
         """field `G-Function G Value 32`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 32`
 
@@ -13747,6 +14140,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_33(self):
         """field `G-Function Ln(T/Ts) Value 33`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 33`
@@ -13770,6 +14164,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_33(self):
         """field `G-Function G Value 33`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 33`
 
@@ -13791,6 +14186,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_34(self):
         """field `G-Function Ln(T/Ts) Value 34`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 34`
@@ -13814,6 +14210,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_34(self):
         """field `G-Function G Value 34`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 34`
 
@@ -13835,6 +14232,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_35(self):
         """field `G-Function Ln(T/Ts) Value 35`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 35`
@@ -13858,6 +14256,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_35(self):
         """field `G-Function G Value 35`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 35`
 
@@ -13879,6 +14278,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_36(self):
         """field `G-Function Ln(T/Ts) Value 36`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 36`
@@ -13902,6 +14302,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_36(self):
         """field `G-Function G Value 36`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 36`
 
@@ -13923,6 +14324,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_37(self):
         """field `G-Function Ln(T/Ts) Value 37`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 37`
@@ -13946,6 +14348,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_37(self):
         """field `G-Function G Value 37`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 37`
 
@@ -13967,6 +14370,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_38(self):
         """field `G-Function Ln(T/Ts) Value 38`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 38`
@@ -13990,6 +14394,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_38(self):
         """field `G-Function G Value 38`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 38`
 
@@ -14011,6 +14416,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_39(self):
         """field `G-Function Ln(T/Ts) Value 39`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 39`
@@ -14034,6 +14440,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_39(self):
         """field `G-Function G Value 39`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 39`
 
@@ -14055,6 +14462,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_40(self):
         """field `G-Function Ln(T/Ts) Value 40`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 40`
@@ -14078,6 +14486,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_40(self):
         """field `G-Function G Value 40`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 40`
 
@@ -14099,6 +14508,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_41(self):
         """field `G-Function Ln(T/Ts) Value 41`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 41`
@@ -14122,6 +14532,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_41(self):
         """field `G-Function G Value 41`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 41`
 
@@ -14143,6 +14554,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_42(self):
         """field `G-Function Ln(T/Ts) Value 42`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 42`
@@ -14166,6 +14578,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_42(self):
         """field `G-Function G Value 42`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 42`
 
@@ -14187,6 +14600,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_43(self):
         """field `G-Function Ln(T/Ts) Value 43`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 43`
@@ -14210,6 +14624,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_43(self):
         """field `G-Function G Value 43`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 43`
 
@@ -14231,6 +14646,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_44(self):
         """field `G-Function Ln(T/Ts) Value 44`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 44`
@@ -14254,6 +14670,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_44(self):
         """field `G-Function G Value 44`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 44`
 
@@ -14275,6 +14692,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_45(self):
         """field `G-Function Ln(T/Ts) Value 45`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 45`
@@ -14298,6 +14716,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_45(self):
         """field `G-Function G Value 45`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 45`
 
@@ -14319,6 +14738,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_46(self):
         """field `G-Function Ln(T/Ts) Value 46`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 46`
@@ -14342,6 +14762,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_46(self):
         """field `G-Function G Value 46`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 46`
 
@@ -14363,6 +14784,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_47(self):
         """field `G-Function Ln(T/Ts) Value 47`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 47`
@@ -14386,6 +14808,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_47(self):
         """field `G-Function G Value 47`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 47`
 
@@ -14407,6 +14830,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_48(self):
         """field `G-Function Ln(T/Ts) Value 48`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 48`
@@ -14430,6 +14854,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_48(self):
         """field `G-Function G Value 48`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 48`
 
@@ -14451,6 +14876,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_49(self):
         """field `G-Function Ln(T/Ts) Value 49`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 49`
@@ -14474,6 +14900,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_49(self):
         """field `G-Function G Value 49`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 49`
 
@@ -14495,6 +14922,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_50(self):
         """field `G-Function Ln(T/Ts) Value 50`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 50`
@@ -14518,6 +14946,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_50(self):
         """field `G-Function G Value 50`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 50`
 
@@ -14539,6 +14968,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_51(self):
         """field `G-Function Ln(T/Ts) Value 51`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 51`
@@ -14562,6 +14992,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_51(self):
         """field `G-Function G Value 51`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 51`
 
@@ -14583,6 +15014,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_52(self):
         """field `G-Function Ln(T/Ts) Value 52`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 52`
@@ -14606,6 +15038,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_52(self):
         """field `G-Function G Value 52`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 52`
 
@@ -14627,6 +15060,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_53(self):
         """field `G-Function Ln(T/Ts) Value 53`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 53`
@@ -14650,6 +15084,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_53(self):
         """field `G-Function G Value 53`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 53`
 
@@ -14671,6 +15106,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_54(self):
         """field `G-Function Ln(T/Ts) Value 54`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 54`
@@ -14694,6 +15130,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_54(self):
         """field `G-Function G Value 54`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 54`
 
@@ -14715,6 +15152,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_55(self):
         """field `G-Function Ln(T/Ts) Value 55`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 55`
@@ -14738,6 +15176,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_55(self):
         """field `G-Function G Value 55`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 55`
 
@@ -14759,6 +15198,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_56(self):
         """field `G-Function Ln(T/Ts) Value 56`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 56`
@@ -14782,6 +15222,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_56(self):
         """field `G-Function G Value 56`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 56`
 
@@ -14803,6 +15244,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_57(self):
         """field `G-Function Ln(T/Ts) Value 57`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 57`
@@ -14826,6 +15268,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_57(self):
         """field `G-Function G Value 57`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 57`
 
@@ -14847,6 +15290,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_58(self):
         """field `G-Function Ln(T/Ts) Value 58`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 58`
@@ -14870,6 +15314,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_58(self):
         """field `G-Function G Value 58`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 58`
 
@@ -14891,6 +15336,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_59(self):
         """field `G-Function Ln(T/Ts) Value 59`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 59`
@@ -14914,6 +15360,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_59(self):
         """field `G-Function G Value 59`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 59`
 
@@ -14935,6 +15382,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_60(self):
         """field `G-Function Ln(T/Ts) Value 60`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 60`
@@ -14958,6 +15406,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_60(self):
         """field `G-Function G Value 60`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 60`
 
@@ -14979,6 +15428,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_61(self):
         """field `G-Function Ln(T/Ts) Value 61`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 61`
@@ -15002,6 +15452,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_61(self):
         """field `G-Function G Value 61`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 61`
 
@@ -15023,6 +15474,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_62(self):
         """field `G-Function Ln(T/Ts) Value 62`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 62`
@@ -15046,6 +15498,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_62(self):
         """field `G-Function G Value 62`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 62`
 
@@ -15067,6 +15520,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_63(self):
         """field `G-Function Ln(T/Ts) Value 63`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 63`
@@ -15090,6 +15544,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_63(self):
         """field `G-Function G Value 63`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 63`
 
@@ -15111,6 +15566,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_64(self):
         """field `G-Function Ln(T/Ts) Value 64`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 64`
@@ -15134,6 +15590,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_64(self):
         """field `G-Function G Value 64`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 64`
 
@@ -15155,6 +15612,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_65(self):
         """field `G-Function Ln(T/Ts) Value 65`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 65`
@@ -15178,6 +15636,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_65(self):
         """field `G-Function G Value 65`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 65`
 
@@ -15199,6 +15658,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_66(self):
         """field `G-Function Ln(T/Ts) Value 66`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 66`
@@ -15222,6 +15682,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_66(self):
         """field `G-Function G Value 66`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 66`
 
@@ -15243,6 +15704,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_67(self):
         """field `G-Function Ln(T/Ts) Value 67`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 67`
@@ -15266,6 +15728,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_67(self):
         """field `G-Function G Value 67`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 67`
 
@@ -15287,6 +15750,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_68(self):
         """field `G-Function Ln(T/Ts) Value 68`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 68`
@@ -15310,6 +15774,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_68(self):
         """field `G-Function G Value 68`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 68`
 
@@ -15331,6 +15796,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_69(self):
         """field `G-Function Ln(T/Ts) Value 69`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 69`
@@ -15354,6 +15820,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_69(self):
         """field `G-Function G Value 69`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 69`
 
@@ -15375,6 +15842,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_70(self):
         """field `G-Function Ln(T/Ts) Value 70`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 70`
@@ -15398,6 +15866,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_70(self):
         """field `G-Function G Value 70`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 70`
 
@@ -15419,6 +15888,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_71(self):
         """field `G-Function Ln(T/Ts) Value 71`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 71`
@@ -15442,6 +15912,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_71(self):
         """field `G-Function G Value 71`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 71`
 
@@ -15463,6 +15934,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_72(self):
         """field `G-Function Ln(T/Ts) Value 72`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 72`
@@ -15486,6 +15958,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_72(self):
         """field `G-Function G Value 72`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 72`
 
@@ -15507,6 +15980,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_73(self):
         """field `G-Function Ln(T/Ts) Value 73`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 73`
@@ -15530,6 +16004,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_73(self):
         """field `G-Function G Value 73`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 73`
 
@@ -15551,6 +16026,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_74(self):
         """field `G-Function Ln(T/Ts) Value 74`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 74`
@@ -15574,6 +16050,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_74(self):
         """field `G-Function G Value 74`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 74`
 
@@ -15595,6 +16072,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_75(self):
         """field `G-Function Ln(T/Ts) Value 75`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 75`
@@ -15618,6 +16096,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_75(self):
         """field `G-Function G Value 75`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 75`
 
@@ -15639,6 +16118,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_76(self):
         """field `G-Function Ln(T/Ts) Value 76`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 76`
@@ -15662,6 +16142,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_76(self):
         """field `G-Function G Value 76`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 76`
 
@@ -15683,6 +16164,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_77(self):
         """field `G-Function Ln(T/Ts) Value 77`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 77`
@@ -15706,6 +16188,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_77(self):
         """field `G-Function G Value 77`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 77`
 
@@ -15727,6 +16210,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_78(self):
         """field `G-Function Ln(T/Ts) Value 78`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 78`
@@ -15750,6 +16234,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_78(self):
         """field `G-Function G Value 78`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 78`
 
@@ -15771,6 +16256,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_79(self):
         """field `G-Function Ln(T/Ts) Value 79`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 79`
@@ -15794,6 +16280,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_79(self):
         """field `G-Function G Value 79`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 79`
 
@@ -15815,6 +16302,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_80(self):
         """field `G-Function Ln(T/Ts) Value 80`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 80`
@@ -15838,6 +16326,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_80(self):
         """field `G-Function G Value 80`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 80`
 
@@ -15859,6 +16348,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_81(self):
         """field `G-Function Ln(T/Ts) Value 81`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 81`
@@ -15882,6 +16372,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_81(self):
         """field `G-Function G Value 81`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 81`
 
@@ -15903,6 +16394,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_82(self):
         """field `G-Function Ln(T/Ts) Value 82`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 82`
@@ -15926,6 +16418,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_82(self):
         """field `G-Function G Value 82`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 82`
 
@@ -15947,6 +16440,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_83(self):
         """field `G-Function Ln(T/Ts) Value 83`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 83`
@@ -15970,6 +16464,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_83(self):
         """field `G-Function G Value 83`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 83`
 
@@ -15991,6 +16486,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_84(self):
         """field `G-Function Ln(T/Ts) Value 84`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 84`
@@ -16014,6 +16510,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_84(self):
         """field `G-Function G Value 84`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 84`
 
@@ -16035,6 +16532,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_85(self):
         """field `G-Function Ln(T/Ts) Value 85`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 85`
@@ -16058,6 +16556,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_85(self):
         """field `G-Function G Value 85`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 85`
 
@@ -16079,6 +16578,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_86(self):
         """field `G-Function Ln(T/Ts) Value 86`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 86`
@@ -16102,6 +16602,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_86(self):
         """field `G-Function G Value 86`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 86`
 
@@ -16123,6 +16624,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_87(self):
         """field `G-Function Ln(T/Ts) Value 87`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 87`
@@ -16146,6 +16648,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_87(self):
         """field `G-Function G Value 87`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 87`
 
@@ -16167,6 +16670,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_88(self):
         """field `G-Function Ln(T/Ts) Value 88`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 88`
@@ -16190,6 +16694,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_88(self):
         """field `G-Function G Value 88`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 88`
 
@@ -16211,6 +16716,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_89(self):
         """field `G-Function Ln(T/Ts) Value 89`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 89`
@@ -16234,6 +16740,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_89(self):
         """field `G-Function G Value 89`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 89`
 
@@ -16255,6 +16762,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_90(self):
         """field `G-Function Ln(T/Ts) Value 90`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 90`
@@ -16278,6 +16786,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_90(self):
         """field `G-Function G Value 90`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 90`
 
@@ -16299,6 +16808,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_91(self):
         """field `G-Function Ln(T/Ts) Value 91`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 91`
@@ -16322,6 +16832,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_91(self):
         """field `G-Function G Value 91`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 91`
 
@@ -16343,6 +16854,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_92(self):
         """field `G-Function Ln(T/Ts) Value 92`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 92`
@@ -16366,6 +16878,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_92(self):
         """field `G-Function G Value 92`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 92`
 
@@ -16387,6 +16900,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_93(self):
         """field `G-Function Ln(T/Ts) Value 93`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 93`
@@ -16410,6 +16924,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_93(self):
         """field `G-Function G Value 93`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 93`
 
@@ -16431,6 +16946,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_94(self):
         """field `G-Function Ln(T/Ts) Value 94`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 94`
@@ -16454,6 +16970,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_94(self):
         """field `G-Function G Value 94`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 94`
 
@@ -16475,6 +16992,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_95(self):
         """field `G-Function Ln(T/Ts) Value 95`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 95`
@@ -16498,6 +17016,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_95(self):
         """field `G-Function G Value 95`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 95`
 
@@ -16519,6 +17038,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_96(self):
         """field `G-Function Ln(T/Ts) Value 96`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 96`
@@ -16542,6 +17062,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_96(self):
         """field `G-Function G Value 96`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 96`
 
@@ -16563,6 +17084,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_97(self):
         """field `G-Function Ln(T/Ts) Value 97`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 97`
@@ -16586,6 +17108,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_97(self):
         """field `G-Function G Value 97`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 97`
 
@@ -16607,6 +17130,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_98(self):
         """field `G-Function Ln(T/Ts) Value 98`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 98`
@@ -16630,6 +17154,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_98(self):
         """field `G-Function G Value 98`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 98`
 
@@ -16651,6 +17176,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_lnt_or_ts_value_99(self):
         """field `G-Function Ln(T/Ts) Value 99`
+
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 99`
@@ -16674,6 +17200,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_g_value_99(self):
         """field `G-Function G Value 99`
 
+
         Args:
             value (float): value for IDD Field `G-Function G Value 99`
 
@@ -16696,6 +17223,7 @@ class GroundHeatExchangerVertical(DataObject):
     def gfunction_lnt_or_ts_value_100(self):
         """field `G-Function Ln(T/Ts) Value 100`
 
+
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 100`
 
@@ -16717,6 +17245,7 @@ class GroundHeatExchangerVertical(DataObject):
     @property
     def gfunction_g_value_100(self):
         """field `G-Function G Value 100`
+
 
         Args:
             value (float): value for IDD Field `G-Function G Value 100`
@@ -16914,9 +17443,10 @@ class GroundHeatExchangerPond(DataObject):
     def pond_depth(self):
         """field `Pond Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pond Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16936,9 +17466,10 @@ class GroundHeatExchangerPond(DataObject):
     def pond_area(self):
         """field `Pond Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Pond Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16958,10 +17489,11 @@ class GroundHeatExchangerPond(DataObject):
     def hydronic_tubing_inside_diameter(self):
         """field `Hydronic Tubing Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16981,10 +17513,11 @@ class GroundHeatExchangerPond(DataObject):
     def hydronic_tubing_outside_diameter(self):
         """field `Hydronic Tubing Outside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Outside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17004,9 +17537,10 @@ class GroundHeatExchangerPond(DataObject):
     def hydronic_tubing_thermal_conductivity(self):
         """field `Hydronic Tubing Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17026,9 +17560,10 @@ class GroundHeatExchangerPond(DataObject):
     def ground_thermal_conductivity(self):
         """field `Ground Thermal Conductivity`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Ground Thermal Conductivity`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17048,9 +17583,10 @@ class GroundHeatExchangerPond(DataObject):
     def number_of_tubing_circuits(self):
         """field `Number of Tubing Circuits`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Tubing Circuits`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17070,9 +17606,10 @@ class GroundHeatExchangerPond(DataObject):
     def length_of_each_tubing_circuit(self):
         """field `Length of Each Tubing Circuit`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length of Each Tubing Circuit`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17278,10 +17815,11 @@ class GroundHeatExchangerSurface(DataObject):
     def hydronic_tubing_inside_diameter(self):
         """field `Hydronic Tubing Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17301,9 +17839,10 @@ class GroundHeatExchangerSurface(DataObject):
     def number_of_tubing_circuits(self):
         """field `Number of Tubing Circuits`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Tubing Circuits`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17323,9 +17862,10 @@ class GroundHeatExchangerSurface(DataObject):
     def hydronic_tube_spacing(self):
         """field `Hydronic Tube Spacing`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Hydronic Tube Spacing`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17345,9 +17885,10 @@ class GroundHeatExchangerSurface(DataObject):
     def surface_length(self):
         """field `Surface Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Surface Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17367,9 +17908,10 @@ class GroundHeatExchangerSurface(DataObject):
     def surface_width(self):
         """field `Surface Width`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Surface Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17389,9 +17931,10 @@ class GroundHeatExchangerSurface(DataObject):
     def lower_surface_environment(self):
         """field `Lower Surface Environment`
 
+        |  Default value: Ground
+
         Args:
             value (str): value for IDD Field `Lower Surface Environment`
-                Default value: Ground
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17698,9 +18241,10 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17718,16 +18262,18 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
 
     @property
     def trench_length_in_pipe_axial_direction(self):
-        """field `Trench Length in Pipe Axial Direction` This is the total pipe
-        axial length of the heat exchanger If all pipe trenches are parallel,
-        this is the length of a single trench.  If a single, long run of pipe
-        is used with one trench, this is the full length of the pipe run.
+        """field `Trench Length in Pipe Axial Direction`
+
+        |  This is the total pipe axial length of the heat exchanger
+        |  If all pipe trenches are parallel, this is the length of a
+        |  single trench.  If a single, long run of pipe is used with one
+        |  trench, this is the full length of the pipe run.
+        |  Units: m
+        |  IP-Units: ft
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Trench Length in Pipe Axial Direction`
-                Units: m
-                IP-Units: ft
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17745,13 +18291,15 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
 
     @property
     def number_of_trenches(self):
-        """field `Number of Trenches` This is the number of horizontal legs
-        that will be used in the entire heat exchanger, one pipe per trench.
+        """field `Number of Trenches`
+
+        |  This is the number of horizontal legs that will be used
+        |  in the entire heat exchanger, one pipe per trench
+        |  Default value: 1
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Number of Trenches`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17769,14 +18317,15 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
 
     @property
     def horizontal_spacing_between_pipes(self):
-        """field `Horizontal Spacing Between Pipes` This represents the average
-        horizontal spacing between any two trenches for heat exchangers that
-        have multiple trenches.
+        """field `Horizontal Spacing Between Pipes`
+
+        |  This represents the average horizontal spacing between any two
+        |  trenches for heat exchangers that have multiple trenches
+        |  Units: m
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Horizontal Spacing Between Pipes`
-                Units: m
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17796,11 +18345,12 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def pipe_inner_diameter(self):
         """field `Pipe Inner Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.016
+
         Args:
             value (float): value for IDD Field `Pipe Inner Diameter`
-                Units: m
-                IP-Units: in
-                Default value: 0.016
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17820,11 +18370,12 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def pipe_outer_diameter(self):
         """field `Pipe Outer Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.026
+
         Args:
             value (float): value for IDD Field `Pipe Outer Diameter`
-                Units: m
-                IP-Units: in
-                Default value: 0.026
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17842,14 +18393,16 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
 
     @property
     def burial_depth(self):
-        """field `Burial Depth` This is the burial depth of the pipes, or the
-        trenches containing the pipes.
+        """field `Burial Depth`
+
+        |  This is the burial depth of the pipes, or the trenches
+        |  containing the pipes
+        |  Units: m
+        |  IP-Units: ft
+        |  Default value: 1.5
 
         Args:
             value (float): value for IDD Field `Burial Depth`
-                Units: m
-                IP-Units: ft
-                Default value: 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17869,10 +18422,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def soil_thermal_conductivity(self):
         """field `Soil Thermal Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 1.08
+
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
-                Units: W/m-K
-                Default value: 1.08
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17892,10 +18446,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def soil_density(self):
         """field `Soil Density`
 
+        |  Units: kg/m3
+        |  Default value: 962.0
+
         Args:
             value (float): value for IDD Field `Soil Density`
-                Units: kg/m3
-                Default value: 962.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17915,10 +18470,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def soil_specific_heat(self):
         """field `Soil Specific Heat`
 
+        |  Units: J/kg-K
+        |  Default value: 2576.0
+
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
-                Units: J/kg-K
-                Default value: 2576.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17938,10 +18494,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def pipe_thermal_conductivity(self):
         """field `Pipe Thermal Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 0.3895
+
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
-                Units: W/m-K
-                Default value: 0.3895
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17961,10 +18518,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def pipe_density(self):
         """field `Pipe Density`
 
+        |  Units: kg/m3
+        |  Default value: 641.0
+
         Args:
             value (float): value for IDD Field `Pipe Density`
-                Units: kg/m3
-                Default value: 641.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17984,10 +18542,11 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def pipe_specific_heat(self):
         """field `Pipe Specific Heat`
 
+        |  Units: J/kg-K
+        |  Default value: 2405.0
+
         Args:
             value (float): value for IDD Field `Pipe Specific Heat`
-                Units: J/kg-K
-                Default value: 2405.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18007,11 +18566,12 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def soil_moisture_content_percent(self):
         """field `Soil Moisture Content Percent`
 
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Percent`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18031,11 +18591,12 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     def soil_moisture_content_percent_at_saturation(self):
         """field `Soil Moisture Content Percent at Saturation`
 
+        |  Units: percent
+        |  Default value: 50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Percent at Saturation`
-                Units: percent
-                Default value: 50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18055,14 +18616,15 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     @property
     def kusudaachenbach_average_surface_temperature(self):
         """field `Kusuda-Achenbach Average Surface Temperature`
-        This is the parameter for average annual surface temperature
-        This is an optional input in that if it is missing, a
-        Site:GroundTemperature:Shallow object must be found in the input
-        The undisturbed ground temperature will be approximated from this object
+
+        |  This is the parameter for average annual surface temperature
+        |  This is an optional input in that if it is missing, a
+        |  Site:GroundTemperature:Shallow object must be found in the input
+        |  The undisturbed ground temperature will be approximated from this object
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18082,14 +18644,15 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     @property
     def kusudaachenbach_average_amplitude_of_surface_temperature(self):
         """field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-        This is the parameter for annual average amplitude from average surface temperature
-        This is an optional input in that if it is missing, a
-        Site:GroundTemperature:Shallow object must be found in the input
-        The undisturbed ground temperature will be approximated from this object
+
+        |  This is the parameter for annual average amplitude from average surface temperature
+        |  This is an optional input in that if it is missing, a
+        |  Site:GroundTemperature:Shallow object must be found in the input
+        |  The undisturbed ground temperature will be approximated from this object
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18113,14 +18676,15 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     @property
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self):
         """field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-        This is the parameter for phase shift from minimum surface temperature
-        This is an optional input in that if it is missing, a
-        Site:GroundTemperature:Shallow object must be found in the input
-        The undisturbed ground temperature will be approximated from this object
+
+        |  This is the parameter for phase shift from minimum surface temperature
+        |  This is an optional input in that if it is missing, a
+        |  Site:GroundTemperature:Shallow object must be found in the input
+        |  The undisturbed ground temperature will be approximated from this object
+        |  Units: days
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-                Units: days
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18144,23 +18708,25 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
     @property
     def evapotranspiration_ground_cover_parameter(self):
         """field `Evapotranspiration Ground Cover Parameter`
-        This specifies the ground cover effects during evapotranspiration
-        calculations.  The value roughly represents the following cases:
-        = 0   : concrete or other solid, non-permeable ground surface material
-        = 0.5 : short grass, much like a manicured lawn
-        = 1   : standard reference state (12 cm grass)
-        = 1.5 : wild growth
+
+        |  This specifies the ground cover effects during evapotranspiration
+        |  calculations.  The value roughly represents the following cases:
+        |  = 0   : concrete or other solid, non-permeable ground surface material
+        |  = 0.5 : short grass, much like a manicured lawn
+        |  = 1   : standard reference state (12 cm grass)
+        |  = 1.5 : wild growth
+        |  Default value: 0.4
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
-                Default value: 0.4
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evapotranspiration_ground_cover_parameter` or None if not set
+
         """
         return self["Evapotranspiration Ground Cover Parameter"]
 
@@ -18396,10 +18962,11 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. default is that heat
-        exchanger is on.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  default is that heat exchanger is on
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -18420,8 +18987,9 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def loop_demand_side_inlet_node_name(self):
-        """field `Loop Demand Side Inlet Node Name` This connection is to the
-        demand side of a loop and is the inlet to the heat exchanger.
+        """field `Loop Demand Side Inlet Node Name`
+
+        |  This connection is to the demand side of a loop and is the inlet to the heat exchanger
 
         Args:
             value (str): value for IDD Field `Loop Demand Side Inlet Node Name`
@@ -18442,8 +19010,9 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def loop_demand_side_outlet_node_name(self):
-        """field `Loop Demand Side Outlet Node Name` This connection is to the
-        demand side of a loop.
+        """field `Loop Demand Side Outlet Node Name`
+
+        |  This connection is to the demand side of a loop
 
         Args:
             value (str): value for IDD Field `Loop Demand Side Outlet Node Name`
@@ -18466,16 +19035,17 @@ class HeatExchangerFluidToFluid(DataObject):
     def loop_demand_side_design_flow_rate(self):
         """field `Loop Demand Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Loop Demand Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `loop_demand_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `loop_demand_side_design_flow_rate` or None if not set
 
         """
         return self["Loop Demand Side Design Flow Rate"]
@@ -18531,16 +19101,17 @@ class HeatExchangerFluidToFluid(DataObject):
     def loop_supply_side_design_flow_rate(self):
         """field `Loop Supply Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Loop Supply Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `loop_supply_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `loop_supply_side_design_flow_rate` or None if not set
 
         """
         return self["Loop Supply Side Design Flow Rate"]
@@ -18554,9 +19125,10 @@ class HeatExchangerFluidToFluid(DataObject):
     def heat_exchange_model_type(self):
         """field `Heat Exchange Model Type`
 
+        |  Default value: Ideal
+
         Args:
             value (str): value for IDD Field `Heat Exchange Model Type`
-                Default value: Ideal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18576,15 +19148,16 @@ class HeatExchangerFluidToFluid(DataObject):
     def heat_exchanger_ufactor_times_area_value(self):
         """field `Heat Exchanger U-Factor Times Area Value`
 
+        |  Units: W/k
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heat Exchanger U-Factor Times Area Value`
-                Units: W/k
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heat_exchanger_ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `heat_exchanger_ufactor_times_area_value` or None if not set
         """
         return self["Heat Exchanger U-Factor Times Area Value"]
 
@@ -18599,9 +19172,10 @@ class HeatExchangerFluidToFluid(DataObject):
     def control_type(self):
         """field `Control Type`
 
+        |  Default value: UncontrolledOn
+
         Args:
             value (str): value for IDD Field `Control Type`
-                Default value: UncontrolledOn
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18620,7 +19194,8 @@ class HeatExchangerFluidToFluid(DataObject):
     @property
     def heat_exchanger_setpoint_node_name(self):
         """field `Heat Exchanger Setpoint Node Name`
-        Setpoint node is needed with any Control Type that is "*Setpoint*"
+
+        |  Setpoint node is needed with any Control Type that is "*Setpoint*"
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Setpoint Node Name`
@@ -18630,6 +19205,7 @@ class HeatExchangerFluidToFluid(DataObject):
 
         Returns:
             str: the value of `heat_exchanger_setpoint_node_name` or None if not set
+
         """
         return self["Heat Exchanger Setpoint Node Name"]
 
@@ -18641,14 +19217,14 @@ class HeatExchangerFluidToFluid(DataObject):
     @property
     def minimum_temperature_difference_to_activate_heat_exchanger(self):
         """field `Minimum Temperature Difference to Activate Heat Exchanger`
-        Tolerance between control temperatures used to determine if heat
-        exchanger should run.
+
+        |  Tolerance between control temperatures used to determine if heat exchanger should run.
+        |  Units: deltaC
+        |  Default value: 0.01
+        |  value <= 50.0
 
         Args:
             value (float): value for IDD Field `Minimum Temperature Difference to Activate Heat Exchanger`
-                Units: deltaC
-                Default value: 0.01
-                value <= 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18671,12 +19247,13 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def heat_transfer_metering_end_use_type(self):
-        """field `Heat Transfer Metering End Use Type` This feild controls end
-        use reporting for heat transfer meters.
+        """field `Heat Transfer Metering End Use Type`
+
+        |  This feild controls end use reporting for heat transfer meters
+        |  Default value: LoopToLoop
 
         Args:
             value (str): value for IDD Field `Heat Transfer Metering End Use Type`
-                Default value: LoopToLoop
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18694,9 +19271,9 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def component_override_loop_supply_side_inlet_node_name(self):
-        """field `Component Override Loop Supply Side Inlet Node Name` This
-        field is only used if Control Type is set to
-        CoolingSetpointOnOffWithComponentOverride.
+        """field `Component Override Loop Supply Side Inlet Node Name`
+
+        |  This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
 
         Args:
             value (str): value for IDD Field `Component Override Loop Supply Side Inlet Node Name`
@@ -18718,9 +19295,9 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def component_override_loop_demand_side_inlet_node_name(self):
-        """field `Component Override Loop Demand Side Inlet Node Name` This
-        field is only used if Control Type is set to
-        CoolingSetpointOnOffWithComponentOverride.
+        """field `Component Override Loop Demand Side Inlet Node Name`
+
+        |  This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
 
         Args:
             value (str): value for IDD Field `Component Override Loop Demand Side Inlet Node Name`
@@ -18742,13 +19319,13 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def component_override_cooling_control_temperature_mode(self):
-        """field `Component Override Cooling Control Temperature Mode` This
-        field is only used if Control Type is set to
-        CoolingSetpointOnOffWithComponentOverride.
+        """field `Component Override Cooling Control Temperature Mode`
+
+        |  This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
+        |  Default value: Loop
 
         Args:
             value (str): value for IDD Field `Component Override Cooling Control Temperature Mode`
-                Default value: Loop
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18769,12 +19346,13 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized flow rates for this
-        device.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized flow rates for this device
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18792,13 +19370,13 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def operation_minimum_temperature_limit(self):
-        """field `Operation Minimum Temperature Limit` Lower limit on inlet
-        temperatures, heat exchanger will not operate if either inlet is below
-        this limit.
+        """field `Operation Minimum Temperature Limit`
+
+        |  Lower limit on inlet temperatures, heat exchanger will not operate if either inlet is below this limit
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Operation Minimum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18816,13 +19394,13 @@ class HeatExchangerFluidToFluid(DataObject):
 
     @property
     def operation_maximum_temperature_limit(self):
-        """field `Operation Maximum Temperature Limit` Upper limit on inlet
-        temperatures, heat exchanger will not operate if either inlet is above
-        this limit.
+        """field `Operation Maximum Temperature Limit`
+
+        |  Upper limit on inlet temperatures, heat exchanger will not operate if either inlet is above this limit
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Operation Maximum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value

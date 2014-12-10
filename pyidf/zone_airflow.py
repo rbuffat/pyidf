@@ -195,24 +195,26 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
     @property
     def design_flow_rate_calculation_method(self):
         """field `Design Flow Rate Calculation Method`
-        The entered calculation method is used to create the maximum amount of infiltration
-        for this set of attributes
-        Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
-        Flow/Area => Flow per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-        Flow/ExteriorArea => Flow per Exterior Surface Area - Value * Exterior Surface Area (zone) = Design Flow Rate
-        Flow/ExteriorWallArea => Flow per Exterior Surface Area - Value * Exterior Wall Surface Area (zone) = Design Flow Rate
-        AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-        "Idesign" in Equation is the result.
+
+        |  The entered calculation method is used to create the maximum amount of infiltration
+        |  for this set of attributes
+        |  Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
+        |  Flow/Area => Flow per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
+        |  Flow/ExteriorArea => Flow per Exterior Surface Area - Value * Exterior Surface Area (zone) = Design Flow Rate
+        |  Flow/ExteriorWallArea => Flow per Exterior Surface Area - Value * Exterior Wall Surface Area (zone) = Design Flow Rate
+        |  AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
+        |  "Idesign" in Equation is the result.
+        |  Default value: Flow/Zone
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Default value: Flow/Zone
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -225,10 +227,11 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: ft3/min
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
-                IP-Units: ft3/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -248,9 +251,10 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
     def flow_per_zone_floor_area(self):
         """field `Flow per Zone Floor Area`
 
+        |  Units: m3/s-m2
+
         Args:
             value (float): value for IDD Field `Flow per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -268,13 +272,14 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def flow_per_exterior_surface_area(self):
-        """field `Flow per Exterior Surface Area` use key Flow/ExteriorArea for
-        all exterior surface area use key Flow/ExteriorWallArea to include only
-        exterior wall area.
+        """field `Flow per Exterior Surface Area`
+
+        |  use key Flow/ExteriorArea for all exterior surface area
+        |  use key Flow/ExteriorWallArea to include only exterior wall area
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Flow per Exterior Surface Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -294,9 +299,10 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
     def air_changes_per_hour(self):
         """field `Air Changes per Hour`
 
+        |  Units: 1/hr
+
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -314,11 +320,13 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def constant_term_coefficient(self):
-        """field `Constant Term Coefficient` "A" in Equation.
+        """field `Constant Term Coefficient`
+
+        |  "A" in Equation
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Constant Term Coefficient`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -336,7 +344,9 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def temperature_term_coefficient(self):
-        """field `Temperature Term Coefficient` "B" in Equation.
+        """field `Temperature Term Coefficient`
+
+        |  "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
@@ -357,7 +367,9 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def velocity_term_coefficient(self):
-        """field `Velocity Term Coefficient` "C" in Equation.
+        """field `Velocity Term Coefficient`
+
+        |  "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
@@ -378,7 +390,9 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def velocity_squared_term_coefficient(self):
-        """field `Velocity Squared Term Coefficient` "D" in Equation.
+        """field `Velocity Squared Term Coefficient`
+
+        |  "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
@@ -527,12 +541,14 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
     @property
     def effective_air_leakage_area(self):
-        """field `Effective Air Leakage Area` "AL" in Equation units are cm2
-        (square centimeters)
+        """field `Effective Air Leakage Area`
+
+        |  "AL" in Equation
+        |  units are cm2 (square centimeters)
+        |  Units: cm2
 
         Args:
             value (float): value for IDD Field `Effective Air Leakage Area`
-                Units: cm2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -550,7 +566,9 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
     @property
     def stack_coefficient(self):
-        """field `Stack Coefficient` "Cs" in Equation.
+        """field `Stack Coefficient`
+
+        |  "Cs" in Equation
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
@@ -571,7 +589,9 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
     @property
     def wind_coefficient(self):
-        """field `Wind Coefficient` "Cw" in Equation.
+        """field `Wind Coefficient`
+
+        |  "Cw" in Equation
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
@@ -736,7 +756,9 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
     @property
     def flow_coefficient(self):
-        """field `Flow Coefficient` "c" in Equation.
+        """field `Flow Coefficient`
+
+        |  "c" in Equation
 
         Args:
             value (float): value for IDD Field `Flow Coefficient`
@@ -757,7 +779,9 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
     @property
     def stack_coefficient(self):
-        """field `Stack Coefficient` "Cs" in Equation.
+        """field `Stack Coefficient`
+
+        |  "Cs" in Equation
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
@@ -778,11 +802,13 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
     @property
     def pressure_exponent(self):
-        """field `Pressure Exponent` "n" in Equation.
+        """field `Pressure Exponent`
+
+        |  "n" in Equation
+        |  Default value: 0.67
 
         Args:
             value (float): value for IDD Field `Pressure Exponent`
-                Default value: 0.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -800,7 +826,9 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
     @property
     def wind_coefficient(self):
-        """field `Wind Coefficient` "Cw" in Equation.
+        """field `Wind Coefficient`
+
+        |  "Cw" in Equation
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
@@ -821,7 +849,9 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
     @property
     def shelter_factor(self):
-        """field `Shelter Factor` "s" in Equation.
+        """field `Shelter Factor`
+
+        |  "s" in Equation
 
         Args:
             value (float): value for IDD Field `Shelter Factor`
@@ -1158,23 +1188,25 @@ class ZoneVentilationDesignFlowRate(DataObject):
     @property
     def design_flow_rate_calculation_method(self):
         """field `Design Flow Rate Calculation Method`
-        The entered calculation method is used to create the maximum amount of ventilation
-        for this set of attributes
-        Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
-        Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-        Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
-        AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-        "Vdesign" in Equation is the result.
+
+        |  The entered calculation method is used to create the maximum amount of ventilation
+        |  for this set of attributes
+        |  Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
+        |  Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
+        |  Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
+        |  AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
+        |  "Vdesign" in Equation is the result.
+        |  Default value: Flow/Zone
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Default value: Flow/Zone
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -1187,9 +1219,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1209,9 +1242,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def flow_rate_per_zone_floor_area(self):
         """field `Flow Rate per Zone Floor Area`
 
+        |  Units: m3/s-m2
+
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1231,9 +1265,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def flow_rate_per_person(self):
         """field `Flow Rate per Person`
 
+        |  Units: m3/s-person
+
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
-                Units: m3/s-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1253,9 +1288,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def air_changes_per_hour(self):
         """field `Air Changes per Hour`
 
+        |  Units: 1/hr
+
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1275,9 +1311,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def ventilation_type(self):
         """field `Ventilation Type`
 
+        |  Default value: Natural
+
         Args:
             value (str): value for IDD Field `Ventilation Type`
-                Default value: Natural
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1295,11 +1332,13 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def fan_pressure_rise(self):
-        """field `Fan Pressure Rise` pressure rise across the fan.
+        """field `Fan Pressure Rise`
+
+        |  pressure rise across the fan
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1319,9 +1358,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1339,11 +1379,13 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def constant_term_coefficient(self):
-        """field `Constant Term Coefficient` "A" in Equation.
+        """field `Constant Term Coefficient`
+
+        |  "A" in Equation
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Constant Term Coefficient`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1361,7 +1403,9 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def temperature_term_coefficient(self):
-        """field `Temperature Term Coefficient` "B" in Equation.
+        """field `Temperature Term Coefficient`
+
+        |  "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
@@ -1382,7 +1426,9 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def velocity_term_coefficient(self):
-        """field `Velocity Term Coefficient` "C" in Equation.
+        """field `Velocity Term Coefficient`
+
+        |  "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
@@ -1403,7 +1449,9 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def velocity_squared_term_coefficient(self):
-        """field `Velocity Squared Term Coefficient` "D" in Equation.
+        """field `Velocity Squared Term Coefficient`
+
+        |  "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
@@ -1424,15 +1472,16 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def minimum_indoor_temperature(self):
-        """field `Minimum Indoor Temperature` this is the indoor temperature
-        below which ventilation is shutoff.
+        """field `Minimum Indoor Temperature`
+
+        |  this is the indoor temperature below which ventilation is shutoff
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1450,9 +1499,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
-        """field `Minimum Indoor Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time below which ventilation is
-        shutoff.
+        """field `Minimum Indoor Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time below which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Indoor Temperature Schedule Name`
@@ -1474,15 +1524,16 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def maximum_indoor_temperature(self):
-        """field `Maximum Indoor Temperature` this is the indoor temperature
-        above which ventilation is shutoff.
+        """field `Maximum Indoor Temperature`
+
+        |  this is the indoor temperature above which ventilation is shutoff
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Indoor Temperature`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1500,9 +1551,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
-        """field `Maximum Indoor Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time above which ventilation is
-        shutoff.
+        """field `Maximum Indoor Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time above which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Indoor Temperature Schedule Name`
@@ -1524,19 +1576,19 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def delta_temperature(self):
-        """field `Delta Temperature` This is the temperature differential
-        between indoor and outdoor below which ventilation is shutoff.
+        """field `Delta Temperature`
 
-        If ((IndoorTemp - OutdoorTemp) < DeltaTemperature) then ventilation is not allowed.
-        For example, if delta temperature is 2C, ventilation is assumed to be available if the outside air temperature
-        is at least 2C cooler than the zone air temperature. The values for this field can include negative numbers.
-        This allows ventilation to occur even if the outdoor temperature is above the indoor temperature.
+        |  This is the temperature differential between indoor and outdoor below which ventilation is shutoff.
+        |  If ((IndoorTemp - OutdoorTemp) < DeltaTemperature) then ventilation is not allowed.
+        |  For example, if delta temperature is 2C, ventilation is assumed to be available if the outside air temperature
+        |  is at least 2C cooler than the zone air temperature. The values for this field can include negative numbers.
+        |  This allows ventilation to occur even if the outdoor temperature is above the indoor temperature.
+        |  Units: deltaC
+        |  Default value: -100.0
+        |  value >= -100.0
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
-                Units: deltaC
-                Default value: -100.0
-                value >= -100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1554,9 +1606,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def delta_temperature_schedule_name(self):
-        """field `Delta Temperature Schedule Name` This schedule contains the
-        temperature differential between indoor and outdoor versus time below
-        which ventilation is shutoff.
+        """field `Delta Temperature Schedule Name`
+
+        |  This schedule contains the temperature differential between indoor and outdoor
+        |  versus time below which ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -1577,15 +1630,16 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def minimum_outdoor_temperature(self):
-        """field `Minimum Outdoor Temperature` this is the outdoor temperature
-        below which ventilation is shutoff.
+        """field `Minimum Outdoor Temperature`
+
+        |  this is the outdoor temperature below which ventilation is shutoff
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1603,9 +1657,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """field `Minimum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time below which ventilation is
-        shutoff.
+        """field `Minimum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time below which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Temperature Schedule Name`
@@ -1627,15 +1682,16 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def maximum_outdoor_temperature(self):
-        """field `Maximum Outdoor Temperature` this is the outdoor temperature
-        above which ventilation is shutoff.
+        """field `Maximum Outdoor Temperature`
+
+        |  this is the outdoor temperature above which ventilation is shutoff
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1653,9 +1709,10 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """field `Maximum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time above which ventilation is
-        shutoff.
+        """field `Maximum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time above which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Temperature Schedule Name`
@@ -1677,14 +1734,15 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def maximum_wind_speed(self):
-        """field `Maximum Wind Speed` this is the outdoor wind speed above
-        which ventilation is shutoff.
+        """field `Maximum Wind Speed`
+
+        |  this is the outdoor wind speed above which ventilation is shutoff
+        |  Units: m/s
+        |  Default value: 40.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
-                Units: m/s
-                Default value: 40.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1937,12 +1995,13 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def opening_area(self):
-        """field `Opening Area` This is the opening area used to calculate
-        stack effect and wind driven ventilation.
+        """field `Opening Area`
+
+        |  This is the opening area used to calculate stack effect and wind driven ventilation.
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Opening Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1960,10 +2019,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def opening_area_fraction_schedule_name(self):
-        """field `Opening Area Fraction Schedule Name` This schedule contains
-        the fraction values applied to the opening area given in the previous.
+        """field `Opening Area Fraction Schedule Name`
 
-        input field (0.0 - 1.0).
+        |  This schedule contains the fraction values applied to the opening area given in the previous
+        |  input field (0.0 - 1.0).
 
         Args:
             value (str): value for IDD Field `Opening Area Fraction Schedule Name`
@@ -1985,24 +2044,26 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
     @property
     def opening_effectiveness(self):
         """field `Opening Effectiveness`
-        This field is used to calculate wind driven ventilation.
-        "Cw" in the wind-driven equation and the maximum value is 1.0.
-        When the input is Autocalculate, the program calculates Cw based on an angle between
-        wind direction and effective angle
-        Cw = 0.55 at angle = 0, and Cw = 0.3 at angle=180
-        Linear interpolation is used to calculate Cw based on the above two values.
+
+        |  This field is used to calculate wind driven ventilation.
+        |  "Cw" in the wind-driven equation and the maximum value is 1.0.
+        |  When the input is Autocalculate, the program calculates Cw based on an angle between
+        |  wind direction and effective angle
+        |  Cw = 0.55 at angle = 0, and Cw = 0.3 at angle=180
+        |  Linear interpolation is used to calculate Cw based on the above two values.
+        |  Units: dimensionless
+        |  Default value: "Autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Opening Effectiveness`
-                Units: dimensionless
-                Default value: "Autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `opening_effectiveness` or None if not set
+            float or "Autocalculate": the value of `opening_effectiveness` or None if not set
+
         """
         return self["Opening Effectiveness"]
 
@@ -2014,19 +2075,21 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
     @property
     def effective_angle(self):
         """field `Effective Angle`
-        This field is defined as normal angle of the opening area and is used when input
-        field Opening Effectiveness = Autocalculate.
+
+        |  This field is defined as normal angle of the opening area and is used when input
+        |  field Opening Effectiveness = Autocalculate.
+        |  Units: deg
+        |  value < 360.0
 
         Args:
             value (float): value for IDD Field `Effective Angle`
-                Units: deg
-                value < 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `effective_angle` or None if not set
+
         """
         return self["Effective Angle"]
 
@@ -2037,13 +2100,15 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def height_difference(self):
-        """field `Height Difference` This is the height difference between the
-        midpoint of an opening and the neutral pressure level. "DH" in the
-        stack equation.
+        """field `Height Difference`
+
+        |  This is the height difference between the midpoint of an opening and
+        |  the neutral pressure level.
+        |  "DH" in the stack equation.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Height Difference`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2062,22 +2127,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
     @property
     def discharge_coefficient_for_opening(self):
         """field `Discharge Coefficient for Opening`
-        This is the discharge coefficient used to calculate stack effect.
-        "Cd" in the stack equation and the maximum value is 1.0.
-        When the input is Autocalculate, the following equation is used to calculate the
-        coefficient:
-        Cd = 0.4 + 0.0045*|(Tzone-Todb)|
+
+        |  This is the discharge coefficient used to calculate stack effect.
+        |  "Cd" in the stack equation and the maximum value is 1.0.
+        |  When the input is Autocalculate, the following equation is used to calculate the
+        |  coefficient:
+        |  Cd = 0.4 + 0.0045*|(Tzone-Todb)|
+        |  Default value: "Autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Discharge Coefficient for Opening`
-                Default value: "Autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `discharge_coefficient_for_opening` or None if not set
+            float or "Autocalculate": the value of `discharge_coefficient_for_opening` or None if not set
+
         """
         return self["Discharge Coefficient for Opening"]
 
@@ -2088,15 +2155,16 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def minimum_indoor_temperature(self):
-        """field `Minimum Indoor Temperature` This is the indoor temperature
-        below which ventilation is shutoff.
+        """field `Minimum Indoor Temperature`
+
+        |  This is the indoor temperature below which ventilation is shutoff.
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2114,9 +2182,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
-        """field `Minimum Indoor Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time below which ventilation is
-        shutoff.
+        """field `Minimum Indoor Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time below which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Indoor Temperature Schedule Name`
@@ -2138,15 +2207,16 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def maximum_indoor_temperature(self):
-        """field `Maximum Indoor Temperature` This is the indoor temperature
-        above which ventilation is shutoff.
+        """field `Maximum Indoor Temperature`
+
+        |  This is the indoor temperature above which ventilation is shutoff.
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Indoor Temperature`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2164,9 +2234,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
-        """field `Maximum Indoor Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time above which ventilation is
-        shutoff.
+        """field `Maximum Indoor Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time above which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Indoor Temperature Schedule Name`
@@ -2188,14 +2259,16 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def delta_temperature(self):
-        """field `Delta Temperature` This is the temperature differential
-        between indoor and outdoor below which ventilation is shutoff.
+        """field `Delta Temperature`
+
+        |  This is the temperature differential between indoor and outdoor below
+        |  which ventilation is shutoff.
+        |  Units: deltaC
+        |  Default value: -100.0
+        |  value >= -100.0
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
-                Units: deltaC
-                Default value: -100.0
-                value >= -100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2213,9 +2286,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def delta_temperature_schedule_name(self):
-        """field `Delta Temperature Schedule Name` This schedule contains the
-        temperature differential between indoor and outdoor versus time below
-        which ventilation is shutoff.
+        """field `Delta Temperature Schedule Name`
+
+        |  This schedule contains the temperature differential between indoor and outdoor
+        |  versus time below which ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -2236,15 +2310,16 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def minimum_outdoor_temperature(self):
-        """field `Minimum Outdoor Temperature` This is the outdoor temperature
-        below which ventilation is shutoff.
+        """field `Minimum Outdoor Temperature`
+
+        |  This is the outdoor temperature below which ventilation is shutoff.
+        |  Units: C
+        |  Default value: -100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
-                Units: C
-                Default value: -100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2262,9 +2337,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """field `Minimum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time below which ventilation is
-        shutoff.
+        """field `Minimum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time below which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Temperature Schedule Name`
@@ -2286,15 +2362,16 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def maximum_outdoor_temperature(self):
-        """field `Maximum Outdoor Temperature` This is the outdoor temperature
-        above which ventilation is shutoff.
+        """field `Maximum Outdoor Temperature`
+
+        |  This is the outdoor temperature above which ventilation is shutoff.
+        |  Units: C
+        |  Default value: 100.0
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
-                Units: C
-                Default value: 100.0
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2312,9 +2389,10 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """field `Maximum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time above which ventilation is
-        shutoff.
+        """field `Maximum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time above which
+        |  ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Temperature Schedule Name`
@@ -2336,14 +2414,15 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def maximum_wind_speed(self):
-        """field `Maximum Wind Speed` This is the outdoor wind speed above
-        which ventilation is shutoff.
+        """field `Maximum Wind Speed`
+
+        |  This is the outdoor wind speed above which ventilation is shutoff.
+        |  Units: m/s
+        |  Default value: 40.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
-                Units: m/s
-                Default value: 40.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2466,18 +2545,20 @@ class ZoneAirBalanceOutdoorAir(DataObject):
     @property
     def air_balance_method(self):
         """field `Air Balance Method`
-        None: Only perform simple calculations without using a combined zone outdoor air.
-        Quadrature: A combined outdoor air is used in the quadrature sum.
+
+        |  None: Only perform simple calculations without using a combined zone outdoor air.
+        |  Quadrature: A combined outdoor air is used in the quadrature sum.
+        |  Default value: Quadrature
 
         Args:
             value (str): value for IDD Field `Air Balance Method`
-                Default value: Quadrature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `air_balance_method` or None if not set
+
         """
         return self["Air Balance Method"]
 
@@ -2490,9 +2571,10 @@ class ZoneAirBalanceOutdoorAir(DataObject):
     def induced_outdoor_air_due_to_unbalanced_duct_leakage(self):
         """field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2511,10 +2593,10 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
     @property
     def induced_outdoor_air_schedule_name(self):
-        """field `Induced Outdoor Air Schedule Name` This schedule contains the
-        fraction values applied to the Induced Outdoor Air given in the.
+        """field `Induced Outdoor Air Schedule Name`
 
-        previous input field (0.0 - 1.0).
+        |  This schedule contains the fraction values applied to the Induced Outdoor Air given in the
+        |  previous input field (0.0 - 1.0).
 
         Args:
             value (str): value for IDD Field `Induced Outdoor Air Schedule Name`
@@ -2757,23 +2839,25 @@ class ZoneMixing(DataObject):
     @property
     def design_flow_rate_calculation_method(self):
         """field `Design Flow Rate Calculation Method`
-        The entered calculation method is used to create the maximum amount of ventilation
-        for this set of attributes
-        Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
-        Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-        Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
-        AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-        "Vdesign" in Equation is the result.
+
+        |  The entered calculation method is used to create the maximum amount of ventilation
+        |  for this set of attributes
+        |  Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
+        |  Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
+        |  Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
+        |  AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
+        |  "Vdesign" in Equation is the result.
+        |  Default value: Flow/Zone
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Default value: Flow/Zone
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -2786,9 +2870,10 @@ class ZoneMixing(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2808,9 +2893,10 @@ class ZoneMixing(DataObject):
     def flow_rate_per_zone_floor_area(self):
         """field `Flow Rate per Zone Floor Area`
 
+        |  Units: m3/s-m2
+
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2830,9 +2916,10 @@ class ZoneMixing(DataObject):
     def flow_rate_per_person(self):
         """field `Flow Rate per Person`
 
+        |  Units: m3/s-person
+
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
-                Units: m3/s-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2852,9 +2939,10 @@ class ZoneMixing(DataObject):
     def air_changes_per_hour(self):
         """field `Air Changes per Hour`
 
+        |  Units: 1/hr
+
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2893,13 +2981,14 @@ class ZoneMixing(DataObject):
 
     @property
     def delta_temperature(self):
-        """field `Delta Temperature` This field contains the constant
-        temperature differential between source and receiving zones below which
-        mixing is shutoff.
+        """field `Delta Temperature`
+
+        |  This field contains the constant temperature differential between source and
+        |  receiving zones below which mixing is shutoff.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2917,9 +3006,10 @@ class ZoneMixing(DataObject):
 
     @property
     def delta_temperature_schedule_name(self):
-        """field `Delta Temperature Schedule Name` This schedule contains the
-        temperature differential between source and receiving zones versus time
-        below which mixing is shutoff.
+        """field `Delta Temperature Schedule Name`
+
+        |  This schedule contains the temperature differential between source and receiving
+        |  zones versus time below which mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -2941,8 +3031,9 @@ class ZoneMixing(DataObject):
     @property
     def minimum_zone_temperature_schedule_name(self):
         """field `Minimum Zone Temperature Schedule Name`
-        This schedule contains the zone dry-bulb temperature versus time below which
-        mixing is shutoff.
+
+        |  This schedule contains the zone dry-bulb temperature versus time below which
+        |  mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Zone Temperature Schedule Name`
@@ -2952,6 +3043,7 @@ class ZoneMixing(DataObject):
 
         Returns:
             str: the value of `minimum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Zone Temperature Schedule Name"]
 
@@ -2963,8 +3055,9 @@ class ZoneMixing(DataObject):
     @property
     def maximum_zone_temperature_schedule_name(self):
         """field `Maximum Zone Temperature Schedule Name`
-        This schedule contains the zone dry-bulb temperature versus time above which
-        mixing is shutoff.
+
+        |  This schedule contains the zone dry-bulb temperature versus time above which
+        |  mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Zone Temperature Schedule Name`
@@ -2974,6 +3067,7 @@ class ZoneMixing(DataObject):
 
         Returns:
             str: the value of `maximum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Zone Temperature Schedule Name"]
 
@@ -2985,8 +3079,9 @@ class ZoneMixing(DataObject):
     @property
     def minimum_source_zone_temperature_schedule_name(self):
         """field `Minimum Source Zone Temperature Schedule Name`
-        This schedule contains the source zone dry-bulb temperature versus time below
-        which mixing is shutoff.
+
+        |  This schedule contains the source zone dry-bulb temperature versus time below
+        |  which mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Source Zone Temperature Schedule Name`
@@ -2996,6 +3091,7 @@ class ZoneMixing(DataObject):
 
         Returns:
             str: the value of `minimum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Source Zone Temperature Schedule Name"]
 
@@ -3008,8 +3104,9 @@ class ZoneMixing(DataObject):
     @property
     def maximum_source_zone_temperature_schedule_name(self):
         """field `Maximum Source Zone Temperature Schedule Name`
-        This schedule contains the source zone dry-bulb temperature versus time above
-        which mixing is shutoff.
+
+        |  This schedule contains the source zone dry-bulb temperature versus time above
+        |  which mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Source Zone Temperature Schedule Name`
@@ -3019,6 +3116,7 @@ class ZoneMixing(DataObject):
 
         Returns:
             str: the value of `maximum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Source Zone Temperature Schedule Name"]
 
@@ -3030,9 +3128,10 @@ class ZoneMixing(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """field `Minimum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time below which mixing is
-        shutoff.
+        """field `Minimum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time below which
+        |  mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Temperature Schedule Name`
@@ -3054,9 +3153,10 @@ class ZoneMixing(DataObject):
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """field `Maximum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time above which mixing is
-        shutoff.
+        """field `Maximum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time above which
+        |  mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Temperature Schedule Name`
@@ -3297,23 +3397,25 @@ class ZoneCrossMixing(DataObject):
     @property
     def design_flow_rate_calculation_method(self):
         """field `Design Flow Rate Calculation Method`
-        The entered calculation method is used to create the maximum amount of ventilation
-        for this set of attributes
-        Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
-        Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-        Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
-        AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-        "Vdesign" in Equation is the result.
+
+        |  The entered calculation method is used to create the maximum amount of ventilation
+        |  for this set of attributes
+        |  Choices: Flow/Zone => Design Flow Rate -- simply enter Design Flow Rate
+        |  Flow/Area => Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
+        |  Flow/Person => Flow Rate per Person - Value * #people = Design Flow Rate
+        |  AirChanges/Hour => Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
+        |  "Vdesign" in Equation is the result.
+        |  Default value: Flow/Zone
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Default value: Flow/Zone
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -3326,9 +3428,10 @@ class ZoneCrossMixing(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3348,9 +3451,10 @@ class ZoneCrossMixing(DataObject):
     def flow_rate_per_zone_floor_area(self):
         """field `Flow Rate per Zone Floor Area`
 
+        |  Units: m3/s-m2
+
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3370,9 +3474,10 @@ class ZoneCrossMixing(DataObject):
     def flow_rate_per_person(self):
         """field `Flow Rate per Person`
 
+        |  Units: m3/s-person
+
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
-                Units: m3/s-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3392,9 +3497,10 @@ class ZoneCrossMixing(DataObject):
     def air_changes_per_hour(self):
         """field `Air Changes per Hour`
 
+        |  Units: 1/hr
+
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3433,14 +3539,15 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def delta_temperature(self):
-        """field `Delta Temperature` This field contains the constant
-        temperature differential between source and receiving zones below which
-        cross mixing is shutoff. This value must be greater than or equal to
-        zero.
+        """field `Delta Temperature`
+
+        |  This field contains the constant temperature differential between source and
+        |  receiving zones below which cross mixing is shutoff. This value must be greater
+        |  than or equal to zero.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3458,9 +3565,10 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def delta_temperature_schedule_name(self):
-        """field `Delta Temperature Schedule Name` This schedule contains the
-        temperature differential between source and receiving zones versus time
-        below which cross mixing is shutoff.
+        """field `Delta Temperature Schedule Name`
+
+        |  This schedule contains the temperature differential between source and receiving
+        |  zones versus time below which cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -3481,9 +3589,10 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def minimum_zone_temperature_schedule_name(self):
-        """field `Minimum Zone Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time below which cross mixing is
-        shutoff.
+        """field `Minimum Zone Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time below which
+        |  cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Zone Temperature Schedule Name`
@@ -3504,9 +3613,10 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def maximum_zone_temperature_schedule_name(self):
-        """field `Maximum Zone Temperature Schedule Name` This schedule
-        contains the indoor temperature versus time above which cross mixing is
-        shutoff.
+        """field `Maximum Zone Temperature Schedule Name`
+
+        |  This schedule contains the indoor temperature versus time above which
+        |  cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Zone Temperature Schedule Name`
@@ -3528,8 +3638,9 @@ class ZoneCrossMixing(DataObject):
     @property
     def minimum_source_zone_temperature_schedule_name(self):
         """field `Minimum Source Zone Temperature Schedule Name`
-        This schedule contains the source zone dry-bulb temperature versus time below
-        which cross mixing is shutoff.
+
+        |  This schedule contains the source zone dry-bulb temperature versus time below
+        |  which cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Source Zone Temperature Schedule Name`
@@ -3539,6 +3650,7 @@ class ZoneCrossMixing(DataObject):
 
         Returns:
             str: the value of `minimum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Source Zone Temperature Schedule Name"]
 
@@ -3551,8 +3663,9 @@ class ZoneCrossMixing(DataObject):
     @property
     def maximum_source_zone_temperature_schedule_name(self):
         """field `Maximum Source Zone Temperature Schedule Name`
-        This schedule contains the source zone dry-bulb temperature versus time above
-        which cross mixing is shutoff.
+
+        |  This schedule contains the source zone dry-bulb temperature versus time above
+        |  which cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Source Zone Temperature Schedule Name`
@@ -3562,6 +3675,7 @@ class ZoneCrossMixing(DataObject):
 
         Returns:
             str: the value of `maximum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Source Zone Temperature Schedule Name"]
 
@@ -3573,9 +3687,10 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """field `Minimum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time below which cross mixing
-        is shutoff.
+        """field `Minimum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time below which
+        |  cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Temperature Schedule Name`
@@ -3597,9 +3712,10 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """field `Maximum Outdoor Temperature Schedule Name` This schedule
-        contains the outdoor temperature versus time above which cross mixing
-        is shutoff.
+        """field `Maximum Outdoor Temperature Schedule Name`
+
+        |  This schedule contains the outdoor temperature versus time above which
+        |  cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Temperature Schedule Name`
@@ -3771,12 +3887,13 @@ class ZoneRefrigerationDoorMixing(DataObject):
     @property
     def schedule_name(self):
         """field `Schedule Name`
-        This schedule defines the fraction of the time the refrigeration door is open
-        For example, if the warehouse is closed at night and there are no door openings
-        between two zones, the value for that time period would be 0.
-        If doors were propped open, the value  over that time period would be 1.0
-        If the doors were open about 20% of the time, the value over that period would be 0.2
-        Schedule values must lie between 0 and 1.0
+
+        |  This schedule defines the fraction of the time the refrigeration door is open
+        |  For example, if the warehouse is closed at night and there are no door openings
+        |  between two zones, the value for that time period would be 0.
+        |  If doors were propped open, the value  over that time period would be 1.0
+        |  If the doors were open about 20% of the time, the value over that period would be 0.2
+        |  Schedule values must lie between 0 and 1.0
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3786,6 +3903,7 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
@@ -3798,11 +3916,12 @@ class ZoneRefrigerationDoorMixing(DataObject):
     def door_height(self):
         """field `Door Height`
 
+        |  Units: m
+        |  Default value: 3.0
+        |  value <= 50.0
+
         Args:
             value (float): value for IDD Field `Door Height`
-                Units: m
-                Default value: 3.0
-                value <= 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3822,11 +3941,12 @@ class ZoneRefrigerationDoorMixing(DataObject):
     def door_area(self):
         """field `Door Area`
 
+        |  Units: m2
+        |  Default value: 9.0
+        |  value <= 400.0
+
         Args:
             value (float): value for IDD Field `Door Area`
-                Units: m2
-                Default value: 9.0
-                value <= 400.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3845,20 +3965,22 @@ class ZoneRefrigerationDoorMixing(DataObject):
     @property
     def door_protection_type(self):
         """field `Door Protection Type`
-        Door protection can reduce the air flow through a refrigeration door
-        The default value is "None"
-        Choices: "None", "AirCurtain", and "StripCurtain"
-        A strip curtain reduces the air flow more than an air curtain
+
+        |  Door protection can reduce the air flow through a refrigeration door
+        |  The default value is "None"
+        |  Choices: "None", "AirCurtain", and "StripCurtain"
+        |  A strip curtain reduces the air flow more than an air curtain
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Door Protection Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `door_protection_type` or None if not set
+
         """
         return self["Door Protection Type"]
 
@@ -4134,11 +4256,13 @@ class ZoneEarthtube(DataObject):
 
     @property
     def design_flow_rate(self):
-        """field `Design Flow Rate` "Edesign" in Equation.
+        """field `Design Flow Rate`
+
+        |  "Edesign" in Equation
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4156,14 +4280,15 @@ class ZoneEarthtube(DataObject):
 
     @property
     def minimum_zone_temperature_when_cooling(self):
-        """field `Minimum Zone Temperature when Cooling` this is the indoor
-        temperature below which the earth tube is shut off.
+        """field `Minimum Zone Temperature when Cooling`
+
+        |  this is the indoor temperature below which the earth tube is shut off
+        |  Units: C
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Zone Temperature when Cooling`
-                Units: C
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4181,14 +4306,15 @@ class ZoneEarthtube(DataObject):
 
     @property
     def maximum_zone_temperature_when_heating(self):
-        """field `Maximum Zone Temperature when Heating` this is the indoor
-        temperature above which the earth tube is shut off.
+        """field `Maximum Zone Temperature when Heating`
+
+        |  this is the indoor temperature above which the earth tube is shut off
+        |  Units: C
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Zone Temperature when Heating`
-                Units: C
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4206,12 +4332,13 @@ class ZoneEarthtube(DataObject):
 
     @property
     def delta_temperature(self):
-        """field `Delta Temperature` This is the temperature difference between
-        indoor and outdoor below which the earth tube is shut off.
+        """field `Delta Temperature`
+
+        |  This is the temperature difference between indoor and outdoor below which the earth tube is shut off
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4231,9 +4358,10 @@ class ZoneEarthtube(DataObject):
     def earthtube_type(self):
         """field `Earthtube Type`
 
+        |  Default value: Natural
+
         Args:
             value (str): value for IDD Field `Earthtube Type`
-                Default value: Natural
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4251,11 +4379,13 @@ class ZoneEarthtube(DataObject):
 
     @property
     def fan_pressure_rise(self):
-        """field `Fan Pressure Rise` pressure rise across the fan.
+        """field `Fan Pressure Rise`
+
+        |  pressure rise across the fan
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4275,9 +4405,10 @@ class ZoneEarthtube(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4297,10 +4428,11 @@ class ZoneEarthtube(DataObject):
     def pipe_radius(self):
         """field `Pipe Radius`
 
+        |  Units: m
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Pipe Radius`
-                Units: m
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4320,10 +4452,11 @@ class ZoneEarthtube(DataObject):
     def pipe_thickness(self):
         """field `Pipe Thickness`
 
+        |  Units: m
+        |  Default value: 0.2
+
         Args:
             value (float): value for IDD Field `Pipe Thickness`
-                Units: m
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4343,10 +4476,11 @@ class ZoneEarthtube(DataObject):
     def pipe_length(self):
         """field `Pipe Length`
 
+        |  Units: m
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `Pipe Length`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4366,10 +4500,11 @@ class ZoneEarthtube(DataObject):
     def pipe_thermal_conductivity(self):
         """field `Pipe Thermal Conductivity`
 
+        |  Units: W/m-K
+        |  Default value: 200.0
+
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
-                Units: W/m-K
-                Default value: 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4389,10 +4524,11 @@ class ZoneEarthtube(DataObject):
     def pipe_depth_under_ground_surface(self):
         """field `Pipe Depth Under Ground Surface`
 
+        |  Units: m
+        |  Default value: 3.0
+
         Args:
             value (float): value for IDD Field `Pipe Depth Under Ground Surface`
-                Units: m
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4412,9 +4548,10 @@ class ZoneEarthtube(DataObject):
     def soil_condition(self):
         """field `Soil Condition`
 
+        |  Default value: HeavyAndDamp
+
         Args:
             value (str): value for IDD Field `Soil Condition`
-                Default value: HeavyAndDamp
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4434,9 +4571,10 @@ class ZoneEarthtube(DataObject):
     def average_soil_surface_temperature(self):
         """field `Average Soil Surface Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Average Soil Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4456,9 +4594,10 @@ class ZoneEarthtube(DataObject):
     def amplitude_of_soil_surface_temperature(self):
         """field `Amplitude of Soil Surface Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4478,9 +4617,10 @@ class ZoneEarthtube(DataObject):
     def phase_constant_of_soil_surface_temperature(self):
         """field `Phase Constant of Soil Surface Temperature`
 
+        |  Units: days
+
         Args:
             value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
-                Units: days
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4499,11 +4639,13 @@ class ZoneEarthtube(DataObject):
 
     @property
     def constant_term_flow_coefficient(self):
-        """field `Constant Term Flow Coefficient` "A" in Equation.
+        """field `Constant Term Flow Coefficient`
+
+        |  "A" in Equation
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Constant Term Flow Coefficient`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4521,7 +4663,9 @@ class ZoneEarthtube(DataObject):
 
     @property
     def temperature_term_flow_coefficient(self):
-        """field `Temperature Term Flow Coefficient` "B" in Equation.
+        """field `Temperature Term Flow Coefficient`
+
+        |  "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Flow Coefficient`
@@ -4542,7 +4686,9 @@ class ZoneEarthtube(DataObject):
 
     @property
     def velocity_term_flow_coefficient(self):
-        """field `Velocity Term Flow Coefficient` "C" in Equation.
+        """field `Velocity Term Flow Coefficient`
+
+        |  "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Flow Coefficient`
@@ -4563,7 +4709,9 @@ class ZoneEarthtube(DataObject):
 
     @property
     def velocity_squared_term_flow_coefficient(self):
-        """field `Velocity Squared Term Flow Coefficient` "D" in Equation.
+        """field `Velocity Squared Term Flow Coefficient`
+
+        |  "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Flow Coefficient`
@@ -4739,9 +4887,10 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4783,8 +4932,9 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def water_supply_storage_tank_name(self):
-        """field `Water Supply Storage Tank Name` In case of stand alone tank
-        or underground water, leave this input blank.
+        """field `Water Supply Storage Tank Name`
+
+        |  In case of stand alone tank or underground water, leave this input blank
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -4806,18 +4956,20 @@ class ZoneCoolTowerShower(DataObject):
     @property
     def flow_control_type(self):
         """field `Flow Control Type`
-        Water flow schedule should be selected when the water flow rate is known.
-        Wind-driven flow should be selected when the water flow rate is unknown.
+
+        |  Water flow schedule should be selected when the water flow rate is known.
+        |  Wind-driven flow should be selected when the water flow rate is unknown.
+        |  Default value: WindDrivenFlow
 
         Args:
             value (str): value for IDD Field `Flow Control Type`
-                Default value: WindDrivenFlow
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `flow_control_type` or None if not set
+
         """
         return self["Flow Control Type"]
 
@@ -4851,9 +5003,10 @@ class ZoneCoolTowerShower(DataObject):
     def maximum_water_flow_rate(self):
         """field `Maximum Water Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4871,12 +5024,13 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def effective_tower_height(self):
-        """field `Effective Tower Height` This field is from either the spray
-        or the wet pad to the top of the outlet.
+        """field `Effective Tower Height`
+
+        |  This field is from either the spray or the wet pad to the top of the outlet.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Effective Tower Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4894,14 +5048,14 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def airflow_outlet_area(self):
-        """field `Airflow Outlet Area` User have to specify effective area when
-        outlet area is relatively bigger than the cross sectional area of
-        cooltower. If the number of outlet is more than one, assume the air
-        passes through only one.
+        """field `Airflow Outlet Area`
+
+        |  User have to specify effective area when outlet area is relatively bigger than the cross sectional area
+        |  of cooltower. If the number of outlet is more than one, assume the air passes through only one.
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Airflow Outlet Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4921,9 +5075,10 @@ class ZoneCoolTowerShower(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4941,14 +5096,15 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def minimum_indoor_temperature(self):
-        """field `Minimum Indoor Temperature` This field is to specify the
-        indoor temperature below which cooltower is shutoff.
+        """field `Minimum Indoor Temperature`
+
+        |  This field is to specify the indoor temperature below which cooltower is shutoff.
+        |  Units: C
+        |  value >= -100.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
-                Units: C
-                value >= -100.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4968,9 +5124,10 @@ class ZoneCoolTowerShower(DataObject):
     def fraction_of_water_loss(self):
         """field `Fraction of Water Loss`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Water Loss`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4990,9 +5147,10 @@ class ZoneCoolTowerShower(DataObject):
     def fraction_of_flow_schedule(self):
         """field `Fraction of Flow Schedule`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Flow Schedule`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5012,9 +5170,10 @@ class ZoneCoolTowerShower(DataObject):
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5804,7 +5963,9 @@ class ZoneThermalChimney(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of zone that is the thermal chimney.
+        """field `Zone Name`
+
+        |  Name of zone that is the thermal chimney
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5825,9 +5986,10 @@ class ZoneThermalChimney(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5850,9 +6012,10 @@ class ZoneThermalChimney(DataObject):
     def width_of_the_absorber_wall(self):
         """field `Width of the Absorber Wall`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Width of the Absorber Wall`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5872,9 +6035,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_area_of_air_channel_outlet(self):
         """field `Cross Sectional Area of Air Channel Outlet`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Area of Air Channel Outlet`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5895,10 +6059,11 @@ class ZoneThermalChimney(DataObject):
     def discharge_coefficient(self):
         """field `Discharge Coefficient`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5939,9 +6104,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_1(self):
         """field `Distance from Top of Thermal Chimney to Inlet 1`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 1`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5962,10 +6128,11 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_1(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 1`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 1`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5989,9 +6156,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_1(self):
         """field `Cross Sectional Areas of Air Channel Inlet 1`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 1`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6033,9 +6201,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_2(self):
         """field `Distance from Top of Thermal Chimney to Inlet 2`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 2`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6056,9 +6225,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_2(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 2`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 2`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6082,9 +6252,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_2(self):
         """field `Cross Sectional Areas of Air Channel Inlet 2`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 2`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6126,9 +6297,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_3(self):
         """field `Distance from Top of Thermal Chimney to Inlet 3`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 3`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6149,9 +6321,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_3(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 3`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 3`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6175,9 +6348,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_3(self):
         """field `Cross Sectional Areas of Air Channel Inlet 3`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 3`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6219,9 +6393,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_4(self):
         """field `Distance from Top of Thermal Chimney to Inlet 4`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 4`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6242,9 +6417,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_4(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 4`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 4`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6268,9 +6444,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_4(self):
         """field `Cross Sectional Areas of Air Channel Inlet 4`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 4`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6312,9 +6489,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_5(self):
         """field `Distance from Top of Thermal Chimney to Inlet 5`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 5`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6335,9 +6513,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_5(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 5`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 5`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6361,9 +6540,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_5(self):
         """field `Cross Sectional Areas of Air Channel Inlet 5`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 5`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6405,9 +6585,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_6(self):
         """field `Distance from Top of Thermal Chimney to Inlet 6`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 6`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6428,9 +6609,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_6(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 6`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 6`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6454,9 +6636,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_6(self):
         """field `Cross Sectional Areas of Air Channel Inlet 6`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 6`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6498,9 +6681,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_7(self):
         """field `Distance from Top of Thermal Chimney to Inlet 7`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 7`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6521,9 +6705,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_7(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 7`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 7`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6547,9 +6732,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_7(self):
         """field `Cross Sectional Areas of Air Channel Inlet 7`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 7`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6591,9 +6777,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_8(self):
         """field `Distance from Top of Thermal Chimney to Inlet 8`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 8`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6614,9 +6801,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_8(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 8`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 8`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6640,9 +6828,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_8(self):
         """field `Cross Sectional Areas of Air Channel Inlet 8`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 8`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6684,9 +6873,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_9(self):
         """field `Distance from Top of Thermal Chimney to Inlet 9`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 9`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6707,9 +6897,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_9(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 9`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 9`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6733,9 +6924,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_9(self):
         """field `Cross Sectional Areas of Air Channel Inlet 9`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 9`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6777,9 +6969,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_10(self):
         """field `Distance from Top of Thermal Chimney to Inlet 10`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 10`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6800,9 +6993,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_10(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 10`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 10`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6827,9 +7021,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_10(self):
         """field `Cross Sectional Areas of Air Channel Inlet 10`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 10`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6871,9 +7066,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_11(self):
         """field `Distance from Top of Thermal Chimney to Inlet 11`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 11`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6894,9 +7090,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_11(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 11`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 11`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6921,9 +7118,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_11(self):
         """field `Cross Sectional Areas of Air Channel Inlet 11`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 11`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6965,9 +7163,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_12(self):
         """field `Distance from Top of Thermal Chimney to Inlet 12`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 12`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6988,9 +7187,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_12(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 12`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 12`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7015,9 +7215,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_12(self):
         """field `Cross Sectional Areas of Air Channel Inlet 12`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 12`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7059,9 +7260,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_13(self):
         """field `Distance from Top of Thermal Chimney to Inlet 13`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 13`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7082,9 +7284,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_13(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 13`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 13`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7109,9 +7312,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_13(self):
         """field `Cross Sectional Areas of Air Channel Inlet 13`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 13`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7153,9 +7357,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_14(self):
         """field `Distance from Top of Thermal Chimney to Inlet 14`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 14`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7176,9 +7381,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_14(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 14`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 14`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7203,9 +7409,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_14(self):
         """field `Cross Sectional Areas of Air Channel Inlet 14`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 14`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7247,9 +7454,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_15(self):
         """field `Distance from Top of Thermal Chimney to Inlet 15`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 15`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7270,9 +7478,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_15(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 15`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 15`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7297,9 +7506,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_15(self):
         """field `Cross Sectional Areas of Air Channel Inlet 15`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 15`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7341,9 +7551,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_16(self):
         """field `Distance from Top of Thermal Chimney to Inlet 16`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 16`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7364,9 +7575,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_16(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 16`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 16`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7391,9 +7603,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_16(self):
         """field `Cross Sectional Areas of Air Channel Inlet 16`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 16`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7435,9 +7648,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_17(self):
         """field `Distance from Top of Thermal Chimney to Inlet 17`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 17`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7458,9 +7672,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_17(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 17`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 17`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7485,9 +7700,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_17(self):
         """field `Cross Sectional Areas of Air Channel Inlet 17`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 17`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7529,9 +7745,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_18(self):
         """field `Distance from Top of Thermal Chimney to Inlet 18`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 18`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7552,9 +7769,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_18(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 18`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 18`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7579,9 +7797,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_18(self):
         """field `Cross Sectional Areas of Air Channel Inlet 18`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 18`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7623,9 +7842,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_19(self):
         """field `Distance from Top of Thermal Chimney to Inlet 19`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 19`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7646,9 +7866,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_19(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 19`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 19`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7673,9 +7894,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_19(self):
         """field `Cross Sectional Areas of Air Channel Inlet 19`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 19`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7717,9 +7939,10 @@ class ZoneThermalChimney(DataObject):
     def distance_from_top_of_thermal_chimney_to_inlet_20(self):
         """field `Distance from Top of Thermal Chimney to Inlet 20`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 20`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7740,9 +7963,10 @@ class ZoneThermalChimney(DataObject):
     def relative_ratios_of_air_flow_rates_passing_through_zone_20(self):
         """field `Relative Ratios of Air Flow Rates Passing through Zone 20`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 20`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7767,9 +7991,10 @@ class ZoneThermalChimney(DataObject):
     def cross_sectional_areas_of_air_channel_inlet_20(self):
         """field `Cross Sectional Areas of Air Channel Inlet 20`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 20`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value

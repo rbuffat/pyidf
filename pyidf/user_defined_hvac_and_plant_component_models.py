@@ -148,7 +148,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def name(self):
-        """field `Name` This is the name of the zone unit.
+        """field `Name`
+
+        |  This is the name of the zone unit
 
         Args:
             value (str): value for IDD Field `Name`
@@ -215,8 +217,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def primary_air_inlet_node_name(self):
-        """field `Primary Air Inlet Node Name` Air inlet node for the unit must
-        be a zone air exhaust Node.
+        """field `Primary Air Inlet Node Name`
+
+        |  Air inlet node for the unit must be a zone air exhaust Node.
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -237,8 +240,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def primary_air_outlet_node_name(self):
-        """field `Primary Air Outlet Node Name` Air outlet node for the unit
-        must be a zone air inlet node.
+        """field `Primary Air Outlet Node Name`
+
+        |  Air outlet node for the unit must be a zone air inlet node.
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -259,8 +263,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def secondary_air_inlet_node_name(self):
-        """field `Secondary Air Inlet Node Name` Inlet air used for heat
-        rejection or air source.
+        """field `Secondary Air Inlet Node Name`
+
+        |  Inlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -281,8 +286,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def secondary_air_outlet_node_name(self):
-        """field `Secondary Air Outlet Node Name` Outlet air used for heat
-        rejection or air source.
+        """field `Secondary Air Outlet Node Name`
+
+        |  Outlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Secondary Air Outlet Node Name`
@@ -305,9 +311,10 @@ class ZoneHvacForcedAirUserDefined(DataObject):
     def number_of_plant_loop_connections(self):
         """field `Number of Plant Loop Connections`
 
+        |  value <= 3
+
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
-                value <= 3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -451,8 +458,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def supply_inlet_water_storage_tank_name(self):
-        """field `Supply Inlet Water Storage Tank Name` Water use storage tank
-        for alternate source of water consumed by device.
+        """field `Supply Inlet Water Storage Tank Name`
+
+        |  Water use storage tank for alternate source of water consumed by device
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -473,8 +481,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def collection_outlet_water_storage_tank_name(self):
-        """field `Collection Outlet Water Storage Tank Name` Water use storage
-        tank for collection of condensate by device.
+        """field `Collection Outlet Water Storage Tank Name`
+
+        |  Water use storage tank for collection of condensate by device
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -496,8 +505,9 @@ class ZoneHvacForcedAirUserDefined(DataObject):
 
     @property
     def ambient_zone_name(self):
-        """field `Ambient Zone Name` Used for modeling device losses to
-        surrounding zone.
+        """field `Ambient Zone Name`
+
+        |  Used for modeling device losses to surrounding zone
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -643,7 +653,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def name(self):
-        """field `Name` This is the name of the air terminal.
+        """field `Name`
+
+        |  This is the name of the air terminal
 
         Args:
             value (str): value for IDD Field `Name`
@@ -710,8 +722,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def primary_air_inlet_node_name(self):
-        """field `Primary Air Inlet Node Name` Air inlet node for the unit must
-        be a zone splitter outlet.
+        """field `Primary Air Inlet Node Name`
+
+        |  Air inlet node for the unit must be a zone splitter outlet.
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -732,8 +745,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def primary_air_outlet_node_name(self):
-        """field `Primary Air Outlet Node Name` Air outlet node for the unit
-        must be a zone air inlet node.
+        """field `Primary Air Outlet Node Name`
+
+        |  Air outlet node for the unit must be a zone air inlet node.
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -754,8 +768,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def secondary_air_inlet_node_name(self):
-        """field `Secondary Air Inlet Node Name` Inlet air used for heat
-        rejection or air source.
+        """field `Secondary Air Inlet Node Name`
+
+        |  Inlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -776,8 +791,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def secondary_air_outlet_node_name(self):
-        """field `Secondary Air Outlet Node Name` Outlet air used for heat
-        rejection or air source.
+        """field `Secondary Air Outlet Node Name`
+
+        |  Outlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Secondary Air Outlet Node Name`
@@ -800,9 +816,10 @@ class AirTerminalSingleDuctUserDefined(DataObject):
     def number_of_plant_loop_connections(self):
         """field `Number of Plant Loop Connections`
 
+        |  value <= 2
+
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
-                value <= 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -904,8 +921,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def supply_inlet_water_storage_tank_name(self):
-        """field `Supply Inlet Water Storage Tank Name` Water use storage tank
-        for alternate source of water consumed by device.
+        """field `Supply Inlet Water Storage Tank Name`
+
+        |  Water use storage tank for alternate source of water consumed by device
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -926,8 +944,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def collection_outlet_water_storage_tank_name(self):
-        """field `Collection Outlet Water Storage Tank Name` Water use storage
-        tank for collection of condensate by device.
+        """field `Collection Outlet Water Storage Tank Name`
+
+        |  Water use storage tank for collection of condensate by device
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -949,8 +968,9 @@ class AirTerminalSingleDuctUserDefined(DataObject):
 
     @property
     def ambient_zone_name(self):
-        """field `Ambient Zone Name` Used for modeling device losses to
-        surrounding zone.
+        """field `Ambient Zone Name`
+
+        |  Used for modeling device losses to surrounding zone
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -1091,7 +1111,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def name(self):
-        """field `Name` This is the name of the coil.
+        """field `Name`
+
+        |  This is the name of the coil
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1160,10 +1182,11 @@ class CoilUserDefined(DataObject):
     def number_of_air_connections(self):
         """field `Number of Air Connections`
 
+        |  value >= 1
+        |  value <= 2
+
         Args:
             value (int): value for IDD Field `Number of Air Connections`
-                value >= 1
-                value <= 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1181,8 +1204,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def air_connection_1_inlet_node_name(self):
-        """field `Air Connection 1 Inlet Node Name` Inlet air for primary air
-        stream.
+        """field `Air Connection 1 Inlet Node Name`
+
+        |  Inlet air for primary air stream
 
         Args:
             value (str): value for IDD Field `Air Connection 1 Inlet Node Name`
@@ -1203,8 +1227,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def air_connection_1_outlet_node_name(self):
-        """field `Air Connection 1 Outlet Node Name` Outlet air for primary air
-        stream.
+        """field `Air Connection 1 Outlet Node Name`
+
+        |  Outlet air for primary air stream
 
         Args:
             value (str): value for IDD Field `Air Connection 1 Outlet Node Name`
@@ -1225,8 +1250,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def air_connection_2_inlet_node_name(self):
-        """field `Air Connection 2 Inlet Node Name` Inlet air for secondary air
-        stream.
+        """field `Air Connection 2 Inlet Node Name`
+
+        |  Inlet air for secondary air stream
 
         Args:
             value (str): value for IDD Field `Air Connection 2 Inlet Node Name`
@@ -1247,8 +1273,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def air_connection_2_outlet_node_name(self):
-        """field `Air Connection 2 Outlet Node Name` Outlet air for secondary
-        air stream.
+        """field `Air Connection 2 Outlet Node Name`
+
+        |  Outlet air for secondary air stream
 
         Args:
             value (str): value for IDD Field `Air Connection 2 Outlet Node Name`
@@ -1332,8 +1359,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def supply_inlet_water_storage_tank_name(self):
-        """field `Supply Inlet Water Storage Tank Name` Water use storage tank
-        for alternate source of water consumed by device.
+        """field `Supply Inlet Water Storage Tank Name`
+
+        |  Water use storage tank for alternate source of water consumed by device
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -1354,8 +1382,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def collection_outlet_water_storage_tank_name(self):
-        """field `Collection Outlet Water Storage Tank Name` Water use storage
-        tank for collection of condensate by device.
+        """field `Collection Outlet Water Storage Tank Name`
+
+        |  Water use storage tank for collection of condensate by device
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -1377,8 +1406,9 @@ class CoilUserDefined(DataObject):
 
     @property
     def ambient_zone_name(self):
-        """field `Ambient Zone Name` Used for modeling device losses to
-        surrounding zone.
+        """field `Ambient Zone Name`
+
+        |  Used for modeling device losses to surrounding zone
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -1675,7 +1705,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def name(self):
-        """field `Name` This is the name of the plant component.
+        """field `Name`
+
+        |  This is the name of the plant component
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1720,10 +1752,11 @@ class PlantComponentUserDefined(DataObject):
     def number_of_plant_loop_connections(self):
         """field `Number of Plant Loop Connections`
 
+        |  value >= 1
+        |  value <= 4
+
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
-                value >= 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2293,8 +2326,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def air_connection_inlet_node_name(self):
-        """field `Air Connection Inlet Node Name` Inlet air used for heat
-        rejection or air source.
+        """field `Air Connection Inlet Node Name`
+
+        |  Inlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Air Connection Inlet Node Name`
@@ -2315,8 +2349,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def air_connection_outlet_node_name(self):
-        """field `Air Connection Outlet Node Name` Outlet air used for heat
-        rejection or air source.
+        """field `Air Connection Outlet Node Name`
+
+        |  Outlet air used for heat rejection or air source
 
         Args:
             value (str): value for IDD Field `Air Connection Outlet Node Name`
@@ -2337,8 +2372,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def supply_inlet_water_storage_tank_name(self):
-        """field `Supply Inlet Water Storage Tank Name` Water use storage tank
-        for alternate source of water consumed by device.
+        """field `Supply Inlet Water Storage Tank Name`
+
+        |  Water use storage tank for alternate source of water consumed by device
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -2359,8 +2395,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def collection_outlet_water_storage_tank_name(self):
-        """field `Collection Outlet Water Storage Tank Name` Water use storage
-        tank for collection of condensate by device.
+        """field `Collection Outlet Water Storage Tank Name`
+
+        |  Water use storage tank for collection of condensate by device
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -2382,8 +2419,9 @@ class PlantComponentUserDefined(DataObject):
 
     @property
     def ambient_zone_name(self):
-        """field `Ambient Zone Name` Used for modeling device losses to
-        surrounding zone.
+        """field `Ambient Zone Name`
+
+        |  Used for modeling device losses to surrounding zone
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -2583,7 +2621,9 @@ class PlantEquipmentOperationUserDefined(DataObject):
 
     @property
     def name(self):
-        """field `Name` This is the name of the plant operation scheme.
+        """field `Name`
+
+        |  This is the name of the plant operation scheme
 
         Args:
             value (str): value for IDD Field `Name`

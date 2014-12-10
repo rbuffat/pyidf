@@ -56,13 +56,13 @@ class TestSizingPeriodDesignDay(unittest.TestCase):
         var_humidity_condition_day_schedule_name = "object-list|Humidity Condition Day Schedule Name"
         obj.humidity_condition_day_schedule_name = var_humidity_condition_day_schedule_name
         # real
-        var_humidity_ratio_at_maximum_drybulb = 12.12
-        obj.humidity_ratio_at_maximum_drybulb = var_humidity_ratio_at_maximum_drybulb
+        var_humidity_ratio_at_maximum_drybulb_v3 = 12.12
+        obj.humidity_ratio_at_maximum_drybulb_v3 = var_humidity_ratio_at_maximum_drybulb_v3
         # real
-        var_enthalpy_at_maximum_drybulb_will_require_units_transition_ = 13.13
-        obj.enthalpy_at_maximum_drybulb_will_require_units_transition_ = var_enthalpy_at_maximum_drybulb_will_require_units_transition_
+        var_humidity_ratio_at_maximum_drybulb_v3 = 12.12
+        obj.humidity_ratio_at_maximum_drybulb_v3 = var_humidity_ratio_at_maximum_drybulb_v3
         # real
-        var_daily_wetbulb_temperature_range = 14.14
+        var_daily_wetbulb_temperature_range = 13.13
         obj.daily_wetbulb_temperature_range = var_daily_wetbulb_temperature_range
         # real
         var_barometric_pressure = 75500.0
@@ -121,8 +121,8 @@ class TestSizingPeriodDesignDay(unittest.TestCase):
         self.assertEqual(idf2.sizingperioddesigndays[0].humidity_condition_type, var_humidity_condition_type)
         self.assertAlmostEqual(idf2.sizingperioddesigndays[0].wetbulb_or_dewpoint_at_maximum_drybulb, var_wetbulb_or_dewpoint_at_maximum_drybulb)
         self.assertEqual(idf2.sizingperioddesigndays[0].humidity_condition_day_schedule_name, var_humidity_condition_day_schedule_name)
-        self.assertAlmostEqual(idf2.sizingperioddesigndays[0].humidity_ratio_at_maximum_drybulb, var_humidity_ratio_at_maximum_drybulb)
-        self.assertAlmostEqual(idf2.sizingperioddesigndays[0].enthalpy_at_maximum_drybulb_will_require_units_transition_, var_enthalpy_at_maximum_drybulb_will_require_units_transition_)
+        self.assertAlmostEqual(idf2.sizingperioddesigndays[0].humidity_ratio_at_maximum_drybulb_v3, var_humidity_ratio_at_maximum_drybulb_v3)
+        self.assertAlmostEqual(idf2.sizingperioddesigndays[0].humidity_ratio_at_maximum_drybulb_v3, var_humidity_ratio_at_maximum_drybulb_v3)
         self.assertAlmostEqual(idf2.sizingperioddesigndays[0].daily_wetbulb_temperature_range, var_daily_wetbulb_temperature_range)
         self.assertAlmostEqual(idf2.sizingperioddesigndays[0].barometric_pressure, var_barometric_pressure)
         self.assertAlmostEqual(idf2.sizingperioddesigndays[0].wind_speed, var_wind_speed)

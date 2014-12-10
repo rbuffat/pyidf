@@ -234,11 +234,12 @@ class DaylightingControls(DataObject):
     def total_daylighting_reference_points(self):
         """field `Total Daylighting Reference Points`
 
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 2
+
         Args:
             value (int): value for IDD Field `Total Daylighting Reference Points`
-                Default value: 1
-                value >= 1
-                value <= 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -258,9 +259,10 @@ class DaylightingControls(DataObject):
     def xcoordinate_of_first_reference_point(self):
         """field `X-Coordinate of First Reference Point`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `X-Coordinate of First Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -281,9 +283,10 @@ class DaylightingControls(DataObject):
     def ycoordinate_of_first_reference_point(self):
         """field `Y-Coordinate of First Reference Point`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Y-Coordinate of First Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -304,10 +307,11 @@ class DaylightingControls(DataObject):
     def zcoordinate_of_first_reference_point(self):
         """field `Z-Coordinate of First Reference Point`
 
+        |  Units: m
+        |  Default value: 0.8
+
         Args:
             value (float): value for IDD Field `Z-Coordinate of First Reference Point`
-                Units: m
-                Default value: 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -327,11 +331,12 @@ class DaylightingControls(DataObject):
     @property
     def xcoordinate_of_second_reference_point(self):
         """field `X-Coordinate of Second Reference Point`
-        Required if Total Daylighting Reference Points = 2
+
+        |  Required if Total Daylighting Reference Points = 2
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `X-Coordinate of Second Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -351,11 +356,12 @@ class DaylightingControls(DataObject):
     @property
     def ycoordinate_of_second_reference_point(self):
         """field `Y-Coordinate of Second Reference Point`
-        Required if Total Daylighting Reference Points = 2
+
+        |  Required if Total Daylighting Reference Points = 2
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Y-Coordinate of Second Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -376,10 +382,11 @@ class DaylightingControls(DataObject):
     def zcoordinate_of_second_reference_point(self):
         """field `Z-Coordinate of Second Reference Point`
 
+        |  Units: m
+        |  Default value: 0.8
+
         Args:
             value (float): value for IDD Field `Z-Coordinate of Second Reference Point`
-                Units: m
-                Default value: 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -400,10 +407,11 @@ class DaylightingControls(DataObject):
     def fraction_of_zone_controlled_by_first_reference_point(self):
         """field `Fraction of Zone Controlled by First Reference Point`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by First Reference Point`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -424,9 +432,10 @@ class DaylightingControls(DataObject):
     def fraction_of_zone_controlled_by_second_reference_point(self):
         """field `Fraction of Zone Controlled by Second Reference Point`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by Second Reference Point`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -449,10 +458,11 @@ class DaylightingControls(DataObject):
     def illuminance_setpoint_at_first_reference_point(self):
         """field `Illuminance Setpoint at First Reference Point`
 
+        |  Units: lux
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Illuminance Setpoint at First Reference Point`
-                Units: lux
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -473,10 +483,11 @@ class DaylightingControls(DataObject):
     def illuminance_setpoint_at_second_reference_point(self):
         """field `Illuminance Setpoint at Second Reference Point`
 
+        |  Units: lux
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Illuminance Setpoint at Second Reference Point`
-                Units: lux
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -496,19 +507,21 @@ class DaylightingControls(DataObject):
     @property
     def lighting_control_type(self):
         """field `Lighting Control Type`
-        1=continuous,2=stepped,3=continuous/off
+
+        |  1=continuous,2=stepped,3=continuous/off
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 3
 
         Args:
             value (int): value for IDD Field `Lighting Control Type`
-                Default value: 1
-                value >= 1
-                value <= 3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `lighting_control_type` or None if not set
+
         """
         return self["Lighting Control Type"]
 
@@ -522,10 +535,11 @@ class DaylightingControls(DataObject):
             self):
         """field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
 
+        |  Units: deg
+        |  value <= 360.0
+
         Args:
             value (float): value for IDD Field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -548,13 +562,14 @@ class DaylightingControls(DataObject):
 
     @property
     def maximum_allowable_discomfort_glare_index(self):
-        """field `Maximum Allowable Discomfort Glare Index` The default is for
-        general office work.
+        """field `Maximum Allowable Discomfort Glare Index`
+
+        |  The default is for general office work
+        |  Default value: 22.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Allowable Discomfort Glare Index`
-                Default value: 22.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -575,10 +590,11 @@ class DaylightingControls(DataObject):
     def minimum_input_power_fraction_for_continuous_dimming_control(self):
         """field `Minimum Input Power Fraction for Continuous Dimming Control`
 
+        |  Default value: 0.3
+        |  value <= 0.6
+
         Args:
             value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
-                Default value: 0.3
-                value <= 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -603,10 +619,11 @@ class DaylightingControls(DataObject):
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
         """field `Minimum Light Output Fraction for Continuous Dimming Control`
 
+        |  Default value: 0.2
+        |  value <= 0.6
+
         Args:
             value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
-                Default value: 0.2
-                value <= 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -630,17 +647,19 @@ class DaylightingControls(DataObject):
     @property
     def number_of_stepped_control_steps(self):
         """field `Number of Stepped Control Steps`
-        for Lighting Control Type=2, this field cannot be zero.
+
+        |  for Lighting Control Type=2, this field cannot be zero.
+        |  Default value: 1
 
         Args:
             value (int): value for IDD Field `Number of Stepped Control Steps`
-                Default value: 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_stepped_control_steps` or None if not set
+
         """
         return self["Number of Stepped Control Steps"]
 
@@ -655,10 +674,11 @@ class DaylightingControls(DataObject):
         """field `Probability Lighting will be Reset When Needed in Manual
         Stepped Control`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -812,8 +832,9 @@ class DaylightingDelightControls(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of Thermal Zone hosting the given DElight
-        Zone.
+        """field `Zone Name`
+
+        |  Name of Thermal Zone hosting the given DElight Zone
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -835,19 +856,21 @@ class DaylightingDelightControls(DataObject):
     @property
     def lighting_control_type(self):
         """field `Lighting Control Type`
-        1=continuous,2=stepped,3=continuous/off
+
+        |  1=continuous,2=stepped,3=continuous/off
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 3
 
         Args:
             value (int): value for IDD Field `Lighting Control Type`
-                Default value: 1
-                value >= 1
-                value <= 3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `lighting_control_type` or None if not set
+
         """
         return self["Lighting Control Type"]
 
@@ -860,10 +883,11 @@ class DaylightingDelightControls(DataObject):
     def minimum_input_power_fraction_for_continuous_dimming_control(self):
         """field `Minimum Input Power Fraction for Continuous Dimming Control`
 
+        |  Default value: 0.3
+        |  value <= 0.6
+
         Args:
             value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
-                Default value: 0.3
-                value <= 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -888,10 +912,11 @@ class DaylightingDelightControls(DataObject):
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
         """field `Minimum Light Output Fraction for Continuous Dimming Control`
 
+        |  Default value: 0.2
+        |  value <= 0.6
+
         Args:
             value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
-                Default value: 0.2
-                value <= 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -915,17 +940,19 @@ class DaylightingDelightControls(DataObject):
     @property
     def number_of_stepped_control_steps(self):
         """field `Number of Stepped Control Steps`
-        for Lighting Control Type=2, this field cannot be zero.
+
+        |  for Lighting Control Type=2, this field cannot be zero.
+        |  Default value: 1
 
         Args:
             value (int): value for IDD Field `Number of Stepped Control Steps`
-                Default value: 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_stepped_control_steps` or None if not set
+
         """
         return self["Number of Stepped Control Steps"]
 
@@ -940,9 +967,10 @@ class DaylightingDelightControls(DataObject):
         """field `Probability Lighting will be Reset When Needed in Manual
         Stepped Control`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -965,16 +993,17 @@ class DaylightingDelightControls(DataObject):
 
     @property
     def gridding_resolution(self):
-        """field `Gridding Resolution` Maximum surface area for nodes in
-        gridding all surfaces in the DElight zone. All reflective and
-        transmitting surfaces will be subdivided into approximately square
-        nodes that do not exceed this maximum. Higher resolution subdivisions
-        require greater calculation times, but generally produce more accurate
-        results.
+        """field `Gridding Resolution`
+
+        |  Maximum surface area for nodes in gridding all surfaces in the DElight zone.
+        |  All reflective and transmitting surfaces will be subdivided
+        |  into approximately square nodes that do not exceed this maximum.
+        |  Higher resolution subdivisions require greater calculation times,
+        |  but generally produce more accurate results.
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Gridding Resolution`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1114,9 +1143,10 @@ class DaylightingDelightReferencePoint(DataObject):
     def xcoordinate_of_reference_point(self):
         """field `X-coordinate of Reference Point`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `X-coordinate of Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1137,9 +1167,10 @@ class DaylightingDelightReferencePoint(DataObject):
     def ycoordinate_of_reference_point(self):
         """field `Y-coordinate of Reference Point`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Y-coordinate of Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1160,9 +1191,10 @@ class DaylightingDelightReferencePoint(DataObject):
     def zcoordinate_of_reference_point(self):
         """field `Z-coordinate of Reference Point`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Z-coordinate of Reference Point`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1183,10 +1215,11 @@ class DaylightingDelightReferencePoint(DataObject):
     def fraction_of_zone_controlled_by_reference_point(self):
         """field `Fraction of Zone Controlled by Reference Point`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by Reference Point`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1207,10 +1240,11 @@ class DaylightingDelightReferencePoint(DataObject):
     def illuminance_setpoint_at_reference_point(self):
         """field `Illuminance Setpoint at Reference Point`
 
+        |  Units: lux
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Illuminance Setpoint at Reference Point`
-                Units: lux
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1283,7 +1317,9 @@ class DaylightingDelightComplexFenestration(DataObject):
 
     @property
     def name(self):
-        """field `Name` Only used for user reference.
+        """field `Name`
+
+        |  Only used for user reference
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1304,8 +1340,9 @@ class DaylightingDelightComplexFenestration(DataObject):
 
     @property
     def complex_fenestration_type(self):
-        """field `Complex Fenestration Type` Used to select the appropriate
-        Complex Fenestration BTDF data.
+        """field `Complex Fenestration Type`
+
+        |  Used to select the appropriate Complex Fenestration BTDF data
 
         Args:
             value (str): value for IDD Field `Complex Fenestration Type`
@@ -1327,9 +1364,10 @@ class DaylightingDelightComplexFenestration(DataObject):
     @property
     def building_surface_name(self):
         """field `Building Surface Name`
-        This is a reference to a valid surface object (such as BuildingSurface:Detailed) hosting
-        this complex fenestration, analogous to the base surface Name
-        field for subsurfaces such as Windows.
+
+        |  This is a reference to a valid surface object (such as BuildingSurface:Detailed) hosting
+        |  this complex fenestration, analogous to the base surface Name
+        |  field for subsurfaces such as Windows.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -1339,6 +1377,7 @@ class DaylightingDelightComplexFenestration(DataObject):
 
         Returns:
             str: the value of `building_surface_name` or None if not set
+
         """
         return self["Building Surface Name"]
 
@@ -1350,9 +1389,10 @@ class DaylightingDelightComplexFenestration(DataObject):
     @property
     def window_name(self):
         """field `Window Name`
-        This is a reference to a valid FenestrationSurface:Detailed window object
-        used to account for the geometry, and the solar and thermal gains/losses,
-        of the Complex Fenestration
+
+        |  This is a reference to a valid FenestrationSurface:Detailed window object
+        |  used to account for the geometry, and the solar and thermal gains/losses,
+        |  of the Complex Fenestration
 
         Args:
             value (str): value for IDD Field `Window Name`
@@ -1362,6 +1402,7 @@ class DaylightingDelightComplexFenestration(DataObject):
 
         Returns:
             str: the value of `window_name` or None if not set
+
         """
         return self["Window Name"]
 
@@ -1373,20 +1414,22 @@ class DaylightingDelightComplexFenestration(DataObject):
     @property
     def fenestration_rotation(self):
         """field `Fenestration Rotation`
-        In-plane counter-clockwise rotation angle of the Complex Fenestration
-        optical reference direction and the base edge of the Complex Fenestration.
-        The Rotation will typically be zero when the host and CFS surfaces
-        are rectangular and height and width edges are aligned.
+
+        |  In-plane counter-clockwise rotation angle of the Complex Fenestration
+        |  optical reference direction and the base edge of the Complex Fenestration.
+        |  The Rotation will typically be zero when the host and CFS surfaces
+        |  are rectangular and height and width edges are aligned.
+        |  Units: deg
 
         Args:
             value (float): value for IDD Field `Fenestration Rotation`
-                Units: deg
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fenestration_rotation` or None if not set
+
         """
         return self["Fenestration Rotation"]
 
@@ -1508,8 +1551,9 @@ class DaylightingDeviceTubular(DataObject):
 
     @property
     def dome_name(self):
-        """field `Dome Name` This must refer to a subsurface object of type
-        TubularDaylightDome.
+        """field `Dome Name`
+
+        |  This must refer to a subsurface object of type TubularDaylightDome
 
         Args:
             value (str): value for IDD Field `Dome Name`
@@ -1530,9 +1574,10 @@ class DaylightingDeviceTubular(DataObject):
 
     @property
     def diffuser_name(self):
-        """field `Diffuser Name` This must refer to a subsurface object of type
-        TubularDaylightDiffuser Delivery zone is specified in the diffuser
-        object.
+        """field `Diffuser Name`
+
+        |  This must refer to a subsurface object of type TubularDaylightDiffuser
+        |  Delivery zone is specified in the diffuser object
 
         Args:
             value (str): value for IDD Field `Diffuser Name`
@@ -1576,9 +1621,10 @@ class DaylightingDeviceTubular(DataObject):
     def diameter(self):
         """field `Diameter`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1596,12 +1642,13 @@ class DaylightingDeviceTubular(DataObject):
 
     @property
     def total_length(self):
-        """field `Total Length` The exterior exposed length is the difference
-        between total and sum of zone lengths.
+        """field `Total Length`
+
+        |  The exterior exposed length is the difference between total and sum of zone lengths
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Total Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1619,13 +1666,14 @@ class DaylightingDeviceTubular(DataObject):
 
     @property
     def effective_thermal_resistance(self):
-        """field `Effective Thermal Resistance` R value between
-        TubularDaylightDome and TubularDaylightDiffuser.
+        """field `Effective Thermal Resistance`
+
+        |  R value between TubularDaylightDome and TubularDaylightDiffuser
+        |  Units: m2-K/W
+        |  Default value: 0.28
 
         Args:
             value (float): value for IDD Field `Effective Thermal Resistance`
-                Units: m2-K/W
-                Default value: 0.28
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1795,8 +1843,9 @@ class DaylightingDeviceShelf(DataObject):
     @property
     def inside_shelf_name(self):
         """field `Inside Shelf Name`
-        This must refer to a BuildingSurface:Detailed or equivalent object
-        This surface must be its own Surface for other side boundary conditions.
+
+        |  This must refer to a BuildingSurface:Detailed or equivalent object
+        |  This surface must be its own Surface for other side boundary conditions.
 
         Args:
             value (str): value for IDD Field `Inside Shelf Name`
@@ -1806,6 +1855,7 @@ class DaylightingDeviceShelf(DataObject):
 
         Returns:
             str: the value of `inside_shelf_name` or None if not set
+
         """
         return self["Inside Shelf Name"]
 
@@ -1817,7 +1867,8 @@ class DaylightingDeviceShelf(DataObject):
     @property
     def outside_shelf_name(self):
         """field `Outside Shelf Name`
-        This must refer to a Shading:Zone:Detailed object
+
+        |  This must refer to a Shading:Zone:Detailed object
 
         Args:
             value (str): value for IDD Field `Outside Shelf Name`
@@ -1827,6 +1878,7 @@ class DaylightingDeviceShelf(DataObject):
 
         Returns:
             str: the value of `outside_shelf_name` or None if not set
+
         """
         return self["Outside Shelf Name"]
 
@@ -1837,8 +1889,9 @@ class DaylightingDeviceShelf(DataObject):
 
     @property
     def outside_shelf_construction_name(self):
-        """field `Outside Shelf Construction Name` Required if outside shelf is
-        specified.
+        """field `Outside Shelf Construction Name`
+
+        |  Required if outside shelf is specified
 
         Args:
             value (str): value for IDD Field `Outside Shelf Construction Name`
@@ -1861,9 +1914,10 @@ class DaylightingDeviceShelf(DataObject):
     def view_factor_to_outside_shelf(self):
         """field `View Factor to Outside Shelf`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `View Factor to Outside Shelf`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1965,12 +2019,13 @@ class DaylightingDeviceLightWell(DataObject):
 
     @property
     def height_of_well(self):
-        """field `Height of Well` Distance from Bottom of Window to Bottom of
-        Well.
+        """field `Height of Well`
+
+        |  Distance from Bottom of Window to Bottom of Well
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Height of Well`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1990,9 +2045,10 @@ class DaylightingDeviceLightWell(DataObject):
     def perimeter_of_bottom_of_well(self):
         """field `Perimeter of Bottom of Well`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Perimeter of Bottom of Well`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2012,9 +2068,10 @@ class DaylightingDeviceLightWell(DataObject):
     def area_of_bottom_of_well(self):
         """field `Area of Bottom of Well`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Area of Bottom of Well`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2034,10 +2091,11 @@ class DaylightingDeviceLightWell(DataObject):
     def visible_reflectance_of_well_walls(self):
         """field `Visible Reflectance of Well Walls`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Visible Reflectance of Well Walls`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2242,9 +2300,10 @@ class OutputIlluminanceMap(DataObject):
     def z_height(self):
         """field `Z height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Z height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2264,9 +2323,10 @@ class OutputIlluminanceMap(DataObject):
     def x_minimum_coordinate(self):
         """field `X Minimum Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `X Minimum Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2286,10 +2346,11 @@ class OutputIlluminanceMap(DataObject):
     def x_maximum_coordinate(self):
         """field `X Maximum Coordinate`
 
+        |  Units: m
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `X Maximum Coordinate`
-                Units: m
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2308,17 +2369,19 @@ class OutputIlluminanceMap(DataObject):
     @property
     def number_of_x_grid_points(self):
         """field `Number of X Grid Points`
-        Maximum number of total grid points must be <= 2500 (X*Y)
+
+        |  Maximum number of total grid points must be <= 2500 (X*Y)
+        |  Default value: 2
 
         Args:
             value (int): value for IDD Field `Number of X Grid Points`
-                Default value: 2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_x_grid_points` or None if not set
+
         """
         return self["Number of X Grid Points"]
 
@@ -2331,9 +2394,10 @@ class OutputIlluminanceMap(DataObject):
     def y_minimum_coordinate(self):
         """field `Y Minimum Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Y Minimum Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2353,10 +2417,11 @@ class OutputIlluminanceMap(DataObject):
     def y_maximum_coordinate(self):
         """field `Y Maximum Coordinate`
 
+        |  Units: m
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Y Maximum Coordinate`
-                Units: m
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2375,17 +2440,19 @@ class OutputIlluminanceMap(DataObject):
     @property
     def number_of_y_grid_points(self):
         """field `Number of Y Grid Points`
-        Maximum number of total grid points must be <= 2500 (X*Y)
+
+        |  Maximum number of total grid points must be <= 2500 (X*Y)
+        |  Default value: 2
 
         Args:
             value (int): value for IDD Field `Number of Y Grid Points`
-                Default value: 2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_y_grid_points` or None if not set
+
         """
         return self["Number of Y Grid Points"]
 
@@ -2429,9 +2496,10 @@ class OutputControlIlluminanceMapStyle(DataObject):
     def column_separator(self):
         """field `Column Separator`
 
+        |  Default value: Comma
+
         Args:
             value (str): value for IDD Field `Column Separator`
-                Default value: Comma
 
         Raises:
             ValueError: if `value` is not a valid value

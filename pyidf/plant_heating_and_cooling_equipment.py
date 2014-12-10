@@ -228,15 +228,16 @@ class BoilerHotWater(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -248,12 +249,13 @@ class BoilerHotWater(DataObject):
 
     @property
     def nominal_thermal_efficiency(self):
-        """field `Nominal Thermal Efficiency` Based on the higher heating value
-        of fuel.
+        """field `Nominal Thermal Efficiency`
+
+        |  Based on the higher heating value of fuel.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Nominal Thermal Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -294,18 +296,19 @@ class BoilerHotWater(DataObject):
     @property
     def normalized_boiler_efficiency_curve_name(self):
         """field `Normalized Boiler Efficiency Curve Name`
-        Linear, Quadratic and Cubic efficiency curves are solely a function of PLR.
-        All other efficiency curve types are a function of PLR and boiler water temperature.
-        Linear = C1 + C2*PLR
-        Quadratic = C1 + C2*PLR + C3*PLR^2
-        Cubic = C1 + C2*PLR + C3*PLR^2 + C4*PLR^3
-        Biquadratic = C1 + C2*PLR + C3*PLR^2 + C4*T + C5*T^2 + C6*PLR*T
-        QuadraticLinear = C1 + C2*PLR + C3*PLR^2 + (C4 + C5*PLR + C6*PLR^2)*T
-        BiCubic = C1+C2*PLR+C3*PLR^2+C4*T+C5*T^2+C6*PLR*T+C7*PLR^3+C8*T^3+C9*PLR^2*T+C10*PLR*T^2
-        TriQuadratic curves are not allowed.
-        Table:OneIndependentVariable Table:TwoIndependentVariables
-        PLR = part-load ratio
-        T = boiler water temperature (either entering or leaving).
+
+        |  Linear, Quadratic and Cubic efficiency curves are solely a function of PLR.
+        |  All other efficiency curve types are a function of PLR and boiler water temperature.
+        |  Linear = C1 + C2*PLR
+        |  Quadratic = C1 + C2*PLR + C3*PLR^2
+        |  Cubic = C1 + C2*PLR + C3*PLR^2 + C4*PLR^3
+        |  Biquadratic = C1 + C2*PLR + C3*PLR^2 + C4*T + C5*T^2 + C6*PLR*T
+        |  QuadraticLinear = C1 + C2*PLR + C3*PLR^2 + (C4 + C5*PLR + C6*PLR^2)*T
+        |  BiCubic = C1+C2*PLR+C3*PLR^2+C4*T+C5*T^2+C6*PLR*T+C7*PLR^3+C8*T^3+C9*PLR^2*T+C10*PLR*T^2
+        |  TriQuadratic curves are not allowed.
+        |  Table:OneIndependentVariable Table:TwoIndependentVariables
+        |  PLR = part-load ratio
+        |  T = boiler water temperature (either entering or leaving).
 
         Args:
             value (str): value for IDD Field `Normalized Boiler Efficiency Curve Name`
@@ -315,6 +318,7 @@ class BoilerHotWater(DataObject):
 
         Returns:
             str: the value of `normalized_boiler_efficiency_curve_name` or None if not set
+
         """
         return self["Normalized Boiler Efficiency Curve Name"]
 
@@ -328,9 +332,10 @@ class BoilerHotWater(DataObject):
     def design_water_outlet_temperature(self):
         """field `Design Water Outlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Water Outlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -350,16 +355,17 @@ class BoilerHotWater(DataObject):
     def design_water_flow_rate(self):
         """field `Design Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_water_flow_rate` or None if not set
 
         """
         return self["Design Water Flow Rate"]
@@ -394,9 +400,10 @@ class BoilerHotWater(DataObject):
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -416,9 +423,10 @@ class BoilerHotWater(DataObject):
     def optimum_part_load_ratio(self):
         """field `Optimum Part Load Ratio`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -480,10 +488,11 @@ class BoilerHotWater(DataObject):
     def water_outlet_upper_temperature_limit(self):
         """field `Water Outlet Upper Temperature Limit`
 
+        |  Units: C
+        |  Default value: 99.9
+
         Args:
             value (float): value for IDD Field `Water Outlet Upper Temperature Limit`
-                Units: C
-                Default value: 99.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -501,17 +510,17 @@ class BoilerHotWater(DataObject):
 
     @property
     def boiler_flow_mode(self):
-        """field `Boiler Flow Mode` Select operating mode for fluid flow
-        through the boiler. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by boiler
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by boiler to vary flow to target
-        a leaving temperature setpoint.
+        """field `Boiler Flow Mode`
+
+        |  Select operating mode for fluid flow through the boiler. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by boiler to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by boiler to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Boiler Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -531,9 +540,10 @@ class BoilerHotWater(DataObject):
     def parasitic_electric_load(self):
         """field `Parasitic Electric Load`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Parasitic Electric Load`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -551,12 +561,13 @@ class BoilerHotWater(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -764,9 +775,10 @@ class BoilerSteam(DataObject):
     def maximum_operating_pressure(self):
         """field `Maximum Operating Pressure`
 
+        |  Units: Kpa
+
         Args:
             value (float): value for IDD Field `Maximum Operating Pressure`
-                Units: Kpa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -786,9 +798,10 @@ class BoilerSteam(DataObject):
     def theoretical_efficiency(self):
         """field `Theoretical Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Theoretical Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -808,9 +821,10 @@ class BoilerSteam(DataObject):
     def design_outlet_steam_temperature(self):
         """field `Design Outlet Steam Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Outlet Steam Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -830,15 +844,16 @@ class BoilerSteam(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -1033,12 +1048,13 @@ class BoilerSteam(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1378,15 +1394,16 @@ class ChillerElectricEir(DataObject):
     def reference_capacity(self):
         """field `Reference Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_capacity` or None if not set
+            float or "Autosize": the value of `reference_capacity` or None if not set
 
         """
         return self["Reference Capacity"]
@@ -1398,13 +1415,14 @@ class ChillerElectricEir(DataObject):
 
     @property
     def reference_cop(self):
-        """field `Reference COP` Efficiency of the chiller compressor (cooling
-        output/compressor energy input). Condenser fan power should not be
-        included here.
+        """field `Reference COP`
+
+        |  Efficiency of the chiller compressor (cooling output/compressor energy input).
+        |  Condenser fan power should not be included here.
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Reference COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1424,10 +1442,11 @@ class ChillerElectricEir(DataObject):
     def reference_leaving_chilled_water_temperature(self):
         """field `Reference Leaving Chilled Water Temperature`
 
+        |  Units: C
+        |  Default value: 6.67
+
         Args:
             value (float): value for IDD Field `Reference Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 6.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1448,10 +1467,11 @@ class ChillerElectricEir(DataObject):
     def reference_entering_condenser_fluid_temperature(self):
         """field `Reference Entering Condenser Fluid Temperature`
 
+        |  Units: C
+        |  Default value: 29.4
+
         Args:
             value (float): value for IDD Field `Reference Entering Condenser Fluid Temperature`
-                Units: C
-                Default value: 29.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1472,16 +1492,17 @@ class ChillerElectricEir(DataObject):
     def reference_chilled_water_flow_rate(self):
         """field `Reference Chilled Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `reference_chilled_water_flow_rate` or None if not set
 
         """
         return self["Reference Chilled Water Flow Rate"]
@@ -1494,19 +1515,21 @@ class ChillerElectricEir(DataObject):
     @property
     def reference_condenser_fluid_flow_rate(self):
         """field `Reference Condenser Fluid Flow Rate`
-        This field is only used for Condenser Type = AirCooled or EvaporativelyCooled
-        when Heat Recovery is specified
+
+        |  This field is only used for Condenser Type = AirCooled or EvaporativelyCooled
+        |  when Heat Recovery is specified
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Condenser Fluid Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_condenser_fluid_flow_rate` or None if not set
+            float or "Autosize": the value of `reference_condenser_fluid_flow_rate` or None if not set
+
         """
         return self["Reference Condenser Fluid Flow Rate"]
 
@@ -1518,11 +1541,12 @@ class ChillerElectricEir(DataObject):
     @property
     def cooling_capacity_function_of_temperature_curve_name(self):
         """field `Cooling Capacity Function of Temperature Curve Name`
-        Cooling capacity as a function of CW supply temp and entering condenser temp
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*ECT + e*ECT**2 + f*CWS*ECT
-        CWS = supply (leaving) chilled water temperature(C)
-        ECT = entering condenser fluid temperature(C)
+
+        |  Cooling capacity as a function of CW supply temp and entering condenser temp
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*ECT + e*ECT**2 + f*CWS*ECT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Function of Temperature Curve Name`
@@ -1532,6 +1556,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Cooling Capacity Function of Temperature Curve Name"]
 
@@ -1544,13 +1569,15 @@ class ChillerElectricEir(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        Electric Input Ratio (EIR) as a function of temperature
-        EIR = 1/COP
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*ECT + e*ECT**2 + f*CWS*ECT
-        CWS = supply (leaving) chilled water temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Electric Input to Cooling Output Ratio Function of
+        Temperature Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of temperature
+        |  EIR = 1/COP
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*ECT + e*ECT**2 + f*CWS*ECT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -1560,6 +1587,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -1576,12 +1604,14 @@ class ChillerElectricEir(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
-        EIR = 1/COP
-        Table:OneIndependentVariable object can also be used
-        quadratic curve = a + b*PLR + c*PLR**2
-        PLR = part load ratio (cooling load/steady state capacity)
+        """field `Electric Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
+        |  EIR = 1/COP
+        |  Table:OneIndependentVariable object can also be used
+        |  quadratic curve = a + b*PLR + c*PLR**2
+        |  PLR = part load ratio (cooling load/steady state capacity)
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -1591,6 +1621,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -1606,13 +1637,14 @@ class ChillerElectricEir(DataObject):
 
     @property
     def minimum_part_load_ratio(self):
-        """field `Minimum Part Load Ratio` Part load ratio below which the
-        chiller starts cycling on/off to meet the load. Must be less than or
-        equal to Maximum Part Load Ratio.
+        """field `Minimum Part Load Ratio`
+
+        |  Part load ratio below which the chiller starts cycling on/off to meet the load.
+        |  Must be less than or equal to Maximum Part Load Ratio.
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1630,12 +1662,13 @@ class ChillerElectricEir(DataObject):
 
     @property
     def maximum_part_load_ratio(self):
-        """field `Maximum Part Load Ratio` Maximum allowable part load ratio.
-        Must be greater than or equal to Minimum Part Load Ratio.
+        """field `Maximum Part Load Ratio`
+
+        |  Maximum allowable part load ratio. Must be greater than or equal to Minimum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1653,13 +1686,15 @@ class ChillerElectricEir(DataObject):
 
     @property
     def optimum_part_load_ratio(self):
-        """field `Optimum Part Load Ratio` Optimum part load ratio where the
-        chiller is most efficient. Must be greater than or equal to the Minimum
-        Part Load Ratio and less than or equal to the Maximum Part Load Ratio.
+        """field `Optimum Part Load Ratio`
+
+        |  Optimum part load ratio where the chiller is most efficient.
+        |  Must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1677,14 +1712,15 @@ class ChillerElectricEir(DataObject):
 
     @property
     def minimum_unloading_ratio(self):
-        """field `Minimum Unloading Ratio` Part load ratio where the chiller
-        can no longer unload and false loading begins. Minimum unloading ratio
-        must be greater than or equal to the Minimum Part Load Ratio and less
-        than or equal to the Maximum Part Load Ratio.
+        """field `Minimum Unloading Ratio`
+
+        |  Part load ratio where the chiller can no longer unload and false loading begins.
+        |  Minimum unloading ratio must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Unloading Ratio`
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1745,7 +1781,8 @@ class ChillerElectricEir(DataObject):
     @property
     def condenser_inlet_node_name(self):
         """field `Condenser Inlet Node Name`
-        Not required if air-cooled or evaporativly-cooled
+
+        |  Not required if air-cooled or evaporativly-cooled
 
         Args:
             value (str): value for IDD Field `Condenser Inlet Node Name`
@@ -1755,6 +1792,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `condenser_inlet_node_name` or None if not set
+
         """
         return self["Condenser Inlet Node Name"]
 
@@ -1766,7 +1804,8 @@ class ChillerElectricEir(DataObject):
     @property
     def condenser_outlet_node_name(self):
         """field `Condenser Outlet Node Name`
-        Not required if air-cooled or evaporatively-cooled
+
+        |  Not required if air-cooled or evaporatively-cooled
 
         Args:
             value (str): value for IDD Field `Condenser Outlet Node Name`
@@ -1776,6 +1815,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `condenser_outlet_node_name` or None if not set
+
         """
         return self["Condenser Outlet Node Name"]
 
@@ -1788,9 +1828,10 @@ class ChillerElectricEir(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: WaterCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: WaterCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1809,18 +1850,20 @@ class ChillerElectricEir(DataObject):
     @property
     def condenser_fan_power_ratio(self):
         """field `Condenser Fan Power Ratio`
-        Use for air-cooled or evaporatively-cooled condensers.
-        Ratio of condenser fan power to reference chiller capacity
+
+        |  Use for air-cooled or evaporatively-cooled condensers.
+        |  Ratio of condenser fan power to reference chiller capacity
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Condenser Fan Power Ratio`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `condenser_fan_power_ratio` or None if not set
+
         """
         return self["Condenser Fan Power Ratio"]
 
@@ -1832,22 +1875,25 @@ class ChillerElectricEir(DataObject):
     @property
     def fraction_of_compressor_electric_consumption_rejected_by_condenser(
             self):
-        """field `Fraction of Compressor Electric Consumption Rejected by Condenser`
-        Fraction of compressor electrical energy that must be rejected by the condenser.
-        Enter a value of 1.0 when modeling hermetic chillers.
-        For open chillers, enter the compressor motor efficiency.
-        This value should be greater than 0.6 for praticle applications.
+        """field `Fraction of Compressor Electric Consumption Rejected by
+        Condenser`
+
+        |  Fraction of compressor electrical energy that must be rejected by the condenser.
+        |  Enter a value of 1.0 when modeling hermetic chillers.
+        |  For open chillers, enter the compressor motor efficiency.
+        |  This value should be greater than 0.6 for praticle applications.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Compressor Electric Consumption Rejected by Condenser`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fraction_of_compressor_electric_consumption_rejected_by_condenser` or None if not set
+
         """
         return self[
             "Fraction of Compressor Electric Consumption Rejected by Condenser"]
@@ -1865,10 +1911,11 @@ class ChillerElectricEir(DataObject):
     def leaving_chilled_water_lower_temperature_limit(self):
         """field `Leaving Chilled Water Lower Temperature Limit`
 
+        |  Units: C
+        |  Default value: 2.0
+
         Args:
             value (float): value for IDD Field `Leaving Chilled Water Lower Temperature Limit`
-                Units: C
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1887,17 +1934,17 @@ class ChillerElectricEir(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1916,18 +1963,20 @@ class ChillerElectricEir(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -1980,12 +2029,13 @@ class ChillerElectricEir(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2004,21 +2054,23 @@ class ChillerElectricEir(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the chiller is not operating.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the chiller is not operating.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -2030,20 +2082,22 @@ class ChillerElectricEir(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -2055,11 +2109,12 @@ class ChillerElectricEir(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -2069,6 +2124,7 @@ class ChillerElectricEir(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -2079,13 +2135,13 @@ class ChillerElectricEir(DataObject):
 
     @property
     def condenser_heat_recovery_relative_capacity_fraction(self):
-        """field `Condenser Heat Recovery Relative Capacity Fraction` This
-        optional field is the fraction of total rejected heat that can be
-        recovered at full load.
+        """field `Condenser Heat Recovery Relative Capacity Fraction`
+
+        |  This optional field is the fraction of total rejected heat that can be recovered at full load
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Condenser Heat Recovery Relative Capacity Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2105,8 +2161,8 @@ class ChillerElectricEir(DataObject):
     @property
     def heat_recovery_inlet_high_temperature_limit_schedule_name(self):
         """field `Heat Recovery Inlet High Temperature Limit Schedule Name`
-        This optional schedule of temperatures will turn off heat recovery if
-        inlet exceeds the value.
+
+        |  This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
         Args:
             value (str): value for IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
@@ -2131,11 +2187,11 @@ class ChillerElectricEir(DataObject):
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
-        """field `Heat Recovery Leaving Temperature Setpoint Node Name` This
-        optional field provides control over the heat recovery Using this
-        triggers a model more suited to series bundle and chillers with higher
-        temperature heat recovery If this field is not used, the bundles are
-        modeled as being in parallel.
+        """field `Heat Recovery Leaving Temperature Setpoint Node Name`
+
+        |  This optional field provides control over the heat recovery
+        |  Using this triggers a model more suited to series bundle and chillers with higher temperature heat recovery
+        |  If this field is not used, the bundles are modeled as being in parallel
 
         Args:
             value (str): value for IDD Field `Heat Recovery Leaving Temperature Setpoint Node Name`
@@ -2432,15 +2488,16 @@ class ChillerElectricReformulatedEir(DataObject):
     def reference_capacity(self):
         """field `Reference Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_capacity` or None if not set
+            float or "Autosize": the value of `reference_capacity` or None if not set
 
         """
         return self["Reference Capacity"]
@@ -2452,13 +2509,14 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def reference_cop(self):
-        """field `Reference COP` Efficiency of the chiller compressor (cooling
-        output/compressor energy input). Condenser fan power should not be
-        included here.
+        """field `Reference COP`
+
+        |  Efficiency of the chiller compressor (cooling output/compressor energy input).
+        |  Condenser fan power should not be included here.
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Reference COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2478,10 +2536,11 @@ class ChillerElectricReformulatedEir(DataObject):
     def reference_leaving_chilled_water_temperature(self):
         """field `Reference Leaving Chilled Water Temperature`
 
+        |  Units: C
+        |  Default value: 6.67
+
         Args:
             value (float): value for IDD Field `Reference Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 6.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2502,10 +2561,11 @@ class ChillerElectricReformulatedEir(DataObject):
     def reference_leaving_condenser_water_temperature(self):
         """field `Reference Leaving Condenser Water Temperature`
 
+        |  Units: C
+        |  Default value: 35.0
+
         Args:
             value (float): value for IDD Field `Reference Leaving Condenser Water Temperature`
-                Units: C
-                Default value: 35.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2526,16 +2586,17 @@ class ChillerElectricReformulatedEir(DataObject):
     def reference_chilled_water_flow_rate(self):
         """field `Reference Chilled Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `reference_chilled_water_flow_rate` or None if not set
 
         """
         return self["Reference Chilled Water Flow Rate"]
@@ -2549,16 +2610,17 @@ class ChillerElectricReformulatedEir(DataObject):
     def reference_condenser_water_flow_rate(self):
         """field `Reference Condenser Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `reference_condenser_water_flow_rate` or None if not set
 
         """
         return self["Reference Condenser Water Flow Rate"]
@@ -2571,12 +2633,13 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def cooling_capacity_function_of_temperature_curve_name(self):
         """field `Cooling Capacity Function of Temperature Curve Name`
-        Cooling capacity as a function of supply (leaving) chilled water temperature
-        and leaving condenser fluid temperature
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*LCT + e*LCT**2 + f*CWS*LCT
-        CWS = supply (leaving) chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
+
+        |  Cooling capacity as a function of supply (leaving) chilled water temperature
+        |  and leaving condenser fluid temperature
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*LCT + e*LCT**2 + f*CWS*LCT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Function of Temperature Curve Name`
@@ -2586,6 +2649,7 @@ class ChillerElectricReformulatedEir(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Cooling Capacity Function of Temperature Curve Name"]
 
@@ -2598,13 +2662,15 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
-        and leaving condenser fluid temperature.   EIR = 1/COP.
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*LCT + e*LCT**2 + f*CWS*LCT
-        CWS = supply (leaving) chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
+        """field `Electric Input to Cooling Output Ratio Function of
+        Temperature Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
+        |  and leaving condenser fluid temperature.   EIR = 1/COP.
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*LCT + e*LCT**2 + f*CWS*LCT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -2614,6 +2680,7 @@ class ChillerElectricReformulatedEir(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -2630,14 +2697,16 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
-        EIR = 1/COP
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*LCT + c*LCT**2 + d*PLR + e*PLR**2 + f*LCT*PLR + g*0 + h*PLR**3
-        + i*0 + j*0
-        PLR = part load ratio (cooling load/steady state capacity)
-        LCT = leaving condenser fluid temperature(C)
+        """field `Electric Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
+        |  EIR = 1/COP
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*LCT + c*LCT**2 + d*PLR + e*PLR**2 + f*LCT*PLR + g*0 + h*PLR**3
+        |  + i*0 + j*0
+        |  PLR = part load ratio (cooling load/steady state capacity)
+        |  LCT = leaving condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -2647,6 +2716,7 @@ class ChillerElectricReformulatedEir(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -2662,13 +2732,14 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def minimum_part_load_ratio(self):
-        """field `Minimum Part Load Ratio` Part load ratio below which the
-        chiller starts cycling on/off to meet the load. Must be less than or
-        equal to Maximum Part Load Ratio.
+        """field `Minimum Part Load Ratio`
+
+        |  Part load ratio below which the chiller starts cycling on/off to meet the load.
+        |  Must be less than or equal to Maximum Part Load Ratio.
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2686,12 +2757,13 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def maximum_part_load_ratio(self):
-        """field `Maximum Part Load Ratio` Maximum allowable part load ratio.
-        Must be greater than or equal to Minimum Part Load Ratio.
+        """field `Maximum Part Load Ratio`
+
+        |  Maximum allowable part load ratio. Must be greater than or equal to Minimum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2709,13 +2781,15 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def optimum_part_load_ratio(self):
-        """field `Optimum Part Load Ratio` Optimum part load ratio where the
-        chiller is most efficient. Must be greater than or equal to the Minimum
-        Part Load Ratio and less than or equal to the Maximum Part Load Ratio.
+        """field `Optimum Part Load Ratio`
+
+        |  Optimum part load ratio where the chiller is most efficient.
+        |  Must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2733,14 +2807,15 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def minimum_unloading_ratio(self):
-        """field `Minimum Unloading Ratio` Part load ratio where the chiller
-        can no longer unload and false loading begins. Minimum unloading ratio
-        must be greater than or equal to the Minimum Part Load Ratio and less
-        than or equal to the Maximum Part Load Ratio.
+        """field `Minimum Unloading Ratio`
+
+        |  Part load ratio where the chiller can no longer unload and false loading begins.
+        |  Minimum unloading ratio must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Unloading Ratio`
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2843,22 +2918,25 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def fraction_of_compressor_electric_consumption_rejected_by_condenser(
             self):
-        """field `Fraction of Compressor Electric Consumption Rejected by Condenser`
-        Fraction of compressor electrical energy that must be rejected by the condenser.
-        Enter a value of 1.0 when modeling hermetic chillers.
-        For open chillers, enter the compressor motor efficiency.
-        This value should be greater than 0.6 for praticle applications.
+        """field `Fraction of Compressor Electric Consumption Rejected by
+        Condenser`
+
+        |  Fraction of compressor electrical energy that must be rejected by the condenser.
+        |  Enter a value of 1.0 when modeling hermetic chillers.
+        |  For open chillers, enter the compressor motor efficiency.
+        |  This value should be greater than 0.6 for praticle applications.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Compressor Electric Consumption Rejected by Condenser`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fraction_of_compressor_electric_consumption_rejected_by_condenser` or None if not set
+
         """
         return self[
             "Fraction of Compressor Electric Consumption Rejected by Condenser"]
@@ -2876,10 +2954,11 @@ class ChillerElectricReformulatedEir(DataObject):
     def leaving_chilled_water_lower_temperature_limit(self):
         """field `Leaving Chilled Water Lower Temperature Limit`
 
+        |  Units: C
+        |  Default value: 2.0
+
         Args:
             value (float): value for IDD Field `Leaving Chilled Water Lower Temperature Limit`
-                Units: C
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2898,17 +2977,17 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def chiller_flow_mode_type(self):
-        """field `Chiller Flow Mode Type` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode Type`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode Type`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2927,18 +3006,20 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -2991,12 +3072,13 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3014,13 +3096,13 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def condenser_heat_recovery_relative_capacity_fraction(self):
-        """field `Condenser Heat Recovery Relative Capacity Fraction` This
-        optional field is the fraction of total rejected heat that can be
-        recovered at full load.
+        """field `Condenser Heat Recovery Relative Capacity Fraction`
+
+        |  This optional field is the fraction of total rejected heat that can be recovered at full load
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Condenser Heat Recovery Relative Capacity Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3040,8 +3122,8 @@ class ChillerElectricReformulatedEir(DataObject):
     @property
     def heat_recovery_inlet_high_temperature_limit_schedule_name(self):
         """field `Heat Recovery Inlet High Temperature Limit Schedule Name`
-        This optional schedule of temperatures will turn off heat recovery if
-        inlet exceeds the value.
+
+        |  This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
         Args:
             value (str): value for IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
@@ -3066,11 +3148,11 @@ class ChillerElectricReformulatedEir(DataObject):
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
-        """field `Heat Recovery Leaving Temperature Setpoint Node Name` This
-        optional field provides control over the heat recovery Using this
-        triggers a model more suited to series bundle and chillers with higher
-        temperature heat recovery If this field is not used, the bundles are
-        modeled as being in parallel.
+        """field `Heat Recovery Leaving Temperature Setpoint Node Name`
+
+        |  This optional field provides control over the heat recovery
+        |  Using this triggers a model more suited to series bundle and chillers with higher temperature heat recovery
+        |  If this field is not used, the bundles are modeled as being in parallel
 
         Args:
             value (str): value for IDD Field `Heat Recovery Leaving Temperature Setpoint Node Name`
@@ -3430,9 +3512,10 @@ class ChillerElectric(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: AirCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3452,15 +3535,16 @@ class ChillerElectric(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -3474,9 +3558,10 @@ class ChillerElectric(DataObject):
     def nominal_cop(self):
         """field `Nominal COP`
 
+        |  Units: W/W
+
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3643,9 +3728,10 @@ class ChillerElectric(DataObject):
     def design_condenser_inlet_temperature(self):
         """field `Design Condenser Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Condenser Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3686,9 +3772,10 @@ class ChillerElectric(DataObject):
     def design_chilled_water_outlet_temperature(self):
         """field `Design Chilled Water Outlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Chilled Water Outlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3707,19 +3794,20 @@ class ChillerElectric(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the maximum flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the maximum flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -3732,19 +3820,21 @@ class ChillerElectric(DataObject):
     @property
     def design_condenser_fluid_flow_rate(self):
         """field `Design Condenser Fluid Flow Rate`
-        This field is only used for Condenser Type = AirCooled or EvaporativelyCooled
-        when Heat Recovery is specified
+
+        |  This field is only used for Condenser Type = AirCooled or EvaporativelyCooled
+        |  when Heat Recovery is specified
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Fluid Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_fluid_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_fluid_flow_rate` or None if not set
+
         """
         return self["Design Condenser Fluid Flow Rate"]
 
@@ -3946,9 +4036,10 @@ class ChillerElectric(DataObject):
     def chilled_water_outlet_temperature_lower_limit(self):
         """field `Chilled Water Outlet Temperature Lower Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Chilled Water Outlet Temperature Lower Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3967,17 +4058,17 @@ class ChillerElectric(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3996,18 +4087,20 @@ class ChillerElectric(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -4060,12 +4153,13 @@ class ChillerElectric(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4084,21 +4178,23 @@ class ChillerElectric(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the chiller is not operating.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the chiller is not operating.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -4110,20 +4206,22 @@ class ChillerElectric(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -4135,11 +4233,12 @@ class ChillerElectric(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -4149,6 +4248,7 @@ class ChillerElectric(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -4159,13 +4259,13 @@ class ChillerElectric(DataObject):
 
     @property
     def condenser_heat_recovery_relative_capacity_fraction(self):
-        """field `Condenser Heat Recovery Relative Capacity Fraction` This
-        optional field is the fraction of total rejected heat that can be
-        recovered at full load.
+        """field `Condenser Heat Recovery Relative Capacity Fraction`
+
+        |  This optional field is the fraction of total rejected heat that can be recovered at full load
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Condenser Heat Recovery Relative Capacity Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4185,8 +4285,8 @@ class ChillerElectric(DataObject):
     @property
     def heat_recovery_inlet_high_temperature_limit_schedule_name(self):
         """field `Heat Recovery Inlet High Temperature Limit Schedule Name`
-        This optional schedule of temperatures will turn off heat recovery if
-        inlet exceeds the value.
+
+        |  This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
         Args:
             value (str): value for IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
@@ -4211,11 +4311,11 @@ class ChillerElectric(DataObject):
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
-        """field `Heat Recovery Leaving Temperature Setpoint Node Name` This
-        optional field provides control over the heat recovery Using this
-        triggers a model more suited to series bundle and chillers with higher
-        temperature heat recovery If this field is not used, the bundles are
-        modeled as being in parallel.
+        """field `Heat Recovery Leaving Temperature Setpoint Node Name`
+
+        |  This optional field provides control over the heat recovery
+        |  Using this triggers a model more suited to series bundle and chillers with higher temperature heat recovery
+        |  If this field is not used, the bundles are modeled as being in parallel
 
         Args:
             value (str): value for IDD Field `Heat Recovery Leaving Temperature Setpoint Node Name`
@@ -4535,15 +4635,16 @@ class ChillerAbsorptionIndirect(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -4557,16 +4658,17 @@ class ChillerAbsorptionIndirect(DataObject):
     def nominal_pumping_power(self):
         """field `Nominal Pumping Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Pumping Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_pumping_power` or None if not set
+            float or "Autosize": the value of `nominal_pumping_power` or None if not set
 
         """
         return self["Nominal Pumping Power"]
@@ -4725,13 +4827,14 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def design_condenser_inlet_temperature(self):
-        """field `Design Condenser Inlet Temperature` Used only when condenser
-        flow rate is autosized.
+        """field `Design Condenser Inlet Temperature`
+
+        |  Used only when condenser flow rate is autosized.
+        |  Units: C
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Design Condenser Inlet Temperature`
-                Units: C
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4749,14 +4852,15 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def condenser_inlet_temperature_lower_limit(self):
-        """field `Condenser Inlet Temperature Lower Limit` Provides warnings
-        when entering condenser temperature is below minimum. Capacity is not
-        adjusted when entering condenser temperature is below minimum.
+        """field `Condenser Inlet Temperature Lower Limit`
+
+        |  Provides warnings when entering condenser temperature is below minimum.
+        |  Capacity is not adjusted when entering condenser temperature is below minimum.
+        |  Units: C
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `Condenser Inlet Temperature Lower Limit`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4775,13 +4879,14 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def chilled_water_outlet_temperature_lower_limit(self):
-        """field `Chilled Water Outlet Temperature Lower Limit` Capacity is
-        adjusted when leaving chilled water temperature is below minimum.
+        """field `Chilled Water Outlet Temperature Lower Limit`
+
+        |  Capacity is adjusted when leaving chilled water temperature is below minimum.
+        |  Units: C
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Chilled Water Outlet Temperature Lower Limit`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4800,19 +4905,20 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable flow this is the
-        max flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable flow this is the max flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -4826,16 +4932,17 @@ class ChillerAbsorptionIndirect(DataObject):
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
 
         """
         return self["Design Condenser Water Flow Rate"]
@@ -4847,17 +4954,17 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4876,7 +4983,8 @@ class ChillerAbsorptionIndirect(DataObject):
     @property
     def generator_heat_input_function_of_part_load_ratio_curve_name(self):
         """field `Generator Heat Input Function of Part Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Generator Heat Input Function of Part Load Ratio Curve Name`
@@ -4886,6 +4994,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `generator_heat_input_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Generator Heat Input Function of Part Load Ratio Curve Name"]
@@ -4902,7 +5011,8 @@ class ChillerAbsorptionIndirect(DataObject):
     @property
     def pump_electric_input_function_of_part_load_ratio_curve_name(self):
         """field `Pump Electric Input Function of Part Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Pump Electric Input Function of Part Load Ratio Curve Name`
@@ -4912,6 +5022,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `pump_electric_input_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Pump Electric Input Function of Part Load Ratio Curve Name"]
@@ -4927,10 +5038,11 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def generator_inlet_node_name(self):
-        """field `Generator Inlet Node Name` Enter the generator inlet node
-        name which connects this chiller to a steam or hot water plant,
-        otherwise leave this field blank. Generator nodes are used to model
-        heat input to the chiller.
+        """field `Generator Inlet Node Name`
+
+        |  Enter the generator inlet node name which connects this chiller to a
+        |  steam or hot water plant, otherwise leave this field blank.
+        |  Generator nodes are used to model heat input to the chiller.
 
         Args:
             value (str): value for IDD Field `Generator Inlet Node Name`
@@ -4951,10 +5063,11 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def generator_outlet_node_name(self):
-        """field `Generator Outlet Node Name` Enter the generator outlet node
-        name which connects this chiller to a steam or hot water plant,
-        otherwise leave this field blank. Generator nodes are used to model
-        heat input to the chiller.
+        """field `Generator Outlet Node Name`
+
+        |  Enter the generator outlet node name which connects this chiller to a
+        |  steam or hot water plant, otherwise leave this field blank.
+        |  Generator nodes are used to model heat input to the chiller.
 
         Args:
             value (str): value for IDD Field `Generator Outlet Node Name`
@@ -4975,9 +5088,11 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def capacity_correction_function_of_condenser_temperature_curve_name(self):
-        """field `Capacity Correction Function of Condenser Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve which shows the change in normailized capacity to changes in condenser temperature.
+        """field `Capacity Correction Function of Condenser Temperature Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve which shows the change in normailized capacity to changes in condenser temperature.
 
         Args:
             value (str): value for IDD Field `Capacity Correction Function of Condenser Temperature Curve Name`
@@ -4987,6 +5102,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `capacity_correction_function_of_condenser_temperature_curve_name` or None if not set
+
         """
         return self[
             "Capacity Correction Function of Condenser Temperature Curve Name"]
@@ -5003,9 +5119,11 @@ class ChillerAbsorptionIndirect(DataObject):
     @property
     def capacity_correction_function_of_chilled_water_temperature_curve_name(
             self):
-        """field `Capacity Correction Function of Chilled Water Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve which shows the change in normailized capacity to changes in leaving chilled water temperature.
+        """field `Capacity Correction Function of Chilled Water Temperature
+        Curve Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve which shows the change in normailized capacity to changes in leaving chilled water temperature.
 
         Args:
             value (str): value for IDD Field `Capacity Correction Function of Chilled Water Temperature Curve Name`
@@ -5015,6 +5133,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `capacity_correction_function_of_chilled_water_temperature_curve_name` or None if not set
+
         """
         return self[
             "Capacity Correction Function of Chilled Water Temperature Curve Name"]
@@ -5030,10 +5149,12 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def capacity_correction_function_of_generator_temperature_curve_name(self):
-        """field `Capacity Correction Function of Generator Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Used when generator fluid type is hot water
-        Curve which shows the change in normailized capacity to changes in generator temperature.
+        """field `Capacity Correction Function of Generator Temperature Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Used when generator fluid type is hot water
+        |  Curve which shows the change in normailized capacity to changes in generator temperature.
 
         Args:
             value (str): value for IDD Field `Capacity Correction Function of Generator Temperature Curve Name`
@@ -5043,6 +5164,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `capacity_correction_function_of_generator_temperature_curve_name` or None if not set
+
         """
         return self[
             "Capacity Correction Function of Generator Temperature Curve Name"]
@@ -5059,9 +5181,11 @@ class ChillerAbsorptionIndirect(DataObject):
     @property
     def generator_heat_input_correction_function_of_condenser_temperature_curve_name(
             self):
-        """field `Generator Heat Input Correction Function of Condenser Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve which shows the change in normailized heat input to changes in condenser temperature.
+        """field `Generator Heat Input Correction Function of Condenser
+        Temperature Curve Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve which shows the change in normailized heat input to changes in condenser temperature.
 
         Args:
             value (str): value for IDD Field `Generator Heat Input Correction Function of Condenser Temperature Curve Name`
@@ -5071,6 +5195,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `generator_heat_input_correction_function_of_condenser_temperature_curve_name` or None if not set
+
         """
         return self[
             "Generator Heat Input Correction Function of Condenser Temperature Curve Name"]
@@ -5087,9 +5212,11 @@ class ChillerAbsorptionIndirect(DataObject):
     @property
     def generator_heat_input_correction_function_of_chilled_water_temperature_curve_name(
             self):
-        """field `Generator Heat Input Correction Function of Chilled Water Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve which shows the change in normailized heat input to changes in leaving chilled water temperature.
+        """field `Generator Heat Input Correction Function of Chilled Water
+        Temperature Curve Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve which shows the change in normailized heat input to changes in leaving chilled water temperature.
 
         Args:
             value (str): value for IDD Field `Generator Heat Input Correction Function of Chilled Water Temperature Curve Name`
@@ -5099,6 +5226,7 @@ class ChillerAbsorptionIndirect(DataObject):
 
         Returns:
             str: the value of `generator_heat_input_correction_function_of_chilled_water_temperature_curve_name` or None if not set
+
         """
         return self[
             "Generator Heat Input Correction Function of Chilled Water Temperature Curve Name"]
@@ -5114,16 +5242,16 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def generator_heat_source_type(self):
-        """field `Generator Heat Source Type` The Generator side of the chiller
-        can be connected to a hot water or steam plant where the generator
-        inlet and outlet nodes are connected to a plant loop. If the generator
-        is not connected to a plant loop, and the generator inlet/outlet nodes
-        are not used, this field should be specified as steam or left blank.
-        When a plant is not used, the model assumes steam as the heat source.
+        """field `Generator Heat Source Type`
+
+        |  The Generator side of the chiller can be connected to a hot water or steam plant where the
+        |  generator inlet and outlet nodes are connected to a plant loop. If the generator is not
+        |  connected to a plant loop, and the generator inlet/outlet nodes are not used, this field should be
+        |  specified as steam or left blank. When a plant is not used, the model assumes steam as the heat source.
+        |  Default value: Steam
 
         Args:
             value (str): value for IDD Field `Generator Heat Source Type`
-                Default value: Steam
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5141,18 +5269,19 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def design_generator_fluid_flow_rate(self):
-        """field `Design Generator Fluid Flow Rate` For variable flow this is
-        the max flow and for constant flow this is the flow.
+        """field `Design Generator Fluid Flow Rate`
+
+        |  For variable flow this is the max flow and for constant flow this is the flow.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Generator Fluid Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_generator_fluid_flow_rate` or None if not set
+            float or "Autosize": the value of `design_generator_fluid_flow_rate` or None if not set
 
         """
         return self["Design Generator Fluid Flow Rate"]
@@ -5164,13 +5293,14 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def temperature_lower_limit_generator_inlet(self):
-        """field `Temperature Lower Limit Generator Inlet` Provides warnings
-        when entering generator temperature is below minimum. Capacity is not
-        adjusted when entering generator temperature is below minimum.
+        """field `Temperature Lower Limit Generator Inlet`
+
+        |  Provides warnings when entering generator temperature is below minimum.
+        |  Capacity is not adjusted when entering generator temperature is below minimum.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Temperature Lower Limit Generator Inlet`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5189,15 +5319,16 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def degree_of_subcooling_in_steam_generator(self):
-        """field `Degree of Subcooling in Steam Generator` This field is not
-        used when the generator inlet/outlet nodes are not specified or the
-        generator is connected to a hot water loop.
+        """field `Degree of Subcooling in Steam Generator`
+
+        |  This field is not used when the generator inlet/outlet nodes are not specified or
+        |  the generator is connected to a hot water loop.
+        |  Units: C
+        |  Default value: 1.0
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Degree of Subcooling in Steam Generator`
-                Units: C
-                Default value: 1.0
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5216,13 +5347,14 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def degree_of_subcooling_in_steam_condensate_loop(self):
-        """field `Degree of Subcooling in Steam Condensate Loop` This field is
-        not used when the generator inlet/outlet nodes are not specified or the
-        generator is connected to a hot water loop.
+        """field `Degree of Subcooling in Steam Condensate Loop`
+
+        |  This field is not used when the generator inlet/outlet nodes are not specified or
+        |  the generator is connected to a hot water loop.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Degree of Subcooling in Steam Condensate Loop`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5241,12 +5373,13 @@ class ChillerAbsorptionIndirect(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5522,15 +5655,16 @@ class ChillerAbsorption(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -5544,16 +5678,17 @@ class ChillerAbsorption(DataObject):
     def nominal_pumping_power(self):
         """field `Nominal Pumping Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Pumping Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_pumping_power` or None if not set
+            float or "Autosize": the value of `nominal_pumping_power` or None if not set
 
         """
         return self["Nominal Pumping Power"]
@@ -5714,9 +5849,10 @@ class ChillerAbsorption(DataObject):
     def design_condenser_inlet_temperature(self):
         """field `Design Condenser Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Condenser Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5734,19 +5870,20 @@ class ChillerAbsorption(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the max flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the max flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -5758,20 +5895,21 @@ class ChillerAbsorption(DataObject):
 
     @property
     def design_condenser_water_flow_rate(self):
-        """field `Design Condenser Water Flow Rate` The steam use coefficients
-        below specify the steam use as a fraction of chiller operating
-        capacity.
+        """field `Design Condenser Water Flow Rate`
+
+        |  The steam use coefficients below specify the
+        |  steam use as a fraction of chiller operating capacity
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
 
         """
         return self["Design Condenser Water Flow Rate"]
@@ -5868,8 +6006,9 @@ class ChillerAbsorption(DataObject):
     @property
     def coefficient_1_of_the_pump_electric_use_part_load_ratio_curve(self):
         """field `Coefficient 1 of the Pump Electric Use Part Load Ratio Curve`
-        The pump electric use coefficients specify the pumping power as a
-        Fraction of Nominal pumping power.
+
+        |  The pump electric use coefficients specify the
+        |  pumping power as a Fraction of Nominal pumping power
 
         Args:
             value (float): value for IDD Field `Coefficient 1 of the Pump Electric Use Part Load Ratio Curve`
@@ -5949,9 +6088,10 @@ class ChillerAbsorption(DataObject):
     def chilled_water_outlet_temperature_lower_limit(self):
         """field `Chilled Water Outlet Temperature Lower Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Chilled Water Outlet Temperature Lower Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6012,17 +6152,17 @@ class ChillerAbsorption(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6040,16 +6180,16 @@ class ChillerAbsorption(DataObject):
 
     @property
     def generator_heat_source_type(self):
-        """field `Generator Heat Source Type` The Generator side of the chiller
-        can be connected to a hot water or steam plant where the generator
-        inlet and outlet nodes are connected to a plant loop. If the generator
-        is not connected to a plant loop, and the generator inlet/outlet nodes
-        are not used, this field should be specified as steam or left blank.
-        When a plant is not used, the model assumes steam as the heat source.
+        """field `Generator Heat Source Type`
+
+        |  The Generator side of the chiller can be connected to a hot water or steam plant where the
+        |  generator inlet and outlet nodes are connected to a plant loop. If the generator is not
+        |  connected to a plant loop, and the generator inlet/outlet nodes are not used, this field should be
+        |  specified as steam or left blank. When a plant is not used, the model assumes steam as the heat source.
+        |  Default value: Steam
 
         Args:
             value (str): value for IDD Field `Generator Heat Source Type`
-                Default value: Steam
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6069,15 +6209,16 @@ class ChillerAbsorption(DataObject):
     def design_generator_fluid_flow_rate(self):
         """field `Design Generator Fluid Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Generator Fluid Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_generator_fluid_flow_rate` or None if not set
+            float or "Autosize": the value of `design_generator_fluid_flow_rate` or None if not set
 
         """
         return self["Design Generator Fluid Flow Rate"]
@@ -6089,14 +6230,15 @@ class ChillerAbsorption(DataObject):
 
     @property
     def degree_of_subcooling_in_steam_generator(self):
-        """field `Degree of Subcooling in Steam Generator` This field is not
-        used when the generator inlet/outlet nodes are not specified or the
-        generator is connected to a hot water loop.
+        """field `Degree of Subcooling in Steam Generator`
+
+        |  This field is not used when the generator inlet/outlet nodes are not specified or
+        |  the generator is connected to a hot water loop.
+        |  Units: C
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Degree of Subcooling in Steam Generator`
-                Units: C
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6115,12 +6257,13 @@ class ChillerAbsorption(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6308,15 +6451,16 @@ class ChillerConstantCop(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -6330,9 +6474,10 @@ class ChillerConstantCop(DataObject):
     def nominal_cop(self):
         """field `Nominal COP`
 
+        |  Units: W/W
+
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6350,19 +6495,20 @@ class ChillerConstantCop(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the maximum flow and for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the maximum flow and for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -6375,18 +6521,20 @@ class ChillerConstantCop(DataObject):
     @property
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
-        This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+
+        |  This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
+
         """
         return self["Design Condenser Water Flow Rate"]
 
@@ -6483,9 +6631,10 @@ class ChillerConstantCop(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: AirCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6503,17 +6652,17 @@ class ChillerConstantCop(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6531,12 +6680,13 @@ class ChillerConstantCop(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6555,21 +6705,23 @@ class ChillerConstantCop(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the chiller is not operating.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the chiller is not operating.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -6581,20 +6733,22 @@ class ChillerConstantCop(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -6606,11 +6760,12 @@ class ChillerConstantCop(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -6620,6 +6775,7 @@ class ChillerConstantCop(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -7046,9 +7202,10 @@ class ChillerEngineDriven(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: AirCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7068,15 +7225,16 @@ class ChillerEngineDriven(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -7088,11 +7246,13 @@ class ChillerEngineDriven(DataObject):
 
     @property
     def nominal_cop(self):
-        """field `Nominal COP` Nominal Refrigeration Cycle COP.
+        """field `Nominal COP`
+
+        |  Nominal Refrigeration Cycle COP
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7259,9 +7419,10 @@ class ChillerEngineDriven(DataObject):
     def design_condenser_inlet_temperature(self):
         """field `Design Condenser Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Condenser Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7302,9 +7463,10 @@ class ChillerEngineDriven(DataObject):
     def design_chilled_water_outlet_temperature(self):
         """field `Design Chilled Water Outlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Chilled Water Outlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7323,19 +7485,20 @@ class ChillerEngineDriven(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the maximum flow and for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the maximum flow and for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -7348,18 +7511,20 @@ class ChillerEngineDriven(DataObject):
     @property
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
-        This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+
+        |  This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
+
         """
         return self["Design Condenser Water Flow Rate"]
 
@@ -7559,12 +7724,13 @@ class ChillerEngineDriven(DataObject):
 
     @property
     def chilled_water_outlet_temperature_lower_limit(self):
-        """field `Chilled Water Outlet Temperature Lower Limit` Special
-        EngineDriven Chiller Parameters Below.
+        """field `Chilled Water Outlet Temperature Lower Limit`
+
+        |  Special EngineDriven Chiller Parameters Below
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Chilled Water Outlet Temperature Lower Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7584,10 +7750,11 @@ class ChillerEngineDriven(DataObject):
     @property
     def fuel_use_curve_name(self):
         """field `Fuel Use Curve Name`
-        Curve is a function of Part Load Ratio (PLR)
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of evaporator heat transfer rate to nominal capacity
+
+        |  Curve is a function of Part Load Ratio (PLR)
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of evaporator heat transfer rate to nominal capacity
 
         Args:
             value (str): value for IDD Field `Fuel Use Curve Name`
@@ -7597,6 +7764,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `fuel_use_curve_name` or None if not set
+
         """
         return self["Fuel Use Curve Name"]
 
@@ -7608,10 +7776,11 @@ class ChillerEngineDriven(DataObject):
     @property
     def jacket_heat_recovery_curve_name(self):
         """field `Jacket Heat Recovery Curve Name`
-        Curve is a function of Part Load Ratio (PLR)
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of evaporator heat transfer rate to nominal capacity
+
+        |  Curve is a function of Part Load Ratio (PLR)
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of evaporator heat transfer rate to nominal capacity
 
         Args:
             value (str): value for IDD Field `Jacket Heat Recovery Curve Name`
@@ -7621,6 +7790,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `jacket_heat_recovery_curve_name` or None if not set
+
         """
         return self["Jacket Heat Recovery Curve Name"]
 
@@ -7632,10 +7802,11 @@ class ChillerEngineDriven(DataObject):
     @property
     def lube_heat_recovery_curve_name(self):
         """field `Lube Heat Recovery Curve Name`
-        Curve is a function of Part Load Ratio (PLR)
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of evaporator heat transfer rate to nominal capacity
+
+        |  Curve is a function of Part Load Ratio (PLR)
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of evaporator heat transfer rate to nominal capacity
 
         Args:
             value (str): value for IDD Field `Lube Heat Recovery Curve Name`
@@ -7645,6 +7816,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `lube_heat_recovery_curve_name` or None if not set
+
         """
         return self["Lube Heat Recovery Curve Name"]
 
@@ -7656,10 +7828,11 @@ class ChillerEngineDriven(DataObject):
     @property
     def total_exhaust_energy_curve_name(self):
         """field `Total Exhaust Energy Curve Name`
-        Curve is a function of Part Load Ratio (PLR)
-        Table:OneIndependentVariable object can also be used
-        curve = a + b*PLR + c*PLR**2
-        PLR = Ratio of evaporator heat transfer rate to nominal capacity
+
+        |  Curve is a function of Part Load Ratio (PLR)
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = a + b*PLR + c*PLR**2
+        |  PLR = Ratio of evaporator heat transfer rate to nominal capacity
 
         Args:
             value (str): value for IDD Field `Total Exhaust Energy Curve Name`
@@ -7669,6 +7842,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `total_exhaust_energy_curve_name` or None if not set
+
         """
         return self["Total Exhaust Energy Curve Name"]
 
@@ -7680,10 +7854,11 @@ class ChillerEngineDriven(DataObject):
     @property
     def exhaust_temperature_curve_name(self):
         """field `Exhaust Temperature Curve Name`
-        Curve is a function of Part Load Ratio (PLR)
-        curve = a + b*PLR + c*PLR**2
-        Table:OneIndependentVariable object can also be used
-        PLR = Ratio of evaporator heat transfer rate to nominal capacity
+
+        |  Curve is a function of Part Load Ratio (PLR)
+        |  curve = a + b*PLR + c*PLR**2
+        |  Table:OneIndependentVariable object can also be used
+        |  PLR = Ratio of evaporator heat transfer rate to nominal capacity
 
         Args:
             value (str): value for IDD Field `Exhaust Temperature Curve Name`
@@ -7693,6 +7868,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Exhaust Temperature Curve Name"]
 
@@ -7704,7 +7880,8 @@ class ChillerEngineDriven(DataObject):
     @property
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
-        curve = C1 * (nominal capacity)**C2
+
+        |  curve = C1 * (nominal capacity)**C2
 
         Args:
             value (float): value for IDD Field `Coefficient 1 of U-Factor Times Area Curve`
@@ -7727,12 +7904,13 @@ class ChillerEngineDriven(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        curve = C1 * (nominal capacity)**C2
-        typical value .9
+
+        |  curve = C1 * (nominal capacity)**C2
+        |  typical value .9
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of U-Factor Times Area Curve`
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7753,9 +7931,10 @@ class ChillerEngineDriven(DataObject):
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
 
+        |  Units: (kg/s)/W
+
         Args:
             value (float): value for IDD Field `Maximum Exhaust Flow per Unit of Power Output`
-                Units: (kg/s)/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7776,9 +7955,10 @@ class ChillerEngineDriven(DataObject):
     def design_minimum_exhaust_temperature(self):
         """field `Design Minimum Exhaust Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Minimum Exhaust Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7819,9 +7999,10 @@ class ChillerEngineDriven(DataObject):
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7840,18 +8021,20 @@ class ChillerEngineDriven(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -7904,17 +8087,17 @@ class ChillerEngineDriven(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7936,11 +8119,12 @@ class ChillerEngineDriven(DataObject):
         """field `Maximum Temperature for Heat Recovery at Heat Recovery Outlet
         Node`
 
+        |  Units: C
+        |  Default value: 60.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node`
-                Units: C
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7963,12 +8147,13 @@ class ChillerEngineDriven(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7987,21 +8172,23 @@ class ChillerEngineDriven(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the chiller is not operating.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the chiller is not operating.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -8013,20 +8200,22 @@ class ChillerEngineDriven(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -8038,11 +8227,12 @@ class ChillerEngineDriven(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -8052,6 +8242,7 @@ class ChillerEngineDriven(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -8578,9 +8769,10 @@ class ChillerCombustionTurbine(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: AirCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8600,15 +8792,16 @@ class ChillerCombustionTurbine(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_capacity` or None if not set
+            float or "Autosize": the value of `nominal_capacity` or None if not set
 
         """
         return self["Nominal Capacity"]
@@ -8622,9 +8815,10 @@ class ChillerCombustionTurbine(DataObject):
     def nominal_cop(self):
         """field `Nominal COP`
 
+        |  Units: W/W
+
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8791,9 +8985,10 @@ class ChillerCombustionTurbine(DataObject):
     def design_condenser_inlet_temperature(self):
         """field `Design Condenser Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Condenser Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8834,9 +9029,10 @@ class ChillerCombustionTurbine(DataObject):
     def design_chilled_water_outlet_temperature(self):
         """field `Design Chilled Water Outlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Chilled Water Outlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8855,19 +9051,20 @@ class ChillerCombustionTurbine(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the max flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the max flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -8880,18 +9077,20 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
-        This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+
+        |  This field is not used for Condenser Type = AirCooled or EvaporativelyCooled
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
+
         """
         return self["Design Condenser Water Flow Rate"]
 
@@ -9091,12 +9290,13 @@ class ChillerCombustionTurbine(DataObject):
 
     @property
     def chilled_water_outlet_temperature_lower_limit(self):
-        """field `Chilled Water Outlet Temperature Lower Limit` Special Gas
-        Turbine Chiller Parameters Below.
+        """field `Chilled Water Outlet Temperature Lower Limit`
+
+        |  Special Gas Turbine Chiller Parameters Below
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Chilled Water Outlet Temperature Lower Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9522,6 +9722,7 @@ class ChillerCombustionTurbine(DataObject):
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
 
+
         Args:
             value (float): value for IDD Field `Coefficient 1 of U-Factor Times Area Curve`
 
@@ -9543,11 +9744,12 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        typical value .9
+
+        |  typical value .9
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of U-Factor Times Area Curve`
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9568,15 +9770,16 @@ class ChillerCombustionTurbine(DataObject):
     def gas_turbine_engine_capacity(self):
         """field `Gas Turbine Engine Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Gas Turbine Engine Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `gas_turbine_engine_capacity` or None if not set
+            float or "Autosize": the value of `gas_turbine_engine_capacity` or None if not set
 
         """
         return self["Gas Turbine Engine Capacity"]
@@ -9590,9 +9793,10 @@ class ChillerCombustionTurbine(DataObject):
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
 
+        |  Units: (kg/s)/W
+
         Args:
             value (float): value for IDD Field `Maximum Exhaust Flow per Unit of Power Output`
-                Units: (kg/s)/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9613,9 +9817,10 @@ class ChillerCombustionTurbine(DataObject):
     def design_steam_saturation_temperature(self):
         """field `Design Steam Saturation Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Steam Saturation Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9635,9 +9840,10 @@ class ChillerCombustionTurbine(DataObject):
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
 
+        |  Units: kJ/kg
+
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9656,18 +9862,20 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -9720,17 +9928,17 @@ class ChillerCombustionTurbine(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` Select operating mode for fluid flow
-        through the chiller. "NotModulated" is for either variable or constant
-        pumping with flow controlled by the external plant system.
-        "ConstantFlow" is for constant pumping with flow controlled by chiller
-        to operate at full design flow rate.  "LeavingSetpointModulated" is for
-        variable pumping with flow controlled by chiller to vary flow to target
-        a leaving temperature setpoint.
+        """field `Chiller Flow Mode`
+
+        |  Select operating mode for fluid flow through the chiller. "NotModulated" is for
+        |  either variable or constant pumping with flow controlled by the external plant system.
+        |  "ConstantFlow" is for constant pumping with flow controlled by chiller to operate at
+        |  full design flow rate.  "LeavingSetpointModulated" is for variable pumping with flow
+        |  controlled by chiller to vary flow to target a leaving temperature setpoint.
+        |  Default value: NotModulated
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
-                Default value: NotModulated
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9750,9 +9958,10 @@ class ChillerCombustionTurbine(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: NaturalGas
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: NaturalGas
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9772,11 +9981,12 @@ class ChillerCombustionTurbine(DataObject):
     def heat_recovery_maximum_temperature(self):
         """field `Heat Recovery Maximum Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Heat Recovery Maximum Temperature`
-                Units: C
-                Default value: 80.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9794,12 +10004,13 @@ class ChillerCombustionTurbine(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9818,21 +10029,23 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, The heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the chiller is not operating.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, The heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the chiller is not operating.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -9844,20 +10057,22 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -9869,11 +10084,12 @@ class ChillerCombustionTurbine(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -9883,6 +10099,7 @@ class ChillerCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -10227,16 +10444,17 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     def nominal_cooling_capacity(self):
         """field `Nominal Cooling Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Cooling Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_cooling_capacity` or None if not set
+            float or "Autosize": the value of `nominal_cooling_capacity` or None if not set
 
         """
         return self["Nominal Cooling Capacity"]
@@ -10248,13 +10466,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def heating_to_cooling_capacity_ratio(self):
-        """field `Heating to Cooling Capacity Ratio` A positive fraction that
-        represents the ratio of the heating capacity divided by the cooling
-        capacity at rated conditions.
+        """field `Heating to Cooling Capacity Ratio`
+
+        |  A positive fraction that represents the ratio of the
+        |  heating capacity divided by the cooling capacity at rated conditions.
+        |  Default value: 0.8
 
         Args:
             value (float): value for IDD Field `Heating to Cooling Capacity Ratio`
-                Default value: 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10272,13 +10491,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def fuel_input_to_cooling_output_ratio(self):
-        """field `Fuel Input to Cooling Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous fuel used divided by the
-        cooling capacity at rated conditions.
+        """field `Fuel Input to Cooling Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous fuel used divided by the cooling capacity at rated conditions.
+        |  Default value: 0.97
 
         Args:
             value (float): value for IDD Field `Fuel Input to Cooling Output Ratio`
-                Default value: 0.97
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10296,13 +10516,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def fuel_input_to_heating_output_ratio(self):
-        """field `Fuel Input to Heating Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous fuel used divided by the
-        nominal heating capacity.
+        """field `Fuel Input to Heating Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous fuel used divided by the nominal heating capacity.
+        |  Default value: 1.25
 
         Args:
             value (float): value for IDD Field `Fuel Input to Heating Output Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10320,14 +10541,15 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def electric_input_to_cooling_output_ratio(self):
-        """field `Electric Input to Cooling Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous electricity used divided
-        by the cooling capacity at rated conditions. If the chiller is both
-        heating and cooling only the cooling electricity is used.
+        """field `Electric Input to Cooling Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous electricity used divided by the cooling capacity at rated conditions.
+        |  If the chiller is both heating and cooling only the cooling electricity is used.
+        |  Default value: 0.01
 
         Args:
             value (float): value for IDD Field `Electric Input to Cooling Output Ratio`
-                Default value: 0.01
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10345,10 +10567,11 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def electric_input_to_heating_output_ratio(self):
-        """field `Electric Input to Heating Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous electricity used divided
-        by the nominal heating capacity. If the chiller is both heating and
-        cooling only the cooling electricity is used.
+        """field `Electric Input to Heating Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous electricity used divided by the nominal heating capacity.
+        |  If the chiller is both heating and cooling only the cooling electricity is used.
 
         Args:
             value (float): value for IDD Field `Electric Input to Heating Output Ratio`
@@ -10495,15 +10718,16 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def minimum_part_load_ratio(self):
-        """field `Minimum Part Load Ratio` The positive fraction that
-        represents the minimum cooling output possible when operated
-        continually at rated temperature conditions divided by the nominal
-        cooling capacity at those same conditions.  If the load on the chiller
-        is below this fraction the chiller will cycle.
+        """field `Minimum Part Load Ratio`
+
+        |  The positive fraction that represents the minimum cooling output possible when
+        |  operated continually at rated temperature conditions divided by the nominal
+        |  cooling capacity at those same conditions.  If the load on the chiller is below
+        |  this fraction the chiller will cycle.
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10522,21 +10746,23 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
-        The positive fraction that represents the maximum cooling output possible at
-        rated temperature conditions divided by the nominal cooling capacity at those
-        same conditions.  If greater than 1.0, the chiller is typically thought of as
-        capable of being overloaded.
+
+        |  The positive fraction that represents the maximum cooling output possible at
+        |  rated temperature conditions divided by the nominal cooling capacity at those
+        |  same conditions.  If greater than 1.0, the chiller is typically thought of as
+        |  capable of being overloaded.
+        |  Default value: 1.0
+        |  value >= 0.5
 
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
-                value >= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_part_load_ratio` or None if not set
+
         """
         return self["Maximum Part Load Ratio"]
 
@@ -10547,14 +10773,15 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def optimum_part_load_ratio(self):
-        """field `Optimum Part Load Ratio` The positive fraction that
-        represents the optimal cooling output at rated temperature conditions
-        divided by the nominal cooling capacity at those same conditions.  It
-        represents the most desirable operating point for the chiller.
+        """field `Optimum Part Load Ratio`
+
+        |  The positive fraction that represents the optimal cooling output at rated
+        |  temperature conditions divided by the nominal cooling capacity at those same
+        |  conditions.  It represents the most desirable operating point for the chiller.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10572,15 +10799,16 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def design_entering_condenser_water_temperature(self):
-        """field `Design Entering Condenser Water Temperature` The temperature
-        of the water entering the condenser of the chiller when operating at
-        design conditions.  This is usually based on the temperature delivered
-        by the cooling tower in a water cooled application.
+        """field `Design Entering Condenser Water Temperature`
+
+        |  The temperature of the water entering the condenser of the chiller when
+        |  operating at design conditions.  This is usually based on the temperature
+        |  delivered by the cooling tower in a water cooled application.
+        |  Units: C
+        |  Default value: 29.0
 
         Args:
             value (float): value for IDD Field `Design Entering Condenser Water Temperature`
-                Units: C
-                Default value: 29.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10599,15 +10827,16 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def design_leaving_chilled_water_temperature(self):
-        """field `Design Leaving Chilled Water Temperature` The temperature of
-        the water leaving the evaporator of the chiller when operating at
-        design conditions also called the chilled water supply temperature or
-        leaving chilled water temperature.
+        """field `Design Leaving Chilled Water Temperature`
+
+        |  The temperature of the water leaving the evaporator of the chiller when
+        |  operating at design conditions also called the chilled water supply temperature
+        |  or leaving chilled water temperature.
+        |  Units: C
+        |  Default value: 7.0
 
         Args:
             value (float): value for IDD Field `Design Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 7.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10626,20 +10855,21 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the max flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the max flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -10652,20 +10882,22 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
-        The water flow rate at design conditions through the condenser.
-        This field is not used for Condenser Type = AirCooled
+
+        |  The water flow rate at design conditions through the condenser.
+        |  This field is not used for Condenser Type = AirCooled
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
+
         """
         return self["Design Condenser Water Flow Rate"]
 
@@ -10676,20 +10908,21 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def design_hot_water_flow_rate(self):
-        """field `Design Hot Water Flow Rate` The water flow rate at design
-        conditions through the heater side.
+        """field `Design Hot Water Flow Rate`
+
+        |  The water flow rate at design conditions through the heater side.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Hot Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_hot_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_hot_water_flow_rate` or None if not set
 
         """
         return self["Design Hot Water Flow Rate"]
@@ -10702,12 +10935,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def cooling_capacity_function_of_temperature_curve_name(self):
         """field `Cooling Capacity Function of Temperature Curve Name`
-        The CoolCapFT curve represents the fraction of the cooling capacity of the chiller as it
-        varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+
+        |  The CoolCapFT curve represents the fraction of the cooling capacity of the chiller as it
+        |  varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Function of Temperature Curve Name`
@@ -10717,6 +10951,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Cooling Capacity Function of Temperature Curve Name"]
 
@@ -10729,13 +10964,15 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
-        The curve represents the fraction of the fuel input to the chiller at full load as
-        it varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Cooling Output Ratio Function of Temperature
+        Curve Name`
+
+        |  The curve represents the fraction of the fuel input to the chiller at full load as
+        |  it varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -10745,6 +10982,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -10761,12 +10999,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        The curve represents the fraction of the fuel input to the chiller as the load on
-        the chiller varies but the operating temperatures remain at the design values.
-        The curve is normalized so that at full load the value of the curve should be 1.0.
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  The curve represents the fraction of the fuel input to the chiller as the load on
+        |  the chiller varies but the operating temperatures remain at the design values.
+        |  The curve is normalized so that at full load the value of the curve should be 1.0.
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -10776,6 +11016,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -10792,13 +11033,15 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        The curve represents the fraction of the electricity to the chiller at full load as
-        it varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+        """field `Electric Input to Cooling Output Ratio Function of
+        Temperature Curve Name`
+
+        |  The curve represents the fraction of the electricity to the chiller at full load as
+        |  it varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -10808,6 +11051,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -10824,12 +11068,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        The curve represents the fraction of the electricity to the chiller as the load on
-        the chiller varies but the operating temperatures remain at the design values.
-        The curve is normalized so that at full load the value of the curve should be 1.0.
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+        """field `Electric Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  The curve represents the fraction of the electricity to the chiller as the load on
+        |  the chiller varies but the operating temperatures remain at the design values.
+        |  The curve is normalized so that at full load the value of the curve should be 1.0.
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -10839,6 +11085,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -10855,12 +11102,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def heating_capacity_function_of_cooling_capacity_curve_name(self):
         """field `Heating Capacity Function of Cooling Capacity Curve Name`
-        The curve represents how the heating capacity of the chiller varies with cooling
-        capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
-        so an input of 1.0 represents the nominal cooling capacity and an output of 1.0
-        represents the full heating capacity (see the Heating to cooling capacity ratio input)
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+
+        |  The curve represents how the heating capacity of the chiller varies with cooling
+        |  capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
+        |  so an input of 1.0 represents the nominal cooling capacity and an output of 1.0
+        |  represents the full heating capacity (see the Heating to cooling capacity ratio input)
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Heating Capacity Function of Cooling Capacity Curve Name`
@@ -10870,6 +11118,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `heating_capacity_function_of_cooling_capacity_curve_name` or None if not set
+
         """
         return self["Heating Capacity Function of Cooling Capacity Curve Name"]
 
@@ -10885,12 +11134,14 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     @property
     def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
             self):
-        """field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
-        When the chiller is operating as only a heater, this curve is used to represent the
-        fraction of fuel used as the heating load varies.  It is normalized so that a value
-        of 1.0 is the full heating capacity.  The curve is usually linear or quadratic and
-        will probably be similar to a boiler curve for most chillers.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Heat Output Ratio During Heating Only Operation
+        Curve Name`
+
+        |  When the chiller is operating as only a heater, this curve is used to represent the
+        |  fraction of fuel used as the heating load varies.  It is normalized so that a value
+        |  of 1.0 is the full heating capacity.  The curve is usually linear or quadratic and
+        |  will probably be similar to a boiler curve for most chillers.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
@@ -10900,6 +11151,7 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
@@ -10915,16 +11167,16 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def temperature_curve_input_variable(self):
-        """field `Temperature Curve Input Variable` Sets the second independent
-        variable in the three temperature dependent performance curves to
-        either the leaving or entering condenser water temperature.
-        Manufacturers express the performance of their chillers using either
-        the leaving condenser water temperature (to the tower) or the entering
-        condenser water temperature (from the tower).
+        """field `Temperature Curve Input Variable`
+
+        |  Sets the second independent variable in the three temperature dependent performance
+        |  curves to either the leaving or entering condenser water temperature.  Manufacturers
+        |  express the performance of their chillers using either the leaving condenser water
+        |  temperature (to the tower) or the entering condenser water temperature (from the tower).
+        |  Default value: EnteringCondenser
 
         Args:
             value (str): value for IDD Field `Temperature Curve Input Variable`
-                Default value: EnteringCondenser
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10942,12 +11194,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def condenser_type(self):
-        """field `Condenser Type` The condenser can either be air cooled or
-        connected to a cooling tower.
+        """field `Condenser Type`
+
+        |  The condenser can either be air cooled or connected to a cooling tower.
+        |  Default value: WaterCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: WaterCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10965,13 +11218,15 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def chilled_water_temperature_lower_limit(self):
-        """field `Chilled Water Temperature Lower Limit` The chilled water
-        supply temperature below which the chiller will shut off.
+        """field `Chilled Water Temperature Lower Limit`
+
+        |  The chilled water supply temperature below which the chiller
+        |  will shut off.
+        |  Units: C
+        |  Default value: 2.0
 
         Args:
             value (float): value for IDD Field `Chilled Water Temperature Lower Limit`
-                Units: C
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10989,11 +11244,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def fuel_higher_heating_value(self):
-        """field `Fuel Higher Heating Value` Not currently used.
+        """field `Fuel Higher Heating Value`
+
+        |  Not currently used.
+        |  Units: kJ/kg
 
         Args:
             value (float): value for IDD Field `Fuel Higher Heating Value`
-                Units: kJ/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11011,9 +11268,11 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def chiller_flow_mode(self):
-        """field `Chiller Flow Mode` This field is not really used and will be
-        deleted from the object. The required information is gotten internally
-        or not needed by the program.
+        """field `Chiller Flow Mode`
+
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
 
         Args:
             value (str): value for IDD Field `Chiller Flow Mode`
@@ -11036,9 +11295,10 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: NaturalGas
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: NaturalGas
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11056,12 +11316,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11396,16 +11657,17 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     def nominal_cooling_capacity(self):
         """field `Nominal Cooling Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Cooling Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_cooling_capacity` or None if not set
+            float or "Autosize": the value of `nominal_cooling_capacity` or None if not set
 
         """
         return self["Nominal Cooling Capacity"]
@@ -11417,13 +11679,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def heating_to_cooling_capacity_ratio(self):
-        """field `Heating to Cooling Capacity Ratio` A positive fraction that
-        represents the ratio of the heating capacity divided by the cooling
-        capacity at rated conditions.
+        """field `Heating to Cooling Capacity Ratio`
+
+        |  A positive fraction that represents the ratio of the
+        |  heating capacity divided by the cooling capacity at rated conditions.
+        |  Default value: 0.8
 
         Args:
             value (float): value for IDD Field `Heating to Cooling Capacity Ratio`
-                Default value: 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11441,13 +11704,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def thermal_energy_input_to_cooling_output_ratio(self):
-        """field `Thermal Energy Input to Cooling Output Ratio` The positive
-        fraction that represents the ratio of the instantaneous fuel used
-        divided by the cooling capacity at rated conditions.
+        """field `Thermal Energy Input to Cooling Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous fuel used divided by the cooling capacity at rated conditions.
+        |  Default value: 0.97
 
         Args:
             value (float): value for IDD Field `Thermal Energy Input to Cooling Output Ratio`
-                Default value: 0.97
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11466,13 +11730,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def thermal_energy_input_to_heating_output_ratio(self):
-        """field `Thermal Energy Input to Heating Output Ratio` The positive
-        fraction that represents the ratio of the instantaneous fuel used
-        divided by the nominal heating capacity.
+        """field `Thermal Energy Input to Heating Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous fuel used divided by the nominal heating capacity.
+        |  Default value: 1.25
 
         Args:
             value (float): value for IDD Field `Thermal Energy Input to Heating Output Ratio`
-                Default value: 1.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11491,14 +11756,15 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def electric_input_to_cooling_output_ratio(self):
-        """field `Electric Input to Cooling Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous electricity used divided
-        by the cooling capacity at rated conditions. If the chiller is both
-        heating and cooling only the cooling electricity is used.
+        """field `Electric Input to Cooling Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous electricity used divided by the cooling capacity at rated conditions.
+        |  If the chiller is both heating and cooling only the cooling electricity is used.
+        |  Default value: 0.01
 
         Args:
             value (float): value for IDD Field `Electric Input to Cooling Output Ratio`
-                Default value: 0.01
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11516,10 +11782,11 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def electric_input_to_heating_output_ratio(self):
-        """field `Electric Input to Heating Output Ratio` The positive fraction
-        that represents the ratio of the instantaneous electricity used divided
-        by the nominal heating capacity. If the chiller is both heating and
-        cooling only the cooling electricity is used.
+        """field `Electric Input to Heating Output Ratio`
+
+        |  The positive fraction that represents the ratio of the
+        |  instantaneous electricity used divided by the nominal heating capacity.
+        |  If the chiller is both heating and cooling only the cooling electricity is used.
 
         Args:
             value (float): value for IDD Field `Electric Input to Heating Output Ratio`
@@ -11666,15 +11933,16 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def minimum_part_load_ratio(self):
-        """field `Minimum Part Load Ratio` The positive fraction that
-        represents the minimum cooling output possible when operated
-        continually at rated temperature conditions divided by the nominal
-        cooling capacity at those same conditions.  If the load on the chiller
-        is below this fraction the chiller will cycle.
+        """field `Minimum Part Load Ratio`
+
+        |  The positive fraction that represents the minimum cooling output possible when
+        |  operated continually at rated temperature conditions divided by the nominal
+        |  cooling capacity at those same conditions.  If the load on the chiller is below
+        |  this fraction the chiller will cycle.
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11693,21 +11961,23 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
-        The positive fraction that represents the maximum cooling output possible at
-        rated temperature conditions divided by the nominal cooling capacity at those
-        same conditions.  If greater than 1.0, the chiller is typically thought of as
-        capable of being overloaded.
+
+        |  The positive fraction that represents the maximum cooling output possible at
+        |  rated temperature conditions divided by the nominal cooling capacity at those
+        |  same conditions.  If greater than 1.0, the chiller is typically thought of as
+        |  capable of being overloaded.
+        |  Default value: 1.0
+        |  value >= 0.5
 
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
-                value >= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_part_load_ratio` or None if not set
+
         """
         return self["Maximum Part Load Ratio"]
 
@@ -11718,14 +11988,15 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def optimum_part_load_ratio(self):
-        """field `Optimum Part Load Ratio` The positive fraction that
-        represents the optimal cooling output at rated temperature conditions
-        divided by the nominal cooling capacity at those same conditions.  It
-        represents the most desirable operating point for the chiller.
+        """field `Optimum Part Load Ratio`
+
+        |  The positive fraction that represents the optimal cooling output at rated
+        |  temperature conditions divided by the nominal cooling capacity at those same
+        |  conditions.  It represents the most desirable operating point for the chiller.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11743,15 +12014,16 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def design_entering_condenser_water_temperature(self):
-        """field `Design Entering Condenser Water Temperature` The temperature
-        of the water entering the condenser of the chiller when operating at
-        design conditions.  This is usually based on the temperature delivered
-        by the cooling tower in a water cooled application.
+        """field `Design Entering Condenser Water Temperature`
+
+        |  The temperature of the water entering the condenser of the chiller when
+        |  operating at design conditions.  This is usually based on the temperature
+        |  delivered by the cooling tower in a water cooled application.
+        |  Units: C
+        |  Default value: 29.0
 
         Args:
             value (float): value for IDD Field `Design Entering Condenser Water Temperature`
-                Units: C
-                Default value: 29.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11770,15 +12042,16 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def design_leaving_chilled_water_temperature(self):
-        """field `Design Leaving Chilled Water Temperature` The temperature of
-        the water leaving the evaporator of the chiller when operating at
-        design conditions also called the chilled water supply temperature or
-        leaving chilled water temperature.
+        """field `Design Leaving Chilled Water Temperature`
+
+        |  The temperature of the water leaving the evaporator of the chiller when
+        |  operating at design conditions also called the chilled water supply temperature
+        |  or leaving chilled water temperature.
+        |  Units: C
+        |  Default value: 7.0
 
         Args:
             value (float): value for IDD Field `Design Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 7.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11797,20 +12070,21 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def design_chilled_water_flow_rate(self):
-        """field `Design Chilled Water Flow Rate` For variable volume this is
-        the max flow & for constant flow this is the flow.
+        """field `Design Chilled Water Flow Rate`
+
+        |  For variable volume this is the max flow & for constant flow this is the flow.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -11823,20 +12097,22 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
-        The water flow rate at design conditions through the condenser.
-        This field is not used for Condenser Type = AirCooled
+
+        |  The water flow rate at design conditions through the condenser.
+        |  This field is not used for Condenser Type = AirCooled
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
+
         """
         return self["Design Condenser Water Flow Rate"]
 
@@ -11847,20 +12123,21 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def design_hot_water_flow_rate(self):
-        """field `Design Hot Water Flow Rate` The water flow rate at design
-        conditions through the heater side.
+        """field `Design Hot Water Flow Rate`
+
+        |  The water flow rate at design conditions through the heater side.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Hot Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_hot_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_hot_water_flow_rate` or None if not set
 
         """
         return self["Design Hot Water Flow Rate"]
@@ -11873,12 +12150,13 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def cooling_capacity_function_of_temperature_curve_name(self):
         """field `Cooling Capacity Function of Temperature Curve Name`
-        The CoolCapFT curve represents the fraction of the cooling capacity of the chiller as it
-        varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+
+        |  The CoolCapFT curve represents the fraction of the cooling capacity of the chiller as it
+        |  varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Function of Temperature Curve Name`
@@ -11888,6 +12166,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Cooling Capacity Function of Temperature Curve Name"]
 
@@ -11900,13 +12179,15 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
-        The curve represents the fraction of the fuel input to the chiller at full load as
-        it varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Cooling Output Ratio Function of Temperature
+        Curve Name`
+
+        |  The curve represents the fraction of the fuel input to the chiller at full load as
+        |  it varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -11916,6 +12197,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -11932,12 +12214,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        The curve represents the fraction of the fuel input to the chiller as the load on
-        the chiller varies but the operating temperatures remain at the design values.
-        The curve is normalized so that at full load the value of the curve should be 1.0.
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  The curve represents the fraction of the fuel input to the chiller as the load on
+        |  the chiller varies but the operating temperatures remain at the design values.
+        |  The curve is normalized so that at full load the value of the curve should be 1.0.
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -11947,6 +12231,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -11963,13 +12248,15 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        The curve represents the fraction of the electricity to the chiller at full load as
-        it varies by temperature.  The curve is normalized so that at design conditions the
-        value of the curve should be 1.0.  This is a biquadratic curve with the
-        input variables being the leaving chilled water temperature and either
-        the entering or leaving condenser water temperature.
-        Table:OneIndependentVariable object can also be used
+        """field `Electric Input to Cooling Output Ratio Function of
+        Temperature Curve Name`
+
+        |  The curve represents the fraction of the electricity to the chiller at full load as
+        |  it varies by temperature.  The curve is normalized so that at design conditions the
+        |  value of the curve should be 1.0.  This is a biquadratic curve with the
+        |  input variables being the leaving chilled water temperature and either
+        |  the entering or leaving condenser water temperature.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -11979,6 +12266,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -11995,12 +12283,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        The curve represents the fraction of the electricity to the chiller as the load on
-        the chiller varies but the operating temperatures remain at the design values.
-        The curve is normalized so that at full load the value of the curve should be 1.0.
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+        """field `Electric Input to Cooling Output Ratio Function of Part Load
+        Ratio Curve Name`
+
+        |  The curve represents the fraction of the electricity to the chiller as the load on
+        |  the chiller varies but the operating temperatures remain at the design values.
+        |  The curve is normalized so that at full load the value of the curve should be 1.0.
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -12010,6 +12300,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -12026,12 +12317,13 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def heating_capacity_function_of_cooling_capacity_curve_name(self):
         """field `Heating Capacity Function of Cooling Capacity Curve Name`
-        The curve represents how the heating capacity of the chiller varies with cooling
-        capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
-        so an input of 1.0 represents the nominal cooling capacity and an output of 1.0
-        represents the full heating capacity (see the Heating to cooling capacity ratio input)
-        The curve is usually linear or quadratic.
-        Table:OneIndependentVariable object can also be used
+
+        |  The curve represents how the heating capacity of the chiller varies with cooling
+        |  capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
+        |  so an input of 1.0 represents the nominal cooling capacity and an output of 1.0
+        |  represents the full heating capacity (see the Heating to cooling capacity ratio input)
+        |  The curve is usually linear or quadratic.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Heating Capacity Function of Cooling Capacity Curve Name`
@@ -12041,6 +12333,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `heating_capacity_function_of_cooling_capacity_curve_name` or None if not set
+
         """
         return self["Heating Capacity Function of Cooling Capacity Curve Name"]
 
@@ -12056,12 +12349,14 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     @property
     def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
             self):
-        """field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
-        When the chiller is operating as only a heater, this curve is used to represent the
-        fraction of fuel used as the heating load varies.  It is normalized so that a value
-        of 1.0 is the full heating capacity.  The curve is usually linear or quadratic and
-        will probably be similar to a boiler curve for most chillers.
-        Table:OneIndependentVariable object can also be used
+        """field `Fuel Input to Heat Output Ratio During Heating Only Operation
+        Curve Name`
+
+        |  When the chiller is operating as only a heater, this curve is used to represent the
+        |  fraction of fuel used as the heating load varies.  It is normalized so that a value
+        |  of 1.0 is the full heating capacity.  The curve is usually linear or quadratic and
+        |  will probably be similar to a boiler curve for most chillers.
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
@@ -12071,6 +12366,7 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
         Returns:
             str: the value of `fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name` or None if not set
+
         """
         return self[
             "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
@@ -12086,16 +12382,16 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def temperature_curve_input_variable(self):
-        """field `Temperature Curve Input Variable` Sets the second independent
-        variable in the three temperature dependent performance curves to
-        either the leaving or entering condenser water temperature.
-        Manufacturers express the performance of their chillers using either
-        the leaving condenser water temperature (to the tower) or the entering
-        condenser water temperature (from the tower).
+        """field `Temperature Curve Input Variable`
+
+        |  Sets the second independent variable in the three temperature dependent performance
+        |  curves to either the leaving or entering condenser water temperature.  Manufacturers
+        |  express the performance of their chillers using either the leaving condenser water
+        |  temperature (to the tower) or the entering condenser water temperature (from the tower).
+        |  Default value: EnteringCondenser
 
         Args:
             value (str): value for IDD Field `Temperature Curve Input Variable`
-                Default value: EnteringCondenser
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12113,12 +12409,13 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def condenser_type(self):
-        """field `Condenser Type` The condenser can either be air cooled or
-        connected to a cooling tower.
+        """field `Condenser Type`
+
+        |  The condenser can either be air cooled or connected to a cooling tower.
+        |  Default value: WaterCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: WaterCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12136,13 +12433,15 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def chilled_water_temperature_lower_limit(self):
-        """field `Chilled Water Temperature Lower Limit` The chilled water
-        supply temperature below which the chiller will shut off.
+        """field `Chilled Water Temperature Lower Limit`
+
+        |  The chilled water supply temperature below which the chiller
+        |  will shut off.
+        |  Units: C
+        |  Default value: 2.0
 
         Args:
             value (float): value for IDD Field `Chilled Water Temperature Lower Limit`
-                Units: C
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12202,12 +12501,13 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12490,9 +12790,10 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
     def rated_load_side_flow_rate(self):
         """field `Rated Load Side Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Load Side Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12512,9 +12813,10 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
     def rated_source_side_flow_rate(self):
         """field `Rated Source Side Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Source Side Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12534,9 +12836,10 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
     def rated_heating_capacity(self):
         """field `Rated Heating Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Heating Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12556,9 +12859,10 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
     def rated_heating_power_consumption(self):
         """field `Rated Heating Power Consumption`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Heating Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13051,9 +13355,10 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
     def rated_load_side_flow_rate(self):
         """field `Rated Load Side Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Load Side Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13073,9 +13378,10 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
     def rated_source_side_flow_rate(self):
         """field `Rated Source Side Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Source Side Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13095,9 +13401,10 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
     def rated_cooling_capacity(self):
         """field `Rated Cooling Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13117,9 +13424,10 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
     def rated_cooling_power_consumption(self):
         """field `Rated Cooling Power Consumption`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Cooling Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13656,9 +13964,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def nominal_cop(self):
         """field `Nominal COP`
 
+        |  Units: W/W
+
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13678,9 +13987,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13763,10 +14073,11 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def load_side_flow_rate(self):
         """field `Load Side Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Load Side Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13786,10 +14097,11 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def source_side_flow_rate(self):
         """field `Source Side Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Source Side Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13809,9 +14121,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def load_side_heat_transfer_coefficient(self):
         """field `Load Side Heat Transfer Coefficient`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Load Side Heat Transfer Coefficient`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13831,9 +14144,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def source_side_heat_transfer_coefficient(self):
         """field `Source Side Heat Transfer Coefficient`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Source Side Heat Transfer Coefficient`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13853,9 +14167,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def piston_displacement(self):
         """field `Piston Displacement`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Piston Displacement`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13896,9 +14211,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def compressor_suction_and_discharge_pressure_drop(self):
         """field `Compressor Suction and Discharge Pressure Drop`
 
+        |  Units: Pa
+
         Args:
             value (float): value for IDD Field `Compressor Suction and Discharge Pressure Drop`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13919,9 +14235,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def superheating(self):
         """field `Superheating`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Superheating`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13941,9 +14258,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def constant_part_of_electromechanical_power_losses(self):
         """field `Constant Part of Electromechanical Power Losses`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Constant Part of Electromechanical Power Losses`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13962,8 +14280,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
 
     @property
     def loss_factor(self):
-        """field `Loss Factor` Used to define electromechanical loss that is
-        proportional to the theoretical power %
+        """field `Loss Factor`
+
+        |  Used to define electromechanical loss that is proportional
+        |  to the theoretical power %
 
         Args:
             value (float): value for IDD Field `Loss Factor`
@@ -13986,10 +14306,11 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def high_pressure_cut_off(self):
         """field `High Pressure Cut Off`
 
+        |  Units: Pa
+        |  Default value: 500000000.0
+
         Args:
             value (float): value for IDD Field `High Pressure Cut Off`
-                Units: Pa
-                Default value: 500000000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14009,9 +14330,10 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
     def low_pressure_cut_off(self):
         """field `Low Pressure Cut Off`
 
+        |  Units: Pa
+
         Args:
             value (float): value for IDD Field `Low Pressure Cut Off`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14338,9 +14660,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def nominal_cop(self):
         """field `Nominal COP`
 
+        |  Units: W/W
+
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14360,9 +14683,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14445,10 +14769,11 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def load_side_flow_rate(self):
         """field `Load Side Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Load Side Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14468,10 +14793,11 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def source_side_flow_rate(self):
         """field `Source Side Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Source Side Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14491,9 +14817,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def load_side_heat_transfer_coefficient(self):
         """field `Load Side Heat Transfer Coefficient`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Load Side Heat Transfer Coefficient`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14513,9 +14840,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def source_side_heat_transfer_coefficient(self):
         """field `Source Side Heat Transfer Coefficient`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Source Side Heat Transfer Coefficient`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14535,9 +14863,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def piston_displacement(self):
         """field `Piston Displacement`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Piston Displacement`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14578,9 +14907,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def compressor_suction_and_discharge_pressure_drop(self):
         """field `Compressor Suction and Discharge Pressure Drop`
 
+        |  Units: Pa
+
         Args:
             value (float): value for IDD Field `Compressor Suction and Discharge Pressure Drop`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14601,9 +14931,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def superheating(self):
         """field `Superheating`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Superheating`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14623,9 +14954,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def constant_part_of_electromechanical_power_losses(self):
         """field `Constant Part of Electromechanical Power Losses`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Constant Part of Electromechanical Power Losses`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14644,8 +14976,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
 
     @property
     def loss_factor(self):
-        """field `Loss Factor` Used to define electromechanical loss that is
-        proportional to the theoretical power %
+        """field `Loss Factor`
+
+        |  Used to define electromechanical loss that is proportional
+        |  to the theoretical power %
 
         Args:
             value (float): value for IDD Field `Loss Factor`
@@ -14668,10 +15002,11 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def high_pressure_cut_off(self):
         """field `High Pressure Cut Off`
 
+        |  Units: Pa
+        |  Default value: 500000000.0
+
         Args:
             value (float): value for IDD Field `High Pressure Cut Off`
-                Units: Pa
-                Default value: 500000000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14691,9 +15026,10 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     def low_pressure_cut_off(self):
         """field `Low Pressure Cut Off`
 
+        |  Units: Pa
+
         Args:
             value (float): value for IDD Field `Low Pressure Cut Off`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14829,9 +15165,10 @@ class DistrictCooling(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14849,8 +15186,9 @@ class DistrictCooling(DataObject):
 
     @property
     def capacity_fraction_schedule_name(self):
-        """field `Capacity Fraction Schedule Name` Schedule values are
-        multiplied by Nominal Capacity for current capacity.
+        """field `Capacity Fraction Schedule Name`
+
+        |  Schedule values are multiplied by Nominal Capacity for current capacity
 
         Args:
             value (str): value for IDD Field `Capacity Fraction Schedule Name`
@@ -14989,9 +15327,10 @@ class DistrictHeating(DataObject):
     def nominal_capacity(self):
         """field `Nominal Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15009,8 +15348,9 @@ class DistrictHeating(DataObject):
 
     @property
     def capacity_fraction_schedule_name(self):
-        """field `Capacity Fraction Schedule Name` Schedule values are
-        multiplied by Nominal Capacity for current capacity.
+        """field `Capacity Fraction Schedule Name`
+
+        |  Schedule values are multiplied by Nominal Capacity for current capacity
 
         Args:
             value (str): value for IDD Field `Capacity Fraction Schedule Name`
@@ -15106,7 +15446,9 @@ class PlantComponentTemperatureSource(DataObject):
 
     @property
     def name(self):
-        """field `Name` Component Name.
+        """field `Name`
+
+        |  Component Name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -15127,7 +15469,9 @@ class PlantComponentTemperatureSource(DataObject):
 
     @property
     def inlet_node(self):
-        """field `Inlet Node` Name of the source inlet node.
+        """field `Inlet Node`
+
+        |  Name of the source inlet node
 
         Args:
             value (str): value for IDD Field `Inlet Node`
@@ -15148,7 +15492,9 @@ class PlantComponentTemperatureSource(DataObject):
 
     @property
     def outlet_node(self):
-        """field `Outlet Node` Name of the source outlet node.
+        """field `Outlet Node`
+
+        |  Name of the source outlet node
 
         Args:
             value (str): value for IDD Field `Outlet Node`
@@ -15169,19 +15515,20 @@ class PlantComponentTemperatureSource(DataObject):
 
     @property
     def design_volume_flow_rate(self):
-        """field `Design Volume Flow Rate` The design volumetric flow rate for
-        this source.
+        """field `Design Volume Flow Rate`
+
+        |  The design volumetric flow rate for this source
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Volume Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_volume_flow_rate` or None if not set
+            float or "Autosize": the value of `design_volume_flow_rate` or None if not set
 
         """
         return self["Design Volume Flow Rate"]
@@ -15215,17 +15562,19 @@ class PlantComponentTemperatureSource(DataObject):
     @property
     def source_temperature(self):
         """field `Source Temperature`
-        Used if Temperature Specification Type = Constant
+
+        |  Used if Temperature Specification Type = Constant
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Source Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `source_temperature` or None if not set
+
         """
         return self["Source Temperature"]
 
@@ -15237,17 +15586,19 @@ class PlantComponentTemperatureSource(DataObject):
     @property
     def source_temperature_schedule_name(self):
         """field `Source Temperature Schedule Name`
-        Used if Temperature Specification Type = Scheduled
+
+        |  Used if Temperature Specification Type = Scheduled
+        |  Units: C
 
         Args:
             value (str): value for IDD Field `Source Temperature Schedule Name`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `source_temperature_schedule_name` or None if not set
+
         """
         return self["Source Temperature Schedule Name"]
 
@@ -15998,9 +16349,10 @@ class CentralHeatPumpSystem(DataObject):
     def control_method(self):
         """field `Control Method`
 
+        |  Default value: SmartMixing
+
         Args:
             value (str): value for IDD Field `Control Method`
-                Default value: SmartMixing
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16144,12 +16496,13 @@ class CentralHeatPumpSystem(DataObject):
 
     @property
     def ancillary_power(self):
-        """field `Ancillary Power` Power as demanded from any auxiliary
-        controls.
+        """field `Ancillary Power`
+
+        |  Power as demanded from any auxiliary controls
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Ancillary Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16167,8 +16520,9 @@ class CentralHeatPumpSystem(DataObject):
 
     @property
     def ancillary_operation_schedule_name(self):
-        """field `Ancillary Operation Schedule Name` This value from this
-        schedule is multiplied times the Ancilliary Power.
+        """field `Ancillary Operation Schedule Name`
+
+        |  This value from this schedule is multiplied times the Ancilliary Power
 
         Args:
             value (str): value for IDD Field `Ancillary Operation Schedule Name`
@@ -16261,10 +16615,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_1(self):
         """field `Number of Chiller Heater Modules 1`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 1`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16354,10 +16709,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_2(self):
         """field `Number of Chiller Heater Modules 2`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 2`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16443,10 +16799,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_3(self):
         """field `Number of Chiller Heater Modules 3`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 3`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16536,10 +16893,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_4(self):
         """field `Number of Chiller Heater Modules 4`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 4`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16629,10 +16987,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_5(self):
         """field `Number of Chiller Heater Modules 5`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 5`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16722,10 +17081,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_6(self):
         """field `Number of Chiller Heater Modules 6`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 6`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16815,10 +17175,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_7(self):
         """field `Number of Chiller Heater Modules 7`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 7`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16908,10 +17269,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_8(self):
         """field `Number of Chiller Heater Modules 8`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 8`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17001,10 +17363,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_9(self):
         """field `Number of Chiller Heater Modules 9`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 9`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17094,10 +17457,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_10(self):
         """field `Number of Chiller Heater Modules 10`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 10`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17187,10 +17551,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_11(self):
         """field `Number of Chiller Heater Modules 11`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 11`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17280,10 +17645,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_12(self):
         """field `Number of Chiller Heater Modules 12`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 12`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17373,10 +17739,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_13(self):
         """field `Number of Chiller Heater Modules 13`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 13`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17466,10 +17833,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_14(self):
         """field `Number of Chiller Heater Modules 14`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 14`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17559,10 +17927,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_15(self):
         """field `Number of Chiller Heater Modules 15`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 15`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17652,10 +18021,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_16(self):
         """field `Number of Chiller Heater Modules 16`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 16`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17745,10 +18115,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_17(self):
         """field `Number of Chiller Heater Modules 17`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 17`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17840,10 +18211,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_18(self):
         """field `Number of Chiller Heater Modules 18`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 18`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17933,10 +18305,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_19(self):
         """field `Number of Chiller Heater Modules 19`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 19`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18026,10 +18399,11 @@ class CentralHeatPumpSystem(DataObject):
     def number_of_chiller_heater_modules_20(self):
         """field `Number of Chiller Heater Modules 20`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Chiller Heater Modules 20`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18342,15 +18716,16 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def reference_cooling_mode_evaporator_capacity(self):
         """field `Reference Cooling Mode Evaporator Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Reference Cooling Mode Evaporator Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `reference_cooling_mode_evaporator_capacity` or None if not set
+            float or "Autosize": the value of `reference_cooling_mode_evaporator_capacity` or None if not set
 
         """
         return self["Reference Cooling Mode Evaporator Capacity"]
@@ -18363,12 +18738,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
     @property
     def reference_cooling_mode_cop(self):
-        """field `Reference Cooling Mode COP` Efficiency of the chiller
-        compressor (cooling output/compressor energy input).
+        """field `Reference Cooling Mode COP`
+
+        |  Efficiency of the chiller compressor (cooling output/compressor energy input).
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Reference Cooling Mode COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18388,10 +18764,11 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def reference_cooling_mode_leaving_chilled_water_temperature(self):
         """field `Reference Cooling Mode Leaving Chilled Water Temperature`
 
+        |  Units: C
+        |  Default value: 6.67
+
         Args:
             value (float): value for IDD Field `Reference Cooling Mode Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 6.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18415,10 +18792,11 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def reference_cooling_mode_entering_condenser_fluid_temperature(self):
         """field `Reference Cooling Mode Entering Condenser Fluid Temperature`
 
+        |  Units: C
+        |  Default value: 29.44
+
         Args:
             value (float): value for IDD Field `Reference Cooling Mode Entering Condenser Fluid Temperature`
-                Units: C
-                Default value: 29.44
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18443,10 +18821,11 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def reference_cooling_mode_leaving_condenser_water_temperature(self):
         """field `Reference Cooling Mode Leaving Condenser Water Temperature`
 
+        |  Units: C
+        |  Default value: 35.0
+
         Args:
             value (float): value for IDD Field `Reference Cooling Mode Leaving Condenser Water Temperature`
-                Units: C
-                Default value: 35.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18470,18 +18849,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def reference_heating_mode_cooling_capacity_ratio(self):
         """field `Reference Heating Mode Cooling Capacity Ratio`
-        During simultaneous cooling-heating mode, this ratio is relative to the Reference Cooling Mode Cooling Capacity
-        (Evaporator capacity at simul clg-htg mode ref condition)/ (Evaporator capacity at cooling mode ref condition)
+
+        |  During simultaneous cooling-heating mode, this ratio is relative to the Reference Cooling Mode Cooling Capacity
+        |  (Evaporator capacity at simul clg-htg mode ref condition)/ (Evaporator capacity at cooling mode ref condition)
+        |  Default value: 0.75
 
         Args:
             value (float): value for IDD Field `Reference Heating Mode Cooling Capacity Ratio`
-                Default value: 0.75
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `reference_heating_mode_cooling_capacity_ratio` or None if not set
+
         """
         return self["Reference Heating Mode Cooling Capacity Ratio"]
 
@@ -18494,18 +18875,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def reference_heating_mode_cooling_power_input_ratio(self):
         """field `Reference Heating Mode Cooling Power Input Ratio`
-        During simultaneous cooling-heating mode, this ratio is relative to the Reference Cooling Mode COP
-        (Power at simultaneous clg-htg mode reference condition)/ (Power at cooling mode reference condition)
+
+        |  During simultaneous cooling-heating mode, this ratio is relative to the Reference Cooling Mode COP
+        |  (Power at simultaneous clg-htg mode reference condition)/ (Power at cooling mode reference condition)
+        |  Default value: 1.38
 
         Args:
             value (float): value for IDD Field `Reference Heating Mode Cooling Power Input Ratio`
-                Default value: 1.38
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `reference_heating_mode_cooling_power_input_ratio` or None if not set
+
         """
         return self["Reference Heating Mode Cooling Power Input Ratio"]
 
@@ -18518,18 +18901,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def reference_heating_mode_leaving_chilled_water_temperature(self):
         """field `Reference Heating Mode Leaving Chilled Water Temperature`
-        During simultaneous cooling-heating mode
+
+        |  During simultaneous cooling-heating mode
+        |  Units: C
+        |  Default value: 6.67
 
         Args:
             value (float): value for IDD Field `Reference Heating Mode Leaving Chilled Water Temperature`
-                Units: C
-                Default value: 6.67
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `reference_heating_mode_leaving_chilled_water_temperature` or None if not set
+
         """
         return self["Reference Heating Mode Leaving Chilled Water Temperature"]
 
@@ -18545,18 +18930,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def reference_heating_mode_leaving_condenser_water_temperature(self):
         """field `Reference Heating Mode Leaving Condenser Water Temperature`
-        During simultaneous cooling-heating mode
+
+        |  During simultaneous cooling-heating mode
+        |  Units: C
+        |  Default value: 49.0
 
         Args:
             value (float): value for IDD Field `Reference Heating Mode Leaving Condenser Water Temperature`
-                Units: C
-                Default value: 49.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `reference_heating_mode_leaving_condenser_water_temperature` or None if not set
+
         """
         return self[
             "Reference Heating Mode Leaving Condenser Water Temperature"]
@@ -18574,10 +18961,11 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def reference_heating_mode_entering_condenser_fluid_temperature(self):
         """field `Reference Heating Mode Entering Condenser Fluid Temperature`
 
+        |  Units: C
+        |  Default value: 29.44
+
         Args:
             value (float): value for IDD Field `Reference Heating Mode Entering Condenser Fluid Temperature`
-                Units: C
-                Default value: 29.44
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18601,18 +18989,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def heating_mode_entering_chilled_water_temperature_low_limit(self):
         """field `Heating Mode Entering Chilled Water Temperature Low Limit`
-        During simultaneous cooling-heating mode
+
+        |  During simultaneous cooling-heating mode
+        |  Units: C
+        |  Default value: 12.22
 
         Args:
             value (float): value for IDD Field `Heating Mode Entering Chilled Water Temperature Low Limit`
-                Units: C
-                Default value: 12.22
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_mode_entering_chilled_water_temperature_low_limit` or None if not set
+
         """
         return self[
             "Heating Mode Entering Chilled Water Temperature Low Limit"]
@@ -18628,12 +19018,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
     @property
     def chilled_water_flow_mode_type(self):
-        """field `Chilled Water Flow Mode Type` Sets chilled water flow rate to
-        either constant or variable.
+        """field `Chilled Water Flow Mode Type`
+
+        |  Sets chilled water flow rate to either constant or variable.
+        |  Default value: ConstantFlow
 
         Args:
             value (str): value for IDD Field `Chilled Water Flow Mode Type`
-                Default value: ConstantFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18653,16 +19044,17 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def design_chilled_water_flow_rate(self):
         """field `Design Chilled Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Chilled Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_chilled_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_chilled_water_flow_rate` or None if not set
 
         """
         return self["Design Chilled Water Flow Rate"]
@@ -18676,16 +19068,17 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def design_condenser_water_flow_rate(self):
         """field `Design Condenser Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Condenser Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_condenser_water_flow_rate` or None if not set
+            float or "Autosize": the value of `design_condenser_water_flow_rate` or None if not set
 
         """
         return self["Design Condenser Water Flow Rate"]
@@ -18699,10 +19092,11 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def design_hot_water_flow_rate(self):
         """field `Design Hot Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Design Hot Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18721,19 +19115,21 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def compressor_motor_efficiency(self):
         """field `Compressor Motor Efficiency`
-        Fraction of compressor electrical energy that must be rejected by the condenser.
-        Enter 1.0 or leave this field blank for a hermetic compressor.
+
+        |  Fraction of compressor electrical energy that must be rejected by the condenser.
+        |  Enter 1.0 or leave this field blank for a hermetic compressor.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Compressor Motor Efficiency`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `compressor_motor_efficiency` or None if not set
+
         """
         return self["Compressor Motor Efficiency"]
 
@@ -18746,9 +19142,10 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def condenser_type(self):
         """field `Condenser Type`
 
+        |  Default value: WaterCooled
+
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: WaterCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18768,17 +19165,17 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def cooling_mode_temperature_curve_condenser_water_independent_variable(
             self):
         """field `Cooling Mode Temperature Curve Condenser Water Independent
-        Variable` Sets the second independent variable in the three temperature
-        dependent performance curves to either the leaving or entering
-        condenser water temperature. Manufacturers express the performance of
-        their chillers using either the leaving condenser water temperature (to
-        the tower) or the entering condenser water temperature (from the
-        tower). Cooling mode is generally a stronger function of Entering
-        Condenser Fluid Temperature.
+        Variable`
+
+        |  Sets the second independent variable in the three temperature dependent performance
+        |  curves to either the leaving or entering condenser water temperature. Manufacturers
+        |  express the performance of their chillers using either the leaving condenser water
+        |  temperature (to the tower) or the entering condenser water temperature (from the tower).
+        |  Cooling mode is generally a stronger function of Entering Condenser Fluid Temperature
+        |  Default value: EnteringCondenser
 
         Args:
             value (str): value for IDD Field `Cooling Mode Temperature Curve Condenser Water Independent Variable`
-                Default value: EnteringCondenser
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18801,16 +19198,18 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
     @property
     def cooling_mode_cooling_capacity_function_of_temperature_curve_name(self):
-        """field `Cooling Mode Cooling Capacity Function of Temperature Curve Name`
-        Cooling capacity as a function of leaving chilled water temperature
-        and either entering or leaving condenser fluid temperature
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
-        If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
-        If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
-        CWS = supply (leaving) chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Cooling Mode Cooling Capacity Function of Temperature Curve
+        Name`
+
+        |  Cooling capacity as a function of leaving chilled water temperature
+        |  and either entering or leaving condenser fluid temperature
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
+        |  If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
+        |  If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Cooling Mode Cooling Capacity Function of Temperature Curve Name`
@@ -18820,6 +19219,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `cooling_mode_cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Mode Cooling Capacity Function of Temperature Curve Name"]
@@ -18836,16 +19236,18 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
-        and leaving condenser fluid temperature.   EIR = 1/COP.
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
-        If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
-        If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
-        CWS = supply (leaving) chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Cooling Mode Electric Input to Cooling Output Ratio Function
+        of Temperature Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
+        |  and leaving condenser fluid temperature.   EIR = 1/COP.
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
+        |  If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
+        |  If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -18855,6 +19257,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -18871,21 +19274,23 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
-        EIR = 1/COP
-        Table:OneIndependentVariable object can also be used
-        Table:TwoIndependentVariables object can also be used
-        Bicubic = a + b*TCond + c*TCond**2 + d*PLR + e*PLR**2 + f*TCond*PLR +g*0 + h*PLR**3+i*0+j*0
-        If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
-        If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
-        Normally, a bicubic curve here should be in terms of LCT rather than ECT
-        Also, a bicubic curve is more applicable for variable-speed compressor motor drives
-        or
-        Quadratic = a + b*PLR + c*PLR**2
-        PLR = part load ratio (cooling load/steady-state capacity)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Cooling Mode Electric Input to Cooling Output Ratio Function
+        of Part Load Ratio Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
+        |  EIR = 1/COP
+        |  Table:OneIndependentVariable object can also be used
+        |  Table:TwoIndependentVariables object can also be used
+        |  Bicubic = a + b*TCond + c*TCond**2 + d*PLR + e*PLR**2 + f*TCond*PLR +g*0 + h*PLR**3+i*0+j*0
+        |  If ClgModeCondWaterCurveInputVariable = EnteringCondenser, TCond = ECT
+        |  If ClgModeCondWaterCurveInputVariable = LeavingCondenser, TCond = LCT
+        |  Normally, a bicubic curve here should be in terms of LCT rather than ECT
+        |  Also, a bicubic curve is more applicable for variable-speed compressor motor drives
+        |  or
+        |  Quadratic = a + b*PLR + c*PLR**2
+        |  PLR = part load ratio (cooling load/steady-state capacity)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -18895,6 +19300,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -18911,20 +19317,22 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def cooling_mode_cooling_capacity_optimum_part_load_ratio(self):
         """field `Cooling Mode Cooling Capacity Optimum Part Load Ratio`
-        Optimum part load ratio where the chiller is most efficient.
-        Must be greater than or equal to the Minimum Part Load Ratio
-        and less than or equal to the Maximum Part Load Ratio.
-        The Min/Max PLR are taken from their assoicated EIR-FPLR curve references.
+
+        |  Optimum part load ratio where the chiller is most efficient.
+        |  Must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  The Min/Max PLR are taken from their assoicated EIR-FPLR curve references.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Cooling Mode Cooling Capacity Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `cooling_mode_cooling_capacity_optimum_part_load_ratio` or None if not set
+
         """
         return self["Cooling Mode Cooling Capacity Optimum Part Load Ratio"]
 
@@ -18938,18 +19346,18 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     def heating_mode_temperature_curve_condenser_water_independent_variable(
             self):
         """field `Heating Mode Temperature Curve Condenser Water Independent
-        Variable` Sets the second independent variable in the three temperature
-        dependent performance curves to either the leaving or entering
-        condenser water temperature. Manufacturers express the performance of
-        their chillers using either the leaving condenser water temperature (to
-        the tower) or the entering condenser water temperature (from the
-        tower). Heating mode (or Simul Clg/Htg Load) should be a function of
-        Leaving Condenser Fluid Temperature Only use EnteringCondenser as a
-        last resort in case no performance data exists for LeavingCondenser.
+        Variable`
+
+        |  Sets the second independent variable in the three temperature dependent performance
+        |  curves to either the leaving or entering condenser water temperature. Manufacturers
+        |  express the performance of their chillers using either the leaving condenser water
+        |  temperature (to the tower) or the entering condenser water temperature (from the tower).
+        |  Heating mode (or Simul Clg/Htg Load) should be a function of Leaving Condenser Fluid Temperature
+        |  Only use EnteringCondenser as a last resort in case no performance data exists for LeavingCondenser
+        |  Default value: LeavingCondenser
 
         Args:
             value (str): value for IDD Field `Heating Mode Temperature Curve Condenser Water Independent Variable`
-                Default value: LeavingCondenser
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18972,16 +19380,18 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
     @property
     def heating_mode_cooling_capacity_function_of_temperature_curve_name(self):
-        """field `Heating Mode Cooling Capacity Function of Temperature Curve Name`
-        Evaporator (cooling) capacity as a function of leaving chilled water temperature
-        and leaving condenser fluid temperature when in heating or simultaneous cool/heat mode
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
-        If independent variable = EnteringCondenser, TCond = ECT
-        If independent variable = LeavingCondenser, TCond = LCT
-        CWS = supply (leaving) chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Heating Mode Cooling Capacity Function of Temperature Curve
+        Name`
+
+        |  Evaporator (cooling) capacity as a function of leaving chilled water temperature
+        |  and leaving condenser fluid temperature when in heating or simultaneous cool/heat mode
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
+        |  If independent variable = EnteringCondenser, TCond = ECT
+        |  If independent variable = LeavingCondenser, TCond = LCT
+        |  CWS = supply (leaving) chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Heating Mode Cooling Capacity Function of Temperature Curve Name`
@@ -18991,6 +19401,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `heating_mode_cooling_capacity_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Mode Cooling Capacity Function of Temperature Curve Name"]
@@ -19007,16 +19418,18 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
             self):
-        """field `Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
-        Electric Input Ratio (EIR) as a function of leaving chilled water temperature when in heating or simultaneous cool/heat mode
-        and leaving condenser fluid temperature.   EIR = 1/COP.
-        Table:TwoIndependentVariables object can also be used
-        curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
-        If independent variable = EnteringCondenser, TCond = ECT
-        If independent variable = LeavingCondenser, TCond = LCT
-        CWS = leaving chilled water temperature(C)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Heating Mode Electric Input to Cooling Output Ratio Function
+        of Temperature Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of leaving chilled water temperature when in heating or simultaneous cool/heat mode
+        |  and leaving condenser fluid temperature.   EIR = 1/COP.
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = a + b*CWS + c*CWS**2 + d*TCond + e*TCond**2 + f*CWS*TCond
+        |  If independent variable = EnteringCondenser, TCond = ECT
+        |  If independent variable = LeavingCondenser, TCond = LCT
+        |  CWS = leaving chilled water temperature(C)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
@@ -19026,6 +19439,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
@@ -19042,19 +19456,21 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
             self):
-        """field `Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
-        Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR) when in heating or simultaneous cool/heat mode
-        EIR = 1/COP
-        Table:OneIndependentVariable object can also be used
-        Table:TwoIndependentVariables object can also be used
-        Bicubic = a + b*LCT + c*LCT**2 + d*PLR + e*PLR**2 + f*LCT*PLR + g*0 + h*PLR**3 + i*0 + j*0
-        Normally, a bicubic curve here should be in terms of LCT rather than ECT
-        Also, a bicubic curve is more applicable for variable-speed compressor motor drives
-        or
-        Quadratic = a + b*PLR + c*PLR**2
-        PLR = part load ratio (cooling load/steady-state capacity)
-        LCT = leaving condenser fluid temperature(C)
-        ECT = entering condenser fluid temperature(C)
+        """field `Heating Mode Electric Input to Cooling Output Ratio Function
+        of Part Load Ratio Curve Name`
+
+        |  Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR) when in heating or simultaneous cool/heat mode
+        |  EIR = 1/COP
+        |  Table:OneIndependentVariable object can also be used
+        |  Table:TwoIndependentVariables object can also be used
+        |  Bicubic = a + b*LCT + c*LCT**2 + d*PLR + e*PLR**2 + f*LCT*PLR + g*0 + h*PLR**3 + i*0 + j*0
+        |  Normally, a bicubic curve here should be in terms of LCT rather than ECT
+        |  Also, a bicubic curve is more applicable for variable-speed compressor motor drives
+        |  or
+        |  Quadratic = a + b*PLR + c*PLR**2
+        |  PLR = part load ratio (cooling load/steady-state capacity)
+        |  LCT = leaving condenser fluid temperature(C)
+        |  ECT = entering condenser fluid temperature(C)
 
         Args:
             value (str): value for IDD Field `Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
@@ -19064,6 +19480,7 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
         Returns:
             str: the value of `heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
+
         """
         return self[
             "Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
@@ -19080,20 +19497,22 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
     @property
     def heating_mode_cooling_capacity_optimum_part_load_ratio(self):
         """field `Heating Mode Cooling Capacity Optimum Part Load Ratio`
-        Optimum part load ratio where the chiller is most efficient when in heating or simultaneous cool/heat mode.
-        Must be greater than or equal to the Minimum Part Load Ratio
-        and less than or equal to the Maximum Part Load Ratio.
-        The Min/Max PLR are taken from their assoicated EIR-FPLR curve references.
+
+        |  Optimum part load ratio where the chiller is most efficient when in heating or simultaneous cool/heat mode.
+        |  Must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  The Min/Max PLR are taken from their assoicated EIR-FPLR curve references.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Heating Mode Cooling Capacity Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_mode_cooling_capacity_optimum_part_load_ratio` or None if not set
+
         """
         return self["Heating Mode Cooling Capacity Optimum Part Load Ratio"]
 
@@ -19105,12 +19524,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value

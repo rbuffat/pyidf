@@ -70,7 +70,8 @@ class HvactemplateThermostat(DataObject):
     @property
     def name(self):
         """field `Name`
-        This name is referenced by HVACTemplate:Zone:* objects
+
+        |  This name is referenced by HVACTemplate:Zone:* objects
 
         Args:
             value (str): value for IDD Field `Name`
@@ -80,6 +81,7 @@ class HvactemplateThermostat(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -90,8 +92,9 @@ class HvactemplateThermostat(DataObject):
 
     @property
     def heating_setpoint_schedule_name(self):
-        """field `Heating Setpoint Schedule Name` Leave blank if constant
-        setpoint specified below, must enter schedule or constant setpoint.
+        """field `Heating Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint specified below, must enter schedule or constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Setpoint Schedule Name`
@@ -112,12 +115,13 @@ class HvactemplateThermostat(DataObject):
 
     @property
     def constant_heating_setpoint(self):
-        """field `Constant Heating Setpoint` Ignored if schedule specified
-        above, must enter schedule or constant setpoint.
+        """field `Constant Heating Setpoint`
+
+        |  Ignored if schedule specified above, must enter schedule or constant setpoint
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Constant Heating Setpoint`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -135,8 +139,9 @@ class HvactemplateThermostat(DataObject):
 
     @property
     def cooling_setpoint_schedule_name(self):
-        """field `Cooling Setpoint Schedule Name` Leave blank if constant
-        setpoint specified below, must enter schedule or constant setpoint.
+        """field `Cooling Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint specified below, must enter schedule or constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Setpoint Schedule Name`
@@ -157,12 +162,13 @@ class HvactemplateThermostat(DataObject):
 
     @property
     def constant_cooling_setpoint(self):
-        """field `Constant Cooling Setpoint` Ignored if schedule specified
-        above, must enter schedule or constant setpoint.
+        """field `Constant Cooling Setpoint`
+
+        |  Ignored if schedule specified above, must enter schedule or constant setpoint
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Constant Cooling Setpoint`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -494,7 +500,9 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -516,9 +524,10 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -528,6 +537,7 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -538,7 +548,9 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -561,11 +573,12 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def maximum_heating_supply_air_temperature(self):
         """field `Maximum Heating Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 50.0
+        |  value < 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Temperature`
-                Units: C
-                Default value: 50.0
-                value < 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -585,12 +598,13 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def minimum_cooling_supply_air_temperature(self):
         """field `Minimum Cooling Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+        |  value > -100.0
+        |  value < 50.0
+
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Temperature`
-                Units: C
-                Default value: 13.0
-                value > -100.0
-                value < 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -610,10 +624,11 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def maximum_heating_supply_air_humidity_ratio(self):
         """field `Maximum Heating Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.0156
+
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.0156
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -634,10 +649,11 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def minimum_cooling_supply_air_humidity_ratio(self):
         """field `Minimum Cooling Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.0077
+
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.0077
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -658,9 +674,10 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def heating_limit(self):
         """field `Heating Limit`
 
+        |  Default value: NoLimit
+
         Args:
             value (str): value for IDD Field `Heating Limit`
-                Default value: NoLimit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -679,18 +696,20 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def maximum_heating_air_flow_rate(self):
         """field `Maximum Heating Air Flow Rate`
-        This field is ignored if Heating Limit = NoLimit
-        If this field is blank, there is no limit.
+
+        |  This field is ignored if Heating Limit = NoLimit
+        |  If this field is blank, there is no limit.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Heating Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_heating_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_heating_air_flow_rate` or None if not set
+
         """
         return self["Maximum Heating Air Flow Rate"]
 
@@ -702,18 +721,20 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def maximum_sensible_heating_capacity(self):
         """field `Maximum Sensible Heating Capacity`
-        This field is ignored if Heating Limit = NoLimit
-        If this field is blank, there is no limit.
+
+        |  This field is ignored if Heating Limit = NoLimit
+        |  If this field is blank, there is no limit.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Sensible Heating Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_sensible_heating_capacity` or None if not set
+            float or "Autosize": the value of `maximum_sensible_heating_capacity` or None if not set
+
         """
         return self["Maximum Sensible Heating Capacity"]
 
@@ -726,9 +747,10 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def cooling_limit(self):
         """field `Cooling Limit`
 
+        |  Default value: NoLimit
+
         Args:
             value (str): value for IDD Field `Cooling Limit`
-                Default value: NoLimit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -747,18 +769,20 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def maximum_cooling_air_flow_rate(self):
         """field `Maximum Cooling Air Flow Rate`
-        This field is ignored if Cooling Limit = NoLimit
-        This field is required if Outdoor Air Economizer Type is anything other than NoEconomizer.
+
+        |  This field is ignored if Cooling Limit = NoLimit
+        |  This field is required if Outdoor Air Economizer Type is anything other than NoEconomizer.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cooling Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_cooling_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_cooling_air_flow_rate` or None if not set
+
         """
         return self["Maximum Cooling Air Flow Rate"]
 
@@ -770,17 +794,19 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def maximum_total_cooling_capacity(self):
         """field `Maximum Total Cooling Capacity`
-        This field is ignored if Cooling Limit = NoLimit
+
+        |  This field is ignored if Cooling Limit = NoLimit
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Total Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_total_cooling_capacity` or None if not set
+            float or "Autosize": the value of `maximum_total_cooling_capacity` or None if not set
+
         """
         return self["Maximum Total Cooling Capacity"]
 
@@ -791,8 +817,9 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def heating_availability_schedule_name(self):
-        """field `Heating Availability Schedule Name` If blank, heating is
-        always available.
+        """field `Heating Availability Schedule Name`
+
+        |  If blank, heating is always available.
 
         Args:
             value (str): value for IDD Field `Heating Availability Schedule Name`
@@ -813,8 +840,9 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def cooling_availability_schedule_name(self):
-        """field `Cooling Availability Schedule Name` If blank, cooling is
-        always available.
+        """field `Cooling Availability Schedule Name`
+
+        |  If blank, cooling is always available.
 
         Args:
             value (str): value for IDD Field `Cooling Availability Schedule Name`
@@ -836,25 +864,27 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        ConstantSensibleHeatRatio means that the ideal loads system
-        will be controlled to meet the sensible cooling load, and the
-        latent cooling rate will be computed using a constant
-        sensible heat ratio (SHR)
-        Humidistat means that there is a ZoneControl:Humidistat for this
-        zone and the ideal loads system will attempt to satisfy the humidistat.
-        None means that there is no dehumidification.
-        ConstantSupplyHumidityRatio means that during cooling the supply air
-        will always be at the Minimum Cooling Supply Humidity Ratio.
+
+        |  ConstantSensibleHeatRatio means that the ideal loads system
+        |  will be controlled to meet the sensible cooling load, and the
+        |  latent cooling rate will be computed using a constant
+        |  sensible heat ratio (SHR)
+        |  Humidistat means that there is a ZoneControl:Humidistat for this
+        |  zone and the ideal loads system will attempt to satisfy the humidistat.
+        |  None means that there is no dehumidification.
+        |  ConstantSupplyHumidityRatio means that during cooling the supply air
+        |  will always be at the Minimum Cooling Supply Humidity Ratio.
+        |  Default value: ConstantSensibleHeatRatio
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: ConstantSensibleHeatRatio
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -865,14 +895,15 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def cooling_sensible_heat_ratio(self):
-        """field `Cooling Sensible Heat Ratio` This field is applicable only
-        when Dehumidification Control Type is ConstantSensibleHeatRatio.
+        """field `Cooling Sensible Heat Ratio`
+
+        |  This field is applicable only when Dehumidification Control Type is ConstantSensibleHeatRatio
+        |  Units: dimensionless
+        |  Default value: 0.7
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cooling Sensible Heat Ratio`
-                Units: dimensionless
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -890,14 +921,15 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def dehumidification_setpoint(self):
-        """field `Dehumidification Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Dehumidification Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -916,21 +948,23 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def humidification_control_type(self):
         """field `Humidification Control Type`
-        None means that there is no humidification.
-        Humidistat means that there is a ZoneControl:Humidistat for this
-        zone and the ideal loads system will attempt to satisfy the humidistat.
-        ConstantSupplyHumidityRatio means that during heating the supply air
-        will always be at the Maximum Heating Supply Humidity Ratio.
+
+        |  None means that there is no humidification.
+        |  Humidistat means that there is a ZoneControl:Humidistat for this
+        |  zone and the ideal loads system will attempt to satisfy the humidistat.
+        |  ConstantSupplyHumidityRatio means that during heating the supply air
+        |  will always be at the Maximum Heating Supply Humidity Ratio.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Humidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `humidification_control_type` or None if not set
+
         """
         return self["Humidification Control Type"]
 
@@ -941,14 +975,15 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def humidification_setpoint(self):
-        """field `Humidification Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Humidification Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidification Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -967,24 +1002,26 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        None means there is no outdoor air and all related fields will be ignored
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  None means there is no outdoor air and all related fields will be ignored
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -996,20 +1033,22 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -1020,12 +1059,14 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1044,12 +1085,14 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1068,11 +1111,12 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the minimum
-        outdoor air flow rate will be computed using these specifications. The outdoor air
-        flow rate will also be affected by the next two fields.
-        If this field is blank, there will be no outdoor air and the remaining fields will
-        be ignored.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the minimum
+        |  outdoor air flow rate will be computed using these specifications. The outdoor air
+        |  flow rate will also be affected by the next two fields.
+        |  If this field is blank, there will be no outdoor air and the remaining fields will
+        |  be ignored.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -1082,6 +1126,7 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -1094,22 +1139,24 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     @property
     def demand_controlled_ventilation_type(self):
         """field `Demand Controlled Ventilation Type`
-        This field controls how the minimum outdoor air flow rate is calculated.
-        None means that design occupancy will be uased to compute the minimum outdoor air flow rate
-        OccupancySchedule means that current occupancy level will be used.
-        CO2Setpoint means that the design occupancy will be used to compute the minimum outdoor air flow
-        reate and the outdoor air flow rate may be increased if necessary to maintain the indoor air carbon
-        dioxide setpoint defined in a ZoneControl:ContaminantController object.
+
+        |  This field controls how the minimum outdoor air flow rate is calculated.
+        |  None means that design occupancy will be uased to compute the minimum outdoor air flow rate
+        |  OccupancySchedule means that current occupancy level will be used.
+        |  CO2Setpoint means that the design occupancy will be used to compute the minimum outdoor air flow
+        |  reate and the outdoor air flow rate may be increased if necessary to maintain the indoor air carbon
+        |  dioxide setpoint defined in a ZoneControl:ContaminantController object.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `demand_controlled_ventilation_type` or None if not set
+
         """
         return self["Demand Controlled Ventilation Type"]
 
@@ -1120,14 +1167,15 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def outdoor_air_economizer_type(self):
-        """field `Outdoor Air Economizer Type` DifferentialDryBulb and
-        DifferentialEnthalpy will increase the outdoor air flow rate when there
-        is a cooling load and the outdoor air temperature or enthalpy is below
-        the zone exhaust air temperature or enthalpy.
+        """field `Outdoor Air Economizer Type`
+
+        |  DifferentialDryBulb and DifferentialEnthalpy will increase the outdoor air flow rate
+        |  when there is a cooling load and the outdoor air temperature or enthalpy
+        |  is below the zone exhaust air temperature or enthalpy.
+        |  Default value: NoEconomizer
 
         Args:
             value (str): value for IDD Field `Outdoor Air Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1147,9 +1195,10 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1169,11 +1218,12 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Units: dimensionless
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Units: dimensionless
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1191,14 +1241,15 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
 
     @property
     def latent_heat_recovery_effectiveness(self):
-        """field `Latent Heat Recovery Effectiveness` Applicable only if Heat
-        Recovery Type is Enthalpy.
+        """field `Latent Heat Recovery Effectiveness`
+
+        |  Applicable only if Heat Recovery Type is Enthalpy.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Units: dimensionless
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1343,7 +1394,9 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1365,9 +1418,10 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -1377,6 +1431,7 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -1388,7 +1443,8 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -1398,6 +1454,7 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -1410,9 +1467,10 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: HotWater
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1430,8 +1488,9 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -1455,16 +1514,17 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -1477,9 +1537,10 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -1489,6 +1550,7 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -1500,23 +1562,25 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -1528,20 +1592,22 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -1552,12 +1618,14 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1576,12 +1644,14 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1600,7 +1670,8 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object name`
@@ -1610,6 +1681,7 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object name"]
 
@@ -1622,7 +1694,8 @@ class HvactemplateZoneBaseboardHeat(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -1632,6 +1705,7 @@ class HvactemplateZoneBaseboardHeat(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -1962,7 +2036,9 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1984,9 +2060,10 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -1996,6 +2073,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -2006,20 +2084,21 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -2032,7 +2111,8 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -2042,6 +2122,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -2053,7 +2134,8 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -2063,6 +2145,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -2074,23 +2157,25 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -2102,20 +2187,22 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -2126,12 +2213,14 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2150,12 +2239,14 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2173,7 +2264,9 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -2196,10 +2289,11 @@ class HvactemplateZoneFanCoil(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2219,11 +2313,12 @@ class HvactemplateZoneFanCoil(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2243,10 +2338,11 @@ class HvactemplateZoneFanCoil(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2266,10 +2362,11 @@ class HvactemplateZoneFanCoil(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2290,9 +2387,10 @@ class HvactemplateZoneFanCoil(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: ChilledWater
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: ChilledWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2310,7 +2408,9 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -2333,19 +2433,21 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def cooling_coil_design_setpoint(self):
         """field `Cooling Coil Design Setpoint`
-        Used for sizing when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Used for sizing when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 14.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint`
-                Units: C
-                Default value: 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `cooling_coil_design_setpoint` or None if not set
+
         """
         return self["Cooling Coil Design Setpoint"]
 
@@ -2358,9 +2460,10 @@ class HvactemplateZoneFanCoil(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: HotWater
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2378,7 +2481,9 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -2401,19 +2506,21 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def heating_coil_design_setpoint(self):
         """field `Heating Coil Design Setpoint`
-        Used for sizing when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Used for sizing when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_coil_design_setpoint` or None if not set
+
         """
         return self["Heating Coil Design Setpoint"]
 
@@ -2425,9 +2532,10 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -2437,6 +2545,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -2448,18 +2557,20 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Cooling Coil Design Setpoint (above)
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Cooling Coil Design Setpoint (above)
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -2474,21 +2585,23 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -2503,18 +2616,20 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Heating Coil Design Setpoint (above)
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Heating Coil Design Setpoint (above)
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -2529,21 +2644,23 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -2558,7 +2675,8 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -2568,6 +2686,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -2580,7 +2699,8 @@ class HvactemplateZoneFanCoil(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -2590,6 +2710,7 @@ class HvactemplateZoneFanCoil(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -2603,9 +2724,10 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def capacity_control_method(self):
-        """field `Capacity Control Method` If this field is left blank, it will
-        default to CyclingFan if a Dedicated Outdoor Air System is specified
-        (see above), otherwise it will default to ConstantFanVariableFlow.
+        """field `Capacity Control Method`
+
+        |  If this field is left blank, it will default to CyclingFan if a Dedicated Outdoor Air
+        |  System is specified (see above), otherwise it will default to ConstantFanVariableFlow.
 
         Args:
             value (str): value for IDD Field `Capacity Control Method`
@@ -2628,9 +2750,10 @@ class HvactemplateZoneFanCoil(DataObject):
     def low_speed_supply_air_flow_ratio(self):
         """field `Low Speed Supply Air Flow Ratio`
 
+        |  Default value: 0.33
+
         Args:
             value (float): value for IDD Field `Low Speed Supply Air Flow Ratio`
-                Default value: 0.33
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2648,12 +2771,14 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def medium_speed_supply_air_flow_ratio(self):
-        """field `Medium Speed Supply Air Flow Ratio` Medium Speed Supply Air
-        Flow Ratio should be greater than Low Speed Supply Air Flow Ratio.
+        """field `Medium Speed Supply Air Flow Ratio`
+
+        |  Medium Speed Supply Air Flow Ratio should be greater
+        |  than Low Speed Supply Air Flow Ratio
+        |  Default value: 0.66
 
         Args:
             value (float): value for IDD Field `Medium Speed Supply Air Flow Ratio`
-                Default value: 0.66
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2671,9 +2796,11 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def outdoor_air_schedule_name(self):
-        """field `Outdoor Air Schedule Name` Value of schedule multiplies
-        maximum outdoor air flow rate This schedule is ignored if this zone is
-        served by an HVACTemplate dedicated outdoor air system.
+        """field `Outdoor Air Schedule Name`
+
+        |  Value of schedule multiplies maximum outdoor air flow rate
+        |  This schedule is ignored if this zone is served by an HVACTemplate dedicated outdoor
+        |  air system.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Schedule Name`
@@ -2696,9 +2823,10 @@ class HvactemplateZoneFanCoil(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2716,8 +2844,9 @@ class HvactemplateZoneFanCoil(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -2741,16 +2870,17 @@ class HvactemplateZoneFanCoil(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -3130,7 +3260,9 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3152,9 +3284,10 @@ class HvactemplateZonePtac(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -3164,6 +3297,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -3174,21 +3308,22 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def cooling_supply_air_flow_rate(self):
-        """field `Cooling Supply Air Flow Rate` Supply air flow rate during
-        cooling operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Cooling Supply Air Flow Rate`
+
+        |  Supply air flow rate during cooling operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_supply_air_flow_rate` or None if not set
 
         """
         return self["Cooling Supply Air Flow Rate"]
@@ -3200,21 +3335,22 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def heating_supply_air_flow_rate(self):
-        """field `Heating Supply Air Flow Rate` Supply air flow rate during
-        heating operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Heating Supply Air Flow Rate`
+
+        |  Supply air flow rate during heating operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_supply_air_flow_rate` or None if not set
 
         """
         return self["Heating Supply Air Flow Rate"]
@@ -3227,23 +3363,25 @@ class HvactemplateZonePtac(DataObject):
     @property
     def no_load_supply_air_flow_rate(self):
         """field `No Load Supply Air Flow Rate`
-        Supply air flow rate when no cooling or heating is needed
-        Only used when heat pump fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
-        A value entered in this field will *not* be multiplied by the sizing factor or
-        by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+
+        |  Supply air flow rate when no cooling or heating is needed
+        |  Only used when heat pump fan operating mode is continuous. This air flow rate
+        |  is used when no heating or cooling is required and the DX coil compressor is off.
+        |  If this field is left blank or zero, the supply air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  A value entered in this field will *not* be multiplied by the sizing factor or
+        |  by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `No Load Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `no_load_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `no_load_supply_air_flow_rate` or None if not set
+
         """
         return self["No Load Supply Air Flow Rate"]
 
@@ -3255,7 +3393,8 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -3265,6 +3404,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -3276,7 +3416,8 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -3286,6 +3427,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -3297,23 +3439,25 @@ class HvactemplateZonePtac(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -3325,20 +3469,22 @@ class HvactemplateZonePtac(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -3349,12 +3495,14 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3373,12 +3521,14 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3396,7 +3546,9 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -3417,11 +3569,12 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule Name values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule Name values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -3445,9 +3598,10 @@ class HvactemplateZonePtac(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3467,10 +3621,11 @@ class HvactemplateZonePtac(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3490,11 +3645,12 @@ class HvactemplateZonePtac(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3514,10 +3670,11 @@ class HvactemplateZonePtac(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3537,9 +3694,10 @@ class HvactemplateZonePtac(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: SingleSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: SingleSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3557,7 +3715,9 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -3580,20 +3740,22 @@ class HvactemplateZonePtac(DataObject):
     @property
     def cooling_coil_gross_rated_total_capacity(self):
         """field `Cooling Coil Gross Rated Total Capacity`
-        Total cooling capacity not accounting for the effect of supply air fan heat
-        Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
-        air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
+        |  air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
 
@@ -3605,21 +3767,22 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Rated sensible
-        heat ratio (gross sensible capacity/gross total capacity) Sensible and
-        total capacities do not include effect of supply fan heat.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -3632,14 +3795,15 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def cooling_coil_gross_rated_cooling_cop(self):
-        """field `Cooling Coil Gross Rated Cooling COP` Gross cooling capacity
-        divided by power input to the compressor and outdoor fan, does not
-        include supply fan heat or supply fan electrical energy input.
+        """field `Cooling Coil Gross Rated Cooling COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electrical energy input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated Cooling COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3659,9 +3823,10 @@ class HvactemplateZonePtac(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: Electric
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3679,7 +3844,9 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -3703,16 +3870,17 @@ class HvactemplateZonePtac(DataObject):
     def heating_coil_capacity(self):
         """field `Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_capacity` or None if not set
 
         """
         return self["Heating Coil Capacity"]
@@ -3724,13 +3892,14 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def gas_heating_coil_efficiency(self):
-        """field `Gas Heating Coil Efficiency` Applies only if Heating Coil
-        Type is Gas.
+        """field `Gas Heating Coil Efficiency`
+
+        |  Applies only if Heating Coil Type is Gas
+        |  Default value: 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3748,13 +3917,14 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def gas_heating_coil_parasitic_electric_load(self):
-        """field `Gas Heating Coil Parasitic Electric Load` Applies only if
-        Heating Coil Type is Gas.
+        """field `Gas Heating Coil Parasitic Electric Load`
+
+        |  Applies only if Heating Coil Type is Gas
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3774,9 +3944,10 @@ class HvactemplateZonePtac(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -3786,6 +3957,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -3797,18 +3969,20 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -3823,19 +3997,21 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 14.0
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -3848,21 +4024,23 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -3877,18 +4055,20 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -3903,19 +4083,21 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -3928,21 +4110,23 @@ class HvactemplateZonePtac(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -3957,7 +4141,8 @@ class HvactemplateZonePtac(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -3967,6 +4152,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -3979,7 +4165,8 @@ class HvactemplateZonePtac(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -3989,6 +4176,7 @@ class HvactemplateZonePtac(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -4004,9 +4192,10 @@ class HvactemplateZonePtac(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4024,8 +4213,9 @@ class HvactemplateZonePtac(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -4049,16 +4239,17 @@ class HvactemplateZonePtac(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -4534,7 +4725,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4556,9 +4749,10 @@ class HvactemplateZonePthp(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -4568,6 +4762,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -4578,21 +4773,22 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def cooling_supply_air_flow_rate(self):
-        """field `Cooling Supply Air Flow Rate` Supply air flow rate during
-        cooling operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Cooling Supply Air Flow Rate`
+
+        |  Supply air flow rate during cooling operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_supply_air_flow_rate` or None if not set
 
         """
         return self["Cooling Supply Air Flow Rate"]
@@ -4604,21 +4800,22 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def heating_supply_air_flow_rate(self):
-        """field `Heating Supply Air Flow Rate` Supply air flow rate during
-        heating operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Heating Supply Air Flow Rate`
+
+        |  Supply air flow rate during heating operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_supply_air_flow_rate` or None if not set
 
         """
         return self["Heating Supply Air Flow Rate"]
@@ -4631,23 +4828,25 @@ class HvactemplateZonePthp(DataObject):
     @property
     def no_load_supply_air_flow_rate(self):
         """field `No Load Supply Air Flow Rate`
-        Supply air flow rate when no cooling or heating is needed
-        Only used when heat pump fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
-        A value entered in this field will *not* be multiplied by the sizing factor or
-        by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+
+        |  Supply air flow rate when no cooling or heating is needed
+        |  Only used when heat pump fan operating mode is continuous. This air flow rate
+        |  is used when no heating or cooling is required and the DX coil compressor is off.
+        |  If this field is left blank or zero, the supply air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  A value entered in this field will *not* be multiplied by the sizing factor or
+        |  by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `No Load Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `no_load_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `no_load_supply_air_flow_rate` or None if not set
+
         """
         return self["No Load Supply Air Flow Rate"]
 
@@ -4659,7 +4858,8 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -4669,6 +4869,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -4680,7 +4881,8 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -4690,6 +4892,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -4701,23 +4904,25 @@ class HvactemplateZonePthp(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -4729,20 +4934,22 @@ class HvactemplateZonePthp(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -4753,12 +4960,14 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4777,12 +4986,14 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4800,7 +5011,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -4821,11 +5034,12 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -4849,9 +5063,10 @@ class HvactemplateZonePthp(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4871,10 +5086,11 @@ class HvactemplateZonePthp(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4894,11 +5110,12 @@ class HvactemplateZonePthp(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4918,10 +5135,11 @@ class HvactemplateZonePthp(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4941,9 +5159,10 @@ class HvactemplateZonePthp(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: SingleSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: SingleSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4961,7 +5180,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -4984,20 +5205,22 @@ class HvactemplateZonePthp(DataObject):
     @property
     def cooling_coil_gross_rated_total_capacity(self):
         """field `Cooling Coil Gross Rated Total Capacity`
-        Total cooling capacity not accounting for the effect of supply air fan heat
-        Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
-        air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
+        |  air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
 
@@ -5009,21 +5232,22 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Rated sensible
-        heat ratio (gross sensible capacity/gross total capacity) Sensible and
-        total capacities do not include effect of supply fan heat.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -5036,14 +5260,15 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def cooling_coil_gross_rated_cop(self):
-        """field `Cooling Coil Gross Rated COP` Gross cooling capacity divided
-        by power input to the compressor and outdoor fan, does not include
-        supply fan heat or supply fan electrical energy input.
+        """field `Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electrical energy input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5063,9 +5288,10 @@ class HvactemplateZonePthp(DataObject):
     def heat_pump_heating_coil_type(self):
         """field `Heat Pump Heating Coil Type`
 
+        |  Default value: SingleSpeedDXHeatPump
+
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Type`
-                Default value: SingleSpeedDXHeatPump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5083,8 +5309,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def heat_pump_heating_coil_availability_schedule_name(self):
-        """field `Heat Pump Heating Coil Availability Schedule Name` If blank,
-        always on.
+        """field `Heat Pump Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Availability Schedule Name`
@@ -5107,20 +5334,22 @@ class HvactemplateZonePthp(DataObject):
     @property
     def heat_pump_heating_coil_gross_rated_capacity(self):
         """field `Heat Pump Heating Coil Gross Rated Capacity`
-        Capacity excluding supply air fan heat
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Capacity excluding supply air fan heat
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heat Pump Heating Coil Gross Rated Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+            float or "Autosize": the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+
         """
         return self["Heat Pump Heating Coil Gross Rated Capacity"]
 
@@ -5133,21 +5362,23 @@ class HvactemplateZonePthp(DataObject):
     @property
     def heat_pump_heating_coil_gross_rated_cop(self):
         """field `Heat Pump Heating Coil Gross Rated COP`
-        Heat Pump Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
-        Does not include supply air fan heat or supply air fan electrical energy
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Heat Pump Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
+        |  Does not include supply air fan heat or supply air fan electrical energy
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W/W
+        |  Default value: 2.75
 
         Args:
             value (float): value for IDD Field `Heat Pump Heating Coil Gross Rated COP`
-                Units: W/W
-                Default value: 2.75
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heat_pump_heating_coil_gross_rated_cop` or None if not set
+
         """
         return self["Heat Pump Heating Coil Gross Rated COP"]
 
@@ -5160,11 +5391,12 @@ class HvactemplateZonePthp(DataObject):
     def heat_pump_heating_minimum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: -8.0
+        |  value >= -20.0
+
         Args:
             value (float): value for IDD Field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: -8.0
-                value >= -20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5188,11 +5420,12 @@ class HvactemplateZonePthp(DataObject):
     def heat_pump_defrost_maximum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: 5.0
+        |  value <= 7.22
+
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 5.0
-                value <= 7.22
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5213,9 +5446,10 @@ class HvactemplateZonePthp(DataObject):
     def heat_pump_defrost_strategy(self):
         """field `Heat Pump Defrost Strategy`
 
+        |  Default value: ReverseCycle
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Strategy`
-                Default value: ReverseCycle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5235,9 +5469,10 @@ class HvactemplateZonePthp(DataObject):
     def heat_pump_defrost_control(self):
         """field `Heat Pump Defrost Control`
 
+        |  Default value: Timed
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Control`
-                Default value: Timed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5255,12 +5490,14 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def heat_pump_defrost_time_period_fraction(self):
-        """field `Heat Pump Defrost Time Period Fraction` Fraction of time in
-        defrost mode only applicable if Timed defrost control is specified.
+        """field `Heat Pump Defrost Time Period Fraction`
+
+        |  Fraction of time in defrost mode
+        |  only applicable if Timed defrost control is specified
+        |  Default value: 0.058333
 
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Time Period Fraction`
-                Default value: 0.058333
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5280,9 +5517,10 @@ class HvactemplateZonePthp(DataObject):
     def supplemental_heating_coil_type(self):
         """field `Supplemental Heating Coil Type`
 
+        |  Default value: Electric
+
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5300,8 +5538,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def supplemental_heating_coil_availability_schedule_name(self):
-        """field `Supplemental Heating Coil Availability Schedule Name` If
-        blank, always on.
+        """field `Supplemental Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Availability Schedule Name`
@@ -5325,16 +5564,17 @@ class HvactemplateZonePthp(DataObject):
     def supplemental_heating_coil_capacity(self):
         """field `Supplemental Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supplemental Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supplemental_heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `supplemental_heating_coil_capacity` or None if not set
 
         """
         return self["Supplemental Heating Coil Capacity"]
@@ -5347,13 +5587,14 @@ class HvactemplateZonePthp(DataObject):
     @property
     def supplemental_heating_coil_maximum_outdoor_drybulb_temperature(self):
         """field `Supplemental Heating Coil Maximum Outdoor Dry-Bulb Temperature`
-        Supplemental heater will not operate when outdoor temperature exceeds this value.
+
+        |  Supplemental heater will not operate when outdoor temperature exceeds this value.
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
 
         Args:
             value (float): value for IDD Field `Supplemental Heating Coil Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5376,13 +5617,14 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def supplemental_gas_heating_coil_efficiency(self):
-        """field `Supplemental Gas Heating Coil Efficiency` Applies only if
-        Supplemental Heating Coil Type is Gas.
+        """field `Supplemental Gas Heating Coil Efficiency`
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Default value: 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5402,12 +5644,13 @@ class HvactemplateZonePthp(DataObject):
     @property
     def supplemental_gas_heating_coil_parasitic_electric_load(self):
         """field `Supplemental Gas Heating Coil Parasitic Electric Load`
-        Applies only if Supplemental Heating Coil Type is Gas.
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5429,9 +5672,10 @@ class HvactemplateZonePthp(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -5441,6 +5685,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -5452,18 +5697,20 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -5478,19 +5725,21 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 14.0
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -5503,21 +5752,23 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -5532,18 +5783,20 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -5558,19 +5811,21 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -5583,21 +5838,23 @@ class HvactemplateZonePthp(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -5612,7 +5869,8 @@ class HvactemplateZonePthp(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -5622,6 +5880,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -5634,7 +5893,8 @@ class HvactemplateZonePthp(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -5644,6 +5904,7 @@ class HvactemplateZonePthp(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -5659,9 +5920,10 @@ class HvactemplateZonePthp(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5679,8 +5941,9 @@ class HvactemplateZonePthp(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -5704,16 +5967,17 @@ class HvactemplateZonePthp(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -6147,7 +6411,9 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -6169,9 +6435,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -6181,6 +6448,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -6191,21 +6459,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def cooling_supply_air_flow_rate(self):
-        """field `Cooling Supply Air Flow Rate` Supply air flow rate during
-        cooling operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Cooling Supply Air Flow Rate`
+
+        |  Supply air flow rate during cooling operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_supply_air_flow_rate` or None if not set
 
         """
         return self["Cooling Supply Air Flow Rate"]
@@ -6217,21 +6486,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def heating_supply_air_flow_rate(self):
-        """field `Heating Supply Air Flow Rate` Supply air flow rate during
-        heating operation This field may be set to "autosize".  If a value is
-        entered, it will be multiplied by the Supply Air Sizing Factor and by
-        zone multipliers.
+        """field `Heating Supply Air Flow Rate`
+
+        |  Supply air flow rate during heating operation
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_supply_air_flow_rate` or None if not set
 
         """
         return self["Heating Supply Air Flow Rate"]
@@ -6244,23 +6514,25 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def no_load_supply_air_flow_rate(self):
         """field `No Load Supply Air Flow Rate`
-        Supply air flow rate when no cooling or heating is needed
-        Only used when heat pump fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
-        A value entered in this field will *not* be multiplied by the sizing factor or
-        by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+
+        |  Supply air flow rate when no cooling or heating is needed
+        |  Only used when heat pump fan operating mode is continuous. This air flow rate
+        |  is used when no heating or cooling is required.
+        |  If this field is left blank or zero, the supply air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  A value entered in this field will *not* be multiplied by the sizing factor or
+        |  by zone multipliers.  It is best to autosize or leave blank when using zone multipliers.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `No Load Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `no_load_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `no_load_supply_air_flow_rate` or None if not set
+
         """
         return self["No Load Supply Air Flow Rate"]
 
@@ -6272,7 +6544,8 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -6282,6 +6555,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -6293,7 +6567,8 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -6303,6 +6578,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -6314,23 +6590,25 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -6342,20 +6620,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -6366,12 +6646,14 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6390,12 +6672,14 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6413,7 +6697,9 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -6434,11 +6720,12 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -6462,9 +6749,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6484,10 +6772,11 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6507,11 +6796,12 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6531,10 +6821,11 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6554,9 +6845,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: Coil:Cooling:WaterToAirHeatPump:EquationFit
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: Coil:Cooling:WaterToAirHeatPump:EquationFit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6576,19 +6868,20 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def cooling_coil_gross_rated_total_capacity(self):
-        """field `Cooling Coil Gross Rated Total Capacity` Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `Cooling Coil Gross Rated Total Capacity`
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
@@ -6601,21 +6894,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Rated sensible
-        heat ratio (gross sensible capacity/gross total capacity) Sensible and
-        total capacities do not include effect of supply fan heat.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -6628,14 +6922,15 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def cooling_coil_gross_rated_cop(self):
-        """field `Cooling Coil Gross Rated COP` Gross cooling capacity divided
-        by power input to the compressor and outdoor fan, does not include
-        supply fan heat or supply fan electric power input.
+        """field `Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.5
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6655,9 +6950,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def heat_pump_heating_coil_type(self):
         """field `Heat Pump Heating Coil Type`
 
+        |  Default value: Coil:Heating:WaterToAirHeatPump:EquationFit
+
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Type`
-                Default value: Coil:Heating:WaterToAirHeatPump:EquationFit
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6677,19 +6973,20 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_heating_coil_gross_rated_capacity(self):
-        """field `Heat Pump Heating Coil Gross Rated Capacity` Capacity
-        excluding supply air fan heat.
+        """field `Heat Pump Heating Coil Gross Rated Capacity`
+
+        |  Capacity excluding supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heat Pump Heating Coil Gross Rated Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+            float or "Autosize": the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
 
         """
         return self["Heat Pump Heating Coil Gross Rated Capacity"]
@@ -6702,15 +6999,15 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_heating_coil_gross_rated_cop(self):
-        """field `Heat Pump Heating Coil Gross Rated COP` Heat Pump Heating
-        Coil Rated Capacity divided by power input to the compressor and
-        outdoor fan, does not include supply air fan heat or supply air fan
-        electric power input.
+        """field `Heat Pump Heating Coil Gross Rated COP`
+
+        |  Heat Pump Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply air fan heat or supply air fan electric power input
+        |  Units: W/W
+        |  Default value: 4.2
 
         Args:
             value (float): value for IDD Field `Heat Pump Heating Coil Gross Rated COP`
-                Units: W/W
-                Default value: 4.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6728,8 +7025,9 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def supplemental_heating_coil_availability_schedule_name(self):
-        """field `Supplemental Heating Coil Availability Schedule Name` If
-        blank, always on.
+        """field `Supplemental Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Availability Schedule Name`
@@ -6753,16 +7051,17 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supplemental_heating_coil_capacity(self):
         """field `Supplemental Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supplemental Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supplemental_heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `supplemental_heating_coil_capacity` or None if not set
 
         """
         return self["Supplemental Heating Coil Capacity"]
@@ -6775,20 +7074,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def maximum_cycling_rate(self):
         """field `Maximum Cycling Rate`
-        The maximum on-off cycling rate for the compressor
-        Suggested value is 2.5 for a typical heat pump
+
+        |  The maximum on-off cycling rate for the compressor
+        |  Suggested value is 2.5 for a typical heat pump
+        |  Units: cycles/hr
+        |  Default value: 2.5
+        |  value <= 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Cycling Rate`
-                Units: cycles/hr
-                Default value: 2.5
-                value <= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
+
         """
         return self["Maximum Cycling Rate"]
 
@@ -6799,15 +7100,16 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_time_constant(self):
-        """field `Heat Pump Time Constant` Time constant for the cooling coil's
-        capacity to reach steady state after startup Suggested value is 60 for
-        a typical heat pump.
+        """field `Heat Pump Time Constant`
+
+        |  Time constant for the cooling coil's capacity to reach steady state after startup
+        |  Suggested value is 60 for a typical heat pump
+        |  Units: s
+        |  Default value: 60.0
+        |  value <= 500.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Time Constant`
-                Units: s
-                Default value: 60.0
-                value <= 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6826,14 +7128,15 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def fraction_of_oncycle_power_use(self):
         """field `Fraction of On-Cycle Power Use`
-        The fraction of on-cycle power use to adjust the part load fraction based on
-        the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
-        Suggested value is 0.01 for a typical heat pump
+
+        |  The fraction of on-cycle power use to adjust the part load fraction based on
+        |  the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
+        |  Suggested value is 0.01 for a typical heat pump
+        |  Default value: 0.01
+        |  value <= 0.05
 
         Args:
             value (float): value for IDD Field `Fraction of On-Cycle Power Use`
-                Default value: 0.01
-                value <= 0.05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6852,15 +7155,16 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_fan_delay_time(self):
-        """field `Heat Pump Fan Delay Time` Programmed time delay for heat pump
-        fan to shut off after compressor cycle off. Only required when fan
-        operating mode is cycling Enter 0 when fan operating mode is
-        continuous.
+        """field `Heat Pump Fan Delay Time`
+
+        |  Programmed time delay for heat pump fan to shut off after compressor cycle off.
+        |  Only required when fan operating mode is cycling
+        |  Enter 0 when fan operating mode is continuous
+        |  Units: s
+        |  Default value: 60.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
-                Units: s
-                Default value: 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6879,9 +7183,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -6891,6 +7196,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -6903,9 +7209,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def supplemental_heating_coil_type(self):
         """field `Supplemental Heating Coil Type`
 
+        |  Default value: Electric
+
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6924,18 +7231,20 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -6950,19 +7259,21 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 14.0
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -6975,21 +7286,23 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -7004,18 +7317,20 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -7030,19 +7345,21 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -7055,21 +7372,23 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -7084,20 +7403,22 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def heat_pump_coil_water_flow_mode(self):
         """field `Heat Pump Coil Water Flow Mode`
-        used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit
-        Constant results in 100% water flow regardless of compressor PLR
-        Cycling results in water flow that matches compressor PLR
-        ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
+
+        |  used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit
+        |  Constant results in 100% water flow regardless of compressor PLR
+        |  Cycling results in water flow that matches compressor PLR
+        |  ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
+        |  Default value: Cycling
 
         Args:
             value (str): value for IDD Field `Heat Pump Coil Water Flow Mode`
-                Default value: Cycling
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heat_pump_coil_water_flow_mode` or None if not set
+
         """
         return self["Heat Pump Coil Water Flow Mode"]
 
@@ -7109,7 +7430,8 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -7119,6 +7441,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -7131,7 +7454,8 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -7141,6 +7465,7 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -7156,9 +7481,10 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7176,8 +7502,9 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -7201,16 +7528,17 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -7641,7 +7969,9 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7663,7 +7993,8 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def template_vrf_system_name(self):
         """field `Template VRF System Name`
-        Name of a HVACTemplate:System:VRF object serving this zone
+
+        |  Name of a HVACTemplate:System:VRF object serving this zone
 
         Args:
             value (str): value for IDD Field `Template VRF System Name`
@@ -7673,6 +8004,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             str: the value of `template_vrf_system_name` or None if not set
+
         """
         return self["Template VRF System Name"]
 
@@ -7684,9 +8016,10 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -7696,6 +8029,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -7707,7 +8041,8 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -7717,6 +8052,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -7728,7 +8064,8 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -7738,6 +8075,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -7749,22 +8087,24 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def rated_total_heating_capacity_sizing_ratio(self):
         """field `Rated Total Heating Capacity Sizing Ratio`
-        If this terminal unit's heating coil is autosized, the heating capacity is sized
-        to be equal to the cooling capacity multiplied by this sizing ratio.
-        This input applies to the terminal unit heating coil and overrides the sizing
-        ratio entered in the HVACTemplate:System:VRF object.
+
+        |  If this terminal unit's heating coil is autosized, the heating capacity is sized
+        |  to be equal to the cooling capacity multiplied by this sizing ratio.
+        |  This input applies to the terminal unit heating coil and overrides the sizing
+        |  ratio entered in the HVACTemplate:System:VRF object.
+        |  Units: W/W
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Rated Total Heating Capacity Sizing Ratio`
-                Units: W/W
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_total_heating_capacity_sizing_ratio` or None if not set
+
         """
         return self["Rated Total Heating Capacity Sizing Ratio"]
 
@@ -7776,20 +8116,21 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """field `Supply Air Flow Rate During Cooling Operation` This field may
-        be set to "autosize".  If a value is entered, it will be multiplied by
-        the Supply Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Flow Rate During Cooling Operation`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
@@ -7802,22 +8143,22 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_air_flow_rate_when_no_cooling_is_needed(self):
-        """field `Supply Air Flow Rate When No Cooling is Needed` This flow
-        rate is used when the terminal is not cooling and the previous mode was
-        cooling. This field may be set to "autosize".  If a value is entered,
-        it will be multiplied by the Supply Air Sizing Factor and by zone
-        multipliers.
+        """field `Supply Air Flow Rate When No Cooling is Needed`
+
+        |  This flow rate is used when the terminal is not cooling and the previous mode was cooling.
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling is Needed`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_is_needed` or None if not set
 
         """
         return self["Supply Air Flow Rate When No Cooling is Needed"]
@@ -7830,20 +8171,21 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """field `Supply Air Flow Rate During Heating Operation` This field may
-        be set to "autosize".  If a value is entered, it will be multiplied by
-        the Supply Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Flow Rate During Heating Operation`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Heating Operation"]
@@ -7856,22 +8198,22 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_air_flow_rate_when_no_heating_is_needed(self):
-        """field `Supply Air Flow Rate When No Heating is Needed` This flow
-        rate is used when the terminal is not heating and the previous mode was
-        heating. This field may be set to "autosize".  If a value is entered,
-        it will be multiplied by the Supply Air Sizing Factor and by zone
-        multipliers.
+        """field `Supply Air Flow Rate When No Heating is Needed`
+
+        |  This flow rate is used when the terminal is not heating and the previous mode was heating.
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Heating is Needed`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_heating_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_heating_is_needed` or None if not set
 
         """
         return self["Supply Air Flow Rate When No Heating is Needed"]
@@ -7884,21 +8226,22 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """field `Outdoor Air Flow Rate During Cooling Operation` If this field
-        is set to autosize it will be sized based on the outdoor air inputs
-        below, unless a dedicated outdoor air system is specified for this zone
-        and then it will be set to zero.
+        """field `Outdoor Air Flow Rate During Cooling Operation`
+
+        |  If this field is set to autosize it will be sized based on the outdoor air inputs below,
+        |  unless a dedicated outdoor air system is specified for this zone and then it will be
+        |  set to zero.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
@@ -7911,21 +8254,22 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """field `Outdoor Air Flow Rate During Heating Operation` If this field
-        is set to autosize it will be sized based on the outdoor air inputs
-        below, unless a dedicated outdoor air system is specified for this zone
-        and then it will be set to zero.
+        """field `Outdoor Air Flow Rate During Heating Operation`
+
+        |  If this field is set to autosize it will be sized based on the outdoor air inputs below,
+        |  unless a dedicated outdoor air system is specified for this zone and then it will be
+        |  set to zero.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
@@ -7939,20 +8283,21 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        If this field is set to autosize it will be sized based on the outdoor
-        air inputs below, unless a dedicated outdoor air system is specified
-        for this zone and then it will be set to zero.
+
+        |  If this field is set to autosize it will be sized based on the outdoor air inputs below,
+        |  unless a dedicated outdoor air system is specified for this zone and then it will be
+        |  set to zero.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -7970,23 +8315,25 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -7998,20 +8345,22 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -8022,12 +8371,14 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8046,12 +8397,14 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8070,7 +8423,8 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -8080,6 +8434,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -8092,7 +8447,8 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -8102,6 +8458,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -8115,7 +8472,9 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -8136,11 +8495,12 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -8162,12 +8522,13 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def supply_air_fan_placement(self):
-        """field `Supply Air Fan placement` Select fan placement as either blow
-        through or draw through.
+        """field `Supply Air Fan placement`
+
+        |  Select fan placement as either blow through or draw through.
+        |  Default value: BlowThrough
 
         Args:
             value (str): value for IDD Field `Supply Air Fan placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8187,10 +8548,11 @@ class HvactemplateZoneVrf(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8210,11 +8572,12 @@ class HvactemplateZoneVrf(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8234,10 +8597,11 @@ class HvactemplateZoneVrf(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8257,9 +8621,10 @@ class HvactemplateZoneVrf(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: VariableRefrigerantFlowDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: VariableRefrigerantFlowDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8277,7 +8642,9 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -8300,20 +8667,22 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def cooling_coil_gross_rated_total_capacity(self):
         """field `Cooling Coil Gross Rated Total Capacity`
-        Total cooling capacity not accounting for the effect of supply air fan heat
-        Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
-        air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
+        |  air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
 
@@ -8325,21 +8694,22 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Rated sensible
-        heat ratio (gross sensible capacity/gross total capacity) Sensible and
-        total capacities do not include effect of supply fan heat.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -8354,9 +8724,10 @@ class HvactemplateZoneVrf(DataObject):
     def heat_pump_heating_coil_type(self):
         """field `Heat Pump Heating Coil Type`
 
+        |  Default value: VariableRefrigerantFlowDX
+
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Type`
-                Default value: VariableRefrigerantFlowDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8374,8 +8745,9 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def heat_pump_heating_coil_availability_schedule_name(self):
-        """field `Heat Pump Heating Coil Availability Schedule Name` If blank,
-        always on.
+        """field `Heat Pump Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Availability Schedule Name`
@@ -8398,20 +8770,22 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def heat_pump_heating_coil_gross_rated_capacity(self):
         """field `Heat Pump Heating Coil Gross Rated Capacity`
-        Capacity excluding supply air fan heat
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Capacity excluding supply air fan heat
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heat Pump Heating Coil Gross Rated Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+            float or "Autosize": the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+
         """
         return self["Heat Pump Heating Coil Gross Rated Capacity"]
 
@@ -8425,9 +8799,10 @@ class HvactemplateZoneVrf(DataObject):
     def zone_terminal_unit_on_parasitic_electric_energy_use(self):
         """field `Zone Terminal Unit On Parasitic Electric Energy Use`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8448,9 +8823,10 @@ class HvactemplateZoneVrf(DataObject):
     def zone_terminal_unit_off_parasitic_electric_energy_use(self):
         """field `Zone Terminal Unit Off Parasitic Electric Energy Use`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8470,9 +8846,10 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def dedicated_outdoor_air_system_name(self):
         """field `Dedicated Outdoor Air System Name`
-        Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
-        zone is served by a separate dedicated outdoor air system (DOAS).
-        Leave field blank if no DOAS serves this zone.
+
+        |  Enter the name of an HVACTemplate:System:DedicatedOutdoorAir object if this
+        |  zone is served by a separate dedicated outdoor air system (DOAS).
+        |  Leave field blank if no DOAS serves this zone.
 
         Args:
             value (str): value for IDD Field `Dedicated Outdoor Air System Name`
@@ -8482,6 +8859,7 @@ class HvactemplateZoneVrf(DataObject):
 
         Returns:
             str: the value of `dedicated_outdoor_air_system_name` or None if not set
+
         """
         return self["Dedicated Outdoor Air System Name"]
 
@@ -8493,18 +8871,20 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -8519,19 +8899,21 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 14.0
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -8544,21 +8926,23 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -8573,18 +8957,20 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -8599,19 +8985,21 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -8624,21 +9012,23 @@ class HvactemplateZoneVrf(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -8654,9 +9044,10 @@ class HvactemplateZoneVrf(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8674,8 +9065,9 @@ class HvactemplateZoneVrf(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -8699,16 +9091,17 @@ class HvactemplateZoneVrf(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -8937,7 +9330,9 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -8959,8 +9354,9 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def template_unitary_system_name(self):
         """field `Template Unitary System Name`
-        Enter the name of an HVACTemplate:System:Unitary, HVACTemplate:System:UnitaryHeatPump:AirTtoAir,
-        or HVACTemplate:System:UnitarySystem object serving this zone.
+
+        |  Enter the name of an HVACTemplate:System:Unitary, HVACTemplate:System:UnitaryHeatPump:AirTtoAir,
+        |  or HVACTemplate:System:UnitarySystem object serving this zone.
 
         Args:
             value (str): value for IDD Field `Template Unitary System Name`
@@ -8970,6 +9366,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             str: the value of `template_unitary_system_name` or None if not set
+
         """
         return self["Template Unitary System Name"]
 
@@ -8981,9 +9378,10 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -8993,6 +9391,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -9003,20 +9402,21 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -9029,7 +9429,8 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -9039,6 +9440,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -9050,7 +9452,8 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -9060,6 +9463,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -9071,23 +9475,25 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -9099,20 +9505,22 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -9123,12 +9531,14 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9147,12 +9557,14 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9170,8 +9582,10 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum runs
-        through only this zone. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -9192,8 +9606,10 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum runs
-        through only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -9216,9 +9632,10 @@ class HvactemplateZoneUnitary(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9236,8 +9653,9 @@ class HvactemplateZoneUnitary(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -9261,16 +9679,17 @@ class HvactemplateZoneUnitary(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -9283,20 +9702,22 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:Unitary or HVACTemplate:System:UnitaryHeatPump:AirToAir
-        Cooling Design Supply Air Temperature
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:Unitary or HVACTemplate:System:UnitaryHeatPump:AirToAir
+        |  Cooling Design Supply Air Temperature
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -9311,19 +9732,21 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -9336,21 +9759,23 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -9365,20 +9790,22 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:Unitary or HVACTemplate:System:UnitaryHeatPump:AirToAir
-        Heating Design Supply Air Temperature
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:Unitary or HVACTemplate:System:UnitaryHeatPump:AirToAir
+        |  Heating Design Supply Air Temperature
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -9393,19 +9820,21 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -9418,21 +9847,23 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -9447,7 +9878,8 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -9457,6 +9889,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -9469,7 +9902,8 @@ class HvactemplateZoneUnitary(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -9479,6 +9913,7 @@ class HvactemplateZoneUnitary(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -9806,7 +10241,9 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -9828,8 +10265,9 @@ class HvactemplateZoneVav(DataObject):
     @property
     def template_vav_system_name(self):
         """field `Template VAV System Name`
-        Name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
-        object serving this zone
+
+        |  Name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
+        |  object serving this zone
 
         Args:
             value (str): value for IDD Field `Template VAV System Name`
@@ -9839,6 +10277,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `template_vav_system_name` or None if not set
+
         """
         return self["Template VAV System Name"]
 
@@ -9850,9 +10289,10 @@ class HvactemplateZoneVav(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -9862,6 +10302,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -9872,20 +10313,21 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -9898,7 +10340,8 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -9908,6 +10351,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -9919,7 +10363,8 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -9929,6 +10374,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -9940,19 +10386,21 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_minimum_air_flow_input_method(self):
         """field `Zone Minimum Air Flow Input Method`
-        Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
-        FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
-        Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+
+        |  Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
+        |  FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
+        |  Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+        |  Default value: Constant
 
         Args:
             value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
-                Default value: Constant
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_minimum_air_flow_input_method` or None if not set
+
         """
         return self["Zone Minimum Air Flow Input Method"]
 
@@ -9964,21 +10412,23 @@ class HvactemplateZoneVav(DataObject):
     @property
     def constant_minimum_air_flow_fraction(self):
         """field `Constant Minimum Air Flow Fraction`
-        This field is used if the field Zone Minimum Air Flow Input Method is Constant
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the following field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Constant
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the following field are entered, the larger result is used.
+        |  Default value: 0.2
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
+
         """
         return self["Constant Minimum Air Flow Fraction"]
 
@@ -9990,20 +10440,22 @@ class HvactemplateZoneVav(DataObject):
     @property
     def fixed_minimum_air_flow_rate(self):
         """field `Fixed Minimum Air Flow Rate`
-        This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the previous field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the previous field are entered, the larger result is used.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fixed_minimum_air_flow_rate` or None if not set
+
         """
         return self["Fixed Minimum Air Flow Rate"]
 
@@ -10015,10 +10467,11 @@ class HvactemplateZoneVav(DataObject):
     @property
     def minimum_air_flow_fraction_schedule_name(self):
         """field `Minimum Air Flow Fraction Schedule Name`
-        This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
-        Schedule values are fractions, 0.0 to 1.0.
-        If the field Constant Minimum Air Flow Fraction is blank, then the average of the
-        minimum and maximum schedule values is used for sizing normal-action reheat coils.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
+        |  Schedule values are fractions, 0.0 to 1.0.
+        |  If the field Constant Minimum Air Flow Fraction is blank, then the average of the
+        |  minimum and maximum schedule values is used for sizing normal-action reheat coils.
 
         Args:
             value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
@@ -10028,6 +10481,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `minimum_air_flow_fraction_schedule_name` or None if not set
+
         """
         return self["Minimum Air Flow Fraction Schedule Name"]
 
@@ -10040,23 +10494,25 @@ class HvactemplateZoneVav(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -10068,20 +10524,22 @@ class HvactemplateZoneVav(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -10092,12 +10550,14 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10116,12 +10576,14 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10141,9 +10603,10 @@ class HvactemplateZoneVav(DataObject):
     def reheat_coil_type(self):
         """field `Reheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Reheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10161,7 +10624,9 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def reheat_coil_availability_schedule_name(self):
-        """field `Reheat Coil Availability Schedule Name` If blank, always on.
+        """field `Reheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Reheat Coil Availability Schedule Name`
@@ -10184,9 +10649,10 @@ class HvactemplateZoneVav(DataObject):
     def damper_heating_action(self):
         """field `Damper Heating Action`
 
+        |  Default value: Reverse
+
         Args:
             value (str): value for IDD Field `Damper Heating Action`
-                Default value: Reverse
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10205,22 +10671,24 @@ class HvactemplateZoneVav(DataObject):
     @property
     def maximum_flow_per_zone_floor_area_during_reheat(self):
         """field `Maximum Flow per Zone Floor Area During Reheat`
-        Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
-        When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)
-        This optional field limits the maximum flow allowed in reheat mode.
-        If this field and the following field are left blank, the maximum flow will not be limited.
-        At no time will the maximum flow rate calculated here exceed the value of
-        Maximum Air Flow Rate.
+
+        |  Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
+        |  When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)
+        |  This optional field limits the maximum flow allowed in reheat mode.
+        |  If this field and the following field are left blank, the maximum flow will not be limited.
+        |  At no time will the maximum flow rate calculated here exceed the value of
+        |  Maximum Air Flow Rate.
+        |  Units: m3/s-m2
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow per Zone Floor Area During Reheat`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_per_zone_floor_area_during_reheat` or None if not set
+            float or "Autocalculate": the value of `maximum_flow_per_zone_floor_area_during_reheat` or None if not set
+
         """
         return self["Maximum Flow per Zone Floor Area During Reheat"]
 
@@ -10233,14 +10701,15 @@ class HvactemplateZoneVav(DataObject):
     @property
     def maximum_flow_fraction_during_reheat(self):
         """field `Maximum Flow Fraction During Reheat`
-        Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
-        When autocalculating, the maximum flow fraction is set to the ratio of
-        0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the
-        Maximum Air Flow Rate.
-        This optional field limits the maximum flow allowed in reheat mode.
-        If this field and the previous field are left blank, the maximum flow will not be limited.
-        At no time will the maximum flow rate calculated here exceed the value of
-        Maximum Air Flow Rate.
+
+        |  Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
+        |  When autocalculating, the maximum flow fraction is set to the ratio of
+        |  0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the
+        |  Maximum Air Flow Rate.
+        |  This optional field limits the maximum flow allowed in reheat mode.
+        |  If this field and the previous field are left blank, the maximum flow will not be limited.
+        |  At no time will the maximum flow rate calculated here exceed the value of
+        |  Maximum Air Flow Rate.
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow Fraction During Reheat`
@@ -10249,7 +10718,8 @@ class HvactemplateZoneVav(DataObject):
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_fraction_during_reheat` or None if not set
+            float or "Autocalculate": the value of `maximum_flow_fraction_during_reheat` or None if not set
+
         """
         return self["Maximum Flow Fraction During Reheat"]
 
@@ -10260,14 +10730,14 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10286,15 +10756,16 @@ class HvactemplateZoneVav(DataObject):
     @property
     def design_specification_outdoor_air_object_name_for_control(self):
         """field `Design Specification Outdoor Air Object Name for Control`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based on the current number of occupants in the zone.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
-        Note that this field is used only for specifying the design outdoor air flow rate used
-        for control. The field Design Specification Outdoor Air Object Name for Sizing
-        (see below) is used to specify the design outdoor air flow rate.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based on the current number of occupants in the zone.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        |  If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+        |  Note that this field is used only for specifying the design outdoor air flow rate used
+        |  for control. The field Design Specification Outdoor Air Object Name for Sizing
+        |  (see below) is used to specify the design outdoor air flow rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name for Control`
@@ -10304,6 +10775,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name_for_control` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name for Control"]
 
@@ -10318,8 +10790,10 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum runs
-        through only this zone. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -10340,8 +10814,10 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum runs
-        through only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -10364,9 +10840,10 @@ class HvactemplateZoneVav(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10384,8 +10861,9 @@ class HvactemplateZoneVav(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -10409,16 +10887,17 @@ class HvactemplateZoneVav(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -10431,19 +10910,21 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -10458,19 +10939,21 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -10483,21 +10966,23 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -10512,18 +10997,20 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -10538,19 +11025,21 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -10563,21 +11052,23 @@ class HvactemplateZoneVav(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -10592,10 +11083,11 @@ class HvactemplateZoneVav(DataObject):
     @property
     def design_specification_outdoor_air_object_name_for_sizing(self):
         """field `Design Specification Outdoor Air Object Name for Sizing`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
-        Note that this field is used only for specifying the design outdoor air flow rate used
-        for sizing. The field Design Specification Outdoor Air Object Name for Control
-        (see above) is used to actively control the VAV terminal air flow rate.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
+        |  Note that this field is used only for specifying the design outdoor air flow rate used
+        |  for sizing. The field Design Specification Outdoor Air Object Name for Control
+        |  (see above) is used to actively control the VAV terminal air flow rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name for Sizing`
@@ -10605,6 +11097,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name_for_sizing` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name for Sizing"]
 
@@ -10619,7 +11112,8 @@ class HvactemplateZoneVav(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -10629,6 +11123,7 @@ class HvactemplateZoneVav(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -10953,7 +11448,9 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone Name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone Name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -10975,8 +11472,9 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def template_vav_system_name(self):
         """field `Template VAV System Name`
-        Enter the name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
-        object serving this zone.
+
+        |  Enter the name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
+        |  object serving this zone.
 
         Args:
             value (str): value for IDD Field `Template VAV System Name`
@@ -10986,6 +11484,7 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
         Returns:
             str: the value of `template_vav_system_name` or None if not set
+
         """
         return self["Template VAV System Name"]
 
@@ -10997,9 +11496,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -11009,6 +11509,7 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -11019,20 +11520,21 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def primary_supply_air_maximum_flow_rate(self):
-        """field `Primary Supply Air Maximum Flow Rate` This field may be set
-        to "autosize".  If a value is entered, it will be multiplied by the
-        Supply Air Sizing Factor and by zone multipliers.
+        """field `Primary Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Primary Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `primary_supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `primary_supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Primary Supply Air Maximum Flow Rate"]
@@ -11045,7 +11547,8 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -11055,6 +11558,7 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -11066,7 +11570,8 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -11076,6 +11581,7 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -11088,16 +11594,17 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def primary_supply_air_minimum_flow_fraction(self):
         """field `Primary Supply Air Minimum Flow Fraction`
 
+        |  Default value: "autosize"
+        |  value <= 1.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Primary Supply Air Minimum Flow Fraction`
-                Default value: "autosize"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `primary_supply_air_minimum_flow_fraction` or None if not set
+            float or "Autosize": the value of `primary_supply_air_minimum_flow_fraction` or None if not set
 
         """
         return self["Primary Supply Air Minimum Flow Fraction"]
@@ -11110,20 +11617,21 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def secondary_supply_air_maximum_flow_rate(self):
-        """field `Secondary Supply Air Maximum Flow Rate` This field may be set
-        to "autosize".  If a value is entered, it will be multiplied by the
-        Supply Air Sizing Factor and by zone multipliers.
+        """field `Secondary Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Secondary Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `secondary_supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `secondary_supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Secondary Supply Air Maximum Flow Rate"]
@@ -11137,9 +11645,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def flow_type(self):
         """field `Flow Type`
 
+        |  Default value: Parallel
+
         Args:
             value (str): value for IDD Field `Flow Type`
-                Default value: Parallel
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11157,18 +11666,20 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def parallel_fan_on_flow_fraction(self):
-        """field `Parallel Fan On Flow Fraction` The fraction of the primary
-        air flow at which fan turns on Applicable only to Parallel Flow Type.
+        """field `Parallel Fan On Flow Fraction`
+
+        |  The fraction of the primary air flow at which fan turns on
+        |  Applicable only to Parallel Flow Type
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Parallel Fan On Flow Fraction`
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `parallel_fan_on_flow_fraction` or None if not set
+            float or "Autosize": the value of `parallel_fan_on_flow_fraction` or None if not set
 
         """
         return self["Parallel Fan On Flow Fraction"]
@@ -11181,23 +11692,25 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -11209,20 +11722,22 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -11233,12 +11748,14 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11257,12 +11774,14 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11282,9 +11801,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def reheat_coil_type(self):
         """field `Reheat Coil Type`
 
+        |  Default value: Electric
+
         Args:
             value (str): value for IDD Field `Reheat Coil Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11302,7 +11822,9 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def reheat_coil_availability_schedule_name(self):
-        """field `Reheat Coil Availability Schedule Name` If blank, always on.
+        """field `Reheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Reheat Coil Availability Schedule Name`
@@ -11325,10 +11847,11 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11348,11 +11871,12 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def fan_delta_pressure(self):
         """field `Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11372,10 +11896,11 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def fan_motor_efficiency(self):
         """field `Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11393,8 +11918,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum runs
-        through only this zone. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -11415,8 +11942,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum runs
-        through only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -11439,9 +11968,10 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11459,8 +11989,9 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -11484,16 +12015,17 @@ class HvactemplateZoneVavFanPowered(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -11506,19 +12038,21 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -11533,19 +12067,21 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -11558,21 +12094,23 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -11587,18 +12125,20 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -11613,19 +12153,21 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -11638,21 +12180,23 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -11667,14 +12211,15 @@ class HvactemplateZoneVavFanPowered(DataObject):
     @property
     def zone_piu_fan_schedule_name(self):
         """field `Zone PIU Fan Schedule Name`
-        This is the operating schedule for the zone PIU fan.
-        For a parallel PIU, the fan operates only when the primary air flow is below the
-        Parallel Fan On Flow Fraction and the Zone PIU Fan Schedule is on, or it is
-        activated by an availability manager.
-        For a series PIU, the zone fan operates whenever the Zone PIU Fan Schedule is on, or it
-        is activated by an availability manager.
-        If this field is left blank, the System Availability Schedule for the
-        HVACTemplate:System serving this zone will be used.
+
+        |  This is the operating schedule for the zone PIU fan.
+        |  For a parallel PIU, the fan operates only when the primary air flow is below the
+        |  Parallel Fan On Flow Fraction and the Zone PIU Fan Schedule is on, or it is
+        |  activated by an availability manager.
+        |  For a series PIU, the zone fan operates whenever the Zone PIU Fan Schedule is on, or it
+        |  is activated by an availability manager.
+        |  If this field is left blank, the System Availability Schedule for the
+        |  HVACTemplate:System serving this zone will be used.
 
         Args:
             value (str): value for IDD Field `Zone PIU Fan Schedule Name`
@@ -11684,6 +12229,7 @@ class HvactemplateZoneVavFanPowered(DataObject):
 
         Returns:
             str: the value of `zone_piu_fan_schedule_name` or None if not set
+
         """
         return self["Zone PIU Fan Schedule Name"]
 
@@ -11995,7 +12541,9 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -12017,8 +12565,9 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def template_vav_system_name(self):
         """field `Template VAV System Name`
-        Name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
-        object serving this zone
+
+        |  Name of a HVACTemplate:System:VAV or HVACTemplate:System:PackagedVAV
+        |  object serving this zone
 
         Args:
             value (str): value for IDD Field `Template VAV System Name`
@@ -12028,6 +12577,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             str: the value of `template_vav_system_name` or None if not set
+
         """
         return self["Template VAV System Name"]
 
@@ -12039,9 +12589,10 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -12051,6 +12602,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -12061,20 +12613,21 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -12087,7 +12640,8 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -12097,6 +12651,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -12108,7 +12663,8 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -12118,6 +12674,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -12129,21 +12686,23 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def constant_minimum_air_flow_fraction(self):
         """field `Constant Minimum Air Flow Fraction`
-        This field is used if the field Zone Minimum Air Flow Input Method is Constant
-        If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
-        is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
-        If both this field and the following field are entered, the larger result is used.
+
+        |  This field is used if the field Zone Minimum Air Flow Input Method is Constant
+        |  If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
+        |  is optional. If a value is entered, then it is used for sizing normal-action reheat coils.
+        |  If both this field and the following field are entered, the larger result is used.
+        |  Default value: 0.2
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
+
         """
         return self["Constant Minimum Air Flow Fraction"]
 
@@ -12155,23 +12714,25 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -12183,20 +12744,22 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -12207,12 +12770,14 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12231,12 +12796,14 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12255,10 +12822,11 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def design_specification_outdoor_air_object_name_for_sizing(self):
         """field `Design Specification Outdoor Air Object Name for Sizing`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
-        Note that this field is used only for specifying the design outdoor air flow rate used
-        for sizing. The field Design Specification Outdoor Air Object Name for Control
-        (see above) is used to actively control the VAV terminal air flow rate.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
+        |  Note that this field is used only for specifying the design outdoor air flow rate used
+        |  for sizing. The field Design Specification Outdoor Air Object Name for Control
+        |  (see above) is used to actively control the VAV terminal air flow rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name for Sizing`
@@ -12268,6 +12836,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name_for_sizing` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name for Sizing"]
 
@@ -12282,7 +12851,8 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -12292,6 +12862,7 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -12307,9 +12878,10 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     def reheat_coil_type(self):
         """field `Reheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Reheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12327,7 +12899,9 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def reheat_coil_availability_schedule_name(self):
-        """field `Reheat Coil Availability Schedule Name` If blank, always on.
+        """field `Reheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Reheat Coil Availability Schedule Name`
@@ -12348,14 +12922,14 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12373,8 +12947,10 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum runs
-        through only this zone. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -12395,8 +12971,10 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum runs
-        through only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -12419,9 +12997,10 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12439,8 +13018,9 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -12464,16 +13044,17 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -12486,19 +13067,21 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -12513,19 +13096,21 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -12538,21 +13123,23 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -12567,19 +13154,21 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Heating Coil Design Setpoint
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Heating Coil Design Setpoint
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -12594,19 +13183,21 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -12619,21 +13210,23 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -12892,7 +13485,9 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -12914,7 +13509,8 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def template_constant_volume_system_name(self):
         """field `Template Constant Volume System Name`
-        Name of a HVACTemplate:System:ConstantVolume object serving this zone
+
+        |  Name of a HVACTemplate:System:ConstantVolume object serving this zone
 
         Args:
             value (str): value for IDD Field `Template Constant Volume System Name`
@@ -12924,6 +13520,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             str: the value of `template_constant_volume_system_name` or None if not set
+
         """
         return self["Template Constant Volume System Name"]
 
@@ -12935,9 +13532,10 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -12947,6 +13545,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -12957,20 +13556,21 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -12983,7 +13583,8 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -12993,6 +13594,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -13004,7 +13606,8 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -13014,6 +13617,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -13025,23 +13629,25 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -13053,20 +13659,22 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -13077,12 +13685,14 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13101,12 +13711,14 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13125,7 +13737,8 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def design_specification_outdoor_air_object_name(self):
         """field `Design Specification Outdoor Air Object name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object name`
@@ -13135,6 +13748,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object name"]
 
@@ -13147,7 +13761,8 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -13157,6 +13772,7 @@ class HvactemplateZoneConstantVolume(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -13172,9 +13788,10 @@ class HvactemplateZoneConstantVolume(DataObject):
     def reheat_coil_type(self):
         """field `Reheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Reheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13192,7 +13809,9 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def reheat_coil_availability_schedule_name(self):
-        """field `Reheat Coil Availability Schedule Name` If blank, always on.
+        """field `Reheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Reheat Coil Availability Schedule Name`
@@ -13213,14 +13832,14 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def maximum_reheat_air_temperature(self):
-        """field `Maximum Reheat Air Temperature` Specifies the maximum
-        allowable supply air temperature leaving the reheat coil. If left
-        blank, there is no limit and no default. If unknown, 35C (95F) is
-        recommended.
+        """field `Maximum Reheat Air Temperature`
+
+        |  Specifies the maximum allowable supply air temperature leaving the reheat coil.
+        |  If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13238,8 +13857,10 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum runs
-        through only this zone. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -13260,8 +13881,10 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum runs
-        through only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum runs through only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -13284,9 +13907,10 @@ class HvactemplateZoneConstantVolume(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13304,8 +13928,9 @@ class HvactemplateZoneConstantVolume(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -13329,16 +13954,17 @@ class HvactemplateZoneConstantVolume(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -13351,19 +13977,21 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:VAV Cooling Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -13378,19 +14006,21 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -13403,21 +14033,23 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -13432,18 +14064,20 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  Default value: SupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -13458,19 +14092,21 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -13483,21 +14119,23 @@ class HvactemplateZoneConstantVolume(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -13752,7 +14390,9 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone name must match a building zone name.
+        """field `Zone Name`
+
+        |  Zone name must match a building zone name
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -13774,7 +14414,8 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def template_dual_duct_system_name(self):
         """field `Template Dual Duct System Name`
-        Name of a HVACTemplate:System:DualDuct object serving this zone
+
+        |  Name of a HVACTemplate:System:DualDuct object serving this zone
 
         Args:
             value (str): value for IDD Field `Template Dual Duct System Name`
@@ -13784,6 +14425,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             str: the value of `template_dual_duct_system_name` or None if not set
+
         """
         return self["Template Dual Duct System Name"]
 
@@ -13795,9 +14437,10 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def template_thermostat_name(self):
         """field `Template Thermostat Name`
-        Enter the name of a HVACTemplate:Thermostat object.
-        If blank, then it is assumed that standard thermostat objects
-        have been defined for this zone.
+
+        |  Enter the name of a HVACTemplate:Thermostat object.
+        |  If blank, then it is assumed that standard thermostat objects
+        |  have been defined for this zone.
 
         Args:
             value (str): value for IDD Field `Template Thermostat Name`
@@ -13807,6 +14450,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             str: the value of `template_thermostat_name` or None if not set
+
         """
         return self["Template Thermostat Name"]
 
@@ -13817,20 +14461,21 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def supply_air_maximum_flow_rate(self):
-        """field `Supply Air Maximum Flow Rate` This field may be set to
-        "autosize".  If a value is entered, it will be multiplied by the Supply
-        Air Sizing Factor and by zone multipliers.
+        """field `Supply Air Maximum Flow Rate`
+
+        |  This field may be set to "autosize".  If a value is entered, it will be
+        |  multiplied by the Supply Air Sizing Factor and by zone multipliers.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_maximum_flow_rate` or None if not set
 
         """
         return self["Supply Air Maximum Flow Rate"]
@@ -13843,7 +14488,8 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -13853,6 +14499,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -13864,7 +14511,8 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        If blank, value from Sizing:Parameters will be used.
+
+        |  If blank, value from Sizing:Parameters will be used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -13874,6 +14522,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -13884,15 +14533,16 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def zone_minimum_air_flow_fraction(self):
-        """field `Zone Minimum Air Flow Fraction` This field is the Zone
-        Minimum Air Flow Fraction specified as a fraction of the maximum air
-        flow rate. This field is ignored if the system serving this zone is
-        constant volume.
+        """field `Zone Minimum Air Flow Fraction`
+
+        |  This field is the Zone Minimum Air Flow Fraction specified as a fraction of the
+        |  maximum air flow rate. This field is ignored if the system serving this zone is
+        |  constant volume.
+        |  Default value: 0.2
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13911,23 +14561,25 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
-        Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
-        fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
-        and Outdoor Air Flow Rate per Zone.
-        DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
-        references design specification objects named in the fields
-        Design Specification Outdoor Air Object Name and Design Specification Zone Air
-        Distribution Object Name.
+
+        |  Flow/Person, Flow/Zone, Flow/Area, Sum, and Maximum use the values in the next three
+        |  fields: Outdoor Air Flow Rate per Person, Outdoor Air Flow Rate per Zone Floor Area,
+        |  and Outdoor Air Flow Rate per Zone.
+        |  DetailedSpecification ignores these three Outdoor Air Flow Rate fields and instead
+        |  references design specification objects named in the fields
+        |  Design Specification Outdoor Air Object Name and Design Specification Zone Air
+        |  Distribution Object Name.
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `outdoor_air_method` or None if not set
+
         """
         return self["Outdoor Air Method"]
 
@@ -13939,20 +14591,22 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def outdoor_air_flow_rate_per_person(self):
         """field `Outdoor Air Flow Rate per Person`
-        Default 0.00944 is 20 cfm per person
-        This input is used if the field Outdoor Air Method is
-        Flow/Person, Sum, or Maximum
+
+        |  Default 0.00944 is 20 cfm per person
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Person, Sum, or Maximum
+        |  Units: m3/s
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Person`
-                Units: m3/s
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_rate_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow Rate per Person"]
 
@@ -13963,12 +14617,14 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone_floor_area(self):
-        """field `Outdoor Air Flow Rate per Zone Floor Area` This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone Floor Area`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13987,12 +14643,14 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def outdoor_air_flow_rate_per_zone(self):
-        """field `Outdoor Air Flow Rate per Zone` This input is used if the
-        field Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow Rate per Zone`
+
+        |  This input is used if the field Outdoor Air Method is
+        |  Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Rate per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14011,10 +14669,11 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def design_specification_outdoor_air_object_name_for_sizing(self):
         """field `Design Specification Outdoor Air Object Name for Sizing`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
-        Note that this field is used only for specifying the design outdoor air flow rate used
-        for sizing. The field Design Specification Outdoor Air Object Name for Control
-        (see above) is used to actively control the VAV terminal air flow rate.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
+        |  Note that this field is used only for specifying the design outdoor air flow rate used
+        |  for sizing. The field Design Specification Outdoor Air Object Name for Control
+        |  (see above) is used to actively control the VAV terminal air flow rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name for Sizing`
@@ -14024,6 +14683,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name_for_sizing` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name for Sizing"]
 
@@ -14038,7 +14698,8 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def design_specification_zone_air_distribution_object_name(self):
         """field `Design Specification Zone Air Distribution Object Name`
-        This field is used only when Outdoor Air Method=DetailedSpecification.
+
+        |  This field is used only when Outdoor Air Method=DetailedSpecification.
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
@@ -14048,6 +14709,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
+
         """
         return self["Design Specification Zone Air Distribution Object Name"]
 
@@ -14062,15 +14724,16 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def design_specification_outdoor_air_object_name_for_control(self):
         """field `Design Specification Outdoor Air Object Name for Control`
-        When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
-        unit will increase flow as needed to meet this outdoor air requirement.
-        If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
-        be computed based on the current number of occupants in the zone.
-        At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
-        Note that this field is used only for specifying the design outdoor air flow rate used
-        for control. The field Design Specification Outdoor Air Object Name for Sizing
-        (see below) is used to specify the design outdoor air flow rate.
+
+        |  When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
+        |  unit will increase flow as needed to meet this outdoor air requirement.
+        |  If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
+        |  be computed based on the current number of occupants in the zone.
+        |  At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        |  If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+        |  Note that this field is used only for specifying the design outdoor air flow rate used
+        |  for control. The field Design Specification Outdoor Air Object Name for Sizing
+        |  (see below) is used to specify the design outdoor air flow rate.
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name for Control`
@@ -14080,6 +14743,7 @@ class HvactemplateZoneDualDuct(DataObject):
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name_for_control` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name for Control"]
 
@@ -14094,8 +14758,10 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def cold_supply_plenum_name(self):
-        """field `Cold Supply Plenum Name` Plenum zone name.  Cold supply
-        plenum that serves only this zone. Blank if none.
+        """field `Cold Supply Plenum Name`
+
+        |  Plenum zone name.  Cold supply plenum that serves only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Cold Supply Plenum Name`
@@ -14116,8 +14782,10 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def hot_supply_plenum_name(self):
-        """field `Hot Supply Plenum Name` Plenum zone name.  Hot supply plenum
-        that serves only this zone. Blank if none.
+        """field `Hot Supply Plenum Name`
+
+        |  Plenum zone name.  Hot supply plenum that serves only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Hot Supply Plenum Name`
@@ -14138,8 +14806,10 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum that
-        serves only this zone. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum that serves only this zone.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -14162,9 +14832,10 @@ class HvactemplateZoneDualDuct(DataObject):
     def baseboard_heating_type(self):
         """field `Baseboard Heating Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Baseboard Heating Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14182,8 +14853,9 @@ class HvactemplateZoneDualDuct(DataObject):
 
     @property
     def baseboard_heating_availability_schedule_name(self):
-        """field `Baseboard Heating Availability Schedule Name` If blank,
-        always on.
+        """field `Baseboard Heating Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Baseboard Heating Availability Schedule Name`
@@ -14207,16 +14879,17 @@ class HvactemplateZoneDualDuct(DataObject):
     def baseboard_heating_capacity(self):
         """field `Baseboard Heating Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Baseboard Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `baseboard_heating_capacity` or None if not set
+            float or "Autosize": the value of `baseboard_heating_capacity` or None if not set
 
         """
         return self["Baseboard Heating Capacity"]
@@ -14229,19 +14902,21 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:DualDuct Cooling Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Cooling Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Cooling Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:DualDuct Cooling Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
@@ -14256,19 +14931,21 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -14281,21 +14958,23 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 11.11
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 11.11
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -14310,19 +14989,21 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
-        SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
-        TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
-        SystemSupplyAirTemperature = use the value from HVACTemplate:System:DualDuct Heating Coil Design Setpoint
+
+        |  SupplyAirTemperature = use the value from Zone Heating Design Supply Air Temperature
+        |  TemperatureDifference = use the value from Zone Heating Design Supply Air Temperature Difference
+        |  SystemSupplyAirTemperature = use the value from HVACTemplate:System:DualDuct Heating Coil Design Setpoint
+        |  Default value: SystemSupplyAirTemperature
 
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SystemSupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Input Method"]
 
@@ -14337,19 +15018,21 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -14362,21 +15045,23 @@ class HvactemplateZoneDualDuct(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -14798,9 +15483,10 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` Availability schedule name
-        for this system. Schedule value > 0 means the system is available. If
-        this field is blank, the system is always available.
+        """field `System Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -14821,20 +15507,21 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def gross_rated_total_cooling_capacity(self):
-        """field `Gross Rated Total Cooling Capacity` Enter the total cooling
-        capacity in watts at rated conditions or set to autosize. Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `Gross Rated Total Cooling Capacity`
+
+        |  Enter the total cooling capacity in watts at rated conditions or set to autosize.
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Gross Rated Total Cooling Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `gross_rated_total_cooling_capacity` or None if not set
+            float or "Autosize": the value of `gross_rated_total_cooling_capacity` or None if not set
 
         """
         return self["Gross Rated Total Cooling Capacity"]
@@ -14846,15 +15533,16 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def gross_rated_cooling_cop(self):
-        """field `Gross Rated Cooling COP` Enter the coefficient of performance
-        at rated conditions or leave blank to use default. COP includes
-        compressor and condenser fan electrical energy input COP does not
-        include supply fan heat or supply fan electric power input.
+        """field `Gross Rated Cooling COP`
+
+        |  Enter the coefficient of performance at rated conditions or leave blank to use default.
+        |  COP includes compressor and condenser fan electrical energy input
+        |  COP does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.3
 
         Args:
             value (float): value for IDD Field `Gross Rated Cooling COP`
-                Units: W/W
-                Default value: 3.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14872,14 +15560,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_cooling_mode(self):
-        """field `Minimum Outdoor Temperature in Cooling Mode` Enter the
-        minimum outdoor temperature allowed for cooling operation. Cooling is
-        disabled below this temperature.
+        """field `Minimum Outdoor Temperature in Cooling Mode`
+
+        |  Enter the minimum outdoor temperature allowed for cooling operation.
+        |  Cooling is disabled below this temperature.
+        |  Units: C
+        |  Default value: -6.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Cooling Mode`
-                Units: C
-                Default value: -6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14898,14 +15587,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_cooling_mode(self):
-        """field `Maximum Outdoor Temperature in Cooling Mode` Enter the
-        maximum outdoor temperature allowed for cooling operation. Cooling is
-        disabled above this temperature.
+        """field `Maximum Outdoor Temperature in Cooling Mode`
+
+        |  Enter the maximum outdoor temperature allowed for cooling operation.
+        |  Cooling is disabled above this temperature.
+        |  Units: C
+        |  Default value: 43.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Cooling Mode`
-                Units: C
-                Default value: 43.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -14924,20 +15614,21 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def gross_rated_heating_capacity(self):
-        """field `Gross Rated Heating Capacity` Enter the heating capacity in
-        watts at rated conditions or set to autosize. Heating capacity not
-        accounting for the effect of supply air fan heat.
+        """field `Gross Rated Heating Capacity`
+
+        |  Enter the heating capacity in watts at rated conditions or set to autosize.
+        |  Heating capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Gross Rated Heating Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `gross_rated_heating_capacity` or None if not set
+            float or "Autosize": the value of `gross_rated_heating_capacity` or None if not set
 
         """
         return self["Gross Rated Heating Capacity"]
@@ -14950,22 +15641,24 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def rated_heating_capacity_sizing_ratio(self):
         """field `Rated Heating Capacity Sizing Ratio`
-        If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
-        to be equal to the cooling capacity multiplied by this sizing ratio. The zone
-        terminal unit heating coils are also sized using this ratio unless the sizing
-        ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+
+        |  If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
+        |  to be equal to the cooling capacity multiplied by this sizing ratio. The zone
+        |  terminal unit heating coils are also sized using this ratio unless the sizing
+        |  ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+        |  Units: W/W
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Rated Heating Capacity Sizing Ratio`
-                Units: W/W
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_heating_capacity_sizing_ratio` or None if not set
+
         """
         return self["Rated Heating Capacity Sizing Ratio"]
 
@@ -14976,14 +15669,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def gross_rated_heating_cop(self):
-        """field `Gross Rated Heating COP` COP includes compressor and
-        condenser fan electrical energy input COP does not include supply fan
-        heat or supply fan electrical energy input.
+        """field `Gross Rated Heating COP`
+
+        |  COP includes compressor and condenser fan electrical energy input
+        |  COP does not include supply fan heat or supply fan electrical energy input
+        |  Units: W/W
+        |  Default value: 3.4
 
         Args:
             value (float): value for IDD Field `Gross Rated Heating COP`
-                Units: W/W
-                Default value: 3.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15001,13 +15695,14 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_heating_mode(self):
-        """field `Minimum Outdoor Temperature in Heating Mode` Enter the
-        minimum outdoor temperature allowed for heating operation.
+        """field `Minimum Outdoor Temperature in Heating Mode`
+
+        |  Enter the minimum outdoor temperature allowed for heating operation.
+        |  Units: C
+        |  Default value: -20.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Heating Mode`
-                Units: C
-                Default value: -20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15026,13 +15721,14 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_heating_mode(self):
-        """field `Maximum Outdoor Temperature in Heating Mode` Enter the
-        maximum outdoor temperature allowed for heating operation.
+        """field `Maximum Outdoor Temperature in Heating Mode`
+
+        |  Enter the maximum outdoor temperature allowed for heating operation.
+        |  Units: C
+        |  Default value: 16.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Heating Mode`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15052,14 +15748,15 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def minimum_heat_pump_partload_ratio(self):
         """field `Minimum Heat Pump Part-Load Ratio`
-        Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
-        below this value, the heat pump compressor will cycle to meet the cooling or heating
-        demand.
+
+        |  Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
+        |  below this value, the heat pump compressor will cycle to meet the cooling or heating
+        |  demand.
+        |  Units: dimensionless
+        |  Default value: 0.15
 
         Args:
             value (float): value for IDD Field `Minimum Heat Pump Part-Load Ratio`
-                Units: dimensionless
-                Default value: 0.15
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15078,8 +15775,9 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def zone_name_for_master_thermostat_location(self):
-        """field `Zone Name for Master Thermostat Location` Enter the name of
-        the zone where the master thermostat is located.
+        """field `Zone Name for Master Thermostat Location`
+
+        |  Enter the name of the zone where the master thermostat is located.
 
         Args:
             value (str): value for IDD Field `Zone Name for Master Thermostat Location`
@@ -15101,14 +15799,14 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def master_thermostat_priority_control_type(self):
-        """field `Master Thermostat Priority Control Type` Choose a thermostat
-        control logic scheme. If these control types fail to control zone
-        temperature within a reasonable limit, consider using multiple VRF
-        systems.
+        """field `Master Thermostat Priority Control Type`
+
+        |  Choose a thermostat control logic scheme. If these control types fail to control zone
+        |  temperature within a reasonable limit, consider using multiple VRF systems
+        |  Default value: MasterThermostatPriority
 
         Args:
             value (str): value for IDD Field `Master Thermostat Priority Control Type`
-                Default value: MasterThermostatPriority
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15129,10 +15827,10 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def thermostat_priority_schedule_name(self):
-        """field `Thermostat Priority Schedule Name` this field is required if
-        Master Thermostat Priority Control Type is Scheduled. Schedule values
-        of 0 denote cooling, 1 for heating, and all other values disable the
-        system.
+        """field `Thermostat Priority Schedule Name`
+
+        |  this field is required if Master Thermostat Priority Control Type is Scheduled.
+        |  Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.
 
         Args:
             value (str): value for IDD Field `Thermostat Priority Schedule Name`
@@ -15153,12 +15851,13 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def heat_pump_waste_heat_recovery(self):
-        """field `Heat Pump Waste Heat Recovery` This field is reserved for
-        future use. The only valid choice is No.
+        """field `Heat Pump Waste Heat Recovery`
+
+        |  This field is reserved for future use. The only valid choice is No.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Heat Pump Waste Heat Recovery`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15178,13 +15877,14 @@ class HvactemplateSystemVrf(DataObject):
     def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(
             self):
         """field `Equivalent Piping Length used for Piping Correction Factor in
-        Cooling Mode` Enter the equivalent length of the farthest terminal unit
-        from the condenser.
+        Cooling Mode`
+
+        |  Enter the equivalent length of the farthest terminal unit from the condenser
+        |  Units: m
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Cooling Mode`
-                Units: m
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15207,13 +15907,14 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def vertical_height_used_for_piping_correction_factor(self):
-        """field `Vertical Height used for Piping Correction Factor` Enter the
-        height difference between the highest and lowest terminal unit.
+        """field `Vertical Height used for Piping Correction Factor`
+
+        |  Enter the height difference between the highest and lowest terminal unit
+        |  Units: m
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Vertical Height used for Piping Correction Factor`
-                Units: m
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15234,13 +15935,14 @@ class HvactemplateSystemVrf(DataObject):
     def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(
             self):
         """field `Equivalent Piping Length used for Piping Correction Factor in
-        Heating Mode` Enter the equivalent length of the farthest terminal unit
-        from the condenser.
+        Heating Mode`
+
+        |  Enter the equivalent length of the farthest terminal unit from the condenser
+        |  Units: m
+        |  Default value: 30.0
 
         Args:
             value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Heating Mode`
-                Units: m
-                Default value: 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15263,14 +15965,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def crankcase_heater_power_per_compressor(self):
-        """field `Crankcase Heater Power per Compressor` Enter the value of the
-        resistive heater located in the compressor(s). This heater is used to
-        warm the refrigerant and oil when the compressor is off.
+        """field `Crankcase Heater Power per Compressor`
+
+        |  Enter the value of the resistive heater located in the compressor(s). This heater
+        |  is used to warm the refrigerant and oil when the compressor is off.
+        |  Units: W
+        |  Default value: 33.0
 
         Args:
             value (float): value for IDD Field `Crankcase Heater Power per Compressor`
-                Units: W
-                Default value: 33.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15288,13 +15991,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def number_of_compressors(self):
-        """field `Number of Compressors` Enter the total number of compressor.
-        This input is used only for crankcase heater calculations.
+        """field `Number of Compressors`
+
+        |  Enter the total number of compressor. This input is used only for crankcase
+        |  heater calculations.
+        |  Units: dimensionless
+        |  Default value: 2
 
         Args:
             value (int): value for IDD Field `Number of Compressors`
-                Units: dimensionless
-                Default value: 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15312,15 +16017,16 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def ratio_of_compressor_size_to_total_compressor_capacity(self):
-        """field `Ratio of Compressor Size to Total Compressor Capacity` Enter
-        the ratio of the first stage compressor to total compressor capacity.
-        All other compressors are assumed to be equally sized. This inputs is
-        used only for crankcase heater calculations.
+        """field `Ratio of Compressor Size to Total Compressor Capacity`
+
+        |  Enter the ratio of the first stage compressor to total compressor capacity.
+        |  All other compressors are assumed to be equally sized. This inputs is used
+        |  only for crankcase heater calculations.
+        |  Units: W/W
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Ratio of Compressor Size to Total Compressor Capacity`
-                Units: W/W
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15340,12 +16046,13 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def maximum_outdoor_drybulb_temperature_for_crankcase_heater(self):
         """field `Maximum Outdoor Dry-bulb Temperature for Crankcase Heater`
-        Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+
+        |  Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        |  Units: C
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-bulb Temperature for Crankcase Heater`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15368,14 +16075,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def defrost_strategy(self):
-        """field `Defrost Strategy` Select a defrost strategy. Reverse cycle
-        reverses the operating mode from heating to cooling to melt frost
-        formation on the condenser coil. The resistive strategy uses a resitive
-        heater to melt the frost.
+        """field `Defrost Strategy`
+
+        |  Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling
+        |  to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater
+        |  to melt the frost.
+        |  Default value: Resistive
 
         Args:
             value (str): value for IDD Field `Defrost Strategy`
-                Default value: Resistive
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15393,13 +16101,14 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def defrost_control(self):
-        """field `Defrost Control` Choose a defrost control type. Either use a
-        fixed Timed defrost period or select OnDemand to defrost only when
-        necessary.
+        """field `Defrost Control`
+
+        |  Choose a defrost control type. Either use a fixed Timed defrost period or select
+        |  OnDemand to defrost only when necessary.
+        |  Default value: Timed
 
         Args:
             value (str): value for IDD Field `Defrost Control`
-                Default value: Timed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15417,13 +16126,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def defrost_time_period_fraction(self):
-        """field `Defrost Time Period Fraction` Fraction of time in defrost
-        mode. Only applicable if timed defrost control is specified.
+        """field `Defrost Time Period Fraction`
+
+        |  Fraction of time in defrost mode.
+        |  Only applicable if timed defrost control is specified.
+        |  Units: dimensionless
+        |  Default value: 0.058333
 
         Args:
             value (float): value for IDD Field `Defrost Time Period Fraction`
-                Units: dimensionless
-                Default value: 0.058333
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15441,21 +16152,22 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def resistive_defrost_heater_capacity(self):
-        """field `Resistive Defrost Heater Capacity` Enter the size of the
-        resistive defrost heating element. Only applicable if resistive defrost
-        strategy is specified.
+        """field `Resistive Defrost Heater Capacity`
+
+        |  Enter the size of the resistive defrost heating element.
+        |  Only applicable if resistive defrost strategy is specified
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Resistive Defrost Heater Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `resistive_defrost_heater_capacity` or None if not set
+            float or "Autosize": the value of `resistive_defrost_heater_capacity` or None if not set
 
         """
         return self["Resistive Defrost Heater Capacity"]
@@ -15468,12 +16180,13 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def maximum_outdoor_drybulb_temperature_for_defrost_operation(self):
         """field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
-        Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+
+        |  Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        |  Units: C
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15496,12 +16209,13 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def condenser_type(self):
-        """field `Condenser Type` Select either an air cooled or evaporatively
-        cooled condenser.
+        """field `Condenser Type`
+
+        |  Select either an air cooled or evaporatively cooled condenser.
+        |  Default value: AirCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15520,18 +16234,20 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def water_condenser_volume_flow_rate(self):
         """field `Water Condenser Volume Flow Rate`
-        Only used when Condenser Type = WaterCooled.
+
+        |  Only used when Condenser Type = WaterCooled.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Water Condenser Volume Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `water_condenser_volume_flow_rate` or None if not set
+            float or "Autosize": the value of `water_condenser_volume_flow_rate` or None if not set
+
         """
         return self["Water Condenser Volume Flow Rate"]
 
@@ -15543,20 +16259,22 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def evaporative_condenser_effectiveness(self):
         """field `Evaporative Condenser Effectiveness`
-        Enter the effectiveness of the evaporatively cooled condenser.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Enter the effectiveness of the evaporatively cooled condenser.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Evaporative Condenser Effectiveness`
-                Units: dimensionless
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporative_condenser_effectiveness` or None if not set
+
         """
         return self["Evaporative Condenser Effectiveness"]
 
@@ -15568,19 +16286,21 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def evaporative_condenser_air_flow_rate(self):
         """field `Evaporative Condenser Air Flow Rate`
-        Used to calculate evaporative condenser water use.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Used to calculate evaporative condenser water use.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Evaporative Condenser Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporative_condenser_air_flow_rate` or None if not set
+            float or "Autosize": the value of `evaporative_condenser_air_flow_rate` or None if not set
+
         """
         return self["Evaporative Condenser Air Flow Rate"]
 
@@ -15592,18 +16312,20 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def evaporative_condenser_pump_rated_power_consumption(self):
         """field `Evaporative Condenser Pump Rated Power Consumption`
-        Rated power consumed by the evaporative condenser's water pump.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Rated power consumed by the evaporative condenser's water pump.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Evaporative Condenser Pump Rated Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporative_condenser_pump_rated_power_consumption` or None if not set
+            float or "Autosize": the value of `evaporative_condenser_pump_rated_power_consumption` or None if not set
+
         """
         return self["Evaporative Condenser Pump Rated Power Consumption"]
 
@@ -15616,21 +16338,23 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the DX coil is off.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the DX coil is off.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -15642,20 +16366,22 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -15667,11 +16393,12 @@ class HvactemplateSystemVrf(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -15681,6 +16408,7 @@ class HvactemplateSystemVrf(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -15693,9 +16421,10 @@ class HvactemplateSystemVrf(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: Electricity
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: Electricity
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15713,14 +16442,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_heat_recovery_mode(self):
-        """field `Minimum Outdoor Temperature in Heat Recovery Mode` The
-        minimum outdoor temperature below which heat recovery mode will not
-        operate.
+        """field `Minimum Outdoor Temperature in Heat Recovery Mode`
+
+        |  The minimum outdoor temperature below which heat
+        |  recovery mode will not operate.
+        |  Units: C
+        |  Default value: -15.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Heat Recovery Mode`
-                Units: C
-                Default value: -15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -15739,14 +16469,15 @@ class HvactemplateSystemVrf(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_heat_recovery_mode(self):
-        """field `Maximum Outdoor Temperature in Heat Recovery Mode` The
-        maximum outdoor temperature above which heat recovery mode will not
-        operate.
+        """field `Maximum Outdoor Temperature in Heat Recovery Mode`
+
+        |  The maximum outdoor temperature above which heat
+        |  recovery mode will not operate.
+        |  Units: C
+        |  Default value: 45.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Heat Recovery Mode`
-                Units: C
-                Default value: 45.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16284,9 +17015,11 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on;
-        Unitary System always on.  Schedule is used in availability manager and
-        fan scheduling. Also see "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on; Unitary System always on.  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -16330,20 +17063,22 @@ class HvactemplateSystemUnitary(DataObject):
     @property
     def supply_fan_maximum_flow_rate(self):
         """field `Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Supply Fan Maximum Flow Rate"]
 
@@ -16354,11 +17089,12 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -16382,10 +17118,11 @@ class HvactemplateSystemUnitary(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16405,11 +17142,12 @@ class HvactemplateSystemUnitary(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 600.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 600.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16429,10 +17167,11 @@ class HvactemplateSystemUnitary(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16452,10 +17191,11 @@ class HvactemplateSystemUnitary(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16476,9 +17216,10 @@ class HvactemplateSystemUnitary(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: SingleSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: SingleSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16496,7 +17237,9 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -16518,12 +17261,14 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def cooling_design_supply_air_temperature(self):
-        """field `Cooling Design Supply Air Temperature` Used for sizing.
+        """field `Cooling Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16541,19 +17286,20 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def cooling_coil_gross_rated_total_capacity(self):
-        """field `Cooling Coil Gross Rated Total Capacity` Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `Cooling Coil Gross Rated Total Capacity`
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
@@ -16566,19 +17312,21 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Gross SHR.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Gross SHR
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -16591,14 +17339,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def cooling_coil_gross_rated_cop(self):
-        """field `Cooling Coil Gross Rated COP` Gross cooling capacity divided
-        by power input to the compressor and outdoor fan, does not include
-        supply air fan heat or supply air fan electric power.
+        """field `Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply air fan heat or supply air fan electric power
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16637,7 +17386,9 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -16659,12 +17410,14 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def heating_design_supply_air_temperature(self):
-        """field `Heating Design Supply Air Temperature` Used for sizing.
+        """field `Heating Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16684,16 +17437,17 @@ class HvactemplateSystemUnitary(DataObject):
     def heating_coil_capacity(self):
         """field `Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_capacity` or None if not set
 
         """
         return self["Heating Coil Capacity"]
@@ -16707,10 +17461,11 @@ class HvactemplateSystemUnitary(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16730,10 +17485,11 @@ class HvactemplateSystemUnitary(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16754,16 +17510,17 @@ class HvactemplateSystemUnitary(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -16777,16 +17534,17 @@ class HvactemplateSystemUnitary(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -16798,8 +17556,10 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the minimum outdoor air flow rate If blank, always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the minimum outdoor air flow rate
+        |  If blank, always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -16822,9 +17582,10 @@ class HvactemplateSystemUnitary(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16844,9 +17605,10 @@ class HvactemplateSystemUnitary(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16864,13 +17626,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def economizer_upper_temperature_limit(self):
-        """field `Economizer Upper Temperature Limit` Outdoor temperature above
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Upper Temperature Limit`
+
+        |  Outdoor temperature above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Upper Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16888,13 +17652,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def economizer_lower_temperature_limit(self):
-        """field `Economizer Lower Temperature Limit` Outdoor temperature below
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Lower Temperature Limit`
+
+        |  Outdoor temperature below which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Lower Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16912,13 +17678,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def economizer_upper_enthalpy_limit(self):
-        """field `Economizer Upper Enthalpy Limit` Outdoor enthalpy above which
-        economizer is disabled and heat recovery is enabled (if available).
-        Blank means no limit.
+        """field `Economizer Upper Enthalpy Limit`
+
+        |  Outdoor enthalpy above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Upper Enthalpy Limit`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16936,14 +17704,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -16962,8 +17731,10 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -16984,8 +17755,10 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -17008,9 +17781,10 @@ class HvactemplateSystemUnitary(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17030,9 +17804,10 @@ class HvactemplateSystemUnitary(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17050,8 +17825,9 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -17074,9 +17850,10 @@ class HvactemplateSystemUnitary(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17096,10 +17873,11 @@ class HvactemplateSystemUnitary(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17117,13 +17895,14 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def latent_heat_recovery_effectiveness(self):
-        """field `Latent Heat Recovery Effectiveness` Applicable only if Heat
-        Recovery Type is Enthalpy.
+        """field `Latent Heat Recovery Effectiveness`
+
+        |  Applicable only if Heat Recovery Type is Enthalpy.
+        |  Default value: 0.65
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17142,21 +17921,23 @@ class HvactemplateSystemUnitary(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible cooling load only
-        CoolReheatHeatingCoil = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint, reheat with main heating coil.
-        CoolReheatDesuperheater = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint, reheat with desuperheater coil.
+
+        |  None = meet sensible cooling load only
+        |  CoolReheatHeatingCoil = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint, reheat with main heating coil.
+        |  CoolReheatDesuperheater = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint, reheat with desuperheater coil.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -17169,7 +17950,7 @@ class HvactemplateSystemUnitary(DataObject):
     def dehumidification_control_zone_name(self):
         """field `Dehumidification Control Zone Name`
 
-        This field is not currently used - the thermostat control zone is also the dehumidification control zone
+        |  This field is not currently used - the thermostat control zone is also the dehumidification control zone
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -17190,14 +17971,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def dehumidification_setpoint(self):
-        """field `Dehumidification Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Dehumidification Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17217,9 +17999,10 @@ class HvactemplateSystemUnitary(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17237,8 +18020,9 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -17259,15 +18043,17 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17286,20 +18072,22 @@ class HvactemplateSystemUnitary(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -17310,8 +18098,9 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -17332,14 +18121,15 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def humidifier_setpoint(self):
-        """field `Humidifier Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Humidifier Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17357,11 +18147,13 @@ class HvactemplateSystemUnitary(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17381,10 +18173,11 @@ class HvactemplateSystemUnitary(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17404,11 +18197,12 @@ class HvactemplateSystemUnitary(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17428,10 +18222,11 @@ class HvactemplateSystemUnitary(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -17451,10 +18246,11 @@ class HvactemplateSystemUnitary(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18079,9 +18875,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on;
-        Unitary System always on.  Schedule is used in availability manager and
-        fan scheduling. Also see "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on; Unitary System always on.  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -18125,21 +18923,23 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def cooling_supply_air_flow_rate(self):
         """field `Cooling Supply Air Flow Rate`
-        Supply air flow rate during cooling operation
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate during cooling operation
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_supply_air_flow_rate` or None if not set
+
         """
         return self["Cooling Supply Air Flow Rate"]
 
@@ -18151,21 +18951,23 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def heating_supply_air_flow_rate(self):
         """field `Heating Supply Air Flow Rate`
-        Supply air flow rate during heating operation
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate during heating operation
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_supply_air_flow_rate` or None if not set
+
         """
         return self["Heating Supply Air Flow Rate"]
 
@@ -18177,25 +18979,27 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def no_load_supply_air_flow_rate(self):
         """field `No Load Supply Air Flow Rate`
-        Supply air flow rate when no cooling or heating is needed
-        Only used when heat pump fan operating mode is Continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate when no cooling or heating is needed
+        |  Only used when heat pump fan operating mode is Continuous. This air flow rate
+        |  is used when no heating or cooling is required and the DX coil compressor is off.
+        |  If this field is left blank or zero, the supply air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `No Load Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `no_load_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `no_load_supply_air_flow_rate` or None if not set
+
         """
         return self["No Load Supply Air Flow Rate"]
 
@@ -18206,11 +19010,12 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -18234,9 +19039,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18256,10 +19062,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18279,11 +19086,12 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 600.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 600.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18303,10 +19111,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18326,10 +19135,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18350,9 +19160,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: SingleSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: SingleSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18370,7 +19181,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -18392,12 +19205,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def cooling_design_supply_air_temperature(self):
-        """field `Cooling Design Supply Air Temperature` Used for sizing.
+        """field `Cooling Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18416,20 +19231,22 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def cooling_coil_gross_rated_total_capacity(self):
         """field `Cooling Coil Gross Rated Total Capacity`
-        Total cooling capacity not accounting for the effect of supply air fan heat
-        Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
-        air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
+        |  air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
 
@@ -18441,21 +19258,22 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Rated sensible
-        heat ratio (gross sensible capacity/gross total capacity) Sensible and
-        total capacities do not include effect of supply fan heat.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -18468,14 +19286,15 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def cooling_coil_gross_rated_cop(self):
-        """field `Cooling Coil Gross Rated COP` Gross cooling capacity divided
-        by power input to the compressor and outdoor fan, does not include
-        supply fan heat or supply fan electric power input.
+        """field `Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18495,9 +19314,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_pump_heating_coil_type(self):
         """field `Heat Pump Heating Coil Type`
 
+        |  Default value: SingleSpeedDXHeatPump
+
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Type`
-                Default value: SingleSpeedDXHeatPump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18515,8 +19335,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def heat_pump_heating_coil_availability_schedule_name(self):
-        """field `Heat Pump Heating Coil Availability Schedule Name` If blank,
-        always on.
+        """field `Heat Pump Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heat Pump Heating Coil Availability Schedule Name`
@@ -18538,12 +19359,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def heating_design_supply_air_temperature(self):
-        """field `Heating Design Supply Air Temperature` Used for sizing.
+        """field `Heating Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18562,20 +19385,22 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def heat_pump_heating_coil_gross_rated_capacity(self):
         """field `Heat Pump Heating Coil Gross Rated Capacity`
-        Rated heating capacity excluding the effect of supply air fan heat
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Rated heating capacity excluding the effect of supply air fan heat
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heat Pump Heating Coil Gross Rated Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+            float or "Autosize": the value of `heat_pump_heating_coil_gross_rated_capacity` or None if not set
+
         """
         return self["Heat Pump Heating Coil Gross Rated Capacity"]
 
@@ -18588,21 +19413,23 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def heat_pump_heating_coil_rated_cop(self):
         """field `Heat Pump Heating Coil Rated COP`
-        Heat Pump Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
-        does not include supply air fan heat or supply air fan electrical energy.
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Heat Pump Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply air fan heat or supply air fan electrical energy.
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W/W
+        |  Default value: 2.75
 
         Args:
             value (float): value for IDD Field `Heat Pump Heating Coil Rated COP`
-                Units: W/W
-                Default value: 2.75
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heat_pump_heating_coil_rated_cop` or None if not set
+
         """
         return self["Heat Pump Heating Coil Rated COP"]
 
@@ -18615,11 +19442,12 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_pump_heating_minimum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: -8.0
+        |  value >= -20.0
+
         Args:
             value (float): value for IDD Field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: -8.0
-                value >= -20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18643,11 +19471,12 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_pump_defrost_maximum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: 5.0
+        |  value <= 7.22
+
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 5.0
-                value <= 7.22
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18668,9 +19497,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_pump_defrost_strategy(self):
         """field `Heat Pump Defrost Strategy`
 
+        |  Default value: ReverseCycle
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Strategy`
-                Default value: ReverseCycle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18690,9 +19520,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_pump_defrost_control(self):
         """field `Heat Pump Defrost Control`
 
+        |  Default value: Timed
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Control`
-                Default value: Timed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18710,12 +19541,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def heat_pump_defrost_time_period_fraction(self):
-        """field `Heat Pump Defrost Time Period Fraction` Fraction of time in
-        defrost mode only applicable if Timed defrost control is specified.
+        """field `Heat Pump Defrost Time Period Fraction`
+
+        |  Fraction of time in defrost mode
+        |  only applicable if Timed defrost control is specified
+        |  Default value: 0.058333
 
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Time Period Fraction`
-                Default value: 0.058333
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18735,9 +19568,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supplemental_heating_coil_type(self):
         """field `Supplemental Heating Coil Type`
 
+        |  Default value: Electric
+
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18755,8 +19589,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supplemental_heating_coil_availability_schedule_name(self):
-        """field `Supplemental Heating Coil Availability Schedule Name` If
-        blank, always on.
+        """field `Supplemental Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Availability Schedule Name`
@@ -18780,16 +19615,17 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def supplemental_heating_coil_capacity(self):
         """field `Supplemental Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supplemental Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supplemental_heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `supplemental_heating_coil_capacity` or None if not set
 
         """
         return self["Supplemental Heating Coil Capacity"]
@@ -18802,13 +19638,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def supplemental_heating_coil_maximum_outdoor_drybulb_temperature(self):
         """field `Supplemental Heating Coil Maximum Outdoor Dry-Bulb Temperature`
-        Supplemental heater will not operate when outdoor temperature exceeds this value.
+
+        |  Supplemental heater will not operate when outdoor temperature exceeds this value.
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
 
         Args:
             value (float): value for IDD Field `Supplemental Heating Coil Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18831,13 +19668,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supplemental_gas_heating_coil_efficiency(self):
-        """field `Supplemental Gas Heating Coil Efficiency` Applies only if
-        Supplemental Heating Coil Type is Gas.
+        """field `Supplemental Gas Heating Coil Efficiency`
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Default value: 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18857,12 +19695,13 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def supplemental_gas_heating_coil_parasitic_electric_load(self):
         """field `Supplemental Gas Heating Coil Parasitic Electric Load`
-        Applies only if Supplemental Heating Coil Type is Gas.
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18885,16 +19724,17 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -18908,16 +19748,17 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -18929,8 +19770,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the minimum outdoor air flow rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the minimum outdoor air flow rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -18953,9 +19796,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18975,9 +19819,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -18996,13 +19841,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def economizer_maximum_limit_drybulb_temperature(self):
         """field `Economizer Maximum Limit Dry-Bulb Temperature`
-        Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+
+        |  Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
+        |  economizer control type. No input or blank input means this limit is
+        |  not operative. Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19021,14 +19867,15 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def economizer_maximum_limit_enthalpy(self):
-        """field `Economizer Maximum Limit Enthalpy` Enter the maximum outdoor
-        enthalpy limit for FixedEnthalpy economizer control type. No input or
-        blank input means this limit is not operative Limit is applied
-        regardless of economizer control type.
+        """field `Economizer Maximum Limit Enthalpy`
+
+        |  Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19046,14 +19893,15 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19073,13 +19921,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def economizer_minimum_limit_drybulb_temperature(self):
         """field `Economizer Minimum Limit Dry-Bulb Temperature`
-        Enter the minimum outdoor dry-bulb temperature limit for economizer control.
-        No input or blank input means this limit is not operative
-        Limit is applied regardless of economizer control type.
+
+        |  Enter the minimum outdoor dry-bulb temperature limit for economizer control.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19098,8 +19947,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -19120,8 +19971,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -19144,9 +19997,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19164,8 +20018,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -19188,9 +20043,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19210,10 +20066,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19231,13 +20088,14 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def latent_heat_recovery_effectiveness(self):
-        """field `Latent Heat Recovery Effectiveness` Applicable only if Heat
-        Recovery Type is Enthalpy.
+        """field `Latent Heat Recovery Effectiveness`
+
+        |  Applicable only if Heat Recovery Type is Enthalpy.
+        |  Default value: 0.65
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19257,9 +20115,10 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19277,8 +20136,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -19299,15 +20159,17 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19326,20 +20188,22 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -19350,8 +20214,9 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -19372,14 +20237,15 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def humidifier_setpoint(self):
-        """field `Humidifier Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Humidifier Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19397,11 +20263,13 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19421,10 +20289,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19444,11 +20313,12 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19468,10 +20338,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -19491,10 +20362,11 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20247,8 +21119,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always
-        available. Also see Supply Fan Operating Mode Schedule Name field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always available. Also see Supply Fan Operating Mode Schedule Name field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -20269,13 +21142,15 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def control_type(self):
-        """field `Control Type` Load control requires a Controlling Zone name.
-        SetPoint control requires set points at coil outlet nodes. The user
-        must add appropriate SetpointManager objects to the idf file.
+        """field `Control Type`
+
+        |  Load control requires a Controlling Zone name.
+        |  SetPoint control requires set points at coil outlet nodes. The user must add appropriate
+        |  SetpointManager objects to the idf file.
+        |  Default value: Load
 
         Args:
             value (str): value for IDD Field `Control Type`
-                Default value: Load
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20293,8 +21168,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def control_zone_or_thermostat_location_name(self):
-        """field `Control Zone or Thermostat Location Name` This field is
-        required if Control Type is Load.
+        """field `Control Zone or Thermostat Location Name`
+
+        |  This field is required if Control Type is Load.
 
         Args:
             value (str): value for IDD Field `Control Zone or Thermostat Location Name`
@@ -20317,21 +21193,23 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def cooling_supply_air_flow_rate(self):
         """field `Cooling Supply Air Flow Rate`
-        Supply air flow rate during cooling operation
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate during cooling operation
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_supply_air_flow_rate` or None if not set
+
         """
         return self["Cooling Supply Air Flow Rate"]
 
@@ -20343,21 +21221,23 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def heating_supply_air_flow_rate(self):
         """field `Heating Supply Air Flow Rate`
-        Supply air flow rate during heating operation
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate during heating operation
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_supply_air_flow_rate` or None if not set
+
         """
         return self["Heating Supply Air Flow Rate"]
 
@@ -20369,25 +21249,27 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def no_load_supply_air_flow_rate(self):
         """field `No Load Supply Air Flow Rate`
-        Supply air flow rate when no cooling or heating is needed
-        Only used when heat pump fan operating mode is Continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  Supply air flow rate when no cooling or heating is needed
+        |  Only used when heat pump fan operating mode is Continuous. This air flow rate
+        |  is used when no heating or cooling is required and the DX coil compressor is off.
+        |  If this field is left blank or zero, the supply air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `No Load Supply Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `no_load_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `no_load_supply_air_flow_rate` or None if not set
+
         """
         return self["No Load Supply Air Flow Rate"]
 
@@ -20398,11 +21280,12 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def supply_fan_operating_mode_schedule_name(self):
-        """field `Supply Fan Operating Mode Schedule Name` Refers to a schedule
-        to specify unitary supply fan operating mode. Schedule values of 0
-        indicate cycling fan (auto) Schedule values of 1 indicate continuous
-        fan (on) If this field is left blank, a schedule of always zero
-        (cycling fan) will be used.
+        """field `Supply Fan Operating Mode Schedule Name`
+
+        |  Refers to a schedule to specify unitary supply fan operating mode.
+        |  Schedule values of 0 indicate cycling fan (auto)
+        |  Schedule values of 1 indicate continuous fan (on)
+        |  If this field is left blank, a schedule of always zero (cycling fan) will be used.
 
         Args:
             value (str): value for IDD Field `Supply Fan Operating Mode Schedule Name`
@@ -20426,9 +21309,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20448,10 +21332,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20471,11 +21356,12 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 600.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 600.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20495,10 +21381,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20518,10 +21405,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20542,9 +21430,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: SingleSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: SingleSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20563,18 +21452,20 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def number_of_speeds_for_cooling(self):
         """field `Number of Speeds for Cooling`
-        Used only for Cooling Coil Type = MultiSpeedDX.
+
+        |  Used only for Cooling Coil Type = MultiSpeedDX.
+        |  Default value: 1
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Speeds for Cooling`
-                Default value: 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_speeds_for_cooling` or None if not set
+
         """
         return self["Number of Speeds for Cooling"]
 
@@ -20585,7 +21476,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -20607,12 +21500,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def cooling_design_supply_air_temperature(self):
-        """field `Cooling Design Supply Air Temperature` Used for sizing.
+        """field `Cooling Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Design Supply Air Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20631,20 +21526,22 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def dx_cooling_coil_gross_rated_total_capacity(self):
         """field `DX Cooling Coil Gross Rated Total Capacity`
-        Total cooling capacity not accounting for the effect of supply air fan heat
-        Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
-        air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Rating point: air entering the cooling coil at 26.7 C dry-bulb/19.4 C wet-bulb, and
+        |  air entering the outdoor condenser coil at 35 C dry-bulb/23.9 C wet-bulb
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `DX Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `dx_cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `dx_cooling_coil_gross_rated_total_capacity` or None if not set
+
         """
         return self["DX Cooling Coil Gross Rated Total Capacity"]
 
@@ -20656,21 +21553,22 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def dx_cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `DX Cooling Coil Gross Rated Sensible Heat Ratio` Rated
-        sensible heat ratio (gross sensible capacity/gross total capacity)
-        Sensible and total capacities do not include effect of supply fan heat.
+        """field `DX Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Rated sensible heat ratio (gross sensible capacity/gross total capacity)
+        |  Sensible and total capacities do not include effect of supply fan heat
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `DX Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `dx_cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `dx_cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["DX Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -20685,14 +21583,15 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def dx_cooling_coil_gross_rated_cop(self):
-        """field `DX Cooling Coil Gross Rated COP` Gross cooling capacity
-        divided by power input to the compressor and outdoor fan, does not
-        include supply fan heat or supply fan electric power input.
+        """field `DX Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `DX Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20712,9 +21611,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: Gas
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: Gas
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20733,19 +21633,21 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def number_of_speeds_or_stages_for_heating(self):
         """field `Number of Speeds or Stages for Heating`
-        Used only for Heating Coil Type = MultiSpeedDXHeatPumpAirSource),
-        MultiStageElectric, or MultiStageGas.
+
+        |  Used only for Heating Coil Type = MultiSpeedDXHeatPumpAirSource),
+        |  MultiStageElectric, or MultiStageGas.
+        |  Default value: 1
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Speeds or Stages for Heating`
-                Default value: 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_speeds_or_stages_for_heating` or None if not set
+
         """
         return self["Number of Speeds or Stages for Heating"]
 
@@ -20756,7 +21658,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -20778,12 +21682,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def heating_design_supply_air_temperature(self):
-        """field `Heating Design Supply Air Temperature` Used for sizing.
+        """field `Heating Design Supply Air Temperature`
+
+        |  Used for sizing.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Design Supply Air Temperature`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20802,20 +21708,22 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def heating_coil_gross_rated_capacity(self):
         """field `Heating Coil Gross Rated Capacity`
-        Rated heating capacity excluding the effect of supply air fan heat
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+
+        |  Rated heating capacity excluding the effect of supply air fan heat
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Gross Rated Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_gross_rated_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_gross_rated_capacity` or None if not set
+
         """
         return self["Heating Coil Gross Rated Capacity"]
 
@@ -20828,10 +21736,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20851,10 +21760,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20874,22 +21784,24 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def heat_pump_heating_coil_gross_rated_cop(self):
         """field `Heat Pump Heating Coil Gross Rated COP`
-        Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
-        does not include supply air fan heat or supply air fan electrical energy.
-        Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
-        Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
-        Applies only to DX coils
+
+        |  Heating Coil Rated Capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply air fan heat or supply air fan electrical energy.
+        |  Rating point outdoor dry-bulb temp 8.33 C, outdoor wet-bulb temp 6.11 C
+        |  Rating point heating coil entering air dry-bulb 21.11 C, coil entering wet-bulb 15.55 C
+        |  Applies only to DX coils
+        |  Units: W/W
+        |  Default value: 2.75
 
         Args:
             value (float): value for IDD Field `Heat Pump Heating Coil Gross Rated COP`
-                Units: W/W
-                Default value: 2.75
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heat_pump_heating_coil_gross_rated_cop` or None if not set
+
         """
         return self["Heat Pump Heating Coil Gross Rated COP"]
 
@@ -20902,11 +21814,12 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_pump_heating_minimum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: -8.0
+        |  value >= -20.0
+
         Args:
             value (float): value for IDD Field `Heat Pump Heating Minimum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: -8.0
-                value >= -20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20930,11 +21843,12 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_pump_defrost_maximum_outdoor_drybulb_temperature(self):
         """field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
 
+        |  Units: C
+        |  Default value: 5.0
+        |  value <= 7.22
+
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 5.0
-                value <= 7.22
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20955,9 +21869,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_pump_defrost_strategy(self):
         """field `Heat Pump Defrost Strategy`
 
+        |  Default value: ReverseCycle
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Strategy`
-                Default value: ReverseCycle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20977,9 +21892,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_pump_defrost_control(self):
         """field `Heat Pump Defrost Control`
 
+        |  Default value: Timed
+
         Args:
             value (str): value for IDD Field `Heat Pump Defrost Control`
-                Default value: Timed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -20997,12 +21913,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def heat_pump_defrost_time_period_fraction(self):
-        """field `Heat Pump Defrost Time Period Fraction` Fraction of time in
-        defrost mode only applicable if Timed defrost control is specified.
+        """field `Heat Pump Defrost Time Period Fraction`
+
+        |  Fraction of time in defrost mode
+        |  only applicable if Timed defrost control is specified
+        |  Default value: 0.058333
 
         Args:
             value (float): value for IDD Field `Heat Pump Defrost Time Period Fraction`
-                Default value: 0.058333
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21022,9 +21940,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supplemental_heating_or_reheat_coil_type(self):
         """field `Supplemental Heating or Reheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Supplemental Heating or Reheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21044,7 +21963,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def supplemental_heating_or_reheat_coil_availability_schedule_name(self):
         """field `Supplemental Heating or Reheat Coil Availability Schedule
-        Name` If blank, always on.
+        Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Supplemental Heating or Reheat Coil Availability Schedule Name`
@@ -21072,16 +21993,17 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supplemental_heating_or_reheat_coil_capacity(self):
         """field `Supplemental Heating or Reheat Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supplemental Heating or Reheat Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supplemental_heating_or_reheat_coil_capacity` or None if not set
+            float or "Autosize": the value of `supplemental_heating_or_reheat_coil_capacity` or None if not set
 
         """
         return self["Supplemental Heating or Reheat Coil Capacity"]
@@ -21096,13 +22018,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def supplemental_heating_or_reheat_coil_maximum_outdoor_drybulb_temperature(
             self):
         """field `Supplemental Heating or Reheat Coil Maximum Outdoor Dry-Bulb Temperature`
-        Supplemental heater will not operate when outdoor temperature exceeds this value.
+
+        |  Supplemental heater will not operate when outdoor temperature exceeds this value.
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
 
         Args:
             value (float): value for IDD Field `Supplemental Heating or Reheat Coil Maximum Outdoor Dry-Bulb Temperature`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21125,13 +22048,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def supplemental_gas_heating_or_reheat_coil_efficiency(self):
-        """field `Supplemental Gas Heating or Reheat Coil Efficiency` Applies
-        only if Supplemental Heating Coil Type is Gas.
+        """field `Supplemental Gas Heating or Reheat Coil Efficiency`
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Default value: 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating or Reheat Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21151,12 +22075,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def supplemental_gas_heating_or_reheat_coil_parasitic_electric_load(self):
         """field `Supplemental Gas Heating or Reheat Coil Parasitic Electric
-        Load` Applies only if Supplemental Heating Coil Type is Gas.
+        Load`
+
+        |  Applies only if Supplemental Heating Coil Type is Gas
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Supplemental Gas Heating or Reheat Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21181,16 +22107,17 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -21204,16 +22131,17 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -21225,8 +22153,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the minimum outdoor air flow rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the minimum outdoor air flow rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -21249,9 +22179,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21271,9 +22202,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21292,13 +22224,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def economizer_maximum_limit_drybulb_temperature(self):
         """field `Economizer Maximum Limit Dry-Bulb Temperature`
-        Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+
+        |  Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
+        |  economizer control type. No input or blank input means this limit is
+        |  not operative. Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21317,14 +22250,15 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def economizer_maximum_limit_enthalpy(self):
-        """field `Economizer Maximum Limit Enthalpy` Enter the maximum outdoor
-        enthalpy limit for FixedEnthalpy economizer control type. No input or
-        blank input means this limit is not operative Limit is applied
-        regardless of economizer control type.
+        """field `Economizer Maximum Limit Enthalpy`
+
+        |  Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21342,14 +22276,15 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21369,13 +22304,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def economizer_minimum_limit_drybulb_temperature(self):
         """field `Economizer Minimum Limit Dry-Bulb Temperature`
-        Enter the minimum outdoor dry-bulb temperature limit for economizer control.
-        No input or blank input means this limit is not operative
-        Limit is applied regardless of economizer control type.
+
+        |  Enter the minimum outdoor dry-bulb temperature limit for economizer control.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21394,8 +22330,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -21416,8 +22354,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Return plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Return plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -21440,9 +22380,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21462,10 +22403,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21483,13 +22425,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def latent_heat_recovery_effectiveness(self):
-        """field `Latent Heat Recovery Effectiveness` Applicable only if Heat
-        Recovery Type is Enthalpy.
+        """field `Latent Heat Recovery Effectiveness`
+
+        |  Applicable only if Heat Recovery Type is Enthalpy.
+        |  Default value: 0.65
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21509,9 +22452,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_recovery_heat_exchanger_type(self):
         """field `Heat Recovery Heat Exchanger Type`
 
+        |  Default value: Plate
+
         Args:
             value (str): value for IDD Field `Heat Recovery Heat Exchanger Type`
-                Default value: Plate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21531,9 +22475,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def heat_recovery_frost_control_type(self):
         """field `Heat Recovery Frost Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Frost Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21552,21 +22497,23 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry-bulb setpoint, reheat with reheat coil
-        If no reheat coil specified, cold supply temps may occur.
-        Multimode = activate enhanced dehumidification mode as needed and meet sensible load.
-        Valid only for Cooling Coil Type = TwoStageHumidityControlDX
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry-bulb setpoint, reheat with reheat coil
+        |  If no reheat coil specified, cold supply temps may occur.
+        |  Multimode = activate enhanced dehumidification mode as needed and meet sensible load.
+        |  Valid only for Cooling Coil Type = TwoStageHumidityControlDX
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -21577,8 +22524,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def dehumidification_control_zone_name(self):
-        """field `Dehumidification Control Zone Name` Zone name where
-        humidistat is located.
+        """field `Dehumidification Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -21599,15 +22547,16 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def dehumidification_relative_humidity_setpoint(self):
-        """field `Dehumidification Relative Humidity Setpoint` Zone relative
-        humidity setpoint in percent (0 to 100) Ignored if Dehumidification
-        Relative Humidity Setpoint Schedule specified below.
+        """field `Dehumidification Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Ignored if Dehumidification Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Relative Humidity Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21627,9 +22576,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def dehumidification_relative_humidity_setpoint_schedule_name(self):
         """field `Dehumidification Relative Humidity Setpoint Schedule Name`
-        Leave blank to use constant setpoint specified in Dehumidification
-        Relative Humidity Setpoint above. Schedule values must be in percent
-        relative humidity (0 to 100).
+
+        |  Leave blank to use constant setpoint specified in Dehumidification Relative Humidity
+        |  Setpoint above. Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Dehumidification Relative Humidity Setpoint Schedule Name`
@@ -21657,9 +22606,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21677,8 +22627,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -21699,15 +22650,17 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21726,20 +22679,22 @@ class HvactemplateSystemUnitarySystem(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -21750,8 +22705,9 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -21772,15 +22728,16 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint(self):
-        """field `Humidifier Relative Humidity Setpoint` Zone relative humidity
-        setpoint in percent (0 to 100). Ignored if Humidifier Relative Humidity
-        Setpoint Schedule specified below.
+        """field `Humidifier Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100).
+        |  Ignored if Humidifier Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Relative Humidity Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21798,10 +22755,10 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint_schedule_name(self):
-        """field `Humidifier Relative Humidity Setpoint Schedule Name` Leave
-        blank to use constant setpoint specified in Humidifier Relative
-        Humidity Setpoint above.Schedule values must be in percent relative
-        humidity (0 to 100).
+        """field `Humidifier Relative Humidity Setpoint Schedule Name`
+
+        |  Leave blank to use constant setpoint specified in Humidifier Relative Humidity
+        |  Setpoint above.Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Humidifier Relative Humidity Setpoint Schedule Name`
@@ -21823,12 +22780,14 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def sizing_option(self):
-        """field `Sizing Option` Select whether autosized system supply flow
-        rate is the sum of Coincident or NonCoincident zone air flow rates.
+        """field `Sizing Option`
+
+        |  Select whether autosized system supply flow rate is the sum of Coincident or NonCoincident
+        |  zone air flow rates.
+        |  Default value: NonCoincident
 
         Args:
             value (str): value for IDD Field `Sizing Option`
-                Default value: NonCoincident
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21846,11 +22805,13 @@ class HvactemplateSystemUnitarySystem(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21870,10 +22831,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21893,11 +22855,12 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 300.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 300.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21917,10 +22880,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -21940,10 +22904,11 @@ class HvactemplateSystemUnitarySystem(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22576,9 +23541,11 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on; VAV
-        System always on.  Schedule is used in availability manager and fan
-        scheduling. Also see "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on; VAV System always on.  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -22600,20 +23567,22 @@ class HvactemplateSystemVav(DataObject):
     @property
     def supply_fan_maximum_flow_rate(self):
         """field `Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Supply Fan Maximum Flow Rate"]
 
@@ -22624,20 +23593,21 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def supply_fan_minimum_flow_rate(self):
-        """field `Supply Fan Minimum Flow Rate` This field is only used to set
-        a minimum part load on the VAV fan power curve. Autosize or zero is
-        recommended.
+        """field `Supply Fan Minimum Flow Rate`
+
+        |  This field is only used to set a minimum part load on the VAV fan power curve.
+        |  Autosize or zero is recommended.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Minimum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_minimum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_minimum_flow_rate` or None if not set
 
         """
         return self["Supply Fan Minimum Flow Rate"]
@@ -22651,10 +23621,11 @@ class HvactemplateSystemVav(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22674,11 +23645,12 @@ class HvactemplateSystemVav(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22698,10 +23670,11 @@ class HvactemplateSystemVav(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22721,10 +23694,11 @@ class HvactemplateSystemVav(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22745,9 +23719,10 @@ class HvactemplateSystemVav(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: ChilledWater
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: ChilledWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22765,7 +23740,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -22787,8 +23764,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def cooling_coil_setpoint_schedule_name(self):
-        """field `Cooling Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Cooling Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Schedule Name`
@@ -22809,13 +23787,14 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def cooling_coil_design_setpoint(self):
-        """field `Cooling Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        """field `Cooling Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22835,9 +23814,10 @@ class HvactemplateSystemVav(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22855,7 +23835,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -22877,8 +23859,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def heating_coil_setpoint_schedule_name(self):
-        """field `Heating Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Heating Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Schedule Name`
@@ -22899,13 +23882,14 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def heating_coil_design_setpoint(self):
-        """field `Heating Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        """field `Heating Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22925,10 +23909,11 @@ class HvactemplateSystemVav(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22948,10 +23933,11 @@ class HvactemplateSystemVav(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22972,9 +23958,10 @@ class HvactemplateSystemVav(DataObject):
     def preheat_coil_type(self):
         """field `Preheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Preheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -22992,7 +23979,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def preheat_coil_availability_schedule_name(self):
-        """field `Preheat Coil Availability Schedule Name` If blank, always on.
+        """field `Preheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Preheat Coil Availability Schedule Name`
@@ -23014,8 +24003,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def preheat_coil_setpoint_schedule_name(self):
-        """field `Preheat Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Preheat Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Preheat Coil Setpoint Schedule Name`
@@ -23036,13 +24026,14 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def preheat_coil_design_setpoint(self):
-        """field `Preheat Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        """field `Preheat Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        |  Units: C
+        |  Default value: 7.2
 
         Args:
             value (float): value for IDD Field `Preheat Coil Design Setpoint`
-                Units: C
-                Default value: 7.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23062,10 +24053,11 @@ class HvactemplateSystemVav(DataObject):
     def gas_preheat_coil_efficiency(self):
         """field `Gas Preheat Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23085,10 +24077,11 @@ class HvactemplateSystemVav(DataObject):
     def gas_preheat_coil_parasitic_electric_load(self):
         """field `Gas Preheat Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23109,16 +24102,17 @@ class HvactemplateSystemVav(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -23132,16 +24126,17 @@ class HvactemplateSystemVav(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -23155,9 +24150,10 @@ class HvactemplateSystemVav(DataObject):
     def minimum_outdoor_air_control_type(self):
         """field `Minimum Outdoor Air Control Type`
 
+        |  Default value: ProportionalMinimum
+
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Control Type`
-                Default value: ProportionalMinimum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23175,8 +24171,10 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the Minimum Outdoor Air Flow Rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the Minimum Outdoor Air Flow Rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -23199,9 +24197,10 @@ class HvactemplateSystemVav(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23221,9 +24220,10 @@ class HvactemplateSystemVav(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23241,13 +24241,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def economizer_upper_temperature_limit(self):
-        """field `Economizer Upper Temperature Limit` Outdoor temperature above
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Upper Temperature Limit`
+
+        |  Outdoor temperature above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Upper Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23265,13 +24267,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def economizer_lower_temperature_limit(self):
-        """field `Economizer Lower Temperature Limit` Outdoor temperature below
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Lower Temperature Limit`
+
+        |  Outdoor temperature below which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Lower Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23289,13 +24293,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def economizer_upper_enthalpy_limit(self):
-        """field `Economizer Upper Enthalpy Limit` Outdoor enthalpy above which
-        economizer is disabled and heat recovery is enabled (if available).
-        Blank means no limit.
+        """field `Economizer Upper Enthalpy Limit`
+
+        |  Outdoor enthalpy above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Upper Enthalpy Limit`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23313,14 +24319,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23339,8 +24346,10 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -23361,8 +24370,10 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -23385,9 +24396,10 @@ class HvactemplateSystemVav(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23406,14 +24418,15 @@ class HvactemplateSystemVav(DataObject):
     @property
     def supply_fan_partload_power_coefficients(self):
         """field `Supply Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Supply Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23434,9 +24447,10 @@ class HvactemplateSystemVav(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23454,8 +24468,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -23478,9 +24493,10 @@ class HvactemplateSystemVav(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23500,10 +24516,11 @@ class HvactemplateSystemVav(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23523,10 +24540,11 @@ class HvactemplateSystemVav(DataObject):
     def latent_heat_recovery_effectiveness(self):
         """field `Latent Heat Recovery Effectiveness`
 
+        |  Default value: 0.65
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23545,23 +24563,25 @@ class HvactemplateSystemVav(DataObject):
     @property
     def cooling_coil_setpoint_reset_type(self):
         """field `Cooling Coil Setpoint Reset Type`
-        Overrides Cooling Coil Setpoint Schedule Name
-        None = no reset, control to Cooling Coil Design Setpoint Temperature or Schedule
-        Warmest = reset as warm as possible yet meet all zone cooling loads at max supply air flow rate
-        OutdoorAirTemperatureReset = reset based on outdoor air temperature (18.0C at 15.6C ODB,
-        to the Cooling Design Setpoint at 26.7C)
-        WarmestTemperatureFirst = reset as warm as possible yet meet all zone cooling loads at
-        min supply air flow rate
+
+        |  Overrides Cooling Coil Setpoint Schedule Name
+        |  None = no reset, control to Cooling Coil Design Setpoint Temperature or Schedule
+        |  Warmest = reset as warm as possible yet meet all zone cooling loads at max supply air flow rate
+        |  OutdoorAirTemperatureReset = reset based on outdoor air temperature (18.0C at 15.6C ODB,
+        |  to the Cooling Design Setpoint at 26.7C)
+        |  WarmestTemperatureFirst = reset as warm as possible yet meet all zone cooling loads at
+        |  min supply air flow rate
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_coil_setpoint_reset_type` or None if not set
+
         """
         return self["Cooling Coil Setpoint Reset Type"]
 
@@ -23573,21 +24593,23 @@ class HvactemplateSystemVav(DataObject):
     @property
     def heating_coil_setpoint_reset_type(self):
         """field `Heating Coil Setpoint Reset Type`
-        Overrides Heating Coil Setpoint Schedule Name
-        None = no reset, control to Heating Coil Design Setpoint Temperature or Schedule
-        OutdoorAirTemperatureReset = reset based on outdoor air temperature
-        (Heating Design Setpoint at -6.7C ODB to Heating Desing Setpoint minus 5.2C at 10C ODB)
-        min supply air flow rate
+
+        |  Overrides Heating Coil Setpoint Schedule Name
+        |  None = no reset, control to Heating Coil Design Setpoint Temperature or Schedule
+        |  OutdoorAirTemperatureReset = reset based on outdoor air temperature
+        |  (Heating Design Setpoint at -6.7C ODB to Heating Desing Setpoint minus 5.2C at 10C ODB)
+        |  min supply air flow rate
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_coil_setpoint_reset_type` or None if not set
+
         """
         return self["Heating Coil Setpoint Reset Type"]
 
@@ -23599,19 +24621,21 @@ class HvactemplateSystemVav(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint.
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -23622,8 +24646,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def dehumidification_control_zone_name(self):
-        """field `Dehumidification Control Zone Name` Zone name where
-        humidistat is located.
+        """field `Dehumidification Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -23644,14 +24669,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def dehumidification_setpoint(self):
-        """field `Dehumidification Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Dehumidification Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23671,9 +24697,10 @@ class HvactemplateSystemVav(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23691,8 +24718,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -23713,15 +24741,17 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23740,20 +24770,22 @@ class HvactemplateSystemVav(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -23764,8 +24796,9 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -23786,14 +24819,15 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def humidifier_setpoint(self):
-        """field `Humidifier Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Humidifier Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23811,12 +24845,14 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def sizing_option(self):
-        """field `Sizing Option` Select whether autosized system supply flow
-        rate is the sum of Coincident or NonCoincident zone air flow rates.
+        """field `Sizing Option`
+
+        |  Select whether autosized system supply flow rate is the sum of Coincident or NonCoincident
+        |  zone air flow rates.
+        |  Default value: NonCoincident
 
         Args:
             value (str): value for IDD Field `Sizing Option`
-                Default value: NonCoincident
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23834,11 +24870,13 @@ class HvactemplateSystemVav(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23858,10 +24896,11 @@ class HvactemplateSystemVav(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23881,11 +24920,12 @@ class HvactemplateSystemVav(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23905,10 +24945,11 @@ class HvactemplateSystemVav(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23928,10 +24969,11 @@ class HvactemplateSystemVav(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -23951,14 +24993,15 @@ class HvactemplateSystemVav(DataObject):
     @property
     def return_fan_partload_power_coefficients(self):
         """field `Return Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Return Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24577,9 +25620,11 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on; PVAV
-        System always on.  Schedule is used in availability manager and fan
-        scheduling. Also see "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on; PVAV System always on.  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -24601,20 +25646,22 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def supply_fan_maximum_flow_rate(self):
         """field `Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Supply Fan Maximum Flow Rate"]
 
@@ -24625,20 +25672,21 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def supply_fan_minimum_flow_rate(self):
-        """field `Supply Fan Minimum Flow Rate` This field is only used to set
-        a minimum part load on the VAV fan power curve. Autosize or zero is
-        recommended.
+        """field `Supply Fan Minimum Flow Rate`
+
+        |  This field is only used to set a minimum part load on the VAV fan power curve.
+        |  Autosize or zero is recommended.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Minimum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_minimum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_minimum_flow_rate` or None if not set
 
         """
         return self["Supply Fan Minimum Flow Rate"]
@@ -24652,9 +25700,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24674,10 +25723,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24697,11 +25747,12 @@ class HvactemplateSystemPackagedVav(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24721,10 +25772,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24744,10 +25796,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24768,9 +25821,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: TwoSpeedDX
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: TwoSpeedDX
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24788,7 +25842,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -24810,8 +25866,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_setpoint_schedule_name(self):
-        """field `Cooling Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Cooling Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Schedule Name`
@@ -24832,13 +25889,14 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_design_setpoint(self):
-        """field `Cooling Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        """field `Cooling Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24856,19 +25914,20 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_gross_rated_total_capacity(self):
-        """field `Cooling Coil Gross Rated Total Capacity` Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `Cooling Coil Gross Rated Total Capacity`
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_total_capacity` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Total Capacity"]
@@ -24881,19 +25940,21 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `Cooling Coil Gross Rated Sensible Heat Ratio` Gross SHR.
+        """field `Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Gross SHR
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -24906,14 +25967,15 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def cooling_coil_gross_rated_cop(self):
-        """field `Cooling Coil Gross Rated COP` Gross cooling capacity divided
-        by power input to the compressor and outdoor fan, does not include
-        supply fan heat or supply fan electric power input.
+        """field `Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24933,9 +25995,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -24953,7 +26016,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -24975,8 +26040,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def heating_coil_setpoint_schedule_name(self):
-        """field `Heating Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Heating Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Schedule Name`
@@ -24997,13 +26063,14 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def heating_coil_design_setpoint(self):
-        """field `Heating Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        """field `Heating Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25023,16 +26090,17 @@ class HvactemplateSystemPackagedVav(DataObject):
     def heating_coil_capacity(self):
         """field `Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_capacity` or None if not set
 
         """
         return self["Heating Coil Capacity"]
@@ -25046,10 +26114,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25069,10 +26138,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25093,16 +26163,17 @@ class HvactemplateSystemPackagedVav(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -25116,16 +26187,17 @@ class HvactemplateSystemPackagedVav(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -25139,9 +26211,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def minimum_outdoor_air_control_type(self):
         """field `Minimum Outdoor Air Control Type`
 
+        |  Default value: ProportionalMinimum
+
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Control Type`
-                Default value: ProportionalMinimum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25159,8 +26232,10 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the Minimum Outdoor Air Flow Rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the Minimum Outdoor Air Flow Rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -25183,9 +26258,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25205,9 +26281,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25226,13 +26303,14 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def economizer_maximum_limit_drybulb_temperature(self):
         """field `Economizer Maximum Limit Dry-Bulb Temperature`
-        Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+
+        |  Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
+        |  economizer control type. No input or blank input means this limit is
+        |  not operative. Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25251,14 +26329,15 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def economizer_maximum_limit_enthalpy(self):
-        """field `Economizer Maximum Limit Enthalpy` Enter the maximum outdoor
-        enthalpy limit for FixedEnthalpy economizer control type. No input or
-        blank input means this limit is not operative Limit is applied
-        regardless of economizer control type.
+        """field `Economizer Maximum Limit Enthalpy`
+
+        |  Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25276,14 +26355,15 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25303,13 +26383,14 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def economizer_minimum_limit_drybulb_temperature(self):
         """field `Economizer Minimum Limit Dry-Bulb Temperature`
-        Enter the minimum outdoor dry-bulb temperature limit for economizer control.
-        No input or blank input means this limit is not operative
-        Limit is applied regardless of economizer control type.
+
+        |  Enter the minimum outdoor dry-bulb temperature limit for economizer control.
+        |  No input or blank input means this limit is not operative
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25328,8 +26409,10 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -25350,8 +26433,10 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -25373,14 +26458,15 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def supply_fan_partload_power_coefficients(self):
         """field `Supply Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Supply Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25401,9 +26487,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25421,8 +26508,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -25445,9 +26533,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25467,10 +26556,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25490,10 +26580,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def latent_heat_recovery_effectiveness(self):
         """field `Latent Heat Recovery Effectiveness`
 
+        |  Default value: 0.65
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25512,23 +26603,25 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def cooling_coil_setpoint_reset_type(self):
         """field `Cooling Coil Setpoint Reset Type`
-        Overrides Cooling Coil Setpoint Schedule Name
-        None = no reset, control to Cooling Coil Design Setpoint Temperature or Schedule
-        Warmest = reset as warm as possible yet meet all zone cooling loads at max supply air flow rate
-        OutdoorAirTemperatureReset = reset based on outdoor air temperature (18.0C at 15.6C ODB,
-        to the Cooling Design Setpoint at 26.7C)
-        WarmestTemperatureFirst = reset as warm as possible yet meet all zone cooling loads at
-        min supply air flow rate
+
+        |  Overrides Cooling Coil Setpoint Schedule Name
+        |  None = no reset, control to Cooling Coil Design Setpoint Temperature or Schedule
+        |  Warmest = reset as warm as possible yet meet all zone cooling loads at max supply air flow rate
+        |  OutdoorAirTemperatureReset = reset based on outdoor air temperature (18.0C at 15.6C ODB,
+        |  to the Cooling Design Setpoint at 26.7C)
+        |  WarmestTemperatureFirst = reset as warm as possible yet meet all zone cooling loads at
+        |  min supply air flow rate
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_coil_setpoint_reset_type` or None if not set
+
         """
         return self["Cooling Coil Setpoint Reset Type"]
 
@@ -25540,21 +26633,23 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def heating_coil_setpoint_reset_type(self):
         """field `Heating Coil Setpoint Reset Type`
-        Overrides Heating Coil Setpoint Schedule Name
-        None = no reset, control to Heating Coil Design Setpoint Temperature or Schedule
-        OutdoorAirTemperatureReset = reset based on outdoor air temperature
-        (Heating Design Setpoint at -6.7C ODB to Heating Desing Setpoint minus 5.2C at 10C ODB)
-        min supply air flow rate
+
+        |  Overrides Heating Coil Setpoint Schedule Name
+        |  None = no reset, control to Heating Coil Design Setpoint Temperature or Schedule
+        |  OutdoorAirTemperatureReset = reset based on outdoor air temperature
+        |  (Heating Design Setpoint at -6.7C ODB to Heating Desing Setpoint minus 5.2C at 10C ODB)
+        |  min supply air flow rate
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_coil_setpoint_reset_type` or None if not set
+
         """
         return self["Heating Coil Setpoint Reset Type"]
 
@@ -25566,19 +26661,21 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint.
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -25589,8 +26686,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def dehumidification_control_zone_name(self):
-        """field `Dehumidification Control Zone Name` Zone name where
-        humidistat is located.
+        """field `Dehumidification Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -25611,14 +26709,15 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def dehumidification_setpoint(self):
-        """field `Dehumidification Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Dehumidification Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25638,9 +26737,10 @@ class HvactemplateSystemPackagedVav(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25658,8 +26758,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -25680,15 +26781,17 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25707,20 +26810,22 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -25731,8 +26836,9 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -25753,14 +26859,15 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def humidifier_setpoint(self):
-        """field `Humidifier Setpoint` Zone relative humidity setpoint in
-        percent (0 to 100)
+        """field `Humidifier Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25778,12 +26885,14 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def sizing_option(self):
-        """field `Sizing Option` Select whether autosized system supply flow
-        rate is the sum of Coincident or NonCoincident zone air flow rates.
+        """field `Sizing Option`
+
+        |  Select whether autosized system supply flow rate is the sum of Coincident or NonCoincident
+        |  zone air flow rates.
+        |  Default value: NonCoincident
 
         Args:
             value (str): value for IDD Field `Sizing Option`
-                Default value: NonCoincident
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25801,11 +26910,13 @@ class HvactemplateSystemPackagedVav(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25825,10 +26936,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25848,11 +26960,12 @@ class HvactemplateSystemPackagedVav(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25872,10 +26985,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25895,10 +27009,11 @@ class HvactemplateSystemPackagedVav(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -25918,14 +27033,15 @@ class HvactemplateSystemPackagedVav(DataObject):
     @property
     def return_fan_partload_power_coefficients(self):
         """field `Return Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Return Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26629,9 +27745,11 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on;
-        Schedule is used in availability manager and fan scheduling. Also see
-        "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on;  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -26653,20 +27771,22 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def supply_fan_maximum_flow_rate(self):
         """field `Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Supply Fan Maximum Flow Rate"]
 
@@ -26679,10 +27799,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26702,11 +27823,12 @@ class HvactemplateSystemConstantVolume(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 600.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 600.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26726,10 +27848,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26749,10 +27872,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26773,9 +27897,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26795,9 +27920,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: ChilledWater
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: ChilledWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26815,7 +27941,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -26839,9 +27967,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def cooling_coil_setpoint_control_type(self):
         """field `Cooling Coil Setpoint Control Type`
 
+        |  Default value: FixedSetpoint
+
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26860,8 +27989,9 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def cooling_coil_control_zone_name(self):
         """field `Cooling Coil Control Zone name`
-        name of the HVACTemplate:ZoneConstantVolume object that
-        contains the cooling thermostat when Cooling Coil Setpoint Control Type = ControlZone
+
+        |  name of the HVACTemplate:ZoneConstantVolume object that
+        |  contains the cooling thermostat when Cooling Coil Setpoint Control Type = ControlZone
 
         Args:
             value (str): value for IDD Field `Cooling Coil Control Zone name`
@@ -26871,6 +28001,7 @@ class HvactemplateSystemConstantVolume(DataObject):
 
         Returns:
             str: the value of `cooling_coil_control_zone_name` or None if not set
+
         """
         return self["Cooling Coil Control Zone name"]
 
@@ -26881,14 +28012,14 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def cooling_coil_design_setpoint_temperature(self):
-        """field `Cooling Coil Design Setpoint Temperature` Used for sizing and
-        as constant setpoint if no Cooling Coil Setpoint Schedule Name is
-        specified.
+        """field `Cooling Coil Design Setpoint Temperature`
+
+        |  Used for sizing and as constant setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26907,8 +28038,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def cooling_coil_setpoint_schedule_name(self):
-        """field `Cooling Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Cooling Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Schedule Name`
@@ -26930,12 +28062,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26955,13 +28088,14 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_low(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -26981,12 +28115,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27006,12 +28141,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_high(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 23.3
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 23.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27032,9 +28168,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: HotWater
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27052,7 +28189,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -27076,9 +28215,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heating_coil_setpoint_control_type(self):
         """field `Heating Coil Setpoint Control Type`
 
+        |  Default value: FixedSetpoint
+
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27097,8 +28237,9 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def heating_coil_control_zone_name(self):
         """field `Heating Coil Control Zone name`
-        name of the HVACTemplate:ZoneConstantVolume object that
-        contains the heating thermostat
+
+        |  name of the HVACTemplate:ZoneConstantVolume object that
+        |  contains the heating thermostat
 
         Args:
             value (str): value for IDD Field `Heating Coil Control Zone name`
@@ -27108,6 +28249,7 @@ class HvactemplateSystemConstantVolume(DataObject):
 
         Returns:
             str: the value of `heating_coil_control_zone_name` or None if not set
+
         """
         return self["Heating Coil Control Zone name"]
 
@@ -27118,13 +28260,14 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def heating_coil_design_setpoint(self):
-        """field `Heating Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        """field `Heating Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27142,8 +28285,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def heating_coil_setpoint_schedule_name(self):
-        """field `Heating Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Heating Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Schedule Name`
@@ -27165,12 +28309,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27190,13 +28335,14 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_low(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+        |  Units: C
+        |  Default value: 7.8
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 7.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27216,12 +28362,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27241,12 +28388,13 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_high(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27267,16 +28415,17 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heating_coil_capacity(self):
         """field `Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_capacity` or None if not set
 
         """
         return self["Heating Coil Capacity"]
@@ -27290,10 +28439,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27313,10 +28463,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27337,9 +28488,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def preheat_coil_type(self):
         """field `Preheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Preheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27357,7 +28509,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def preheat_coil_availability_schedule_name(self):
-        """field `Preheat Coil Availability Schedule Name` If blank, always on.
+        """field `Preheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Preheat Coil Availability Schedule Name`
@@ -27379,13 +28533,14 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def preheat_coil_design_setpoint(self):
-        """field `Preheat Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        """field `Preheat Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        |  Units: C
+        |  Default value: 7.2
 
         Args:
             value (float): value for IDD Field `Preheat Coil Design Setpoint`
-                Units: C
-                Default value: 7.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27403,8 +28558,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def preheat_coil_setpoint_schedule_name(self):
-        """field `Preheat Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Preheat Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Preheat Coil Setpoint Schedule Name`
@@ -27427,10 +28583,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def gas_preheat_coil_efficiency(self):
         """field `Gas Preheat Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27450,10 +28607,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def gas_preheat_coil_parasitic_electric_load(self):
         """field `Gas Preheat Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27474,16 +28632,17 @@ class HvactemplateSystemConstantVolume(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -27497,16 +28656,17 @@ class HvactemplateSystemConstantVolume(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -27518,8 +28678,10 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the Minimum Outdoor Air Flow Rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the Minimum Outdoor Air Flow Rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -27542,9 +28704,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27562,13 +28725,15 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def economizer_upper_temperature_limit(self):
-        """field `Economizer Upper Temperature Limit` Outdoor temperature above
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Upper Temperature Limit`
+
+        |  Outdoor temperature above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Upper Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27586,13 +28751,15 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def economizer_lower_temperature_limit(self):
-        """field `Economizer Lower Temperature Limit` Outdoor temperature below
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Lower Temperature Limit`
+
+        |  Outdoor temperature below which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Lower Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27610,13 +28777,15 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def economizer_upper_enthalpy_limit(self):
-        """field `Economizer Upper Enthalpy Limit` Outdoor enthalpy above which
-        economizer is disabled and heat recovery is enabled (if available).
-        Blank means no limit.
+        """field `Economizer Upper Enthalpy Limit`
+
+        |  Outdoor enthalpy above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Upper Enthalpy Limit`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27634,14 +28803,15 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27660,8 +28830,10 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def supply_plenum_name(self):
-        """field `Supply Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Supply Plenum Name`
@@ -27682,8 +28854,10 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -27706,9 +28880,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27726,8 +28901,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -27750,9 +28926,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27772,10 +28949,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27795,10 +28973,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def latent_heat_recovery_effectiveness(self):
         """field `Latent Heat Recovery Effectiveness`
 
+        |  Default value: 0.65
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27818,9 +28997,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heat_recovery_heat_exchanger_type(self):
         """field `Heat Recovery Heat Exchanger Type`
 
+        |  Default value: Plate
+
         Args:
             value (str): value for IDD Field `Heat Recovery Heat Exchanger Type`
-                Default value: Plate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27840,9 +29020,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def heat_recovery_frost_control_type(self):
         """field `Heat Recovery Frost Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Frost Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27861,19 +29042,21 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint.
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -27884,8 +29067,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def dehumidification_control_zone_name(self):
-        """field `Dehumidification Control Zone Name` Zone name where
-        humidistat is located.
+        """field `Dehumidification Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -27906,15 +29090,16 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def dehumidification_relative_humidity_setpoint(self):
-        """field `Dehumidification Relative Humidity Setpoint` Zone relative
-        humidity setpoint in percent (0 to 100) Ignored if Dehumidification
-        Relative Humidity Setpoint Schedule specified below.
+        """field `Dehumidification Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Ignored if Dehumidification Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Relative Humidity Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27934,9 +29119,9 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def dehumidification_relative_humidity_setpoint_schedule_name(self):
         """field `Dehumidification Relative Humidity Setpoint Schedule Name`
-        Leave blank to use constant setpoint specified in Dehumidification
-        Relative Humidity Setpoint above. Schedule values must be in percent
-        relative humidity (0 to 100).
+
+        |  Leave blank to use constant setpoint specified in Dehumidification Relative Humidity
+        |  Setpoint above. Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Dehumidification Relative Humidity Setpoint Schedule Name`
@@ -27964,9 +29149,10 @@ class HvactemplateSystemConstantVolume(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -27984,8 +29170,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -28006,15 +29193,17 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28033,20 +29222,22 @@ class HvactemplateSystemConstantVolume(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -28057,8 +29248,9 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -28079,15 +29271,16 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint(self):
-        """field `Humidifier Relative Humidity Setpoint` Zone relative humidity
-        setpoint in percent (0 to 100). Ignored if Humidifier Relative Humidity
-        Setpoint Schedule specified below.
+        """field `Humidifier Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100).
+        |  Ignored if Humidifier Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Relative Humidity Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28105,10 +29298,10 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint_schedule_name(self):
-        """field `Humidifier Relative Humidity Setpoint Schedule Name` Leave
-        blank to use constant setpoint specified in Humidifier Relative
-        Humidity Setpoint above.Schedule values must be in percent relative
-        humidity (0 to 100).
+        """field `Humidifier Relative Humidity Setpoint Schedule Name`
+
+        |  Leave blank to use constant setpoint specified in Humidifier Relative Humidity
+        |  Setpoint above.Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Humidifier Relative Humidity Setpoint Schedule Name`
@@ -28130,11 +29323,13 @@ class HvactemplateSystemConstantVolume(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28154,10 +29349,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28177,11 +29373,12 @@ class HvactemplateSystemConstantVolume(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 300.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 300.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28201,10 +29398,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -28224,10 +29422,11 @@ class HvactemplateSystemConstantVolume(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29153,9 +30352,11 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on;
-        Schedule is used in availability manager and fan scheduling. Also see
-        "Night Cycle Control" field.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on;  Schedule is used in availability manager
+        |  and fan scheduling.
+        |  Also see "Night Cycle Control" field.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -29178,14 +30379,14 @@ class HvactemplateSystemDualDuct(DataObject):
     def system_configuration_type(self):
         """field `System Configuration Type`
 
-        SingleFan - a single supply fan before the split to dual ducts
-        DualFan - two supply fans, one each for the cold and hot ducts
-        ConstantVolume - constant volume
-        VariableVolume - variable volume
+        |  SingleFan - a single supply fan before the split to dual ducts
+        |  DualFan - two supply fans, one each for the cold and hot ducts
+        |  ConstantVolume - constant volume
+        |  VariableVolume - variable volume
+        |  Default value: SingleFanConstantVolume
 
         Args:
             value (str): value for IDD Field `System Configuration Type`
-                Default value: SingleFanConstantVolume
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29204,20 +30405,22 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def main_supply_fan_maximum_flow_rate(self):
         """field `Main Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Main Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `main_supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `main_supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Main Supply Fan Maximum Flow Rate"]
 
@@ -29230,10 +30433,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def main_supply_fan_minimum_flow_fraction(self):
         """field `Main Supply Fan Minimum Flow Fraction`
 
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Main Supply Fan Minimum Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29253,10 +30457,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def main_supply_fan_total_efficiency(self):
         """field `Main Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Main Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29276,11 +30481,12 @@ class HvactemplateSystemDualDuct(DataObject):
     def main_supply_fan_delta_pressure(self):
         """field `Main Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Main Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29300,10 +30506,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def main_supply_fan_motor_efficiency(self):
         """field `Main Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Main Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29323,10 +30530,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def main_supply_fan_motor_in_air_stream_fraction(self):
         """field `Main Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Main Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29346,14 +30554,15 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def main_supply_fan_partload_power_coefficients(self):
         """field `Main Supply Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Main Supply Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29375,20 +30584,22 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cold_duct_supply_fan_maximum_flow_rate(self):
         """field `Cold Duct Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cold Duct Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cold_duct_supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `cold_duct_supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Cold Duct Supply Fan Maximum Flow Rate"]
 
@@ -29401,10 +30612,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_minimum_flow_fraction(self):
         """field `Cold Duct Supply Fan Minimum Flow Fraction`
 
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Cold Duct Supply Fan Minimum Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29425,10 +30637,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_total_efficiency(self):
         """field `Cold Duct Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Cold Duct Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29448,11 +30661,12 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_delta_pressure(self):
         """field `Cold Duct Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Cold Duct Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29472,10 +30686,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_motor_efficiency(self):
         """field `Cold Duct Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Cold Duct Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29495,10 +30710,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_motor_in_air_stream_fraction(self):
         """field `Cold Duct Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Cold Duct Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29518,14 +30734,15 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cold_duct_supply_fan_partload_power_coefficients(self):
         """field `Cold Duct Supply Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Cold Duct Supply Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29548,9 +30765,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def cold_duct_supply_fan_placement(self):
         """field `Cold Duct Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Cold Duct Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29569,20 +30787,22 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def hot_duct_supply_fan_maximum_flow_rate(self):
         """field `Hot Duct Supply Fan Maximum Flow Rate`
-        This field may be set to "autosize".  If a value is entered, it will *not* be
-        multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
-        a value entered here must be large enough to serve the multiplied zones.
+
+        |  This field may be set to "autosize".  If a value is entered, it will *not* be
+        |  multiplied by any sizing factor or by zone multipliers.  If using zone multipliers
+        |  a value entered here must be large enough to serve the multiplied zones.
+        |  Units: m3/s
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Hot Duct Supply Fan Maximum Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `hot_duct_supply_fan_maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `hot_duct_supply_fan_maximum_flow_rate` or None if not set
+
         """
         return self["Hot Duct Supply Fan Maximum Flow Rate"]
 
@@ -29595,10 +30815,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_minimum_flow_fraction(self):
         """field `Hot Duct Supply Fan Minimum Flow Fraction`
 
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Hot Duct Supply Fan Minimum Flow Fraction`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29619,10 +30840,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_total_efficiency(self):
         """field `Hot Duct Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Hot Duct Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29642,11 +30864,12 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_delta_pressure(self):
         """field `Hot Duct Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Hot Duct Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29666,10 +30889,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_motor_efficiency(self):
         """field `Hot Duct Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Hot Duct Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29689,10 +30913,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_motor_in_air_stream_fraction(self):
         """field `Hot Duct Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Hot Duct Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29712,14 +30937,15 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def hot_duct_supply_fan_partload_power_coefficients(self):
         """field `Hot Duct Supply Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Hot Duct Supply Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29742,9 +30968,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def hot_duct_supply_fan_placement(self):
         """field `Hot Duct Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Hot Duct Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29764,9 +30991,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: ChilledWater
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: ChilledWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29784,7 +31012,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -29808,9 +31038,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def cooling_coil_setpoint_control_type(self):
         """field `Cooling Coil Setpoint Control Type`
 
+        |  Default value: FixedSetpoint
+
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29828,14 +31059,14 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def cooling_coil_design_setpoint_temperature(self):
-        """field `Cooling Coil Design Setpoint Temperature` Used for sizing and
-        as constant setpoint if no Cooling Coil Setpoint Schedule Name is
-        specified.
+        """field `Cooling Coil Design Setpoint Temperature`
+
+        |  Used for sizing and as constant setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint Temperature`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29854,8 +31085,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def cooling_coil_setpoint_schedule_name(self):
-        """field `Cooling Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Cooling Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Schedule Name`
@@ -29877,12 +31109,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29902,13 +31135,14 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_low(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29928,12 +31162,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29953,12 +31188,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_high(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 23.3
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 23.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29979,9 +31215,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: HotWater
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -29999,7 +31236,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -30023,9 +31262,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def heating_coil_setpoint_control_type(self):
         """field `Heating Coil Setpoint Control Type`
 
+        |  Default value: FixedSetpoint
+
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30043,13 +31283,14 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def heating_coil_design_setpoint(self):
-        """field `Heating Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        """field `Heating Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30067,8 +31308,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def heating_coil_setpoint_schedule_name(self):
-        """field `Heating Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Heating Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Schedule Name`
@@ -30090,12 +31332,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30115,13 +31358,14 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_low(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+        |  Units: C
+        |  Default value: 7.8
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 7.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30141,12 +31385,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 20.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30166,12 +31411,13 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_high(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30192,16 +31438,17 @@ class HvactemplateSystemDualDuct(DataObject):
     def heating_coil_capacity(self):
         """field `Heating Coil Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Coil Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_coil_capacity` or None if not set
+            float or "Autosize": the value of `heating_coil_capacity` or None if not set
 
         """
         return self["Heating Coil Capacity"]
@@ -30215,10 +31462,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30238,10 +31486,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30262,9 +31511,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def preheat_coil_type(self):
         """field `Preheat Coil Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Preheat Coil Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30282,7 +31532,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def preheat_coil_availability_schedule_name(self):
-        """field `Preheat Coil Availability Schedule Name` If blank, always on.
+        """field `Preheat Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Preheat Coil Availability Schedule Name`
@@ -30304,13 +31556,14 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def preheat_coil_design_setpoint(self):
-        """field `Preheat Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        """field `Preheat Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Preheat Coil Setpoint Schedule Name specified.
+        |  Units: C
+        |  Default value: 7.2
 
         Args:
             value (float): value for IDD Field `Preheat Coil Design Setpoint`
-                Units: C
-                Default value: 7.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30328,8 +31581,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def preheat_coil_setpoint_schedule_name(self):
-        """field `Preheat Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Preheat Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Preheat Coil Setpoint Schedule Name`
@@ -30352,10 +31606,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def gas_preheat_coil_efficiency(self):
         """field `Gas Preheat Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30375,10 +31630,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def gas_preheat_coil_parasitic_electric_load(self):
         """field `Gas Preheat Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Preheat Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30399,16 +31655,17 @@ class HvactemplateSystemDualDuct(DataObject):
     def maximum_outdoor_air_flow_rate(self):
         """field `Maximum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -30422,16 +31679,17 @@ class HvactemplateSystemDualDuct(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -30445,9 +31703,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def minimum_outdoor_air_control_type(self):
         """field `Minimum Outdoor Air Control Type`
 
+        |  Default value: ProportionalMinimum
+
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Control Type`
-                Default value: ProportionalMinimum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30465,8 +31724,10 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """field `Minimum Outdoor Air Schedule Name` Schedule values multiply
-        the Minimum Outdoor Air Flow Rate If blank, multiplier is always one.
+        """field `Minimum Outdoor Air Schedule Name`
+
+        |  Schedule values multiply the Minimum Outdoor Air Flow Rate
+        |  If blank, multiplier is always one
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -30489,9 +31750,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def economizer_type(self):
         """field `Economizer Type`
 
+        |  Default value: NoEconomizer
+
         Args:
             value (str): value for IDD Field `Economizer Type`
-                Default value: NoEconomizer
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30511,9 +31773,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def economizer_lockout(self):
         """field `Economizer Lockout`
 
+        |  Default value: NoLockout
+
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: NoLockout
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30531,13 +31794,15 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def economizer_upper_temperature_limit(self):
-        """field `Economizer Upper Temperature Limit` Outdoor temperature above
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Upper Temperature Limit`
+
+        |  Outdoor temperature above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Upper Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30555,13 +31820,15 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def economizer_lower_temperature_limit(self):
-        """field `Economizer Lower Temperature Limit` Outdoor temperature below
-        which economizer is disabled and heat recovery is enabled (if
-        available). Blank means no limit.
+        """field `Economizer Lower Temperature Limit`
+
+        |  Outdoor temperature below which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Lower Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30579,13 +31846,15 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def economizer_upper_enthalpy_limit(self):
-        """field `Economizer Upper Enthalpy Limit` Outdoor enthalpy above which
-        economizer is disabled and heat recovery is enabled (if available).
-        Blank means no limit.
+        """field `Economizer Upper Enthalpy Limit`
+
+        |  Outdoor enthalpy above which economizer is disabled and
+        |  heat recovery is enabled (if available).
+        |  Blank means no limit.
+        |  Units: J/kg
 
         Args:
             value (float): value for IDD Field `Economizer Upper Enthalpy Limit`
-                Units: J/kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30603,14 +31872,15 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
-        """field `Economizer Maximum Limit Dewpoint Temperature` Enter the
-        maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-        economizer control type. No input or blank input means this limit is
-        not operative. Limit is applied regardless of economizer control type.
+        """field `Economizer Maximum Limit Dewpoint Temperature`
+
+        |  Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
+        |  economizer control type. No input or blank input means this limit is not operative.
+        |  Limit is applied regardless of economizer control type.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30629,8 +31899,10 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def cold_supply_plenum_name(self):
-        """field `Cold Supply Plenum Name` Plenum zone name.  Supply plenum
-        serves the cold inlets of all zones on this system. Blank if none.
+        """field `Cold Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves the cold inlets of all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Cold Supply Plenum Name`
@@ -30651,8 +31923,10 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def hot_supply_plenum_name(self):
-        """field `Hot Supply Plenum Name` Plenum zone name.  Supply plenum
-        serves the hot inlets of all zones on this system. Blank if none.
+        """field `Hot Supply Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves the hot inlets of all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Hot Supply Plenum Name`
@@ -30673,8 +31947,10 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def return_plenum_name(self):
-        """field `Return Plenum Name` Plenum zone name.  Supply plenum serves
-        all zones on this system. Blank if none.
+        """field `Return Plenum Name`
+
+        |  Plenum zone name.  Supply plenum serves all zones on this system.
+        |  Blank if none.
 
         Args:
             value (str): value for IDD Field `Return Plenum Name`
@@ -30697,9 +31973,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def night_cycle_control(self):
         """field `Night Cycle Control`
 
+        |  Default value: StayOff
+
         Args:
             value (str): value for IDD Field `Night Cycle Control`
-                Default value: StayOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30717,8 +31994,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def night_cycle_control_zone_name(self):
-        """field `Night Cycle Control Zone Name` Applicable only if Night Cycle
-        Control is Cycle On Control Zone.
+        """field `Night Cycle Control Zone Name`
+
+        |  Applicable only if Night Cycle Control is Cycle On Control Zone.
 
         Args:
             value (str): value for IDD Field `Night Cycle Control Zone Name`
@@ -30741,9 +32019,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30763,10 +32042,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def sensible_heat_recovery_effectiveness(self):
         """field `Sensible Heat Recovery Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30786,10 +32066,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def latent_heat_recovery_effectiveness(self):
         """field `Latent Heat Recovery Effectiveness`
 
+        |  Default value: 0.65
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30809,9 +32090,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def heat_recovery_heat_exchanger_type(self):
         """field `Heat Recovery Heat Exchanger Type`
 
+        |  Default value: Plate
+
         Args:
             value (str): value for IDD Field `Heat Recovery Heat Exchanger Type`
-                Default value: Plate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30831,9 +32113,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def heat_recovery_frost_control_type(self):
         """field `Heat Recovery Frost Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Frost Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30852,19 +32135,21 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint.
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -30875,8 +32160,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def dehumidification_control_zone_name(self):
-        """field `Dehumidification Control Zone Name` Zone name where
-        humidistat is located.
+        """field `Dehumidification Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Zone Name`
@@ -30897,15 +32183,16 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def dehumidification_relative_humidity_setpoint(self):
-        """field `Dehumidification Relative Humidity Setpoint` Zone relative
-        humidity setpoint in percent (0 to 100) Ignored if Dehumidification
-        Relative Humidity Setpoint Schedule specified below.
+        """field `Dehumidification Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100)
+        |  Ignored if Dehumidification Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 60.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Relative Humidity Setpoint`
-                Units: percent
-                Default value: 60.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30925,9 +32212,9 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def dehumidification_relative_humidity_setpoint_schedule_name(self):
         """field `Dehumidification Relative Humidity Setpoint Schedule Name`
-        Leave blank to use constant setpoint specified in Dehumidification
-        Relative Humidity Setpoint above. Schedule values must be in percent
-        relative humidity (0 to 100).
+
+        |  Leave blank to use constant setpoint specified in Dehumidification Relative Humidity
+        |  Setpoint above. Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Dehumidification Relative Humidity Setpoint Schedule Name`
@@ -30955,9 +32242,10 @@ class HvactemplateSystemDualDuct(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -30975,8 +32263,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -30997,15 +32286,17 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31024,20 +32315,22 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -31048,8 +32341,9 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def humidifier_control_zone_name(self):
-        """field `Humidifier Control Zone Name` Zone name where humidistat is
-        located.
+        """field `Humidifier Control Zone Name`
+
+        |  Zone name where humidistat is located
 
         Args:
             value (str): value for IDD Field `Humidifier Control Zone Name`
@@ -31070,15 +32364,16 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint(self):
-        """field `Humidifier Relative Humidity Setpoint` Zone relative humidity
-        setpoint in percent (0 to 100). Ignored if Humidifier Relative Humidity
-        Setpoint Schedule specified below.
+        """field `Humidifier Relative Humidity Setpoint`
+
+        |  Zone relative humidity setpoint in percent (0 to 100).
+        |  Ignored if Humidifier Relative Humidity Setpoint Schedule specified below
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Humidifier Relative Humidity Setpoint`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31096,10 +32391,10 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def humidifier_relative_humidity_setpoint_schedule_name(self):
-        """field `Humidifier Relative Humidity Setpoint Schedule Name` Leave
-        blank to use constant setpoint specified in Humidifier Relative
-        Humidity Setpoint above.Schedule values must be in percent relative
-        humidity (0 to 100).
+        """field `Humidifier Relative Humidity Setpoint Schedule Name`
+
+        |  Leave blank to use constant setpoint specified in Humidifier Relative Humidity
+        |  Setpoint above.Schedule values must be in percent relative humidity (0 to 100).
 
         Args:
             value (str): value for IDD Field `Humidifier Relative Humidity Setpoint Schedule Name`
@@ -31121,12 +32416,14 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def sizing_option(self):
-        """field `Sizing Option` Select whether autosized system supply flow
-        rate is the sum of Coincident or NonCoincident zone air flow rates.
+        """field `Sizing Option`
+
+        |  Select whether autosized system supply flow rate is the sum of Coincident or NonCoincident
+        |  zone air flow rates.
+        |  Default value: NonCoincident
 
         Args:
             value (str): value for IDD Field `Sizing Option`
-                Default value: NonCoincident
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31144,11 +32441,13 @@ class HvactemplateSystemDualDuct(DataObject):
 
     @property
     def return_fan(self):
-        """field `Return Fan` Specifies if the system has a return fan.
+        """field `Return Fan`
+
+        |  Specifies if the system has a return fan.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Return Fan`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31168,10 +32467,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def return_fan_total_efficiency(self):
         """field `Return Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31191,11 +32491,12 @@ class HvactemplateSystemDualDuct(DataObject):
     def return_fan_delta_pressure(self):
         """field `Return Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 500.0
+
         Args:
             value (float): value for IDD Field `Return Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31215,10 +32516,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def return_fan_motor_efficiency(self):
         """field `Return Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31238,10 +32540,11 @@ class HvactemplateSystemDualDuct(DataObject):
     def return_fan_motor_in_air_stream_fraction(self):
         """field `Return Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Return Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31261,14 +32564,15 @@ class HvactemplateSystemDualDuct(DataObject):
     @property
     def return_fan_partload_power_coefficients(self):
         """field `Return Fan Part-Load Power Coefficients`
-        This field selects a predefined set of fan power coefficients.
-        The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
-        The other sets of coefficients are from the EnergyPlus Input
-        Output Reference, Fan Coefficient Values table.
+
+        |  This field selects a predefined set of fan power coefficients.
+        |  The ASHRAE 90.1-2004 Appendix G coefficients are from TABLE G3.1.3.15, Method 2.
+        |  The other sets of coefficients are from the EnergyPlus Input
+        |  Output Reference, Fan Coefficient Values table.
+        |  Default value: InletVaneDampers
 
         Args:
             value (str): value for IDD Field `Return Fan Part-Load Power Coefficients`
-                Default value: InletVaneDampers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31767,9 +33071,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def system_availability_schedule_name(self):
-        """field `System Availability Schedule Name` If blank, always on; DOAS
-        System always on.  Schedule is used in availability manager and fan
-        scheduling.
+        """field `System Availability Schedule Name`
+
+        |  If blank, always on; DOAS System always on.  Schedule is used in availability manager
+        |  and fan scheduling.
 
         Args:
             value (str): value for IDD Field `System Availability Schedule Name`
@@ -31792,9 +33097,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def air_outlet_type(self):
         """field `Air Outlet Type`
 
+        |  Default value: DirectIntoZone
+
         Args:
             value (str): value for IDD Field `Air Outlet Type`
-                Default value: DirectIntoZone
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31814,16 +33120,17 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_flow_rate(self):
         """field `Supply Fan Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Fan Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_fan_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_fan_flow_rate` or None if not set
 
         """
         return self["Supply Fan Flow Rate"]
@@ -31837,10 +33144,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_total_efficiency(self):
         """field `Supply Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31860,11 +33168,12 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_delta_pressure(self):
         """field `Supply Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+        |  Default value: 1000.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31884,10 +33193,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_motor_efficiency(self):
         """field `Supply Fan Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31907,10 +33217,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_motor_in_air_stream_fraction(self):
         """field `Supply Fan Motor in Air Stream Fraction`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Supply Fan Motor in Air Stream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31931,9 +33242,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def supply_fan_placement(self):
         """field `Supply Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31953,9 +33265,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def cooling_coil_type(self):
         """field `Cooling Coil Type`
 
+        |  Default value: ChilledWater
+
         Args:
             value (str): value for IDD Field `Cooling Coil Type`
-                Default value: ChilledWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -31973,7 +33286,9 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def cooling_coil_availability_schedule_name(self):
-        """field `Cooling Coil Availability Schedule Name` If blank, always on.
+        """field `Cooling Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Cooling Coil Availability Schedule Name`
@@ -31997,9 +33312,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def cooling_coil_setpoint_control_type(self):
         """field `Cooling Coil Setpoint Control Type`
 
+        |  Default value: FixedSetpoint
+
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32017,13 +33333,14 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def cooling_coil_design_setpoint(self):
-        """field `Cooling Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        """field `Cooling Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Cooling Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Design Setpoint`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32041,8 +33358,9 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def cooling_coil_setpoint_schedule_name(self):
-        """field `Cooling Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Cooling Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Cooling Coil Setpoint Schedule Name`
@@ -32064,12 +33382,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32089,13 +33408,14 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_low(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults are 15.6C (60F) at 15.6C (60F) to 12.8C (55F) at 23.3C (74F)
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32115,12 +33435,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def cooling_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.8
 
         Args:
             value (float): value for IDD Field `Cooling Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32140,12 +33461,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def cooling_coil_reset_outdoor_drybulb_high(self):
         """field `Cooling Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 23.3
 
         Args:
             value (float): value for IDD Field `Cooling Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 23.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32164,19 +33486,20 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def dx_cooling_coil_gross_rated_total_capacity(self):
-        """field `DX Cooling Coil Gross Rated Total Capacity` Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `DX Cooling Coil Gross Rated Total Capacity`
+
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `DX Cooling Coil Gross Rated Total Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `dx_cooling_coil_gross_rated_total_capacity` or None if not set
+            float or "Autosize": the value of `dx_cooling_coil_gross_rated_total_capacity` or None if not set
 
         """
         return self["DX Cooling Coil Gross Rated Total Capacity"]
@@ -32189,19 +33512,21 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def dx_cooling_coil_gross_rated_sensible_heat_ratio(self):
-        """field `DX Cooling Coil Gross Rated Sensible Heat Ratio` Gross SHR.
+        """field `DX Cooling Coil Gross Rated Sensible Heat Ratio`
+
+        |  Gross SHR
+        |  Default value: "autosize"
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `DX Cooling Coil Gross Rated Sensible Heat Ratio`
-                Default value: "autosize"
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `dx_cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
+            float or "Autosize": the value of `dx_cooling_coil_gross_rated_sensible_heat_ratio` or None if not set
 
         """
         return self["DX Cooling Coil Gross Rated Sensible Heat Ratio"]
@@ -32216,14 +33541,15 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def dx_cooling_coil_gross_rated_cop(self):
-        """field `DX Cooling Coil Gross Rated COP` Gross cooling capacity
-        divided by power input to the compressor and outdoor fan, does not
-        include supply fan heat or supply fan electrical energy input.
+        """field `DX Cooling Coil Gross Rated COP`
+
+        |  Gross cooling capacity divided by power input to the compressor and outdoor fan,
+        |  does not include supply fan heat or supply fan electrical energy input
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `DX Cooling Coil Gross Rated COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32243,9 +33569,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heating_coil_type(self):
         """field `Heating Coil Type`
 
+        |  Default value: HotWater
+
         Args:
             value (str): value for IDD Field `Heating Coil Type`
-                Default value: HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32263,7 +33590,9 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def heating_coil_availability_schedule_name(self):
-        """field `Heating Coil Availability Schedule Name` If blank, always on.
+        """field `Heating Coil Availability Schedule Name`
+
+        |  If blank, always on
 
         Args:
             value (str): value for IDD Field `Heating Coil Availability Schedule Name`
@@ -32285,13 +33614,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def heating_coil_setpoint_control_type(self):
-        """field `Heating Coil Setpoint Control Type` When selecting
-        OutdoorAirTemperatureReset, the Heating Coil Design Setpoint may need
-        to be changed.
+        """field `Heating Coil Setpoint Control Type`
+
+        |  When selecting OutdoorAirTemperatureReset, the Heating Coil Design Setpoint may need to be changed
+        |  Default value: FixedSetpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Control Type`
-                Default value: FixedSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32309,13 +33638,14 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def heating_coil_design_setpoint(self):
-        """field `Heating Coil Design Setpoint` Used for sizing and as constant
-        setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        """field `Heating Coil Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Heating Coil Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Design Setpoint`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32333,8 +33663,9 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def heating_coil_setpoint_schedule_name(self):
-        """field `Heating Coil Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Heating Coil Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Heating Coil Setpoint Schedule Name`
@@ -32356,13 +33687,14 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_low(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
-        Defaults 15.0C (59F) at 7.8C (46F) to 12.2C (54F) at 12.2C (54F)
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Defaults 15.0C (59F) at 7.8C (46F) to 12.2C (54F) at 12.2C (54F)
+        |  Units: C
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32382,12 +33714,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_low(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 7.8
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 7.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32407,12 +33740,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def heating_coil_setpoint_at_outdoor_drybulb_high(self):
         """field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32432,12 +33766,13 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def heating_coil_reset_outdoor_drybulb_high(self):
         """field `Heating Coil Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Heating Coil Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32458,10 +33793,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def gas_heating_coil_efficiency(self):
         """field `Gas Heating Coil Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32481,10 +33817,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def gas_heating_coil_parasitic_electric_load(self):
         """field `Gas Heating Coil Parasitic Electric Load`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Gas Heating Coil Parasitic Electric Load`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32505,9 +33842,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heat_recovery_type(self):
         """field `Heat Recovery Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32527,10 +33865,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heat_recovery_sensible_effectiveness(self):
         """field `Heat Recovery Sensible Effectiveness`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Heat Recovery Sensible Effectiveness`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32550,10 +33889,11 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heat_recovery_latent_effectiveness(self):
         """field `Heat Recovery Latent Effectiveness`
 
+        |  Default value: 0.65
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Heat Recovery Latent Effectiveness`
-                Default value: 0.65
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32573,9 +33913,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heat_recovery_heat_exchanger_type(self):
         """field `Heat Recovery Heat Exchanger Type`
 
+        |  Default value: Plate
+
         Args:
             value (str): value for IDD Field `Heat Recovery Heat Exchanger Type`
-                Default value: Plate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32595,9 +33936,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def heat_recovery_frost_control_type(self):
         """field `Heat Recovery Frost Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Heat Recovery Frost Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32616,24 +33958,26 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheatHeatingCoil = cool beyond the dry-bulb setpoint, reheat with heating coil
-        Valid for all cooling coil types.  If no heating coil specified, cold supply temps may occur.
-        CoolReheatDesuperheater = cool beyond the dry-bulb setpoint
-        as required to meet the humidity setpoint, reheat with desuperheater coil.
-        Valid only for Cooling Coil Type = TwoSpeedDX, TwoStageDX, TwoStageHumidityControlDX, or HeatExchangerAssistedDX.
-        Multimode = activate enhanced dehumidification mode as needed and meet sensible load.
-        Valid only for Cooling Coil Type = TwoStageHumidityControlDX
+
+        |  None = meet sensible load only
+        |  CoolReheatHeatingCoil = cool beyond the dry-bulb setpoint, reheat with heating coil
+        |  Valid for all cooling coil types.  If no heating coil specified, cold supply temps may occur.
+        |  CoolReheatDesuperheater = cool beyond the dry-bulb setpoint
+        |  as required to meet the humidity setpoint, reheat with desuperheater coil.
+        |  Valid only for Cooling Coil Type = TwoSpeedDX, TwoStageDX, TwoStageHumidityControlDX, or HeatExchangerAssistedDX.
+        |  Multimode = activate enhanced dehumidification mode as needed and meet sensible load.
+        |  Valid only for Cooling Coil Type = TwoStageHumidityControlDX
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -32645,21 +33989,23 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def dehumidification_setpoint(self):
         """field `Dehumidification Setpoint`
-        The supply air humidity ratio for dehumidification control.
-        Default of 0.00924 kgWater/kgDryAir is equivalent to 12.8C (55F) dewpoint.
-        Ignored if Dehumidification Setpoint Schedule specified below
+
+        |  The supply air humidity ratio for dehumidification control.
+        |  Default of 0.00924 kgWater/kgDryAir is equivalent to 12.8C (55F) dewpoint.
+        |  Ignored if Dehumidification Setpoint Schedule specified below
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.00924
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Dehumidification Setpoint`
-                Units: kgWater/kgDryAir
-                Default value: 0.00924
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `dehumidification_setpoint` or None if not set
+
         """
         return self["Dehumidification Setpoint"]
 
@@ -32672,9 +34018,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     def humidifier_type(self):
         """field `Humidifier Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Humidifier Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32692,8 +34039,9 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def humidifier_availability_schedule_name(self):
-        """field `Humidifier Availability Schedule Name` If blank, always
-        available.
+        """field `Humidifier Availability Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Humidifier Availability Schedule Name`
@@ -32714,15 +34062,17 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def humidifier_rated_capacity(self):
-        """field `Humidifier Rated Capacity` Moisture output rate at full rated
-        power input. The humidifier does not currently autosize, so the default
-        is very large to allow for adequate capacity.
+        """field `Humidifier Rated Capacity`
+
+        |  Moisture output rate at full rated power input.
+        |  The humidifier does not currently autosize, so the default is very large
+        |  to allow for adequate capacity.
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Humidifier Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32741,20 +34091,22 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     @property
     def humidifier_rated_electric_power(self):
         """field `Humidifier Rated Electric Power`
-        Electric power input at rated capacity moisture output.
-        Power consumption is proportional to moisture output with no part-load penalty.
+
+        |  Electric power input at rated capacity moisture output.
+        |  Power consumption is proportional to moisture output with no part-load penalty.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Humidifier Rated Electric Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidifier_rated_electric_power` or None if not set
+            float or "Autosize": the value of `humidifier_rated_electric_power` or None if not set
+
         """
         return self["Humidifier Rated Electric Power"]
 
@@ -32765,15 +34117,16 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def humidifier_constant_setpoint(self):
-        """field `Humidifier Constant Setpoint` The supply air humidity ratio
-        for humidification control. Ignored if Humidifier Setpoint Schedule
-        specified below.
+        """field `Humidifier Constant Setpoint`
+
+        |  The supply air humidity ratio for humidification control.
+        |  Ignored if Humidifier Setpoint Schedule specified below
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.003
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Humidifier Constant Setpoint`
-                Units: kgWater/kgDryAir
-                Default value: 0.003
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -32791,10 +34144,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def dehumidification_setpoint_schedule_name(self):
-        """field `Dehumidification Setpoint Schedule Name` Leave blank to use
-        constant setpoint specified in Dehumidification Setpoint above.
-        Schedule values must be in units of humidity ratio (kgWater/kgDryAir or
-        lbWater/lbDryAir)
+        """field `Dehumidification Setpoint Schedule Name`
+
+        |  Leave blank to use constant setpoint specified in Dehumidification Setpoint above.
+        |  Schedule values must be in units of humidity ratio (kgWater/kgDryAir or lbWater/lbDryAir)
 
         Args:
             value (str): value for IDD Field `Dehumidification Setpoint Schedule Name`
@@ -32816,10 +34169,10 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
 
     @property
     def humidifier_setpoint_schedule_name(self):
-        """field `Humidifier Setpoint Schedule Name` Leave blank to use
-        constant setpoint specified in Humidifer Constant Setpoint above.
-        Schedule values must be in units of humidity ratio (kgWater/kgDryAir or
-        lbWater/lbDryAir)
+        """field `Humidifier Setpoint Schedule Name`
+
+        |  Leave blank to use constant setpoint specified in Humidifer Constant Setpoint above.
+        |  Schedule values must be in units of humidity ratio (kgWater/kgDryAir or lbWater/lbDryAir)
 
         Args:
             value (str): value for IDD Field `Humidifier Setpoint Schedule Name`
@@ -33210,8 +34563,10 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def pump_schedule_name(self):
-        """field `Pump Schedule Name` If blank, always available Applies to
-        both chilled water and condenser loop pumps.
+        """field `Pump Schedule Name`
+
+        |  If blank, always available
+        |  Applies to both chilled water and condenser loop pumps
 
         Args:
             value (str): value for IDD Field `Pump Schedule Name`
@@ -33232,12 +34587,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def pump_control_type(self):
-        """field `Pump Control Type` Applies to both chilled water and
-        condenser loop pumps.
+        """field `Pump Control Type`
+
+        |  Applies to both chilled water and condenser loop pumps
+        |  Default value: Intermittent
 
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Intermittent
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33256,19 +34612,21 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chiller_plant_operation_scheme_type(self):
         """field `Chiller Plant Operation Scheme Type`
-        Default operation type makes all equipment available
-        at all times operating in order of Priority specified
-        in HVACTemplate:Plant:Chiller objects.
+
+        |  Default operation type makes all equipment available
+        |  at all times operating in order of Priority specified
+        |  in HVACTemplate:Plant:Chiller objects.
+        |  Default value: Default
 
         Args:
             value (str): value for IDD Field `Chiller Plant Operation Scheme Type`
-                Default value: Default
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `chiller_plant_operation_scheme_type` or None if not set
+
         """
         return self["Chiller Plant Operation Scheme Type"]
 
@@ -33280,8 +34638,9 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chiller_plant_equipment_operation_schemes_name(self):
         """field `Chiller Plant Equipment Operation Schemes Name`
-        Name of a PlantEquipmentOperationSchemes object
-        Ignored if Chiller Plant Operation Scheme Type = Default
+
+        |  Name of a PlantEquipmentOperationSchemes object
+        |  Ignored if Chiller Plant Operation Scheme Type = Default
 
         Args:
             value (str): value for IDD Field `Chiller Plant Equipment Operation Schemes Name`
@@ -33291,6 +34650,7 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
         Returns:
             str: the value of `chiller_plant_equipment_operation_schemes_name` or None if not set
+
         """
         return self["Chiller Plant Equipment Operation Schemes Name"]
 
@@ -33302,8 +34662,9 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_setpoint_schedule_name(self):
-        """field `Chilled Water Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Chilled Water Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Chilled Water Setpoint Schedule Name`
@@ -33324,14 +34685,14 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_design_setpoint(self):
-        """field `Chilled Water Design Setpoint` Used for sizing and as
-        constant setpoint if no Chilled Water Setpoint Schedule Name is
-        specified.
+        """field `Chilled Water Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Chilled Water Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 7.22
 
         Args:
             value (float): value for IDD Field `Chilled Water Design Setpoint`
-                Units: C
-                Default value: 7.22
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33351,14 +34712,14 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     def chilled_water_pump_configuration(self):
         """field `Chilled Water Pump Configuration`
 
-        VariablePrimaryNoSecondary - variable flow to chillers and coils
-        ConstantPrimaryNoSecondary - constant flow to chillers and coils, excess bypassed
-        ConstantPrimaryVariableSecondary - constant flow to chillers, variable flow to coils
-        VariablePrimaryConstantSecondary - currently unsupported - variable flow to chillers, constant flow to coils
+        |  VariablePrimaryNoSecondary - variable flow to chillers and coils
+        |  ConstantPrimaryNoSecondary - constant flow to chillers and coils, excess bypassed
+        |  ConstantPrimaryVariableSecondary - constant flow to chillers, variable flow to coils
+        |  VariablePrimaryConstantSecondary - currently unsupported - variable flow to chillers, constant flow to coils
+        |  Default value: ConstantPrimaryNoSecondary
 
         Args:
             value (str): value for IDD Field `Chilled Water Pump Configuration`
-                Default value: ConstantPrimaryNoSecondary
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33378,14 +34739,15 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def primary_chilled_water_pump_rated_head(self):
-        """field `Primary Chilled Water Pump Rated Head` default head is 60
-        feet H2O.
+        """field `Primary Chilled Water Pump Rated Head`
+
+        |  default head is 60 feet H2O
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Primary Chilled Water Pump Rated Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33403,14 +34765,15 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def secondary_chilled_water_pump_rated_head(self):
-        """field `Secondary Chilled Water Pump Rated Head` default head is 60
-        feet H2O.
+        """field `Secondary Chilled Water Pump Rated Head`
+
+        |  default head is 60 feet H2O
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Secondary Chilled Water Pump Rated Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33430,20 +34793,22 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def condenser_plant_operation_scheme_type(self):
         """field `Condenser Plant Operation Scheme Type`
-        Default operation type makes all equipment available
-        at all times operating in order of Priority specified
-        in HVACTemplate:Plant:Tower objects.
-        May be left blank if not serving any water cooled chillers
+
+        |  Default operation type makes all equipment available
+        |  at all times operating in order of Priority specified
+        |  in HVACTemplate:Plant:Tower objects.
+        |  May be left blank if not serving any water cooled chillers
+        |  Default value: Default
 
         Args:
             value (str): value for IDD Field `Condenser Plant Operation Scheme Type`
-                Default value: Default
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `condenser_plant_operation_scheme_type` or None if not set
+
         """
         return self["Condenser Plant Operation Scheme Type"]
 
@@ -33455,9 +34820,10 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def condenser_equipment_operation_schemes_name(self):
         """field `Condenser Equipment Operation Schemes Name`
-        Name of a CondenserEquipmentOperationSchemes object
-        Ignored if Condenser Plant Operation Scheme Type = Default
-        May be left blank if not serving any water cooled chillers
+
+        |  Name of a CondenserEquipmentOperationSchemes object
+        |  Ignored if Condenser Plant Operation Scheme Type = Default
+        |  May be left blank if not serving any water cooled chillers
 
         Args:
             value (str): value for IDD Field `Condenser Equipment Operation Schemes Name`
@@ -33467,6 +34833,7 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
         Returns:
             str: the value of `condenser_equipment_operation_schemes_name` or None if not set
+
         """
         return self["Condenser Equipment Operation Schemes Name"]
 
@@ -33478,8 +34845,9 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_temperature_control_type(self):
-        """field `Condenser Water Temperature Control Type` May be left blank
-        if not serving any water cooled chillers.
+        """field `Condenser Water Temperature Control Type`
+
+        |  May be left blank if not serving any water cooled chillers
 
         Args:
             value (str): value for IDD Field `Condenser Water Temperature Control Type`
@@ -33501,9 +34869,10 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_setpoint_schedule_name(self):
-        """field `Condenser Water Setpoint Schedule Name` Leave blank if
-        constant setpoint May be left blank if not serving any water cooled
-        chillers.
+        """field `Condenser Water Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
+        |  May be left blank if not serving any water cooled chillers
 
         Args:
             value (str): value for IDD Field `Condenser Water Setpoint Schedule Name`
@@ -33524,14 +34893,15 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_design_setpoint(self):
-        """field `Condenser Water Design Setpoint` Used for sizing and as
-        constant setpoint if no Condenser Water Setpoint Schedule Name is
-        specified. May be left blank if not serving any water cooled chillers.
+        """field `Condenser Water Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Condenser Water Setpoint Schedule Name is specified.
+        |  May be left blank if not serving any water cooled chillers
+        |  Units: C
+        |  Default value: 29.4
 
         Args:
             value (float): value for IDD Field `Condenser Water Design Setpoint`
-                Units: C
-                Default value: 29.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33549,14 +34919,16 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_pump_rated_head(self):
-        """field `Condenser Water Pump Rated Head` May be left blank if not
-        serving any water cooled chillers default head is 60 feet H2O.
+        """field `Condenser Water Pump Rated Head`
+
+        |  May be left blank if not serving any water cooled chillers
+        |  default head is 60 feet H2O
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Condenser Water Pump Rated Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33574,12 +34946,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_setpoint_reset_type(self):
-        """field `Chilled Water Setpoint Reset Type` Overrides Chilled Water
-        Setpoint Schedule Name.
+        """field `Chilled Water Setpoint Reset Type`
+
+        |  Overrides Chilled Water Setpoint Schedule Name
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Chilled Water Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33598,12 +34971,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chilled_water_setpoint_at_outdoor_drybulb_low(self):
         """field `Chilled Water Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 12.2
 
         Args:
             value (float): value for IDD Field `Chilled Water Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 12.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33623,12 +34997,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chilled_water_reset_outdoor_drybulb_low(self):
         """field `Chilled Water Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 15.6
 
         Args:
             value (float): value for IDD Field `Chilled Water Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 15.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33648,12 +35023,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chilled_water_setpoint_at_outdoor_drybulb_high(self):
         """field `Chilled Water Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 6.7
 
         Args:
             value (float): value for IDD Field `Chilled Water Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 6.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33673,12 +35049,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chilled_water_reset_outdoor_drybulb_high(self):
         """field `Chilled Water Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 26.7
 
         Args:
             value (float): value for IDD Field `Chilled Water Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 26.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33697,12 +35074,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_primary_pump_type(self):
-        """field `Chilled Water Primary Pump Type` Describes the type of pump
-        configuration used for the primary portion of the chilled water loop.
+        """field `Chilled Water Primary Pump Type`
+
+        |  Describes the type of pump configuration used for the primary portion of the chilled water loop.
+        |  Default value: SinglePump
 
         Args:
             value (str): value for IDD Field `Chilled Water Primary Pump Type`
-                Default value: SinglePump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33720,12 +35098,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_secondary_pump_type(self):
-        """field `Chilled Water Secondary Pump Type` Describes the type of pump
-        configuration used for the secondary portion of the chilled water loop.
+        """field `Chilled Water Secondary Pump Type`
+
+        |  Describes the type of pump configuration used for the secondary portion of the chilled water loop.
+        |  Default value: SinglePump
 
         Args:
             value (str): value for IDD Field `Chilled Water Secondary Pump Type`
-                Default value: SinglePump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33743,12 +35122,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_pump_type(self):
-        """field `Condenser Water Pump Type` Describes the type of pump
-        configuration used for the condenser water loop.
+        """field `Condenser Water Pump Type`
+
+        |  Describes the type of pump configuration used for the condenser water loop.
+        |  Default value: SinglePump
 
         Args:
             value (str): value for IDD Field `Condenser Water Pump Type`
-                Default value: SinglePump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33766,12 +35146,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_supply_side_bypass_pipe(self):
-        """field `Chilled Water Supply Side Bypass Pipe` Determines if a supply
-        side bypass pipe is present in the chilled water loop.
+        """field `Chilled Water Supply Side Bypass Pipe`
+
+        |  Determines if a supply side bypass pipe is present in the chilled water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Chilled Water Supply Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33789,12 +35170,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def chilled_water_demand_side_bypass_pipe(self):
-        """field `Chilled Water Demand Side Bypass Pipe` Determines if a demand
-        side bypass pipe is present in the chilled water loop.
+        """field `Chilled Water Demand Side Bypass Pipe`
+
+        |  Determines if a demand side bypass pipe is present in the chilled water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Chilled Water Demand Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33812,12 +35194,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_supply_side_bypass_pipe(self):
-        """field `Condenser Water Supply Side Bypass Pipe` Determines if a
-        supply side bypass pipe is present in the condenser water loop.
+        """field `Condenser Water Supply Side Bypass Pipe`
+
+        |  Determines if a supply side bypass pipe is present in the condenser water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Condenser Water Supply Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33836,12 +35219,13 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def condenser_water_demand_side_bypass_pipe(self):
-        """field `Condenser Water Demand Side Bypass Pipe` Determines if a
-        demand side bypass pipe is present in the condenser water loop.
+        """field `Condenser Water Demand Side Bypass Pipe`
+
+        |  Determines if a demand side bypass pipe is present in the condenser water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Condenser Water Demand Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33862,9 +35246,10 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     def fluid_type(self):
         """field `Fluid Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fluid Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33882,13 +35267,14 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def loop_design_delta_temperature(self):
-        """field `Loop Design Delta Temperature` The temperature difference
-        used in sizing the loop flow rate.
+        """field `Loop Design Delta Temperature`
+
+        |  The temperature difference used in sizing the loop flow rate.
+        |  Units: deltaC
+        |  Default value: 6.67
 
         Args:
             value (float): value for IDD Field `Loop Design Delta Temperature`
-                Units: deltaC
-                Default value: 6.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33906,13 +35292,14 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
 
     @property
     def minimum_outdoor_dry_bulb_temperature(self):
-        """field `Minimum Outdoor Dry Bulb Temperature` The minimum outdoor dry
-        bulb temperature that the chilled water loops operate. Leave blank for
-        no limit.
+        """field `Minimum Outdoor Dry Bulb Temperature`
+
+        |  The minimum outdoor dry bulb temperature that the chilled water loops operate.
+        |  Leave blank for no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Dry Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -33931,17 +35318,19 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def chilled_water_load_distribution_scheme(self):
         """field `Chilled Water Load Distribution Scheme`
-        Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+
+        |  Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+        |  Default value: SequentialLoad
 
         Args:
             value (str): value for IDD Field `Chilled Water Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `chilled_water_load_distribution_scheme` or None if not set
+
         """
         return self["Chilled Water Load Distribution Scheme"]
 
@@ -33953,17 +35342,19 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
     @property
     def condenser_water_load_distribution_scheme(self):
         """field `Condenser Water Load Distribution Scheme`
-        Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+
+        |  Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+        |  Default value: SequentialLoad
 
         Args:
             value (str): value for IDD Field `Condenser Water Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `condenser_water_load_distribution_scheme` or None if not set
+
         """
         return self["Condenser Water Load Distribution Scheme"]
 
@@ -34145,16 +35536,17 @@ class HvactemplatePlantChiller(DataObject):
     def capacity(self):
         """field `Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `capacity` or None if not set
+            float or "Autosize": the value of `capacity` or None if not set
 
         """
         return self["Capacity"]
@@ -34166,12 +35558,14 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def nominal_cop(self):
-        """field `Nominal COP` Not applicable if Chiller Type is
-        DistrictChilledWater Electric Reciprocating Chiller.
+        """field `Nominal COP`
+
+        |  Not applicable if Chiller Type is DistrictChilledWater
+        |  Electric Reciprocating Chiller
+        |  Units: W/W
 
         Args:
             value (float): value for IDD Field `Nominal COP`
-                Units: W/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34189,12 +35583,13 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def condenser_type(self):
-        """field `Condenser Type` Not applicable if Chiller Type is
-        DistrictChilledWater.
+        """field `Condenser Type`
+
+        |  Not applicable if Chiller Type is DistrictChilledWater
+        |  Default value: WaterCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: WaterCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34213,9 +35608,10 @@ class HvactemplatePlantChiller(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        If Chiller Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:ChilledWaterLoop, then equipment
-        operates in Priority order, 1, 2, 3, etc.
+
+        |  If Chiller Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:ChilledWaterLoop, then equipment
+        |  operates in Priority order, 1, 2, 3, etc.
 
         Args:
             value (str): value for IDD Field `Priority`
@@ -34225,6 +35621,7 @@ class HvactemplatePlantChiller(DataObject):
 
         Returns:
             str: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -34235,12 +35632,13 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34258,9 +35656,10 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def minimum_part_load_ratio(self):
-        """field `Minimum Part Load Ratio` Part load ratio below which the
-        chiller starts cycling on/off to meet the load. Must be less than or
-        equal to Maximum Part Load Ratio.
+        """field `Minimum Part Load Ratio`
+
+        |  Part load ratio below which the chiller starts cycling on/off to meet the load.
+        |  Must be less than or equal to Maximum Part Load Ratio.
 
         Args:
             value (float): value for IDD Field `Minimum Part Load Ratio`
@@ -34281,12 +35680,13 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def maximum_part_load_ratio(self):
-        """field `Maximum Part Load Ratio` Maximum allowable part load ratio.
-        Must be greater than or equal to Minimum Part Load Ratio.
+        """field `Maximum Part Load Ratio`
+
+        |  Maximum allowable part load ratio. Must be greater than or equal to Minimum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34304,13 +35704,15 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def optimum_part_load_ratio(self):
-        """field `Optimum Part Load Ratio` Optimum part load ratio where the
-        chiller is most efficient. Must be greater than or equal to the Minimum
-        Part Load Ratio and less than or equal to the Maximum Part Load Ratio.
+        """field `Optimum Part Load Ratio`
+
+        |  Optimum part load ratio where the chiller is most efficient.
+        |  Must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34328,14 +35730,15 @@ class HvactemplatePlantChiller(DataObject):
 
     @property
     def minimum_unloading_ratio(self):
-        """field `Minimum Unloading Ratio` Part load ratio where the chiller
-        can no longer unload and false loading begins. Minimum unloading ratio
-        must be greater than or equal to the Minimum Part Load Ratio and less
-        than or equal to the Maximum Part Load Ratio.
+        """field `Minimum Unloading Ratio`
+
+        |  Part load ratio where the chiller can no longer unload and false loading begins.
+        |  Minimum unloading ratio must be greater than or equal to the Minimum Part Load Ratio
+        |  and less than or equal to the Maximum Part Load Ratio.
+        |  Default value: 0.25
 
         Args:
             value (float): value for IDD Field `Minimum Unloading Ratio`
-                Default value: 0.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34355,10 +35758,11 @@ class HvactemplatePlantChiller(DataObject):
     def leaving_chilled_water_lower_temperature_limit(self):
         """field `Leaving Chilled Water Lower Temperature Limit`
 
+        |  Units: C
+        |  Default value: 5.0
+
         Args:
             value (float): value for IDD Field `Leaving Chilled Water Lower Temperature Limit`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34427,7 +35831,9 @@ class HvactemplatePlantChillerObjectReference(DataObject):
 
     @property
     def name(self):
-        """field `Name` The name of this object.
+        """field `Name`
+
+        |  The name of this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -34450,9 +35856,10 @@ class HvactemplatePlantChillerObjectReference(DataObject):
     def chiller_object_type(self):
         """field `Chiller Object Type`
 
+        |  Default value: Chiller:Electric:EIR
+
         Args:
             value (str): value for IDD Field `Chiller Object Type`
-                Default value: Chiller:Electric:EIR
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34470,7 +35877,9 @@ class HvactemplatePlantChillerObjectReference(DataObject):
 
     @property
     def chiller_name(self):
-        """field `Chiller Name` The name of the detailed chiller object.
+        """field `Chiller Name`
+
+        |  The name of the detailed chiller object.
 
         Args:
             value (str): value for IDD Field `Chiller Name`
@@ -34492,9 +35901,10 @@ class HvactemplatePlantChillerObjectReference(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        If Chiller Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:ChilledWaterLoop, then equipment
-        operates in Priority order, 1, 2, 3, etc.
+
+        |  If Chiller Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:ChilledWaterLoop, then equipment
+        |  operates in Priority order, 1, 2, 3, etc.
 
         Args:
             value (float): value for IDD Field `Priority`
@@ -34504,6 +35914,7 @@ class HvactemplatePlantChillerObjectReference(DataObject):
 
         Returns:
             float: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -34665,23 +36076,25 @@ class HvactemplatePlantTower(DataObject):
     @property
     def high_speed_nominal_capacity(self):
         """field `High Speed Nominal Capacity`
-        Applicable for tower type SingleSpeed and TwoSpeed
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature, with the tower fan operating at high speed. Design water
-        flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity
-        times (1.25) gives the actual tower heat rejection at these operating conditions.
+
+        |  Applicable for tower type SingleSpeed and TwoSpeed
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature, with the tower fan operating at high speed. Design water
+        |  flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity
+        |  times (1.25) gives the actual tower heat rejection at these operating conditions.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Speed Nominal Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_speed_nominal_capacity` or None if not set
+            float or "Autosize": the value of `high_speed_nominal_capacity` or None if not set
+
         """
         return self["High Speed Nominal Capacity"]
 
@@ -34692,20 +36105,21 @@ class HvactemplatePlantTower(DataObject):
 
     @property
     def high_speed_fan_power(self):
-        """field `High Speed Fan Power` Applicable for tower type SingleSpeed
-        and TwoSpeed.
+        """field `High Speed Fan Power`
+
+        |  Applicable for tower type SingleSpeed and TwoSpeed
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `High Speed Fan Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `high_speed_fan_power` or None if not set
+            float or "Autosize": the value of `high_speed_fan_power` or None if not set
 
         """
         return self["High Speed Fan Power"]
@@ -34718,24 +36132,26 @@ class HvactemplatePlantTower(DataObject):
     @property
     def low_speed_nominal_capacity(self):
         """field `Low Speed Nominal Capacity`
-        Applicable only for Tower Type TwoSpeed
-        Nominal tower capacity with entering water at 35C (95F), leaving water at
-        29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
-        dry-bulb temperature, with the tower fan operating at low speed. Design water flow
-        rate assumed to be 5.382E-8 m3/s per watt of tower high-speed nominal capacity
-        (3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower heat
-        rejection at these operating conditions.
+
+        |  Applicable only for Tower Type TwoSpeed
+        |  Nominal tower capacity with entering water at 35C (95F), leaving water at
+        |  29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)
+        |  dry-bulb temperature, with the tower fan operating at low speed. Design water flow
+        |  rate assumed to be 5.382E-8 m3/s per watt of tower high-speed nominal capacity
+        |  (3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower heat
+        |  rejection at these operating conditions.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Low Speed Nominal Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_nominal_capacity` or None if not set
+            float or "Autosize": the value of `low_speed_nominal_capacity` or None if not set
+
         """
         return self["Low Speed Nominal Capacity"]
 
@@ -34746,19 +36162,21 @@ class HvactemplatePlantTower(DataObject):
 
     @property
     def low_speed_fan_power(self):
-        """field `Low Speed Fan Power` Applicable only for Tower Type TwoSpeed.
+        """field `Low Speed Fan Power`
+
+        |  Applicable only for Tower Type TwoSpeed
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Low Speed Fan Power`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `low_speed_fan_power` or None if not set
+            float or "Autosize": the value of `low_speed_fan_power` or None if not set
 
         """
         return self["Low Speed Fan Power"]
@@ -34771,24 +36189,26 @@ class HvactemplatePlantTower(DataObject):
     @property
     def free_convection_capacity(self):
         """field `Free Convection Capacity`
-        Applicable for Tower Type SingleSpeed and TwoSpeed
-        Tower capacity in free convection regime with entering water at 35C (95F),
-        leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
-        and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
-        5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower
-        free convection capacity times (1.25) gives the actual tower heat rejection at
-        these operating conditions.
+
+        |  Applicable for Tower Type SingleSpeed and TwoSpeed
+        |  Tower capacity in free convection regime with entering water at 35C (95F),
+        |  leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature
+        |  and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be
+        |  5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower
+        |  free convection capacity times (1.25) gives the actual tower heat rejection at
+        |  these operating conditions.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Free Convection Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `free_convection_capacity` or None if not set
+            float or "Autosize": the value of `free_convection_capacity` or None if not set
+
         """
         return self["Free Convection Capacity"]
 
@@ -34800,10 +36220,11 @@ class HvactemplatePlantTower(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        Applicable for all Tower Types
-        If Condenser Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:ChilledWaterLoop, then equipment
-        operates in Priority order, 1, 2, 3, etc.
+
+        |  Applicable for all Tower Types
+        |  If Condenser Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:ChilledWaterLoop, then equipment
+        |  operates in Priority order, 1, 2, 3, etc.
 
         Args:
             value (str): value for IDD Field `Priority`
@@ -34813,6 +36234,7 @@ class HvactemplatePlantTower(DataObject):
 
         Returns:
             str: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -34823,12 +36245,13 @@ class HvactemplatePlantTower(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34846,10 +36269,11 @@ class HvactemplatePlantTower(DataObject):
 
     @property
     def template_plant_loop_type(self):
-        """field `Template Plant Loop Type` Specifies if this tower serves a
-        template chilled water loop or mixed water loop If left blank, will
-        serve a chilled water loop if present, or a mixed water loop (if no
-        chilled water loop is present).
+        """field `Template Plant Loop Type`
+
+        |  Specifies if this tower serves a template chilled water loop or mixed water loop
+        |  If left blank, will serve a chilled water loop if present, or a mixed water loop (if
+        |  no chilled water loop is present).
 
         Args:
             value (str): value for IDD Field `Template Plant Loop Type`
@@ -34930,7 +36354,9 @@ class HvactemplatePlantTowerObjectReference(DataObject):
 
     @property
     def name(self):
-        """field `Name` The name of this object.
+        """field `Name`
+
+        |  The name of this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -34953,9 +36379,10 @@ class HvactemplatePlantTowerObjectReference(DataObject):
     def cooling_tower_object_type(self):
         """field `Cooling Tower Object Type`
 
+        |  Default value: CoolingTower:SingleSpeed
+
         Args:
             value (str): value for IDD Field `Cooling Tower Object Type`
-                Default value: CoolingTower:SingleSpeed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -34973,8 +36400,9 @@ class HvactemplatePlantTowerObjectReference(DataObject):
 
     @property
     def cooling_tower_name(self):
-        """field `Cooling Tower Name` The name of the detailed cooling tower
-        object.
+        """field `Cooling Tower Name`
+
+        |  The name of the detailed cooling tower object.
 
         Args:
             value (str): value for IDD Field `Cooling Tower Name`
@@ -34996,9 +36424,10 @@ class HvactemplatePlantTowerObjectReference(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        If Condenser Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:ChilledWaterLoop or MixedWaterLoop, then equipment
-        operates in Priority order, 1, 2, 3, etc.
+
+        |  If Condenser Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:ChilledWaterLoop or MixedWaterLoop, then equipment
+        |  operates in Priority order, 1, 2, 3, etc.
 
         Args:
             value (float): value for IDD Field `Priority`
@@ -35008,6 +36437,7 @@ class HvactemplatePlantTowerObjectReference(DataObject):
 
         Returns:
             float: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -35018,10 +36448,11 @@ class HvactemplatePlantTowerObjectReference(DataObject):
 
     @property
     def template_plant_loop_type(self):
-        """field `Template Plant Loop Type` Specifies if this tower serves a
-        template chilled water loop or mixed water loop If left blank, will
-        serve a chilled water loop if present, or a mixed water loop (if no
-        chilled water loop is present).
+        """field `Template Plant Loop Type`
+
+        |  Specifies if this tower serves a template chilled water loop or mixed water loop
+        |  If left blank, will serve a chilled water loop if present, or a mixed water loop (if
+        |  no chilled water loop is present).
 
         Args:
             value (str): value for IDD Field `Template Plant Loop Type`
@@ -35287,7 +36718,9 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def pump_schedule_name(self):
-        """field `Pump Schedule Name` If blank, always available.
+        """field `Pump Schedule Name`
+
+        |  If blank, always available
 
         Args:
             value (str): value for IDD Field `Pump Schedule Name`
@@ -35310,9 +36743,10 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     def pump_control_type(self):
         """field `Pump Control Type`
 
+        |  Default value: Intermittent
+
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Intermittent
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35331,19 +36765,21 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_plant_operation_scheme_type(self):
         """field `Hot Water Plant Operation Scheme Type`
-        Default operation type makes all equipment available
-        at all times operating in order of Priority specified
-        in HVACTemplate:Plant:Boiler objects.
+
+        |  Default operation type makes all equipment available
+        |  at all times operating in order of Priority specified
+        |  in HVACTemplate:Plant:Boiler objects.
+        |  Default value: Default
 
         Args:
             value (str): value for IDD Field `Hot Water Plant Operation Scheme Type`
-                Default value: Default
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `hot_water_plant_operation_scheme_type` or None if not set
+
         """
         return self["Hot Water Plant Operation Scheme Type"]
 
@@ -35355,8 +36791,9 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_plant_equipment_operation_schemes_name(self):
         """field `Hot Water Plant Equipment Operation Schemes Name`
-        Name of a PlantEquipmentOperationSchemes object
-        Ignored if Plant Operation Scheme Type = Default
+
+        |  Name of a PlantEquipmentOperationSchemes object
+        |  Ignored if Plant Operation Scheme Type = Default
 
         Args:
             value (str): value for IDD Field `Hot Water Plant Equipment Operation Schemes Name`
@@ -35366,6 +36803,7 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
         Returns:
             str: the value of `hot_water_plant_equipment_operation_schemes_name` or None if not set
+
         """
         return self["Hot Water Plant Equipment Operation Schemes Name"]
 
@@ -35377,8 +36815,9 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def hot_water_setpoint_schedule_name(self):
-        """field `Hot Water Setpoint Schedule Name` Leave blank if constant
-        setpoint.
+        """field `Hot Water Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `Hot Water Setpoint Schedule Name`
@@ -35399,13 +36838,14 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def hot_water_design_setpoint(self):
-        """field `Hot Water Design Setpoint` Used for sizing and as constant
-        setpoint if no Setpoint Schedule Name is specified.
+        """field `Hot Water Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 82.0
 
         Args:
             value (float): value for IDD Field `Hot Water Design Setpoint`
-                Units: C
-                Default value: 82.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35425,12 +36865,12 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     def hot_water_pump_configuration(self):
         """field `Hot Water Pump Configuration`
 
-        VariableFlow - variable flow to boilers and coils, excess bypassed
-        ConstantFlow - constant flow to boilers and coils, excess bypassed
+        |  VariableFlow - variable flow to boilers and coils, excess bypassed
+        |  ConstantFlow - constant flow to boilers and coils, excess bypassed
+        |  Default value: ConstantFlow
 
         Args:
             value (str): value for IDD Field `Hot Water Pump Configuration`
-                Default value: ConstantFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35448,13 +36888,15 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def hot_water_pump_rated_head(self):
-        """field `Hot Water Pump Rated Head` Default head is 60 feet H2O.
+        """field `Hot Water Pump Rated Head`
+
+        |  Default head is 60 feet H2O
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Hot Water Pump Rated Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35472,12 +36914,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def hot_water_setpoint_reset_type(self):
-        """field `Hot Water Setpoint Reset Type` Overrides Hot Water Setpoint
-        Schedule Name.
+        """field `Hot Water Setpoint Reset Type`
+
+        |  Overrides Hot Water Setpoint Schedule Name
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Hot Water Setpoint Reset Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35496,12 +36939,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_setpoint_at_outdoor_drybulb_low(self):
         """field `Hot Water Setpoint at Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 82.2
 
         Args:
             value (float): value for IDD Field `Hot Water Setpoint at Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: 82.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35521,12 +36965,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_reset_outdoor_drybulb_low(self):
         """field `Hot Water Reset Outdoor Dry-Bulb Low`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: -6.7
 
         Args:
             value (float): value for IDD Field `Hot Water Reset Outdoor Dry-Bulb Low`
-                Units: C
-                Default value: -6.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35546,12 +36991,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_setpoint_at_outdoor_drybulb_high(self):
         """field `Hot Water Setpoint at Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 65.6
 
         Args:
             value (float): value for IDD Field `Hot Water Setpoint at Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 65.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35571,12 +37017,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def hot_water_reset_outdoor_drybulb_high(self):
         """field `Hot Water Reset Outdoor Dry-Bulb High`
-        Applicable only for OutdoorAirTemperatureReset control.
+
+        |  Applicable only for OutdoorAirTemperatureReset control.
+        |  Units: C
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Hot Water Reset Outdoor Dry-Bulb High`
-                Units: C
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35595,12 +37042,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def hot_water_pump_type(self):
-        """field `Hot Water Pump Type` Describes the type of pump configuration
-        used for the hot water loop.
+        """field `Hot Water Pump Type`
+
+        |  Describes the type of pump configuration used for the hot water loop.
+        |  Default value: SinglePump
 
         Args:
             value (str): value for IDD Field `Hot Water Pump Type`
-                Default value: SinglePump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35618,12 +37066,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def supply_side_bypass_pipe(self):
-        """field `Supply Side Bypass Pipe` Determines if a supply side bypass
-        pipe is present in the hot water loop.
+        """field `Supply Side Bypass Pipe`
+
+        |  Determines if a supply side bypass pipe is present in the hot water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Supply Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35641,12 +37090,13 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def demand_side_bypass_pipe(self):
-        """field `Demand Side Bypass Pipe` Determines if a demand side bypass
-        pipe is present in the hot water loop.
+        """field `Demand Side Bypass Pipe`
+
+        |  Determines if a demand side bypass pipe is present in the hot water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Demand Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35666,9 +37116,10 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     def fluid_type(self):
         """field `Fluid Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fluid Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35686,13 +37137,14 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def loop_design_delta_temperature(self):
-        """field `Loop Design Delta Temperature` The temperature difference
-        used in sizing the loop flow rate.
+        """field `Loop Design Delta Temperature`
+
+        |  The temperature difference used in sizing the loop flow rate.
+        |  Units: deltaC
+        |  Default value: 11.0
 
         Args:
             value (float): value for IDD Field `Loop Design Delta Temperature`
-                Units: deltaC
-                Default value: 11.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35710,13 +37162,14 @@ class HvactemplatePlantHotWaterLoop(DataObject):
 
     @property
     def maximum_outdoor_dry_bulb_temperature(self):
-        """field `Maximum Outdoor Dry Bulb Temperature` The maximum outdoor dry
-        bulb temperature that the hot water loops operate. Leave blank for no
-        limit.
+        """field `Maximum Outdoor Dry Bulb Temperature`
+
+        |  The maximum outdoor dry bulb temperature that the hot water loops operate.
+        |  Leave blank for no limit.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry Bulb Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35735,17 +37188,19 @@ class HvactemplatePlantHotWaterLoop(DataObject):
     @property
     def load_distribution_scheme(self):
         """field `Load Distribution Scheme`
-        Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+
+        |  Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+        |  Default value: SequentialLoad
 
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `load_distribution_scheme` or None if not set
+
         """
         return self["Load Distribution Scheme"]
 
@@ -35932,16 +37387,17 @@ class HvactemplatePlantBoiler(DataObject):
     def capacity(self):
         """field `Capacity`
 
+        |  Units: W
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `capacity` or None if not set
+            float or "Autosize": the value of `capacity` or None if not set
 
         """
         return self["Capacity"]
@@ -35953,13 +37409,14 @@ class HvactemplatePlantBoiler(DataObject):
 
     @property
     def efficiency(self):
-        """field `Efficiency` Not applicable  if Boiler Type is
-        DistrictHotWater.
+        """field `Efficiency`
+
+        |  Not applicable  if Boiler Type is DistrictHotWater
+        |  Default value: 0.8
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -35977,8 +37434,9 @@ class HvactemplatePlantBoiler(DataObject):
 
     @property
     def fuel_type(self):
-        """field `Fuel Type` Not applicable  if Boiler Type is
-        DistrictHotWater.
+        """field `Fuel Type`
+
+        |  Not applicable  if Boiler Type is DistrictHotWater
 
         Args:
             value (str): value for IDD Field `Fuel Type`
@@ -36000,9 +37458,10 @@ class HvactemplatePlantBoiler(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        If Hot Water Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:HotWaterLoop, then equipment
-        operates in priority order, 1, 2, 3, etc.
+
+        |  If Hot Water Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:HotWaterLoop, then equipment
+        |  operates in priority order, 1, 2, 3, etc.
 
         Args:
             value (str): value for IDD Field `Priority`
@@ -36012,6 +37471,7 @@ class HvactemplatePlantBoiler(DataObject):
 
         Returns:
             str: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -36022,12 +37482,13 @@ class HvactemplatePlantBoiler(DataObject):
 
     @property
     def sizing_factor(self):
-        """field `Sizing Factor` Multiplies the autosized capacity and flow
-        rates.
+        """field `Sizing Factor`
+
+        |  Multiplies the autosized capacity and flow rates
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36068,9 +37529,10 @@ class HvactemplatePlantBoiler(DataObject):
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
 
+        |  Default value: 1.1
+
         Args:
             value (float): value for IDD Field `Maximum Part Load Ratio`
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36090,9 +37552,10 @@ class HvactemplatePlantBoiler(DataObject):
     def optimum_part_load_ratio(self):
         """field `Optimum Part Load Ratio`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36112,10 +37575,11 @@ class HvactemplatePlantBoiler(DataObject):
     def water_outlet_upper_temperature_limit(self):
         """field `Water Outlet Upper Temperature Limit`
 
+        |  Units: C
+        |  Default value: 100.0
+
         Args:
             value (float): value for IDD Field `Water Outlet Upper Temperature Limit`
-                Units: C
-                Default value: 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36133,10 +37597,11 @@ class HvactemplatePlantBoiler(DataObject):
 
     @property
     def template_plant_loop_type(self):
-        """field `Template Plant Loop Type` Specifies if this boiler serves a
-        template hot water loop or mixed water loop If left blank, will serve a
-        hot water loop if present, or a mixed water loop (if no hot water loop
-        is present).
+        """field `Template Plant Loop Type`
+
+        |  Specifies if this boiler serves a template hot water loop or mixed water loop
+        |  If left blank, will serve a hot water loop if present, or a mixed water loop (if
+        |  no hot water loop is present).
 
         Args:
             value (str): value for IDD Field `Template Plant Loop Type`
@@ -36215,7 +37680,9 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
 
     @property
     def name(self):
-        """field `Name` The name of this object.
+        """field `Name`
+
+        |  The name of this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -36238,9 +37705,10 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
     def boiler_object_type(self):
         """field `Boiler Object Type`
 
+        |  Default value: Boiler:HotWater
+
         Args:
             value (str): value for IDD Field `Boiler Object Type`
-                Default value: Boiler:HotWater
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36258,7 +37726,9 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
 
     @property
     def boiler_name(self):
-        """field `Boiler Name` The name of the detailed boiler object.
+        """field `Boiler Name`
+
+        |  The name of the detailed boiler object.
 
         Args:
             value (str): value for IDD Field `Boiler Name`
@@ -36280,9 +37750,10 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
     @property
     def priority(self):
         """field `Priority`
-        If Hot Water Plant Operation Scheme Type=Default
-        in HVACTemplate:Plant:HotWaterLoop or MixedWaterLoop, then equipment
-        operates in Priority order, 1, 2, 3, etc.
+
+        |  If Hot Water Plant Operation Scheme Type=Default
+        |  in HVACTemplate:Plant:HotWaterLoop or MixedWaterLoop, then equipment
+        |  operates in Priority order, 1, 2, 3, etc.
 
         Args:
             value (float): value for IDD Field `Priority`
@@ -36292,6 +37763,7 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
 
         Returns:
             float: the value of `priority` or None if not set
+
         """
         return self["Priority"]
 
@@ -36302,10 +37774,11 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
 
     @property
     def template_plant_loop_type(self):
-        """field `Template Plant Loop Type` Specifies if this boiler serves a
-        template hot water loop or mixed water loop If left blank, will serve a
-        hot water loop if present, or a mixed water loop (if no hot water loop
-        is present).
+        """field `Template Plant Loop Type`
+
+        |  Specifies if this boiler serves a template hot water loop or mixed water loop
+        |  If left blank, will serve a hot water loop if present, or a mixed water loop (if
+        |  no hot water loop is present).
 
         Args:
             value (str): value for IDD Field `Template Plant Loop Type`
@@ -36532,8 +38005,10 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def pump_schedule_name(self):
-        """field `Pump Schedule Name` If blank, always available Applies to
-        both chilled water and condenser loop pumps.
+        """field `Pump Schedule Name`
+
+        |  If blank, always available
+        |  Applies to both chilled water and condenser loop pumps
 
         Args:
             value (str): value for IDD Field `Pump Schedule Name`
@@ -36554,12 +38029,13 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def pump_control_type(self):
-        """field `Pump Control Type` Applies to both chilled water and
-        condenser loop pumps.
+        """field `Pump Control Type`
+
+        |  Applies to both chilled water and condenser loop pumps
+        |  Default value: Intermittent
 
         Args:
             value (str): value for IDD Field `Pump Control Type`
-                Default value: Intermittent
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36578,19 +38054,21 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
     @property
     def operation_scheme_type(self):
         """field `Operation Scheme Type`
-        Default operation type makes all equipment available
-        at all times operating in order of Priority specified
-        in HVACTemplate:Plant:Boiler and HVACTemplate:Plant:Tower objects.
+
+        |  Default operation type makes all equipment available
+        |  at all times operating in order of Priority specified
+        |  in HVACTemplate:Plant:Boiler and HVACTemplate:Plant:Tower objects.
+        |  Default value: Default
 
         Args:
             value (str): value for IDD Field `Operation Scheme Type`
-                Default value: Default
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `operation_scheme_type` or None if not set
+
         """
         return self["Operation Scheme Type"]
 
@@ -36602,8 +38080,9 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
     @property
     def equipment_operation_schemes_name(self):
         """field `Equipment Operation Schemes Name`
-        Name of a PlantEquipmentOperationSchemes object
-        Ignored if Plant Operation Scheme Type = Default
+
+        |  Name of a PlantEquipmentOperationSchemes object
+        |  Ignored if Plant Operation Scheme Type = Default
 
         Args:
             value (str): value for IDD Field `Equipment Operation Schemes Name`
@@ -36613,6 +38092,7 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
         Returns:
             str: the value of `equipment_operation_schemes_name` or None if not set
+
         """
         return self["Equipment Operation Schemes Name"]
 
@@ -36623,8 +38103,9 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def high_temperature_setpoint_schedule_name(self):
-        """field `High Temperature Setpoint Schedule Name` Leave blank if
-        constant setpoint.
+        """field `High Temperature Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
 
         Args:
             value (str): value for IDD Field `High Temperature Setpoint Schedule Name`
@@ -36646,13 +38127,14 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def high_temperature_design_setpoint(self):
-        """field `High Temperature Design Setpoint` Used for sizing and as
-        constant setpoint if no Setpoint Schedule Name is specified.
+        """field `High Temperature Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Setpoint Schedule Name is specified.
+        |  Units: C
+        |  Default value: 33.0
 
         Args:
             value (float): value for IDD Field `High Temperature Design Setpoint`
-                Units: C
-                Default value: 33.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36670,9 +38152,10 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def low_temperature_setpoint_schedule_name(self):
-        """field `Low Temperature Setpoint Schedule Name` Leave blank if
-        constant setpoint May be left blank if not serving any water cooled
-        chillers.
+        """field `Low Temperature Setpoint Schedule Name`
+
+        |  Leave blank if constant setpoint
+        |  May be left blank if not serving any water cooled chillers
 
         Args:
             value (str): value for IDD Field `Low Temperature Setpoint Schedule Name`
@@ -36693,14 +38176,15 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def low_temperature_design_setpoint(self):
-        """field `Low Temperature Design Setpoint` Used for sizing and as
-        constant setpoint if no Condenser Water Setpoint Schedule Name is
-        specified. May be left blank if not serving any water cooled chillers.
+        """field `Low Temperature Design Setpoint`
+
+        |  Used for sizing and as constant setpoint if no Condenser Water Setpoint Schedule Name is specified.
+        |  May be left blank if not serving any water cooled chillers
+        |  Units: C
+        |  Default value: 20.0
 
         Args:
             value (float): value for IDD Field `Low Temperature Design Setpoint`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36720,12 +38204,12 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
     def water_pump_configuration(self):
         """field `Water Pump Configuration`
 
-        VariableFlow - variable flow to boilers and coils, excess bypassed
-        ConstantFlow - constant flow to boilers and coils, excess bypassed
+        |  VariableFlow - variable flow to boilers and coils, excess bypassed
+        |  ConstantFlow - constant flow to boilers and coils, excess bypassed
+        |  Default value: ConstantFlow
 
         Args:
             value (str): value for IDD Field `Water Pump Configuration`
-                Default value: ConstantFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36743,14 +38227,16 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def water_pump_rated_head(self):
-        """field `Water Pump Rated Head` May be left blank if not serving any
-        water cooled chillers default head is 60 feet H2O.
+        """field `Water Pump Rated Head`
+
+        |  May be left blank if not serving any water cooled chillers
+        |  default head is 60 feet H2O
+        |  Units: Pa
+        |  IP-Units: ftH2O
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Water Pump Rated Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36768,12 +38254,13 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def water_pump_type(self):
-        """field `Water Pump Type` Describes the type of pump configuration
-        used for the mixed water loop.
+        """field `Water Pump Type`
+
+        |  Describes the type of pump configuration used for the mixed water loop.
+        |  Default value: SinglePump
 
         Args:
             value (str): value for IDD Field `Water Pump Type`
-                Default value: SinglePump
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36791,12 +38278,13 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def supply_side_bypass_pipe(self):
-        """field `Supply Side Bypass Pipe` Determines if a supply side bypass
-        pipe is present in the hot water loop.
+        """field `Supply Side Bypass Pipe`
+
+        |  Determines if a supply side bypass pipe is present in the hot water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Supply Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36814,12 +38302,13 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def demand_side_bypass_pipe(self):
-        """field `Demand Side Bypass Pipe` Determines if a demand side bypass
-        pipe is present in the hot water loop.
+        """field `Demand Side Bypass Pipe`
+
+        |  Determines if a demand side bypass pipe is present in the hot water loop.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Demand Side Bypass Pipe`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36839,9 +38328,10 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
     def fluid_type(self):
         """field `Fluid Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fluid Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36859,13 +38349,14 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
 
     @property
     def loop_design_delta_temperature(self):
-        """field `Loop Design Delta Temperature` The temperature difference
-        used in sizing the loop flow rate.
+        """field `Loop Design Delta Temperature`
+
+        |  The temperature difference used in sizing the loop flow rate.
+        |  Units: deltaC
+        |  Default value: 5.6
 
         Args:
             value (float): value for IDD Field `Loop Design Delta Temperature`
-                Units: deltaC
-                Default value: 5.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -36884,17 +38375,19 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
     @property
     def load_distribution_scheme(self):
         """field `Load Distribution Scheme`
-        Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+
+        |  Sequential=SequentialLoad, Uniform=UniformLoad, retained here for compatibility
+        |  Default value: SequentialLoad
 
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `load_distribution_scheme` or None if not set
+
         """
         return self["Load Distribution Scheme"]
 

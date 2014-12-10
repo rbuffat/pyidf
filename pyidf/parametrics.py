@@ -44,9 +44,11 @@ class ParametricSetValueForRun(DataObject):
 
     @property
     def name(self):
-        """field `Name` Parameter Name Must begin with the dollar sign
-        character. The second character must be a letter. Remaining characters
-        may only be letters or numbers. No spaces allowed.
+        """field `Name`
+
+        |  Parameter Name
+        |  Must begin with the dollar sign character. The second character must be a letter.
+        |  Remaining characters may only be letters or numbers. No spaces allowed.
 
         Args:
             value (str): value for IDD Field `Name`

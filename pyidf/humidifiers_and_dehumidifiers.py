@@ -118,9 +118,10 @@ class HumidifierSteamElectric(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -142,18 +143,20 @@ class HumidifierSteamElectric(DataObject):
     @property
     def rated_capacity(self):
         """field `Rated Capacity`
-        Capacity is m3/s of water at 5.05 C
+
+        |  Capacity is m3/s of water at 5.05 C
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Rated Capacity`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_capacity` or None if not set
+
         """
         return self["Rated Capacity"]
 
@@ -165,20 +168,22 @@ class HumidifierSteamElectric(DataObject):
     @property
     def rated_power(self):
         """field `Rated Power`
-        if autosized the rated power is calculated from the rated capacity
-        and enthalpy rise of water from 20.0C to 100.0C steam and assumes
-        electric to thermal energy conversion efficiency of 100.0%
+
+        |  if autosized the rated power is calculated from the rated capacity
+        |  and enthalpy rise of water from 20.0C to 100.0C steam and assumes
+        |  electric to thermal energy conversion efficiency of 100.0%
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Rated Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_power` or None if not set
+            float or "Autosize": the value of `rated_power` or None if not set
+
         """
         return self["Rated Power"]
 
@@ -191,10 +196,11 @@ class HumidifierSteamElectric(DataObject):
     def rated_fan_power(self):
         """field `Rated Fan Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Rated Fan Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -214,10 +220,11 @@ class HumidifierSteamElectric(DataObject):
     def standby_power(self):
         """field `Standby Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Standby Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -541,9 +548,10 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -564,8 +572,9 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def process_air_inlet_node_name(self):
-        """field `Process Air Inlet Node Name` This is the node entering the
-        process side of the desiccant wheel.
+        """field `Process Air Inlet Node Name`
+
+        |  This is the node entering the process side of the desiccant wheel.
 
         Args:
             value (str): value for IDD Field `Process Air Inlet Node Name`
@@ -586,8 +595,9 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def process_air_outlet_node_name(self):
-        """field `Process Air Outlet Node Name` This is the node leaving the
-        process side of the desiccant wheel.
+        """field `Process Air Outlet Node Name`
+
+        |  This is the node leaving the process side of the desiccant wheel.
 
         Args:
             value (str): value for IDD Field `Process Air Outlet Node Name`
@@ -608,9 +618,10 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def regeneration_air_inlet_node_name(self):
-        """field `Regeneration Air Inlet Node Name` This is the node entering
-        the regeneration side of the desiccant wheel after the regeneration
-        coil.
+        """field `Regeneration Air Inlet Node Name`
+
+        |  This is the node entering the regeneration side of the desiccant wheel
+        |  after the regeneration coil.
 
         Args:
             value (str): value for IDD Field `Regeneration Air Inlet Node Name`
@@ -631,9 +642,10 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def regeneration_fan_inlet_node_name(self):
-        """field `Regeneration Fan Inlet Node Name` Node for air entering the
-        regeneration fan, mass flow is set by the desiccant dehumidifier
-        module.
+        """field `Regeneration Fan Inlet Node Name`
+
+        |  Node for air entering the regeneration fan, mass flow is set
+        |  by the desiccant dehumidifier module.
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Inlet Node Name`
@@ -655,14 +667,15 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def control_type(self):
         """field `Control Type`
-        Type of setpoint control:
-        LeavingMaximumHumidityRatioSetpoint means that the unit is controlled
-        to deliver air at the Leaving Max Humidity Ratio Setpoint (see below),
-        SystemNodeMaximumHumidityRatioSetpoint means that the leaving humidity
-        ratio setpoint is the System Node Humidity Ratio Max property
-        of the Process Air Outlet Node.  A Setpoint
-        object must be used to control this setpoint.
-        Both control types use bypass dampers to prevent overdrying.
+
+        |  Type of setpoint control:
+        |  LeavingMaximumHumidityRatioSetpoint means that the unit is controlled
+        |  to deliver air at the Leaving Max Humidity Ratio Setpoint (see below),
+        |  SystemNodeMaximumHumidityRatioSetpoint means that the leaving humidity
+        |  ratio setpoint is the System Node Humidity Ratio Max property
+        |  of the Process Air Outlet Node.  A Setpoint
+        |  object must be used to control this setpoint.
+        |  Both control types use bypass dampers to prevent overdrying.
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -672,6 +685,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `control_type` or None if not set
+
         """
         return self["Control Type"]
 
@@ -683,18 +697,20 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def leaving_maximum_humidity_ratio_setpoint(self):
         """field `Leaving Maximum Humidity Ratio Setpoint`
-        Fixed setpoint for maximum process air leaving humidity ratio
-        Applicable only when Control Type = LeavingMaximumHumidityRatioSetpoint.
+
+        |  Fixed setpoint for maximum process air leaving humidity ratio
+        |  Applicable only when Control Type = LeavingMaximumHumidityRatioSetpoint.
+        |  Units: kgWater/kgDryAir
 
         Args:
             value (float): value for IDD Field `Leaving Maximum Humidity Ratio Setpoint`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `leaving_maximum_humidity_ratio_setpoint` or None if not set
+
         """
         return self["Leaving Maximum Humidity Ratio Setpoint"]
 
@@ -706,12 +722,13 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def nominal_process_air_flow_rate(self):
-        """field `Nominal Process Air Flow Rate` Process air flow rate at
-        nominal conditions.
+        """field `Nominal Process Air Flow Rate`
+
+        |  Process air flow rate at nominal conditions
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Nominal Process Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -730,19 +747,21 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def nominal_process_air_velocity(self):
         """field `Nominal Process Air Velocity`
-        Process air velocity at nominal flow
-        When using Performance Model Type of Default, must be 2.032 to 4.064 m/s (400 to 800 fpm)
+
+        |  Process air velocity at nominal flow
+        |  When using Performance Model Type of Default, must be 2.032 to 4.064 m/s (400 to 800 fpm)
+        |  Units: m/s
+        |  value <= 6.0
 
         Args:
             value (float): value for IDD Field `Nominal Process Air Velocity`
-                Units: m/s
-                value <= 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `nominal_process_air_velocity` or None if not set
+
         """
         return self["Nominal Process Air Velocity"]
 
@@ -753,12 +772,14 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def rotor_power(self):
-        """field `Rotor Power` Power input to wheel rotor motor.
+        """field `Rotor Power`
+
+        |  Power input to wheel rotor motor
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Rotor Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -776,8 +797,10 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def regeneration_coil_object_type(self):
-        """field `Regeneration Coil Object Type` heating coil type works with
-        gas, electric, hot water and steam heating coils.
+        """field `Regeneration Coil Object Type`
+
+        |  heating coil type
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Regeneration Coil Object Type`
@@ -798,8 +821,9 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def regeneration_coil_name(self):
-        """field `Regeneration Coil Name` Name of heating coil object for
-        regeneration air.
+        """field `Regeneration Coil Name`
+
+        |  Name of heating coil object for regeneration air
 
         Args:
             value (str): value for IDD Field `Regeneration Coil Name`
@@ -821,8 +845,9 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def regeneration_fan_object_type(self):
         """field `Regeneration Fan Object Type`
-        Type of fan object for regeneration air.  When using the Default
-        Performance Model Type (see below), only Fan:VariableVolume is valid.
+
+        |  Type of fan object for regeneration air.  When using the Default
+        |  Performance Model Type (see below), only Fan:VariableVolume is valid.
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Object Type`
@@ -832,6 +857,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `regeneration_fan_object_type` or None if not set
+
         """
         return self["Regeneration Fan Object Type"]
 
@@ -842,8 +868,9 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def regeneration_fan_name(self):
-        """field `Regeneration Fan Name` Name of fan object for regeneration
-        air.
+        """field `Regeneration Fan Name`
+
+        |  Name of fan object for regeneration air
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Name`
@@ -865,20 +892,21 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def performance_model_type(self):
         """field `Performance Model Type`
-        Specifies whether the default performance model or user-specified
-        curves should be used to model the performance.  The default model
-        is a generic solid desiccant wheel using performance curves of the form:
-        curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*vel + C7*vel**2
-        + C8*edb*ew + C9*edb**2*ew**2 + C10*edb*vel + C11*edb**2*vel**2
-        + C12*ew*vel + C13*ew**2*vel**2 + C14*ALOG(edb) + C15*ALOG(ew) + C16*ALOG(vel)
-        edb = process entering dry-bulb temperature [C]
-        ew  = process entering humidity ratio [kgWater/kgDryAir]
-        vel = process air velocity [m/s]
-        If UserCurves are specified, then performance is calculated as follows:
-        Leaving Dry-Bulb = (Leaving Dry-Bulb fTW Curve) * (Leaving Dry-Bulb fV Curve)
-        Leaving Humidity Ratio = (Leaving Humidity Ratio fTW Curve) * (Leaving Humidity Ratio fV Curve)
-        Regen Energy = (Regen Energy fTW Curve) * (Regen Energy fV Curve)
-        Regen Velocity = (Regen Velocity fTW Curve) * (Regen Velocity fV Curve)
+
+        |  Specifies whether the default performance model or user-specified
+        |  curves should be used to model the performance.  The default model
+        |  is a generic solid desiccant wheel using performance curves of the form:
+        |  curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*vel + C7*vel**2
+        |  + C8*edb*ew + C9*edb**2*ew**2 + C10*edb*vel + C11*edb**2*vel**2
+        |  + C12*ew*vel + C13*ew**2*vel**2 + C14*ALOG(edb) + C15*ALOG(ew) + C16*ALOG(vel)
+        |  edb = process entering dry-bulb temperature [C]
+        |  ew  = process entering humidity ratio [kgWater/kgDryAir]
+        |  vel = process air velocity [m/s]
+        |  If UserCurves are specified, then performance is calculated as follows:
+        |  Leaving Dry-Bulb = (Leaving Dry-Bulb fTW Curve) * (Leaving Dry-Bulb fV Curve)
+        |  Leaving Humidity Ratio = (Leaving Humidity Ratio fTW Curve) * (Leaving Humidity Ratio fV Curve)
+        |  Regen Energy = (Regen Energy fTW Curve) * (Regen Energy fV Curve)
+        |  Regen Velocity = (Regen Velocity fTW Curve) * (Regen Velocity fV Curve)
 
         Args:
             value (str): value for IDD Field `Performance Model Type`
@@ -888,6 +916,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `performance_model_type` or None if not set
+
         """
         return self["Performance Model Type"]
 
@@ -900,12 +929,13 @@ class DehumidifierDesiccantNoFans(DataObject):
     def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(
             self):
         """field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
-        Leaving dry-bulb of process air as a function of entering dry-bulb
-        and entering humidity ratio, biquadratic curve
-        Table:TwoIndependentVariables object can also be used
-        curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-        edb = process entering dry-bulb temperature [C]
-        ew  = process entering humidity ratio [kgWater/kgDryAir]
+
+        |  Leaving dry-bulb of process air as a function of entering dry-bulb
+        |  and entering humidity ratio, biquadratic curve
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
+        |  edb = process entering dry-bulb temperature [C]
+        |  ew  = process entering humidity ratio [kgWater/kgDryAir]
 
         Args:
             value (str): value for IDD Field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
@@ -932,11 +962,12 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def leaving_drybulb_function_of_air_velocity_curve_name(self):
         """field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
-        Leaving dry-bulb of process air as a function of air velocity,
-        quadratic curve.
-        Table:OneIndependentVariable object can also be used
-        curve = C1 + C2*v + C3*v**2
-        v = process air velocity [m/s]
+
+        |  Leaving dry-bulb of process air as a function of air velocity,
+        |  quadratic curve.
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = C1 + C2*v + C3*v**2
+        |  v = process air velocity [m/s]
 
         Args:
             value (str): value for IDD Field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
@@ -960,12 +991,13 @@ class DehumidifierDesiccantNoFans(DataObject):
     def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(
             self):
         """field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
-        Leaving humidity ratio of process air as a function of entering dry-bulb
-        and entering humidity ratio, biquadratic curve
-        Table:TwoIndependentVariables object can also be used
-        curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-        edb = process entering dry-bulb temperature [C]
-        ew  = process entering humidity ratio [kgWater/kgDryAir]
+
+        |  Leaving humidity ratio of process air as a function of entering dry-bulb
+        |  and entering humidity ratio, biquadratic curve
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
+        |  edb = process entering dry-bulb temperature [C]
+        |  ew  = process entering humidity ratio [kgWater/kgDryAir]
 
         Args:
             value (str): value for IDD Field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
@@ -992,11 +1024,12 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def leaving_humidity_ratio_function_of_air_velocity_curve_name(self):
         """field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
-        Leaving humidity ratio of process air as a function of
-        process air velocity, quadratic curve.
-        Table:OneIndependentVariable object can also be used
-        curve = C1 + C2*v + C3*v**2
-        v = process air velocity [m/s]
+
+        |  Leaving humidity ratio of process air as a function of
+        |  process air velocity, quadratic curve.
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = C1 + C2*v + C3*v**2
+        |  v = process air velocity [m/s]
 
         Args:
             value (str): value for IDD Field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
@@ -1006,6 +1039,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `leaving_humidity_ratio_function_of_air_velocity_curve_name` or None if not set
+
         """
         return self[
             "Leaving Humidity Ratio Function of Air Velocity Curve Name"]
@@ -1023,12 +1057,13 @@ class DehumidifierDesiccantNoFans(DataObject):
     def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(
             self):
         """field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
-        Regeneration energy [J/kg of water removed] as a function of
-        entering dry-bulb and entering humidity ratio, biquadratic curve
-        Table:TwoIndependentVariables object can also be used
-        curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-        edb = process entering dry-bulb temperature [C]
-        ew  = process entering humidity ratio [kgWater/kgDryAir]
+
+        |  Regeneration energy [J/kg of water removed] as a function of
+        |  entering dry-bulb and entering humidity ratio, biquadratic curve
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
+        |  edb = process entering dry-bulb temperature [C]
+        |  ew  = process entering humidity ratio [kgWater/kgDryAir]
 
         Args:
             value (str): value for IDD Field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
@@ -1055,11 +1090,12 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def regeneration_energy_function_of_air_velocity_curve_name(self):
         """field `Regeneration Energy Function of Air Velocity Curve Name`
-        Regeneration energy [J/kg of water removed] as a function of
-        process air velocity, quadratic curve.
-        Table:OneIndependentVariable object can also be used
-        curve = C1 + C2*v + C3*v**2
-        v = process air velocity [m/s]
+
+        |  Regeneration energy [J/kg of water removed] as a function of
+        |  process air velocity, quadratic curve.
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = C1 + C2*v + C3*v**2
+        |  v = process air velocity [m/s]
 
         Args:
             value (str): value for IDD Field `Regeneration Energy Function of Air Velocity Curve Name`
@@ -1069,6 +1105,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `regeneration_energy_function_of_air_velocity_curve_name` or None if not set
+
         """
         return self["Regeneration Energy Function of Air Velocity Curve Name"]
 
@@ -1084,12 +1121,13 @@ class DehumidifierDesiccantNoFans(DataObject):
     def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(
             self):
         """field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
-        Regeneration velocity [m/s] as a function of
-        entering dry-bulb and entering humidity ratio, biquadratic curve
-        Table:TwoIndependentVariables object can also be used
-        curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-        edb = process entering dry-bulb temperature [C]
-        ew  = process entering humidity ratio [kgWater/kgDryAir]
+
+        |  Regeneration velocity [m/s] as a function of
+        |  entering dry-bulb and entering humidity ratio, biquadratic curve
+        |  Table:TwoIndependentVariables object can also be used
+        |  curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
+        |  edb = process entering dry-bulb temperature [C]
+        |  ew  = process entering humidity ratio [kgWater/kgDryAir]
 
         Args:
             value (str): value for IDD Field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
@@ -1116,11 +1154,12 @@ class DehumidifierDesiccantNoFans(DataObject):
     @property
     def regeneration_velocity_function_of_air_velocity_curve_name(self):
         """field `Regeneration Velocity Function of Air Velocity Curve Name`
-        Regeneration velocity [m/s] as a function of
-        process air velocity, quadratic curve.
-        Table:OneIndependentVariable object can also be used
-        curve = C1 + C2*v + C3*v**2
-        v = process air velocity [m/s]
+
+        |  Regeneration velocity [m/s] as a function of
+        |  process air velocity, quadratic curve.
+        |  Table:OneIndependentVariable object can also be used
+        |  curve = C1 + C2*v + C3*v**2
+        |  v = process air velocity [m/s]
 
         Args:
             value (str): value for IDD Field `Regeneration Velocity Function of Air Velocity Curve Name`
@@ -1130,6 +1169,7 @@ class DehumidifierDesiccantNoFans(DataObject):
 
         Returns:
             str: the value of `regeneration_velocity_function_of_air_velocity_curve_name` or None if not set
+
         """
         return self[
             "Regeneration Velocity Function of Air Velocity Curve Name"]
@@ -1145,16 +1185,17 @@ class DehumidifierDesiccantNoFans(DataObject):
 
     @property
     def nominal_regeneration_temperature(self):
-        """field `Nominal Regeneration Temperature` Nominal regen temperature
-        upon which the regen energy modifier curve is based.  Not used if
-        Default if chosen for the field Performance Mode Type. 121 C is a
-        commonly used value.
+        """field `Nominal Regeneration Temperature`
+
+        |  Nominal regen temperature upon which the regen energy modifier
+        |  curve is based.  Not used if Default if chosen for the field Performance Mode Type.
+        |  121 C is a commonly used value.
+        |  Units: C
+        |  value >= 40.0
+        |  value <= 250.0
 
         Args:
             value (float): value for IDD Field `Nominal Regeneration Temperature`
-                Units: C
-                value >= 40.0
-                value <= 250.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1363,9 +1404,10 @@ class DehumidifierDesiccantSystem(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1493,9 +1535,10 @@ class DehumidifierDesiccantSystem(DataObject):
     def regeneration_air_fan_placement(self):
         """field `Regeneration Air Fan Placement`
 
+        |  Default value: DrawThrough
+
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1513,8 +1556,9 @@ class DehumidifierDesiccantSystem(DataObject):
 
     @property
     def regeneration_air_heater_object_type(self):
-        """field `Regeneration Air Heater Object Type` works with gas,
-        electric, hot water and steam heating coils.
+        """field `Regeneration Air Heater Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Regeneration Air Heater Object Type`
@@ -1558,9 +1602,10 @@ class DehumidifierDesiccantSystem(DataObject):
     def regeneration_inlet_air_setpoint_temperature(self):
         """field `Regeneration Inlet Air Setpoint Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Regeneration Inlet Air Setpoint Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1622,12 +1667,14 @@ class DehumidifierDesiccantSystem(DataObject):
     @property
     def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(self):
         """field `Companion Cooling Coil Upstream of Dehumidifier Process
-        Inlet` Select Yes if the companion cooling coil is located directly
-        upstream of the desiccant heat exchanger's process air inlet node.
+        Inlet`
+
+        |  Select Yes if the companion cooling coil is located directly upstream
+        |  of the desiccant heat exchanger's process air inlet node.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Upstream of Dehumidifier Process Inlet`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1652,9 +1699,10 @@ class DehumidifierDesiccantSystem(DataObject):
     def companion_coil_regeneration_air_heating(self):
         """field `Companion Coil Regeneration Air Heating`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Companion Coil Regeneration Air Heating`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1675,9 +1723,10 @@ class DehumidifierDesiccantSystem(DataObject):
     def exhaust_fan_maximum_flow_rate(self):
         """field `Exhaust Fan Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Exhaust Fan Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1697,9 +1746,10 @@ class DehumidifierDesiccantSystem(DataObject):
     def exhaust_fan_maximum_power(self):
         """field `Exhaust Fan Maximum Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Exhaust Fan Maximum Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1718,8 +1768,9 @@ class DehumidifierDesiccantSystem(DataObject):
     @property
     def exhaust_fan_power_curve_name(self):
         """field `Exhaust Fan Power Curve Name`
-        Curve object type must be Curve:Quadratic or Curve:Cubic
-        Table:OneIndependentVariable object can also be used
+
+        |  Curve object type must be Curve:Quadratic or Curve:Cubic
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Exhaust Fan Power Curve Name`
@@ -1729,6 +1780,7 @@ class DehumidifierDesiccantSystem(DataObject):
 
         Returns:
             str: the value of `exhaust_fan_power_curve_name` or None if not set
+
         """
         return self["Exhaust Fan Power Curve Name"]
 

@@ -190,9 +190,10 @@ class DemandManagerAssignmentList(DataObject):
     @property
     def billing_period_schedule_name(self):
         """field `Billing Period Schedule Name`
-        This field should reference the same schedule as the month schedule name field of the
-        UtilityCost:Tariff object, if used.
-        If blank, defaults to regular divisions between months.
+
+        |  This field should reference the same schedule as the month schedule name field of the
+        |  UtilityCost:Tariff object, if used.
+        |  If blank, defaults to regular divisions between months.
 
         Args:
             value (str): value for IDD Field `Billing Period Schedule Name`
@@ -202,6 +203,7 @@ class DemandManagerAssignmentList(DataObject):
 
         Returns:
             str: the value of `billing_period_schedule_name` or None if not set
+
         """
         return self["Billing Period Schedule Name"]
 
@@ -213,9 +215,10 @@ class DemandManagerAssignmentList(DataObject):
     @property
     def peak_period_schedule_name(self):
         """field `Peak Period Schedule Name`
-        This field should reference the same schedule as the period schedule name field of the
-        UtilityCost:Tariff object, if used.
-        If blank, defaults to always on peak.
+
+        |  This field should reference the same schedule as the period schedule name field of the
+        |  UtilityCost:Tariff object, if used.
+        |  If blank, defaults to always on peak.
 
         Args:
             value (str): value for IDD Field `Peak Period Schedule Name`
@@ -225,6 +228,7 @@ class DemandManagerAssignmentList(DataObject):
 
         Returns:
             str: the value of `peak_period_schedule_name` or None if not set
+
         """
         return self["Peak Period Schedule Name"]
 
@@ -237,9 +241,10 @@ class DemandManagerAssignmentList(DataObject):
     def demand_window_length(self):
         """field `Demand Window Length`
 
+        |  Units: minutes
+
         Args:
             value (int): value for IDD Field `Demand Window Length`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -434,9 +439,10 @@ class DemandManagerExteriorLights(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -478,12 +484,13 @@ class DemandManagerExteriorLights(DataObject):
 
     @property
     def minimum_limit_duration(self):
-        """field `Minimum Limit Duration` If blank, duration defaults to the
-        timestep.
+        """field `Minimum Limit Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -503,9 +510,10 @@ class DemandManagerExteriorLights(DataObject):
     def maximum_limit_fraction(self):
         """field `Maximum Limit Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -523,7 +531,9 @@ class DemandManagerExteriorLights(DataObject):
 
     @property
     def limit_step_change(self):
-        """field `Limit Step Change` Not yet implemented.
+        """field `Limit Step Change`
+
+        |  Not yet implemented
 
         Args:
             value (float): value for IDD Field `Limit Step Change`
@@ -565,12 +575,13 @@ class DemandManagerExteriorLights(DataObject):
 
     @property
     def rotation_duration(self):
-        """field `Rotation Duration` If blank, duration defaults to the
-        timestep.
+        """field `Rotation Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Rotation Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -735,9 +746,10 @@ class DemandManagerLights(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -779,12 +791,13 @@ class DemandManagerLights(DataObject):
 
     @property
     def minimum_limit_duration(self):
-        """field `Minimum Limit Duration` If blank, duration defaults to the
-        timestep.
+        """field `Minimum Limit Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -804,9 +817,10 @@ class DemandManagerLights(DataObject):
     def maximum_limit_fraction(self):
         """field `Maximum Limit Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -824,7 +838,9 @@ class DemandManagerLights(DataObject):
 
     @property
     def limit_step_change(self):
-        """field `Limit Step Change` Not yet implemented.
+        """field `Limit Step Change`
+
+        |  Not yet implemented
 
         Args:
             value (float): value for IDD Field `Limit Step Change`
@@ -866,12 +882,13 @@ class DemandManagerLights(DataObject):
 
     @property
     def rotation_duration(self):
-        """field `Rotation Duration` If blank, duration defaults to the
-        timestep.
+        """field `Rotation Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Rotation Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1034,9 +1051,10 @@ class DemandManagerElectricEquipment(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1078,12 +1096,13 @@ class DemandManagerElectricEquipment(DataObject):
 
     @property
     def minimum_limit_duration(self):
-        """field `Minimum Limit Duration` If blank, duration defaults to the
-        timestep.
+        """field `Minimum Limit Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1103,9 +1122,10 @@ class DemandManagerElectricEquipment(DataObject):
     def maximum_limit_fraction(self):
         """field `Maximum Limit Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1123,7 +1143,9 @@ class DemandManagerElectricEquipment(DataObject):
 
     @property
     def limit_step_change(self):
-        """field `Limit Step Change` Not yet implemented.
+        """field `Limit Step Change`
+
+        |  Not yet implemented
 
         Args:
             value (float): value for IDD Field `Limit Step Change`
@@ -1165,12 +1187,13 @@ class DemandManagerElectricEquipment(DataObject):
 
     @property
     def rotation_duration(self):
-        """field `Rotation Duration` If blank, duration defaults to the
-        timestep.
+        """field `Rotation Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Rotation Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1342,9 +1365,10 @@ class DemandManagerThermostats(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1386,12 +1410,13 @@ class DemandManagerThermostats(DataObject):
 
     @property
     def minimum_reset_duration(self):
-        """field `Minimum Reset Duration` If blank, duration defaults to the
-        timestep.
+        """field `Minimum Reset Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Minimum Reset Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1411,9 +1436,10 @@ class DemandManagerThermostats(DataObject):
     def maximum_heating_setpoint_reset(self):
         """field `Maximum Heating Setpoint Reset`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Heating Setpoint Reset`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1433,9 +1459,10 @@ class DemandManagerThermostats(DataObject):
     def maximum_cooling_setpoint_reset(self):
         """field `Maximum Cooling Setpoint Reset`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Cooling Setpoint Reset`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1453,7 +1480,9 @@ class DemandManagerThermostats(DataObject):
 
     @property
     def reset_step_change(self):
-        """field `Reset Step Change` Not yet implemented.
+        """field `Reset Step Change`
+
+        |  Not yet implemented
 
         Args:
             value (float): value for IDD Field `Reset Step Change`
@@ -1495,12 +1524,13 @@ class DemandManagerThermostats(DataObject):
 
     @property
     def rotation_duration(self):
-        """field `Rotation Duration` If blank, duration defaults to the
-        timestep.
+        """field `Rotation Duration`
+
+        |  If blank, duration defaults to the timestep
+        |  Units: minutes
 
         Args:
             value (int): value for IDD Field `Rotation Duration`
-                Units: minutes
 
         Raises:
             ValueError: if `value` is not a valid value

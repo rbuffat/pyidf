@@ -54,7 +54,9 @@ class GroundHeatTransferControl(DataObject):
 
     @property
     def name(self):
-        """field `Name` This field is included for consistency.11.
+        """field `Name`
+
+        |  This field is included for consistency.11
 
         Args:
             value (str): value for IDD Field `Name`
@@ -77,9 +79,10 @@ class GroundHeatTransferControl(DataObject):
     def run_basement_preprocessor(self):
         """field `Run Basement Preprocessor`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Run Basement Preprocessor`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -99,9 +102,10 @@ class GroundHeatTransferControl(DataObject):
     def run_slab_preprocessor(self):
         """field `Run Slab Preprocessor`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Run Slab Preprocessor`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -223,8 +227,9 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def nmat_number_of_materials(self):
         """field `NMAT: Number of materials`
-        This field specifies the number of different materials that will be used in the model.
-        Typically only a ground material and a slab material are used. (2 materials)
+
+        |  This field specifies the number of different materials that will be used in the model.
+        |  Typically only a ground material and a slab material are used. (2 materials)
 
         Args:
             value (float): value for IDD Field `NMAT: Number of materials`
@@ -247,15 +252,16 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def albedo_surface_albedo_no_snow(self):
         """field `ALBEDO: Surface Albedo: No Snow`
-        Two fields specify the albedo value of the surface: first for no snow coverage days;
-        second for days with snow coverage. The albedo is the solar reflectivity of the surface,
-        and can vary from 0.05 for blacktop to 0.95 for fresh snow.
-        Typical values for North America reported by Bahnfleth range from 0.16 to 0.4.
+
+        |  Two fields specify the albedo value of the surface: first for no snow coverage days;
+        |  second for days with snow coverage. The albedo is the solar reflectivity of the surface,
+        |  and can vary from 0.05 for blacktop to 0.95 for fresh snow.
+        |  Typical values for North America reported by Bahnfleth range from 0.16 to 0.4.
+        |  Default value: 0.16
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `ALBEDO: Surface Albedo: No Snow`
-                Default value: 0.16
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -276,10 +282,11 @@ class GroundHeatTransferSlabMaterials(DataObject):
     def albedo_surface_albedo_snow(self):
         """field `ALBEDO: Surface Albedo: Snow`
 
+        |  Default value: 0.4
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `ALBEDO: Surface Albedo: Snow`
-                Default value: 0.4
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -299,13 +306,14 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def epslw_surface_emissivity_no_snow(self):
         """field `EPSLW: Surface Emissivity: No Snow`
-        EPSLW (No Snow and Snow) specifies the long wavelength (thermal) emissivity of the ground surface.
-        primarily important for nighttime radiation to sky.
-        typical value .95
+
+        |  EPSLW (No Snow and Snow) specifies the long wavelength (thermal) emissivity of the ground surface.
+        |  primarily important for nighttime radiation to sky.
+        |  typical value .95
+        |  Default value: 0.94
 
         Args:
             value (float): value for IDD Field `EPSLW: Surface Emissivity: No Snow`
-                Default value: 0.94
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -326,9 +334,10 @@ class GroundHeatTransferSlabMaterials(DataObject):
     def epslw_surface_emissivity_snow(self):
         """field `EPSLW: Surface Emissivity: Snow`
 
+        |  Default value: 0.86
+
         Args:
             value (float): value for IDD Field `EPSLW: Surface Emissivity: Snow`
-                Default value: 0.86
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -348,13 +357,14 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def z0_surface_roughness_no_snow(self):
         """field `Z0: Surface Roughness: No Snow`
-        fields Z0 (No Snow and Snow) describe the height at which an experimentally velocity profile goes to zero.
-        typical value= .75 cm
+
+        |  fields Z0 (No Snow and Snow) describe the height at which an experimentally velocity profile goes to zero.
+        |  typical value= .75 cm
+        |  Units: cm
+        |  Default value: 0.75
 
         Args:
             value (float): value for IDD Field `Z0: Surface Roughness: No Snow`
-                Units: cm
-                Default value: 0.75
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -374,12 +384,13 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def z0_surface_roughness_snow(self):
         """field `Z0: Surface Roughness: Snow`
-        typical value= .05 cm
+
+        |  typical value= .05 cm
+        |  Units: cm
+        |  Default value: 0.25
 
         Args:
             value (float): value for IDD Field `Z0: Surface Roughness: Snow`
-                Units: cm
-                Default value: 0.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -399,17 +410,18 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def hin_indoor_hconv_downward_flow(self):
         """field `HIN: Indoor HConv: Downward Flow`
-        These fields specify the combined convective and radiative heat transfer coefficient between
-        the slab top inside surface and the room air for the cases where heat is flowing downward,
-        and upward. The program toggles between the two if the direction of the heat flux changes.
-        Typical values can be found in the ASHRAE Handbook of Fundamentals, but should be
-        about 6 W/(m2-K) for downward heat flow and 9 W/(m2-K) for upward heat flow.
-        typical value= 4-10
+
+        |  These fields specify the combined convective and radiative heat transfer coefficient between
+        |  the slab top inside surface and the room air for the cases where heat is flowing downward,
+        |  and upward. The program toggles between the two if the direction of the heat flux changes.
+        |  Typical values can be found in the ASHRAE Handbook of Fundamentals, but should be
+        |  about 6 W/(m2-K) for downward heat flow and 9 W/(m2-K) for upward heat flow.
+        |  typical value= 4-10
+        |  Units: W/m2-K
+        |  Default value: 6.13
 
         Args:
             value (float): value for IDD Field `HIN: Indoor HConv: Downward Flow`
-                Units: W/m2-K
-                Default value: 6.13
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -429,12 +441,13 @@ class GroundHeatTransferSlabMaterials(DataObject):
     @property
     def hin_indoor_hconv_upward(self):
         """field `HIN: Indoor HConv: Upward`
-        typical value= 4-10
+
+        |  typical value= 4-10
+        |  Units: W/m2-K
+        |  Default value: 9.26
 
         Args:
             value (float): value for IDD Field `HIN: Indoor HConv: Upward`
-                Units: W/m2-K
-                Default value: 9.26
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -532,13 +545,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def rho_slab_material_density(self):
         """field `RHO: Slab Material density`
-        Density of Slab Material
-        typical value= 2300.0
+
+        |  Density of Slab Material
+        |  typical value= 2300.0
+        |  Units: kg/m3
+        |  Default value: 2300.0
 
         Args:
             value (float): value for IDD Field `RHO: Slab Material density`
-                Units: kg/m3
-                Default value: 2300.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -558,13 +572,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def rho_soil_density(self):
         """field `RHO: Soil Density`
-        Density of Soil Material
-        typical value= 1200.0
+
+        |  Density of Soil Material
+        |  typical value= 1200.0
+        |  Units: kg/m3
+        |  Default value: 1200.0
 
         Args:
             value (float): value for IDD Field `RHO: Soil Density`
-                Units: kg/m3
-                Default value: 1200.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -584,13 +599,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def cp_slab_cp(self):
         """field `CP: Slab CP`
-        Specific Heat of Slab Material
-        typical value=650.0
+
+        |  Specific Heat of Slab Material
+        |  typical value=650.0
+        |  Units: J/kg-K
+        |  Default value: 650.0
 
         Args:
             value (float): value for IDD Field `CP: Slab CP`
-                Units: J/kg-K
-                Default value: 650.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -610,13 +626,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def cp_soil_cp(self):
         """field `CP: Soil CP`
-        Specific Heat of Soil Material
-        typical value= 1200.0
+
+        |  Specific Heat of Soil Material
+        |  typical value= 1200.0
+        |  Units: J/kg-K
+        |  Default value: 1200.0
 
         Args:
             value (float): value for IDD Field `CP: Soil CP`
-                Units: J/kg-K
-                Default value: 1200.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -636,13 +653,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def tcon_slab_k(self):
         """field `TCON: Slab k`
-        Conductivity of Slab Material
-        typical value= .9
+
+        |  Conductivity of Slab Material
+        |  typical value= .9
+        |  Units: W/m-K
+        |  Default value: 0.9
 
         Args:
             value (float): value for IDD Field `TCON: Slab k`
-                Units: W/m-K
-                Default value: 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -662,13 +680,14 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     @property
     def tcon_soil_k(self):
         """field `TCON: Soil k`
-        Conductivity of Soil Material
-        typical value= 1.0
+
+        |  Conductivity of Soil Material
+        |  typical value= 1.0
+        |  Units: W/m-K
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `TCON: Soil k`
-                Units: W/m-K
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -748,11 +767,12 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     @property
     def evtr_is_surface_evapotranspiration_modeled(self):
         """field `EVTR: Is surface evapotranspiration modeled`
-        This field specifies whether or not to use the evapotransporation model.
-        The inclusion of evapotransporation in the calculation has the greatest
-        effect in warm dry climates, primarily on the ground surface temperature.
-        This field can be used to turn the evapotransporation off and on to check
-        sensitivity to it.
+
+        |  This field specifies whether or not to use the evapotransporation model.
+        |  The inclusion of evapotransporation in the calculation has the greatest
+        |  effect in warm dry climates, primarily on the ground surface temperature.
+        |  This field can be used to turn the evapotransporation off and on to check
+        |  sensitivity to it.
 
         Args:
             value (str): value for IDD Field `EVTR: Is surface evapotranspiration modeled`
@@ -775,10 +795,11 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     @property
     def fixbc_is_the_lower_boundary_at_a_fixed_temperature(self):
         """field `FIXBC: is the lower boundary at a fixed temperature`
-        This field permits using a fixed temperature at the lower surface of the model
-        instead of a zero heat flux condition. This change normally has a very small
-        effect on the results.
-        FALSE selects the zero flux lower boundary condition
+
+        |  This field permits using a fixed temperature at the lower surface of the model
+        |  instead of a zero heat flux condition. This change normally has a very small
+        |  effect on the results.
+        |  FALSE selects the zero flux lower boundary condition
 
         Args:
             value (str): value for IDD Field `FIXBC: is the lower boundary at a fixed temperature`
@@ -801,18 +822,20 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     @property
     def tdeepin(self):
         """field `TDEEPin`
-        User input lower boundary temperature if FIXBC is TRUE
-        Blank for FIXBC FALSE or to use the calculated 1-D deep ground temperature.
+
+        |  User input lower boundary temperature if FIXBC is TRUE
+        |  Blank for FIXBC FALSE or to use the calculated 1-D deep ground temperature.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `TDEEPin`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `tdeepin` or None if not set
+
         """
         return self["TDEEPin"]
 
@@ -824,10 +847,11 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     @property
     def usrhflag_is_the_ground_surface_h_specified_by_the_user(self):
         """field `USRHflag: Is the ground surface h specified by the user?`
-        This field flags the use of a user specified heat transfer coefficient
-        on the ground surface. This condition is used primarily for testing.
-        For normal runs (USPHflag is FALSE) and the program calculates the heat
-        transfer coefficient using the weather conditions.
+
+        |  This field flags the use of a user specified heat transfer coefficient
+        |  on the ground surface. This condition is used primarily for testing.
+        |  For normal runs (USPHflag is FALSE) and the program calculates the heat
+        |  transfer coefficient using the weather conditions.
 
         Args:
             value (str): value for IDD Field `USRHflag: Is the ground surface h specified by the user?`
@@ -853,12 +877,13 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     @property
     def userh_user_specified_ground_surface_heat_transfer_coefficient(self):
         """field `USERH: User specified ground surface heat transfer coefficient`
-        Used only if USRHflag is TRUE and the heat transfer coefficient value is
-        specified in this field.
+
+        |  Used only if USRHflag is TRUE and the heat transfer coefficient value is
+        |  specified in this field.
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `USERH: User specified ground surface heat transfer coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1059,16 +1084,17 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def iyrs_number_of_years_to_iterate(self):
         """field `IYRS: Number of years to iterate`
-        This field specifies the number of years to iterate.
-        Either the ground heat transfer calculations come to an
-        an annual steady periodic condition by converging to a tolerance
-        (see ConvTol field) or it runs for this number of years.
-        A ten year maximum is usually sufficient.
+
+        |  This field specifies the number of years to iterate.
+        |  Either the ground heat transfer calculations come to an
+        |  an annual steady periodic condition by converging to a tolerance
+        |  (see ConvTol field) or it runs for this number of years.
+        |  A ten year maximum is usually sufficient.
+        |  Default value: 10.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `IYRS: Number of years to iterate`
-                Default value: 10.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1088,7 +1114,8 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def shape_slab_shape(self):
         """field `Shape: Slab shape`
-        Use only the value 0 here. Only a rectangular shape is implemented.
+
+        |  Use only the value 0 here. Only a rectangular shape is implemented.
 
         Args:
             value (float): value for IDD Field `Shape: Slab shape`
@@ -1111,13 +1138,14 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def hbldg_building_height(self):
         """field `HBLDG: Building height`
-        This field supplies the building height. This is used to calculate
-        the building shadowing on the ground.
-        typical value= 0-20
+
+        |  This field supplies the building height. This is used to calculate
+        |  the building shadowing on the ground.
+        |  typical value= 0-20
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `HBLDG: Building height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1137,12 +1165,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin1_january_indoor_average_temperature_setpoint(self):
         """field `TIN1: January Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN1: January Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1162,12 +1191,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin2_february_indoor_average_temperature_setpoint(self):
         """field `TIN2: February Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN2: February Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1187,12 +1217,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin3_march_indoor_average_temperature_setpoint(self):
         """field `TIN3: March Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN3: March Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1212,12 +1243,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin4_april_indoor_average_temperature_setpoint(self):
         """field `TIN4: April Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN4: April Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1237,12 +1269,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin5_may_indoor_average_temperature_setpoint(self):
         """field `TIN5: May Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN5: May Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1262,12 +1295,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin6_june_indoor_average_temperature_setpoint(self):
         """field `TIN6: June Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN6: June Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1287,12 +1321,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin7_july_indoor_average_temperature_setpoint(self):
         """field `TIN7: July Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN7: July Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1312,12 +1347,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin8_august_indoor_average_temperature_setpoint(self):
         """field `TIN8: August Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN8: August Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1337,12 +1373,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin9_september_indoor_average_temperature_setpoint(self):
         """field `TIN9: September Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN9: September Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1362,12 +1399,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin10_october_indoor_average_temperature_setpoint(self):
         """field `TIN10: October Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN10: October Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1387,12 +1425,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin11_november_indoor_average_temperature_setpoint(self):
         """field `TIN11: November Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN11: November Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1412,12 +1451,13 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tin12_december_indoor_average_temperature_setpoint(self):
         """field `TIN12: December Indoor Average Temperature Setpoint`
-        see memo on object for more information
+
+        |  see memo on object for more information
+        |  Units: C
+        |  Default value: 22.0
 
         Args:
             value (float): value for IDD Field `TIN12: December Indoor Average Temperature Setpoint`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1437,14 +1477,15 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def tinamp_daily_indoor_sine_wave_variation_amplitude(self):
         """field `TINAmp: Daily Indoor sine wave variation amplitude`
-        This field permits imposing a daily sinusoidal variation
-        in the indoor setpoint temperature to simulate the effect
-        of a setback profile.
-        The value specified is the amplitude of the sine wave.
+
+        |  This field permits imposing a daily sinusoidal variation
+        |  in the indoor setpoint temperature to simulate the effect
+        |  of a setback profile.
+        |  The value specified is the amplitude of the sine wave.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `TINAmp: Daily Indoor sine wave variation amplitude`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1464,13 +1505,14 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     @property
     def convtol_convergence_tolerance(self):
         """field `ConvTol: Convergence Tolerance`
-        This field specifies the convergence tolerance used to
-        control the iteration. When the temperature change of all nodes
-        is less than the convergence value, iteration ceases.
+
+        |  This field specifies the convergence tolerance used to
+        |  control the iteration. When the temperature change of all nodes
+        |  is less than the convergence value, iteration ceases.
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `ConvTol: Convergence Tolerance`
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1555,14 +1597,15 @@ class GroundHeatTransferSlabInsulation(DataObject):
     @property
     def rins_r_value_of_under_slab_insulation(self):
         """field `RINS: R value of under slab insulation`
-        This field provides the thermal resistance value
-        of the under slab insulation. It should be zero
-        if the vertical insulation configuration is selected.
-        typical value= 0-2.0
+
+        |  This field provides the thermal resistance value
+        |  of the under slab insulation. It should be zero
+        |  if the vertical insulation configuration is selected.
+        |  typical value= 0-2.0
+        |  Units: m2-K/W
 
         Args:
             value (float): value for IDD Field `RINS: R value of under slab insulation`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1582,14 +1625,15 @@ class GroundHeatTransferSlabInsulation(DataObject):
     @property
     def dins_width_of_strip_of_under_slab_insulation(self):
         """field `DINS: Width of strip of under slab insulation`
-        This specifies the width of the perimeter strip of insulation
-        under the slab. It should be zero if for the vertical insulation
-        configuration is selected.
-        typical value= 0-2.0
+
+        |  This specifies the width of the perimeter strip of insulation
+        |  under the slab. It should be zero if for the vertical insulation
+        |  configuration is selected.
+        |  typical value= 0-2.0
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `DINS: Width of strip of under slab insulation`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1609,14 +1653,15 @@ class GroundHeatTransferSlabInsulation(DataObject):
     @property
     def rvins_r_value_of_vertical_insulation(self):
         """field `RVINS: R value of vertical insulation`
-        This field specifies the thermal resistance of the vertical
-        insulation. It should be zero if the under slab insulation
-        configuration is selected.
-        typical value= 0-3.0
+
+        |  This field specifies the thermal resistance of the vertical
+        |  insulation. It should be zero if the under slab insulation
+        |  configuration is selected.
+        |  typical value= 0-3.0
+        |  Units: m2-K/W
 
         Args:
             value (float): value for IDD Field `RVINS: R value of vertical insulation`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1636,16 +1681,17 @@ class GroundHeatTransferSlabInsulation(DataObject):
     @property
     def zvins_depth_of_vertical_insulation(self):
         """field `ZVINS: Depth of vertical insulation`
-        This field specifies the depth of the vertical insulation
-        into the ground in meters. It starts at the slab upper surface
-        and extends into the ground.
-        It should be zero if the under slab insulation
-        configuration is selected.
-        only use values= .2 .4 .6 .8 1.0 1.5 2.0 2.5 3.0
+
+        |  This field specifies the depth of the vertical insulation
+        |  into the ground in meters. It starts at the slab upper surface
+        |  and extends into the ground.
+        |  It should be zero if the under slab insulation
+        |  configuration is selected.
+        |  only use values= .2 .4 .6 .8 1.0 1.5 2.0 2.5 3.0
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `ZVINS: Depth of vertical insulation`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1665,8 +1711,9 @@ class GroundHeatTransferSlabInsulation(DataObject):
     @property
     def ivins_flag_is_there_vertical_insulation(self):
         """field `IVINS: Flag: Is there vertical insulation`
-        Specifies if the vertical insulation configuration is being used.
-        values: 1=yes vertical insulation 0=no underslab insulation
+
+        |  Specifies if the vertical insulation configuration is being used.
+        |  values: 1=yes vertical insulation 0=no underslab insulation
 
         Args:
             value (int): value for IDD Field `IVINS: Flag: Is there vertical insulation`
@@ -1746,13 +1793,14 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
         """field `APRatio: The area to perimeter ratio for this slab`
-        Equivalent square slab is simulated,  side is 4*APRatio.
+
+        |  Equivalent square slab is simulated,  side is 4*APRatio.
+        |  Units: m
+        |  value >= 1.5
+        |  value <= 22.0
 
         Args:
             value (float): value for IDD Field `APRatio: The area to perimeter ratio for this slab`
-                Units: m
-                value >= 1.5
-                value <= 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1772,18 +1820,19 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
     @property
     def slabdepth_thickness_of_slab_on_grade(self):
         """field `SLABDEPTH: Thickness of slab on grade`
-        This field specifies the thickness of the slab. The slab top surface is level
-        with the ground surface, so this is the depth into the ground.
-        The slab depth has a significant effect on the temperature calculation,
-        and it is also important for the auto-grid process.
-        The finite difference grids are set in such a way that they use the slab thickness
-        to determine the vertical grid spacing. Autogridding will fail if the slab thickness
-        is specified larger than 0.25 meters.
+
+        |  This field specifies the thickness of the slab. The slab top surface is level
+        |  with the ground surface, so this is the depth into the ground.
+        |  The slab depth has a significant effect on the temperature calculation,
+        |  and it is also important for the auto-grid process.
+        |  The finite difference grids are set in such a way that they use the slab thickness
+        |  to determine the vertical grid spacing. Autogridding will fail if the slab thickness
+        |  is specified larger than 0.25 meters.
+        |  Units: m
+        |  Default value: 0.1
 
         Args:
             value (float): value for IDD Field `SLABDEPTH: Thickness of slab on grade`
-                Units: m
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1803,15 +1852,16 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
     @property
     def clearance_distance_from_edge_of_slab_to_domain_edge(self):
         """field `CLEARANCE: Distance from edge of slab to domain edge`
-        This field specifies the distance from the slab to the edge of
-        the area that will be modeled with the grid system. It is the basic size
-        dimension that is used to set the horizontal extent of the domain.
-        15 meters is a reasonable value.
+
+        |  This field specifies the distance from the slab to the edge of
+        |  the area that will be modeled with the grid system. It is the basic size
+        |  dimension that is used to set the horizontal extent of the domain.
+        |  15 meters is a reasonable value.
+        |  Units: m
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1831,14 +1881,15 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
     @property
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self):
         """field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
-        This field specifies the vertical distance from the slab to the
-        bottom edge of the area that will be modeled with the grid system.
-        15 meters is a reasonable value.
+
+        |  This field specifies the vertical distance from the slab to the
+        |  bottom edge of the area that will be modeled with the grid system.
+        |  15 meters is a reasonable value.
+        |  Units: m
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1927,12 +1978,13 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     @property
     def slabx_x_dimension_of_the_building_slab(self):
         """field `SLABX: X dimension of the building slab`
-        typical values= 6 to 60.0
+
+        |  typical values= 6 to 60.0
+        |  Units: m
+        |  value >= 6.0
 
         Args:
             value (float): value for IDD Field `SLABX: X dimension of the building slab`
-                Units: m
-                value >= 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1952,12 +2004,13 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     @property
     def slaby_y_dimension_of_the_building_slab(self):
         """field `SLABY: Y dimension of the building slab`
-        typical values= 6 to 60.0
+
+        |  typical values= 6 to 60.0
+        |  Units: m
+        |  value >= 6.0
 
         Args:
             value (float): value for IDD Field `SLABY: Y dimension of the building slab`
-                Units: m
-                value >= 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1978,10 +2031,11 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     def slabdepth_thickness_of_slab_on_grade(self):
         """field `SLABDEPTH: Thickness of slab on grade`
 
+        |  Units: m
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `SLABDEPTH: Thickness of slab on grade`
-                Units: m
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2002,10 +2056,11 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     def clearance_distance_from_edge_of_slab_to_domain_edge(self):
         """field `CLEARANCE: Distance from edge of slab to domain edge`
 
+        |  Units: m
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2026,10 +2081,11 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self):
         """field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
 
+        |  Units: m
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2111,9 +2167,10 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     def nx_number_of_cells_in_the_x_direction(self):
         """field `NX: Number of cells in the X direction`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NX: Number of cells in the X direction`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2134,9 +2191,10 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     def ny_number_of_cells_in_the_y_direction(self):
         """field `NY: Number of cells in the Y direction`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NY: Number of cells in the Y direction`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2157,9 +2215,10 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     def nz_number_of_cells_in_the_z_direction(self):
         """field `NZ: Number of cells in the Z direction`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NZ: Number of cells in the Z direction`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2179,7 +2238,8 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     @property
     def ibox_x_direction_cell_indicator_of_slab_edge(self):
         """field `IBOX: X direction cell indicator of slab edge`
-        typical values= 1-10
+
+        |  typical values= 1-10
 
         Args:
             value (float): value for IDD Field `IBOX: X direction cell indicator of slab edge`
@@ -2202,7 +2262,8 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     @property
     def jbox_y_direction_cell_indicator_of_slab_edge(self):
         """field `JBOX: Y direction cell indicator of slab edge`
-        typical values= 1-10
+
+        |  typical values= 1-10
 
         Args:
             value (float): value for IDD Field `JBOX: Y direction cell indicator of slab edge`
@@ -2261,12 +2322,13 @@ class GroundHeatTransferBasementSimParameters(DataObject):
     @property
     def f_multiplier_for_the_adi_solution(self):
         """field `F: Multiplier for the ADI solution`
-        0<F<1.0,
-        typically 0.1 (0.3 for high k soil - saturated sand is about 2.6 w/m-K)
+
+        |  0<F<1.0,
+        |  typically 0.1 (0.3 for high k soil - saturated sand is about 2.6 w/m-K)
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `F: Multiplier for the ADI solution`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2286,11 +2348,12 @@ class GroundHeatTransferBasementSimParameters(DataObject):
     @property
     def iyrs_maximum_number_of_yearly_iterations(self):
         """field `IYRS: Maximum number of yearly iterations:`
-        typically 15-30]
+
+        |  typically 15-30]
+        |  Default value: 15.0
 
         Args:
             value (float): value for IDD Field `IYRS: Maximum number of yearly iterations:`
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2518,9 +2581,10 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def nmat_number_of_materials_in_this_domain(self):
         """field `NMAT: Number of materials in this domain`
 
+        |  value <= 6.0
+
         Args:
             value (float): value for IDD Field `NMAT: Number of materials in this domain`
-                value <= 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2541,10 +2605,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_foundation_wall(self):
         """field `Density for Foundation Wall`
 
+        |  Units: kg/m3
+        |  Default value: 2243.0
+
         Args:
             value (float): value for IDD Field `Density for Foundation Wall`
-                Units: kg/m3
-                Default value: 2243.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2564,10 +2629,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_floor_slab(self):
         """field `density for Floor Slab`
 
+        |  Units: kg/m3
+        |  Default value: 2243.0
+
         Args:
             value (float): value for IDD Field `density for Floor Slab`
-                Units: kg/m3
-                Default value: 2243.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2587,10 +2653,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_ceiling(self):
         """field `density for Ceiling`
 
+        |  Units: kg/m3
+        |  Default value: 311.0
+
         Args:
             value (float): value for IDD Field `density for Ceiling`
-                Units: kg/m3
-                Default value: 311.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2610,10 +2677,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_soil(self):
         """field `density for Soil`
 
+        |  Units: kg/m3
+        |  Default value: 1500.0
+
         Args:
             value (float): value for IDD Field `density for Soil`
-                Units: kg/m3
-                Default value: 1500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2633,10 +2701,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_gravel(self):
         """field `density for Gravel`
 
+        |  Units: kg/m3
+        |  Default value: 2000.0
+
         Args:
             value (float): value for IDD Field `density for Gravel`
-                Units: kg/m3
-                Default value: 2000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2656,10 +2725,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def density_for_wood(self):
         """field `density for Wood`
 
+        |  Units: kg/m3
+        |  Default value: 449.0
+
         Args:
             value (float): value for IDD Field `density for Wood`
-                Units: kg/m3
-                Default value: 449.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2679,10 +2749,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_foundation_wall(self):
         """field `Specific heat for foundation wall`
 
+        |  Units: J/kg-K
+        |  Default value: 880.0
+
         Args:
             value (float): value for IDD Field `Specific heat for foundation wall`
-                Units: J/kg-K
-                Default value: 880.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2702,10 +2773,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_floor_slab(self):
         """field `Specific heat for floor slab`
 
+        |  Units: J/kg-K
+        |  Default value: 880.0
+
         Args:
             value (float): value for IDD Field `Specific heat for floor slab`
-                Units: J/kg-K
-                Default value: 880.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2725,10 +2797,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_ceiling(self):
         """field `Specific heat for ceiling`
 
+        |  Units: J/kg-K
+        |  Default value: 1530.0
+
         Args:
             value (float): value for IDD Field `Specific heat for ceiling`
-                Units: J/kg-K
-                Default value: 1530.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2748,10 +2821,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_soil(self):
         """field `Specific heat for soil`
 
+        |  Units: J/kg-K
+        |  Default value: 840.0
+
         Args:
             value (float): value for IDD Field `Specific heat for soil`
-                Units: J/kg-K
-                Default value: 840.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2771,10 +2845,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_gravel(self):
         """field `Specific heat for gravel`
 
+        |  Units: J/kg-K
+        |  Default value: 720.0
+
         Args:
             value (float): value for IDD Field `Specific heat for gravel`
-                Units: J/kg-K
-                Default value: 720.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2794,10 +2869,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def specific_heat_for_wood(self):
         """field `Specific heat for wood`
 
+        |  Units: J/kg-K
+        |  Default value: 1530.0
+
         Args:
             value (float): value for IDD Field `Specific heat for wood`
-                Units: J/kg-K
-                Default value: 1530.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2817,10 +2893,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_foundation_wall(self):
         """field `Thermal conductivity for foundation wall`
 
+        |  Units: W/m-K
+        |  Default value: 1.4
+
         Args:
             value (float): value for IDD Field `Thermal conductivity for foundation wall`
-                Units: W/m-K
-                Default value: 1.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2841,10 +2918,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_floor_slab(self):
         """field `Thermal conductivity for floor slab`
 
+        |  Units: W/m-K
+        |  Default value: 1.4
+
         Args:
             value (float): value for IDD Field `Thermal conductivity for floor slab`
-                Units: W/m-K
-                Default value: 1.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2864,10 +2942,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_ceiling(self):
         """field `Thermal conductivity for ceiling`
 
+        |  Units: W/m-K
+        |  Default value: 0.09
+
         Args:
             value (float): value for IDD Field `Thermal conductivity for ceiling`
-                Units: W/m-K
-                Default value: 0.09
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2887,10 +2966,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_soil(self):
         """field `thermal conductivity for soil`
 
+        |  Units: W/m-K
+        |  Default value: 1.1
+
         Args:
             value (float): value for IDD Field `thermal conductivity for soil`
-                Units: W/m-K
-                Default value: 1.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2910,10 +2990,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_gravel(self):
         """field `thermal conductivity for gravel`
 
+        |  Units: W/m-K
+        |  Default value: 1.9
+
         Args:
             value (float): value for IDD Field `thermal conductivity for gravel`
-                Units: W/m-K
-                Default value: 1.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2933,10 +3014,11 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     def thermal_conductivity_for_wood(self):
         """field `thermal conductivity for wood`
 
+        |  Units: W/m-K
+        |  Default value: 0.12
+
         Args:
             value (float): value for IDD Field `thermal conductivity for wood`
-                Units: W/m-K
-                Default value: 0.12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2992,9 +3074,10 @@ class GroundHeatTransferBasementInsulation(DataObject):
     def rext_r_value_of_any_exterior_insulation(self):
         """field `REXT: R Value of any exterior insulation`
 
+        |  Units: m2-K/W
+
         Args:
             value (float): value for IDD Field `REXT: R Value of any exterior insulation`
-                Units: m2-K/W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3014,8 +3097,9 @@ class GroundHeatTransferBasementInsulation(DataObject):
     @property
     def insfull_flag_is_the_wall_fully_insulated(self):
         """field `INSFULL: Flag: Is the wall fully insulated?`
-        True for full insulation
-        False for insulation half way down side wall from grade line
+
+        |  True for full insulation
+        |  False for insulation half way down side wall from grade line
 
         Args:
             value (str): value for IDD Field `INSFULL: Flag: Is the wall fully insulated?`
@@ -3127,10 +3211,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def albedo_surface_albedo_for_no_snow_conditions(self):
         """field `ALBEDO: Surface albedo for No snow conditions`
 
+        |  Default value: 0.16
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `ALBEDO: Surface albedo for No snow conditions`
-                Default value: 0.16
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3151,10 +3236,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def albedo_surface_albedo_for_snow_conditions(self):
         """field `ALBEDO: Surface albedo for snow conditions`
 
+        |  Default value: 0.4
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `ALBEDO: Surface albedo for snow conditions`
-                Default value: 0.4
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3175,10 +3261,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def epsln_surface_emissivity_no_snow(self):
         """field `EPSLN: Surface emissivity No Snow`
 
+        |  Default value: 0.94
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `EPSLN: Surface emissivity No Snow`
-                Default value: 0.94
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3199,10 +3286,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def epsln_surface_emissivity_with_snow(self):
         """field `EPSLN: Surface emissivity with Snow`
 
+        |  Default value: 0.86
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `EPSLN: Surface emissivity with Snow`
-                Default value: 0.86
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3223,10 +3311,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def veght_surface_roughness_no_snow_conditions(self):
         """field `VEGHT: Surface roughness No snow conditions`
 
+        |  Units: cm
+        |  Default value: 6.0
+
         Args:
             value (float): value for IDD Field `VEGHT: Surface roughness No snow conditions`
-                Units: cm
-                Default value: 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3247,10 +3336,11 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     def veght_surface_roughness_snow_conditions(self):
         """field `VEGHT: Surface roughness Snow conditions`
 
+        |  Units: cm
+        |  Default value: 0.25
+
         Args:
             value (float): value for IDD Field `VEGHT: Surface roughness Snow conditions`
-                Units: cm
-                Default value: 0.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3270,11 +3360,12 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
     @property
     def pet_flag_potential_evapotranspiration_on(self):
         """field `PET: Flag, Potential evapotranspiration on?`
-        Typically, PET is False
+
+        |  Typically, PET is False
+        |  Default value: FALSE
 
         Args:
             value (str): value for IDD Field `PET: Flag, Potential evapotranspiration on?`
-                Default value: FALSE
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3364,11 +3455,12 @@ class GroundHeatTransferBasementBldgData(DataObject):
     def dwall_wall_thickness(self):
         """field `DWALL: Wall thickness`
 
+        |  Units: m
+        |  Default value: 0.2
+        |  value >= 0.2
+
         Args:
             value (float): value for IDD Field `DWALL: Wall thickness`
-                Units: m
-                Default value: 0.2
-                value >= 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3389,11 +3481,12 @@ class GroundHeatTransferBasementBldgData(DataObject):
     def dslab_floor_slab_thickness(self):
         """field `DSLAB: Floor slab thickness`
 
+        |  Units: m
+        |  Default value: 0.1
+        |  value <= 0.25
+
         Args:
             value (float): value for IDD Field `DSLAB: Floor slab thickness`
-                Units: m
-                Default value: 0.1
-                value <= 0.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3414,10 +3507,11 @@ class GroundHeatTransferBasementBldgData(DataObject):
     def dgravxy_width_of_gravel_pit_beside_basement_wall(self):
         """field `DGRAVXY: Width of gravel pit beside basement wall`
 
+        |  Units: m
+        |  Default value: 0.3
+
         Args:
             value (float): value for IDD Field `DGRAVXY: Width of gravel pit beside basement wall`
-                Units: m
-                Default value: 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3438,10 +3532,11 @@ class GroundHeatTransferBasementBldgData(DataObject):
     def dgravzn_gravel_depth_extending_above_the_floor_slab(self):
         """field `DGRAVZN: Gravel depth extending above the floor slab`
 
+        |  Units: m
+        |  Default value: 0.2
+
         Args:
             value (float): value for IDD Field `DGRAVZN: Gravel depth extending above the floor slab`
-                Units: m
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3462,10 +3557,11 @@ class GroundHeatTransferBasementBldgData(DataObject):
     def dgravzp_gravel_depth_below_the_floor_slab(self):
         """field `DGRAVZP: Gravel depth below the floor slab`
 
+        |  Units: m
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `DGRAVZP: Gravel depth below the floor slab`
-                Units: m
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3573,11 +3669,12 @@ class GroundHeatTransferBasementInterior(DataObject):
     @property
     def cond_flag_is_the_basement_conditioned(self):
         """field `COND: Flag: Is the basement conditioned?`
-        for EnergyPlus this should be TRUE
+
+        |  for EnergyPlus this should be TRUE
+        |  Default value: TRUE
 
         Args:
             value (str): value for IDD Field `COND: Flag: Is the basement conditioned?`
-                Default value: TRUE
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3598,10 +3695,11 @@ class GroundHeatTransferBasementInterior(DataObject):
     def hin_downward_convection_only_heat_transfer_coefficient(self):
         """field `HIN: Downward convection only heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 0.92
+
         Args:
             value (float): value for IDD Field `HIN: Downward convection only heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 0.92
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3624,10 +3722,11 @@ class GroundHeatTransferBasementInterior(DataObject):
     def hin_upward_convection_only_heat_transfer_coefficient(self):
         """field `HIN: Upward convection only heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 4.04
+
         Args:
             value (float): value for IDD Field `HIN: Upward convection only heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 4.04
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3648,10 +3747,11 @@ class GroundHeatTransferBasementInterior(DataObject):
     def hin_horizontal_convection_only_heat_transfer_coefficient(self):
         """field `HIN: Horizontal convection only heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 3.08
+
         Args:
             value (float): value for IDD Field `HIN: Horizontal convection only heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 3.08
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3677,10 +3777,11 @@ class GroundHeatTransferBasementInterior(DataObject):
             self):
         """field `HIN: Downward combined (convection and radiation) heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 6.13
+
         Args:
             value (float): value for IDD Field `HIN: Downward combined (convection and radiation) heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 6.13
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3706,10 +3807,11 @@ class GroundHeatTransferBasementInterior(DataObject):
             self):
         """field `HIN: Upward combined (convection and radiation) heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 9.26
+
         Args:
             value (float): value for IDD Field `HIN: Upward combined (convection and radiation) heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 9.26
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3735,10 +3837,11 @@ class GroundHeatTransferBasementInterior(DataObject):
             self):
         """field `HIN: Horizontal combined (convection and radiation) heat transfer coefficient`
 
+        |  Units: W/m2-K
+        |  Default value: 8.29
+
         Args:
             value (float): value for IDD Field `HIN: Horizontal combined (convection and radiation) heat transfer coefficient`
-                Units: W/m2-K
-                Default value: 8.29
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3897,10 +4000,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def january_average_temperature(self):
         """field `January average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `January average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3920,10 +4024,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def february_average_temperature(self):
         """field `February average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `February average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3943,10 +4048,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def march_average_temperature(self):
         """field `March average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `March average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3966,10 +4072,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def april_average_temperature(self):
         """field `April average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `April average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3989,10 +4096,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def may_average_temperature(self):
         """field `May average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `May average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4012,10 +4120,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def june_average_temperature(self):
         """field `June average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `June average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4035,10 +4144,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def july_average_temperature(self):
         """field `July average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `July average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4058,10 +4168,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def august_average_temperature(self):
         """field `August average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `August average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4081,10 +4192,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def september_average_temperature(self):
         """field `September average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `September average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4104,10 +4216,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def october_average_temperature(self):
         """field `October average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `October average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4127,10 +4240,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def november_average_temperature(self):
         """field `November average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `November average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4150,10 +4264,11 @@ class GroundHeatTransferBasementComBldg(DataObject):
     def december_average_temperature(self):
         """field `December average temperature`
 
+        |  Units: C
+        |  Default value: 22.0
+
         Args:
             value (float): value for IDD Field `December average temperature`
-                Units: C
-                Default value: 22.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4171,12 +4286,13 @@ class GroundHeatTransferBasementComBldg(DataObject):
 
     @property
     def daily_variation_sine_wave_amplitude(self):
-        """field `Daily variation sine wave amplitude` (Normally zero, just for
-        checking)
+        """field `Daily variation sine wave amplitude`
+
+        |  (Normally zero, just for checking)
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Daily variation sine wave amplitude`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4233,9 +4349,10 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
         """field `APRatio: The area to perimeter ratio for this slab`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `APRatio: The area to perimeter ratio for this slab`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4255,9 +4372,10 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
     @property
     def equivsizing_flag(self):
         """field `EquivSizing: Flag`
-        Will the dimensions of an equivalent slab be calculated (TRUE)
-        or will the dimensions be input directly? (FALSE)]
-        Only advanced special simulations should use FALSE.
+
+        |  Will the dimensions of an equivalent slab be calculated (TRUE)
+        |  or will the dimensions be input directly? (FALSE)]
+        |  Only advanced special simulations should use FALSE.
 
         Args:
             value (str): value for IDD Field `EquivSizing: Flag`
@@ -4329,10 +4447,11 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
             self):
         """field `CLEARANCE: Distance from outside of wall to edge of 3-D ground domain`
 
+        |  Units: m
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge of 3-D ground domain`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4357,10 +4476,11 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
     def slabdepth_thickness_of_the_floor_slab(self):
         """field `SlabDepth: Thickness of the floor slab`
 
+        |  Units: m
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `SlabDepth: Thickness of the floor slab`
-                Units: m
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4381,10 +4501,11 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
     def basedepth_depth_of_the_basement_wall_below_grade(self):
         """field `BaseDepth: Depth of the basement wall below grade`
 
+        |  Units: m
+        |  Default value: 2.0
+
         Args:
             value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
-                Units: m
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4483,10 +4604,11 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def clearance_distance_from_outside_of_wall_to_edge_(self):
         """field `CLEARANCE: Distance from outside of wall to edge,`
 
+        |  Units: m
+        |  Default value: 15.0
+
         Args:
             value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge,`
-                Units: m
-                Default value: 15.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4507,10 +4629,11 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def slabx_x_dimension_of_the_building_slab(self):
         """field `SLABX: X dimension of the building slab`
 
+        |  Units: m
+        |  value <= 60.0
+
         Args:
             value (float): value for IDD Field `SLABX: X dimension of the building slab`
-                Units: m
-                value <= 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4531,10 +4654,11 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def slaby_y_dimension_of_the_building_slab(self):
         """field `SLABY: Y dimension of the building slab`
 
+        |  Units: m
+        |  value <= 60.0
+
         Args:
             value (float): value for IDD Field `SLABY: Y dimension of the building slab`
-                Units: m
-                value <= 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4555,9 +4679,10 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def concagheight_height_of_the_foundation_wall_above_grade(self):
         """field `ConcAGHeight: Height of the foundation wall above grade`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `ConcAGHeight: Height of the foundation wall above grade`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4580,10 +4705,11 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def slabdepth_thickness_of_the_floor_slab(self):
         """field `SlabDepth: Thickness of the floor slab`
 
+        |  Units: m
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `SlabDepth: Thickness of the floor slab`
-                Units: m
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4604,10 +4730,11 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     def basedepth_depth_of_the_basement_wall_below_grade(self):
         """field `BaseDepth: Depth of the basement wall below grade`
 
+        |  Units: m
+        |  Default value: 2.0
+
         Args:
             value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
-                Units: m
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4698,9 +4825,10 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def nx_number_of_cells_in_the_x_direction_20(self):
         """field `NX: Number of cells in the X direction: 20]`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NX: Number of cells in the X direction: 20]`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4721,9 +4849,10 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def ny_number_of_cells_in_the_y_direction_20(self):
         """field `NY: Number of cells in the Y direction: 20]`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NY: Number of cells in the Y direction: 20]`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4744,9 +4873,10 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def nzag_number_of_cells_in_the_z_direction_above_grade_4_always(self):
         """field `NZAG: Number of cells in the Z direction. above grade: 4 Always]`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NZAG: Number of cells in the Z direction. above grade: 4 Always]`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4771,9 +4901,10 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def nzbg_number_of_cells_in_z_direction_below_grade_1035(self):
         """field `NZBG: Number of cells in Z direction. below grade: 10-35]`
 
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `NZBG: Number of cells in Z direction. below grade: 10-35]`
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4795,6 +4926,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     @property
     def ibase_x_direction_cell_indicator_of_slab_edge_520(self):
         """field `IBASE: X direction cell indicator of slab edge: 5-20]`
+
 
         Args:
             value (float): value for IDD Field `IBASE: X direction cell indicator of slab edge: 5-20]`
@@ -4818,6 +4950,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def jbase_y_direction_cell_indicator_of_slab_edge_520(self):
         """field `JBASE: Y direction cell indicator of slab edge: 5-20]`
 
+
         Args:
             value (float): value for IDD Field `JBASE: Y direction cell indicator of slab edge: 5-20]`
 
@@ -4840,6 +4973,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     def kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520(
             self):
         """field `KBASE: Z direction cell indicator of the top of the floor slab: 5-20]`
+
 
         Args:
             value (float): value for IDD Field `KBASE: Z direction cell indicator of the top of the floor slab: 5-20]`

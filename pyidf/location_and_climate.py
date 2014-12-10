@@ -101,13 +101,13 @@ class SiteLocation(DataObject):
     def latitude(self):
         """field `Latitude`
 
-        + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        |  + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        |  Units: deg
+        |  value >= -90.0
+        |  value <= 90.0
 
         Args:
             value (float): value for IDD Field `Latitude`
-                Units: deg
-                value >= -90.0
-                value <= 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -127,13 +127,13 @@ class SiteLocation(DataObject):
     def longitude(self):
         """field `Longitude`
 
-        - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        |  - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        |  Units: deg
+        |  value >= -180.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Longitude`
-                Units: deg
-                value >= -180.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -151,14 +151,16 @@ class SiteLocation(DataObject):
 
     @property
     def time_zone(self):
-        """field `Time Zone` basic these limits on the WorldTimeZone Map (2003)
-        Time relative to GMT. Decimal hours.
+        """field `Time Zone`
+
+        |  basic these limits on the WorldTimeZone Map (2003)
+        |  Time relative to GMT. Decimal hours.
+        |  Units: hr
+        |  value >= -12.0
+        |  value <= 14.0
 
         Args:
             value (float): value for IDD Field `Time Zone`
-                Units: hr
-                value >= -12.0
-                value <= 14.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -178,11 +180,12 @@ class SiteLocation(DataObject):
     def elevation(self):
         """field `Elevation`
 
+        |  Units: m
+        |  value >= -300.0
+        |  value < 8900.0
+
         Args:
             value (float): value for IDD Field `Elevation`
-                Units: m
-                value >= -300.0
-                value < 8900.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -326,17 +329,9 @@ class SizingPeriodDesignDay(DataObject):
                                         'autosizable': False,
                                         'autocalculatable': False,
                                         'type': u'object-list'}),
-                                      (u'humidity ratio at maximum dry-bulb',
-                                       {'name': u'Humidity Ratio at Maximum Dry-Bulb',
-                                        'pyname': u'humidity_ratio_at_maximum_drybulb',
-                                        'required-field': False,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'real',
-                                        'unit': u'kgWater/kgDryAir'}),
-                                      (u'enthalpy at maximum dry-bulb  !will require units transition.',
-                                       {'name': u'Enthalpy at Maximum Dry-Bulb  !will require units transition.',
-                                        'pyname': u'enthalpy_at_maximum_drybulb_will_require_units_transition_',
+                                      ('humidity ratio at maximum dry-bulb v3',
+                                       {'name': 'Humidity Ratio at Maximum Dry-Bulb v3',
+                                        'pyname': 'humidity_ratio_at_maximum_drybulb_v3',
                                         'required-field': False,
                                         'autosizable': False,
                                         'autocalculatable': False,
@@ -501,10 +496,11 @@ class SizingPeriodDesignDay(DataObject):
     def month(self):
         """field `Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -522,12 +518,14 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def day_of_month(self):
-        """field `Day of Month` must be valid for Month field.
+        """field `Day of Month`
+
+        |  must be valid for Month field
+        |  value >= 1
+        |  value <= 31
 
         Args:
             value (int): value for IDD Field `Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -545,8 +543,9 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def day_type(self):
-        """field `Day Type` Day Type selects the schedules appropriate for this
-        design day.
+        """field `Day Type`
+
+        |  Day Type selects the schedules appropriate for this design day
 
         Args:
             value (str): value for IDD Field `Day Type`
@@ -568,14 +567,15 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def maximum_drybulb_temperature(self):
         """field `Maximum Dry-Bulb Temperature`
-        This field is required when field "Dry-Bulb Temperature Range Modifier Type"
-        is not "TemperatureProfileSchedule".
+
+        |  This field is required when field "Dry-Bulb Temperature Range Modifier Type"
+        |  is not "TemperatureProfileSchedule".
+        |  Units: C
+        |  value >= -90.0
+        |  value <= 70.0
 
         Args:
             value (float): value for IDD Field `Maximum Dry-Bulb Temperature`
-                Units: C
-                value >= -90.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -595,13 +595,14 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def daily_drybulb_temperature_range(self):
         """field `Daily Dry-Bulb Temperature Range`
-        Must still produce appropriate maximum dry bulb (within range)
-        This field is not needed if Dry-Bulb Temperature Range Modifier Type
-        is "delta".
+
+        |  Must still produce appropriate maximum dry bulb (within range)
+        |  This field is not needed if Dry-Bulb Temperature Range Modifier Type
+        |  is "delta".
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Daily Dry-Bulb Temperature Range`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -621,11 +622,12 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def drybulb_temperature_range_modifier_type(self):
         """field `Dry-Bulb Temperature Range Modifier Type`
-        Type of modifier to the dry-bulb temperature calculated for the timestep
+
+        |  Type of modifier to the dry-bulb temperature calculated for the timestep
+        |  Default value: DefaultMultipliers
 
         Args:
             value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Type`
-                Default value: DefaultMultipliers
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -647,17 +649,18 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def drybulb_temperature_range_modifier_day_schedule_name(self):
         """field `Dry-Bulb Temperature Range Modifier Day Schedule Name`
-        Only used when previous field is "MultiplierSchedule", "DifferenceSchedule" or
-        "TemperatureProfileSchedule".
-        For type "MultiplierSchedule"  the hour/time interval values should specify
-        the fraction (0-1) of the dry-bulb temperature range to be subtracted
-        from the maximum dry-bulb temperature for each timestep in the day
-        For type "DifferenceSchedule" the values should specify a number to be subtracted
-        from the maximum dry-bulb temperature for each timestep in the day.
-        Note that numbers in the difference schedule cannot be negative as that
-        would result in a higher maximum than the maximum previously specified.
-        For type "TemperatureProfileSchedule" the values should specify the actual drybulb
-        temperature for each timestep in the day.
+
+        |  Only used when previous field is "MultiplierSchedule", "DifferenceSchedule" or
+        |  "TemperatureProfileSchedule".
+        |  For type "MultiplierSchedule"  the hour/time interval values should specify
+        |  the fraction (0-1) of the dry-bulb temperature range to be subtracted
+        |  from the maximum dry-bulb temperature for each timestep in the day
+        |  For type "DifferenceSchedule" the values should specify a number to be subtracted
+        |  from the maximum dry-bulb temperature for each timestep in the day.
+        |  Note that numbers in the difference schedule cannot be negative as that
+        |  would result in a higher maximum than the maximum previously specified.
+        |  For type "TemperatureProfileSchedule" the values should specify the actual drybulb
+        |  temperature for each timestep in the day.
 
         Args:
             value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Day Schedule Name`
@@ -679,13 +682,14 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def humidity_condition_type(self):
-        """field `Humidity Condition Type` values/schedules indicated here and
-        in subsequent fields create the humidity values in the 24 hour design
-        day conditions profile.
+        """field `Humidity Condition Type`
+
+        |  values/schedules indicated here and in subsequent fields create the humidity
+        |  values in the 24 hour design day conditions profile.
+        |  Default value: WetBulb
 
         Args:
             value (str): value for IDD Field `Humidity Condition Type`
-                Default value: WetBulb
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -704,14 +708,15 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def wetbulb_or_dewpoint_at_maximum_drybulb(self):
         """field `Wetbulb or DewPoint at Maximum Dry-Bulb`
-        Wetbulb or dewpoint temperature coincident with the maximum temperature.
-        Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",
-        "WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",
-        or "WetBulbProfileDefaultMultipliers"
+
+        |  Wetbulb or dewpoint temperature coincident with the maximum temperature.
+        |  Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",
+        |  "WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",
+        |  or "WetBulbProfileDefaultMultipliers"
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Wetbulb or DewPoint at Maximum Dry-Bulb`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -731,15 +736,16 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def humidity_condition_day_schedule_name(self):
         """field `Humidity Condition Day Schedule Name`
-        Only used when Humidity Condition Type is "RelativeHumiditySchedule",
-        "WetBulbProfileMultiplierSchedule", or "WetBulbProfileDifferenceSchedule"
-        For type "RelativeHumiditySchedule", the hour/time interval values should specify
-        relative humidity (percent) from 0.0 to 100.0.
-        For type "WetBulbProfileMultiplierSchedule" the hour/time interval values should specify
-        the fraction (0-1) of the wet-bulb temperature range to be subtracted from the
-        maximum wet-bulb temperature for each timestep in the day (units = Fraction)
-        For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted
-        from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)
+
+        |  Only used when Humidity Condition Type is "RelativeHumiditySchedule",
+        |  "WetBulbProfileMultiplierSchedule", or "WetBulbProfileDifferenceSchedule"
+        |  For type "RelativeHumiditySchedule", the hour/time interval values should specify
+        |  relative humidity (percent) from 0.0 to 100.0.
+        |  For type "WetBulbProfileMultiplierSchedule" the hour/time interval values should specify
+        |  the fraction (0-1) of the wet-bulb temperature range to be subtracted from the
+        |  maximum wet-bulb temperature for each timestep in the day (units = Fraction)
+        |  For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted
+        |  from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)
 
         Args:
             value (str): value for IDD Field `Humidity Condition Day Schedule Name`
@@ -749,6 +755,7 @@ class SizingPeriodDesignDay(DataObject):
 
         Returns:
             str: the value of `humidity_condition_day_schedule_name` or None if not set
+
         """
         return self["Humidity Condition Day Schedule Name"]
 
@@ -758,68 +765,71 @@ class SizingPeriodDesignDay(DataObject):
         self["Humidity Condition Day Schedule Name"] = value
 
     @property
-    def humidity_ratio_at_maximum_drybulb(self):
-        """field `Humidity Ratio at Maximum Dry-Bulb`
-        Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).
-        Required only if field Humidity Condition Type is "HumidityRatio".
+    def humidity_ratio_at_maximum_drybulb_v3(self):
+        """field `Humidity Ratio at Maximum Dry-Bulb v3`
+
+        |  Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).
+        |  Required only if field Humidity Condition Type is "HumidityRatio".
+        |  Enthalpy coincident with the maximum temperature.
+        |  Required only if field Humidity Condition Type is "Enthalpy".
+        |  Units: J/kg
 
         Args:
-            value (float): value for IDD Field `Humidity Ratio at Maximum Dry-Bulb`
-                Units: kgWater/kgDryAir
+            value (float): value for IDD Field `Humidity Ratio at Maximum Dry-Bulb v3`
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `humidity_ratio_at_maximum_drybulb` or None if not set
+            float: the value of `humidity_ratio_at_maximum_drybulb_v3` or None if not set
         """
-        return self["Humidity Ratio at Maximum Dry-Bulb"]
+        return self["Humidity Ratio at Maximum Dry-Bulb v3"]
 
-    @humidity_ratio_at_maximum_drybulb.setter
-    def humidity_ratio_at_maximum_drybulb(self, value=None):
-        """  Corresponds to IDD field `Humidity Ratio at Maximum Dry-Bulb`
+    @humidity_ratio_at_maximum_drybulb_v3.setter
+    def humidity_ratio_at_maximum_drybulb_v3(self, value=None):
+        """  Corresponds to IDD field `Humidity Ratio at Maximum Dry-Bulb v3`
 
         """
-        self["Humidity Ratio at Maximum Dry-Bulb"] = value
+        self["Humidity Ratio at Maximum Dry-Bulb v3"] = value
 
     @property
-    def enthalpy_at_maximum_drybulb_will_require_units_transition_(self):
-        """field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
-        Enthalpy coincident with the maximum temperature.
-        Required only if field Humidity Condition Type is "Enthalpy".
+    def humidity_ratio_at_maximum_drybulb_v3(self):
+        """field `Humidity Ratio at Maximum Dry-Bulb v3`
+
+        |  Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).
+        |  Required only if field Humidity Condition Type is "HumidityRatio".
+        |  Enthalpy coincident with the maximum temperature.
+        |  Required only if field Humidity Condition Type is "Enthalpy".
+        |  Units: J/kg
 
         Args:
-            value (float): value for IDD Field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
-                Units: J/kg
+            value (float): value for IDD Field `Humidity Ratio at Maximum Dry-Bulb v3`
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `enthalpy_at_maximum_drybulb_will_require_units_transition_` or None if not set
+            float: the value of `humidity_ratio_at_maximum_drybulb_v3` or None if not set
         """
-        return self[
-            "Enthalpy at Maximum Dry-Bulb  !will require units transition."]
+        return self["Humidity Ratio at Maximum Dry-Bulb v3"]
 
-    @enthalpy_at_maximum_drybulb_will_require_units_transition_.setter
-    def enthalpy_at_maximum_drybulb_will_require_units_transition_(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
+    @humidity_ratio_at_maximum_drybulb_v3.setter
+    def humidity_ratio_at_maximum_drybulb_v3(self, value=None):
+        """  Corresponds to IDD field `Humidity Ratio at Maximum Dry-Bulb v3`
 
         """
-        self[
-            "Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
+        self["Humidity Ratio at Maximum Dry-Bulb v3"] = value
 
     @property
     def daily_wetbulb_temperature_range(self):
         """field `Daily Wet-Bulb Temperature Range`
-        Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or
-        "WetBulbProfileDefaultMultipliers"
+
+        |  Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or
+        |  "WetBulbProfileDefaultMultipliers"
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Daily Wet-Bulb Temperature Range`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -838,16 +848,17 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def barometric_pressure(self):
-        """field `Barometric Pressure` This field's value is also checked
-        against the calculated "standard barometric pressure" for the location.
-        If out of range (>10%) or blank, then is replaced by standard value.
+        """field `Barometric Pressure`
+
+        |  This field's value is also checked against the calculated "standard barometric pressure"
+        |  for the location.  If out of range (>10%) or blank, then is replaced by standard value.
+        |  Units: Pa
+        |  IP-Units: inHg
+        |  value >= 31000.0
+        |  value <= 120000.0
 
         Args:
             value (float): value for IDD Field `Barometric Pressure`
-                Units: Pa
-                IP-Units: inHg
-                value >= 31000.0
-                value <= 120000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -867,11 +878,12 @@ class SizingPeriodDesignDay(DataObject):
     def wind_speed(self):
         """field `Wind Speed`
 
+        |  Units: m/s
+        |  IP-Units: miles/hr
+        |  value <= 40.0
+
         Args:
             value (float): value for IDD Field `Wind Speed`
-                Units: m/s
-                IP-Units: miles/hr
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -890,19 +902,21 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def wind_direction(self):
         """field `Wind Direction`
-        North=0.0 East=90.0
-        0 and 360 are the same direction.
+
+        |  North=0.0 East=90.0
+        |  0 and 360 are the same direction.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `wind_direction` or None if not set
+
         """
         return self["Wind Direction"]
 
@@ -913,11 +927,13 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def rain_indicator(self):
-        """field `Rain Indicator` Yes is raining (all day), No is not raining.
+        """field `Rain Indicator`
+
+        |  Yes is raining (all day), No is not raining
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Rain Indicator`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -935,12 +951,13 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def snow_indicator(self):
-        """field `Snow Indicator` Yes is Snow on Ground, No is no Snow on
-        Ground.
+        """field `Snow Indicator`
+
+        |  Yes is Snow on Ground, No is no Snow on Ground
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Snow Indicator`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -959,18 +976,20 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def daylight_saving_time_indicator(self):
         """field `Daylight Saving Time Indicator`
-        Yes -- use schedules modified for Daylight Saving Time Schedules.
-        No - do not use schedules modified for Daylight Saving Time Schedules
+
+        |  Yes -- use schedules modified for Daylight Saving Time Schedules.
+        |  No - do not use schedules modified for Daylight Saving Time Schedules
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Daylight Saving Time Indicator`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `daylight_saving_time_indicator` or None if not set
+
         """
         return self["Daylight Saving Time Indicator"]
 
@@ -983,9 +1002,10 @@ class SizingPeriodDesignDay(DataObject):
     def solar_model_indicator(self):
         """field `Solar Model Indicator`
 
+        |  Default value: ASHRAEClearSky
+
         Args:
             value (str): value for IDD Field `Solar Model Indicator`
-                Default value: ASHRAEClearSky
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1004,7 +1024,8 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def beam_solar_day_schedule_name(self):
         """field `Beam Solar Day Schedule Name`
-        if Solar Model Indicator = Schedule, then beam schedule name (for day)
+
+        |  if Solar Model Indicator = Schedule, then beam schedule name (for day)
 
         Args:
             value (str): value for IDD Field `Beam Solar Day Schedule Name`
@@ -1014,6 +1035,7 @@ class SizingPeriodDesignDay(DataObject):
 
         Returns:
             str: the value of `beam_solar_day_schedule_name` or None if not set
+
         """
         return self["Beam Solar Day Schedule Name"]
 
@@ -1025,7 +1047,8 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def diffuse_solar_day_schedule_name(self):
         """field `Diffuse Solar Day Schedule Name`
-        if Solar Model Indicator = Schedule, then diffuse schedule name (for day)
+
+        |  if Solar Model Indicator = Schedule, then diffuse schedule name (for day)
 
         Args:
             value (str): value for IDD Field `Diffuse Solar Day Schedule Name`
@@ -1035,6 +1058,7 @@ class SizingPeriodDesignDay(DataObject):
 
         Returns:
             str: the value of `diffuse_solar_day_schedule_name` or None if not set
+
         """
         return self["Diffuse Solar Day Schedule Name"]
 
@@ -1046,18 +1070,20 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self):
         """field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
-        Required if Solar Model Indicator = ASHRAETau
+
+        |  Required if Solar Model Indicator = ASHRAETau
+        |  Units: dimensionless
+        |  value <= 1.2
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
-                Units: dimensionless
-                value <= 1.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub` or None if not set
+
         """
         return self[
             "ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"]
@@ -1074,18 +1100,20 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self):
         """field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
-        Required if Solar Model Indicator = ASHRAETau
+
+        |  Required if Solar Model Indicator = ASHRAETau
+        |  Units: dimensionless
+        |  value <= 3.0
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
-                Units: dimensionless
-                value <= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud` or None if not set
+
         """
         return self[
             "ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"]
@@ -1102,18 +1130,20 @@ class SizingPeriodDesignDay(DataObject):
     @property
     def sky_clearness(self):
         """field `Sky Clearness`
-        Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang
-        0.0 is totally unclear, 1.0 is totally clear
+
+        |  Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang
+        |  0.0 is totally unclear, 1.0 is totally clear
+        |  value <= 1.2
 
         Args:
             value (float): value for IDD Field `Sky Clearness`
-                value <= 1.2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `sky_clearness` or None if not set
+
         """
         return self["Sky Clearness"]
 
@@ -1223,7 +1253,9 @@ class SizingPeriodWeatherFileDays(DataObject):
 
     @property
     def name(self):
-        """field `Name` user supplied name for reporting.
+        """field `Name`
+
+        |  user supplied name for reporting
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1246,10 +1278,11 @@ class SizingPeriodWeatherFileDays(DataObject):
     def begin_month(self):
         """field `Begin Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Begin Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1269,10 +1302,11 @@ class SizingPeriodWeatherFileDays(DataObject):
     def begin_day_of_month(self):
         """field `Begin Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `Begin Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1292,10 +1326,11 @@ class SizingPeriodWeatherFileDays(DataObject):
     def end_month(self):
         """field `End Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `End Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1315,10 +1350,11 @@ class SizingPeriodWeatherFileDays(DataObject):
     def end_day_of_month(self):
         """field `End Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `End Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1338,15 +1374,15 @@ class SizingPeriodWeatherFileDays(DataObject):
     def day_of_week_for_start_day(self):
         """field `Day of Week for Start Day`
 
-        =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
-        |CustomDay1|CustomDay2];
-        if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
-        to the whole period; other days (i.e., Monday) will signify a start day and
-        normal sequence ofsubsequent days
+        |  =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
+        |  |CustomDay1|CustomDay2];
+        |  if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
+        |  to the whole period; other days (i.e., Monday) will signify a start day and
+        |  normal sequence ofsubsequent days
+        |  Default value: Monday
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Default value: Monday
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1364,13 +1400,14 @@ class SizingPeriodWeatherFileDays(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """field `Use Weather File Daylight Saving Period` If yes or blank, use
-        daylight saving period as specified on Weatherfile. If no, do not use
-        the daylight saving period as specified on the Weatherfile.
+        """field `Use Weather File Daylight Saving Period`
+
+        |  If yes or blank, use daylight saving period as specified on Weatherfile.
+        |  If no, do not use the daylight saving period as specified on the Weatherfile.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1391,9 +1428,10 @@ class SizingPeriodWeatherFileDays(DataObject):
     def use_weather_file_rain_and_snow_indicators(self):
         """field `Use Weather File Rain and Snow Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1501,7 +1539,9 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
     @property
     def name(self):
-        """field `Name` user supplied name for reporting.
+        """field `Name`
+
+        |  user supplied name for reporting
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1522,9 +1562,11 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
     @property
     def period_selection(self):
-        """field `Period Selection` Following is a list of all possible types
-        of Extreme and Typical periods that might be identified in the Weather
-        File. Not all possible types are available for all weather files.
+        """field `Period Selection`
+
+        |  Following is a list of all possible types of Extreme and Typical periods that
+        |  might be identified in the Weather File. Not all possible types are available
+        |  for all weather files.
 
         Args:
             value (str): value for IDD Field `Period Selection`
@@ -1547,15 +1589,15 @@ class SizingPeriodWeatherFileConditionType(DataObject):
     def day_of_week_for_start_day(self):
         """field `Day of Week for Start Day`
 
-        =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
-        |CustomDay1|CustomDay2];
-        if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
-        to the whole period; other days (i.e., Monday) will signify a start day and
-        normal sequence ofsubsequent days
+        |  =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
+        |  |CustomDay1|CustomDay2];
+        |  if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
+        |  to the whole period; other days (i.e., Monday) will signify a start day and
+        |  normal sequence ofsubsequent days
+        |  Default value: Monday
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Default value: Monday
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1573,13 +1615,14 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """field `Use Weather File Daylight Saving Period` If yes or blank, use
-        daylight saving period as specified on Weatherfile. If no, do not use
-        the daylight saving period as specified on the Weatherfile.
+        """field `Use Weather File Daylight Saving Period`
+
+        |  If yes or blank, use daylight saving period as specified on Weatherfile.
+        |  If no, do not use the daylight saving period as specified on the Weatherfile.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1600,9 +1643,10 @@ class SizingPeriodWeatherFileConditionType(DataObject):
     def use_weather_file_rain_and_snow_indicators(self):
         """field `Use Weather File Rain and Snow Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1776,8 +1820,10 @@ class RunPeriod(DataObject):
 
     @property
     def name(self):
-        """field `Name` descriptive name (used in reporting mainly) if blank,
-        weather file title is used.  if not blank, must be unique.
+        """field `Name`
+
+        |  descriptive name (used in reporting mainly)
+        |  if blank, weather file title is used.  if not blank, must be unique
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1800,10 +1846,11 @@ class RunPeriod(DataObject):
     def begin_month(self):
         """field `Begin Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Begin Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1823,10 +1870,11 @@ class RunPeriod(DataObject):
     def begin_day_of_month(self):
         """field `Begin Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `Begin Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1846,10 +1894,11 @@ class RunPeriod(DataObject):
     def end_month(self):
         """field `End Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `End Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1869,10 +1918,11 @@ class RunPeriod(DataObject):
     def end_day_of_month(self):
         """field `End Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `End Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1892,11 +1942,11 @@ class RunPeriod(DataObject):
     def day_of_week_for_start_day(self):
         """field `Day of Week for Start Day`
 
-        =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        |  =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        |  Default value: UseWeatherFile
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Default value: UseWeatherFile
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1915,19 +1965,21 @@ class RunPeriod(DataObject):
     @property
     def use_weather_file_holidays_and_special_days(self):
         """field `Use Weather File Holidays and Special Days`
-        If yes or blank, use holidays as specified on Weatherfile.
-        If no, do not use the holidays specified on the Weatherfile.
-        Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+
+        |  If yes or blank, use holidays as specified on Weatherfile.
+        |  If no, do not use the holidays specified on the Weatherfile.
+        |  Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `use_weather_file_holidays_and_special_days` or None if not set
+
         """
         return self["Use Weather File Holidays and Special Days"]
 
@@ -1939,13 +1991,14 @@ class RunPeriod(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """field `Use Weather File Daylight Saving Period` If yes or blank, use
-        daylight saving period as specified on Weatherfile. If no, do not use
-        the daylight saving period as specified on the Weatherfile.
+        """field `Use Weather File Daylight Saving Period`
+
+        |  If yes or blank, use daylight saving period as specified on Weatherfile.
+        |  If no, do not use the daylight saving period as specified on the Weatherfile.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1964,12 +2017,13 @@ class RunPeriod(DataObject):
 
     @property
     def apply_weekend_holiday_rule(self):
-        """field `Apply Weekend Holiday Rule` if yes and single day holiday
-        falls on weekend, "holiday" occurs on following Monday.
+        """field `Apply Weekend Holiday Rule`
+
+        |  if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1989,9 +2043,10 @@ class RunPeriod(DataObject):
     def use_weather_file_rain_indicators(self):
         """field `Use Weather File Rain Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2011,9 +2066,10 @@ class RunPeriod(DataObject):
     def use_weather_file_snow_indicators(self):
         """field `Use Weather File Snow Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2033,10 +2089,11 @@ class RunPeriod(DataObject):
     def number_of_times_runperiod_to_be_repeated(self):
         """field `Number of Times Runperiod to be Repeated`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Times Runperiod to be Repeated`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2057,9 +2114,10 @@ class RunPeriod(DataObject):
     def increment_day_of_week_on_repeat(self):
         """field `Increment Day of Week on repeat`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Increment Day of Week on repeat`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2078,9 +2136,10 @@ class RunPeriod(DataObject):
     @property
     def start_year(self):
         """field `Start Year`
-        this is the start year for the start date.  If the leap year is "Yes" in the weather file header
-        (that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume
-        there will be a Feb 29. A repeat of this runperiod will automatically increment the year.
+
+        |  this is the start year for the start date.  If the leap year is "Yes" in the weather file header
+        |  (that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume
+        |  there will be a Feb 29. A repeat of this runperiod will automatically increment the year.
 
         Args:
             value (float): value for IDD Field `Start Year`
@@ -2090,6 +2149,7 @@ class RunPeriod(DataObject):
 
         Returns:
             float: the value of `start_year` or None if not set
+
         """
         return self["Start Year"]
 
@@ -2240,8 +2300,10 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def name(self):
-        """field `Name` descriptive name (used in reporting mainly) if blank,
-        weather file title is used.  if not blank, must be unique.
+        """field `Name`
+
+        |  descriptive name (used in reporting mainly)
+        |  if blank, weather file title is used.  if not blank, must be unique
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2264,10 +2326,11 @@ class RunPeriodCustomRange(DataObject):
     def begin_month(self):
         """field `Begin Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Begin Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2287,10 +2350,11 @@ class RunPeriodCustomRange(DataObject):
     def begin_day_of_month(self):
         """field `Begin Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `Begin Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2308,7 +2372,9 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def begin_year(self):
-        """field `Begin Year` must be start year of this date on weather file.
+        """field `Begin Year`
+
+        |  must be start year of this date on weather file
 
         Args:
             value (float): value for IDD Field `Begin Year`
@@ -2331,10 +2397,11 @@ class RunPeriodCustomRange(DataObject):
     def end_month(self):
         """field `End Month`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `End Month`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2354,10 +2421,11 @@ class RunPeriodCustomRange(DataObject):
     def end_day_of_month(self):
         """field `End Day of Month`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `End Day of Month`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2375,7 +2443,9 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def end_year(self):
-        """field `End Year` must be end year of this date on weather file.
+        """field `End Year`
+
+        |  must be end year of this date on weather file
 
         Args:
             value (float): value for IDD Field `End Year`
@@ -2398,11 +2468,11 @@ class RunPeriodCustomRange(DataObject):
     def day_of_week_for_start_day(self):
         """field `Day of Week for Start Day`
 
-        =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        |  =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        |  Default value: UseWeatherFile
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Default value: UseWeatherFile
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2421,19 +2491,21 @@ class RunPeriodCustomRange(DataObject):
     @property
     def use_weather_file_holidays_and_special_days(self):
         """field `Use Weather File Holidays and Special Days`
-        If yes or blank, use holidays as specified on Weatherfile.
-        If no, do not use the holidays specified on the Weatherfile.
-        Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+
+        |  If yes or blank, use holidays as specified on Weatherfile.
+        |  If no, do not use the holidays specified on the Weatherfile.
+        |  Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `use_weather_file_holidays_and_special_days` or None if not set
+
         """
         return self["Use Weather File Holidays and Special Days"]
 
@@ -2445,13 +2517,14 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """field `Use Weather File Daylight Saving Period` If yes or blank, use
-        daylight saving period as specified on Weatherfile. If no, do not use
-        the daylight saving period as specified on the Weatherfile.
+        """field `Use Weather File Daylight Saving Period`
+
+        |  If yes or blank, use daylight saving period as specified on Weatherfile.
+        |  If no, do not use the daylight saving period as specified on the Weatherfile.
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2470,12 +2543,13 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def apply_weekend_holiday_rule(self):
-        """field `Apply Weekend Holiday Rule` if yes and single day holiday
-        falls on weekend, "holiday" occurs on following Monday.
+        """field `Apply Weekend Holiday Rule`
+
+        |  if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2495,9 +2569,10 @@ class RunPeriodCustomRange(DataObject):
     def use_weather_file_rain_indicators(self):
         """field `Use Weather File Rain Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2517,9 +2592,10 @@ class RunPeriodCustomRange(DataObject):
     def use_weather_file_snow_indicators(self):
         """field `Use Weather File Snow Indicators`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2619,16 +2695,17 @@ class RunPeriodControlSpecialDays(DataObject):
     @property
     def start_date(self):
         """field `Start Date`
-        Dates can be several formats:
-        <number>/<number>  (month/day)
-        <number> <Month>
-        <Month> <number>
-        <Nth> <Weekday> in <Month)
-        Last <WeekDay> in <Month>
-        <Month> can be January, February, March, April, May, June, July, August, September, October, November, December
-        Months can be the first 3 letters of the month
-        <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-        <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
+
+        |  Dates can be several formats:
+        |  <number>/<number>  (month/day)
+        |  <number> <Month>
+        |  <Month> <number>
+        |  <Nth> <Weekday> in <Month)
+        |  Last <WeekDay> in <Month>
+        |  <Month> can be January, February, March, April, May, June, July, August, September, October, November, December
+        |  Months can be the first 3 letters of the month
+        |  <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+        |  <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
 
         Args:
             value (str): value for IDD Field `Start Date`
@@ -2638,6 +2715,7 @@ class RunPeriodControlSpecialDays(DataObject):
 
         Returns:
             str: the value of `start_date` or None if not set
+
         """
         return self["Start Date"]
 
@@ -2650,12 +2728,13 @@ class RunPeriodControlSpecialDays(DataObject):
     def duration(self):
         """field `Duration`
 
+        |  Units: days
+        |  Default value: 1.0
+        |  value >= 1.0
+        |  value <= 366.0
+
         Args:
             value (float): value for IDD Field `Duration`
-                Units: days
-                Default value: 1.0
-                value >= 1.0
-                value <= 366.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2673,12 +2752,13 @@ class RunPeriodControlSpecialDays(DataObject):
 
     @property
     def special_day_type(self):
-        """field `Special Day Type` Special Day Type selects the schedules
-        appropriate for each day so labeled.
+        """field `Special Day Type`
+
+        |  Special Day Type selects the schedules appropriate for each day so labeled
+        |  Default value: Holiday
 
         Args:
             value (str): value for IDD Field `Special Day Type`
-                Default value: Holiday
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2752,16 +2832,17 @@ class RunPeriodControlDaylightSavingTime(DataObject):
     @property
     def end_date(self):
         """field `End Date`
-        Dates can be several formats:
-        <number>/<number>  (month/day)
-        <number> <Month>
-        <Month> <number>
-        <Nth> <Weekday> in <Month)
-        Last <WeekDay> in <Month>
-        <Month> can be January, February, March, April, May, June, July, August, September, October, November, December
-        Months can be the first 3 letters of the month
-        <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-        <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
+
+        |  Dates can be several formats:
+        |  <number>/<number>  (month/day)
+        |  <number> <Month>
+        |  <Month> <number>
+        |  <Nth> <Weekday> in <Month)
+        |  Last <WeekDay> in <Month>
+        |  <Month> can be January, February, March, April, May, June, July, August, September, October, November, December
+        |  Months can be the first 3 letters of the month
+        |  <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+        |  <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
 
         Args:
             value (str): value for IDD Field `End Date`
@@ -2771,6 +2852,7 @@ class RunPeriodControlDaylightSavingTime(DataObject):
 
         Returns:
             str: the value of `end_date` or None if not set
+
         """
         return self["End Date"]
 
@@ -2823,9 +2905,10 @@ class WeatherPropertySkyTemperature(DataObject):
     @property
     def name(self):
         """field `Name`
-        blank in this field will apply to all run periods (that is, all objects=
-        SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod
-        otherwise, this name must match one of the environment object names.
+
+        |  blank in this field will apply to all run periods (that is, all objects=
+        |  SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod
+        |  otherwise, this name must match one of the environment object names.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2835,6 +2918,7 @@ class WeatherPropertySkyTemperature(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2867,9 +2951,10 @@ class WeatherPropertySkyTemperature(DataObject):
     @property
     def schedule_name(self):
         """field `Schedule Name`
-        if name matches a SizingPeriod:DesignDay, put in a day schedule of this name
-        if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or
-        RunPeriod, put in a full year schedule that covers the appropriate days.
+
+        |  if name matches a SizingPeriod:DesignDay, put in a day schedule of this name
+        |  if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or
+        |  RunPeriod, put in a full year schedule that covers the appropriate days.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2879,6 +2964,7 @@ class WeatherPropertySkyTemperature(DataObject):
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
@@ -2949,10 +3035,11 @@ class SiteWeatherStation(DataObject):
     def wind_sensor_height_above_ground(self):
         """field `Wind Sensor Height Above Ground`
 
+        |  Units: m
+        |  Default value: 10.0
+
         Args:
             value (float): value for IDD Field `Wind Sensor Height Above Ground`
-                Units: m
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2972,9 +3059,10 @@ class SiteWeatherStation(DataObject):
     def wind_speed_profile_exponent(self):
         """field `Wind Speed Profile Exponent`
 
+        |  Default value: 0.14
+
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
-                Default value: 0.14
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2994,10 +3082,11 @@ class SiteWeatherStation(DataObject):
     def wind_speed_profile_boundary_layer_thickness(self):
         """field `Wind Speed Profile Boundary Layer Thickness`
 
+        |  Units: m
+        |  Default value: 270.0
+
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
-                Units: m
-                Default value: 270.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3018,10 +3107,11 @@ class SiteWeatherStation(DataObject):
     def air_temperature_sensor_height_above_ground(self):
         """field `Air Temperature Sensor Height Above Ground`
 
+        |  Units: m
+        |  Default value: 1.5
+
         Args:
             value (float): value for IDD Field `Air Temperature Sensor Height Above Ground`
-                Units: m
-                Default value: 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3089,12 +3179,13 @@ class SiteHeightVariation(DataObject):
 
     @property
     def wind_speed_profile_exponent(self):
-        """field `Wind Speed Profile Exponent` Set to zero for no wind speed
-        dependence on height.
+        """field `Wind Speed Profile Exponent`
+
+        |  Set to zero for no wind speed dependence on height.
+        |  Default value: 0.22
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
-                Default value: 0.22
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3114,10 +3205,11 @@ class SiteHeightVariation(DataObject):
     def wind_speed_profile_boundary_layer_thickness(self):
         """field `Wind Speed Profile Boundary Layer Thickness`
 
+        |  Units: m
+        |  Default value: 370.0
+
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
-                Units: m
-                Default value: 370.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3136,13 +3228,14 @@ class SiteHeightVariation(DataObject):
 
     @property
     def air_temperature_gradient_coefficient(self):
-        """field `Air Temperature Gradient Coefficient` Set to zero for no air
-        temperature dependence on height.
+        """field `Air Temperature Gradient Coefficient`
+
+        |  Set to zero for no air temperature dependence on height.
+        |  Units: K/m
+        |  Default value: 0.0065
 
         Args:
             value (float): value for IDD Field `Air Temperature Gradient Coefficient`
-                Units: K/m
-                Default value: 0.0065
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3294,10 +3387,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def january_ground_temperature(self):
         """field `January Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `January Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3317,10 +3411,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def february_ground_temperature(self):
         """field `February Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `February Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3340,10 +3435,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def march_ground_temperature(self):
         """field `March Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `March Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3363,10 +3459,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def april_ground_temperature(self):
         """field `April Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `April Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3386,10 +3483,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def may_ground_temperature(self):
         """field `May Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `May Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3409,10 +3507,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def june_ground_temperature(self):
         """field `June Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `June Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3432,10 +3531,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def july_ground_temperature(self):
         """field `July Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `July Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3455,10 +3555,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def august_ground_temperature(self):
         """field `August Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `August Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3478,10 +3579,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def september_ground_temperature(self):
         """field `September Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `September Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3501,10 +3603,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def october_ground_temperature(self):
         """field `October Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `October Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3524,10 +3627,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def november_ground_temperature(self):
         """field `November Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `November Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3547,10 +3651,11 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
     def december_ground_temperature(self):
         """field `December Ground Temperature`
 
+        |  Units: C
+        |  Default value: 18.0
+
         Args:
             value (float): value for IDD Field `December Ground Temperature`
-                Units: C
-                Default value: 18.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3697,10 +3802,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def january_ground_temperature(self):
         """field `January Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `January Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3720,10 +3826,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def february_ground_temperature(self):
         """field `February Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `February Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3743,10 +3850,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def march_ground_temperature(self):
         """field `March Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `March Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3766,10 +3874,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def april_ground_temperature(self):
         """field `April Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `April Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3789,10 +3898,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def may_ground_temperature(self):
         """field `May Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `May Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3812,10 +3922,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def june_ground_temperature(self):
         """field `June Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `June Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3835,10 +3946,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def july_ground_temperature(self):
         """field `July Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `July Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3858,10 +3970,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def august_ground_temperature(self):
         """field `August Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `August Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3881,10 +3994,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def september_ground_temperature(self):
         """field `September Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `September Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3904,10 +4018,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def october_ground_temperature(self):
         """field `October Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `October Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3927,10 +4042,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def november_ground_temperature(self):
         """field `November Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `November Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3950,10 +4066,11 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
     def december_ground_temperature(self):
         """field `December Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `December Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4100,10 +4217,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def january_surface_ground_temperature(self):
         """field `January Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `January Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4123,10 +4241,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def february_surface_ground_temperature(self):
         """field `February Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `February Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4146,10 +4265,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def march_surface_ground_temperature(self):
         """field `March Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `March Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4169,10 +4289,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def april_surface_ground_temperature(self):
         """field `April Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `April Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4192,10 +4313,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def may_surface_ground_temperature(self):
         """field `May Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `May Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4215,10 +4337,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def june_surface_ground_temperature(self):
         """field `June Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `June Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4238,10 +4361,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def july_surface_ground_temperature(self):
         """field `July Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `July Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4261,10 +4385,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def august_surface_ground_temperature(self):
         """field `August Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `August Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4284,10 +4409,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def september_surface_ground_temperature(self):
         """field `September Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `September Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4307,10 +4433,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def october_surface_ground_temperature(self):
         """field `October Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `October Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4330,10 +4457,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def november_surface_ground_temperature(self):
         """field `November Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `November Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4353,10 +4481,11 @@ class SiteGroundTemperatureShallow(DataObject):
     def december_surface_ground_temperature(self):
         """field `December Surface Ground Temperature`
 
+        |  Units: C
+        |  Default value: 13.0
+
         Args:
             value (float): value for IDD Field `December Surface Ground Temperature`
-                Units: C
-                Default value: 13.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4503,10 +4632,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def january_deep_ground_temperature(self):
         """field `January Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `January Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4526,10 +4656,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def february_deep_ground_temperature(self):
         """field `February Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `February Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4549,10 +4680,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def march_deep_ground_temperature(self):
         """field `March Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `March Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4572,10 +4704,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def april_deep_ground_temperature(self):
         """field `April Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `April Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4595,10 +4728,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def may_deep_ground_temperature(self):
         """field `May Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `May Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4618,10 +4752,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def june_deep_ground_temperature(self):
         """field `June Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `June Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4641,10 +4776,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def july_deep_ground_temperature(self):
         """field `July Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `July Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4664,10 +4800,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def august_deep_ground_temperature(self):
         """field `August Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `August Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4687,10 +4824,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def september_deep_ground_temperature(self):
         """field `September Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `September Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4710,10 +4848,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def october_deep_ground_temperature(self):
         """field `October Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `October Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4733,10 +4872,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def november_deep_ground_temperature(self):
         """field `November Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `November Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4756,10 +4896,11 @@ class SiteGroundTemperatureDeep(DataObject):
     def december_deep_ground_temperature(self):
         """field `December Deep Ground Temperature`
 
+        |  Units: C
+        |  Default value: 16.0
+
         Args:
             value (float): value for IDD Field `December Deep Ground Temperature`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5029,9 +5170,10 @@ class SiteGroundDomain(DataObject):
     def ground_domain_depth(self):
         """field `Ground Domain Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Ground Domain Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5051,9 +5193,10 @@ class SiteGroundDomain(DataObject):
     def aspect_ratio(self):
         """field `Aspect Ratio`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Aspect Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5073,9 +5216,10 @@ class SiteGroundDomain(DataObject):
     def perimeter_offset(self):
         """field `Perimeter Offset`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Perimeter Offset`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5095,9 +5239,10 @@ class SiteGroundDomain(DataObject):
     def soil_thermal_conductivity(self):
         """field `Soil Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5117,9 +5262,10 @@ class SiteGroundDomain(DataObject):
     def soil_density(self):
         """field `Soil Density`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Soil Density`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5139,9 +5285,10 @@ class SiteGroundDomain(DataObject):
     def soil_specific_heat(self):
         """field `Soil Specific Heat`
 
+        |  Units: J/kg-K
+
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
-                Units: J/kg-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5161,11 +5308,12 @@ class SiteGroundDomain(DataObject):
     def soil_moisture_content_volume_fraction(self):
         """field `Soil Moisture Content Volume Fraction`
 
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5185,11 +5333,12 @@ class SiteGroundDomain(DataObject):
     def soil_moisture_content_volume_fraction_at_saturation(self):
         """field `Soil Moisture Content Volume Fraction at Saturation`
 
+        |  Units: percent
+        |  Default value: 50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
-                Units: percent
-                Default value: 50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5209,11 +5358,12 @@ class SiteGroundDomain(DataObject):
     @property
     def kusudaachenbach_average_surface_temperature(self):
         """field `Kusuda-Achenbach Average Surface Temperature`
-        Annual average surface temperature.
+
+        |  Annual average surface temperature.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5233,11 +5383,12 @@ class SiteGroundDomain(DataObject):
     @property
     def kusudaachenbach_average_amplitude_of_surface_temperature(self):
         """field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-        Annual average surface temperature variation from average.
+
+        |  Annual average surface temperature variation from average.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5261,12 +5412,13 @@ class SiteGroundDomain(DataObject):
     @property
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self):
         """field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-        The phase shift of minimum surface temperature, or the day
-        of the year when the minimum surface temperature occurs.
+
+        |  The phase shift of minimum surface temperature, or the day
+        |  of the year when the minimum surface temperature occurs.
+        |  Units: days
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-                Units: days
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5290,23 +5442,25 @@ class SiteGroundDomain(DataObject):
     @property
     def evapotranspiration_ground_cover_parameter(self):
         """field `Evapotranspiration Ground Cover Parameter`
-        This specifies the ground cover effects during evapotranspiration
-        calculations.  The value roughly represents the following cases:
-        = 0   : concrete or other solid, non-permeable ground surface material
-        = 0.5 : short grass, much like a manicured lawn
-        = 1   : standard reference state (12 cm grass)
-        = 1.5 : wild growth
+
+        |  This specifies the ground cover effects during evapotranspiration
+        |  calculations.  The value roughly represents the following cases:
+        |  = 0   : concrete or other solid, non-permeable ground surface material
+        |  = 0.5 : short grass, much like a manicured lawn
+        |  = 1   : standard reference state (12 cm grass)
+        |  = 1.5 : wild growth
+        |  Default value: 0.4
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
-                Default value: 0.4
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evapotranspiration_ground_cover_parameter` or None if not set
+
         """
         return self["Evapotranspiration Ground Cover Parameter"]
 
@@ -5340,7 +5494,8 @@ class SiteGroundDomain(DataObject):
     @property
     def slab_location(self):
         """field `Slab Location`
-        This field specifies whether the slab is located "in-grade" or "on-grade"
+
+        |  This field specifies whether the slab is located "in-grade" or "on-grade"
 
         Args:
             value (str): value for IDD Field `Slab Location`
@@ -5350,6 +5505,7 @@ class SiteGroundDomain(DataObject):
 
         Returns:
             str: the value of `slab_location` or None if not set
+
         """
         return self["Slab Location"]
 
@@ -5361,7 +5517,8 @@ class SiteGroundDomain(DataObject):
     @property
     def slab_material_name(self):
         """field `Slab Material Name`
-        Only applicable for the in-grade case
+
+        |  Only applicable for the in-grade case
 
         Args:
             value (str): value for IDD Field `Slab Material Name`
@@ -5371,6 +5528,7 @@ class SiteGroundDomain(DataObject):
 
         Returns:
             str: the value of `slab_material_name` or None if not set
+
         """
         return self["Slab Material Name"]
 
@@ -5382,18 +5540,20 @@ class SiteGroundDomain(DataObject):
     @property
     def horizontal_insulation(self):
         """field `Horizontal Insulation`
-        This field specifies the presence of insulation beneath the slab.
-        Only required for in-grade case.
+
+        |  This field specifies the presence of insulation beneath the slab.
+        |  Only required for in-grade case.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `horizontal_insulation` or None if not set
+
         """
         return self["Horizontal Insulation"]
 
@@ -5404,8 +5564,9 @@ class SiteGroundDomain(DataObject):
 
     @property
     def horizontal_insulation_material_name(self):
-        """field `Horizontal Insulation Material Name` This field specifies the
-        horizontal insulation material.
+        """field `Horizontal Insulation Material Name`
+
+        |  This field specifies the horizontal insulation material.
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Material Name`
@@ -5426,13 +5587,14 @@ class SiteGroundDomain(DataObject):
 
     @property
     def horizontal_insulation_extents(self):
-        """field `Horizontal Insulation Extents` This field specifies whether
-        the horizontal insulation fully insulates the surface or is perimeter
-        only insulation.
+        """field `Horizontal Insulation Extents`
+
+        |  This field specifies whether the horizontal insulation fully insulates
+        |  the surface or is perimeter only insulation
+        |  Default value: Full
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Extents`
-                Default value: Full
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5450,12 +5612,13 @@ class SiteGroundDomain(DataObject):
 
     @property
     def perimeter_insulation_width(self):
-        """field `Perimeter Insulation Width` This field specifies the width of
-        the underfloor perimeter insulation.
+        """field `Perimeter Insulation Width`
+
+        |  This field specifies the width of the underfloor perimeter insulation
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Perimeter Insulation Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5473,12 +5636,13 @@ class SiteGroundDomain(DataObject):
 
     @property
     def vertical_insulation(self):
-        """field `Vertical Insulation` This field specifies the presence of
-        vertical insulation at the slab edge.
+        """field `Vertical Insulation`
+
+        |  This field specifies the presence of vertical insulation at the slab edge.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Vertical Insulation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5496,8 +5660,9 @@ class SiteGroundDomain(DataObject):
 
     @property
     def vertical_insulation_material_name(self):
-        """field `Vertical Insulation Material Name` This field specifies the
-        vertical insulation material.
+        """field `Vertical Insulation Material Name`
+
+        |  This field specifies the vertical insulation material.
 
         Args:
             value (str): value for IDD Field `Vertical Insulation Material Name`
@@ -5518,12 +5683,14 @@ class SiteGroundDomain(DataObject):
 
     @property
     def vertical_insulation_depth(self):
-        """field `Vertical Insulation Depth` Only used when including vertical
-        insulation This field specifies the depth of the vertical insulation.
+        """field `Vertical Insulation Depth`
+
+        |  Only used when including vertical insulation
+        |  This field specifies the depth of the vertical insulation
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Vertical Insulation Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5541,12 +5708,13 @@ class SiteGroundDomain(DataObject):
 
     @property
     def simulation_timestep(self):
-        """field `Simulation Timestep` This field specifies the domain
-        simulation timestep.
+        """field `Simulation Timestep`
+
+        |  This field specifies the domain simulation timestep.
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Simulation Timestep`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5717,11 +5885,12 @@ class SiteGroundReflectance(DataObject):
     def january_ground_reflectance(self):
         """field `January Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `January Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5741,11 +5910,12 @@ class SiteGroundReflectance(DataObject):
     def february_ground_reflectance(self):
         """field `February Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `February Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5765,11 +5935,12 @@ class SiteGroundReflectance(DataObject):
     def march_ground_reflectance(self):
         """field `March Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `March Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5789,11 +5960,12 @@ class SiteGroundReflectance(DataObject):
     def april_ground_reflectance(self):
         """field `April Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `April Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5813,11 +5985,12 @@ class SiteGroundReflectance(DataObject):
     def may_ground_reflectance(self):
         """field `May Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `May Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5837,11 +6010,12 @@ class SiteGroundReflectance(DataObject):
     def june_ground_reflectance(self):
         """field `June Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `June Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5861,11 +6035,12 @@ class SiteGroundReflectance(DataObject):
     def july_ground_reflectance(self):
         """field `July Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `July Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5885,11 +6060,12 @@ class SiteGroundReflectance(DataObject):
     def august_ground_reflectance(self):
         """field `August Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `August Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5909,11 +6085,12 @@ class SiteGroundReflectance(DataObject):
     def september_ground_reflectance(self):
         """field `September Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `September Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5933,11 +6110,12 @@ class SiteGroundReflectance(DataObject):
     def october_ground_reflectance(self):
         """field `October Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `October Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5957,11 +6135,12 @@ class SiteGroundReflectance(DataObject):
     def november_ground_reflectance(self):
         """field `November Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `November Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5981,11 +6160,12 @@ class SiteGroundReflectance(DataObject):
     def december_ground_reflectance(self):
         """field `December Ground Reflectance`
 
+        |  Units: dimensionless
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `December Ground Reflectance`
-                Units: dimensionless
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6041,23 +6221,25 @@ class SiteGroundReflectanceSnowModifier(DataObject):
     @property
     def ground_reflected_solar_modifier(self):
         """field `Ground Reflected Solar Modifier`
-        Value for modifying the "normal" ground reflectance when Snow is on ground
-        when calculating the "Ground Reflected Solar Radiation Value"
-        a value of 1.0 here uses the "normal" ground reflectance
-        Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance
-        This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
-        When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"
-        Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+
+        |  Value for modifying the "normal" ground reflectance when Snow is on ground
+        |  when calculating the "Ground Reflected Solar Radiation Value"
+        |  a value of 1.0 here uses the "normal" ground reflectance
+        |  Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance
+        |  This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
+        |  When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"
+        |  Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Ground Reflected Solar Modifier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `ground_reflected_solar_modifier` or None if not set
+
         """
         return self["Ground Reflected Solar Modifier"]
 
@@ -6069,23 +6251,25 @@ class SiteGroundReflectanceSnowModifier(DataObject):
     @property
     def daylighting_ground_reflected_solar_modifier(self):
         """field `Daylighting Ground Reflected Solar Modifier`
-        Value for modifying the "normal" daylighting ground reflectance when Snow is on ground
-        when calculating the "Ground Reflected Solar Radiation Value"
-        a value of 1.0 here uses the "normal" ground reflectance
-        Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance
-        This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
-        When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"
-        Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+
+        |  Value for modifying the "normal" daylighting ground reflectance when Snow is on ground
+        |  when calculating the "Ground Reflected Solar Radiation Value"
+        |  a value of 1.0 here uses the "normal" ground reflectance
+        |  Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance
+        |  This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
+        |  When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"
+        |  Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Daylighting Ground Reflected Solar Modifier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `daylighting_ground_reflected_solar_modifier` or None if not set
+
         """
         return self["Daylighting Ground Reflected Solar Modifier"]
 
@@ -6193,9 +6377,10 @@ class SiteWaterMainsTemperature(DataObject):
     def annual_average_outdoor_air_temperature(self):
         """field `Annual Average Outdoor Air Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Annual Average Outdoor Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6216,9 +6401,10 @@ class SiteWaterMainsTemperature(DataObject):
         """field `Maximum Difference In Monthly Average Outdoor Air
         Temperatures`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6312,12 +6498,13 @@ class SitePrecipitation(DataObject):
 
     @property
     def design_level_for_total_annual_precipitation(self):
-        """field `Design Level for Total Annual Precipitation` meters of water
-        per year used for design level.
+        """field `Design Level for Total Annual Precipitation`
+
+        |  meters of water per year used for design level
+        |  Units: m/yr
 
         Args:
             value (float): value for IDD Field `Design Level for Total Annual Precipitation`
-                Units: m/yr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6337,8 +6524,9 @@ class SitePrecipitation(DataObject):
     @property
     def precipitation_rates_schedule_name(self):
         """field `Precipitation Rates Schedule Name`
-        Schedule values in meters of water per hour
-        values should be non-negative
+
+        |  Schedule values in meters of water per hour
+        |  values should be non-negative
 
         Args:
             value (str): value for IDD Field `Precipitation Rates Schedule Name`
@@ -6348,6 +6536,7 @@ class SitePrecipitation(DataObject):
 
         Returns:
             str: the value of `precipitation_rates_schedule_name` or None if not set
+
         """
         return self["Precipitation Rates Schedule Name"]
 
@@ -6358,12 +6547,13 @@ class SitePrecipitation(DataObject):
 
     @property
     def average_total_annual_precipitation(self):
-        """field `Average Total Annual Precipitation` meters of water per year
-        from average weather statistics.
+        """field `Average Total Annual Precipitation`
+
+        |  meters of water per year from average weather statistics
+        |  Units: m/yr
 
         Args:
             value (float): value for IDD Field `Average Total Annual Precipitation`
-                Units: m/yr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6425,9 +6615,10 @@ class RoofIrrigation(DataObject):
 
     @property
     def irrigation_model_type(self):
-        """field `Irrigation Model Type` SmartSchedule will not allow
-        irrigation when soil is already moist. Current threshold set at 30% of
-        saturation.
+        """field `Irrigation Model Type`
+
+        |  SmartSchedule will not allow irrigation when soil is already moist.
+        |  Current threshold set at 30% of saturation.
 
         Args:
             value (str): value for IDD Field `Irrigation Model Type`
@@ -6449,8 +6640,9 @@ class RoofIrrigation(DataObject):
     @property
     def irrigation_rate_schedule_name(self):
         """field `Irrigation Rate Schedule Name`
-        Schedule values in meters of water per hour
-        values should be non-negative
+
+        |  Schedule values in meters of water per hour
+        |  values should be non-negative
 
         Args:
             value (str): value for IDD Field `Irrigation Rate Schedule Name`
@@ -6460,6 +6652,7 @@ class RoofIrrigation(DataObject):
 
         Returns:
             str: the value of `irrigation_rate_schedule_name` or None if not set
+
         """
         return self["Irrigation Rate Schedule Name"]
 
@@ -6470,15 +6663,16 @@ class RoofIrrigation(DataObject):
 
     @property
     def irrigation_maximum_saturation_threshold(self):
-        """field `Irrigation Maximum Saturation Threshold` Used with
-        SmartSchedule to set the saturation level at which no irrigation is
-        allowed.
+        """field `Irrigation Maximum Saturation Threshold`
+
+        |  Used with SmartSchedule to set the saturation level at which no
+        |  irrigation is allowed.
+        |  Units: percent
+        |  Default value: 40.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Irrigation Maximum Saturation Threshold`
-                Units: percent
-                Default value: 40.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6566,15 +6760,15 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
     @property
     def spectrum_data_method(self):
-        """field `Spectrum Data Method` The method specifies which of the solar
-        and visible spectrum data to use in the calculations.
+        """field `Spectrum Data Method`
 
-        Choices: Default - existing hard-wired spectrum data in EnergyPlus.
-        UserDefined - user specified spectrum data referenced by the next two fields
+        |  The method specifies which of the solar and visible spectrum data to use in the calculations.
+        |  Choices: Default - existing hard-wired spectrum data in EnergyPlus.
+        |  UserDefined - user specified spectrum data referenced by the next two fields
+        |  Default value: Default
 
         Args:
             value (str): value for IDD Field `Spectrum Data Method`
-                Default value: Default
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8318,9 +8512,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_1(self):
         """field `Wavelength 1`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 1`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8361,9 +8556,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_2(self):
         """field `Wavelength 2`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 2`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8404,9 +8600,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_3(self):
         """field `Wavelength 3`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 3`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8447,9 +8644,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_4(self):
         """field `Wavelength 4`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 4`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8490,9 +8688,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_5(self):
         """field `Wavelength 5`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 5`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8533,9 +8732,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_6(self):
         """field `Wavelength 6`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 6`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8576,9 +8776,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_7(self):
         """field `Wavelength 7`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 7`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8619,9 +8820,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_8(self):
         """field `Wavelength 8`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 8`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8662,9 +8864,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_9(self):
         """field `Wavelength 9`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 9`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8705,9 +8908,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_10(self):
         """field `Wavelength 10`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 10`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8748,9 +8952,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_11(self):
         """field `Wavelength 11`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 11`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8791,9 +8996,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_12(self):
         """field `Wavelength 12`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 12`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8834,9 +9040,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_13(self):
         """field `Wavelength 13`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 13`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8877,9 +9084,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_14(self):
         """field `Wavelength 14`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 14`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8920,9 +9128,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_15(self):
         """field `Wavelength 15`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 15`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8963,9 +9172,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_16(self):
         """field `Wavelength 16`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 16`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9006,9 +9216,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_17(self):
         """field `Wavelength 17`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 17`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9049,9 +9260,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_18(self):
         """field `Wavelength 18`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 18`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9092,9 +9304,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_19(self):
         """field `Wavelength 19`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 19`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9135,9 +9348,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_20(self):
         """field `Wavelength 20`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 20`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9178,9 +9392,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_21(self):
         """field `Wavelength 21`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 21`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9221,9 +9436,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_22(self):
         """field `Wavelength 22`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 22`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9264,9 +9480,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_23(self):
         """field `Wavelength 23`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 23`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9307,9 +9524,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_24(self):
         """field `Wavelength 24`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 24`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9350,9 +9568,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_25(self):
         """field `Wavelength 25`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 25`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9393,9 +9612,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_26(self):
         """field `Wavelength 26`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 26`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9436,9 +9656,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_27(self):
         """field `Wavelength 27`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 27`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9479,9 +9700,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_28(self):
         """field `Wavelength 28`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 28`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9522,9 +9744,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_29(self):
         """field `Wavelength 29`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 29`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9565,9 +9788,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_30(self):
         """field `Wavelength 30`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 30`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9608,9 +9832,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_31(self):
         """field `Wavelength 31`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 31`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9651,9 +9876,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_32(self):
         """field `Wavelength 32`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 32`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9694,9 +9920,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_33(self):
         """field `Wavelength 33`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 33`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9737,9 +9964,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_34(self):
         """field `Wavelength 34`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 34`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9780,9 +10008,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_35(self):
         """field `Wavelength 35`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 35`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9823,9 +10052,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_36(self):
         """field `Wavelength 36`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 36`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9866,9 +10096,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_37(self):
         """field `Wavelength 37`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 37`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9909,9 +10140,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_38(self):
         """field `Wavelength 38`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 38`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9952,9 +10184,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_39(self):
         """field `Wavelength 39`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 39`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9995,9 +10228,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_40(self):
         """field `Wavelength 40`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 40`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10038,9 +10272,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_41(self):
         """field `Wavelength 41`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 41`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10081,9 +10316,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_42(self):
         """field `Wavelength 42`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 42`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10124,9 +10360,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_43(self):
         """field `Wavelength 43`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 43`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10167,9 +10404,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_44(self):
         """field `Wavelength 44`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 44`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10210,9 +10448,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_45(self):
         """field `Wavelength 45`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 45`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10253,9 +10492,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_46(self):
         """field `Wavelength 46`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 46`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10296,9 +10536,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_47(self):
         """field `Wavelength 47`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 47`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10339,9 +10580,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_48(self):
         """field `Wavelength 48`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 48`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10382,9 +10624,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_49(self):
         """field `Wavelength 49`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 49`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10425,9 +10668,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_50(self):
         """field `Wavelength 50`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 50`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10468,9 +10712,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_51(self):
         """field `Wavelength 51`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 51`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10511,9 +10756,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_52(self):
         """field `Wavelength 52`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 52`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10554,9 +10800,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_53(self):
         """field `Wavelength 53`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 53`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10597,9 +10844,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_54(self):
         """field `Wavelength 54`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 54`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10640,9 +10888,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_55(self):
         """field `Wavelength 55`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 55`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10683,9 +10932,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_56(self):
         """field `Wavelength 56`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 56`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10726,9 +10976,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_57(self):
         """field `Wavelength 57`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 57`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10769,9 +11020,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_58(self):
         """field `Wavelength 58`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 58`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10812,9 +11064,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_59(self):
         """field `Wavelength 59`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 59`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10855,9 +11108,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_60(self):
         """field `Wavelength 60`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 60`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10898,9 +11152,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_61(self):
         """field `Wavelength 61`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 61`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10941,9 +11196,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_62(self):
         """field `Wavelength 62`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 62`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10984,9 +11240,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_63(self):
         """field `Wavelength 63`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 63`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11027,9 +11284,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_64(self):
         """field `Wavelength 64`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 64`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11070,9 +11328,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_65(self):
         """field `Wavelength 65`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 65`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11113,9 +11372,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_66(self):
         """field `Wavelength 66`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 66`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11156,9 +11416,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_67(self):
         """field `Wavelength 67`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 67`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11199,9 +11460,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_68(self):
         """field `Wavelength 68`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 68`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11242,9 +11504,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_69(self):
         """field `Wavelength 69`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 69`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11285,9 +11548,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_70(self):
         """field `Wavelength 70`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 70`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11328,9 +11592,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_71(self):
         """field `Wavelength 71`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 71`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11371,9 +11636,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_72(self):
         """field `Wavelength 72`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 72`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11414,9 +11680,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_73(self):
         """field `Wavelength 73`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 73`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11457,9 +11724,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_74(self):
         """field `Wavelength 74`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 74`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11500,9 +11768,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_75(self):
         """field `Wavelength 75`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 75`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11543,9 +11812,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_76(self):
         """field `Wavelength 76`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 76`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11586,9 +11856,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_77(self):
         """field `Wavelength 77`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 77`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11629,9 +11900,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_78(self):
         """field `Wavelength 78`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 78`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11672,9 +11944,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_79(self):
         """field `Wavelength 79`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 79`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11715,9 +11988,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_80(self):
         """field `Wavelength 80`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 80`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11758,9 +12032,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_81(self):
         """field `Wavelength 81`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 81`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11801,9 +12076,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_82(self):
         """field `Wavelength 82`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 82`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11844,9 +12120,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_83(self):
         """field `Wavelength 83`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 83`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11887,9 +12164,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_84(self):
         """field `Wavelength 84`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 84`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11930,9 +12208,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_85(self):
         """field `Wavelength 85`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 85`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11973,9 +12252,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_86(self):
         """field `Wavelength 86`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 86`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12016,9 +12296,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_87(self):
         """field `Wavelength 87`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 87`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12059,9 +12340,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_88(self):
         """field `Wavelength 88`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 88`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12102,9 +12384,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_89(self):
         """field `Wavelength 89`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 89`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12145,9 +12428,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_90(self):
         """field `Wavelength 90`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 90`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12188,9 +12472,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_91(self):
         """field `Wavelength 91`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 91`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12231,9 +12516,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_92(self):
         """field `Wavelength 92`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 92`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12274,9 +12560,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_93(self):
         """field `Wavelength 93`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 93`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12317,9 +12604,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_94(self):
         """field `Wavelength 94`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 94`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12360,9 +12648,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_95(self):
         """field `Wavelength 95`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 95`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12403,9 +12692,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_96(self):
         """field `Wavelength 96`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 96`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12446,9 +12736,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_97(self):
         """field `Wavelength 97`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 97`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12489,9 +12780,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_98(self):
         """field `Wavelength 98`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 98`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12532,9 +12824,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_99(self):
         """field `Wavelength 99`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 99`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12575,9 +12868,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_100(self):
         """field `Wavelength 100`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 100`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12618,9 +12912,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_101(self):
         """field `Wavelength 101`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 101`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12661,9 +12956,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_102(self):
         """field `Wavelength 102`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 102`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12704,9 +13000,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_103(self):
         """field `Wavelength 103`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 103`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12747,9 +13044,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_104(self):
         """field `Wavelength 104`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 104`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12790,9 +13088,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_105(self):
         """field `Wavelength 105`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 105`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12833,9 +13132,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_106(self):
         """field `Wavelength 106`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 106`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12876,9 +13176,10 @@ class SiteSpectrumData(DataObject):
     def wavelength_107(self):
         """field `Wavelength 107`
 
+        |  Units: micron
+
         Args:
             value (float): value for IDD Field `Wavelength 107`
-                Units: micron
 
         Raises:
             ValueError: if `value` is not a valid value

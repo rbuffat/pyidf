@@ -44,9 +44,10 @@ class ExternalInterface(DataObject):
 
     @property
     def name_of_external_interface(self):
-        """field `Name of External Interface` Name of External Interface
-        Currently, the only valid entries are PtolemyServer,
-        FunctionalMockupUnitImport, and FunctionalMockupUnitExport.
+        """field `Name of External Interface`
+
+        |  Name of External Interface
+        |  Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.
 
         Args:
             value (str): value for IDD Field `Name of External Interface`
@@ -149,7 +150,8 @@ class ExternalInterfaceSchedule(DataObject):
     @property
     def initial_value(self):
         """field `Initial Value`
-        Used during warm-up and system sizing.
+
+        |  Used during warm-up and system sizing.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -159,6 +161,7 @@ class ExternalInterfaceSchedule(DataObject):
 
         Returns:
             float: the value of `initial_value` or None if not set
+
         """
         return self["Initial Value"]
 
@@ -204,8 +207,10 @@ class ExternalInterfaceVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -227,7 +232,8 @@ class ExternalInterfaceVariable(DataObject):
     @property
     def initial_value(self):
         """field `Initial Value`
-        Used during warm-up and system sizing.
+
+        |  Used during warm-up and system sizing.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -237,6 +243,7 @@ class ExternalInterfaceVariable(DataObject):
 
         Returns:
             float: the value of `initial_value` or None if not set
+
         """
         return self["Initial Value"]
 
@@ -299,8 +306,10 @@ class ExternalInterfaceActuator(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -385,9 +394,10 @@ class ExternalInterfaceActuator(DataObject):
     @property
     def optional_initial_value(self):
         """field `Optional Initial Value`
-        If specified, it is used during warm-up and system sizing.
-        If not specified, then the actuator only overwrites the
-        actuated component after the warm-up and system sizing.
+
+        |  If specified, it is used during warm-up and system sizing.
+        |  If not specified, then the actuator only overwrites the
+        |  actuated component after the warm-up and system sizing.
 
         Args:
             value (float): value for IDD Field `Optional Initial Value`
@@ -397,6 +407,7 @@ class ExternalInterfaceActuator(DataObject):
 
         Returns:
             float: the value of `optional_initial_value` or None if not set
+
         """
         return self["Optional Initial Value"]
 
@@ -470,17 +481,19 @@ class ExternalInterfaceFunctionalMockupUnitImport(DataObject):
     @property
     def fmu_timeout(self):
         """field `FMU Timeout`
-        in milli-seconds
+
+        |  in milli-seconds
+        |  Units: ms
 
         Args:
             value (float): value for IDD Field `FMU Timeout`
-                Units: ms
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fmu_timeout` or None if not set
+
         """
         return self["FMU Timeout"]
 
@@ -566,6 +579,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(DataObject):
     def outputvariable_index_key_name(self):
         """field `Output:Variable Index Key Name`
 
+
         Args:
             value (str): value for IDD Field `Output:Variable Index Key Name`
 
@@ -587,6 +601,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(DataObject):
     @property
     def outputvariable_name(self):
         """field `Output:Variable Name`
+
 
         Args:
             value (str): value for IDD Field `Output:Variable Name`
@@ -836,7 +851,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -932,8 +949,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(DataObject):
     @property
     def name(self):
         """field `Name`
-        This name becomes a read-only variable for use in Erl programs
-        no spaces allowed in name
+
+        |  This name becomes a read-only variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -943,6 +961,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -1079,7 +1098,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -1153,8 +1174,10 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1238,7 +1261,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -1299,6 +1324,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(DataObject):
     def outputvariable_index_key_name(self):
         """field `Output:Variable Index Key Name`
 
+
         Args:
             value (str): value for IDD Field `Output:Variable Index Key Name`
 
@@ -1320,6 +1346,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(DataObject):
     @property
     def outputvariable_name(self):
         """field `Output:Variable Name`
+
 
         Args:
             value (str): value for IDD Field `Output:Variable Name`
@@ -1471,7 +1498,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -1553,8 +1582,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(DataObject):
     @property
     def name(self):
         """field `Name`
-        This name becomes a read-only variable for use in Erl programs
-        no spaces allowed in name
+
+        |  This name becomes a read-only variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1564,6 +1594,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -1658,7 +1689,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -1718,8 +1751,10 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(DataObject):
 
     @property
     def name(self):
-        """field `Name` This name becomes a variable for use in Erl programs no
-        spaces allowed in name.
+        """field `Name`
+
+        |  This name becomes a variable for use in Erl programs
+        |  no spaces allowed in name
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1761,7 +1796,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(DataObject):
 
     @property
     def initial_value(self):
-        """field `Initial Value` Used during the first call of EnergyPlus.
+        """field `Initial Value`
+
+        |  Used during the first call of EnergyPlus.
 
         Args:
             value (float): value for IDD Field `Initial Value`

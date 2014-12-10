@@ -119,7 +119,8 @@ class AirLoopHvac(DataObject):
     @property
     def controller_list_name(self):
         """field `Controller List Name`
-        Enter the name of an AirLoopHVAC:ControllerList object.
+
+        |  Enter the name of an AirLoopHVAC:ControllerList object.
 
         Args:
             value (str): value for IDD Field `Controller List Name`
@@ -129,6 +130,7 @@ class AirLoopHvac(DataObject):
 
         Returns:
             str: the value of `controller_list_name` or None if not set
+
         """
         return self["Controller List Name"]
 
@@ -139,8 +141,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """field `Availability Manager List Name` Enter the name of an
-        AvailabilityManagerAssignmentList object.
+        """field `Availability Manager List Name`
+
+        |  Enter the name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -163,15 +166,16 @@ class AirLoopHvac(DataObject):
     def design_supply_air_flow_rate(self):
         """field `Design Supply Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_supply_air_flow_rate` or None if not set
 
         """
         return self["Design Supply Air Flow Rate"]
@@ -183,8 +187,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def branch_list_name(self):
-        """field `Branch List Name` Name of a BranchList containing all the
-        branches in this air loop.
+        """field `Branch List Name`
+
+        |  Name of a BranchList containing all the branches in this air loop
 
         Args:
             value (str): value for IDD Field `Branch List Name`
@@ -205,8 +210,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def connector_list_name(self):
-        """field `Connector List Name` Name of a ConnectorList containing all
-        the splitters and mixers in the loop.
+        """field `Connector List Name`
+
+        |  Name of a ConnectorList containing all the splitters and mixers in the loop
 
         Args:
             value (str): value for IDD Field `Connector List Name`
@@ -227,8 +233,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def supply_side_inlet_node_name(self):
-        """field `Supply Side Inlet Node Name` Name of inlet node where return
-        air enters the supply side of the air loop.
+        """field `Supply Side Inlet Node Name`
+
+        |  Name of inlet node where return air enters the supply side of the air loop
 
         Args:
             value (str): value for IDD Field `Supply Side Inlet Node Name`
@@ -249,8 +256,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def demand_side_outlet_node_name(self):
-        """field `Demand Side Outlet Node Name` Name of outlet node where
-        return air leaves the demand side and enters the supply side.
+        """field `Demand Side Outlet Node Name`
+
+        |  Name of outlet node where return air leaves the demand side and enters the supply side.
 
         Args:
             value (str): value for IDD Field `Demand Side Outlet Node Name`
@@ -271,8 +279,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def demand_side_inlet_node_names(self):
-        """field `Demand Side Inlet Node Names` Name of a Node or NodeList
-        containing the inlet node(s) supplying air to zone equipment.
+        """field `Demand Side Inlet Node Names`
+
+        |  Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.
 
         Args:
             value (str): value for IDD Field `Demand Side Inlet Node Names`
@@ -293,8 +302,9 @@ class AirLoopHvac(DataObject):
 
     @property
     def supply_side_outlet_node_names(self):
-        """field `Supply Side Outlet Node Names` Name of a Node or NodeList
-        containing the outlet node(s) supplying air to the demand side.
+        """field `Supply Side Outlet Node Names`
+
+        |  Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.
 
         Args:
             value (str): value for IDD Field `Supply Side Outlet Node Names`
@@ -934,7 +944,8 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
     @property
     def controller_list_name(self):
         """field `Controller List Name`
-        Enter the name of an AirLoopHVAC:ControllerList object.
+
+        |  Enter the name of an AirLoopHVAC:ControllerList object.
 
         Args:
             value (str): value for IDD Field `Controller List Name`
@@ -944,6 +955,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
         Returns:
             str: the value of `controller_list_name` or None if not set
+
         """
         return self["Controller List Name"]
 
@@ -955,7 +967,8 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
     @property
     def outdoor_air_equipment_list_name(self):
         """field `Outdoor Air Equipment List Name`
-        Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.
+
+        |  Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Equipment List Name`
@@ -965,6 +978,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
         Returns:
             str: the value of `outdoor_air_equipment_list_name` or None if not set
+
         """
         return self["Outdoor Air Equipment List Name"]
 
@@ -975,8 +989,9 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """field `Availability Manager List Name` Enter the name of an
-        AvailabilityManagerAssignmentList object.
+        """field `Availability Manager List Name`
+
+        |  Enter the name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -1071,7 +1086,9 @@ class OutdoorAirMixer(DataObject):
 
     @property
     def mixed_air_node_name(self):
-        """field `Mixed Air Node Name` Name of Mixed Air Node.
+        """field `Mixed Air Node Name`
+
+        |  Name of Mixed Air Node
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -1092,8 +1109,9 @@ class OutdoorAirMixer(DataObject):
 
     @property
     def outdoor_air_stream_node_name(self):
-        """field `Outdoor Air Stream Node Name` Name of Outdoor Air Stream
-        Node.
+        """field `Outdoor Air Stream Node Name`
+
+        |  Name of Outdoor Air Stream Node
 
         Args:
             value (str): value for IDD Field `Outdoor Air Stream Node Name`
@@ -1114,7 +1132,9 @@ class OutdoorAirMixer(DataObject):
 
     @property
     def relief_air_stream_node_name(self):
-        """field `Relief Air Stream Node Name` Name of Relief Air Stream Node.
+        """field `Relief Air Stream Node Name`
+
+        |  Name of Relief Air Stream Node
 
         Args:
             value (str): value for IDD Field `Relief Air Stream Node Name`
@@ -1135,7 +1155,9 @@ class OutdoorAirMixer(DataObject):
 
     @property
     def return_air_stream_node_name(self):
-        """field `Return Air Stream Node Name` Name of Return Air Stream Node.
+        """field `Return Air Stream Node Name`
+
+        |  Name of Return Air Stream Node
 
         Args:
             value (str): value for IDD Field `Return Air Stream Node Name`

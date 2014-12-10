@@ -91,7 +91,9 @@ class TemperingValve(DataObject):
 
     @property
     def inlet_node_name(self):
-        """field `Inlet Node Name` Name of a Node.
+        """field `Inlet Node Name`
+
+        |  Name of a Node
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -112,7 +114,9 @@ class TemperingValve(DataObject):
 
     @property
     def outlet_node_name(self):
-        """field `Outlet Node Name` Name of a Node.
+        """field `Outlet Node Name`
+
+        |  Name of a Node
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -133,7 +137,9 @@ class TemperingValve(DataObject):
 
     @property
     def stream_2_source_node_name(self):
-        """field `Stream 2 Source Node Name` Name of a Node.
+        """field `Stream 2 Source Node Name`
+
+        |  Name of a Node
 
         Args:
             value (str): value for IDD Field `Stream 2 Source Node Name`
@@ -154,7 +160,9 @@ class TemperingValve(DataObject):
 
     @property
     def temperature_setpoint_node_name(self):
-        """field `Temperature Setpoint Node Name` Name of a Node.
+        """field `Temperature Setpoint Node Name`
+
+        |  Name of a Node
 
         Args:
             value (str): value for IDD Field `Temperature Setpoint Node Name`
@@ -425,9 +433,10 @@ class PlantLoop(DataObject):
     def fluid_type(self):
         """field `Fluid Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fluid Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -445,8 +454,9 @@ class PlantLoop(DataObject):
 
     @property
     def user_defined_fluid_type(self):
-        """field `User Defined Fluid Type` This field is only required when
-        Fluid Type is UserDefinedFluidType.
+        """field `User Defined Fluid Type`
+
+        |  This field is only required when Fluid Type is UserDefinedFluidType
 
         Args:
             value (str): value for IDD Field `User Defined Fluid Type`
@@ -511,9 +521,10 @@ class PlantLoop(DataObject):
     def maximum_loop_temperature(self):
         """field `Maximum Loop Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Loop Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -533,9 +544,10 @@ class PlantLoop(DataObject):
     def minimum_loop_temperature(self):
         """field `Minimum Loop Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Loop Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -555,16 +567,17 @@ class PlantLoop(DataObject):
     def maximum_loop_flow_rate(self):
         """field `Maximum Loop Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Loop Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_loop_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_loop_flow_rate` or None if not set
 
         """
         return self["Maximum Loop Flow Rate"]
@@ -578,10 +591,11 @@ class PlantLoop(DataObject):
     def minimum_loop_flow_rate(self):
         """field `Minimum Loop Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Minimum Loop Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -601,17 +615,18 @@ class PlantLoop(DataObject):
     def plant_loop_volume(self):
         """field `Plant Loop Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+        |  Default value: "Autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Plant Loop Volume`
-                Units: m3
-                IP-Units: gal
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `plant_loop_volume` or None if not set
+            float or "Autocalculate": the value of `plant_loop_volume` or None if not set
 
         """
         return self["Plant Loop Volume"]
@@ -793,9 +808,10 @@ class PlantLoop(DataObject):
     def load_distribution_scheme(self):
         """field `Load Distribution Scheme`
 
+        |  Default value: SequentialLoad
+
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -836,9 +852,10 @@ class PlantLoop(DataObject):
     def plant_loop_demand_calculation_scheme(self):
         """field `Plant Loop Demand Calculation Scheme`
 
+        |  Default value: SingleSetpoint
+
         Args:
             value (str): value for IDD Field `Plant Loop Demand Calculation Scheme`
-                Default value: SingleSetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -857,24 +874,26 @@ class PlantLoop(DataObject):
     @property
     def common_pipe_simulation(self):
         """field `Common Pipe Simulation`
-        Specifies a primary-secondary loop configuration. The plant side is the
-        primary loop, and the demand side is the secondary loop.
-        A secondary supply pump is required on the demand side.
-        None = Primary-only, no secondary simulation
-        CommonPipe = Primary-secondary with no temperature control at primary-secondary interface
-        TwoWayCommonPipe = Primary-secondary with control of secondary supply temperature or
-        primary return temperature (requires a setpoint be placed on the
-        plant side or demand side inlet node).
+
+        |  Specifies a primary-secondary loop configuration. The plant side is the
+        |  primary loop, and the demand side is the secondary loop.
+        |  A secondary supply pump is required on the demand side.
+        |  None = Primary-only, no secondary simulation
+        |  CommonPipe = Primary-secondary with no temperature control at primary-secondary interface
+        |  TwoWayCommonPipe = Primary-secondary with control of secondary supply temperature or
+        |  primary return temperature (requires a setpoint be placed on the
+        |  plant side or demand side inlet node).
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Common Pipe Simulation`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `common_pipe_simulation` or None if not set
+
         """
         return self["Common Pipe Simulation"]
 
@@ -887,9 +906,10 @@ class PlantLoop(DataObject):
     def pressure_simulation_type(self):
         """field `Pressure Simulation Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Pressure Simulation Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1114,9 +1134,10 @@ class CondenserLoop(DataObject):
     def fluid_type(self):
         """field `Fluid Type`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Fluid Type`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1134,8 +1155,9 @@ class CondenserLoop(DataObject):
 
     @property
     def user_defined_fluid_type(self):
-        """field `User Defined Fluid Type` This field is only required when
-        Fluid Type is UserDefinedFluidType.
+        """field `User Defined Fluid Type`
+
+        |  This field is only required when Fluid Type is UserDefinedFluidType
 
         Args:
             value (str): value for IDD Field `User Defined Fluid Type`
@@ -1202,9 +1224,10 @@ class CondenserLoop(DataObject):
     def maximum_loop_temperature(self):
         """field `Maximum Loop Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Loop Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1224,9 +1247,10 @@ class CondenserLoop(DataObject):
     def minimum_loop_temperature(self):
         """field `Minimum Loop Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Loop Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1246,16 +1270,17 @@ class CondenserLoop(DataObject):
     def maximum_loop_flow_rate(self):
         """field `Maximum Loop Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Loop Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_loop_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_loop_flow_rate` or None if not set
 
         """
         return self["Maximum Loop Flow Rate"]
@@ -1269,10 +1294,11 @@ class CondenserLoop(DataObject):
     def minimum_loop_flow_rate(self):
         """field `Minimum Loop Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float): value for IDD Field `Minimum Loop Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1292,17 +1318,18 @@ class CondenserLoop(DataObject):
     def condenser_loop_volume(self):
         """field `Condenser Loop Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+        |  Default value: "Autocalculate"
+
         Args:
             value (float or "Autocalculate"): value for IDD Field `Condenser Loop Volume`
-                Units: m3
-                IP-Units: gal
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `condenser_loop_volume` or None if not set
+            float or "Autocalculate": the value of `condenser_loop_volume` or None if not set
 
         """
         return self["Condenser Loop Volume"]
@@ -1485,9 +1512,10 @@ class CondenserLoop(DataObject):
     def load_distribution_scheme(self):
         """field `Load Distribution Scheme`
 
+        |  Default value: SequentialLoad
+
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
-                Default value: SequentialLoad
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1507,9 +1535,10 @@ class CondenserLoop(DataObject):
     def pressure_simulation_type(self):
         """field `Pressure Simulation Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Pressure Simulation Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3122,9 +3151,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_1_lower_limit(self):
         """field `Load Range 1 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 1 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3144,9 +3174,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_1_upper_limit(self):
         """field `Load Range 1 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 1 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3187,9 +3218,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_2_lower_limit(self):
         """field `Load Range 2 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 2 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3209,9 +3241,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_2_upper_limit(self):
         """field `Load Range 2 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 2 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3252,9 +3285,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_3_lower_limit(self):
         """field `Load Range 3 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 3 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3274,9 +3308,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_3_upper_limit(self):
         """field `Load Range 3 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 3 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3317,9 +3352,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_4_lower_limit(self):
         """field `Load Range 4 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 4 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3339,9 +3375,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_4_upper_limit(self):
         """field `Load Range 4 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 4 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3382,9 +3419,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_5_lower_limit(self):
         """field `Load Range 5 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 5 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3404,9 +3442,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_5_upper_limit(self):
         """field `Load Range 5 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 5 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3447,9 +3486,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_6_lower_limit(self):
         """field `Load Range 6 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 6 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3469,9 +3509,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_6_upper_limit(self):
         """field `Load Range 6 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 6 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3512,9 +3553,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_7_lower_limit(self):
         """field `Load Range 7 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 7 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3534,9 +3576,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_7_upper_limit(self):
         """field `Load Range 7 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 7 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3577,9 +3620,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_8_lower_limit(self):
         """field `Load Range 8 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 8 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3599,9 +3643,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_8_upper_limit(self):
         """field `Load Range 8 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 8 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3642,9 +3687,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_9_lower_limit(self):
         """field `Load Range 9 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 9 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3664,9 +3710,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_9_upper_limit(self):
         """field `Load Range 9 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 9 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3707,9 +3754,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_10_lower_limit(self):
         """field `Load Range 10 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 10 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3729,9 +3777,10 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     def load_range_10_upper_limit(self):
         """field `Load Range 10 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 10 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4069,9 +4118,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_1_lower_limit(self):
         """field `Load Range 1 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 1 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4091,9 +4141,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_1_upper_limit(self):
         """field `Load Range 1 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 1 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4134,9 +4185,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_2_lower_limit(self):
         """field `Load Range 2 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 2 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4156,9 +4208,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_2_upper_limit(self):
         """field `Load Range 2 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 2 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4199,9 +4252,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_3_lower_limit(self):
         """field `Load Range 3 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 3 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4221,9 +4275,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_3_upper_limit(self):
         """field `Load Range 3 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 3 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4264,9 +4319,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_4_lower_limit(self):
         """field `Load Range 4 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 4 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4286,9 +4342,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_4_upper_limit(self):
         """field `Load Range 4 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 4 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4329,9 +4386,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_5_lower_limit(self):
         """field `Load Range 5 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 5 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4351,9 +4409,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_5_upper_limit(self):
         """field `Load Range 5 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 5 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4394,9 +4453,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_6_lower_limit(self):
         """field `Load Range 6 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 6 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4416,9 +4476,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_6_upper_limit(self):
         """field `Load Range 6 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 6 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4459,9 +4520,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_7_lower_limit(self):
         """field `Load Range 7 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 7 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4481,9 +4543,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_7_upper_limit(self):
         """field `Load Range 7 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 7 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4524,9 +4587,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_8_lower_limit(self):
         """field `Load Range 8 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 8 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4546,9 +4610,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_8_upper_limit(self):
         """field `Load Range 8 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 8 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4589,9 +4654,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_9_lower_limit(self):
         """field `Load Range 9 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 9 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4611,9 +4677,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_9_upper_limit(self):
         """field `Load Range 9 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 9 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4654,9 +4721,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_10_lower_limit(self):
         """field `Load Range 10 Lower Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 10 Lower Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4676,9 +4744,10 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     def load_range_10_upper_limit(self):
         """field `Load Range 10 Upper Limit`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Load Range 10 Upper Limit`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5036,11 +5105,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_1_lower_limit(self):
         """field `Dry-Bulb Temperature Range 1 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 1 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5061,11 +5131,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_1_upper_limit(self):
         """field `Dry-Bulb Temperature Range 1 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 1 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5107,11 +5178,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_2_lower_limit(self):
         """field `Dry-Bulb Temperature Range 2 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 2 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5132,11 +5204,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_2_upper_limit(self):
         """field `Dry-Bulb Temperature Range 2 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 2 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5178,11 +5251,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_3_lower_limit(self):
         """field `Dry-Bulb Temperature Range 3 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 3 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5203,11 +5277,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_3_upper_limit(self):
         """field `Dry-Bulb Temperature Range 3 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 3 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5249,11 +5324,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_4_lower_limit(self):
         """field `Dry-Bulb Temperature Range 4 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 4 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5274,11 +5350,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_4_upper_limit(self):
         """field `Dry-Bulb Temperature Range 4 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 4 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5320,11 +5397,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_5_lower_limit(self):
         """field `Dry-Bulb Temperature Range 5 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 5 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5345,11 +5423,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_5_upper_limit(self):
         """field `Dry-Bulb Temperature Range 5 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 5 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5391,11 +5470,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_6_lower_limit(self):
         """field `Dry-Bulb Temperature Range 6 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 6 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5416,11 +5496,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_6_upper_limit(self):
         """field `Dry-Bulb Temperature Range 6 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 6 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5462,11 +5543,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_7_lower_limit(self):
         """field `Dry-Bulb Temperature Range 7 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 7 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5487,11 +5569,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_7_upper_limit(self):
         """field `Dry-Bulb Temperature Range 7 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 7 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5533,11 +5616,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_8_lower_limit(self):
         """field `Dry-Bulb Temperature Range 8 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 8 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5558,11 +5642,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_8_upper_limit(self):
         """field `Dry-Bulb Temperature Range 8 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 8 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5604,11 +5689,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_9_lower_limit(self):
         """field `Dry-Bulb Temperature Range 9 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 9 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5629,11 +5715,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_9_upper_limit(self):
         """field `Dry-Bulb Temperature Range 9 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 9 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5675,11 +5762,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_10_lower_limit(self):
         """field `Dry-Bulb Temperature Range 10 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 10 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5700,11 +5788,12 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     def drybulb_temperature_range_10_upper_limit(self):
         """field `Dry-Bulb Temperature Range 10 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 10 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6063,11 +6152,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_1_lower_limit(self):
         """field `Wet-Bulb Temperature Range 1 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 1 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6088,11 +6178,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_1_upper_limit(self):
         """field `Wet-Bulb Temperature Range 1 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 1 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6134,11 +6225,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_2_lower_limit(self):
         """field `Wet-Bulb Temperature Range 2 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 2 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6159,11 +6251,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_2_upper_limit(self):
         """field `Wet-Bulb Temperature Range 2 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 2 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6205,11 +6298,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_3_lower_limit(self):
         """field `Wet-Bulb Temperature Range 3 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 3 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6230,11 +6324,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_3_upper_limit(self):
         """field `Wet-Bulb Temperature Range 3 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 3 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6276,11 +6371,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_4_lower_limit(self):
         """field `Wet-Bulb Temperature Range 4 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 4 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6301,11 +6397,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_4_upper_limit(self):
         """field `Wet-Bulb Temperature Range 4 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 4 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6347,11 +6444,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_5_lower_limit(self):
         """field `Wet-Bulb Temperature Range 5 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 5 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6372,11 +6470,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_5_upper_limit(self):
         """field `Wet-Bulb Temperature Range 5 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 5 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6418,11 +6517,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_6_lower_limit(self):
         """field `Wet-Bulb Temperature Range 6 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 6 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6443,11 +6543,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_6_upper_limit(self):
         """field `Wet-Bulb Temperature Range 6 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 6 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6489,11 +6590,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_7_lower_limit(self):
         """field `Wet-Bulb Temperature Range 7 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 7 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6514,11 +6616,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_7_upper_limit(self):
         """field `Wet-Bulb Temperature Range 7 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 7 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6560,11 +6663,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_8_lower_limit(self):
         """field `Wet-Bulb Temperature Range 8 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 8 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6585,11 +6689,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_8_upper_limit(self):
         """field `Wet-Bulb Temperature Range 8 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 8 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6631,11 +6736,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_9_lower_limit(self):
         """field `Wet-Bulb Temperature Range 9 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 9 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6656,11 +6762,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_9_upper_limit(self):
         """field `Wet-Bulb Temperature Range 9 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 9 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6702,11 +6809,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_10_lower_limit(self):
         """field `Wet-Bulb Temperature Range 10 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 10 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6727,11 +6835,12 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     def wetbulb_temperature_range_10_upper_limit(self):
         """field `Wet-Bulb Temperature Range 10 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 10 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7090,10 +7199,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_1_lower_limit(self):
         """field `Relative Humidity Range 1 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 1 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7113,10 +7223,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_1_upper_limit(self):
         """field `Relative Humidity Range 1 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 1 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7157,10 +7268,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_2_lower_limit(self):
         """field `Relative Humidity Range 2 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 2 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7180,10 +7292,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_2_upper_limit(self):
         """field `Relative Humidity Range 2 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 2 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7224,10 +7337,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_3_lower_limit(self):
         """field `Relative Humidity Range 3 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 3 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7247,10 +7361,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_3_upper_limit(self):
         """field `Relative Humidity Range 3 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 3 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7291,10 +7406,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_4_lower_limit(self):
         """field `Relative Humidity Range 4 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 4 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7314,10 +7430,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_4_upper_limit(self):
         """field `Relative Humidity Range 4 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 4 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7358,10 +7475,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_5_lower_limit(self):
         """field `Relative Humidity Range 5 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 5 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7381,10 +7499,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_5_upper_limit(self):
         """field `Relative Humidity Range 5 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 5 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7425,10 +7544,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_6_lower_limit(self):
         """field `Relative Humidity Range 6 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 6 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7448,10 +7568,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_6_upper_limit(self):
         """field `Relative Humidity Range 6 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 6 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7492,10 +7613,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_7_lower_limit(self):
         """field `Relative Humidity Range 7 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 7 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7515,10 +7637,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_7_upper_limit(self):
         """field `Relative Humidity Range 7 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 7 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7559,10 +7682,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_8_lower_limit(self):
         """field `Relative Humidity Range 8 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 8 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7582,10 +7706,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_8_upper_limit(self):
         """field `Relative Humidity Range 8 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 8 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7626,10 +7751,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_9_lower_limit(self):
         """field `Relative Humidity Range 9 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 9 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7649,10 +7775,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_9_upper_limit(self):
         """field `Relative Humidity Range 9 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 9 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7693,10 +7820,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_10_lower_limit(self):
         """field `Relative Humidity Range 10 Lower Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 10 Lower Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7716,10 +7844,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     def relative_humidity_range_10_upper_limit(self):
         """field `Relative Humidity Range 10 Upper Limit`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Relative Humidity Range 10 Upper Limit`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8077,11 +8206,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_1_lower_limit(self):
         """field `Dewpoint Temperature Range 1 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 1 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8102,11 +8232,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_1_upper_limit(self):
         """field `Dewpoint Temperature Range 1 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 1 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8148,11 +8279,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_2_lower_limit(self):
         """field `Dewpoint Temperature Range 2 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 2 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8173,11 +8305,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_2_upper_limit(self):
         """field `Dewpoint Temperature Range 2 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 2 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8219,11 +8352,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_3_lower_limit(self):
         """field `Dewpoint Temperature Range 3 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 3 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8244,11 +8378,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_3_upper_limit(self):
         """field `Dewpoint Temperature Range 3 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 3 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8290,11 +8425,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_4_lower_limit(self):
         """field `Dewpoint Temperature Range 4 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 4 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8315,11 +8451,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_4_upper_limit(self):
         """field `Dewpoint Temperature Range 4 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 4 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8361,11 +8498,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_5_lower_limit(self):
         """field `Dewpoint Temperature Range 5 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 5 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8386,11 +8524,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_5_upper_limit(self):
         """field `Dewpoint Temperature Range 5 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 5 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8432,11 +8571,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_6_lower_limit(self):
         """field `Dewpoint Temperature Range 6 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 6 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8457,11 +8597,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_6_upper_limit(self):
         """field `Dewpoint Temperature Range 6 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 6 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8503,11 +8644,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_7_lower_limit(self):
         """field `Dewpoint Temperature Range 7 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 7 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8528,11 +8670,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_7_upper_limit(self):
         """field `Dewpoint Temperature Range 7 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 7 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8574,11 +8717,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_8_lower_limit(self):
         """field `Dewpoint Temperature Range 8 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 8 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8599,11 +8743,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_8_upper_limit(self):
         """field `Dewpoint Temperature Range 8 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 8 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8645,11 +8790,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_9_lower_limit(self):
         """field `Dewpoint Temperature Range 9 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 9 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8670,11 +8816,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_9_upper_limit(self):
         """field `Dewpoint Temperature Range 9 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 9 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8716,11 +8863,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_10_lower_limit(self):
         """field `Dewpoint Temperature Range 10 Lower Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 10 Lower Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8741,11 +8889,12 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     def dewpoint_temperature_range_10_upper_limit(self):
         """field `Dewpoint Temperature Range 10 Upper Limit`
 
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 70.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 10 Upper Limit`
-                Units: C
-                value >= -70.0
-                value <= 70.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9378,15 +9527,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_1_flow_rate(self):
         """field `Component 1 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 1 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_1_flow_rate` or None if not set
+            float or "Autosize": the value of `component_1_flow_rate` or None if not set
 
         """
         return self["Component 1 Flow Rate"]
@@ -9505,15 +9655,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_2_flow_rate(self):
         """field `Component 2 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 2 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_2_flow_rate` or None if not set
+            float or "Autosize": the value of `component_2_flow_rate` or None if not set
 
         """
         return self["Component 2 Flow Rate"]
@@ -9632,15 +9783,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_3_flow_rate(self):
         """field `Component 3 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 3 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_3_flow_rate` or None if not set
+            float or "Autosize": the value of `component_3_flow_rate` or None if not set
 
         """
         return self["Component 3 Flow Rate"]
@@ -9759,15 +9911,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_4_flow_rate(self):
         """field `Component 4 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 4 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_4_flow_rate` or None if not set
+            float or "Autosize": the value of `component_4_flow_rate` or None if not set
 
         """
         return self["Component 4 Flow Rate"]
@@ -9886,15 +10039,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_5_flow_rate(self):
         """field `Component 5 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 5 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_5_flow_rate` or None if not set
+            float or "Autosize": the value of `component_5_flow_rate` or None if not set
 
         """
         return self["Component 5 Flow Rate"]
@@ -10013,15 +10167,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_6_flow_rate(self):
         """field `Component 6 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 6 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_6_flow_rate` or None if not set
+            float or "Autosize": the value of `component_6_flow_rate` or None if not set
 
         """
         return self["Component 6 Flow Rate"]
@@ -10140,15 +10295,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_7_flow_rate(self):
         """field `Component 7 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 7 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_7_flow_rate` or None if not set
+            float or "Autosize": the value of `component_7_flow_rate` or None if not set
 
         """
         return self["Component 7 Flow Rate"]
@@ -10267,15 +10423,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_8_flow_rate(self):
         """field `Component 8 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 8 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_8_flow_rate` or None if not set
+            float or "Autosize": the value of `component_8_flow_rate` or None if not set
 
         """
         return self["Component 8 Flow Rate"]
@@ -10394,15 +10551,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_9_flow_rate(self):
         """field `Component 9 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 9 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_9_flow_rate` or None if not set
+            float or "Autosize": the value of `component_9_flow_rate` or None if not set
 
         """
         return self["Component 9 Flow Rate"]
@@ -10521,15 +10679,16 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
     def component_10_flow_rate(self):
         """field `Component 10 Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Component 10 Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `component_10_flow_rate` or None if not set
+            float or "Autosize": the value of `component_10_flow_rate` or None if not set
 
         """
         return self["Component 10 Flow Rate"]
@@ -10910,11 +11069,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_1_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 1 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 1 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10935,11 +11095,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_1_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 1 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 1 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10981,11 +11142,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_2_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 2 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 2 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11006,11 +11168,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_2_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 2 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 2 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11052,11 +11215,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_3_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 3 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 3 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11077,11 +11241,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_3_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 3 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 3 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11123,11 +11288,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_4_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 4 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 4 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11148,11 +11314,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_4_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 4 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 4 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11194,11 +11361,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_5_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 5 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 5 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11219,11 +11387,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_5_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 5 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 5 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11265,11 +11434,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_6_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 6 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 6 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11290,11 +11460,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_6_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 6 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 6 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11336,11 +11507,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_7_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 7 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 7 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11361,11 +11533,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_7_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 7 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 7 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11407,11 +11580,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_8_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 8 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 8 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11432,11 +11606,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_8_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 8 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 8 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11478,11 +11653,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_9_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 9 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 9 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11503,11 +11679,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_9_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 9 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 9 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11549,11 +11726,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_10_lower_limit(self):
         """field `Dry-Bulb Temperature Difference Range 10 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 10 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11574,11 +11752,12 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     def drybulb_temperature_difference_range_10_upper_limit(self):
         """field `Dry-Bulb Temperature Difference Range 10 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 10 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11966,11 +12145,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_1_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 1 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 1 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11991,11 +12171,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_1_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 1 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 1 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12037,11 +12218,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_2_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 2 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 2 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12062,11 +12244,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_2_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 2 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 2 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12108,11 +12291,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_3_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 3 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 3 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12133,11 +12317,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_3_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 3 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 3 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12179,11 +12364,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_4_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 4 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 4 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12204,11 +12390,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_4_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 4 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 4 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12250,11 +12437,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_5_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 5 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 5 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12275,11 +12463,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_5_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 5 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 5 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12321,11 +12510,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_6_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 6 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 6 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12346,11 +12536,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_6_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 6 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 6 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12392,11 +12583,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_7_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 7 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 7 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12417,11 +12609,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_7_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 7 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 7 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12463,11 +12656,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_8_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 8 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 8 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12488,11 +12682,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_8_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 8 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 8 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12534,11 +12729,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_9_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 9 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 9 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12559,11 +12755,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_9_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 9 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 9 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12605,11 +12802,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_10_lower_limit(self):
         """field `Wet-Bulb Temperature Difference Range 10 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 10 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12630,11 +12828,12 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     def wetbulb_temperature_difference_range_10_upper_limit(self):
         """field `Wet-Bulb Temperature Difference Range 10 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 10 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13022,11 +13221,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_1_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 1 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 1 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13047,11 +13247,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_1_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 1 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 1 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13093,11 +13294,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_2_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 2 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 2 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13118,11 +13320,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_2_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 2 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 2 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13164,11 +13367,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_3_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 3 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 3 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13189,11 +13393,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_3_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 3 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 3 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13235,11 +13440,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_4_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 4 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 4 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13260,11 +13466,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_4_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 4 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 4 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13306,11 +13513,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_5_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 5 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 5 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13331,11 +13539,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_5_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 5 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 5 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13377,11 +13586,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_6_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 6 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 6 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13402,11 +13612,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_6_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 6 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 6 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13448,11 +13659,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_7_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 7 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 7 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13473,11 +13685,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_7_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 7 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 7 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13519,11 +13732,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_8_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 8 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 8 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13544,11 +13758,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_8_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 8 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 8 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13590,11 +13805,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_9_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 9 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 9 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13615,11 +13831,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_9_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 9 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 9 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13661,11 +13878,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_10_lower_limit(self):
         """field `Dewpoint Temperature Difference Range 10 Lower Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 10 Lower Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -13686,11 +13904,12 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     def dewpoint_temperature_difference_range_10_upper_limit(self):
         """field `Dewpoint Temperature Difference Range 10 Upper Limit`
 
+        |  Units: deltaC
+        |  value >= -50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 10 Upper Limit`
-                Units: deltaC
-                value >= -50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value

@@ -168,9 +168,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -212,13 +213,14 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
 
     @property
     def economizer_lockout(self):
-        """field `Economizer Lockout` Yes means that the heat exchanger will be
-        locked out (off) when the economizer is operating or high humidity
-        control is active.
+        """field `Economizer Lockout`
+
+        |  Yes means that the heat exchanger will be locked out (off)
+        |  when the economizer is operating or high humidity control is active
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -237,7 +239,8 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     @property
     def ratio_of_supply_to_secondary_ha_values(self):
         """field `Ratio of Supply to Secondary hA Values`
-        Ratio of h*A for supply side to h*A for exhaust side
+
+        |  Ratio of h*A for supply side to h*A for exhaust side
 
         Args:
             value (float): value for IDD Field `Ratio of Supply to Secondary hA Values`
@@ -247,6 +250,7 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
 
         Returns:
             float: the value of `ratio_of_supply_to_secondary_ha_values` or None if not set
+
         """
         return self["Ratio of Supply to Secondary hA Values"]
 
@@ -259,9 +263,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_supply_air_flow_rate(self):
         """field `Nominal Supply Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Nominal Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -281,9 +286,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_supply_air_inlet_temperature(self):
         """field `Nominal Supply Air Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Nominal Supply Air Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -303,9 +309,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_supply_air_outlet_temperature(self):
         """field `Nominal Supply Air Outlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Nominal Supply Air Outlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -325,9 +332,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_secondary_air_flow_rate(self):
         """field `Nominal Secondary Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Nominal Secondary Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -347,9 +355,10 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_secondary_air_inlet_temperature(self):
         """field `Nominal Secondary Air Inlet Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Nominal Secondary Air Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -370,10 +379,11 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
     def nominal_electric_power(self):
         """field `Nominal Electric Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Electric Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -736,9 +746,10 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -761,15 +772,16 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def nominal_supply_air_flow_rate(self):
         """field `Nominal Supply Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `nominal_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `nominal_supply_air_flow_rate` or None if not set
 
         """
         return self["Nominal Supply Air Flow Rate"]
@@ -783,10 +795,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def sensible_effectiveness_at_100_heating_air_flow(self):
         """field `Sensible Effectiveness at 100% Heating Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 100% Heating Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -807,10 +820,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def latent_effectiveness_at_100_heating_air_flow(self):
         """field `Latent Effectiveness at 100% Heating Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 100% Heating Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -831,10 +845,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def sensible_effectiveness_at_75_heating_air_flow(self):
         """field `Sensible Effectiveness at 75% Heating Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 75% Heating Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -855,10 +870,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def latent_effectiveness_at_75_heating_air_flow(self):
         """field `Latent Effectiveness at 75% Heating Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 75% Heating Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -879,10 +895,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def sensible_effectiveness_at_100_cooling_air_flow(self):
         """field `Sensible Effectiveness at 100% Cooling Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 100% Cooling Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -903,10 +920,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def latent_effectiveness_at_100_cooling_air_flow(self):
         """field `Latent Effectiveness at 100% Cooling Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 100% Cooling Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -927,10 +945,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def sensible_effectiveness_at_75_cooling_air_flow(self):
         """field `Sensible Effectiveness at 75% Cooling Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 75% Cooling Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -951,10 +970,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def latent_effectiveness_at_75_cooling_air_flow(self):
         """field `Latent Effectiveness at 75% Cooling Air Flow`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 75% Cooling Air Flow`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1059,10 +1079,11 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def nominal_electric_power(self):
         """field `Nominal Electric Power`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Electric Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1082,9 +1103,10 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def supply_air_outlet_temperature_control(self):
         """field `Supply Air Outlet Temperature Control`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Supply Air Outlet Temperature Control`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1104,9 +1126,10 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def heat_exchanger_type(self):
         """field `Heat Exchanger Type`
 
+        |  Default value: Plate
+
         Args:
             value (str): value for IDD Field `Heat Exchanger Type`
-                Default value: Plate
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1126,9 +1149,10 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     def frost_control_type(self):
         """field `Frost Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Frost Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1146,15 +1170,16 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
 
     @property
     def threshold_temperature(self):
-        """field `Threshold Temperature` Supply (outdoor) air inlet temp
-        threshold for exhaust air recirculation and exhaust only frost control
-        types. Exhaust air outlet threshold Temperature for minimum exhaust
-        temperature frost control type.
+        """field `Threshold Temperature`
+
+        |  Supply (outdoor) air inlet temp threshold for exhaust air recirculation and
+        |  exhaust only frost control types. Exhaust air outlet threshold Temperature for
+        |  minimum exhaust temperature frost control type.
+        |  Units: C
+        |  Default value: 1.7
 
         Args:
             value (float): value for IDD Field `Threshold Temperature`
-                Units: C
-                Default value: 1.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1173,20 +1198,22 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     @property
     def initial_defrost_time_fraction(self):
         """field `Initial Defrost Time Fraction`
-        Fraction of the time when frost control will be invoked at the threshold temperature.
-        This field only used for exhaust air recirc and exhaust-only frost control types.
+
+        |  Fraction of the time when frost control will be invoked at the threshold temperature.
+        |  This field only used for exhaust air recirc and exhaust-only frost control types.
+        |  Units: dimensionless
+        |  Default value: 0.083
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Initial Defrost Time Fraction`
-                Units: dimensionless
-                Default value: 0.083
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `initial_defrost_time_fraction` or None if not set
+
         """
         return self["Initial Defrost Time Fraction"]
 
@@ -1198,19 +1225,21 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     @property
     def rate_of_defrost_time_fraction_increase(self):
         """field `Rate of Defrost Time Fraction Increase`
-        Rate of increase in defrost time fraction as actual temp falls below threshold temperature.
-        This field only used for exhaust air recirc and exhaust-only frost control types.
+
+        |  Rate of increase in defrost time fraction as actual temp falls below threshold temperature.
+        |  This field only used for exhaust air recirc and exhaust-only frost control types.
+        |  Units: 1/K
+        |  Default value: 0.012
 
         Args:
             value (float): value for IDD Field `Rate of Defrost Time Fraction Increase`
-                Units: 1/K
-                Default value: 0.012
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rate_of_defrost_time_fraction_increase` or None if not set
+
         """
         return self["Rate of Defrost Time Fraction Increase"]
 
@@ -1221,13 +1250,14 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
 
     @property
     def economizer_lockout(self):
-        """field `Economizer Lockout` Yes means that the heat exchanger will be
-        locked out (off) when the economizer is operating or high humidity
-        control is active.
+        """field `Economizer Lockout`
+
+        |  Yes means that the heat exchanger will be locked out (off)
+        |  when the economizer is operating or high humidity control is active
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1355,9 +1385,10 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1464,9 +1495,10 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
     def heat_exchanger_performance_object_type(self):
         """field `Heat Exchanger Performance Object Type`
 
+        |  Default value: HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1
+
         Args:
             value (str): value for IDD Field `Heat Exchanger Performance Object Type`
-                Default value: HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1507,13 +1539,14 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
 
     @property
     def economizer_lockout(self):
-        """field `Economizer Lockout` Yes means that the heat exchanger will be
-        locked out (off) when the economizer is operating or high humidity
-        control is active.
+        """field `Economizer Lockout`
+
+        |  Yes means that the heat exchanger will be locked out (off)
+        |  when the economizer is operating or high humidity control is active
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2024,12 +2057,14 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
 
     @property
     def nominal_air_flow_rate(self):
-        """field `Nominal Air Flow Rate` Air flow rate at nominal conditions
-        (assumed to be the same for both sides of the heat exchanger).
+        """field `Nominal Air Flow Rate`
+
+        |  Air flow rate at nominal conditions (assumed to be the same for both sides
+        |  of the heat exchanger).
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Nominal Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2049,10 +2084,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
     def nominal_air_face_velocity(self):
         """field `Nominal Air Face Velocity`
 
+        |  Units: m/s
+        |  value <= 6.0
+
         Args:
             value (float): value for IDD Field `Nominal Air Face Velocity`
-                Units: m/s
-                value <= 6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2070,13 +2106,14 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
 
     @property
     def nominal_electric_power(self):
-        """field `Nominal Electric Power` Parasitic electric power (e.g.,
-        desiccant wheel motor)
+        """field `Nominal Electric Power`
+
+        |  Parasitic electric power (e.g., desiccant wheel motor)
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float): value for IDD Field `Nominal Electric Power`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2266,10 +2303,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Humidity Ratio for Temperature
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2296,10 +2334,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Humidity Ratio for Temperature
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2326,9 +2365,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2355,9 +2395,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2384,10 +2425,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Humidity Ratio for Temperature
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Humidity Ratio for Temperature Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2414,10 +2456,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Humidity Ratio for Temperature
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Humidity Ratio for Temperature Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2443,9 +2486,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2471,9 +2515,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2498,9 +2543,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
     def minimum_regeneration_air_velocity_for_temperature_equation(self):
         """field `Minimum Regeneration Air Velocity for Temperature Equation`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Air Velocity for Temperature Equation`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2525,9 +2571,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
     def maximum_regeneration_air_velocity_for_temperature_equation(self):
         """field `Maximum Regeneration Air Velocity for Temperature Equation`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Air Velocity for Temperature Equation`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2554,9 +2601,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Outlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Outlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2583,9 +2631,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Outlet Air Temperature for Temperature
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Outlet Air Temperature for Temperature Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2612,10 +2661,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Relative Humidity for
         Temperature Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2642,10 +2692,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Relative Humidity for
         Temperature Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2672,10 +2723,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Relative Humidity for Temperature
         Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Relative Humidity for Temperature Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2702,10 +2754,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Relative Humidity for Temperature
         Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Relative Humidity for Temperature Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2900,10 +2953,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Humidity Ratio for Humidity
         Ratio Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2930,10 +2984,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Humidity Ratio for Humidity
         Ratio Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2960,9 +3015,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Temperature for Humidity Ratio
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2989,9 +3045,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Temperature for Humidity Ratio
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3018,10 +3075,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Humidity Ratio for Humidity Ratio
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3048,10 +3106,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Humidity Ratio for Humidity Ratio
         Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3078,9 +3137,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Temperature for Humidity Ratio
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Temperature for Humidity Ratio Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3107,9 +3167,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Temperature for Humidity Ratio
         Equation`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Temperature for Humidity Ratio Equation`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3135,9 +3196,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Air Velocity for Humidity Ratio
         Equation`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Air Velocity for Humidity Ratio Equation`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3163,9 +3225,10 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Air Velocity for Humidity Ratio
         Equation`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Air Velocity for Humidity Ratio Equation`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3192,10 +3255,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Outlet Air Humidity Ratio for Humidity
         Ratio Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3222,10 +3286,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Outlet Air Humidity Ratio for Humidity
         Ratio Equation`
 
+        |  Units: kgWater/kgDryAir
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
-                Units: kgWater/kgDryAir
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3252,10 +3317,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Regeneration Inlet Air Relative Humidity for Humidity
         Ratio Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3282,10 +3348,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Regeneration Inlet Air Relative Humidity for Humidity
         Ratio Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3312,10 +3379,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Minimum Process Inlet Air Relative Humidity for Humidity
         Ratio Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3342,10 +3410,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         """field `Maximum Process Inlet Air Relative Humidity for Humidity
         Ratio Equation`
 
+        |  Units: percent
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
-                Units: percent
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value

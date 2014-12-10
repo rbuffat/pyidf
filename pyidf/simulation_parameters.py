@@ -35,9 +35,10 @@ class Version(DataObject):
     def version_identifier(self):
         """field `Version Identifier`
 
+        |  Default value: 7.0
+
         Args:
             value (str): value for IDD Field `Version Identifier`
-                Default value: 7.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -128,18 +129,20 @@ class SimulationControl(DataObject):
     @property
     def do_zone_sizing_calculation(self):
         """field `Do Zone Sizing Calculation`
-        If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects
-        and autosize fields.
+
+        |  If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects
+        |  and autosize fields.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Do Zone Sizing Calculation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `do_zone_sizing_calculation` or None if not set
+
         """
         return self["Do Zone Sizing Calculation"]
 
@@ -151,19 +154,21 @@ class SimulationControl(DataObject):
     @property
     def do_system_sizing_calculation(self):
         """field `Do System Sizing Calculation`
-        If Yes, System sizing is accomplished from corresponding Sizing:System objects
-        and autosize fields.
-        If Yes, Zone sizing (previous field) must also be Yes.
+
+        |  If Yes, System sizing is accomplished from corresponding Sizing:System objects
+        |  and autosize fields.
+        |  If Yes, Zone sizing (previous field) must also be Yes.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Do System Sizing Calculation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `do_system_sizing_calculation` or None if not set
+
         """
         return self["Do System Sizing Calculation"]
 
@@ -175,18 +180,20 @@ class SimulationControl(DataObject):
     @property
     def do_plant_sizing_calculation(self):
         """field `Do Plant Sizing Calculation`
-        If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects
-        and autosize fields.
+
+        |  If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects
+        |  and autosize fields.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Do Plant Sizing Calculation`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `do_plant_sizing_calculation` or None if not set
+
         """
         return self["Do Plant Sizing Calculation"]
 
@@ -198,17 +205,19 @@ class SimulationControl(DataObject):
     @property
     def run_simulation_for_sizing_periods(self):
         """field `Run Simulation for Sizing Periods`
-        If Yes, SizingPeriod:* objects are executed and results from those may be displayed..
+
+        |  If Yes, SizingPeriod:* objects are executed and results from those may be displayed..
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Run Simulation for Sizing Periods`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `run_simulation_for_sizing_periods` or None if not set
+
         """
         return self["Run Simulation for Sizing Periods"]
 
@@ -220,17 +229,19 @@ class SimulationControl(DataObject):
     @property
     def run_simulation_for_weather_file_run_periods(self):
         """field `Run Simulation for Weather File Run Periods`
-        If Yes, RunPeriod:* objects are executed and results from those may be displayed..
+
+        |  If Yes, RunPeriod:* objects are executed and results from those may be displayed..
+        |  Default value: Yes
 
         Args:
             value (str): value for IDD Field `Run Simulation for Weather File Run Periods`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `run_simulation_for_weather_file_run_periods` or None if not set
+
         """
         return self["Run Simulation for Weather File Run Periods"]
 
@@ -348,9 +359,10 @@ class Building(DataObject):
     def name(self):
         """field `Name`
 
+        |  Default value: NONE
+
         Args:
             value (str): value for IDD Field `Name`
-                Default value: NONE
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -368,11 +380,13 @@ class Building(DataObject):
 
     @property
     def north_axis(self):
-        """field `North Axis` degrees from true North.
+        """field `North Axis`
+
+        |  degrees from true North
+        |  Units: deg
 
         Args:
             value (float): value for IDD Field `North Axis`
-                Units: deg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -391,17 +405,19 @@ class Building(DataObject):
     @property
     def terrain(self):
         """field `Terrain`
-        Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest
+
+        |  Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest
+        |  Default value: Suburbs
 
         Args:
             value (str): value for IDD Field `Terrain`
-                Default value: Suburbs
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `terrain` or None if not set
+
         """
         return self["Terrain"]
 
@@ -412,13 +428,14 @@ class Building(DataObject):
 
     @property
     def loads_convergence_tolerance_value(self):
-        """field `Loads Convergence Tolerance Value` Loads Convergence
-        Tolerance Value is a fraction of load.
+        """field `Loads Convergence Tolerance Value`
+
+        |  Loads Convergence Tolerance Value is a fraction of load
+        |  Default value: 0.04
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Loads Convergence Tolerance Value`
-                Default value: 0.04
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -438,11 +455,12 @@ class Building(DataObject):
     def temperature_convergence_tolerance_value(self):
         """field `Temperature Convergence Tolerance Value`
 
+        |  Units: deltaC
+        |  Default value: 0.4
+        |  value <= 0.5
+
         Args:
             value (float): value for IDD Field `Temperature Convergence Tolerance Value`
-                Units: deltaC
-                Default value: 0.4
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -461,13 +479,13 @@ class Building(DataObject):
 
     @property
     def solar_distribution(self):
-        """field `Solar Distribution` MinimalShadowing | FullExterior |
-        FullInteriorAndExterior | FullExteriorWithReflections |
-        FullInteriorAndExteriorWithReflections.
+        """field `Solar Distribution`
+
+        |  MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections
+        |  Default value: FullExterior
 
         Args:
             value (str): value for IDD Field `Solar Distribution`
-                Default value: FullExterior
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -486,18 +504,20 @@ class Building(DataObject):
     @property
     def maximum_number_of_warmup_days(self):
         """field `Maximum Number of Warmup Days`
-        EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.
-        This field's value should NOT be set less than 25.
+
+        |  EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.
+        |  This field's value should NOT be set less than 25.
+        |  Default value: 25
 
         Args:
             value (int): value for IDD Field `Maximum Number of Warmup Days`
-                Default value: 25
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `maximum_number_of_warmup_days` or None if not set
+
         """
         return self["Maximum Number of Warmup Days"]
 
@@ -509,21 +529,23 @@ class Building(DataObject):
     @property
     def minimum_number_of_warmup_days(self):
         """field `Minimum Number of Warmup Days`
-        The minimum number of warmup days that produce enough temperature and flux history
-        to start EnergyPlus simulation for all reference buildings was suggested to be 6.
-        When this field is greater than the maximum warmup days defined previous field
-        the maximum number of warmup days will be reset to the minimum value entered here.
-        Warmup days will be set to be the value you entered when it is less than the default 6.
+
+        |  The minimum number of warmup days that produce enough temperature and flux history
+        |  to start EnergyPlus simulation for all reference buildings was suggested to be 6.
+        |  When this field is greater than the maximum warmup days defined previous field
+        |  the maximum number of warmup days will be reset to the minimum value entered here.
+        |  Warmup days will be set to be the value you entered when it is less than the default 6.
+        |  Default value: 6
 
         Args:
             value (int): value for IDD Field `Minimum Number of Warmup Days`
-                Default value: 6
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `minimum_number_of_warmup_days` or None if not set
+
         """
         return self["Minimum Number of Warmup Days"]
 
@@ -596,13 +618,14 @@ class ShadowCalculation(DataObject):
 
     @property
     def calculation_method(self):
-        """field `Calculation Method` choose calculation method. note that
-        TimestepFrequency is only needed for certain cases and can increase
-        execution time significantly.
+        """field `Calculation Method`
+
+        |  choose calculation method. note that TimestepFrequency is only needed for certain cases
+        |  and can increase execution time significantly.
+        |  Default value: AverageOverDaysInFrequency
 
         Args:
             value (str): value for IDD Field `Calculation Method`
-                Default value: AverageOverDaysInFrequency
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -621,22 +644,24 @@ class ShadowCalculation(DataObject):
     @property
     def calculation_frequency(self):
         """field `Calculation Frequency`
-        enter number of days
-        this field is only used if the previous field is set to AverageOverDaysInFrequency
-        0=Use Default Periodic Calculation|<else> calculate every <value> day
-        only really applicable to RunPeriods
-        warning issued if >31
+
+        |  enter number of days
+        |  this field is only used if the previous field is set to AverageOverDaysInFrequency
+        |  0=Use Default Periodic Calculation|<else> calculate every <value> day
+        |  only really applicable to RunPeriods
+        |  warning issued if >31
+        |  Default value: 20
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Calculation Frequency`
-                Default value: 20
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `calculation_frequency` or None if not set
+
         """
         return self["Calculation Frequency"]
 
@@ -647,13 +672,14 @@ class ShadowCalculation(DataObject):
 
     @property
     def maximum_figures_in_shadow_overlap_calculations(self):
-        """field `Maximum Figures in Shadow Overlap Calculations` Number of
-        allowable figures in shadow overlap calculations.
+        """field `Maximum Figures in Shadow Overlap Calculations`
+
+        |  Number of allowable figures in shadow overlap calculations
+        |  Default value: 15000
+        |  value >= 200
 
         Args:
             value (int): value for IDD Field `Maximum Figures in Shadow Overlap Calculations`
-                Default value: 15000
-                value >= 200
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -672,9 +698,10 @@ class ShadowCalculation(DataObject):
 
     @property
     def polygon_clipping_algorithm(self):
-        """field `Polygon Clipping Algorithm` Advanced Feature.  Internal
-        default is SutherlandHodgman Refer to InputOutput Reference and
-        Engineering Reference for more information.
+        """field `Polygon Clipping Algorithm`
+
+        |  Advanced Feature.  Internal default is SutherlandHodgman
+        |  Refer to InputOutput Reference and Engineering Reference for more information
 
         Args:
             value (str): value for IDD Field `Polygon Clipping Algorithm`
@@ -695,11 +722,12 @@ class ShadowCalculation(DataObject):
 
     @property
     def sky_diffuse_modeling_algorithm(self):
-        """field `Sky Diffuse Modeling Algorithm` Advanced Feature.  Internal
-        default is SimpleSkyDiffuseModeling If you have shading elements that
-        change transmittance over the year, you may wish to choose the detailed
-        method. Refer to InputOutput Reference and Engineering Reference for
-        more information.
+        """field `Sky Diffuse Modeling Algorithm`
+
+        |  Advanced Feature.  Internal default is SimpleSkyDiffuseModeling
+        |  If you have shading elements that change transmittance over the
+        |  year, you may wish to choose the detailed method.
+        |  Refer to InputOutput Reference and Engineering Reference for more information
 
         Args:
             value (str): value for IDD Field `Sky Diffuse Modeling Algorithm`
@@ -750,21 +778,23 @@ class SurfaceConvectionAlgorithmInside(DataObject):
     @property
     def algorithm(self):
         """field `Algorithm`
-        Simple = constant value natural convection (ASHRAE)
-        TARP = variable natural convection based on temperature difference (ASHRAE, Walton)
-        CeilingDiffuser = ACH-based forced and mixed convection correlations
-        for ceiling diffuser configuration with simple natural convection limit
-        AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
+
+        |  Simple = constant value natural convection (ASHRAE)
+        |  TARP = variable natural convection based on temperature difference (ASHRAE, Walton)
+        |  CeilingDiffuser = ACH-based forced and mixed convection correlations
+        |  for ceiling diffuser configuration with simple natural convection limit
+        |  AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
+        |  Default value: TARP
 
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: TARP
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `algorithm` or None if not set
+
         """
         return self["Algorithm"]
 
@@ -806,21 +836,23 @@ class SurfaceConvectionAlgorithmOutside(DataObject):
     @property
     def algorithm(self):
         """field `Algorithm`
-        SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
-        TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
-        MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
-        DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
-        AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
+
+        |  SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
+        |  TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
+        |  MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
+        |  DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
+        |  AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
+        |  Default value: DOE-2
 
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: DOE-2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `algorithm` or None if not set
+
         """
         return self["Algorithm"]
 
@@ -899,9 +931,10 @@ class HeatBalanceAlgorithm(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ConductionTransferFunction
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ConductionTransferFunction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -921,11 +954,12 @@ class HeatBalanceAlgorithm(DataObject):
     def surface_temperature_upper_limit(self):
         """field `Surface Temperature Upper Limit`
 
+        |  Units: C
+        |  Default value: 200.0
+        |  value >= 200.0
+
         Args:
             value (float): value for IDD Field `Surface Temperature Upper Limit`
-                Units: C
-                Default value: 200.0
-                value >= 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -945,10 +979,11 @@ class HeatBalanceAlgorithm(DataObject):
     def minimum_surface_convection_heat_transfer_coefficient_value(self):
         """field `Minimum Surface Convection Heat Transfer Coefficient Value`
 
+        |  Units: W/m2-K
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
-                Units: W/m2-K
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -973,11 +1008,12 @@ class HeatBalanceAlgorithm(DataObject):
     def maximum_surface_convection_heat_transfer_coefficient_value(self):
         """field `Maximum Surface Convection Heat Transfer Coefficient Value`
 
+        |  Units: W/m2-K
+        |  Default value: 1000.0
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
-                Units: W/m2-K
-                Default value: 1000.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1058,9 +1094,10 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
     def difference_scheme(self):
         """field `Difference Scheme`
 
+        |  Default value: FullyImplicitFirstOrder
+
         Args:
             value (str): value for IDD Field `Difference Scheme`
-                Default value: FullyImplicitFirstOrder
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1078,12 +1115,13 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
 
     @property
     def space_discretization_constant(self):
-        """field `Space Discretization Constant` increase or decrease number of
-        nodes.
+        """field `Space Discretization Constant`
+
+        |  increase or decrease number of nodes
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Space Discretization Constant`
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1103,11 +1141,12 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
     def relaxation_factor(self):
         """field `Relaxation Factor`
 
+        |  Default value: 1.0
+        |  value >= 0.01
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Relaxation Factor`
-                Default value: 1.0
-                value >= 0.01
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1127,11 +1166,12 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
     def inside_face_surface_temperature_convergence_criteria(self):
         """field `Inside Face Surface Temperature Convergence Criteria`
 
+        |  Default value: 0.002
+        |  value >= 1e-07
+        |  value <= 0.01
+
         Args:
             value (float): value for IDD Field `Inside Face Surface Temperature Convergence Criteria`
-                Default value: 0.002
-                value >= 1e-07
-                value <= 0.01
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1181,9 +1221,10 @@ class ZoneAirHeatBalanceAlgorithm(DataObject):
     def algorithm(self):
         """field `Algorithm`
 
+        |  Default value: ThirdOrderBackwardDifference
+
         Args:
             value (str): value for IDD Field `Algorithm`
-                Default value: ThirdOrderBackwardDifference
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1251,12 +1292,13 @@ class ZoneAirContaminantBalance(DataObject):
 
     @property
     def carbon_dioxide_concentration(self):
-        """field `Carbon Dioxide Concentration` If Yes, CO2 simulation will be
-        performed.
+        """field `Carbon Dioxide Concentration`
+
+        |  If Yes, CO2 simulation will be performed.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Carbon Dioxide Concentration`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1274,8 +1316,9 @@ class ZoneAirContaminantBalance(DataObject):
 
     @property
     def outdoor_carbon_dioxide_schedule_name(self):
-        """field `Outdoor Carbon Dioxide Schedule Name` Schedule values should
-        be in parts per million (ppm)
+        """field `Outdoor Carbon Dioxide Schedule Name`
+
+        |  Schedule values should be in parts per million (ppm)
 
         Args:
             value (str): value for IDD Field `Outdoor Carbon Dioxide Schedule Name`
@@ -1296,12 +1339,13 @@ class ZoneAirContaminantBalance(DataObject):
 
     @property
     def generic_contaminant_concentration(self):
-        """field `Generic Contaminant Concentration` If Yes, generic
-        contaminant simulation will be performed.
+        """field `Generic Contaminant Concentration`
+
+        |  If Yes, generic contaminant simulation will be performed.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Generic Contaminant Concentration`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1319,8 +1363,10 @@ class ZoneAirContaminantBalance(DataObject):
 
     @property
     def outdoor_generic_contaminant_schedule_name(self):
-        """field `Outdoor Generic Contaminant Schedule Name` Schedule values
-        should be generic contaminant concentration in parts per million (ppm)
+        """field `Outdoor Generic Contaminant Schedule Name`
+
+        |  Schedule values should be generic contaminant concentration in parts per
+        |  million (ppm)
 
         Args:
             value (str): value for IDD Field `Outdoor Generic Contaminant Schedule Name`
@@ -1385,30 +1431,32 @@ class ZoneAirMassFlowConservation(DataObject):
     @property
     def adjust_zone_mixing_for_zone_air_mass_flow_balance(self):
         """field `Adjust Zone Mixing For Zone Air Mass Flow Balance`
-        If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow
-        and additional infiltration air flow may be added if required in order to balance the
-        zone air mass flow.
-        This optional choice input field allows users triggering the zone air mass flow
-        balance calculation when desired. This global object has two choice KEYs: Yes and
-        No. If this input field is specified as Yes, then EnergyPlus attempts to enforce
-        the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus
-        calculation defaults to zone air mass flow balance that does not include zone mixing
-        objects and that assumes self-balanced simple flow objects per the default procedure,
-        which may not necessarily enforce zone mass conservation unless the user specified
-        a balanced flow to begin with. Mass conservation is enforced both for the receiving
-        and source zones if there is at least one mixing object defined. The default input
-        is No. (Note that No input may also results in balanced flow depending on the
-        system specified).
+
+        |  If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow
+        |  and additional infiltration air flow may be added if required in order to balance the
+        |  zone air mass flow.
+        |  This optional choice input field allows users triggering the zone air mass flow
+        |  balance calculation when desired. This global object has two choice KEYs: Yes and
+        |  No. If this input field is specified as Yes, then EnergyPlus attempts to enforce
+        |  the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus
+        |  calculation defaults to zone air mass flow balance that does not include zone mixing
+        |  objects and that assumes self-balanced simple flow objects per the default procedure,
+        |  which may not necessarily enforce zone mass conservation unless the user specified
+        |  a balanced flow to begin with. Mass conservation is enforced both for the receiving
+        |  and source zones if there is at least one mixing object defined. The default input
+        |  is No. (Note that No input may also results in balanced flow depending on the
+        |  system specified).
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Adjust Zone Mixing For Zone Air Mass Flow Balance`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `adjust_zone_mixing_for_zone_air_mass_flow_balance` or None if not set
+
         """
         return self["Adjust Zone Mixing For Zone Air Mass Flow Balance"]
 
@@ -1421,29 +1469,31 @@ class ZoneAirMassFlowConservation(DataObject):
     @property
     def source_zone_infiltration_treatment(self):
         """field `Source Zone Infiltration Treatment`
-        This input field allows user to choose how zone infiltration flow is treated during
-        the zone air mass flow balance calculation.
-        It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this
-        input is specified as AddInfiltrationFlow, then energy plus adds infiltration air
-        mass flow on top of the base flow, which is calculated using the infiltration object
-        user inputs, in order to balance the zone air mass flow.  The additional infiltration
-        air mass flow is not self-balanced.  If this input is specified as
-        AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using
-        the infiltration object user inputs in order to balance the zone air mass flow. If it
-        is not required to adjust the base infiltration air flow calculated from the user
-        specified infiltration object inputs, then the base infiltration air mass flow
-        is assumed self-balanced. If the above input field specified as "No", then this input
-        field has no impact on the simulation.
+
+        |  This input field allows user to choose how zone infiltration flow is treated during
+        |  the zone air mass flow balance calculation.
+        |  It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this
+        |  input is specified as AddInfiltrationFlow, then energy plus adds infiltration air
+        |  mass flow on top of the base flow, which is calculated using the infiltration object
+        |  user inputs, in order to balance the zone air mass flow.  The additional infiltration
+        |  air mass flow is not self-balanced.  If this input is specified as
+        |  AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using
+        |  the infiltration object user inputs in order to balance the zone air mass flow. If it
+        |  is not required to adjust the base infiltration air flow calculated from the user
+        |  specified infiltration object inputs, then the base infiltration air mass flow
+        |  is assumed self-balanced. If the above input field specified as "No", then this input
+        |  field has no impact on the simulation.
+        |  Default value: AddInfiltrationFlow
 
         Args:
             value (str): value for IDD Field `Source Zone Infiltration Treatment`
-                Default value: AddInfiltrationFlow
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `source_zone_infiltration_treatment` or None if not set
+
         """
         return self["Source Zone Infiltration Treatment"]
 
@@ -1507,12 +1557,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
 
     @property
     def temperature_capacity_multiplier(self):
-        """field `Temperature Capacity Multiplier` Used to alter the
-        capacitance of zone air with respect to heat or temperature.
+        """field `Temperature Capacity Multiplier`
+
+        |  Used to alter the capacitance of zone air with respect to heat or temperature
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Temperature Capacity Multiplier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1530,12 +1581,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
 
     @property
     def humidity_capacity_multiplier(self):
-        """field `Humidity Capacity Multiplier` Used to alter the capacitance
-        of zone air with respect to moisture or humidity ratio.
+        """field `Humidity Capacity Multiplier`
+
+        |  Used to alter the capacitance of zone air with respect to moisture or humidity ratio
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Humidity Capacity Multiplier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1553,13 +1605,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
 
     @property
     def carbon_dioxide_capacity_multiplier(self):
-        """field `Carbon Dioxide Capacity Multiplier` Used to alter the
-        capacitance of zone air with respect to zone air carbob dioxide
-        concentration.
+        """field `Carbon Dioxide Capacity Multiplier`
+
+        |  Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Capacity Multiplier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1577,13 +1629,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
 
     @property
     def generic_contaminant_capacity_multiplier(self):
-        """field `Generic Contaminant Capacity Multiplier` Used to alter the
-        capacitance of zone air with respect to zone air generic contaminant
-        concentration.
+        """field `Generic Contaminant Capacity Multiplier`
+
+        |  Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Generic Contaminant Capacity Multiplier`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1635,25 +1687,27 @@ class Timestep(DataObject):
     @property
     def number_of_timesteps_per_hour(self):
         """field `Number of Timesteps per Hour`
-        Number in hour: normal validity 4 to 60: 6 suggested
-        Must be evenly divisible into 60
-        Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60
-        Normal 6 is mimimum as lower values may cause inaccuracies
-        A minimum value of 20 is suggested for both ConductionFiniteDifference
-        and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms
-        A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).
+
+        |  Number in hour: normal validity 4 to 60: 6 suggested
+        |  Must be evenly divisible into 60
+        |  Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60
+        |  Normal 6 is mimimum as lower values may cause inaccuracies
+        |  A minimum value of 20 is suggested for both ConductionFiniteDifference
+        |  and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms
+        |  A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).
+        |  Default value: 6
+        |  value >= 1
+        |  value <= 60
 
         Args:
             value (int): value for IDD Field `Number of Timesteps per Hour`
-                Default value: 6
-                value >= 1
-                value <= 60
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_timesteps_per_hour` or None if not set
+
         """
         return self["Number of Timesteps per Hour"]
 
@@ -1723,20 +1777,22 @@ class ConvergenceLimits(DataObject):
     @property
     def minimum_system_timestep(self):
         """field `Minimum System Timestep`
-        0 sets the minimum to the zone timestep (ref: Timestep)
-        1 is normal (ratchet down to 1 minute)
-        setting greater than zone timestep (in minutes) will effectively set to zone timestep
+
+        |  0 sets the minimum to the zone timestep (ref: Timestep)
+        |  1 is normal (ratchet down to 1 minute)
+        |  setting greater than zone timestep (in minutes) will effectively set to zone timestep
+        |  Units: minutes
+        |  value <= 60
 
         Args:
             value (int): value for IDD Field `Minimum System Timestep`
-                Units: minutes
-                value <= 60
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `minimum_system_timestep` or None if not set
+
         """
         return self["Minimum System Timestep"]
 
@@ -1749,10 +1805,11 @@ class ConvergenceLimits(DataObject):
     def maximum_hvac_iterations(self):
         """field `Maximum HVAC Iterations`
 
+        |  Default value: 20
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Maximum HVAC Iterations`
-                Default value: 20
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1771,20 +1828,22 @@ class ConvergenceLimits(DataObject):
     @property
     def minimum_plant_iterations(self):
         """field `Minimum Plant Iterations`
-        Controls the minimum number of plant system solver iterations within a single HVAC iteration
-        Larger values will increase runtime but might improve solution accuracy for complicated plant systems
-        Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.
+
+        |  Controls the minimum number of plant system solver iterations within a single HVAC iteration
+        |  Larger values will increase runtime but might improve solution accuracy for complicated plant systems
+        |  Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.
+        |  Default value: 2
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Minimum Plant Iterations`
-                Default value: 2
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `minimum_plant_iterations` or None if not set
+
         """
         return self["Minimum Plant Iterations"]
 
@@ -1795,15 +1854,15 @@ class ConvergenceLimits(DataObject):
 
     @property
     def maximum_plant_iterations(self):
-        """field `Maximum Plant Iterations` Controls the maximum number of
-        plant system solver iterations within a single HVAC iteration Smaller
-        values might decrease runtime but could decrease solution accuracy for
-        complicated plant systems.
+        """field `Maximum Plant Iterations`
+
+        |  Controls the maximum number of plant system solver iterations within a single HVAC iteration
+        |  Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems
+        |  Default value: 8
+        |  value >= 2
 
         Args:
             value (int): value for IDD Field `Maximum Plant Iterations`
-                Default value: 8
-                value >= 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1846,8 +1905,9 @@ class ProgramControl(DataObject):
     @property
     def number_of_threads_allowed(self):
         """field `Number of Threads Allowed`
-        This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces
-        if value is 0, then maximum number allowed will be used.
+
+        |  This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces
+        |  if value is 0, then maximum number allowed will be used.
 
         Args:
             value (int): value for IDD Field `Number of Threads Allowed`
@@ -1857,6 +1917,7 @@ class ProgramControl(DataObject):
 
         Returns:
             int: the value of `number_of_threads_allowed` or None if not set
+
         """
         return self["Number of Threads Allowed"]
 

@@ -442,16 +442,17 @@ class WaterHeaterMixed(DataObject):
     def tank_volume(self):
         """field `Tank Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+
         Args:
             value (float or "Autosize"): value for IDD Field `Tank Volume`
-                Units: m3
-                IP-Units: gal
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `tank_volume` or None if not set
+            float or "Autosize": the value of `tank_volume` or None if not set
 
         """
         return self["Tank Volume"]
@@ -486,9 +487,10 @@ class WaterHeaterMixed(DataObject):
     def deadband_temperature_difference(self):
         """field `Deadband Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -508,9 +510,10 @@ class WaterHeaterMixed(DataObject):
     def maximum_temperature_limit(self):
         """field `Maximum Temperature Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -530,9 +533,10 @@ class WaterHeaterMixed(DataObject):
     def heater_control_type(self):
         """field `Heater Control Type`
 
+        |  Default value: Cycle
+
         Args:
             value (str): value for IDD Field `Heater Control Type`
-                Default value: Cycle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -552,15 +556,16 @@ class WaterHeaterMixed(DataObject):
     def heater_maximum_capacity(self):
         """field `Heater Maximum Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heater Maximum Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heater_maximum_capacity` or None if not set
+            float or "Autosize": the value of `heater_maximum_capacity` or None if not set
 
         """
         return self["Heater Maximum Capacity"]
@@ -572,12 +577,13 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def heater_minimum_capacity(self):
-        """field `Heater Minimum Capacity` Only used when Heater Control Type
-        is set to Modulate.
+        """field `Heater Minimum Capacity`
+
+        |  Only used when Heater Control Type is set to Modulate
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Heater Minimum Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -595,11 +601,13 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def heater_ignition_minimum_flow_rate(self):
-        """field `Heater Ignition Minimum Flow Rate` Not yet implemented.
+        """field `Heater Ignition Minimum Flow Rate`
+
+        |  Not yet implemented
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Heater Ignition Minimum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -617,11 +625,13 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def heater_ignition_delay(self):
-        """field `Heater Ignition Delay` Not yet implemented.
+        """field `Heater Ignition Delay`
+
+        |  Not yet implemented
+        |  Units: s
 
         Args:
             value (float): value for IDD Field `Heater Ignition Delay`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -662,9 +672,10 @@ class WaterHeaterMixed(DataObject):
     def heater_thermal_efficiency(self):
         """field `Heater Thermal Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Heater Thermal Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -683,7 +694,8 @@ class WaterHeaterMixed(DataObject):
     @property
     def part_load_factor_curve_name(self):
         """field `Part Load Factor Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Part Load Factor Curve Name`
@@ -693,6 +705,7 @@ class WaterHeaterMixed(DataObject):
 
         Returns:
             str: the value of `part_load_factor_curve_name` or None if not set
+
         """
         return self["Part Load Factor Curve Name"]
 
@@ -705,9 +718,10 @@ class WaterHeaterMixed(DataObject):
     def off_cycle_parasitic_fuel_consumption_rate(self):
         """field `Off Cycle Parasitic Fuel Consumption Rate`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -749,9 +763,10 @@ class WaterHeaterMixed(DataObject):
     def off_cycle_parasitic_heat_fraction_to_tank(self):
         """field `Off Cycle Parasitic Heat Fraction to Tank`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -772,9 +787,10 @@ class WaterHeaterMixed(DataObject):
     def on_cycle_parasitic_fuel_consumption_rate(self):
         """field `On Cycle Parasitic Fuel Consumption Rate`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Fuel Consumption Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -816,9 +832,10 @@ class WaterHeaterMixed(DataObject):
     def on_cycle_parasitic_heat_fraction_to_tank(self):
         """field `On Cycle Parasitic Heat Fraction to Tank`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Heat Fraction to Tank`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -901,7 +918,8 @@ class WaterHeaterMixed(DataObject):
     @property
     def ambient_temperature_outdoor_air_node_name(self):
         """field `Ambient Temperature Outdoor Air Node Name`
-        required for Ambient Temperature Indicator=Outdoors
+
+        |  required for Ambient Temperature Indicator=Outdoors
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -911,6 +929,7 @@ class WaterHeaterMixed(DataObject):
 
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
+
         """
         return self["Ambient Temperature Outdoor Air Node Name"]
 
@@ -924,9 +943,10 @@ class WaterHeaterMixed(DataObject):
     def off_cycle_loss_coefficient_to_ambient_temperature(self):
         """field `Off Cycle Loss Coefficient to Ambient Temperature`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Off Cycle Loss Coefficient to Ambient Temperature`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -947,10 +967,11 @@ class WaterHeaterMixed(DataObject):
     def off_cycle_loss_fraction_to_zone(self):
         """field `Off Cycle Loss Fraction to Zone`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Off Cycle Loss Fraction to Zone`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -970,9 +991,10 @@ class WaterHeaterMixed(DataObject):
     def on_cycle_loss_coefficient_to_ambient_temperature(self):
         """field `On Cycle Loss Coefficient to Ambient Temperature`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `On Cycle Loss Coefficient to Ambient Temperature`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -993,10 +1015,11 @@ class WaterHeaterMixed(DataObject):
     def on_cycle_loss_fraction_to_zone(self):
         """field `On Cycle Loss Fraction to Zone`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `On Cycle Loss Fraction to Zone`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1014,13 +1037,14 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def peak_use_flow_rate(self):
-        """field `Peak Use Flow Rate` Only used if Use Side Node connections
-        are blank.
+        """field `Peak Use Flow Rate`
+
+        |  Only used if Use Side Node connections are blank
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Peak Use Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1038,8 +1062,9 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def use_flow_rate_fraction_schedule_name(self):
-        """field `Use Flow Rate Fraction Schedule Name` Only used if Use Side
-        Node connections are blank.
+        """field `Use Flow Rate Fraction Schedule Name`
+
+        |  Only used if Use Side Node connections are blank
 
         Args:
             value (str): value for IDD Field `Use Flow Rate Fraction Schedule Name`
@@ -1061,8 +1086,9 @@ class WaterHeaterMixed(DataObject):
     @property
     def cold_water_supply_temperature_schedule_name(self):
         """field `Cold Water Supply Temperature Schedule Name`
-        Only used if Use Side Node connections are blank
-        Defaults to water temperatures calculated by Site:WaterMainsTemperature object
+
+        |  Only used if Use Side Node connections are blank
+        |  Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
             value (str): value for IDD Field `Cold Water Supply Temperature Schedule Name`
@@ -1072,6 +1098,7 @@ class WaterHeaterMixed(DataObject):
 
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
+
         """
         return self["Cold Water Supply Temperature Schedule Name"]
 
@@ -1127,10 +1154,11 @@ class WaterHeaterMixed(DataObject):
     def use_side_effectiveness(self):
         """field `Use Side Effectiveness`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Use Side Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1192,10 +1220,11 @@ class WaterHeaterMixed(DataObject):
     def source_side_effectiveness(self):
         """field `Source Side Effectiveness`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Source Side Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1215,17 +1244,18 @@ class WaterHeaterMixed(DataObject):
     def use_side_design_flow_rate(self):
         """field `Use Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `use_side_design_flow_rate` or None if not set
 
         """
         return self["Use Side Design Flow Rate"]
@@ -1239,17 +1269,18 @@ class WaterHeaterMixed(DataObject):
     def source_side_design_flow_rate(self):
         """field `Source Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `source_side_design_flow_rate` or None if not set
 
         """
         return self["Source Side Design Flow Rate"]
@@ -1262,19 +1293,21 @@ class WaterHeaterMixed(DataObject):
     @property
     def indirect_water_heating_recovery_time(self):
         """field `Indirect Water Heating Recovery Time`
-        Parameter for autosizing design flow rates for indirectly heated water tanks
-        Time required to raise temperature of entire tank from 14.4C to 57.2C
+
+        |  Parameter for autosizing design flow rates for indirectly heated water tanks
+        |  Time required to raise temperature of entire tank from 14.4C to 57.2C
+        |  Units: hr
+        |  Default value: 1.5
 
         Args:
             value (float): value for IDD Field `Indirect Water Heating Recovery Time`
-                Units: hr
-                Default value: 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indirect_water_heating_recovery_time` or None if not set
+
         """
         return self["Indirect Water Heating Recovery Time"]
 
@@ -1285,15 +1318,15 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def source_side_flow_control_mode(self):
-        """field `Source Side Flow Control Mode` StorageTank mode always
-        requests flow unless tank is at its Maximum Temperature Limit
-        IndirectHeatPrimarySetpoint mode requests flow whenever primary
-        setpoint calls for heat IndirectHeatAlternateSetpoint mode requests
-        flow whenever alternate indirect setpoint calls for heat.
+        """field `Source Side Flow Control Mode`
+
+        |  StorageTank mode always requests flow unless tank is at its Maximum Temperature Limit
+        |  IndirectHeatPrimarySetpoint mode requests flow whenever primary setpoint calls for heat
+        |  IndirectHeatAlternateSetpoint mode requests flow whenever alternate indirect setpoint calls for heat
+        |  Default value: IndirectHeatPrimarySetpoint
 
         Args:
             value (str): value for IDD Field `Source Side Flow Control Mode`
-                Default value: IndirectHeatPrimarySetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1313,9 +1346,9 @@ class WaterHeaterMixed(DataObject):
 
     @property
     def indirect_alternate_setpoint_temperature_schedule_name(self):
-        """field `Indirect Alternate Setpoint Temperature Schedule Name` This
-        field is only used if the previous is set to
-        IndirectHeatAlternateSetpoint.
+        """field `Indirect Alternate Setpoint Temperature Schedule Name`
+
+        |  This field is only used if the previous is set to IndirectHeatAlternateSetpoint
 
         Args:
             value (str): value for IDD Field `Indirect Alternate Setpoint Temperature Schedule Name`
@@ -1996,9 +2029,10 @@ class WaterHeaterStratified(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2019,16 +2053,17 @@ class WaterHeaterStratified(DataObject):
     def tank_volume(self):
         """field `Tank Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+
         Args:
             value (float or "Autosize"): value for IDD Field `Tank Volume`
-                Units: m3
-                IP-Units: gal
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `tank_volume` or None if not set
+            float or "Autosize": the value of `tank_volume` or None if not set
 
         """
         return self["Tank Volume"]
@@ -2040,18 +2075,19 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def tank_height(self):
-        """field `Tank Height` Height is measured in the axial direction for
-        horizontal cylinders.
+        """field `Tank Height`
+
+        |  Height is measured in the axial direction for horizontal cylinders
+        |  Units: m
 
         Args:
             value (float or "Autosize"): value for IDD Field `Tank Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `tank_height` or None if not set
+            float or "Autosize": the value of `tank_height` or None if not set
 
         """
         return self["Tank Height"]
@@ -2065,9 +2101,10 @@ class WaterHeaterStratified(DataObject):
     def tank_shape(self):
         """field `Tank Shape`
 
+        |  Default value: VerticalCylinder
+
         Args:
             value (str): value for IDD Field `Tank Shape`
-                Default value: VerticalCylinder
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2085,11 +2122,13 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def tank_perimeter(self):
-        """field `Tank Perimeter` Only used if Tank Shape is Other.
+        """field `Tank Perimeter`
+
+        |  Only used if Tank Shape is Other
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Tank Perimeter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2109,9 +2148,10 @@ class WaterHeaterStratified(DataObject):
     def maximum_temperature_limit(self):
         """field `Maximum Temperature Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Maximum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2131,9 +2171,10 @@ class WaterHeaterStratified(DataObject):
     def heater_priority_control(self):
         """field `Heater Priority Control`
 
+        |  Default value: MasterSlave
+
         Args:
             value (str): value for IDD Field `Heater Priority Control`
-                Default value: MasterSlave
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2175,9 +2216,10 @@ class WaterHeaterStratified(DataObject):
     def heater_1_deadband_temperature_difference(self):
         """field `Heater 1 Deadband Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Heater 1 Deadband Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2198,15 +2240,16 @@ class WaterHeaterStratified(DataObject):
     def heater_1_capacity(self):
         """field `Heater 1 Capacity`
 
+        |  Units: W
+
         Args:
             value (float or "Autosize"): value for IDD Field `Heater 1 Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heater_1_capacity` or None if not set
+            float or "Autosize": the value of `heater_1_capacity` or None if not set
 
         """
         return self["Heater 1 Capacity"]
@@ -2220,9 +2263,10 @@ class WaterHeaterStratified(DataObject):
     def heater_1_height(self):
         """field `Heater 1 Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Heater 1 Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2264,9 +2308,10 @@ class WaterHeaterStratified(DataObject):
     def heater_2_deadband_temperature_difference(self):
         """field `Heater 2 Deadband Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Heater 2 Deadband Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2287,9 +2332,10 @@ class WaterHeaterStratified(DataObject):
     def heater_2_capacity(self):
         """field `Heater 2 Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Heater 2 Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2309,9 +2355,10 @@ class WaterHeaterStratified(DataObject):
     def heater_2_height(self):
         """field `Heater 2 Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Heater 2 Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2352,9 +2399,10 @@ class WaterHeaterStratified(DataObject):
     def heater_thermal_efficiency(self):
         """field `Heater Thermal Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Heater Thermal Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2374,9 +2422,10 @@ class WaterHeaterStratified(DataObject):
     def off_cycle_parasitic_fuel_consumption_rate(self):
         """field `Off Cycle Parasitic Fuel Consumption Rate`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2418,9 +2467,10 @@ class WaterHeaterStratified(DataObject):
     def off_cycle_parasitic_heat_fraction_to_tank(self):
         """field `Off Cycle Parasitic Heat Fraction to Tank`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2441,9 +2491,10 @@ class WaterHeaterStratified(DataObject):
     def off_cycle_parasitic_height(self):
         """field `Off Cycle Parasitic Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2463,9 +2514,10 @@ class WaterHeaterStratified(DataObject):
     def on_cycle_parasitic_fuel_consumption_rate(self):
         """field `On Cycle Parasitic Fuel Consumption Rate`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Fuel Consumption Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2507,9 +2559,10 @@ class WaterHeaterStratified(DataObject):
     def on_cycle_parasitic_heat_fraction_to_tank(self):
         """field `On Cycle Parasitic Heat Fraction to Tank`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Heat Fraction to Tank`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2530,9 +2583,10 @@ class WaterHeaterStratified(DataObject):
     def on_cycle_parasitic_height(self):
         """field `On Cycle Parasitic Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2614,7 +2668,8 @@ class WaterHeaterStratified(DataObject):
     @property
     def ambient_temperature_outdoor_air_node_name(self):
         """field `Ambient Temperature Outdoor Air Node Name`
-        required for Ambient Temperature Indicater=Outdoors
+
+        |  required for Ambient Temperature Indicater=Outdoors
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -2624,6 +2679,7 @@ class WaterHeaterStratified(DataObject):
 
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
+
         """
         return self["Ambient Temperature Outdoor Air Node Name"]
 
@@ -2639,9 +2695,10 @@ class WaterHeaterStratified(DataObject):
         """field `Uniform Skin Loss Coefficient per Unit Area to Ambient
         Temperature`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2666,10 +2723,11 @@ class WaterHeaterStratified(DataObject):
     def skin_loss_fraction_to_zone(self):
         """field `Skin Loss Fraction to Zone`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Skin Loss Fraction to Zone`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2689,9 +2747,10 @@ class WaterHeaterStratified(DataObject):
     def off_cycle_flue_loss_coefficient_to_ambient_temperature(self):
         """field `Off Cycle Flue Loss Coefficient to Ambient Temperature`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Off Cycle Flue Loss Coefficient to Ambient Temperature`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2714,10 +2773,11 @@ class WaterHeaterStratified(DataObject):
     def off_cycle_flue_loss_fraction_to_zone(self):
         """field `Off Cycle Flue Loss Fraction to Zone`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Off Cycle Flue Loss Fraction to Zone`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2735,13 +2795,14 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def peak_use_flow_rate(self):
-        """field `Peak Use Flow Rate` Only used if Use Side Node connections
-        are blank.
+        """field `Peak Use Flow Rate`
+
+        |  Only used if Use Side Node connections are blank
+        |  Units: m3/s
+        |  IP-Units: gal/min
 
         Args:
             value (float): value for IDD Field `Peak Use Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2760,8 +2821,9 @@ class WaterHeaterStratified(DataObject):
     @property
     def use_flow_rate_fraction_schedule_name(self):
         """field `Use Flow Rate Fraction Schedule Name`
-        If blank, defaults to 1.0 at all times
-        Only used if use side node connections are blank
+
+        |  If blank, defaults to 1.0 at all times
+        |  Only used if use side node connections are blank
 
         Args:
             value (str): value for IDD Field `Use Flow Rate Fraction Schedule Name`
@@ -2771,6 +2833,7 @@ class WaterHeaterStratified(DataObject):
 
         Returns:
             str: the value of `use_flow_rate_fraction_schedule_name` or None if not set
+
         """
         return self["Use Flow Rate Fraction Schedule Name"]
 
@@ -2782,8 +2845,9 @@ class WaterHeaterStratified(DataObject):
     @property
     def cold_water_supply_temperature_schedule_name(self):
         """field `Cold Water Supply Temperature Schedule Name`
-        Only used if use side node connections are blank
-        Defaults to water temperatures calculated by Site:WaterMainsTemperature object
+
+        |  Only used if use side node connections are blank
+        |  Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
             value (str): value for IDD Field `Cold Water Supply Temperature Schedule Name`
@@ -2793,6 +2857,7 @@ class WaterHeaterStratified(DataObject):
 
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
+
         """
         return self["Cold Water Supply Temperature Schedule Name"]
 
@@ -2846,18 +2911,18 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def use_side_effectiveness(self):
-        """field `Use Side Effectiveness` The use side effectiveness in the
-        stratified tank model is a simplified analogy of a heat exchanger's
-        effectiveness. This effectiveness is equal to the fraction of use mass
-        flow rate that directly mixes with the tank fluid. And one minus the
-        effectiveness is the fraction that bypasses the tank. The use side mass
-        flow rate that bypasses the tank is mixed with the fluid or water
-        leaving the stratified tank.
+        """field `Use Side Effectiveness`
+
+        |  The use side effectiveness in the stratified tank model is a simplified analogy of
+        |  a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
+        |  use mass flow rate that directly mixes with the tank fluid. And one minus the
+        |  effectiveness is the fraction that bypasses the tank. The use side mass flow rate
+        |  that bypasses the tank is mixed with the fluid or water leaving the stratified tank.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Use Side Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2875,11 +2940,13 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def use_side_inlet_height(self):
-        """field `Use Side Inlet Height` Defaults to bottom of tank.
+        """field `Use Side Inlet Height`
+
+        |  Defaults to bottom of tank
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Use Side Inlet Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2897,18 +2964,20 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def use_side_outlet_height(self):
-        """field `Use Side Outlet Height` Defaults to top of tank.
+        """field `Use Side Outlet Height`
+
+        |  Defaults to top of tank
+        |  Units: m
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Use Side Outlet Height`
-                Units: m
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_outlet_height` or None if not set
+            float or "Autocalculate": the value of `use_side_outlet_height` or None if not set
 
         """
         return self["Use Side Outlet Height"]
@@ -2962,18 +3031,18 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def source_side_effectiveness(self):
-        """field `Source Side Effectiveness` The source side effectiveness in
-        the stratified tank model is a simplified analogy of a heat exchanger's
-        effectiveness. This effectiveness is equal to the fraction of source
-        mass flow rate that directly mixes with the tank fluid. And one minus
-        the effectiveness is the fraction that bypasses the tank. The source
-        side mass flow rate that bypasses the tank is mixed with the fluid or
-        water leaving the stratified tank.
+        """field `Source Side Effectiveness`
+
+        |  The source side effectiveness in the stratified tank model is a simplified analogy of
+        |  a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
+        |  source mass flow rate that directly mixes with the tank fluid. And one minus the
+        |  effectiveness is the fraction that bypasses the tank. The source side mass flow rate
+        |  that bypasses the tank is mixed with the fluid or water leaving the stratified tank.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Source Side Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2991,18 +3060,20 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def source_side_inlet_height(self):
-        """field `Source Side Inlet Height` Defaults to top of tank.
+        """field `Source Side Inlet Height`
+
+        |  Defaults to top of tank
+        |  Units: m
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Source Side Inlet Height`
-                Units: m
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_inlet_height` or None if not set
+            float or "Autocalculate": the value of `source_side_inlet_height` or None if not set
 
         """
         return self["Source Side Inlet Height"]
@@ -3014,11 +3085,13 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def source_side_outlet_height(self):
-        """field `Source Side Outlet Height` Defaults to bottom of tank.
+        """field `Source Side Outlet Height`
+
+        |  Defaults to bottom of tank
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Source Side Outlet Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3038,9 +3111,10 @@ class WaterHeaterStratified(DataObject):
     def inlet_mode(self):
         """field `Inlet Mode`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Inlet Mode`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3060,17 +3134,18 @@ class WaterHeaterStratified(DataObject):
     def use_side_design_flow_rate(self):
         """field `Use Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `use_side_design_flow_rate` or None if not set
 
         """
         return self["Use Side Design Flow Rate"]
@@ -3084,17 +3159,18 @@ class WaterHeaterStratified(DataObject):
     def source_side_design_flow_rate(self):
         """field `Source Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `source_side_design_flow_rate` or None if not set
 
         """
         return self["Source Side Design Flow Rate"]
@@ -3107,19 +3183,21 @@ class WaterHeaterStratified(DataObject):
     @property
     def indirect_water_heating_recovery_time(self):
         """field `Indirect Water Heating Recovery Time`
-        Parameter for autosizing design flow rates for indirectly heated water tanks
-        time required to raise temperature of entire tank from 14.4C to 57.2C
+
+        |  Parameter for autosizing design flow rates for indirectly heated water tanks
+        |  time required to raise temperature of entire tank from 14.4C to 57.2C
+        |  Units: hr
+        |  Default value: 1.5
 
         Args:
             value (float): value for IDD Field `Indirect Water Heating Recovery Time`
-                Units: hr
-                Default value: 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indirect_water_heating_recovery_time` or None if not set
+
         """
         return self["Indirect Water Heating Recovery Time"]
 
@@ -3132,11 +3210,12 @@ class WaterHeaterStratified(DataObject):
     def number_of_nodes(self):
         """field `Number of Nodes`
 
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 10
+
         Args:
             value (int): value for IDD Field `Number of Nodes`
-                Default value: 1
-                value >= 1
-                value <= 10
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3156,9 +3235,10 @@ class WaterHeaterStratified(DataObject):
     def additional_destratification_conductivity(self):
         """field `Additional Destratification Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Additional Destratification Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3179,9 +3259,10 @@ class WaterHeaterStratified(DataObject):
     def node_1_additional_loss_coefficient(self):
         """field `Node 1 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 1 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3201,9 +3282,10 @@ class WaterHeaterStratified(DataObject):
     def node_2_additional_loss_coefficient(self):
         """field `Node 2 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 2 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3223,9 +3305,10 @@ class WaterHeaterStratified(DataObject):
     def node_3_additional_loss_coefficient(self):
         """field `Node 3 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 3 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3245,9 +3328,10 @@ class WaterHeaterStratified(DataObject):
     def node_4_additional_loss_coefficient(self):
         """field `Node 4 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 4 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3267,9 +3351,10 @@ class WaterHeaterStratified(DataObject):
     def node_5_additional_loss_coefficient(self):
         """field `Node 5 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 5 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3289,9 +3374,10 @@ class WaterHeaterStratified(DataObject):
     def node_6_additional_loss_coefficient(self):
         """field `Node 6 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 6 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3311,9 +3397,10 @@ class WaterHeaterStratified(DataObject):
     def node_7_additional_loss_coefficient(self):
         """field `Node 7 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 7 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3333,9 +3420,10 @@ class WaterHeaterStratified(DataObject):
     def node_8_additional_loss_coefficient(self):
         """field `Node 8 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 8 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3355,9 +3443,10 @@ class WaterHeaterStratified(DataObject):
     def node_9_additional_loss_coefficient(self):
         """field `Node 9 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 9 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3377,9 +3466,10 @@ class WaterHeaterStratified(DataObject):
     def node_10_additional_loss_coefficient(self):
         """field `Node 10 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 10 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3397,15 +3487,15 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def source_side_flow_control_mode(self):
-        """field `Source Side Flow Control Mode` StorageTank mode always
-        requests flow unless tank is at its Maximum Temperature Limit
-        IndirectHeatPrimarySetpoint mode requests flow whenever primary
-        setpoint for heater 1 calls for heat IndirectHeatAlternateSetpoint mode
-        requests flow whenever alternate indirect setpoint calls for heat.
+        """field `Source Side Flow Control Mode`
+
+        |  StorageTank mode always requests flow unless tank is at its Maximum Temperature Limit
+        |  IndirectHeatPrimarySetpoint mode requests flow whenever primary setpoint for heater 1 calls for heat
+        |  IndirectHeatAlternateSetpoint mode requests flow whenever alternate indirect setpoint calls for heat
+        |  Default value: IndirectHeatPrimarySetpoint
 
         Args:
             value (str): value for IDD Field `Source Side Flow Control Mode`
-                Default value: IndirectHeatPrimarySetpoint
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3425,9 +3515,9 @@ class WaterHeaterStratified(DataObject):
 
     @property
     def indirect_alternate_setpoint_temperature_schedule_name(self):
-        """field `Indirect Alternate Setpoint Temperature Schedule Name` This
-        field is only used if the previous is set to
-        IndirectHeatAlternateSetpoint.
+        """field `Indirect Alternate Setpoint Temperature Schedule Name`
+
+        |  This field is only used if the previous is set to IndirectHeatAlternateSetpoint
 
         Args:
             value (str): value for IDD Field `Indirect Alternate Setpoint Temperature Schedule Name`
@@ -3653,17 +3743,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def time_storage_can_meet_peak_draw(self):
         """field `Time Storage Can Meet Peak Draw`
-        Only used for Design Mode = PeakDraw
+
+        |  Only used for Design Mode = PeakDraw
+        |  Units: hr
 
         Args:
             value (float): value for IDD Field `Time Storage Can Meet Peak Draw`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `time_storage_can_meet_peak_draw` or None if not set
+
         """
         return self["Time Storage Can Meet Peak Draw"]
 
@@ -3675,17 +3767,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def time_for_tank_recovery(self):
         """field `Time for Tank Recovery`
-        Only used for Design Mode = PeakDraw
+
+        |  Only used for Design Mode = PeakDraw
+        |  Units: hr
 
         Args:
             value (float): value for IDD Field `Time for Tank Recovery`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `time_for_tank_recovery` or None if not set
+
         """
         return self["Time for Tank Recovery"]
 
@@ -3697,18 +3791,20 @@ class WaterHeaterSizing(DataObject):
     @property
     def nominal_tank_volume_for_autosizing_plant_connections(self):
         """field `Nominal Tank Volume for Autosizing Plant Connections`
-        Only used if Design Mode = PeakDraw and the water heater also
-        has autosized flow rates for connections on the demand side of a plant loop
+
+        |  Only used if Design Mode = PeakDraw and the water heater also
+        |  has autosized flow rates for connections on the demand side of a plant loop
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Nominal Tank Volume for Autosizing Plant Connections`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `nominal_tank_volume_for_autosizing_plant_connections` or None if not set
+
         """
         return self["Nominal Tank Volume for Autosizing Plant Connections"]
 
@@ -3721,17 +3817,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def number_of_bedrooms(self):
         """field `Number of Bedrooms`
-        Only used for Design Mode = ResidentialHUD-FHAMinimum
+
+        |  Only used for Design Mode = ResidentialHUD-FHAMinimum
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Number of Bedrooms`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_bedrooms` or None if not set
+
         """
         return self["Number of Bedrooms"]
 
@@ -3743,17 +3841,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def number_of_bathrooms(self):
         """field `Number of Bathrooms`
-        Only used for Design Mode = ResidentialHUD-FHAMinimum
+
+        |  Only used for Design Mode = ResidentialHUD-FHAMinimum
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Number of Bathrooms`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_bathrooms` or None if not set
+
         """
         return self["Number of Bathrooms"]
 
@@ -3765,17 +3865,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def storage_capacity_per_person(self):
         """field `Storage Capacity per Person`
-        Only used for Design Mode = PerPerson
+
+        |  Only used for Design Mode = PerPerson
+        |  Units: m3/Person
 
         Args:
             value (float): value for IDD Field `Storage Capacity per Person`
-                Units: m3/Person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `storage_capacity_per_person` or None if not set
+
         """
         return self["Storage Capacity per Person"]
 
@@ -3787,17 +3889,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def recovery_capacity_per_person(self):
         """field `Recovery Capacity per Person`
-        Only used for Design Mode = PerPerson
+
+        |  Only used for Design Mode = PerPerson
+        |  Units: m3/hr-person
 
         Args:
             value (float): value for IDD Field `Recovery Capacity per Person`
-                Units: m3/hr-person
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `recovery_capacity_per_person` or None if not set
+
         """
         return self["Recovery Capacity per Person"]
 
@@ -3809,17 +3913,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def storage_capacity_per_floor_area(self):
         """field `Storage Capacity per Floor Area`
-        Only used for Design Mode = PerFloorArea
+
+        |  Only used for Design Mode = PerFloorArea
+        |  Units: m3/m2
 
         Args:
             value (float): value for IDD Field `Storage Capacity per Floor Area`
-                Units: m3/m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `storage_capacity_per_floor_area` or None if not set
+
         """
         return self["Storage Capacity per Floor Area"]
 
@@ -3831,17 +3937,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def recovery_capacity_per_floor_area(self):
         """field `Recovery Capacity per Floor Area`
-        Only used for Design Mode = PerFloorArea
+
+        |  Only used for Design Mode = PerFloorArea
+        |  Units: m3/hr-m2
 
         Args:
             value (float): value for IDD Field `Recovery Capacity per Floor Area`
-                Units: m3/hr-m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `recovery_capacity_per_floor_area` or None if not set
+
         """
         return self["Recovery Capacity per Floor Area"]
 
@@ -3853,7 +3961,8 @@ class WaterHeaterSizing(DataObject):
     @property
     def number_of_units(self):
         """field `Number of Units`
-        Only used for Design Mode = PerUnit
+
+        |  Only used for Design Mode = PerUnit
 
         Args:
             value (float): value for IDD Field `Number of Units`
@@ -3863,6 +3972,7 @@ class WaterHeaterSizing(DataObject):
 
         Returns:
             float: the value of `number_of_units` or None if not set
+
         """
         return self["Number of Units"]
 
@@ -3874,17 +3984,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def storage_capacity_per_unit(self):
         """field `Storage Capacity per Unit`
-        Only used for Design Mode = PerUnit
+
+        |  Only used for Design Mode = PerUnit
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Storage Capacity per Unit`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `storage_capacity_per_unit` or None if not set
+
         """
         return self["Storage Capacity per Unit"]
 
@@ -3896,17 +4008,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def recovery_capacity_perunit(self):
         """field `Recovery Capacity PerUnit`
-        Only used for Design Mode = PerUnit
+
+        |  Only used for Design Mode = PerUnit
+        |  Units: m3/hr
 
         Args:
             value (float): value for IDD Field `Recovery Capacity PerUnit`
-                Units: m3/hr
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `recovery_capacity_perunit` or None if not set
+
         """
         return self["Recovery Capacity PerUnit"]
 
@@ -3918,17 +4032,19 @@ class WaterHeaterSizing(DataObject):
     @property
     def storage_capacity_per_collector_area(self):
         """field `Storage Capacity per Collector Area`
-        Only used for Design Mode = PerSolarCollectorArea
+
+        |  Only used for Design Mode = PerSolarCollectorArea
+        |  Units: m3/m2
 
         Args:
             value (float): value for IDD Field `Storage Capacity per Collector Area`
-                Units: m3/m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `storage_capacity_per_collector_area` or None if not set
+
         """
         return self["Storage Capacity per Collector Area"]
 
@@ -3940,7 +4056,8 @@ class WaterHeaterSizing(DataObject):
     @property
     def height_aspect_ratio(self):
         """field `Height Aspect Ratio`
-        only used if for WaterHeater:Stratified
+
+        |  only used if for WaterHeater:Stratified
 
         Args:
             value (float): value for IDD Field `Height Aspect Ratio`
@@ -3950,6 +4067,7 @@ class WaterHeaterSizing(DataObject):
 
         Returns:
             float: the value of `height_aspect_ratio` or None if not set
+
         """
         return self["Height Aspect Ratio"]
 
@@ -4268,8 +4386,9 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def name(self):
-        """field `Name` Unique name for this instance of a heat pump water
-        heater.
+        """field `Name`
+
+        |  Unique name for this instance of a heat pump water heater.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4290,11 +4409,12 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. Schedule values of 0
-        denote the heat pump compressor is off and the parasitic electric
-        energy is also off.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  Schedule values of 0 denote the heat pump compressor is off and the parasitic electric
+        |  energy is also off.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4316,9 +4436,10 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def compressor_setpoint_temperature_schedule_name(self):
         """field `Compressor Setpoint Temperature Schedule Name`
-        Defines the cut-out temperature where the heat pump compressor turns off.
-        The heat pump compressor setpoint temperature should always be greater
-        than the water tank's heater (element or burner) setpoint temperature.
+
+        |  Defines the cut-out temperature where the heat pump compressor turns off.
+        |  The heat pump compressor setpoint temperature should always be greater
+        |  than the water tank's heater (element or burner) setpoint temperature.
 
         Args:
             value (str): value for IDD Field `Compressor Setpoint Temperature Schedule Name`
@@ -4328,6 +4449,7 @@ class WaterHeaterHeatPump(DataObject):
 
         Returns:
             str: the value of `compressor_setpoint_temperature_schedule_name` or None if not set
+
         """
         return self["Compressor Setpoint Temperature Schedule Name"]
 
@@ -4340,22 +4462,24 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def dead_band_temperature_difference(self):
         """field `Dead Band Temperature Difference`
-        Setpoint temperature minus the dead band temperature difference defines
-        the cut-in temperature where the heat pump compressor turns on.
-        The water tank's heater (element or burner) setpoint temperature
-        should always be less than the heat pump compressor cut-in temperature.
+
+        |  Setpoint temperature minus the dead band temperature difference defines
+        |  the cut-in temperature where the heat pump compressor turns on.
+        |  The water tank's heater (element or burner) setpoint temperature
+        |  should always be less than the heat pump compressor cut-in temperature.
+        |  Units: deltaC
+        |  Default value: 5.0
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Dead Band Temperature Difference`
-                Units: deltaC
-                Default value: 5.0
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `dead_band_temperature_difference` or None if not set
+
         """
         return self["Dead Band Temperature Difference"]
 
@@ -4366,10 +4490,11 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def condenser_water_inlet_node_name(self):
-        """field `Condenser Water Inlet Node Name` Should match the field
-        Source Outlet Node Name in the water heater tank object. Should also
-        match the Condenser Water Inlet Node Name in the associated DX coil
-        object.
+        """field `Condenser Water Inlet Node Name`
+
+        |  Should match the field Source Outlet Node Name in the water heater tank object.
+        |  Should also match the Condenser Water Inlet Node Name in the associated
+        |  DX coil object.
 
         Args:
             value (str): value for IDD Field `Condenser Water Inlet Node Name`
@@ -4390,9 +4515,11 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def condenser_water_outlet_node_name(self):
-        """field `Condenser Water Outlet Node Name` Should match the field
-        Source Inlet Node Name in water heater tank object. Should also match
-        the Condenser Water Outlet Node Name in the associated DX Coil object.
+        """field `Condenser Water Outlet Node Name`
+
+        |  Should match the field Source Inlet Node Name in water heater tank object.
+        |  Should also match the Condenser Water Outlet Node Name in the associated
+        |  DX Coil object.
 
         Args:
             value (str): value for IDD Field `Condenser Water Outlet Node Name`
@@ -4414,19 +4541,21 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def condenser_water_flow_rate(self):
         """field `Condenser Water Flow Rate`
-        Actual water flow rate through the heat pump's water coil (condenser).
-        If autocalculated, the water flow rate is set equal to 4.487E-8 m3/s/W times
-        the rated heating capacity of the heat pump's DX coil.
+
+        |  Actual water flow rate through the heat pump's water coil (condenser).
+        |  If autocalculated, the water flow rate is set equal to 4.487E-8 m3/s/W times
+        |  the rated heating capacity of the heat pump's DX coil.
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Condenser Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `condenser_water_flow_rate` or None if not set
+            float or "Autocalculate": the value of `condenser_water_flow_rate` or None if not set
+
         """
         return self["Condenser Water Flow Rate"]
 
@@ -4438,19 +4567,21 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def evaporator_air_flow_rate(self):
         """field `Evaporator Air Flow Rate`
-        Actual air flow rate across the heat pump's air coil (evaporator).
-        If autocalculated, the air flow rate is set equal to 5.035E-5 m3/s/W times
-        the rated heating capacity of the heat pump's DX coil.
+
+        |  Actual air flow rate across the heat pump's air coil (evaporator).
+        |  If autocalculated, the air flow rate is set equal to 5.035E-5 m3/s/W times
+        |  the rated heating capacity of the heat pump's DX coil.
+        |  Units: m3/s
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Evaporator Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporator_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `evaporator_air_flow_rate` or None if not set
+
         """
         return self["Evaporator Air Flow Rate"]
 
@@ -4461,8 +4592,9 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def inlet_air_configuration(self):
-        """field `Inlet Air Configuration` Defines the configuration of the
-        airflow path through the air coil and fan section.
+        """field `Inlet Air Configuration`
+
+        |  Defines the configuration of the airflow path through the air coil and fan section.
 
         Args:
             value (str): value for IDD Field `Inlet Air Configuration`
@@ -4483,10 +4615,12 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` Zone air exhaust node name if Inlet Air
-        Configuration is ZoneAirOnly or ZoneAndOutdoorAir. Simply a unique Node
-        Name if Inlet Air Configuration is Schedule. Otherwise, leave field
-        blank.
+        """field `Air Inlet Node Name`
+
+        |  Zone air exhaust node name if Inlet Air Configuration is ZoneAirOnly or
+        |  ZoneAndOutdoorAir.
+        |  Simply a unique Node Name if Inlet Air Configuration is Schedule.
+        |  Otherwise, leave field blank.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -4507,10 +4641,12 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` Zone Air Inlet Node Name if Inlet Air
-        Configuration is ZoneAirOnly or ZoneAndOutdoorAir. Simply a unique Node
-        Name if Inlet Air Configuration is Schedule. Otherwise, leave field
-        blank.
+        """field `Air Outlet Node Name`
+
+        |  Zone Air Inlet Node Name if Inlet Air Configuration is ZoneAirOnly or
+        |  ZoneAndOutdoorAir.
+        |  Simply a unique Node Name if Inlet Air Configuration is Schedule.
+        |  Otherwise, leave field blank.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -4531,9 +4667,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def outdoor_air_node_name(self):
-        """field `Outdoor Air Node Name` Outdoor air node name if inlet air
-        configuration is ZoneAndOutdoorAir or OutdoorAirOnly, otherwise leave
-        field blank.
+        """field `Outdoor Air Node Name`
+
+        |  Outdoor air node name if inlet air configuration is ZoneAndOutdoorAir
+        |  or OutdoorAirOnly, otherwise leave field blank.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -4554,9 +4691,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def exhaust_air_node_name(self):
-        """field `Exhaust Air Node Name` Simply a unique Node Name if Inlet Air
-        Configuration is ZoneAndOutdoorAir or OutdoorAirOnly, otherwise leave
-        field blank.
+        """field `Exhaust Air Node Name`
+
+        |  Simply a unique Node Name if Inlet Air Configuration is ZoneAndOutdoorAir
+        |  or OutdoorAirOnly, otherwise leave field blank.
 
         Args:
             value (str): value for IDD Field `Exhaust Air Node Name`
@@ -4577,9 +4715,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def inlet_air_temperature_schedule_name(self):
-        """field `Inlet Air Temperature Schedule Name` Used only if Inlet Air
-        Configuration is Schedule, otherwise leave blank. Schedule values
-        should be degrees C.
+        """field `Inlet Air Temperature Schedule Name`
+
+        |  Used only if Inlet Air Configuration is Schedule, otherwise leave blank.
+        |  Schedule values should be degrees C.
 
         Args:
             value (str): value for IDD Field `Inlet Air Temperature Schedule Name`
@@ -4601,8 +4740,9 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def inlet_air_humidity_schedule_name(self):
         """field `Inlet Air Humidity Schedule Name`
-        Used only if Inlet Air Configuration is Schedule, otherwise leave blank.
-        Schedule values are entered as a fraction (e.g. 0.5 is equal to 50%RH)
+
+        |  Used only if Inlet Air Configuration is Schedule, otherwise leave blank.
+        |  Schedule values are entered as a fraction (e.g. 0.5 is equal to 50%RH)
 
         Args:
             value (str): value for IDD Field `Inlet Air Humidity Schedule Name`
@@ -4612,6 +4752,7 @@ class WaterHeaterHeatPump(DataObject):
 
         Returns:
             str: the value of `inlet_air_humidity_schedule_name` or None if not set
+
         """
         return self["Inlet Air Humidity Schedule Name"]
 
@@ -4622,8 +4763,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def inlet_air_zone_name(self):
-        """field `Inlet Air Zone Name` Used only if Inlet Air Configuration is
-        ZoneAirOnly or ZoneAndOutdoorAir. Otherwise, leave field blank.
+        """field `Inlet Air Zone Name`
+
+        |  Used only if Inlet Air Configuration is ZoneAirOnly or ZoneAndOutdoorAir.
+        |  Otherwise, leave field blank.
 
         Args:
             value (str): value for IDD Field `Inlet Air Zone Name`
@@ -4644,12 +4787,13 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def tank_object_type(self):
-        """field `Tank Object Type` Specify the type of water heater tank used
-        by this heat pump water heater.
+        """field `Tank Object Type`
+
+        |  Specify the type of water heater tank used by this heat pump water heater.
+        |  Default value: WaterHeater:Mixed
 
         Args:
             value (str): value for IDD Field `Tank Object Type`
-                Default value: WaterHeater:Mixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4667,8 +4811,9 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def tank_name(self):
-        """field `Tank Name` Needs to match the name used in the corresponding
-        Water Heater object.
+        """field `Tank Name`
+
+        |  Needs to match the name used in the corresponding Water Heater object.
 
         Args:
             value (str): value for IDD Field `Tank Name`
@@ -4689,10 +4834,11 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def tank_use_side_inlet_node_name(self):
-        """field `Tank Use Side Inlet Node Name` Used only when the heat pump
-        water heater is connected to a plant loop, otherwise leave blank. Needs
-        to match the name used in the corresponding Water Heater object when
-        connected to a plant loop.
+        """field `Tank Use Side Inlet Node Name`
+
+        |  Used only when the heat pump water heater is connected to a plant loop,
+        |  otherwise leave blank. Needs to match the name used in the corresponding
+        |  Water Heater object when connected to a plant loop.
 
         Args:
             value (str): value for IDD Field `Tank Use Side Inlet Node Name`
@@ -4713,10 +4859,11 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def tank_use_side_outlet_node_name(self):
-        """field `Tank Use Side Outlet Node Name` Used only when the heat pump
-        water heater is connected to a plant loop, otherwise leave blank. Needs
-        to match the name used in the corresponding Water Heater object when
-        connected to a plant loop.
+        """field `Tank Use Side Outlet Node Name`
+
+        |  Used only when the heat pump water heater is connected to a plant loop,
+        |  otherwise leave blank. Needs to match the name used in the corresponding
+        |  Water Heater object when connected to a plant loop.
 
         Args:
             value (str): value for IDD Field `Tank Use Side Outlet Node Name`
@@ -4738,18 +4885,20 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def dx_coil_object_type(self):
         """field `DX Coil Object Type`
-        Specify the type of DX coil used by this heat pump water heater. The only
-        valid choice is Coil:WaterHeating:AirToWaterHeatPump.
+
+        |  Specify the type of DX coil used by this heat pump water heater. The only
+        |  valid choice is Coil:WaterHeating:AirToWaterHeatPump.
+        |  Default value: Coil:WaterHeating:AirToWaterHeatPump
 
         Args:
             value (str): value for IDD Field `DX Coil Object Type`
-                Default value: Coil:WaterHeating:AirToWaterHeatPump
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dx_coil_object_type` or None if not set
+
         """
         return self["DX Coil Object Type"]
 
@@ -4763,7 +4912,8 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def dx_coil_name(self):
         """field `DX Coil Name`
-        Must match the name used in the corresponding Coil:WaterHeating:AirToWaterHeatPump object.
+
+        |  Must match the name used in the corresponding Coil:WaterHeating:AirToWaterHeatPump object.
 
         Args:
             value (str): value for IDD Field `DX Coil Name`
@@ -4773,6 +4923,7 @@ class WaterHeaterHeatPump(DataObject):
 
         Returns:
             str: the value of `dx_coil_name` or None if not set
+
         """
         return self["DX Coil Name"]
 
@@ -4784,20 +4935,22 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def minimum_inlet_air_temperature_for_compressor_operation(self):
         """field `Minimum Inlet Air Temperature for Compressor Operation`
-        Heat pump compressor will not operate when the inlet air dry-bulb temperature
-        is below this value.
+
+        |  Heat pump compressor will not operate when the inlet air dry-bulb temperature
+        |  is below this value.
+        |  Units: C
+        |  Default value: 10.0
+        |  value >= 5.0
 
         Args:
             value (float): value for IDD Field `Minimum Inlet Air Temperature for Compressor Operation`
-                Units: C
-                Default value: 10.0
-                value >= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_inlet_air_temperature_for_compressor_operation` or None if not set
+
         """
         return self["Minimum Inlet Air Temperature for Compressor Operation"]
 
@@ -4811,10 +4964,11 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def compressor_location(self):
-        """field `Compressor Location` If Zone is selected, Inlet Air
-        Configuration must be ZoneAirOnly or ZoneAndOutdoorAir. If Schedule is
-        selected, then you must provide a Compressor Ambient Temperature
-        Schedule Name below.
+        """field `Compressor Location`
+
+        |  If Zone is selected, Inlet Air Configuration must be ZoneAirOnly or
+        |  ZoneAndOutdoorAir. If Schedule is selected, then you must provide a
+        |  Compressor Ambient Temperature Schedule Name below.
 
         Args:
             value (str): value for IDD Field `Compressor Location`
@@ -4835,8 +4989,9 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def compressor_ambient_temperature_schedule_name(self):
-        """field `Compressor Ambient Temperature Schedule Name` Used only if
-        Compressor Location is Schedule, otherwise leave field blank.
+        """field `Compressor Ambient Temperature Schedule Name`
+
+        |  Used only if Compressor Location is Schedule, otherwise leave field blank.
 
         Args:
             value (str): value for IDD Field `Compressor Ambient Temperature Schedule Name`
@@ -4859,18 +5014,20 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def fan_object_type(self):
         """field `Fan Object Type`
-        Specify the type of fan used by this heat pump water heater. The only
-        valid choice is Fan:OnOff.
+
+        |  Specify the type of fan used by this heat pump water heater. The only
+        |  valid choice is Fan:OnOff.
+        |  Default value: Fan:OnOff
 
         Args:
             value (str): value for IDD Field `Fan Object Type`
-                Default value: Fan:OnOff
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `fan_object_type` or None if not set
+
         """
         return self["Fan Object Type"]
 
@@ -4882,7 +5039,8 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def fan_name(self):
         """field `Fan Name`
-        Needs to match the name used in the corresponding Fan:OnOff object.
+
+        |  Needs to match the name used in the corresponding Fan:OnOff object.
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -4892,6 +5050,7 @@ class WaterHeaterHeatPump(DataObject):
 
         Returns:
             str: the value of `fan_name` or None if not set
+
         """
         return self["Fan Name"]
 
@@ -4902,13 +5061,14 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def fan_placement(self):
-        """field `Fan Placement` BlowThrough means the fan is located before
-        the air coil (upstream). DrawThrough means the fan is located after the
-        air coil (downstream).
+        """field `Fan Placement`
+
+        |  BlowThrough means the fan is located before the air coil (upstream).
+        |  DrawThrough means the fan is located after the air coil (downstream).
+        |  Default value: DrawThrough
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: DrawThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4926,13 +5086,14 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def on_cycle_parasitic_electric_load(self):
-        """field `On Cycle Parasitic Electric Load` Parasitic electric power
-        consumed when the heat pump compressor operates. Does not contribute to
-        water heating but can impact the zone air heat balance.
+        """field `On Cycle Parasitic Electric Load`
+
+        |  Parasitic electric power consumed when the heat pump compressor operates.
+        |  Does not contribute to water heating but can impact the zone air heat balance.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Electric Load`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4951,19 +5112,21 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def off_cycle_parasitic_electric_load(self):
         """field `Off Cycle Parasitic Electric Load`
-        Parasitic electric power consumed when the heat pump compressor is off.
-        Does not contribute to water heating but can impact the zone air heat balance.
-        Off-cycle parasitic power is 0 when the availability schedule is 0.
+
+        |  Parasitic electric power consumed when the heat pump compressor is off.
+        |  Does not contribute to water heating but can impact the zone air heat balance.
+        |  Off-cycle parasitic power is 0 when the availability schedule is 0.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Electric Load`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `off_cycle_parasitic_electric_load` or None if not set
+
         """
         return self["Off Cycle Parasitic Electric Load"]
 
@@ -4974,14 +5137,15 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def parasitic_heat_rejection_location(self):
-        """field `Parasitic Heat Rejection Location` This field determines if
-        the parasitic electric load impacts the zone air heat balance. If Zone
-        is selected, Inlet Air Configuration must be ZoneAirOnly or
-        ZoneAndOutdoorAir.
+        """field `Parasitic Heat Rejection Location`
+
+        |  This field determines if the parasitic electric load impacts the zone air
+        |  heat balance. If Zone is selected, Inlet Air Configuration must be
+        |  ZoneAirOnly or ZoneAndOutdoorAir.
+        |  Default value: Outdoors
 
         Args:
             value (str): value for IDD Field `Parasitic Heat Rejection Location`
-                Default value: Outdoors
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4999,8 +5163,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def inlet_air_mixer_node_name(self):
-        """field `Inlet Air Mixer Node Name` Required only if Inlet Air
-        Configuration is ZoneAndOutdoorAir, otherwise leave field blank.
+        """field `Inlet Air Mixer Node Name`
+
+        |  Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
+        |  leave field blank.
 
         Args:
             value (str): value for IDD Field `Inlet Air Mixer Node Name`
@@ -5021,8 +5187,10 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def outlet_air_splitter_node_name(self):
-        """field `Outlet Air Splitter Node Name` Required only if Inlet Air
-        Configuration is ZoneAndOutdoorAir, otherwise leave field blank.
+        """field `Outlet Air Splitter Node Name`
+
+        |  Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
+        |  leave field blank.
 
         Args:
             value (str): value for IDD Field `Outlet Air Splitter Node Name`
@@ -5043,14 +5211,15 @@ class WaterHeaterHeatPump(DataObject):
 
     @property
     def inlet_air_mixer_schedule_name(self):
-        """field `Inlet Air Mixer Schedule Name` Required only if Inlet Air
-        Configuration is ZoneAndOutdoorAir, otherwise leave field blank.
-        Schedule values define whether the heat pump draws its inlet air from
-        the zone, outdoors or a combination of zone and outdoor air. A schedule
-        value of 0 denotes inlet air is drawn only from the zone. A schedule
-        value of 1 denotes inlet air is drawn only from outdoors. Schedule
-        values between 0 and 1 denote a mixture of zone and outdoor air
-        proportional to the schedule value.
+        """field `Inlet Air Mixer Schedule Name`
+
+        |  Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
+        |  leave field blank. Schedule values define whether the heat pump draws its
+        |  inlet air from the zone, outdoors or a combination of zone and outdoor air.
+        |  A schedule value of 0 denotes inlet air is drawn only from the zone.
+        |  A schedule value of 1 denotes inlet air is drawn only from outdoors.
+        |  Schedule values between 0 and 1 denote a mixture of zone and outdoor air
+        |  proportional to the schedule value.
 
         Args:
             value (str): value for IDD Field `Inlet Air Mixer Schedule Name`
@@ -5072,17 +5241,19 @@ class WaterHeaterHeatPump(DataObject):
     @property
     def control_sensor_location_in_stratified_tank(self):
         """field `Control Sensor Location In Stratified Tank`
-        Used to indicate height of control sensor if Tank Object Type is WaterHeater:Stratified
+
+        |  Used to indicate height of control sensor if Tank Object Type is WaterHeater:Stratified
+        |  Default value: Heater1
 
         Args:
             value (str): value for IDD Field `Control Sensor Location In Stratified Tank`
-                Default value: Heater1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `control_sensor_location_in_stratified_tank` or None if not set
+
         """
         return self["Control Sensor Location In Stratified Tank"]
 
@@ -5175,8 +5346,9 @@ class ThermalStorageIceSimple(DataObject):
     @property
     def ice_storage_type(self):
         """field `Ice Storage Type`
-        IceOnCoilInternal = Ice-on-Coil, internal melt
-        IceOnCoilExternal = Ice-on-Coil, external melt
+
+        |  IceOnCoilInternal = Ice-on-Coil, internal melt
+        |  IceOnCoilExternal = Ice-on-Coil, external melt
 
         Args:
             value (str): value for IDD Field `Ice Storage Type`
@@ -5186,6 +5358,7 @@ class ThermalStorageIceSimple(DataObject):
 
         Returns:
             str: the value of `ice_storage_type` or None if not set
+
         """
         return self["Ice Storage Type"]
 
@@ -5198,10 +5371,11 @@ class ThermalStorageIceSimple(DataObject):
     def capacity(self):
         """field `Capacity`
 
+        |  Units: GJ
+        |  IP-Units: ton-hrs
+
         Args:
             value (float): value for IDD Field `Capacity`
-                Units: GJ
-                IP-Units: ton-hrs
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5419,9 +5593,10 @@ class ThermalStorageIceDetailed(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5442,11 +5617,13 @@ class ThermalStorageIceDetailed(DataObject):
 
     @property
     def capacity(self):
-        """field `Capacity` This includes only the latent storage capacity.
+        """field `Capacity`
+
+        |  This includes only the latent storage capacity
+        |  Units: GJ
 
         Args:
             value (float): value for IDD Field `Capacity`
-                Units: GJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5507,7 +5684,8 @@ class ThermalStorageIceDetailed(DataObject):
     @property
     def discharging_curve_object_type(self):
         """field `Discharging Curve Object Type`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Discharging Curve Object Type`
@@ -5517,6 +5695,7 @@ class ThermalStorageIceDetailed(DataObject):
 
         Returns:
             str: the value of `discharging_curve_object_type` or None if not set
+
         """
         return self["Discharging Curve Object Type"]
 
@@ -5528,7 +5707,8 @@ class ThermalStorageIceDetailed(DataObject):
     @property
     def discharging_curve_name(self):
         """field `Discharging Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Discharging Curve Name`
@@ -5538,6 +5718,7 @@ class ThermalStorageIceDetailed(DataObject):
 
         Returns:
             str: the value of `discharging_curve_name` or None if not set
+
         """
         return self["Discharging Curve Name"]
 
@@ -5549,7 +5730,8 @@ class ThermalStorageIceDetailed(DataObject):
     @property
     def charging_curve_object_type(self):
         """field `Charging Curve Object Type`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Charging Curve Object Type`
@@ -5559,6 +5741,7 @@ class ThermalStorageIceDetailed(DataObject):
 
         Returns:
             str: the value of `charging_curve_object_type` or None if not set
+
         """
         return self["Charging Curve Object Type"]
 
@@ -5570,7 +5753,8 @@ class ThermalStorageIceDetailed(DataObject):
     @property
     def charging_curve_name(self):
         """field `Charging Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Charging Curve Name`
@@ -5580,6 +5764,7 @@ class ThermalStorageIceDetailed(DataObject):
 
         Returns:
             str: the value of `charging_curve_name` or None if not set
+
         """
         return self["Charging Curve Name"]
 
@@ -5592,9 +5777,10 @@ class ThermalStorageIceDetailed(DataObject):
     def timestep_of_the_curve_data(self):
         """field `Timestep of the Curve Data`
 
+        |  Units: hr
+
         Args:
             value (float): value for IDD Field `Timestep of the Curve Data`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5614,9 +5800,10 @@ class ThermalStorageIceDetailed(DataObject):
     def parasitic_electric_load_during_discharging(self):
         """field `Parasitic Electric Load During Discharging`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Parasitic Electric Load During Discharging`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5637,9 +5824,10 @@ class ThermalStorageIceDetailed(DataObject):
     def parasitic_electric_load_during_charging(self):
         """field `Parasitic Electric Load During Charging`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Parasitic Electric Load During Charging`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5658,12 +5846,14 @@ class ThermalStorageIceDetailed(DataObject):
 
     @property
     def tank_loss_coefficient(self):
-        """field `Tank Loss Coefficient` This is the fraction the total storage
-        capacity that is lost or melts each hour.
+        """field `Tank Loss Coefficient`
+
+        |  This is the fraction the total storage capacity that is lost or melts
+        |  each hour
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Tank Loss Coefficient`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5681,14 +5871,15 @@ class ThermalStorageIceDetailed(DataObject):
 
     @property
     def freezing_temperature_of_storage_medium(self):
-        """field `Freezing Temperature of Storage Medium` This temperature is
-        typically 0C for water. Simply changing this temperature without
-        adjusting the performance parameters input above is inappropriate and
-        not advised.
+        """field `Freezing Temperature of Storage Medium`
+
+        |  This temperature is typically 0C for water.
+        |  Simply changing this temperature without adjusting the performance
+        |  parameters input above is inappropriate and not advised.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Freezing Temperature of Storage Medium`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5706,13 +5897,14 @@ class ThermalStorageIceDetailed(DataObject):
 
     @property
     def thaw_process_indicator(self):
-        """field `Thaw Process Indicator` This field determines whether the
-        system uses internal or external melt during discharging.  This will
-        then have an impact on charging performance.
+        """field `Thaw Process Indicator`
+
+        |  This field determines whether the system uses internal or external melt
+        |  during discharging.  This will then have an impact on charging performance.
+        |  Default value: OutsideMelt
 
         Args:
             value (str): value for IDD Field `Thaw Process Indicator`
-                Default value: OutsideMelt
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5954,11 +6146,12 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def tank_volume(self):
         """field `Tank Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+        |  Default value: 0.1
+
         Args:
             value (float): value for IDD Field `Tank Volume`
-                Units: m3
-                IP-Units: gal
-                Default value: 0.1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5999,10 +6192,11 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def deadband_temperature_difference(self):
         """field `Deadband Temperature Difference`
 
+        |  Units: deltaC
+        |  Default value: 0.5
+
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
-                Units: deltaC
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6022,9 +6216,10 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def minimum_temperature_limit(self):
         """field `Minimum Temperature Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6044,9 +6239,10 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def nominal_cooling_capacity(self):
         """field `Nominal Cooling Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6128,7 +6324,8 @@ class ThermalStorageChilledWaterMixed(DataObject):
     @property
     def ambient_temperature_outdoor_air_node_name(self):
         """field `Ambient Temperature Outdoor Air Node Name`
-        required when field Ambient Temperature Indicator=Outdoors
+
+        |  required when field Ambient Temperature Indicator=Outdoors
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -6138,6 +6335,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
+
         """
         return self["Ambient Temperature Outdoor Air Node Name"]
 
@@ -6151,9 +6349,10 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def heat_gain_coefficient_from_ambient_temperature(self):
         """field `Heat Gain Coefficient from Ambient Temperature`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Heat Gain Coefficient from Ambient Temperature`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6216,10 +6415,11 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def use_side_heat_transfer_effectiveness(self):
         """field `Use Side Heat Transfer Effectiveness`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Use Side Heat Transfer Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6237,9 +6437,10 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @property
     def use_side_availability_schedule_name(self):
-        """field `Use Side Availability Schedule Name` Availability schedule
-        name for use side. Schedule value > 0 means the system is available. If
-        this field is blank, the system is always available.
+        """field `Use Side Availability Schedule Name`
+
+        |  Availability schedule name for use side. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Use Side Availability Schedule Name`
@@ -6262,17 +6463,18 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def use_side_design_flow_rate(self):
         """field `Use Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `use_side_design_flow_rate` or None if not set
 
         """
         return self["Use Side Design Flow Rate"]
@@ -6328,10 +6530,11 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def source_side_heat_transfer_effectiveness(self):
         """field `Source Side Heat Transfer Effectiveness`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Source Side Heat Transfer Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6350,9 +6553,10 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @property
     def source_side_availability_schedule_name(self):
-        """field `Source Side Availability Schedule Name` Availability schedule
-        name for source side. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """field `Source Side Availability Schedule Name`
+
+        |  Availability schedule name for source side. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Source Side Availability Schedule Name`
@@ -6375,17 +6579,18 @@ class ThermalStorageChilledWaterMixed(DataObject):
     def source_side_design_flow_rate(self):
         """field `Source Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `source_side_design_flow_rate` or None if not set
 
         """
         return self["Source Side Design Flow Rate"]
@@ -6398,19 +6603,21 @@ class ThermalStorageChilledWaterMixed(DataObject):
     @property
     def tank_recovery_time(self):
         """field `Tank Recovery Time`
-        Parameter for autosizing design flow rates for indirectly cooled water tanks
-        time required to lower temperature of entire tank from 14.4C to 9.0C
+
+        |  Parameter for autosizing design flow rates for indirectly cooled water tanks
+        |  time required to lower temperature of entire tank from 14.4C to 9.0C
+        |  Units: hr
+        |  Default value: 4.0
 
         Args:
             value (float): value for IDD Field `Tank Recovery Time`
-                Units: hr
-                Default value: 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `tank_recovery_time` or None if not set
+
         """
         return self["Tank Recovery Time"]
 
@@ -6842,10 +7049,11 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def tank_volume(self):
         """field `Tank Volume`
 
+        |  Units: m3
+        |  IP-Units: gal
+
         Args:
             value (float): value for IDD Field `Tank Volume`
-                Units: m3
-                IP-Units: gal
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6863,12 +7071,13 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def tank_height(self):
-        """field `Tank Height` Height is measured in the axial direction for
-        horizontal cylinders.
+        """field `Tank Height`
+
+        |  Height is measured in the axial direction for horizontal cylinders
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Tank Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6888,9 +7097,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def tank_shape(self):
         """field `Tank Shape`
 
+        |  Default value: VerticalCylinder
+
         Args:
             value (str): value for IDD Field `Tank Shape`
-                Default value: VerticalCylinder
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6908,11 +7118,13 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def tank_perimeter(self):
-        """field `Tank Perimeter` Only used if Tank Shape is Other.
+        """field `Tank Perimeter`
+
+        |  Only used if Tank Shape is Other
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Tank Perimeter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6953,9 +7165,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def deadband_temperature_difference(self):
         """field `Deadband Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6975,9 +7188,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def temperature_sensor_height(self):
         """field `Temperature Sensor Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Temperature Sensor Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6997,9 +7211,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def minimum_temperature_limit(self):
         """field `Minimum Temperature Limit`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Minimum Temperature Limit`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7019,9 +7234,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def nominal_cooling_capacity(self):
         """field `Nominal Cooling Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Nominal Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7103,7 +7319,8 @@ class ThermalStorageChilledWaterStratified(DataObject):
     @property
     def ambient_temperature_outdoor_air_node_name(self):
         """field `Ambient Temperature Outdoor Air Node Name`
-        required for Ambient Temperature Indicator=Outdoors
+
+        |  required for Ambient Temperature Indicator=Outdoors
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -7113,6 +7330,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
+
         """
         return self["Ambient Temperature Outdoor Air Node Name"]
 
@@ -7128,9 +7346,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
         """field `Uniform Skin Loss Coefficient per Unit Area to Ambient
         Temperature`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7195,18 +7414,18 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def use_side_heat_transfer_effectiveness(self):
-        """field `Use Side Heat Transfer Effectiveness` The use side
-        effectiveness in the stratified tank model is a simplified analogy of a
-        heat exchanger's effectiveness. This effectiveness is equal to the
-        fraction of use mass flow rate that directly mixes with the tank fluid.
-        And one minus the effectiveness is the fraction that bypasses the tank.
-        The use side mass flow rate that bypasses the tank is mixed with the
-        fluid or water leaving the stratified tank.
+        """field `Use Side Heat Transfer Effectiveness`
+
+        |  The use side effectiveness in the stratified tank model is a simplified analogy of
+        |  a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
+        |  use mass flow rate that directly mixes with the tank fluid. And one minus the
+        |  effectiveness is the fraction that bypasses the tank. The use side mass flow rate
+        |  that bypasses the tank is mixed with the fluid or water leaving the stratified tank.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Use Side Heat Transfer Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7224,9 +7443,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def use_side_availability_schedule_name(self):
-        """field `Use Side Availability Schedule Name` Availability schedule
-        name for use side. Schedule value > 0 means the system is available. If
-        this field is blank, the system is always available.
+        """field `Use Side Availability Schedule Name`
+
+        |  Availability schedule name for use side. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Use Side Availability Schedule Name`
@@ -7247,18 +7467,20 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def use_side_inlet_height(self):
-        """field `Use Side Inlet Height` Defaults to top of tank.
+        """field `Use Side Inlet Height`
+
+        |  Defaults to top of tank
+        |  Units: m
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Use Side Inlet Height`
-                Units: m
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_inlet_height` or None if not set
+            float or "Autocalculate": the value of `use_side_inlet_height` or None if not set
 
         """
         return self["Use Side Inlet Height"]
@@ -7270,11 +7492,13 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def use_side_outlet_height(self):
-        """field `Use Side Outlet Height` Defaults to bottom of tank.
+        """field `Use Side Outlet Height`
+
+        |  Defaults to bottom of tank
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Use Side Outlet Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7294,17 +7518,18 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def use_side_design_flow_rate(self):
         """field `Use Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `use_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `use_side_design_flow_rate` or None if not set
 
         """
         return self["Use Side Design Flow Rate"]
@@ -7358,18 +7583,18 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def source_side_heat_transfer_effectiveness(self):
-        """field `Source Side Heat Transfer Effectiveness` The source side
-        effectiveness in the stratified tank model is a simplified analogy of a
-        heat exchanger's effectiveness. This effectiveness is equal to the
-        fraction of source mass flow rate that directly mixes with the tank
-        fluid. And one minus the effectiveness is the fraction that bypasses
-        the tank. The source side mass flow rate that bypasses the tank is
-        mixed with the fluid or water leaving the stratified tank.
+        """field `Source Side Heat Transfer Effectiveness`
+
+        |  The source side effectiveness in the stratified tank model is a simplified analogy of
+        |  a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
+        |  source mass flow rate that directly mixes with the tank fluid. And one minus the
+        |  effectiveness is the fraction that bypasses the tank. The source side mass flow rate
+        |  that bypasses the tank is mixed with the fluid or water leaving the stratified tank.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Source Side Heat Transfer Effectiveness`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7388,9 +7613,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def source_side_availability_schedule_name(self):
-        """field `Source Side Availability Schedule Name` Availability schedule
-        name for use side. Schedule value > 0 means the system is available. If
-        this field is blank, the system is always available.
+        """field `Source Side Availability Schedule Name`
+
+        |  Availability schedule name for use side. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Source Side Availability Schedule Name`
@@ -7411,11 +7637,13 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def source_side_inlet_height(self):
-        """field `Source Side Inlet Height` Defaults to bottom of tank.
+        """field `Source Side Inlet Height`
+
+        |  Defaults to bottom of tank
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Source Side Inlet Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7433,18 +7661,20 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @property
     def source_side_outlet_height(self):
-        """field `Source Side Outlet Height` Defaults to top of tank.
+        """field `Source Side Outlet Height`
+
+        |  Defaults to top of tank
+        |  Units: m
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Source Side Outlet Height`
-                Units: m
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_outlet_height` or None if not set
+            float or "Autocalculate": the value of `source_side_outlet_height` or None if not set
 
         """
         return self["Source Side Outlet Height"]
@@ -7458,17 +7688,18 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def source_side_design_flow_rate(self):
         """field `Source Side Design Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `source_side_design_flow_rate` or None if not set
+            float or "Autosize": the value of `source_side_design_flow_rate` or None if not set
 
         """
         return self["Source Side Design Flow Rate"]
@@ -7481,19 +7712,21 @@ class ThermalStorageChilledWaterStratified(DataObject):
     @property
     def tank_recovery_time(self):
         """field `Tank Recovery Time`
-        Parameter for autosizing design flow rates for indirectly cooled water tanks
-        time required to lower temperature of entire tank from 14.4C to 9.0C
+
+        |  Parameter for autosizing design flow rates for indirectly cooled water tanks
+        |  time required to lower temperature of entire tank from 14.4C to 9.0C
+        |  Units: hr
+        |  Default value: 4.0
 
         Args:
             value (float): value for IDD Field `Tank Recovery Time`
-                Units: hr
-                Default value: 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `tank_recovery_time` or None if not set
+
         """
         return self["Tank Recovery Time"]
 
@@ -7506,9 +7739,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def inlet_mode(self):
         """field `Inlet Mode`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Inlet Mode`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7528,11 +7762,12 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def number_of_nodes(self):
         """field `Number of Nodes`
 
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 10
+
         Args:
             value (int): value for IDD Field `Number of Nodes`
-                Default value: 1
-                value >= 1
-                value <= 10
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7552,9 +7787,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def additional_destratification_conductivity(self):
         """field `Additional Destratification Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Additional Destratification Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7575,9 +7811,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_1_additional_loss_coefficient(self):
         """field `Node 1 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 1 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7597,9 +7834,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_2_additional_loss_coefficient(self):
         """field `Node 2 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 2 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7619,9 +7857,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_3_additional_loss_coefficient(self):
         """field `Node 3 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 3 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7641,9 +7880,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_4_additional_loss_coefficient(self):
         """field `Node 4 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 4 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7663,9 +7903,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_5_additional_loss_coefficient(self):
         """field `Node 5 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 5 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7685,9 +7926,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_6_additional_loss_coefficient(self):
         """field `Node 6 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 6 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7707,9 +7949,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_7_additional_loss_coefficient(self):
         """field `Node 7 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 7 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7729,9 +7972,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_8_additional_loss_coefficient(self):
         """field `Node 8 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 8 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7751,9 +7995,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_9_additional_loss_coefficient(self):
         """field `Node 9 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 9 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7773,9 +8018,10 @@ class ThermalStorageChilledWaterStratified(DataObject):
     def node_10_additional_loss_coefficient(self):
         """field `Node 10 Additional Loss Coefficient`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Node 10 Additional Loss Coefficient`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value

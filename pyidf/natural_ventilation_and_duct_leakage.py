@@ -165,7 +165,9 @@ class AirflowNetworkSimulationControl(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -187,29 +189,31 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def airflownetwork_control(self):
         """field `AirflowNetwork Control`
-        NoMultizoneOrDistribution: Only perform Simple calculations (objects ZoneInfiltration:*,
-        ZoneVentilation:*, ZoneMixing, ZoneCrossMixing, ZoneRefrigerationDoorMixing,
-        ZoneAirBalance:OutdoorAir, ZoneEarthtube, ZoneThermalChimney, and ZoneCoolTower:Shower);
-        MultizoneWithoutDistribution: Use AirflowNetwork objects to simulate multizone
-        Airflows driven by wind during simulation time,
-        and objects of ZoneInfiltration:*, ZoneVentilation:*, ZoneMixing, ZoneCrossMixing
-        ZoneRefrigerationDoorMixing, ZoneAirBalance:OutdoorAir, ZoneEarthtube,
-        ZoneThermalChimney, and ZoneCoolTower:Shower are ignored;
-        MultizoneWithDistributionOnlyDuringFanOperation: Perform distribution system
-        calculations during system fan on time
-        and Simple calculations during system Fan off time;
-        MultizoneWithDistribution: Perform distribution system calculations during system
-        fan on time and multizone Airflow driven by wind during system fan off time.
+
+        |  NoMultizoneOrDistribution: Only perform Simple calculations (objects ZoneInfiltration:*,
+        |  ZoneVentilation:*, ZoneMixing, ZoneCrossMixing, ZoneRefrigerationDoorMixing,
+        |  ZoneAirBalance:OutdoorAir, ZoneEarthtube, ZoneThermalChimney, and ZoneCoolTower:Shower);
+        |  MultizoneWithoutDistribution: Use AirflowNetwork objects to simulate multizone
+        |  Airflows driven by wind during simulation time,
+        |  and objects of ZoneInfiltration:*, ZoneVentilation:*, ZoneMixing, ZoneCrossMixing
+        |  ZoneRefrigerationDoorMixing, ZoneAirBalance:OutdoorAir, ZoneEarthtube,
+        |  ZoneThermalChimney, and ZoneCoolTower:Shower are ignored;
+        |  MultizoneWithDistributionOnlyDuringFanOperation: Perform distribution system
+        |  calculations during system fan on time
+        |  and Simple calculations during system Fan off time;
+        |  MultizoneWithDistribution: Perform distribution system calculations during system
+        |  fan on time and multizone Airflow driven by wind during system fan off time.
+        |  Default value: NoMultizoneOrDistribution
 
         Args:
             value (str): value for IDD Field `AirflowNetwork Control`
-                Default value: NoMultizoneOrDistribution
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `airflownetwork_control` or None if not set
+
         """
         return self["AirflowNetwork Control"]
 
@@ -221,23 +225,25 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def wind_pressure_coefficient_type(self):
         """field `Wind Pressure Coefficient Type`
-        Input: User must enter AirflowNetwork:MultiZone:WindPressureCoefficientArray,
-        AirflowNetwork:MultiZone:ExternalNode, and
-        AirflowNetwork:MultiZone:WindPressureCoefficientValues objects.
-        SurfaceAverageCalculation: used only for rectangular buildings.
-        If SurfaceAverageCalculation is selected,
-        AirflowNetwork:MultiZone:WindPressureCoefficientArray, AirflowNetwork:MultiZone:ExternalNode,
-        and AirflowNetwork:MultiZone:WindPressureCoefficientValues objects are not used.
+
+        |  Input: User must enter AirflowNetwork:MultiZone:WindPressureCoefficientArray,
+        |  AirflowNetwork:MultiZone:ExternalNode, and
+        |  AirflowNetwork:MultiZone:WindPressureCoefficientValues objects.
+        |  SurfaceAverageCalculation: used only for rectangular buildings.
+        |  If SurfaceAverageCalculation is selected,
+        |  AirflowNetwork:MultiZone:WindPressureCoefficientArray, AirflowNetwork:MultiZone:ExternalNode,
+        |  and AirflowNetwork:MultiZone:WindPressureCoefficientValues objects are not used.
+        |  Default value: SurfaceAverageCalculation
 
         Args:
             value (str): value for IDD Field `Wind Pressure Coefficient Type`
-                Default value: SurfaceAverageCalculation
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `wind_pressure_coefficient_type` or None if not set
+
         """
         return self["Wind Pressure Coefficient Type"]
 
@@ -251,7 +257,8 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def airflownetwork_wind_pressure_coefficient_array_name(self):
         """field `AirflowNetwork Wind Pressure Coefficient Array Name`
-        Used only if Wind Pressure Coefficient Type = Input, otherwise this field may be left blank.
+
+        |  Used only if Wind Pressure Coefficient Type = Input, otherwise this field may be left blank.
 
         Args:
             value (str): value for IDD Field `AirflowNetwork Wind Pressure Coefficient Array Name`
@@ -261,6 +268,7 @@ class AirflowNetworkSimulationControl(DataObject):
 
         Returns:
             str: the value of `airflownetwork_wind_pressure_coefficient_array_name` or None if not set
+
         """
         return self["AirflowNetwork Wind Pressure Coefficient Array Name"]
 
@@ -273,22 +281,24 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def height_selection_for_local_wind_pressure_calculation(self):
         """field `Height Selection for Local Wind Pressure Calculation`
-        If ExternalNode is selected, the height given in the
-        AirflowNetwork:MultiZone:ExternalNode object will be used.
-        If OpeningHeight is selected, the surface opening height (centroid) will be used to
-        calculate local wind pressure
-        This field is ignored when the choice of the Wind Pressure Coefficient Type field is
-        SurfaceAverageCalculation.
+
+        |  If ExternalNode is selected, the height given in the
+        |  AirflowNetwork:MultiZone:ExternalNode object will be used.
+        |  If OpeningHeight is selected, the surface opening height (centroid) will be used to
+        |  calculate local wind pressure
+        |  This field is ignored when the choice of the Wind Pressure Coefficient Type field is
+        |  SurfaceAverageCalculation.
+        |  Default value: OpeningHeight
 
         Args:
             value (str): value for IDD Field `Height Selection for Local Wind Pressure Calculation`
-                Default value: OpeningHeight
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `height_selection_for_local_wind_pressure_calculation` or None if not set
+
         """
         return self["Height Selection for Local Wind Pressure Calculation"]
 
@@ -303,18 +313,20 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def building_type(self):
         """field `Building Type`
-        Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation,
-        otherwise this field may be left blank.
+
+        |  Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation,
+        |  otherwise this field may be left blank.
+        |  Default value: LowRise
 
         Args:
             value (str): value for IDD Field `Building Type`
-                Default value: LowRise
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `building_type` or None if not set
+
         """
         return self["Building Type"]
 
@@ -325,16 +337,17 @@ class AirflowNetworkSimulationControl(DataObject):
 
     @property
     def maximum_number_of_iterations(self):
-        """field `Maximum Number of Iterations` Determines the maximum number
-        of iterations used to converge on a solution. If this limit is
-        exceeded, the program terminates.
+        """field `Maximum Number of Iterations`
+
+        |  Determines the maximum number of iterations used to converge on a solution. If this limit
+        |  is exceeded, the program terminates.
+        |  Units: dimensionless
+        |  Default value: 500
+        |  value > 10
+        |  value <= 30000
 
         Args:
             value (int): value for IDD Field `Maximum Number of Iterations`
-                Units: dimensionless
-                Default value: 500
-                value > 10
-                value <= 30000
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -354,9 +367,10 @@ class AirflowNetworkSimulationControl(DataObject):
     def initialization_type(self):
         """field `Initialization Type`
 
+        |  Default value: ZeroNodePressures
+
         Args:
             value (str): value for IDD Field `Initialization Type`
-                Default value: ZeroNodePressures
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -374,18 +388,18 @@ class AirflowNetworkSimulationControl(DataObject):
 
     @property
     def relative_airflow_convergence_tolerance(self):
-        """field `Relative Airflow Convergence Tolerance` This tolerance is
-        defined as the absolute value of the sum of the mass Flow Rates divided
-        by the sum of the absolute value of the mass Flow Rates. The mass Flow
-        Rates described here refer to the mass Flow Rates at all Nodes in the
-        AirflowNetwork model. The solution converges when both this tolerance
-        and the tolerance in the next field (Absolute Airflow Convergence
-        Tolerance) are satisfied.
+        """field `Relative Airflow Convergence Tolerance`
+
+        |  This tolerance is defined as the absolute value of the sum of the mass Flow Rates
+        |  divided by the sum of the absolute value of the mass Flow Rates. The mass Flow Rates
+        |  described here refer to the mass Flow Rates at all Nodes in the AirflowNetwork model.
+        |  The solution converges when both this tolerance and the tolerance in the next field
+        |  (Absolute Airflow Convergence Tolerance) are satisfied.
+        |  Units: dimensionless
+        |  Default value: 0.0001
 
         Args:
             value (float): value for IDD Field `Relative Airflow Convergence Tolerance`
-                Units: dimensionless
-                Default value: 0.0001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -403,17 +417,17 @@ class AirflowNetworkSimulationControl(DataObject):
 
     @property
     def absolute_airflow_convergence_tolerance(self):
-        """field `Absolute Airflow Convergence Tolerance` This tolerance is
-        defined as the absolute value of the sum of the mass flow rates. The
-        mass flow rates described here refer to the mass flow rates at all
-        nodes in the AirflowNetwork model. The solution converges when both
-        this tolerance and the tolerance in the previous field (Relative
-        Airflow Convergence Tolerance) are satisfied.
+        """field `Absolute Airflow Convergence Tolerance`
+
+        |  This tolerance is defined as the absolute value of the sum of the mass flow rates. The mass
+        |  flow rates described here refer to the mass flow rates at all nodes in the AirflowNetwork
+        |  model. The solution converges when both this tolerance and the tolerance in the previous
+        |  field (Relative Airflow Convergence Tolerance) are satisfied.
+        |  Units: kg/s
+        |  Default value: 1e-06
 
         Args:
             value (float): value for IDD Field `Absolute Airflow Convergence Tolerance`
-                Units: kg/s
-                Default value: 1e-06
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -432,20 +446,22 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def convergence_acceleration_limit(self):
         """field `Convergence Acceleration Limit`
-        Used only for AirflowNetwork:SimulationControl
+
+        |  Used only for AirflowNetwork:SimulationControl
+        |  Units: dimensionless
+        |  Default value: -0.5
+        |  value >= -1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Convergence Acceleration Limit`
-                Units: dimensionless
-                Default value: -0.5
-                value >= -1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `convergence_acceleration_limit` or None if not set
+
         """
         return self["Convergence Acceleration Limit"]
 
@@ -457,19 +473,21 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def azimuth_angle_of_long_axis_of_building(self):
         """field `Azimuth Angle of Long Axis of Building`
-        Degrees clockwise from true North.
-        Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation.
+
+        |  Degrees clockwise from true North.
+        |  Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation.
+        |  Units: deg
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle of Long Axis of Building`
-                Units: deg
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle_of_long_axis_of_building` or None if not set
+
         """
         return self["Azimuth Angle of Long Axis of Building"]
 
@@ -481,19 +499,22 @@ class AirflowNetworkSimulationControl(DataObject):
     @property
     def ratio_of_building_width_along_short_axis_to_width_along_long_axis(
             self):
-        """field `Ratio of Building Width Along Short Axis to Width Along Long Axis`
-        Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation.
+        """field `Ratio of Building Width Along Short Axis to Width Along Long
+        Axis`
+
+        |  Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation.
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Ratio of Building Width Along Short Axis to Width Along Long Axis`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `ratio_of_building_width_along_short_axis_to_width_along_long_axis` or None if not set
+
         """
         return self[
             "Ratio of Building Width Along Short Axis to Width Along Long Axis"]
@@ -509,13 +530,14 @@ class AirflowNetworkSimulationControl(DataObject):
 
     @property
     def height_dependence_of_external_node_temperature(self):
-        """field `Height Dependence of External Node Temperature` If Yes,
-        external node temperature is height dependent. If No, external node
-        temperature is based on zero height.
+        """field `Height Dependence of External Node Temperature`
+
+        |  If Yes, external node temperature is height dependent.
+        |  If No, external node temperature is based on zero height.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Height Dependence of External Node Temperature`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -660,8 +682,9 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Enter the zone name where ventilation control is
-        required.
+        """field `Zone Name`
+
+        |  Enter the zone name where ventilation control is required.
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -683,22 +706,24 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def ventilation_control_mode(self):
         """field `Ventilation Control Mode`
-        When Ventilation Control Mode = Temperature or Enthalpy, the following
-        fields are used to modulate the Ventilation Open Factor for all
-        window and door openings in the zone according to the zone's
-        indoor-outdoor temperature or enthalpy difference.
-        Constant: controlled by field Venting Schedule Name.
-        NoVent: control will not open window or door during simulation (Ventilation Open Factor = 0).
+
+        |  When Ventilation Control Mode = Temperature or Enthalpy, the following
+        |  fields are used to modulate the Ventilation Open Factor for all
+        |  window and door openings in the zone according to the zone's
+        |  indoor-outdoor temperature or enthalpy difference.
+        |  Constant: controlled by field Venting Schedule Name.
+        |  NoVent: control will not open window or door during simulation (Ventilation Open Factor = 0).
+        |  Default value: NoVent
 
         Args:
             value (str): value for IDD Field `Ventilation Control Mode`
-                Default value: NoVent
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `ventilation_control_mode` or None if not set
+
         """
         return self["Ventilation Control Mode"]
 
@@ -710,7 +735,8 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def ventilation_control_zone_temperature_setpoint_schedule_name(self):
         """field `Ventilation Control Zone Temperature Setpoint Schedule Name`
-        Used only if Ventilation Control Mode = Temperature or Enthalpy.
+
+        |  Used only if Ventilation Control Mode = Temperature or Enthalpy.
 
         Args:
             value (str): value for IDD Field `Ventilation Control Zone Temperature Setpoint Schedule Name`
@@ -720,6 +746,7 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
         Returns:
             str: the value of `ventilation_control_zone_temperature_setpoint_schedule_name` or None if not set
+
         """
         return self[
             "Ventilation Control Zone Temperature Setpoint Schedule Name"]
@@ -736,18 +763,20 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def minimum_venting_open_factor(self):
         """field `Minimum Venting Open Factor`
-        Used only if Ventilation Control Mode = Temperature or Enthalpy.
+
+        |  Used only if Ventilation Control Mode = Temperature or Enthalpy.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Minimum Venting Open Factor`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_venting_open_factor` or None if not set
+
         """
         return self["Minimum Venting Open Factor"]
 
@@ -759,20 +788,23 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Temperature.
-        This value must be less than the corresponding upper value (next field).
+        """field `Indoor and Outdoor Temperature Difference Lower Limit For
+        Maximum Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Temperature.
+        |  This value must be less than the corresponding upper value (next field).
+        |  Units: deltaC
+        |  value < 100.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
-                Units: deltaC
-                value < 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
@@ -789,20 +821,23 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Temperature.
-        This value must be greater than the corresponding lower value (previous field).
+        """field `Indoor and Outdoor Temperature Difference Upper Limit for
+        Minimun Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Temperature.
+        |  This value must be greater than the corresponding lower value (previous field).
+        |  Units: deltaC
+        |  Default value: 100.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
-                Units: deltaC
-                Default value: 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
@@ -819,20 +854,23 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Enthalpy.
-        This value must be less than the corresponding upper value (next field).
+        """field `Indoor and Outdoor Enthalpy Difference Lower Limit For
+        Maximum Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Enthalpy.
+        |  This value must be less than the corresponding upper value (next field).
+        |  Units: deltaJ/kg
+        |  value < 300000.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
-                Units: deltaJ/kg
-                value < 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
@@ -849,20 +887,23 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Enthalpy.
-        This value must be greater than the corresponding lower value (previous field).
+        """field `Indoor and Outdoor Enthalpy Difference Upper Limit for
+        Minimun Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Enthalpy.
+        |  This value must be greater than the corresponding lower value (previous field).
+        |  Units: deltaJ/kg
+        |  Default value: 300000.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
-                Units: deltaJ/kg
-                Default value: 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
@@ -879,12 +920,13 @@ class AirflowNetworkMultiZoneZone(DataObject):
     @property
     def venting_availability_schedule_name(self):
         """field `Venting Availability Schedule Name`
-        Non-zero Schedule value means venting is allowed if other venting control conditions are
-        satisfied. A zero (or negative) Schedule value means venting is not allowed under any
-        The Schedule values should be greater than or equal to 0 and less than or equal to 1.
-        circumstances. If this Schedule is not specified then venting is allowed if
-        other venting control conditions are satisfied.
-        Not used if Ventilation Control Mode = NoVent.
+
+        |  Non-zero Schedule value means venting is allowed if other venting control conditions are
+        |  satisfied. A zero (or negative) Schedule value means venting is not allowed under any
+        |  The Schedule values should be greater than or equal to 0 and less than or equal to 1.
+        |  circumstances. If this Schedule is not specified then venting is allowed if
+        |  other venting control conditions are satisfied.
+        |  Not used if Ventilation Control Mode = NoVent.
 
         Args:
             value (str): value for IDD Field `Venting Availability Schedule Name`
@@ -894,6 +936,7 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
         Returns:
             str: the value of `venting_availability_schedule_name` or None if not set
+
         """
         return self["Venting Availability Schedule Name"]
 
@@ -904,15 +947,15 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
     @property
     def single_sided_wind_pressure_coefficient_algorithm(self):
-        """field `Single Sided Wind Pressure Coefficient Algorithm` Selecting
-        Advanced results in EnergyPlus calculating modified Wind Pressure
-        Coefficients to account for wind direction and turbulence effects on
-        single sided ventilation rates. Model is only valid for zones with 2
-        openings, both of which are on a single facade.
+        """field `Single Sided Wind Pressure Coefficient Algorithm`
+
+        |  Selecting Advanced results in EnergyPlus calculating modified Wind Pressure Coefficients
+        |  to account for wind direction and turbulence effects on single sided ventilation rates.
+        |  Model is only valid for zones with 2 openings, both of which are on a single facade.
+        |  Default value: Standard
 
         Args:
             value (str): value for IDD Field `Single Sided Wind Pressure Coefficient Algorithm`
-                Default value: Standard
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -933,13 +976,14 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
     @property
     def facade_width(self):
-        """field `Facade Width` This is the whole building width along the
-        direction of the facade of this zone.
+        """field `Facade Width`
+
+        |  This is the whole building width along the direction of the facade of this zone.
+        |  Units: m
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Facade Width`
-                Units: m
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1092,7 +1136,9 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
     @property
     def surface_name(self):
-        """field `Surface Name` Enter the name of a heat transfer surface.
+        """field `Surface Name`
+
+        |  Enter the name of a heat transfer surface.
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -1114,16 +1160,17 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def leakage_component_name(self):
         """field `Leakage Component Name`
-        Enter the name of an Airflow Network leakage component. A leakage component is
-        one of the following AirflowNetwork:Multizone objects:
-        AirflowNetwork:MultiZone:Component:DetailedOpening,
-        AirflowNetwork:MultiZone:Component:SimpleOpening,
-        AirflowNetwork:MultiZone:Surface:Crack,
-        AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea,
-        AirflowNetwork:MultiZone:Component:HorizontalOpening, or
-        AirflowNetwork:MultiZone:Component:ZoneExhaustFan.
-        When the zone exhaust fan name is entered, any surface control fields below A3 are
-        ignored when the zone exhaust fan turns on.
+
+        |  Enter the name of an Airflow Network leakage component. A leakage component is
+        |  one of the following AirflowNetwork:Multizone objects:
+        |  AirflowNetwork:MultiZone:Component:DetailedOpening,
+        |  AirflowNetwork:MultiZone:Component:SimpleOpening,
+        |  AirflowNetwork:MultiZone:Surface:Crack,
+        |  AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea,
+        |  AirflowNetwork:MultiZone:Component:HorizontalOpening, or
+        |  AirflowNetwork:MultiZone:Component:ZoneExhaustFan.
+        |  When the zone exhaust fan name is entered, any surface control fields below A3 are
+        |  ignored when the zone exhaust fan turns on.
 
         Args:
             value (str): value for IDD Field `Leakage Component Name`
@@ -1133,6 +1180,7 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
         Returns:
             str: the value of `leakage_component_name` or None if not set
+
         """
         return self["Leakage Component Name"]
 
@@ -1144,8 +1192,9 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def external_node_name(self):
         """field `External Node Name`
-        Used if Wind Pressure Coefficient Type = Input in the AirflowNetwork:SimulationControl object,
-        otherwise this field may be left blank.
+
+        |  Used if Wind Pressure Coefficient Type = Input in the AirflowNetwork:SimulationControl object,
+        |  otherwise this field may be left blank.
 
         Args:
             value (str): value for IDD Field `External Node Name`
@@ -1155,6 +1204,7 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
         Returns:
             str: the value of `external_node_name` or None if not set
+
         """
         return self["External Node Name"]
 
@@ -1165,14 +1215,15 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
     @property
     def window_or_door_opening_factor_or_crack_factor(self):
-        """field `Window/Door Opening Factor, or Crack Factor` This field
-        specifies a multiplier for a crack, window, or door.
+        """field `Window/Door Opening Factor, or Crack Factor`
+
+        |  This field specifies a multiplier for a crack, window, or door.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Window/Door Opening Factor, or Crack Factor`
-                Units: dimensionless
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1192,28 +1243,30 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def ventilation_control_mode(self):
         """field `Ventilation Control Mode`
-        When Ventilation Control Mode = Temperature or Enthalpy, the following
-        fields are used to modulate the Ventilation Open Factor for a
-        window or door opening according to the parent zone's
-        indoor-outdoor temperature or enthalpy difference.
-        When Ventilation Control Mode = AdjacentTemperature or AdjacentEnthalpy, the following
-        fields are used to modulate the Ventilation Open Factor for an interior
-        window or door opening according to temperature or enthalpy difference
-        between the parent zone and the adjacent zone.
-        Constant: controlled by field Venting Schedule Name.
-        NoVent: control will not open window or door during simulation (Ventilation Open Factor = 0).
-        ZoneLevel: control will be controlled by AirflowNetwork:MultiZone:Zone
-        Mode.
+
+        |  When Ventilation Control Mode = Temperature or Enthalpy, the following
+        |  fields are used to modulate the Ventilation Open Factor for a
+        |  window or door opening according to the parent zone's
+        |  indoor-outdoor temperature or enthalpy difference.
+        |  When Ventilation Control Mode = AdjacentTemperature or AdjacentEnthalpy, the following
+        |  fields are used to modulate the Ventilation Open Factor for an interior
+        |  window or door opening according to temperature or enthalpy difference
+        |  between the parent zone and the adjacent zone.
+        |  Constant: controlled by field Venting Schedule Name.
+        |  NoVent: control will not open window or door during simulation (Ventilation Open Factor = 0).
+        |  ZoneLevel: control will be controlled by AirflowNetwork:MultiZone:Zone
+        |  Mode.
+        |  Default value: ZoneLevel
 
         Args:
             value (str): value for IDD Field `Ventilation Control Mode`
-                Default value: ZoneLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `ventilation_control_mode` or None if not set
+
         """
         return self["Ventilation Control Mode"]
 
@@ -1225,7 +1278,8 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def ventilation_control_zone_temperature_setpoint_schedule_name(self):
         """field `Ventilation Control Zone Temperature Setpoint Schedule Name`
-        Used only if Ventilation Control Mode = Temperature or Enthalpy.
+
+        |  Used only if Ventilation Control Mode = Temperature or Enthalpy.
 
         Args:
             value (str): value for IDD Field `Ventilation Control Zone Temperature Setpoint Schedule Name`
@@ -1235,6 +1289,7 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
         Returns:
             str: the value of `ventilation_control_zone_temperature_setpoint_schedule_name` or None if not set
+
         """
         return self[
             "Ventilation Control Zone Temperature Setpoint Schedule Name"]
@@ -1251,18 +1306,20 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def minimum_venting_open_factor(self):
         """field `Minimum Venting Open Factor`
-        Used only if Ventilation Control Mode = Temperature or Enthalpy.
+
+        |  Used only if Ventilation Control Mode = Temperature or Enthalpy.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Minimum Venting Open Factor`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `minimum_venting_open_factor` or None if not set
+
         """
         return self["Minimum Venting Open Factor"]
 
@@ -1274,19 +1331,22 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Temperature
+        """field `Indoor and Outdoor Temperature Difference Lower Limit For
+        Maximum Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Temperature
+        |  Units: deltaC
+        |  value < 100.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
-                Units: deltaC
-                value < 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
@@ -1303,20 +1363,23 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Temperature.
-        This value must be greater than the corresponding lower value (previous field).
+        """field `Indoor and Outdoor Temperature Difference Upper Limit for
+        Minimun Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Temperature.
+        |  This value must be greater than the corresponding lower value (previous field).
+        |  Units: deltaC
+        |  Default value: 100.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
-                Units: deltaC
-                Default value: 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
@@ -1333,20 +1396,23 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Enthalpy.
-        This value must be less than the corresponding upper value (next field).
+        """field `Indoor and Outdoor Enthalpy Difference Lower Limit For
+        Maximum Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Enthalpy.
+        |  This value must be less than the corresponding upper value (next field).
+        |  Units: deltaJ/kg
+        |  value < 300000.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
-                Units: deltaJ/kg
-                value < 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
@@ -1363,20 +1429,23 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
             self):
-        """field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
-        Applicable only if Ventilation Control Mode = Enthalpy.
-        This value must be greater than the corresponding lower value (previous field).
+        """field `Indoor and Outdoor Enthalpy Difference Upper Limit for
+        Minimun Venting Open Factor`
+
+        |  Applicable only if Ventilation Control Mode = Enthalpy.
+        |  This value must be greater than the corresponding lower value (previous field).
+        |  Units: deltaJ/kg
+        |  Default value: 300000.0
 
         Args:
             value (float): value for IDD Field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
-                Units: deltaJ/kg
-                Default value: 300000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
+
         """
         return self[
             "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
@@ -1393,12 +1462,13 @@ class AirflowNetworkMultiZoneSurface(DataObject):
     @property
     def venting_availability_schedule_name(self):
         """field `Venting Availability Schedule Name`
-        Non-zero schedule value means venting is allowed if other venting control conditions are
-        satisfied. A zero (or negative) schedule value means venting is not allowed under any
-        circumstances. The schedule values should be greater than or equal to 0 and less than or
-        equal to 1. If this schedule is not specified then venting is allowed if
-        other venting control conditions are satisfied.
-        Not used if Ventilation Control Mode = NoVent or ZoneLevel.
+
+        |  Non-zero schedule value means venting is allowed if other venting control conditions are
+        |  satisfied. A zero (or negative) schedule value means venting is not allowed under any
+        |  circumstances. The schedule values should be greater than or equal to 0 and less than or
+        |  equal to 1. If this schedule is not specified then venting is allowed if
+        |  other venting control conditions are satisfied.
+        |  Not used if Ventilation Control Mode = NoVent or ZoneLevel.
 
         Args:
             value (str): value for IDD Field `Venting Availability Schedule Name`
@@ -1408,6 +1478,7 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
         Returns:
             str: the value of `venting_availability_schedule_name` or None if not set
+
         """
         return self["Venting Availability Schedule Name"]
 
@@ -1471,7 +1542,9 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1492,13 +1565,14 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
 
     @property
     def reference_temperature(self):
-        """field `Reference Temperature` Enter the reference temperature under
-        which the surface crack data were obtained.
+        """field `Reference Temperature`
+
+        |  Enter the reference temperature under which the surface crack data were obtained.
+        |  Units: C
+        |  Default value: 20.0
 
         Args:
             value (float): value for IDD Field `Reference Temperature`
-                Units: C
-                Default value: 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1516,16 +1590,17 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
 
     @property
     def reference_barometric_pressure(self):
-        """field `Reference Barometric Pressure` Enter the reference barometric
-        pressure under which the surface crack data were obtained.
+        """field `Reference Barometric Pressure`
+
+        |  Enter the reference barometric pressure under which the surface crack data were obtained.
+        |  Units: Pa
+        |  IP-Units: inHg
+        |  Default value: 101325.0
+        |  value >= 31000.0
+        |  value <= 120000.0
 
         Args:
             value (float): value for IDD Field `Reference Barometric Pressure`
-                Units: Pa
-                IP-Units: inHg
-                Default value: 101325.0
-                value >= 31000.0
-                value <= 120000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1543,12 +1618,13 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
 
     @property
     def reference_humidity_ratio(self):
-        """field `Reference Humidity Ratio` Enter the reference humidity ratio
-        under which the surface crack data were obtained.
+        """field `Reference Humidity Ratio`
+
+        |  Enter the reference humidity ratio under which the surface crack data were obtained.
+        |  Units: kgWater/kgDryAir
 
         Args:
             value (float): value for IDD Field `Reference Humidity Ratio`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1617,7 +1693,9 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1638,14 +1716,15 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
 
     @property
     def air_mass_flow_coefficient_at_reference_conditions(self):
-        """field `Air Mass Flow Coefficient at Reference Conditions` Enter the
-        air mass flow coefficient at the conditions defined in the Reference
-        Crack Conditions object. Defined at 1 Pa pressure difference across
-        this crack.
+        """field `Air Mass Flow Coefficient at Reference Conditions`
+
+        |  Enter the air mass flow coefficient at the conditions defined
+        |  in the Reference Crack Conditions object.
+        |  Defined at 1 Pa pressure difference across this crack.
+        |  Units: kg/s
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient at Reference Conditions`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1664,15 +1743,16 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
 
     @property
     def air_mass_flow_exponent(self):
-        """field `Air Mass Flow Exponent` Enter the air mass flow exponent for
-        the surface crack.
+        """field `Air Mass Flow Exponent`
+
+        |  Enter the air mass flow exponent for the surface crack.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1691,8 +1771,9 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
     @property
     def reference_crack_conditions(self):
         """field `Reference Crack Conditions`
-        Select a AirflowNetwork:MultiZone:ReferenceCrackConditions name associated with
-        the air mass flow coefficient entered above.
+
+        |  Select a AirflowNetwork:MultiZone:ReferenceCrackConditions name associated with
+        |  the air mass flow coefficient entered above.
 
         Args:
             value (str): value for IDD Field `Reference Crack Conditions`
@@ -1702,6 +1783,7 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
 
         Returns:
             str: the value of `reference_crack_conditions` or None if not set
+
         """
         return self["Reference Crack Conditions"]
 
@@ -1776,7 +1858,9 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1797,11 +1881,13 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
     @property
     def effective_leakage_area(self):
-        """field `Effective Leakage Area` Enter the effective leakage area.
+        """field `Effective Leakage Area`
+
+        |  Enter the effective leakage area.
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Effective Leakage Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1819,13 +1905,14 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
     @property
     def discharge_coefficient(self):
-        """field `Discharge Coefficient` Enter the coefficient used in the air
-        mass flow equation.
+        """field `Discharge Coefficient`
+
+        |  Enter the coefficient used in the air mass flow equation.
+        |  Units: dimensionless
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1843,13 +1930,14 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
     @property
     def reference_pressure_difference(self):
-        """field `Reference Pressure Difference` Enter the pressure difference
-        used to define the air mass flow coefficient and exponent.
+        """field `Reference Pressure Difference`
+
+        |  Enter the pressure difference used to define the air mass flow coefficient and exponent.
+        |  Units: Pa
+        |  Default value: 4.0
 
         Args:
             value (float): value for IDD Field `Reference Pressure Difference`
-                Units: Pa
-                Default value: 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1867,15 +1955,16 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
     @property
     def air_mass_flow_exponent(self):
-        """field `Air Mass Flow Exponent` Enter the exponent used in the air
-        mass flow equation.
+        """field `Air Mass Flow Exponent`
+
+        |  Enter the exponent used in the air mass flow equation.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2184,7 +2273,9 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2206,20 +2297,22 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def air_mass_flow_coefficient_when_opening_is_closed(self):
         """field `Air Mass Flow Coefficient When Opening is Closed`
-        Defined at 1 Pa per meter of crack length. Enter the coefficient used in the following
-        equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening (window or door) is closed.
+
+        |  Defined at 1 Pa per meter of crack length. Enter the coefficient used in the following
+        |  equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening (window or door) is closed.
+        |  Units: kg/s-m
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient When Opening is Closed`
-                Units: kg/s-m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_coefficient_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Coefficient When Opening is Closed"]
 
@@ -2232,22 +2325,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def air_mass_flow_exponent_when_opening_is_closed(self):
         """field `Air Mass Flow Exponent When Opening is Closed`
-        Enter the exponent used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening (window or door) is closed.
+
+        |  Enter the exponent used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening (window or door) is closed.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent When Opening is Closed`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_exponent_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Exponent When Opening is Closed"]
 
@@ -2260,17 +2355,19 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def type_of_rectanguler_large_vertical_opening_lvo(self):
         """field `Type of Rectanguler Large Vertical Opening (LVO)`
-        Select the type of vertical opening: Non-pivoted opening or Horizontally pivoted opening.
+
+        |  Select the type of vertical opening: Non-pivoted opening or Horizontally pivoted opening.
+        |  Default value: NonPivoted
 
         Args:
             value (str): value for IDD Field `Type of Rectanguler Large Vertical Opening (LVO)`
-                Default value: NonPivoted
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `type_of_rectanguler_large_vertical_opening_lvo` or None if not set
+
         """
         return self["Type of Rectanguler Large Vertical Opening (LVO)"]
 
@@ -2285,24 +2382,26 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def extra_crack_length_or_height_of_pivoting_axis(self):
         """field `Extra Crack Length or Height of Pivoting Axis`
-        Extra crack length is used for LVO Non-pivoted type with multiple openable parts.
-        Height of pivoting axis is used for LVO Horizontally pivoted type.
-        Specifies window or door characteristics that depend on the LVO type.
-        For Non-pivoted Type (rectangular windows and doors), this field is the extra crack length
-        in meters due to multiple openable parts, if present.  Extra here means in addition
-        to the length of the cracks on the top, bottom and sides of the window/door.
-        For Horizontally pivoted Type, this field gives the height of the
-        pivoting axis measured from the bottom of the glazed part of the window (m).
+
+        |  Extra crack length is used for LVO Non-pivoted type with multiple openable parts.
+        |  Height of pivoting axis is used for LVO Horizontally pivoted type.
+        |  Specifies window or door characteristics that depend on the LVO type.
+        |  For Non-pivoted Type (rectangular windows and doors), this field is the extra crack length
+        |  in meters due to multiple openable parts, if present.  Extra here means in addition
+        |  to the length of the cracks on the top, bottom and sides of the window/door.
+        |  For Horizontally pivoted Type, this field gives the height of the
+        |  pivoting axis measured from the bottom of the glazed part of the window (m).
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Extra Crack Length or Height of Pivoting Axis`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `extra_crack_length_or_height_of_pivoting_axis` or None if not set
+
         """
         return self["Extra Crack Length or Height of Pivoting Axis"]
 
@@ -2314,14 +2413,15 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def number_of_sets_of_opening_factor_data(self):
-        """field `Number of Sets of Opening Factor Data` Enter the number of
-        the following sets of data for opening factor, discharge coefficient,
-        width factor, height factor, and start height factor.
+        """field `Number of Sets of Opening Factor Data`
+
+        |  Enter the number of the following sets of data for opening factor,
+        |  discharge coefficient, width factor, height factor, and start height factor.
+        |  value >= 2
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Sets of Opening Factor Data`
-                value >= 2
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2340,17 +2440,19 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def opening_factor_1(self):
         """field `Opening Factor 1`
-        This value must be specified as 0.
+
+        |  This value must be specified as 0.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Opening Factor 1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `opening_factor_1` or None if not set
+
         """
         return self["Opening Factor 1"]
 
@@ -2361,15 +2463,16 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def discharge_coefficient_for_opening_factor_1(self):
-        """field `Discharge Coefficient for Opening Factor 1` The Discharge
-        Coefficient indicates the fractional effectiveness for air flow through
-        a window or door at that Opening Factor.
+        """field `Discharge Coefficient for Opening Factor 1`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through a window or door at that Opening Factor.
+        |  Units: dimensionless
+        |  Default value: 0.001
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Opening Factor 1`
-                Units: dimensionless
-                Default value: 0.001
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2388,13 +2491,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def width_factor_for_opening_factor_1(self):
-        """field `Width Factor for Opening Factor 1` The Width Factor is the
-        opening width divided by the window or door width.
+        """field `Width Factor for Opening Factor 1`
+
+        |  The Width Factor is the opening width divided by the window or door width.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Width Factor for Opening Factor 1`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2412,13 +2516,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def height_factor_for_opening_factor_1(self):
-        """field `Height Factor for Opening Factor 1` The Height Factor is the
-        opening height divided by the window or door height.
+        """field `Height Factor for Opening Factor 1`
+
+        |  The Height Factor is the opening height divided by the window or door height.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Height Factor for Opening Factor 1`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2437,22 +2542,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def start_height_factor_for_opening_factor_1(self):
         """field `Start Height Factor for Opening Factor 1`
-        The Start Height Factor is the Start Height divided by the window or door height.
-        Start Height is the distance between the bottom of the window or door and the
-        bottom of the window or door opening. The sum of the Height Factor and the Start Height
-        Factor must be less than 1.0 in order to have the opening within the window or door
-        dimensions.
+
+        |  The Start Height Factor is the Start Height divided by the window or door height.
+        |  Start Height is the distance between the bottom of the window or door and the
+        |  bottom of the window or door opening. The sum of the Height Factor and the Start Height
+        |  Factor must be less than 1.0 in order to have the opening within the window or door
+        |  dimensions.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Start Height Factor for Opening Factor 1`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `start_height_factor_for_opening_factor_1` or None if not set
+
         """
         return self["Start Height Factor for Opening Factor 1"]
 
@@ -2465,22 +2572,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def opening_factor_2(self):
         """field `Opening Factor 2`
-        If Number of Sets of Opening Factor Data = 2, this value must be 1.0.
-        If Number of Sets of Opening Factor Data = 3, this value must be less than 1.0.
-        If Number of Sets of Opening Factor Data = 4, this value must be less than the
-        value entered for Opening factor 3 and greater than the value entered
-        for Opening factor 1.
+
+        |  If Number of Sets of Opening Factor Data = 2, this value must be 1.0.
+        |  If Number of Sets of Opening Factor Data = 3, this value must be less than 1.0.
+        |  If Number of Sets of Opening Factor Data = 4, this value must be less than the
+        |  value entered for Opening factor 3 and greater than the value entered
+        |  for Opening factor 1.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Opening Factor 2`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `opening_factor_2` or None if not set
+
         """
         return self["Opening Factor 2"]
 
@@ -2491,15 +2600,16 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def discharge_coefficient_for_opening_factor_2(self):
-        """field `Discharge Coefficient for Opening Factor 2` The Discharge
-        Coefficient indicates the fractional effectiveness for air flow through
-        a window or door at that Opening Factor.
+        """field `Discharge Coefficient for Opening Factor 2`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through a window or door at that Opening Factor.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Opening Factor 2`
-                Units: dimensionless
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2518,14 +2628,15 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def width_factor_for_opening_factor_2(self):
-        """field `Width Factor for Opening Factor 2` The Width Factor is the
-        opening width divided by the window or door width.
+        """field `Width Factor for Opening Factor 2`
+
+        |  The Width Factor is the opening width divided by the window or door width.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Width Factor for Opening Factor 2`
-                Units: dimensionless
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2543,14 +2654,15 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def height_factor_for_opening_factor_2(self):
-        """field `Height Factor for Opening Factor 2` The Height Factor is the
-        opening height divided by the window or door height.
+        """field `Height Factor for Opening Factor 2`
+
+        |  The Height Factor is the opening height divided by the window or door height.
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Height Factor for Opening Factor 2`
-                Units: dimensionless
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2569,22 +2681,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def start_height_factor_for_opening_factor_2(self):
         """field `Start Height Factor for Opening Factor 2`
-        The Start Height Factor is the Start Height divided by the window or door height.
-        Start Height is the distance between the bottom of the window or door and the
-        bottom of the window or door opening. The sum of the Height Factor and the Start Height
-        Factor must be less than 1.0 in order to have the opening within the window or door
-        dimensions.
+
+        |  The Start Height Factor is the Start Height divided by the window or door height.
+        |  Start Height is the distance between the bottom of the window or door and the
+        |  bottom of the window or door opening. The sum of the Height Factor and the Start Height
+        |  Factor must be less than 1.0 in order to have the opening within the window or door
+        |  dimensions.
+        |  Units: dimensionless
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Start Height Factor for Opening Factor 2`
-                Units: dimensionless
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `start_height_factor_for_opening_factor_2` or None if not set
+
         """
         return self["Start Height Factor for Opening Factor 2"]
 
@@ -2597,20 +2711,22 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def opening_factor_3(self):
         """field `Opening Factor 3`
-        If Number of Sets of Opening Factor Data = 3, this value must be 1.0.
-        If Number of Sets of Opening Factor Data = 4, this value must be less than 1.0,
-        and greater than value entered for Opening factor 2.
+
+        |  If Number of Sets of Opening Factor Data = 3, this value must be 1.0.
+        |  If Number of Sets of Opening Factor Data = 4, this value must be less than 1.0,
+        |  and greater than value entered for Opening factor 2.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Opening Factor 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `opening_factor_3` or None if not set
+
         """
         return self["Opening Factor 3"]
 
@@ -2621,14 +2737,15 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def discharge_coefficient_for_opening_factor_3(self):
-        """field `Discharge Coefficient for Opening Factor 3` The Discharge
-        Coefficient indicates the fractional effectiveness for air flow through
-        a window or door at that Opening Factor.
+        """field `Discharge Coefficient for Opening Factor 3`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through a window or door at that Opening Factor.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Opening Factor 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2647,13 +2764,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def width_factor_for_opening_factor_3(self):
-        """field `Width Factor for Opening Factor 3` The Width Factor is the
-        opening width divided by the window or door width.
+        """field `Width Factor for Opening Factor 3`
+
+        |  The Width Factor is the opening width divided by the window or door width.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Width Factor for Opening Factor 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2671,13 +2789,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def height_factor_for_opening_factor_3(self):
-        """field `Height Factor for Opening Factor 3` The Height Factor is the
-        opening height divided by the window or door height.
+        """field `Height Factor for Opening Factor 3`
+
+        |  The Height Factor is the opening height divided by the window or door height.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Height Factor for Opening Factor 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2696,22 +2815,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def start_height_factor_for_opening_factor_3(self):
         """field `Start Height Factor for Opening Factor 3`
-        The Start Height Factor is the Start Height divided by the window or door height.
-        Start Height is the distance between the bottom of the window or door and the
-        bottom of the window or door opening. The sum of the Height Factor and the Start Height
-        Factor must be less than 1.0 in order to have the opening within the window or door
-        dimensions.
+
+        |  The Start Height Factor is the Start Height divided by the window or door height.
+        |  Start Height is the distance between the bottom of the window or door and the
+        |  bottom of the window or door opening. The sum of the Height Factor and the Start Height
+        |  Factor must be less than 1.0 in order to have the opening within the window or door
+        |  dimensions.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Start Height Factor for Opening Factor 3`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `start_height_factor_for_opening_factor_3` or None if not set
+
         """
         return self["Start Height Factor for Opening Factor 3"]
 
@@ -2724,18 +2845,20 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def opening_factor_4(self):
         """field `Opening Factor 4`
-        If Number of Sets of Opening Factor Data = 4, this value must be 1.0
+
+        |  If Number of Sets of Opening Factor Data = 4, this value must be 1.0
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Opening Factor 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `opening_factor_4` or None if not set
+
         """
         return self["Opening Factor 4"]
 
@@ -2746,14 +2869,15 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def discharge_coefficient_for_opening_factor_4(self):
-        """field `Discharge Coefficient for Opening Factor 4` The Discharge
-        Coefficient indicates the fractional effectiveness for air flow through
-        a window or door at that Opening Factor.
+        """field `Discharge Coefficient for Opening Factor 4`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through a window or door at that Opening Factor.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Opening Factor 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2772,13 +2896,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def width_factor_for_opening_factor_4(self):
-        """field `Width Factor for Opening Factor 4` The Width Factor is the
-        opening width divided by the window or door width.
+        """field `Width Factor for Opening Factor 4`
+
+        |  The Width Factor is the opening width divided by the window or door width.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Width Factor for Opening Factor 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2796,13 +2921,14 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
     @property
     def height_factor_for_opening_factor_4(self):
-        """field `Height Factor for Opening Factor 4` The Height Factor is the
-        opening height divided by the window or door height.
+        """field `Height Factor for Opening Factor 4`
+
+        |  The Height Factor is the opening height divided by the window or door height.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Height Factor for Opening Factor 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2821,22 +2947,24 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
     @property
     def start_height_factor_for_opening_factor_4(self):
         """field `Start Height Factor for Opening Factor 4`
-        The Start Height Factor is the Start Height divided by the window or door height.
-        Start Height is the distance between the bottom of the window or door and the
-        bottom of the window or door opening. The sum of the Height Factor and the Start Height
-        Factor must be less than 1.0 in order to have the opening within the window or door
-        dimensions.
+
+        |  The Start Height Factor is the Start Height divided by the window or door height.
+        |  Start Height is the distance between the bottom of the window or door and the
+        |  bottom of the window or door opening. The sum of the Height Factor and the Start Height
+        |  Factor must be less than 1.0 in order to have the opening within the window or door
+        |  dimensions.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Start Height Factor for Opening Factor 4`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `start_height_factor_for_opening_factor_4` or None if not set
+
         """
         return self["Start Height Factor for Opening Factor 4"]
 
@@ -2911,7 +3039,9 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2933,19 +3063,21 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
     @property
     def air_mass_flow_coefficient_when_opening_is_closed(self):
         """field `Air Mass Flow Coefficient When Opening is Closed`
-        Defined at 1 Pa pressure difference. Enter the coefficient used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening (window or door) is closed.
+
+        |  Defined at 1 Pa pressure difference. Enter the coefficient used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening (window or door) is closed.
+        |  Units: kg/s-m
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient When Opening is Closed`
-                Units: kg/s-m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_coefficient_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Coefficient When Opening is Closed"]
 
@@ -2958,22 +3090,24 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
     @property
     def air_mass_flow_exponent_when_opening_is_closed(self):
         """field `Air Mass Flow Exponent When Opening is Closed`
-        Enter the exponent used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening (window or door) is closed.
+
+        |  Enter the exponent used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening (window or door) is closed.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent When Opening is Closed`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_exponent_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Exponent When Opening is Closed"]
 
@@ -2986,11 +3120,12 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
     @property
     def minimum_density_difference_for_twoway_flow(self):
         """field `Minimum Density Difference for Two-Way Flow`
-        Enter the minimum density difference above which two-way flow may occur due to stack effect.
+
+        |  Enter the minimum density difference above which two-way flow may occur due to stack effect.
+        |  Units: kg/m3
 
         Args:
             value (float): value for IDD Field `Minimum Density Difference for Two-Way Flow`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3009,13 +3144,14 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
 
     @property
     def discharge_coefficient(self):
-        """field `Discharge Coefficient` The Discharge Coefficient indicates
-        the fractional effectiveness for air flow through a window or door at
-        that Opening Factor.
+        """field `Discharge Coefficient`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through a window or door at that Opening Factor.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3097,7 +3233,9 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3119,19 +3257,21 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
     @property
     def air_mass_flow_coefficient_when_opening_is_closed(self):
         """field `Air Mass Flow Coefficient When Opening is Closed`
-        Defined at 1 Pa pressure difference. Enter the coefficient used in the following equation:
-        Mass flow rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening is closed.
+
+        |  Defined at 1 Pa pressure difference. Enter the coefficient used in the following equation:
+        |  Mass flow rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening is closed.
+        |  Units: kg/s-m
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient When Opening is Closed`
-                Units: kg/s-m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_coefficient_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Coefficient When Opening is Closed"]
 
@@ -3144,22 +3284,24 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
     @property
     def air_mass_flow_exponent_when_opening_is_closed(self):
         """field `Air Mass Flow Exponent When Opening is Closed`
-        Enter the exponent used in the following equation:
-        Mass flow rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when opening is closed.
+
+        |  Enter the exponent used in the following equation:
+        |  Mass flow rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when opening is closed.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent When Opening is Closed`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_exponent_when_opening_is_closed` or None if not set
+
         """
         return self["Air Mass Flow Exponent When Opening is Closed"]
 
@@ -3172,19 +3314,21 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
     @property
     def sloping_plane_angle(self):
         """field `Sloping Plane Angle`
-        Sloping plane angle = 90 is equivalent to fully open.
+
+        |  Sloping plane angle = 90 is equivalent to fully open.
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 90.0
 
         Args:
             value (float): value for IDD Field `Sloping Plane Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `sloping_plane_angle` or None if not set
+
         """
         return self["Sloping Plane Angle"]
 
@@ -3195,13 +3339,14 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
 
     @property
     def discharge_coefficient(self):
-        """field `Discharge Coefficient` The Discharge Coefficient indicates
-        the fractional effectiveness for air flow through the opening at that
-        Opening Factor.
+        """field `Discharge Coefficient`
+
+        |  The Discharge Coefficient indicates the fractional effectiveness
+        |  for air flow through the opening at that Opening Factor.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3272,7 +3417,8 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
     @property
     def name(self):
         """field `Name`
-        Enter the name of a Fan:ZoneExhaust object.
+
+        |  Enter the name of a Fan:ZoneExhaust object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3282,6 +3428,7 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -3293,23 +3440,26 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
     @property
     def air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions(
             self):
-        """field `Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions`
-        Enter the air mass flow coefficient at the conditions defined
-        in the Reference Crack Conditions object.
-        Defined at 1 Pa pressure difference. Enter the coefficient used in the following
-        equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when the fan is off.
+        """field `Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at
+        Reference Conditions`
+
+        |  Enter the air mass flow coefficient at the conditions defined
+        |  in the Reference Crack Conditions object.
+        |  Defined at 1 Pa pressure difference. Enter the coefficient used in the following
+        |  equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when the fan is off.
+        |  Units: kg/s
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions` or None if not set
+
         """
         return self[
             "Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"]
@@ -3326,22 +3476,24 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
     @property
     def air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off(self):
         """field `Air Mass Flow Exponent When the Zone Exhaust Fan is Off`
-        Enter the exponent used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
-        Used only when the fan is off.
+
+        |  Enter the exponent used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
+        |  Used only when the fan is off.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent When the Zone Exhaust Fan is Off`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off` or None if not set
+
         """
         return self["Air Mass Flow Exponent When the Zone Exhaust Fan is Off"]
 
@@ -3356,8 +3508,9 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
     @property
     def reference_crack_conditions(self):
         """field `Reference Crack Conditions`
-        Select a AirflowNetwork:MultiZone:ReferenceCrackConditions name associated with
-        the air mass flow coefficient entered above.
+
+        |  Select a AirflowNetwork:MultiZone:ReferenceCrackConditions name associated with
+        |  the air mass flow coefficient entered above.
 
         Args:
             value (str): value for IDD Field `Reference Crack Conditions`
@@ -3367,6 +3520,7 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
 
         Returns:
             str: the value of `reference_crack_conditions` or None if not set
+
         """
         return self["Reference Crack Conditions"]
 
@@ -3417,8 +3571,10 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object. This node name
-        will be referenced by a particular building facade.
+        """field `Name`
+
+        |  Enter a unique name for this object.
+        |  This node name will be referenced by a particular building facade.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3439,12 +3595,13 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
 
     @property
     def external_node_height(self):
-        """field `External Node Height` Designates the reference height used to
-        calculate relative pressure.
+        """field `External Node Height`
+
+        |  Designates the reference height used to calculate relative pressure.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `External Node Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3463,7 +3620,8 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
     @property
     def wind_pressure_coefficient_values_object_name(self):
         """field `Wind Pressure Coefficient Values Object Name`
-        Enter the name of the AirflowNetwork:MultiZone:WindPressureCoefficientValues object.
+
+        |  Enter the name of the AirflowNetwork:MultiZone:WindPressureCoefficientValues object.
 
         Args:
             value (str): value for IDD Field `Wind Pressure Coefficient Values Object Name`
@@ -3473,6 +3631,7 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
 
         Returns:
             str: the value of `wind_pressure_coefficient_values_object_name` or None if not set
+
         """
         return self["Wind Pressure Coefficient Values Object Name"]
 
@@ -3871,7 +4030,9 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for the object.
+        """field `Name`
+
+        |  Enter a unique name for the object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3892,13 +4053,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_1(self):
-        """field `Wind Direction 1` Enter the wind direction corresponding to
-        the 1st WPC Array value.
+        """field `Wind Direction 1`
+
+        |  Enter the wind direction corresponding to the 1st WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 1`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3916,13 +4078,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_2(self):
-        """field `Wind Direction 2` Enter the wind direction corresponding to
-        the 2nd WPC Array value.
+        """field `Wind Direction 2`
+
+        |  Enter the wind direction corresponding to the 2nd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 2`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3940,13 +4103,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_3(self):
-        """field `Wind Direction 3` Enter the wind direction corresponding to
-        the 3rd WPC Array value.
+        """field `Wind Direction 3`
+
+        |  Enter the wind direction corresponding to the 3rd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 3`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3964,13 +4128,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_4(self):
-        """field `Wind Direction 4` Enter the wind direction corresponding to
-        the 4th WPC Array value.
+        """field `Wind Direction 4`
+
+        |  Enter the wind direction corresponding to the 4th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 4`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3988,13 +4153,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_5(self):
-        """field `Wind Direction 5` Enter the wind direction corresponding to
-        the 5th WPC Array value.
+        """field `Wind Direction 5`
+
+        |  Enter the wind direction corresponding to the 5th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 5`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4012,13 +4178,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_6(self):
-        """field `Wind Direction 6` Enter the wind direction corresponding to
-        the 6th WPC Array value.
+        """field `Wind Direction 6`
+
+        |  Enter the wind direction corresponding to the 6th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 6`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4036,13 +4203,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_7(self):
-        """field `Wind Direction 7` Enter the wind direction corresponding to
-        the 7th WPC Array value.
+        """field `Wind Direction 7`
+
+        |  Enter the wind direction corresponding to the 7th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 7`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4060,13 +4228,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_8(self):
-        """field `Wind Direction 8` Enter the wind direction corresponding to
-        the 8th WPC Array value.
+        """field `Wind Direction 8`
+
+        |  Enter the wind direction corresponding to the 8th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 8`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4084,13 +4253,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_9(self):
-        """field `Wind Direction 9` Enter the wind direction corresponding to
-        the 9th WPC Array value.
+        """field `Wind Direction 9`
+
+        |  Enter the wind direction corresponding to the 9th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 9`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4108,13 +4278,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_10(self):
-        """field `Wind Direction 10` Enter the wind direction corresponding to
-        the 10th WPC Array value.
+        """field `Wind Direction 10`
+
+        |  Enter the wind direction corresponding to the 10th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 10`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4132,13 +4303,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_11(self):
-        """field `Wind Direction 11` Enter the wind direction corresponding to
-        the 11th WPC Array value.
+        """field `Wind Direction 11`
+
+        |  Enter the wind direction corresponding to the 11th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 11`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4156,13 +4328,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_12(self):
-        """field `Wind Direction 12` Enter the wind direction corresponding to
-        the 12th WPC Array value.
+        """field `Wind Direction 12`
+
+        |  Enter the wind direction corresponding to the 12th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 12`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4180,13 +4353,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_13(self):
-        """field `Wind Direction 13` Enter the wind direction corresponding to
-        the 13th WPC Array value.
+        """field `Wind Direction 13`
+
+        |  Enter the wind direction corresponding to the 13th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 13`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4204,13 +4378,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_14(self):
-        """field `Wind Direction 14` Enter the wind direction corresponding to
-        the 14th WPC Array value.
+        """field `Wind Direction 14`
+
+        |  Enter the wind direction corresponding to the 14th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 14`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4228,13 +4403,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_15(self):
-        """field `Wind Direction 15` Enter the wind direction corresponding to
-        the 15th WPC Array value.
+        """field `Wind Direction 15`
+
+        |  Enter the wind direction corresponding to the 15th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 15`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4252,13 +4428,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_16(self):
-        """field `Wind Direction 16` Enter the wind direction corresponding to
-        the 16th WPC Array value.
+        """field `Wind Direction 16`
+
+        |  Enter the wind direction corresponding to the 16th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 16`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4276,13 +4453,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_17(self):
-        """field `Wind Direction 17` Enter the wind direction corresponding to
-        the 17th WPC Array value.
+        """field `Wind Direction 17`
+
+        |  Enter the wind direction corresponding to the 17th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 17`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4300,13 +4478,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_18(self):
-        """field `Wind Direction 18` Enter the wind direction corresponding to
-        the 18th WPC Array value.
+        """field `Wind Direction 18`
+
+        |  Enter the wind direction corresponding to the 18th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 18`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4324,13 +4503,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_19(self):
-        """field `Wind Direction 19` Enter the wind direction corresponding to
-        the 19th WPC Array value.
+        """field `Wind Direction 19`
+
+        |  Enter the wind direction corresponding to the 19th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 19`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4348,13 +4528,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_20(self):
-        """field `Wind Direction 20` Enter the wind direction corresponding to
-        the 20th WPC Array value.
+        """field `Wind Direction 20`
+
+        |  Enter the wind direction corresponding to the 20th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 20`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4372,13 +4553,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_21(self):
-        """field `Wind Direction 21` Enter the wind direction corresponding to
-        the 21st WPC Array value.
+        """field `Wind Direction 21`
+
+        |  Enter the wind direction corresponding to the 21st WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 21`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4396,13 +4578,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_22(self):
-        """field `Wind Direction 22` Enter the wind direction corresponding to
-        the 22nd WPC Array value.
+        """field `Wind Direction 22`
+
+        |  Enter the wind direction corresponding to the 22nd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 22`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4420,13 +4603,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_23(self):
-        """field `Wind Direction 23` Enter the wind direction corresponding to
-        the 23rd WPC Array value.
+        """field `Wind Direction 23`
+
+        |  Enter the wind direction corresponding to the 23rd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 23`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4444,13 +4628,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_24(self):
-        """field `Wind Direction 24` Enter the wind direction corresponding to
-        the 24th WPC Array value.
+        """field `Wind Direction 24`
+
+        |  Enter the wind direction corresponding to the 24th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 24`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4468,13 +4653,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_25(self):
-        """field `Wind Direction 25` Enter the wind direction corresponding to
-        the 25th WPC Array value.
+        """field `Wind Direction 25`
+
+        |  Enter the wind direction corresponding to the 25th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 25`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4492,13 +4678,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_26(self):
-        """field `Wind Direction 26` Enter the wind direction corresponding to
-        the 26th WPC Array value.
+        """field `Wind Direction 26`
+
+        |  Enter the wind direction corresponding to the 26th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 26`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4516,13 +4703,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_27(self):
-        """field `Wind Direction 27` Enter the wind direction corresponding to
-        the 27th WPC Array value.
+        """field `Wind Direction 27`
+
+        |  Enter the wind direction corresponding to the 27th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 27`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4540,13 +4728,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_28(self):
-        """field `Wind Direction 28` Enter the wind direction corresponding to
-        the 28th WPC Array value.
+        """field `Wind Direction 28`
+
+        |  Enter the wind direction corresponding to the 28th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 28`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4564,13 +4753,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_29(self):
-        """field `Wind Direction 29` Enter the wind direction corresponding to
-        the 29th WPC Array value.
+        """field `Wind Direction 29`
+
+        |  Enter the wind direction corresponding to the 29th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 29`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4588,13 +4778,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_30(self):
-        """field `Wind Direction 30` Enter the wind direction corresponding to
-        the 30th WPC Array value.
+        """field `Wind Direction 30`
+
+        |  Enter the wind direction corresponding to the 30th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 30`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4612,13 +4803,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_31(self):
-        """field `Wind Direction 31` Enter the wind direction corresponding to
-        the 31st WPC Array value.
+        """field `Wind Direction 31`
+
+        |  Enter the wind direction corresponding to the 31st WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 31`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4636,13 +4828,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_32(self):
-        """field `Wind Direction 32` Enter the wind direction corresponding to
-        the 32nd WPC Array value.
+        """field `Wind Direction 32`
+
+        |  Enter the wind direction corresponding to the 32nd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 32`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4660,13 +4853,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_33(self):
-        """field `Wind Direction 33` Enter the wind direction corresponding to
-        the 33rd WPC Array value.
+        """field `Wind Direction 33`
+
+        |  Enter the wind direction corresponding to the 33rd WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 33`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4684,13 +4878,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_34(self):
-        """field `Wind Direction 34` Enter the wind direction corresponding to
-        the 34th WPC Array value.
+        """field `Wind Direction 34`
+
+        |  Enter the wind direction corresponding to the 34th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 34`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4708,13 +4903,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_35(self):
-        """field `Wind Direction 35` Enter the wind direction corresponding to
-        the 35th WPC Array value.
+        """field `Wind Direction 35`
+
+        |  Enter the wind direction corresponding to the 35th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 35`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4732,13 +4928,14 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
     @property
     def wind_direction_36(self):
-        """field `Wind Direction 36` Enter the wind direction corresponding to
-        the 36th WPC Array value.
+        """field `Wind Direction 36`
+
+        |  Enter the wind direction corresponding to the 36th WPC Array value.
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Wind Direction 36`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5077,7 +5274,9 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5099,7 +5298,8 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
     @property
     def airflownetworkmultizonewindpressurecoefficientarray_name(self):
         """field `AirflowNetwork:MultiZone:WindPressureCoefficientArray Name`
-        Enter the name of the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
+
+        |  Enter the name of the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
 
         Args:
             value (str): value for IDD Field `AirflowNetwork:MultiZone:WindPressureCoefficientArray Name`
@@ -5125,12 +5325,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_1(self):
-        """field `Wind Pressure Coefficient Value 1` Enter the WPC Value
-        corresponding to the 1st wind direction.
+        """field `Wind Pressure Coefficient Value 1`
+
+        |  Enter the WPC Value corresponding to the 1st wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 1`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5148,12 +5349,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_2(self):
-        """field `Wind Pressure Coefficient Value 2` Enter the WPC Value
-        corresponding to the 2nd wind direction.
+        """field `Wind Pressure Coefficient Value 2`
+
+        |  Enter the WPC Value corresponding to the 2nd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 2`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5171,12 +5373,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_3(self):
-        """field `Wind Pressure Coefficient Value 3` Enter the WPC Value
-        corresponding to the 3rd wind direction.
+        """field `Wind Pressure Coefficient Value 3`
+
+        |  Enter the WPC Value corresponding to the 3rd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 3`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5194,12 +5397,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_4(self):
-        """field `Wind Pressure Coefficient Value 4` Enter the WPC Value
-        corresponding to the 4th wind direction.
+        """field `Wind Pressure Coefficient Value 4`
+
+        |  Enter the WPC Value corresponding to the 4th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 4`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5217,12 +5421,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_5(self):
-        """field `Wind Pressure Coefficient Value 5` Enter the WPC Value
-        corresponding to the 5th wind direction.
+        """field `Wind Pressure Coefficient Value 5`
+
+        |  Enter the WPC Value corresponding to the 5th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 5`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5240,12 +5445,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_6(self):
-        """field `Wind Pressure Coefficient Value 6` Enter the WPC Value
-        corresponding to the 6th wind direction.
+        """field `Wind Pressure Coefficient Value 6`
+
+        |  Enter the WPC Value corresponding to the 6th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 6`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5263,12 +5469,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_7(self):
-        """field `Wind Pressure Coefficient Value 7` Enter the WPC Value
-        corresponding to the 7th wind direction.
+        """field `Wind Pressure Coefficient Value 7`
+
+        |  Enter the WPC Value corresponding to the 7th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 7`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5286,12 +5493,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_8(self):
-        """field `Wind Pressure Coefficient Value 8` Enter the WPC Value
-        corresponding to the 8th wind direction.
+        """field `Wind Pressure Coefficient Value 8`
+
+        |  Enter the WPC Value corresponding to the 8th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 8`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5309,12 +5517,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_9(self):
-        """field `Wind Pressure Coefficient Value 9` Enter the WPC Value
-        corresponding to the 9th wind direction.
+        """field `Wind Pressure Coefficient Value 9`
+
+        |  Enter the WPC Value corresponding to the 9th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 9`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5332,12 +5541,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_10(self):
-        """field `Wind Pressure Coefficient Value 10` Enter the WPC Value
-        corresponding to the 10th wind direction.
+        """field `Wind Pressure Coefficient Value 10`
+
+        |  Enter the WPC Value corresponding to the 10th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 10`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5355,12 +5565,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_11(self):
-        """field `Wind Pressure Coefficient Value 11` Enter the WPC Value
-        corresponding to the 11th wind direction.
+        """field `Wind Pressure Coefficient Value 11`
+
+        |  Enter the WPC Value corresponding to the 11th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 11`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5378,12 +5589,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_12(self):
-        """field `Wind Pressure Coefficient Value 12` Enter the WPC Value
-        corresponding to the 12th wind direction.
+        """field `Wind Pressure Coefficient Value 12`
+
+        |  Enter the WPC Value corresponding to the 12th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 12`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5401,12 +5613,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_13(self):
-        """field `Wind Pressure Coefficient Value 13` Enter the WPC Value
-        corresponding to the 13th wind direction.
+        """field `Wind Pressure Coefficient Value 13`
+
+        |  Enter the WPC Value corresponding to the 13th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 13`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5424,12 +5637,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_14(self):
-        """field `Wind Pressure Coefficient Value 14` Enter the WPC Value
-        corresponding to the 14th wind direction.
+        """field `Wind Pressure Coefficient Value 14`
+
+        |  Enter the WPC Value corresponding to the 14th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 14`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5447,12 +5661,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_15(self):
-        """field `Wind Pressure Coefficient Value 15` Enter the WPC Value
-        corresponding to the 15th wind direction.
+        """field `Wind Pressure Coefficient Value 15`
+
+        |  Enter the WPC Value corresponding to the 15th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 15`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5470,12 +5685,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_16(self):
-        """field `Wind Pressure Coefficient Value 16` Enter the WPC Value
-        corresponding to the 16th wind direction.
+        """field `Wind Pressure Coefficient Value 16`
+
+        |  Enter the WPC Value corresponding to the 16th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 16`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5493,12 +5709,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_17(self):
-        """field `Wind Pressure Coefficient Value 17` Enter the WPC Value
-        corresponding to the 17th wind direction.
+        """field `Wind Pressure Coefficient Value 17`
+
+        |  Enter the WPC Value corresponding to the 17th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 17`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5516,12 +5733,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_18(self):
-        """field `Wind Pressure Coefficient Value 18` Enter the WPC Value
-        corresponding to the 18th wind direction.
+        """field `Wind Pressure Coefficient Value 18`
+
+        |  Enter the WPC Value corresponding to the 18th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 18`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5539,12 +5757,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_19(self):
-        """field `Wind Pressure Coefficient Value 19` Enter the WPC Value
-        corresponding to the 19th wind direction.
+        """field `Wind Pressure Coefficient Value 19`
+
+        |  Enter the WPC Value corresponding to the 19th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 19`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5562,12 +5781,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_20(self):
-        """field `Wind Pressure Coefficient Value 20` Enter the WPC Value
-        corresponding to the 20th wind direction.
+        """field `Wind Pressure Coefficient Value 20`
+
+        |  Enter the WPC Value corresponding to the 20th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 20`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5585,12 +5805,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_21(self):
-        """field `Wind Pressure Coefficient Value 21` Enter the WPC Value
-        corresponding to the 21st wind direction.
+        """field `Wind Pressure Coefficient Value 21`
+
+        |  Enter the WPC Value corresponding to the 21st wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 21`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5608,12 +5829,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_22(self):
-        """field `Wind Pressure Coefficient Value 22` Enter the WPC Value
-        corresponding to the 22nd wind direction.
+        """field `Wind Pressure Coefficient Value 22`
+
+        |  Enter the WPC Value corresponding to the 22nd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 22`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5631,12 +5853,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_23(self):
-        """field `Wind Pressure Coefficient Value 23` Enter the WPC Value
-        corresponding to the 23rd wind direction.
+        """field `Wind Pressure Coefficient Value 23`
+
+        |  Enter the WPC Value corresponding to the 23rd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 23`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5654,12 +5877,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_24(self):
-        """field `Wind Pressure Coefficient Value 24` Enter the WPC Value
-        corresponding to the 24th wind direction.
+        """field `Wind Pressure Coefficient Value 24`
+
+        |  Enter the WPC Value corresponding to the 24th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 24`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5677,12 +5901,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_25(self):
-        """field `Wind Pressure Coefficient Value 25` Enter the WPC Value
-        corresponding to the 25th wind direction.
+        """field `Wind Pressure Coefficient Value 25`
+
+        |  Enter the WPC Value corresponding to the 25th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 25`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5700,12 +5925,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_26(self):
-        """field `Wind Pressure Coefficient Value 26` Enter the WPC Value
-        corresponding to the 26th wind direction.
+        """field `Wind Pressure Coefficient Value 26`
+
+        |  Enter the WPC Value corresponding to the 26th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 26`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5723,12 +5949,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_27(self):
-        """field `Wind Pressure Coefficient Value 27` Enter the WPC Value
-        corresponding to the 27th wind direction.
+        """field `Wind Pressure Coefficient Value 27`
+
+        |  Enter the WPC Value corresponding to the 27th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 27`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5746,12 +5973,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_28(self):
-        """field `Wind Pressure Coefficient Value 28` Enter the WPC Value
-        corresponding to the 28th wind direction.
+        """field `Wind Pressure Coefficient Value 28`
+
+        |  Enter the WPC Value corresponding to the 28th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 28`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5769,12 +5997,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_29(self):
-        """field `Wind Pressure Coefficient Value 29` Enter the WPC Value
-        corresponding to the 29th wind direction.
+        """field `Wind Pressure Coefficient Value 29`
+
+        |  Enter the WPC Value corresponding to the 29th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 29`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5792,12 +6021,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_30(self):
-        """field `Wind Pressure Coefficient Value 30` Enter the WPC Value
-        corresponding to the 30th wind direction.
+        """field `Wind Pressure Coefficient Value 30`
+
+        |  Enter the WPC Value corresponding to the 30th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 30`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5815,12 +6045,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_31(self):
-        """field `Wind Pressure Coefficient Value 31` Enter the WPC Value
-        corresponding to the 31st wind direction.
+        """field `Wind Pressure Coefficient Value 31`
+
+        |  Enter the WPC Value corresponding to the 31st wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 31`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5838,12 +6069,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_32(self):
-        """field `Wind Pressure Coefficient Value 32` Enter the WPC Value
-        corresponding to the 32nd wind direction.
+        """field `Wind Pressure Coefficient Value 32`
+
+        |  Enter the WPC Value corresponding to the 32nd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 32`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5861,12 +6093,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_33(self):
-        """field `Wind Pressure Coefficient Value 33` Enter the WPC Value
-        corresponding to the 33rd wind direction.
+        """field `Wind Pressure Coefficient Value 33`
+
+        |  Enter the WPC Value corresponding to the 33rd wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 33`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5884,12 +6117,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_34(self):
-        """field `Wind Pressure Coefficient Value 34` Enter the WPC Value
-        corresponding to the 34th wind direction.
+        """field `Wind Pressure Coefficient Value 34`
+
+        |  Enter the WPC Value corresponding to the 34th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 34`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5907,12 +6141,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_35(self):
-        """field `Wind Pressure Coefficient Value 35` Enter the WPC Value
-        corresponding to the 35th wind direction.
+        """field `Wind Pressure Coefficient Value 35`
+
+        |  Enter the WPC Value corresponding to the 35th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 35`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5930,12 +6165,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
     @property
     def wind_pressure_coefficient_value_36(self):
-        """field `Wind Pressure Coefficient Value 36` Enter the WPC Value
-        corresponding to the 36th wind direction.
+        """field `Wind Pressure Coefficient Value 36`
+
+        |  Enter the WPC Value corresponding to the 36th wind direction.
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Wind Pressure Coefficient Value 36`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6008,7 +6244,9 @@ class AirflowNetworkDistributionNode(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6030,10 +6268,11 @@ class AirflowNetworkDistributionNode(DataObject):
     @property
     def component_name_or_node_name(self):
         """field `Component Name or Node Name`
-        Designates node names defined in another object. The node name may occur in air branches.
-        Enter a node name to represent a node already defined in an air loop.
-        Leave this field blank if the Node or Object Type field below is entered as
-        AirLoopHVAC:ZoneMixer, AirLoopHVAC:ZoneSplitter, AirLoopHVAC:OutdoorAirSystem, or Other.
+
+        |  Designates node names defined in another object. The node name may occur in air branches.
+        |  Enter a node name to represent a node already defined in an air loop.
+        |  Leave this field blank if the Node or Object Type field below is entered as
+        |  AirLoopHVAC:ZoneMixer, AirLoopHVAC:ZoneSplitter, AirLoopHVAC:OutdoorAirSystem, or Other.
 
         Args:
             value (str): value for IDD Field `Component Name or Node Name`
@@ -6043,6 +6282,7 @@ class AirflowNetworkDistributionNode(DataObject):
 
         Returns:
             str: the value of `component_name_or_node_name` or None if not set
+
         """
         return self["Component Name or Node Name"]
 
@@ -6054,27 +6294,29 @@ class AirflowNetworkDistributionNode(DataObject):
     @property
     def component_object_type_or_node_type(self):
         """field `Component Object Type or Node Type`
-        Designates Node type for the Node or Component Name defined in the field above.
-        AirLoopHVAC:ZoneMixer -- Represents a AirLoopHVAC:ZoneMixer object.
-        AirLoopHVAC:ZoneSplitter -- Represents a AirLoopHVAC:ZoneSplitter object.
-        AirLoopHVAC:OutdoorAirSystem -- Represents an AirLoopHVAC:OutdoorAirSystem object.
-        OAMixerOutdoorAirStreamNode -- Represents an external node used in the OutdoorAir:Mixer
-        OutdoorAir:NodeList -- Represents an external node when a heat exchanger is used before
-        the OutdoorAir:Mixer
-        OutdoorAir:Node -- Represents an external node when a heat exchanger is used before
-        the OutdoorAir:Mixer
-        Other -- none of the above, the Node name already defined in the previous field is part
-        of an air loop.
+
+        |  Designates Node type for the Node or Component Name defined in the field above.
+        |  AirLoopHVAC:ZoneMixer -- Represents a AirLoopHVAC:ZoneMixer object.
+        |  AirLoopHVAC:ZoneSplitter -- Represents a AirLoopHVAC:ZoneSplitter object.
+        |  AirLoopHVAC:OutdoorAirSystem -- Represents an AirLoopHVAC:OutdoorAirSystem object.
+        |  OAMixerOutdoorAirStreamNode -- Represents an external node used in the OutdoorAir:Mixer
+        |  OutdoorAir:NodeList -- Represents an external node when a heat exchanger is used before
+        |  the OutdoorAir:Mixer
+        |  OutdoorAir:Node -- Represents an external node when a heat exchanger is used before
+        |  the OutdoorAir:Mixer
+        |  Other -- none of the above, the Node name already defined in the previous field is part
+        |  of an air loop.
+        |  Default value: Other
 
         Args:
             value (str): value for IDD Field `Component Object Type or Node Type`
-                Default value: Other
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `component_object_type_or_node_type` or None if not set
+
         """
         return self["Component Object Type or Node Type"]
 
@@ -6085,12 +6327,13 @@ class AirflowNetworkDistributionNode(DataObject):
 
     @property
     def node_height(self):
-        """field `Node Height` Enter the reference height used to calculate the
-        relative pressure.
+        """field `Node Height`
+
+        |  Enter the reference height used to calculate the relative pressure.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Node Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6152,7 +6395,9 @@ class AirflowNetworkDistributionComponentLeak(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6174,19 +6419,21 @@ class AirflowNetworkDistributionComponentLeak(DataObject):
     @property
     def air_mass_flow_coefficient(self):
         """field `Air Mass Flow Coefficient`
-        Defined at 1 Pa pressure difference across this component.
-        Enter the coefficient used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent
+
+        |  Defined at 1 Pa pressure difference across this component.
+        |  Enter the coefficient used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent
+        |  Units: kg/s
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Coefficient`
-                Units: kg/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_coefficient` or None if not set
+
         """
         return self["Air Mass Flow Coefficient"]
 
@@ -6198,21 +6445,23 @@ class AirflowNetworkDistributionComponentLeak(DataObject):
     @property
     def air_mass_flow_exponent(self):
         """field `Air Mass Flow Exponent`
-        Enter the exponent used in the following equation:
-        Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent
+
+        |  Enter the exponent used in the following equation:
+        |  Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `air_mass_flow_exponent` or None if not set
+
         """
         return self["Air Mass Flow Exponent"]
 
@@ -6287,7 +6536,9 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6308,13 +6559,14 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
     @property
     def effective_leakage_ratio(self):
-        """field `Effective Leakage Ratio` Defined as a ratio of leak flow rate
-        to the maximum flow rate.
+        """field `Effective Leakage Ratio`
+
+        |  Defined as a ratio of leak flow rate to the maximum flow rate.
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Effective Leakage Ratio`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6332,12 +6584,13 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
     @property
     def maximum_flow_rate(self):
-        """field `Maximum Flow Rate` Enter the maximum air flow rate in this
-        air loop.
+        """field `Maximum Flow Rate`
+
+        |  Enter the maximum air flow rate in this air loop.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6355,12 +6608,13 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
     @property
     def reference_pressure_difference(self):
-        """field `Reference Pressure Difference` Enter the pressure
-        corresponding to the Effective leakage ratio entered above.
+        """field `Reference Pressure Difference`
+
+        |  Enter the pressure corresponding to the Effective leakage ratio entered above.
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Reference Pressure Difference`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6378,15 +6632,16 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
     @property
     def air_mass_flow_exponent(self):
-        """field `Air Mass Flow Exponent` Enter the exponent used in the air
-        mass flow equation.
+        """field `Air Mass Flow Exponent`
+
+        |  Enter the exponent used in the air mass flow equation.
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Air Mass Flow Exponent`
-                Units: dimensionless
-                Default value: 0.65
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6495,7 +6750,9 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6516,11 +6773,13 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def duct_length(self):
-        """field `Duct Length` Enter the length of the duct.
+        """field `Duct Length`
+
+        |  Enter the length of the duct.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Duct Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6538,13 +6797,14 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def hydraulic_diameter(self):
-        """field `Hydraulic Diameter` Enter the hydraulic diameter of the duct.
-        Hydraulic diameter is defined as 4 multiplied by cross section area
-        divided by perimeter.
+        """field `Hydraulic Diameter`
+
+        |  Enter the hydraulic diameter of the duct.
+        |  Hydraulic diameter is defined as 4 multiplied by cross section area divided by perimeter
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Hydraulic Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6562,11 +6822,13 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def cross_section_area(self):
-        """field `Cross Section Area` Enter the cross section area of the duct.
+        """field `Cross Section Area`
+
+        |  Enter the cross section area of the duct.
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Cross Section Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6584,13 +6846,14 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def surface_roughness(self):
-        """field `Surface Roughness` Enter the inside surface roughness of the
-        duct.
+        """field `Surface Roughness`
+
+        |  Enter the inside surface roughness of the duct.
+        |  Units: m
+        |  Default value: 0.0009
 
         Args:
             value (float): value for IDD Field `Surface Roughness`
-                Units: m
-                Default value: 0.0009
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6608,12 +6871,13 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
 
     @property
     def coefficient_for_local_dynamic_loss_due_to_fitting(self):
-        """field `Coefficient for Local Dynamic Loss Due to Fitting` Enter the
-        coefficient used to calculate dynamic losses of fittings (e.g. elbows).
+        """field `Coefficient for Local Dynamic Loss Due to Fitting`
+
+        |  Enter the coefficient used to calculate dynamic losses of fittings (e.g. elbows).
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Coefficient for Local Dynamic Loss Due to Fitting`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6633,15 +6897,16 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
     @property
     def overall_heat_transmittance_coefficient_ufactor_from_air_to_air(self):
         """field `Overall Heat Transmittance Coefficient (U-Factor) from Air to Air`
-        including film coefficients at both surfaces
-        Enter the overall U-value for this duct.
-        Default value of 0.772 is equivalent to 1.06 m2-K/W (R6) duct insulation with
-        film coefficients for outside and inside equal to 5 and 25 W/m2-K, respectively.
+
+        |  including film coefficients at both surfaces
+        |  Enter the overall U-value for this duct.
+        |  Default value of 0.772 is equivalent to 1.06 m2-K/W (R6) duct insulation with
+        |  film coefficients for outside and inside equal to 5 and 25 W/m2-K, respectively.
+        |  Units: W/m2-K
+        |  Default value: 0.772
 
         Args:
             value (float): value for IDD Field `Overall Heat Transmittance Coefficient (U-Factor) from Air to Air`
-                Units: W/m2-K
-                Default value: 0.772
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6665,13 +6930,14 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
     @property
     def overall_moisture_transmittance_coefficient_from_air_to_air(self):
         """field `Overall Moisture Transmittance Coefficient from Air to Air`
-        Enter the overall moisture transmittance coefficient including moisture
-        film coefficients at both surfaces.
+
+        |  Enter the overall moisture transmittance coefficient
+        |  including moisture film coefficients at both surfaces.
+        |  Units: kg/m2
+        |  Default value: 0.001
 
         Args:
             value (float): value for IDD Field `Overall Moisture Transmittance Coefficient from Air to Air`
-                Units: kg/m2
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6729,8 +6995,9 @@ class AirflowNetworkDistributionComponentFan(DataObject):
 
     @property
     def fan_name(self):
-        """field `Fan Name` Enter the name of the constant volume fan in the
-        primary air loop.
+        """field `Fan Name`
+
+        |  Enter the name of the constant volume fan in the primary air loop.
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -6753,9 +7020,10 @@ class AirflowNetworkDistributionComponentFan(DataObject):
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
 
+        |  Default value: Fan:ConstantVolume
+
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
-                Default value: Fan:ConstantVolume
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6833,8 +7101,9 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
 
     @property
     def coil_name(self):
-        """field `Coil Name` Enter the name of a cooling or heating coil in the
-        primary Air loop.
+        """field `Coil Name`
+
+        |  Enter the name of a cooling or heating coil in the primary Air loop.
 
         Args:
             value (str): value for IDD Field `Coil Name`
@@ -6855,8 +7124,9 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
 
     @property
     def coil_object_type(self):
-        """field `Coil Object Type` Select the type of coil corresponding to
-        the name entered in the field above.
+        """field `Coil Object Type`
+
+        |  Select the type of coil corresponding to the name entered in the field above.
 
         Args:
             value (str): value for IDD Field `Coil Object Type`
@@ -6877,12 +7147,13 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
 
     @property
     def air_path_length(self):
-        """field `Air Path Length` Enter the air path length (depth) for the
-        coil.
+        """field `Air Path Length`
+
+        |  Enter the air path length (depth) for the coil.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6900,13 +7171,14 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
 
     @property
     def air_path_hydraulic_diameter(self):
-        """field `Air Path Hydraulic Diameter` Enter the hydraulic diameter of
-        this coil. The hydraulic diameter is defined as 4 multiplied by the
-        cross section area divided by perimeter.
+        """field `Air Path Hydraulic Diameter`
+
+        |  Enter the hydraulic diameter of this coil. The hydraulic diameter is
+        |  defined as 4 multiplied by the cross section area divided by perimeter.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Hydraulic Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6977,7 +7249,8 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
     @property
     def heatexchanger_name(self):
         """field `HeatExchanger Name`
-        Enter the name of an air-to-air heat exchanger in the primary Air loop.
+
+        |  Enter the name of an air-to-air heat exchanger in the primary Air loop.
 
         Args:
             value (str): value for IDD Field `HeatExchanger Name`
@@ -6987,6 +7260,7 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
 
         Returns:
             str: the value of `heatexchanger_name` or None if not set
+
         """
         return self["HeatExchanger Name"]
 
@@ -6997,8 +7271,9 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
 
     @property
     def heatexchanger_object_type(self):
-        """field `HeatExchanger Object Type` Select the type of heat exchanger
-        corresponding to the name entered in the field above.
+        """field `HeatExchanger Object Type`
+
+        |  Select the type of heat exchanger corresponding to the name entered in the field above.
 
         Args:
             value (str): value for IDD Field `HeatExchanger Object Type`
@@ -7019,12 +7294,13 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
 
     @property
     def air_path_length(self):
-        """field `Air Path Length` Enter the air path length (depth) for the
-        heat exchanger.
+        """field `Air Path Length`
+
+        |  Enter the air path length (depth) for the heat exchanger.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7042,13 +7318,14 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
 
     @property
     def air_path_hydraulic_diameter(self):
-        """field `Air Path Hydraulic Diameter` Enter the hydraulic diameter of
-        this heat exchanger. The hydraulic diameter is defined as 4 multiplied
-        by the cross section area divided by perimeter.
+        """field `Air Path Hydraulic Diameter`
+
+        |  Enter the hydraulic diameter of this heat exchanger. The hydraulic diameter is
+        |  defined as 4 multiplied by the cross section area divided by perimeter.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Hydraulic Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7117,8 +7394,9 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
 
     @property
     def terminal_unit_name(self):
-        """field `Terminal Unit Name` Enter the name of a terminal unit in the
-        AirLoopHVAC.
+        """field `Terminal Unit Name`
+
+        |  Enter the name of a terminal unit in the AirLoopHVAC.
 
         Args:
             value (str): value for IDD Field `Terminal Unit Name`
@@ -7139,8 +7417,9 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
 
     @property
     def terminal_unit_object_type(self):
-        """field `Terminal Unit Object Type` Select the type of terminal unit
-        corresponding to the name entered in the field above.
+        """field `Terminal Unit Object Type`
+
+        |  Select the type of terminal unit corresponding to the name entered in the field above.
 
         Args:
             value (str): value for IDD Field `Terminal Unit Object Type`
@@ -7161,12 +7440,13 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
 
     @property
     def air_path_length(self):
-        """field `Air Path Length` Enter the air path length (depth) for the
-        terminal unit.
+        """field `Air Path Length`
+
+        |  Enter the air path length (depth) for the terminal unit.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7184,13 +7464,14 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
 
     @property
     def air_path_hydraulic_diameter(self):
-        """field `Air Path Hydraulic Diameter` Enter the hydraulic diameter of
-        this terminal unit. The hydraulic diameter is defined as 4 multiplied
-        by the cross section area divided by perimeter.
+        """field `Air Path Hydraulic Diameter`
+
+        |  Enter the hydraulic diameter of this terminal unit. The hydraulic diameter is
+        |  defined as 4 multiplied by the cross section area divided by perimeter.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Air Path Hydraulic Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7243,7 +7524,9 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7264,12 +7547,13 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
 
     @property
     def pressure_difference_across_the_component(self):
-        """field `Pressure Difference Across the Component` Enter the pressure
-        drop across this component.
+        """field `Pressure Difference Across the Component`
+
+        |  Enter the pressure drop across this component.
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Pressure Difference Across the Component`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7340,7 +7624,9 @@ class AirflowNetworkDistributionLinkage(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this object.
+        """field `Name`
+
+        |  Enter a unique name for this object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7361,7 +7647,9 @@ class AirflowNetworkDistributionLinkage(DataObject):
 
     @property
     def node_1_name(self):
-        """field `Node 1 Name` Enter the name of zone or AirflowNetwork Node.
+        """field `Node 1 Name`
+
+        |  Enter the name of zone or AirflowNetwork Node.
 
         Args:
             value (str): value for IDD Field `Node 1 Name`
@@ -7382,7 +7670,9 @@ class AirflowNetworkDistributionLinkage(DataObject):
 
     @property
     def node_2_name(self):
-        """field `Node 2 Name` Enter the name of zone or AirflowNetwork Node.
+        """field `Node 2 Name`
+
+        |  Enter the name of zone or AirflowNetwork Node.
 
         Args:
             value (str): value for IDD Field `Node 2 Name`
@@ -7404,9 +7694,10 @@ class AirflowNetworkDistributionLinkage(DataObject):
     @property
     def component_name(self):
         """field `Component Name`
-        Enter the name of an AirflowNetwork component. A component is one of the
-        following AirflowNetwork:Distribution:Component objects: Leak, LeakageRatio,
-        Duct, ConstantVolumeFan, Coil, TerminalUnit, ConstantPressureDrop, or HeatExchanger.
+
+        |  Enter the name of an AirflowNetwork component. A component is one of the
+        |  following AirflowNetwork:Distribution:Component objects: Leak, LeakageRatio,
+        |  Duct, ConstantVolumeFan, Coil, TerminalUnit, ConstantPressureDrop, or HeatExchanger.
 
         Args:
             value (str): value for IDD Field `Component Name`
@@ -7416,6 +7707,7 @@ class AirflowNetworkDistributionLinkage(DataObject):
 
         Returns:
             str: the value of `component_name` or None if not set
+
         """
         return self["Component Name"]
 
@@ -7427,9 +7719,10 @@ class AirflowNetworkDistributionLinkage(DataObject):
     @property
     def thermal_zone_name(self):
         """field `Thermal Zone Name`
-        Only used if component = AirflowNetwork:Distribution:Component:Duct
-        The zone name is where AirflowNetwork:Distribution:Component:Duct is exposed. Leave this field blank if the duct
-        conduction loss is ignored.
+
+        |  Only used if component = AirflowNetwork:Distribution:Component:Duct
+        |  The zone name is where AirflowNetwork:Distribution:Component:Duct is exposed. Leave this field blank if the duct
+        |  conduction loss is ignored.
 
         Args:
             value (str): value for IDD Field `Thermal Zone Name`
@@ -7439,6 +7732,7 @@ class AirflowNetworkDistributionLinkage(DataObject):
 
         Returns:
             str: the value of `thermal_zone_name` or None if not set
+
         """
         return self["Thermal Zone Name"]
 

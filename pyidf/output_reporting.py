@@ -51,9 +51,10 @@ class OutputVariableDictionary(DataObject):
     def key_field(self):
         """field `Key Field`
 
+        |  Default value: regular
+
         Args:
             value (str): value for IDD Field `Key Field`
-                Default value: regular
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -153,8 +154,9 @@ class OutputSurfacesList(DataObject):
     @property
     def report_specifications(self):
         """field `Report Specifications`
-        (IDF, only for Output:Surfaces:List, Lines report --
-        will print transformed coordinates in IDF style)
+
+        |  (IDF, only for Output:Surfaces:List, Lines report --
+        |  will print transformed coordinates in IDF style)
 
         Args:
             value (str): value for IDD Field `Report Specifications`
@@ -164,6 +166,7 @@ class OutputSurfacesList(DataObject):
 
         Returns:
             str: the value of `report_specifications` or None if not set
+
         """
         return self["Report Specifications"]
 
@@ -243,18 +246,20 @@ class OutputSurfacesDrawing(DataObject):
     @property
     def report_specifications_1(self):
         """field `Report Specifications 1`
-        Triangulate3DFace (default), ThickPolyline, RegularPolyline apply to DXF
-        This field is ignored for DXF:WireFrame and VRML
+
+        |  Triangulate3DFace (default), ThickPolyline, RegularPolyline apply to DXF
+        |  This field is ignored for DXF:WireFrame and VRML
+        |  Default value: Triangulate3DFace
 
         Args:
             value (str): value for IDD Field `Report Specifications 1`
-                Default value: Triangulate3DFace
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `report_specifications_1` or None if not set
+
         """
         return self["Report Specifications 1"]
 
@@ -265,8 +270,9 @@ class OutputSurfacesDrawing(DataObject):
 
     @property
     def report_specifications_2(self):
-        """field `Report Specifications 2` Use ColorScheme Name for DXF
-        reports.
+        """field `Report Specifications 2`
+
+        |  Use ColorScheme Name for DXF reports
 
         Args:
             value (str): value for IDD Field `Report Specifications 2`
@@ -467,9 +473,10 @@ class OutputEnergyManagementSystem(DataObject):
     def actuator_availability_dictionary_reporting(self):
         """field `Actuator Availability Dictionary Reporting`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Actuator Availability Dictionary Reporting`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -490,9 +497,10 @@ class OutputEnergyManagementSystem(DataObject):
     def internal_variable_availability_dictionary_reporting(self):
         """field `Internal Variable Availability Dictionary Reporting`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Internal Variable Availability Dictionary Reporting`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -515,9 +523,10 @@ class OutputEnergyManagementSystem(DataObject):
     def ems_runtime_language_debug_output_level(self):
         """field `EMS Runtime Language Debug Output Level`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `EMS Runtime Language Debug Output Level`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1029,7 +1038,9 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def name(self):
-        """field `Name` choose a name or use one of the DataSets.
+        """field `Name`
+
+        |  choose a name or use one of the DataSets
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1071,12 +1082,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_1(self):
-        """field `Color for Drawing Element 1` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 1`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 1`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1115,12 +1127,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_2(self):
-        """field `Color for Drawing Element 2` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 2`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 2`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1159,12 +1172,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_3(self):
-        """field `Color for Drawing Element 3` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 3`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 3`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1203,12 +1217,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_4(self):
-        """field `Color for Drawing Element 4` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 4`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 4`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1247,12 +1262,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_5(self):
-        """field `Color for Drawing Element 5` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 5`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 5`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1291,12 +1307,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_6(self):
-        """field `Color for Drawing Element 6` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 6`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 6`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1335,12 +1352,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_7(self):
-        """field `Color for Drawing Element 7` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 7`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 7`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1379,12 +1397,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_8(self):
-        """field `Color for Drawing Element 8` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 8`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 8`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1423,12 +1442,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_9(self):
-        """field `Color for Drawing Element 9` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 9`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 9`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1467,12 +1487,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_10(self):
-        """field `Color for Drawing Element 10` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 10`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 10`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1511,12 +1532,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_11(self):
-        """field `Color for Drawing Element 11` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 11`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 11`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1555,12 +1577,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_12(self):
-        """field `Color for Drawing Element 12` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 12`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 12`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1599,12 +1622,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_13(self):
-        """field `Color for Drawing Element 13` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 13`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 13`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1643,12 +1667,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_14(self):
-        """field `Color for Drawing Element 14` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 14`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 14`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1687,12 +1712,13 @@ class OutputControlSurfaceColorScheme(DataObject):
 
     @property
     def color_for_drawing_element_15(self):
-        """field `Color for Drawing Element 15` use color number for output
-        assignment (e.g. DXF)
+        """field `Color for Drawing Element 15`
+
+        |  use color number for output assignment (e.g. DXF)
+        |  value <= 255
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 15`
-                value <= 255
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1809,17 +1835,19 @@ class OutputTableTimeBins(DataObject):
     @property
     def key_value(self):
         """field `Key Value`
-        use '*' (without quotes) to apply this variable to all keys
+
+        |  use '*' (without quotes) to apply this variable to all keys
+        |  Default value: *
 
         Args:
             value (str): value for IDD Field `Key Value`
-                Default value: *
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `key_value` or None if not set
+
         """
         return self["Key Value"]
 
@@ -1851,12 +1879,13 @@ class OutputTableTimeBins(DataObject):
 
     @property
     def interval_start(self):
-        """field `Interval Start` The lowest value for the intervals being
-        binned into.
+        """field `Interval Start`
+
+        |  The lowest value for the intervals being binned into.
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Interval Start`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1874,12 +1903,13 @@ class OutputTableTimeBins(DataObject):
 
     @property
     def interval_size(self):
-        """field `Interval Size` The size of the bins starting with Interval
-        start.
+        """field `Interval Size`
+
+        |  The size of the bins starting with Interval start.
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Interval Size`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1897,14 +1927,15 @@ class OutputTableTimeBins(DataObject):
 
     @property
     def interval_count(self):
-        """field `Interval Count` The number of bins used. The number of hours
-        below the start of the Lowest bin and above the value of the last bin
-        are also shown.
+        """field `Interval Count`
+
+        |  The number of bins used. The number of hours below the start of the
+        |  Lowest bin and above the value of the last bin are also shown.
+        |  value >= 1
+        |  value <= 20
 
         Args:
             value (int): value for IDD Field `Interval Count`
-                value >= 1
-                value <= 20
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1923,8 +1954,9 @@ class OutputTableTimeBins(DataObject):
     @property
     def schedule_name(self):
         """field `Schedule Name`
-        Optional schedule name. Binning is performed for non-zero hours.
-        Binning always performed if left blank.
+
+        |  Optional schedule name. Binning is performed for non-zero hours.
+        |  Binning always performed if left blank.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -1934,6 +1966,7 @@ class OutputTableTimeBins(DataObject):
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
@@ -1944,8 +1977,9 @@ class OutputTableTimeBins(DataObject):
 
     @property
     def variable_type(self):
-        """field `Variable Type` Optional input on the type of units for the
-        variable used by other fields in the object.
+        """field `Variable Type`
+
+        |  Optional input on the type of units for the variable used by other fields in the object.
 
         Args:
             value (str): value for IDD Field `Variable Type`
@@ -2054,10 +2088,11 @@ class OutputTableMonthly(DataObject):
     def digits_after_decimal(self):
         """field `Digits After Decimal`
 
+        |  Default value: 2
+        |  value <= 10
+
         Args:
             value (int): value for IDD Field `Digits After Decimal`
-                Default value: 2
-                value <= 10
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2174,9 +2209,10 @@ class OutputControlTableStyle(DataObject):
     def column_separator(self):
         """field `Column Separator`
 
+        |  Default value: Comma
+
         Args:
             value (str): value for IDD Field `Column Separator`
-                Default value: Comma
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2196,9 +2232,10 @@ class OutputControlTableStyle(DataObject):
     def unit_conversion(self):
         """field `Unit Conversion`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Unit Conversion`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2256,18 +2293,20 @@ class OutputControlReportingTolerances(DataObject):
 
     @property
     def tolerance_for_time_heating_setpoint_not_met(self):
-        """field `Tolerance for Time Heating Setpoint Not Met` If the zone
-        temperature is below the heating setpoint by more than this value, the
-        following output variables will increment as appropriate Zone Heating
-        Setpoint Not Met Time Zone Heating Setpoint Not Met While Occupied Time
-        This also impacts table report "Annual Building Utility Performance
-        Summary" subtable "Comfort and Setpoint Not Met Summary".
+        """field `Tolerance for Time Heating Setpoint Not Met`
+
+        |  If the zone temperature is below the heating setpoint by more than
+        |  this value, the following output variables will increment as appropriate
+        |  Zone Heating Setpoint Not Met Time
+        |  Zone Heating Setpoint Not Met While Occupied Time
+        |  This also impacts table report "Annual Building Utility Performance Summary"
+        |  subtable "Comfort and Setpoint Not Met Summary"
+        |  Units: deltaC
+        |  Default value: 0.2
+        |  value <= 10.0
 
         Args:
             value (float): value for IDD Field `Tolerance for Time Heating Setpoint Not Met`
-                Units: deltaC
-                Default value: 0.2
-                value <= 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2286,18 +2325,20 @@ class OutputControlReportingTolerances(DataObject):
 
     @property
     def tolerance_for_time_cooling_setpoint_not_met(self):
-        """field `Tolerance for Time Cooling Setpoint Not Met` If the zone
-        temperature is above the cooling setpoint by more than this value, the
-        following output variables will increment as appropriate Zone Cooling
-        Setpoint Not Met Time Zone Cooling Setpoint Not Met While Occupied Time
-        This also impacts table report "Annual Building Utility Performance
-        Summary" subtable "Comfort and Setpoint Not Met Summary".
+        """field `Tolerance for Time Cooling Setpoint Not Met`
+
+        |  If the zone temperature is above the cooling setpoint by more than
+        |  this value, the following output variables will increment as appropriate
+        |  Zone Cooling Setpoint Not Met Time
+        |  Zone Cooling Setpoint Not Met While Occupied Time
+        |  This also impacts table report "Annual Building Utility Performance Summary"
+        |  subtable "Comfort and Setpoint Not Met Summary"
+        |  Units: deltaC
+        |  Default value: 0.2
+        |  value <= 10.0
 
         Args:
             value (float): value for IDD Field `Tolerance for Time Cooling Setpoint Not Met`
-                Units: deltaC
-                Default value: 0.2
-                value <= 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2375,17 +2416,19 @@ class OutputVariable(DataObject):
     @property
     def key_value(self):
         """field `Key Value`
-        use '*' (without quotes) to apply this variable to all keys
+
+        |  use '*' (without quotes) to apply this variable to all keys
+        |  Default value: *
 
         Args:
             value (str): value for IDD Field `Key Value`
-                Default value: *
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `key_value` or None if not set
+
         """
         return self["Key Value"]
 
@@ -2417,14 +2460,16 @@ class OutputVariable(DataObject):
 
     @property
     def reporting_frequency(self):
-        """field `Reporting Frequency` Detailed lists every instance (i.e. HVAC
-        variable timesteps) Timestep refers to the zone Timestep/Number of
-        Timesteps in hour value RunPeriod, Environment, and Annual are the same
-        RunPeriod, Environment, and Annual are synonymous.
+        """field `Reporting Frequency`
+
+        |  Detailed lists every instance (i.e. HVAC variable timesteps)
+        |  Timestep refers to the zone Timestep/Number of Timesteps in hour value
+        |  RunPeriod, Environment, and Annual are the same
+        |  RunPeriod, Environment, and Annual are synonymous
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2506,9 +2551,10 @@ class OutputMeter(DataObject):
     @property
     def name(self):
         """field `Name`
-        Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
-        or EndUse:..., e.g. GeneralLights:* for all General Lights
-        Output:Meter puts results on both the eplusout.mtr and eplusout.eso files
+
+        |  Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
+        |  or EndUse:..., e.g. GeneralLights:* for all General Lights
+        |  Output:Meter puts results on both the eplusout.mtr and eplusout.eso files
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2518,6 +2564,7 @@ class OutputMeter(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2528,13 +2575,15 @@ class OutputMeter(DataObject):
 
     @property
     def reporting_frequency(self):
-        """field `Reporting Frequency` Timestep refers to the zone
-        Timestep/Number of Timesteps in hour value RunPeriod, Environment, and
-        Annual are the same RunPeriod, Environment, and Annual are synonymous.
+        """field `Reporting Frequency`
+
+        |  Timestep refers to the zone Timestep/Number of Timesteps in hour value
+        |  RunPeriod, Environment, and Annual are the same
+        |  RunPeriod, Environment, and Annual are synonymous
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2595,9 +2644,10 @@ class OutputMeterMeterFileOnly(DataObject):
     @property
     def name(self):
         """field `Name`
-        Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
-        or EndUse:..., e.g. GeneralLights:* for all General Lights
-        Output:Meter:MeterFileOnly puts results on the eplusout.mtr file only
+
+        |  Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
+        |  or EndUse:..., e.g. GeneralLights:* for all General Lights
+        |  Output:Meter:MeterFileOnly puts results on the eplusout.mtr file only
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2607,6 +2657,7 @@ class OutputMeterMeterFileOnly(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2617,13 +2668,15 @@ class OutputMeterMeterFileOnly(DataObject):
 
     @property
     def reporting_frequency(self):
-        """field `Reporting Frequency` Timestep refers to the zone
-        Timestep/Number of Timesteps in hour value RunPeriod, Environment, and
-        Annual are the same RunPeriod, Environment, and Annual are synonymous.
+        """field `Reporting Frequency`
+
+        |  Timestep refers to the zone Timestep/Number of Timesteps in hour value
+        |  RunPeriod, Environment, and Annual are the same
+        |  RunPeriod, Environment, and Annual are synonymous
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2685,9 +2738,10 @@ class OutputMeterCumulative(DataObject):
     @property
     def name(self):
         """field `Name`
-        Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
-        or EndUse:..., e.g. GeneralLights:* for all General Lights
-        Output:Meter:Cumulative puts results on both the eplusout.mtr and eplusout.eso files
+
+        |  Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
+        |  or EndUse:..., e.g. GeneralLights:* for all General Lights
+        |  Output:Meter:Cumulative puts results on both the eplusout.mtr and eplusout.eso files
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2697,6 +2751,7 @@ class OutputMeterCumulative(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2707,13 +2762,15 @@ class OutputMeterCumulative(DataObject):
 
     @property
     def reporting_frequency(self):
-        """field `Reporting Frequency` Timestep refers to the zone
-        Timestep/Number of Timesteps in hour value RunPeriod, Environment, and
-        Annual are the same RunPeriod, Environment, and Annual are synonymous.
+        """field `Reporting Frequency`
+
+        |  Timestep refers to the zone Timestep/Number of Timesteps in hour value
+        |  RunPeriod, Environment, and Annual are the same
+        |  RunPeriod, Environment, and Annual are synonymous
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2775,9 +2832,10 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
     @property
     def name(self):
         """field `Name`
-        Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
-        or EndUse:..., e.g. GeneralLights:* for all General Lights
-        Output:Meter:Cumulative:MeterFileOnly puts results on the eplusout.mtr file only
+
+        |  Form is EnergyUseType:..., e.g. Electricity:* for all Electricity meters
+        |  or EndUse:..., e.g. GeneralLights:* for all General Lights
+        |  Output:Meter:Cumulative:MeterFileOnly puts results on the eplusout.mtr file only
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2787,6 +2845,7 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2797,13 +2856,15 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
 
     @property
     def reporting_frequency(self):
-        """field `Reporting Frequency` Timestep refers to the zone
-        Timestep/Number of Timesteps in hour value RunPeriod, Environment, and
-        Annual are the same RunPeriod, Environment, and Annual are synonymous.
+        """field `Reporting Frequency`
+
+        |  Timestep refers to the zone Timestep/Number of Timesteps in hour value
+        |  RunPeriod, Environment, and Annual are the same
+        |  RunPeriod, Environment, and Annual are synonymous
+        |  Default value: Hourly
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Default value: Hourly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3306,12 +3367,13 @@ class EnvironmentalImpactFactors(DataObject):
 
     @property
     def district_heating_efficiency(self):
-        """field `District Heating Efficiency` District heating efficiency used
-        when converted to natural gas.
+        """field `District Heating Efficiency`
+
+        |  District heating efficiency used when converted to natural gas
+        |  Default value: 0.3
 
         Args:
             value (float): value for IDD Field `District Heating Efficiency`
-                Default value: 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3329,13 +3391,14 @@ class EnvironmentalImpactFactors(DataObject):
 
     @property
     def district_cooling_cop(self):
-        """field `District Cooling COP` District cooling COP used when
-        converted to electricity.
+        """field `District Cooling COP`
+
+        |  District cooling COP used when converted to electricity
+        |  Units: W/W
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `District Cooling COP`
-                Units: W/W
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3353,12 +3416,13 @@ class EnvironmentalImpactFactors(DataObject):
 
     @property
     def steam_conversion_efficiency(self):
-        """field `Steam Conversion Efficiency` Steam conversion efficiency used
-        to convert steam usage to natural gas.
+        """field `Steam Conversion Efficiency`
+
+        |  Steam conversion efficiency used to convert steam usage to natural gas
+        |  Default value: 0.25
 
         Args:
             value (float): value for IDD Field `Steam Conversion Efficiency`
-                Default value: 0.25
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3378,10 +3442,11 @@ class EnvironmentalImpactFactors(DataObject):
     def total_carbon_equivalent_emission_factor_from_n2o(self):
         """field `Total Carbon Equivalent Emission Factor From N2O`
 
+        |  Units: kg/kg
+        |  Default value: 80.7272
+
         Args:
             value (float): value for IDD Field `Total Carbon Equivalent Emission Factor From N2O`
-                Units: kg/kg
-                Default value: 80.7272
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3402,10 +3467,11 @@ class EnvironmentalImpactFactors(DataObject):
     def total_carbon_equivalent_emission_factor_from_ch4(self):
         """field `Total Carbon Equivalent Emission Factor From CH4`
 
+        |  Units: kg/kg
+        |  Default value: 6.2727
+
         Args:
             value (float): value for IDD Field `Total Carbon Equivalent Emission Factor From CH4`
-                Units: kg/kg
-                Default value: 6.2727
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3426,10 +3492,11 @@ class EnvironmentalImpactFactors(DataObject):
     def total_carbon_equivalent_emission_factor_from_co2(self):
         """field `Total Carbon Equivalent Emission Factor From CO2`
 
+        |  Units: kg/kg
+        |  Default value: 0.2727
+
         Args:
             value (float): value for IDD Field `Total Carbon Equivalent Emission Factor From CO2`
-                Units: kg/kg
-                Default value: 0.2727
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3818,9 +3885,10 @@ class FuelFactors(DataObject):
     def source_energy_factor(self):
         """field `Source Energy Factor`
 
+        |  Units: J/J
+
         Args:
             value (float): value for IDD Field `Source Energy Factor`
-                Units: J/J
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3861,9 +3929,10 @@ class FuelFactors(DataObject):
     def co2_emission_factor(self):
         """field `CO2 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `CO2 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3904,9 +3973,10 @@ class FuelFactors(DataObject):
     def co_emission_factor(self):
         """field `CO Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `CO Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3947,9 +4017,10 @@ class FuelFactors(DataObject):
     def ch4_emission_factor(self):
         """field `CH4 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `CH4 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3990,9 +4061,10 @@ class FuelFactors(DataObject):
     def nox_emission_factor(self):
         """field `NOx Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `NOx Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4033,9 +4105,10 @@ class FuelFactors(DataObject):
     def n2o_emission_factor(self):
         """field `N2O Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `N2O Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4076,9 +4149,10 @@ class FuelFactors(DataObject):
     def so2_emission_factor(self):
         """field `SO2 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `SO2 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4119,9 +4193,10 @@ class FuelFactors(DataObject):
     def pm_emission_factor(self):
         """field `PM Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `PM Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4162,9 +4237,10 @@ class FuelFactors(DataObject):
     def pm10_emission_factor(self):
         """field `PM10 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `PM10 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4205,9 +4281,10 @@ class FuelFactors(DataObject):
     def pm2_5_emission_factor(self):
         """field `PM2.5 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `PM2.5 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4227,6 +4304,7 @@ class FuelFactors(DataObject):
     @property
     def pm2_5_emission_factor_schedule_name(self):
         """field `PM2.5 Emission Factor Schedule Name`
+
 
         Args:
             value (str): value for IDD Field `PM2.5 Emission Factor Schedule Name`
@@ -4250,9 +4328,10 @@ class FuelFactors(DataObject):
     def nh3_emission_factor(self):
         """field `NH3 Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `NH3 Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4293,9 +4372,10 @@ class FuelFactors(DataObject):
     def nmvoc_emission_factor(self):
         """field `NMVOC Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `NMVOC Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4336,9 +4416,10 @@ class FuelFactors(DataObject):
     def hg_emission_factor(self):
         """field `Hg Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `Hg Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4379,9 +4460,10 @@ class FuelFactors(DataObject):
     def pb_emission_factor(self):
         """field `Pb Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `Pb Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4422,9 +4504,10 @@ class FuelFactors(DataObject):
     def water_emission_factor(self):
         """field `Water Emission Factor`
 
+        |  Units: L/MJ
+
         Args:
             value (float): value for IDD Field `Water Emission Factor`
-                Units: L/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4465,9 +4548,10 @@ class FuelFactors(DataObject):
     def nuclear_high_level_emission_factor(self):
         """field `Nuclear High Level Emission Factor`
 
+        |  Units: g/MJ
+
         Args:
             value (float): value for IDD Field `Nuclear High Level Emission Factor`
-                Units: g/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4509,9 +4593,10 @@ class FuelFactors(DataObject):
     def nuclear_low_level_emission_factor(self):
         """field `Nuclear Low Level Emission Factor`
 
+        |  Units: m3/MJ
+
         Args:
             value (float): value for IDD Field `Nuclear Low Level Emission Factor`
-                Units: m3/MJ
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4676,7 +4761,8 @@ class OutputDebuggingData(DataObject):
     @property
     def report_debugging_data(self):
         """field `Report Debugging Data`
-        value=1 then yes all others no
+
+        |  value=1 then yes all others no
 
         Args:
             value (float): value for IDD Field `Report Debugging Data`
@@ -4686,6 +4772,7 @@ class OutputDebuggingData(DataObject):
 
         Returns:
             float: the value of `report_debugging_data` or None if not set
+
         """
         return self["Report Debugging Data"]
 
@@ -4697,7 +4784,8 @@ class OutputDebuggingData(DataObject):
     @property
     def report_during_warmup(self):
         """field `Report During Warmup`
-        value=1 then always even during warmup  all others no
+
+        |  value=1 then always even during warmup  all others no
 
         Args:
             value (float): value for IDD Field `Report During Warmup`
@@ -4707,6 +4795,7 @@ class OutputDebuggingData(DataObject):
 
         Returns:
             float: the value of `report_during_warmup` or None if not set
+
         """
         return self["Report During Warmup"]
 
@@ -4844,8 +4933,9 @@ class OutputPreprocessorMessage(DataObject):
 
     @property
     def error_severity(self):
-        """field `Error Severity` Depending on type, InputProcessor may
-        terminate the program.
+        """field `Error Severity`
+
+        |  Depending on type, InputProcessor may terminate the program.
 
         Args:
             value (str): value for IDD Field `Error Severity`

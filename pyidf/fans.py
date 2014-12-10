@@ -132,9 +132,10 @@ class FanConstantVolume(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -157,10 +158,11 @@ class FanConstantVolume(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -180,10 +182,11 @@ class FanConstantVolume(DataObject):
     def pressure_rise(self):
         """field `Pressure Rise`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Pressure Rise`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -203,15 +206,16 @@ class FanConstantVolume(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -225,10 +229,11 @@ class FanConstantVolume(DataObject):
     def motor_efficiency(self):
         """field `Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -247,18 +252,20 @@ class FanConstantVolume(DataObject):
     @property
     def motor_in_airstream_fraction(self):
         """field `Motor In Airstream Fraction`
-        0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+
+        |  0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor In Airstream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
+
         """
         return self["Motor In Airstream Fraction"]
 
@@ -313,9 +320,10 @@ class FanConstantVolume(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -520,9 +528,10 @@ class FanVariableVolume(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -545,10 +554,11 @@ class FanVariableVolume(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 0.7
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -568,10 +578,11 @@ class FanVariableVolume(DataObject):
     def pressure_rise(self):
         """field `Pressure Rise`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Pressure Rise`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -591,15 +602,16 @@ class FanVariableVolume(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -613,9 +625,10 @@ class FanVariableVolume(DataObject):
     def fan_power_minimum_flow_rate_input_method(self):
         """field `Fan Power Minimum Flow Rate Input Method`
 
+        |  Default value: Fraction
+
         Args:
             value (str): value for IDD Field `Fan Power Minimum Flow Rate Input Method`
-                Default value: Fraction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -636,10 +649,11 @@ class FanVariableVolume(DataObject):
     def fan_power_minimum_flow_fraction(self):
         """field `Fan Power Minimum Flow Fraction`
 
+        |  Default value: 0.25
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Power Minimum Flow Fraction`
-                Default value: 0.25
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -659,9 +673,10 @@ class FanVariableVolume(DataObject):
     def fan_power_minimum_air_flow_rate(self):
         """field `Fan Power Minimum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Fan Power Minimum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -681,10 +696,11 @@ class FanVariableVolume(DataObject):
     def motor_efficiency(self):
         """field `Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -703,18 +719,20 @@ class FanVariableVolume(DataObject):
     @property
     def motor_in_airstream_fraction(self):
         """field `Motor In Airstream Fraction`
-        0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+
+        |  0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor In Airstream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
+
         """
         return self["Motor In Airstream Fraction"]
 
@@ -726,9 +744,10 @@ class FanVariableVolume(DataObject):
     @property
     def fan_power_coefficient_1(self):
         """field `Fan Power Coefficient 1`
-        all Fan Power Coefficients should not be 0.0 or no fan power will be consumed.
-        Fan Power Coefficents are specified as function of full flow rate/power
-        Equation:
+
+        |  all Fan Power Coefficients should not be 0.0 or no fan power will be consumed.
+        |  Fan Power Coefficents are specified as function of full flow rate/power
+        |  Equation:
 
         Args:
             value (float): value for IDD Field `Fan Power Coefficient 1`
@@ -738,6 +757,7 @@ class FanVariableVolume(DataObject):
 
         Returns:
             float: the value of `fan_power_coefficient_1` or None if not set
+
         """
         return self["Fan Power Coefficient 1"]
 
@@ -876,9 +896,10 @@ class FanVariableVolume(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1034,9 +1055,10 @@ class FanOnOff(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1059,10 +1081,11 @@ class FanOnOff(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 0.6
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 0.6
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1082,10 +1105,11 @@ class FanOnOff(DataObject):
     def pressure_rise(self):
         """field `Pressure Rise`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Pressure Rise`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1105,15 +1129,16 @@ class FanOnOff(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -1127,10 +1152,11 @@ class FanOnOff(DataObject):
     def motor_efficiency(self):
         """field `Motor Efficiency`
 
+        |  Default value: 0.8
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.8
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1149,18 +1175,20 @@ class FanOnOff(DataObject):
     @property
     def motor_in_airstream_fraction(self):
         """field `Motor In Airstream Fraction`
-        0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+
+        |  0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor In Airstream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
+
         """
         return self["Motor In Airstream Fraction"]
 
@@ -1214,7 +1242,8 @@ class FanOnOff(DataObject):
     @property
     def fan_power_ratio_function_of_speed_ratio_curve_name(self):
         """field `Fan Power Ratio Function of Speed Ratio Curve Name`
-        Table:OneIndependentVariable can also be used
+
+        |  Table:OneIndependentVariable can also be used
 
         Args:
             value (str): value for IDD Field `Fan Power Ratio Function of Speed Ratio Curve Name`
@@ -1224,6 +1253,7 @@ class FanOnOff(DataObject):
 
         Returns:
             str: the value of `fan_power_ratio_function_of_speed_ratio_curve_name` or None if not set
+
         """
         return self["Fan Power Ratio Function of Speed Ratio Curve Name"]
 
@@ -1236,7 +1266,8 @@ class FanOnOff(DataObject):
     @property
     def fan_efficiency_ratio_function_of_speed_ratio_curve_name(self):
         """field `Fan Efficiency Ratio Function of Speed Ratio Curve Name`
-        Table:OneIndependentVariable can also be used
+
+        |  Table:OneIndependentVariable can also be used
 
         Args:
             value (str): value for IDD Field `Fan Efficiency Ratio Function of Speed Ratio Curve Name`
@@ -1246,6 +1277,7 @@ class FanOnOff(DataObject):
 
         Returns:
             str: the value of `fan_efficiency_ratio_function_of_speed_ratio_curve_name` or None if not set
+
         """
         return self["Fan Efficiency Ratio Function of Speed Ratio Curve Name"]
 
@@ -1261,9 +1293,10 @@ class FanOnOff(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1414,9 +1447,10 @@ class FanZoneExhaust(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1439,10 +1473,11 @@ class FanZoneExhaust(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  Default value: 0.6
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                Default value: 0.6
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1462,10 +1497,11 @@ class FanZoneExhaust(DataObject):
     def pressure_rise(self):
         """field `Pressure Rise`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Pressure Rise`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1485,9 +1521,10 @@ class FanZoneExhaust(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1549,9 +1586,10 @@ class FanZoneExhaust(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1570,9 +1608,9 @@ class FanZoneExhaust(DataObject):
 
     @property
     def flow_fraction_schedule_name(self):
-        """field `Flow Fraction Schedule Name` If field is used, then when fan
-        runs the exhausted air flow rate is controlled to be the scheduled
-        fraction times the Maximum Flow Rate.
+        """field `Flow Fraction Schedule Name`
+
+        |  If field is used, then when fan runs the exhausted air flow rate is controlled to be the scheduled fraction times the Maximum Flow Rate
 
         Args:
             value (str): value for IDD Field `Flow Fraction Schedule Name`
@@ -1593,12 +1631,13 @@ class FanZoneExhaust(DataObject):
 
     @property
     def system_availability_manager_coupling_mode(self):
-        """field `System Availability Manager Coupling Mode` Control if fan is
-        to be interlocked with HVAC system Availability Managerrs or not.
+        """field `System Availability Manager Coupling Mode`
+
+        |  Control if fan is to be interlocked with HVAC system Availability Managerrs or not.
+        |  Default value: Coupled
 
         Args:
             value (str): value for IDD Field `System Availability Manager Coupling Mode`
-                Default value: Coupled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1617,9 +1656,9 @@ class FanZoneExhaust(DataObject):
 
     @property
     def minimum_zone_temperature_limit_schedule_name(self):
-        """field `Minimum Zone Temperature Limit Schedule Name` If field is
-        used, the exhaust fan will not run if the zone temperature is lower
-        than this limit.
+        """field `Minimum Zone Temperature Limit Schedule Name`
+
+        |  If field is used, the exhaust fan will not run if the zone temperature is lower than this limit
 
         Args:
             value (str): value for IDD Field `Minimum Zone Temperature Limit Schedule Name`
@@ -1641,9 +1680,10 @@ class FanZoneExhaust(DataObject):
 
     @property
     def balanced_exhaust_fraction_schedule_name(self):
-        """field `Balanced Exhaust Fraction Schedule Name` Used to control
-        fan's impact on flow at the return air node. Enter the portion of the
-        exhaust that is balanced by simple airflows.
+        """field `Balanced Exhaust Fraction Schedule Name`
+
+        |  Used to control fan's impact on flow at the return air node. Enter the portion of the exhaust that is balanced by simple airflows.
+        |
 
         Args:
             value (str): value for IDD Field `Balanced Exhaust Fraction Schedule Name`
@@ -1762,9 +1802,10 @@ class FanPerformanceNightVentilation(DataObject):
     def fan_total_efficiency(self):
         """field `Fan Total Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1784,10 +1825,11 @@ class FanPerformanceNightVentilation(DataObject):
     def pressure_rise(self):
         """field `Pressure Rise`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Pressure Rise`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1807,15 +1849,16 @@ class FanPerformanceNightVentilation(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -1829,9 +1872,10 @@ class FanPerformanceNightVentilation(DataObject):
     def motor_efficiency(self):
         """field `Motor Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1850,19 +1894,21 @@ class FanPerformanceNightVentilation(DataObject):
     @property
     def motor_in_airstream_fraction(self):
         """field `Motor in Airstream Fraction`
-        0.0 means fan motor outside of airstream
-        1.0 means fan motor inside of airstream
+
+        |  0.0 means fan motor outside of airstream
+        |  1.0 means fan motor inside of airstream
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor in Airstream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
+
         """
         return self["Motor in Airstream Fraction"]
 
@@ -2253,9 +2299,10 @@ class FanComponentModel(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2278,15 +2325,16 @@ class FanComponentModel(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -2300,15 +2348,16 @@ class FanComponentModel(DataObject):
     def minimum_flow_rate(self):
         """field `Minimum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_flow_rate` or None if not set
 
         """
         return self["Minimum Flow Rate"]
@@ -2320,13 +2369,14 @@ class FanComponentModel(DataObject):
 
     @property
     def fan_sizing_factor(self):
-        """field `Fan Sizing Factor` Applied to specified or autosized max fan
-        airflow.
+        """field `Fan Sizing Factor`
+
+        |  Applied to specified or autosized max fan airflow
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Fan Sizing Factor`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2344,11 +2394,13 @@ class FanComponentModel(DataObject):
 
     @property
     def fan_wheel_diameter(self):
-        """field `Fan Wheel Diameter` Diameter of wheel outer circumference.
+        """field `Fan Wheel Diameter`
+
+        |  Diameter of wheel outer circumference
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Fan Wheel Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2366,12 +2418,13 @@ class FanComponentModel(DataObject):
 
     @property
     def fan_outlet_area(self):
-        """field `Fan Outlet Area` Area at fan outlet plane for determining
-        discharge velocity pressure.
+        """field `Fan Outlet Area`
+
+        |  Area at fan outlet plane for determining discharge velocity pressure
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Fan Outlet Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2389,13 +2442,14 @@ class FanComponentModel(DataObject):
 
     @property
     def maximum_fan_static_efficiency(self):
-        """field `Maximum Fan Static Efficiency` Maximum ratio between power
-        delivered to air and fan shaft input power Determined from fan
-        performance data.
+        """field `Maximum Fan Static Efficiency`
+
+        |  Maximum ratio between power delivered to air and fan shaft input power
+        |  Determined from fan performance data
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Maximum Fan Static Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2413,8 +2467,9 @@ class FanComponentModel(DataObject):
 
     @property
     def euler_number_at_maximum_fan_static_efficiency(self):
-        """field `Euler Number at Maximum Fan Static Efficiency` Euler number
-        (Eu) determined from fan performance data.
+        """field `Euler Number at Maximum Fan Static Efficiency`
+
+        |  Euler number (Eu) determined from fan performance data
 
         Args:
             value (float): value for IDD Field `Euler Number at Maximum Fan Static Efficiency`
@@ -2436,9 +2491,11 @@ class FanComponentModel(DataObject):
 
     @property
     def maximum_dimensionless_fan_airflow(self):
-        """field `Maximum Dimensionless Fan Airflow` Corresponds to maximum
-        ratio between fan airflow and fan shaft rotational speed for specified
-        fan wheel diameter Determined from fan performance data.
+        """field `Maximum Dimensionless Fan Airflow`
+
+        |  Corresponds to maximum ratio between fan airflow and
+        |  fan shaft rotational speed for specified fan wheel diameter
+        |  Determined from fan performance data
 
         Args:
             value (float): value for IDD Field `Maximum Dimensionless Fan Airflow`
@@ -2459,18 +2516,19 @@ class FanComponentModel(DataObject):
 
     @property
     def motor_fan_pulley_ratio(self):
-        """field `Motor Fan Pulley Ratio` Ratio of motor pulley diameter to fan
-        pulley diameter.
+        """field `Motor Fan Pulley Ratio`
+
+        |  Ratio of motor pulley diameter to fan pulley diameter
+        |  Default value: 1.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Motor Fan Pulley Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `motor_fan_pulley_ratio` or None if not set
+            float or "Autosize": the value of `motor_fan_pulley_ratio` or None if not set
 
         """
         return self["Motor Fan Pulley Ratio"]
@@ -2482,17 +2540,19 @@ class FanComponentModel(DataObject):
 
     @property
     def belt_maximum_torque(self):
-        """field `Belt Maximum Torque` Maximum torque transmitted by belt.
+        """field `Belt Maximum Torque`
+
+        |  Maximum torque transmitted by belt
+        |  Units: N-m
 
         Args:
             value (float or "Autosize"): value for IDD Field `Belt Maximum Torque`
-                Units: N-m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `belt_maximum_torque` or None if not set
+            float or "Autosize": the value of `belt_maximum_torque` or None if not set
 
         """
         return self["Belt Maximum Torque"]
@@ -2504,13 +2564,14 @@ class FanComponentModel(DataObject):
 
     @property
     def belt_sizing_factor(self):
-        """field `Belt Sizing Factor` Applied to specified or autosized max
-        torque transmitted by belt.
+        """field `Belt Sizing Factor`
+
+        |  Applied to specified or autosized max torque transmitted by belt
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Belt Sizing Factor`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2528,13 +2589,14 @@ class FanComponentModel(DataObject):
 
     @property
     def belt_fractional_torque_transition(self):
-        """field `Belt Fractional Torque Transition` Region 1 to 2 curve
-        transition for belt normalized efficiency.
+        """field `Belt Fractional Torque Transition`
+
+        |  Region 1 to 2 curve transition for belt normalized efficiency
+        |  Default value: 0.167
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Belt Fractional Torque Transition`
-                Default value: 0.167
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2552,12 +2614,13 @@ class FanComponentModel(DataObject):
 
     @property
     def motor_maximum_speed(self):
-        """field `Motor Maximum Speed` Maximum rotational speed of fan motor
-        shaft.
+        """field `Motor Maximum Speed`
+
+        |  Maximum rotational speed of fan motor shaft
+        |  Units: rev/min
 
         Args:
             value (float): value for IDD Field `Motor Maximum Speed`
-                Units: rev/min
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2575,18 +2638,19 @@ class FanComponentModel(DataObject):
 
     @property
     def maximum_motor_output_power(self):
-        """field `Maximum Motor Output Power` Maximum power input to drive belt
-        by motor.
+        """field `Maximum Motor Output Power`
+
+        |  Maximum power input to drive belt by motor
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Motor Output Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_motor_output_power` or None if not set
+            float or "Autosize": the value of `maximum_motor_output_power` or None if not set
 
         """
         return self["Maximum Motor Output Power"]
@@ -2598,13 +2662,14 @@ class FanComponentModel(DataObject):
 
     @property
     def motor_sizing_factor(self):
-        """field `Motor Sizing Factor` Applied to specified or autosized motor
-        output power.
+        """field `Motor Sizing Factor`
+
+        |  Applied to specified or autosized motor output power
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Motor Sizing Factor`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2623,19 +2688,21 @@ class FanComponentModel(DataObject):
     @property
     def motor_in_airstream_fraction(self):
         """field `Motor In Airstream Fraction`
-        0.0 means motor outside air stream
-        1.0 means motor inside air stream
+
+        |  0.0 means motor outside air stream
+        |  1.0 means motor inside air stream
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Motor In Airstream Fraction`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
+
         """
         return self["Motor In Airstream Fraction"]
 
@@ -2647,9 +2714,10 @@ class FanComponentModel(DataObject):
     @property
     def vfd_efficiency_type(self):
         """field `VFD Efficiency Type`
-        Efficiency depends on fraction of full-load motor speed
-        Efficiency depends on  fraction of full-load motor input power
-        If field blank, then assumes constant VFD efficiency (0.97)
+
+        |  Efficiency depends on fraction of full-load motor speed
+        |  Efficiency depends on  fraction of full-load motor input power
+        |  If field blank, then assumes constant VFD efficiency (0.97)
 
         Args:
             value (str): value for IDD Field `VFD Efficiency Type`
@@ -2659,6 +2727,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `vfd_efficiency_type` or None if not set
+
         """
         return self["VFD Efficiency Type"]
 
@@ -2669,18 +2738,19 @@ class FanComponentModel(DataObject):
 
     @property
     def maximum_vfd_output_power(self):
-        """field `Maximum VFD Output Power` Maximum power input to motor by
-        VFD.
+        """field `Maximum VFD Output Power`
+
+        |  Maximum power input to motor by VFD
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum VFD Output Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_vfd_output_power` or None if not set
+            float or "Autosize": the value of `maximum_vfd_output_power` or None if not set
 
         """
         return self["Maximum VFD Output Power"]
@@ -2692,13 +2762,14 @@ class FanComponentModel(DataObject):
 
     @property
     def vfd_sizing_factor(self):
-        """field `VFD Sizing Factor` Applied to specified or autosized VFD
-        output power.
+        """field `VFD Sizing Factor`
+
+        |  Applied to specified or autosized VFD output power
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `VFD Sizing Factor`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2717,9 +2788,10 @@ class FanComponentModel(DataObject):
     @property
     def fan_pressure_rise_curve_name(self):
         """field `Fan Pressure Rise Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Pressure rise depends on volumetric flow, system resistances,
-        system leakage, and duct static pressure set point
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Pressure rise depends on volumetric flow, system resistances,
+        |  system leakage, and duct static pressure set point
 
         Args:
             value (str): value for IDD Field `Fan Pressure Rise Curve Name`
@@ -2729,6 +2801,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `fan_pressure_rise_curve_name` or None if not set
+
         """
         return self["Fan Pressure Rise Curve Name"]
 
@@ -2740,10 +2813,11 @@ class FanComponentModel(DataObject):
     @property
     def duct_static_pressure_reset_curve_name(self):
         """field `Duct Static Pressure Reset Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Function of fan volumetric flow
-        Minimum and maximum fan airflows correspond respectively to
-        minimum and maximum duct static pressure set points
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Function of fan volumetric flow
+        |  Minimum and maximum fan airflows correspond respectively to
+        |  minimum and maximum duct static pressure set points
 
         Args:
             value (str): value for IDD Field `Duct Static Pressure Reset Curve Name`
@@ -2753,6 +2827,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `duct_static_pressure_reset_curve_name` or None if not set
+
         """
         return self["Duct Static Pressure Reset Curve Name"]
 
@@ -2764,9 +2839,10 @@ class FanComponentModel(DataObject):
     @property
     def normalized_fan_static_efficiency_curve_namenonstall_region(self):
         """field `Normalized Fan Static Efficiency Curve Name-Non-Stall Region`
-        Table:OneIndependentVariable object can also be used
-        xfan <= 0
-        Curve should have maximum of 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  xfan <= 0
+        |  Curve should have maximum of 1.0
 
         Args:
             value (str): value for IDD Field `Normalized Fan Static Efficiency Curve Name-Non-Stall Region`
@@ -2793,9 +2869,10 @@ class FanComponentModel(DataObject):
     @property
     def normalized_fan_static_efficiency_curve_namestall_region(self):
         """field `Normalized Fan Static Efficiency Curve Name-Stall Region`
-        Table:OneIndependentVariable object can also be used
-        xfan > 0
-        Curve should have maximum of 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  xfan > 0
+        |  Curve should have maximum of 1.0
 
         Args:
             value (str): value for IDD Field `Normalized Fan Static Efficiency Curve Name-Stall Region`
@@ -2821,9 +2898,10 @@ class FanComponentModel(DataObject):
     @property
     def normalized_dimensionless_airflow_curve_namenonstall_region(self):
         """field `Normalized Dimensionless Airflow Curve Name-Non-Stall Region`
-        Table:OneIndependentVariable object can also be used
-        xspd <= 0
-        Curve should have maximum of 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  xspd <= 0
+        |  Curve should have maximum of 1.0
 
         Args:
             value (str): value for IDD Field `Normalized Dimensionless Airflow Curve Name-Non-Stall Region`
@@ -2850,9 +2928,10 @@ class FanComponentModel(DataObject):
     @property
     def normalized_dimensionless_airflow_curve_namestall_region(self):
         """field `Normalized Dimensionless Airflow Curve Name-Stall Region`
-        Table:OneIndependentVariable object can also be used
-        xspd > 0
-        Curve should have maximum of 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  xspd > 0
+        |  Curve should have maximum of 1.0
 
         Args:
             value (str): value for IDD Field `Normalized Dimensionless Airflow Curve Name-Stall Region`
@@ -2878,11 +2957,12 @@ class FanComponentModel(DataObject):
     @property
     def maximum_belt_efficiency_curve_name(self):
         """field `Maximum Belt Efficiency Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Determines maximum fan drive belt efficiency in log space
-        as function of xbelt,max
-        Curve should have minimum of -4.6 and maximum of 0.0
-        If field blank, assumes output of curve is always 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines maximum fan drive belt efficiency in log space
+        |  as function of xbelt,max
+        |  Curve should have minimum of -4.6 and maximum of 0.0
+        |  If field blank, assumes output of curve is always 1.0
 
         Args:
             value (str): value for IDD Field `Maximum Belt Efficiency Curve Name`
@@ -2892,6 +2972,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `maximum_belt_efficiency_curve_name` or None if not set
+
         """
         return self["Maximum Belt Efficiency Curve Name"]
 
@@ -2903,10 +2984,11 @@ class FanComponentModel(DataObject):
     @property
     def normalized_belt_efficiency_curve_name_region_1(self):
         """field `Normalized Belt Efficiency Curve Name - Region 1`
-        Table:OneIndependentVariable object can also be used
-        Region 1 (0 <= xbelt < xbelt,trans)
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes output of curve is always 1.0 in Region 1
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Region 1 (0 <= xbelt < xbelt,trans)
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes output of curve is always 1.0 in Region 1
 
         Args:
             value (str): value for IDD Field `Normalized Belt Efficiency Curve Name - Region 1`
@@ -2929,10 +3011,11 @@ class FanComponentModel(DataObject):
     @property
     def normalized_belt_efficiency_curve_name_region_2(self):
         """field `Normalized Belt Efficiency Curve Name - Region 2`
-        Table:OneIndependentVariable object can also be used
-        Region 2 (xbelt,trans <= xbelt <= 1)
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes output of curve is always 1.0 in Region 2
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Region 2 (xbelt,trans <= xbelt <= 1)
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes output of curve is always 1.0 in Region 2
 
         Args:
             value (str): value for IDD Field `Normalized Belt Efficiency Curve Name - Region 2`
@@ -2955,10 +3038,11 @@ class FanComponentModel(DataObject):
     @property
     def normalized_belt_efficiency_curve_name_region_3(self):
         """field `Normalized Belt Efficiency Curve Name - Region 3`
-        Table:OneIndependentVariable object can also be used
-        Determines normalized drive belt efficiency Region 3 (xbelt > 1)
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes output of curve is always 1.0 in Region 3
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines normalized drive belt efficiency Region 3 (xbelt > 1)
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes output of curve is always 1.0 in Region 3
 
         Args:
             value (str): value for IDD Field `Normalized Belt Efficiency Curve Name - Region 3`
@@ -2981,9 +3065,10 @@ class FanComponentModel(DataObject):
     @property
     def maximum_motor_efficiency_curve_name(self):
         """field `Maximum Motor Efficiency Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes output of curve is always 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes output of curve is always 1.0
 
         Args:
             value (str): value for IDD Field `Maximum Motor Efficiency Curve Name`
@@ -2993,6 +3078,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `maximum_motor_efficiency_curve_name` or None if not set
+
         """
         return self["Maximum Motor Efficiency Curve Name"]
 
@@ -3004,9 +3090,10 @@ class FanComponentModel(DataObject):
     @property
     def normalized_motor_efficiency_curve_name(self):
         """field `Normalized Motor Efficiency Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes output of curve is always 1.0
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes output of curve is always 1.0
 
         Args:
             value (str): value for IDD Field `Normalized Motor Efficiency Curve Name`
@@ -3016,6 +3103,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `normalized_motor_efficiency_curve_name` or None if not set
+
         """
         return self["Normalized Motor Efficiency Curve Name"]
 
@@ -3027,10 +3115,11 @@ class FanComponentModel(DataObject):
     @property
     def vfd_efficiency_curve_name(self):
         """field `VFD Efficiency Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Determines VFD efficiency as function of motor load or speed fraction
-        Curve should have minimum > 0.0 and maximum of 1.0
-        If field blank, assumes constant VFD efficiency (0.97)
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Determines VFD efficiency as function of motor load or speed fraction
+        |  Curve should have minimum > 0.0 and maximum of 1.0
+        |  If field blank, assumes constant VFD efficiency (0.97)
 
         Args:
             value (str): value for IDD Field `VFD Efficiency Curve Name`
@@ -3040,6 +3129,7 @@ class FanComponentModel(DataObject):
 
         Returns:
             str: the value of `vfd_efficiency_curve_name` or None if not set
+
         """
         return self["VFD Efficiency Curve Name"]
 
@@ -3052,9 +3142,10 @@ class FanComponentModel(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value

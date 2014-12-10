@@ -78,10 +78,11 @@ class GlobalGeometryRules(DataObject):
 
     @property
     def starting_vertex_position(self):
-        """field `Starting Vertex Position` Specified as entry for a 4 sided
-        surface/rectangle Surfaces are specified as viewed from outside the
-        surface Shading surfaces as viewed from behind.  (towards what they are
-        shading)
+        """field `Starting Vertex Position`
+
+        |  Specified as entry for a 4 sided surface/rectangle
+        |  Surfaces are specified as viewed from outside the surface
+        |  Shading surfaces as viewed from behind.  (towards what they are shading)
 
         Args:
             value (str): value for IDD Field `Starting Vertex Position`
@@ -124,9 +125,10 @@ class GlobalGeometryRules(DataObject):
     @property
     def coordinate_system(self):
         """field `Coordinate System`
-        relative -- coordinates are entered relative to zone origin
-        world -- all coordinates entered are "absolute" for this facility
-        absolute -- same as world
+
+        |  relative -- coordinates are entered relative to zone origin
+        |  world -- all coordinates entered are "absolute" for this facility
+        |  absolute -- same as world
 
         Args:
             value (str): value for IDD Field `Coordinate System`
@@ -136,6 +138,7 @@ class GlobalGeometryRules(DataObject):
 
         Returns:
             str: the value of `coordinate_system` or None if not set
+
         """
         return self["Coordinate System"]
 
@@ -147,19 +150,21 @@ class GlobalGeometryRules(DataObject):
     @property
     def daylighting_reference_point_coordinate_system(self):
         """field `Daylighting Reference Point Coordinate System`
-        Relative -- coordinates are entered relative to zone origin
-        World -- all coordinates entered are "absolute" for this facility
-        absolute -- same as world
+
+        |  Relative -- coordinates are entered relative to zone origin
+        |  World -- all coordinates entered are "absolute" for this facility
+        |  absolute -- same as world
+        |  Default value: Relative
 
         Args:
             value (str): value for IDD Field `Daylighting Reference Point Coordinate System`
-                Default value: Relative
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `daylighting_reference_point_coordinate_system` or None if not set
+
         """
         return self["Daylighting Reference Point Coordinate System"]
 
@@ -172,19 +177,21 @@ class GlobalGeometryRules(DataObject):
     @property
     def rectangular_surface_coordinate_system(self):
         """field `Rectangular Surface Coordinate System`
-        Relative -- Starting corner is entered relative to zone origin
-        World -- Starting corner is entered in "absolute"
-        absolute -- same as world
+
+        |  Relative -- Starting corner is entered relative to zone origin
+        |  World -- Starting corner is entered in "absolute"
+        |  absolute -- same as world
+        |  Default value: Relative
 
         Args:
             value (str): value for IDD Field `Rectangular Surface Coordinate System`
-                Default value: Relative
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `rectangular_surface_coordinate_system` or None if not set
+
         """
         return self["Rectangular Surface Coordinate System"]
 
@@ -242,11 +249,13 @@ class GeometryTransform(DataObject):
 
     @property
     def plane_of_transform(self):
-        """field `Plane of Transform` only current allowed value is "XY".
+        """field `Plane of Transform`
+
+        |  only current allowed value is "XY"
+        |  Default value: XY
 
         Args:
             value (str): value for IDD Field `Plane of Transform`
-                Default value: XY
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -264,8 +273,9 @@ class GeometryTransform(DataObject):
 
     @property
     def current_aspect_ratio(self):
-        """field `Current Aspect Ratio` Aspect ratio of building as described
-        in idf.
+        """field `Current Aspect Ratio`
+
+        |  Aspect ratio of building as described in idf
 
         Args:
             value (float): value for IDD Field `Current Aspect Ratio`
@@ -286,7 +296,9 @@ class GeometryTransform(DataObject):
 
     @property
     def new_aspect_ratio(self):
-        """field `New Aspect Ratio` Aspect ratio to transform to during run.
+        """field `New Aspect Ratio`
+
+        |  Aspect ratio to transform to during run
 
         Args:
             value (float): value for IDD Field `New Aspect Ratio`
@@ -469,9 +481,10 @@ class Zone(DataObject):
     def direction_of_relative_north(self):
         """field `Direction of Relative North`
 
+        |  Units: deg
+
         Args:
             value (float): value for IDD Field `Direction of Relative North`
-                Units: deg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -491,9 +504,10 @@ class Zone(DataObject):
     def x_origin(self):
         """field `X Origin`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `X Origin`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -513,9 +527,10 @@ class Zone(DataObject):
     def y_origin(self):
         """field `Y Origin`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Y Origin`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -535,9 +550,10 @@ class Zone(DataObject):
     def z_origin(self):
         """field `Z Origin`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Z Origin`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -557,11 +573,12 @@ class Zone(DataObject):
     def type(self):
         """field `Type`
 
+        |  Default value: 1
+        |  value >= 1
+        |  value <= 1
+
         Args:
             value (int): value for IDD Field `Type`
-                Default value: 1
-                value >= 1
-                value <= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -581,10 +598,11 @@ class Zone(DataObject):
     def multiplier(self):
         """field `Multiplier`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Multiplier`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -603,22 +621,24 @@ class Zone(DataObject):
     @property
     def ceiling_height(self):
         """field `Ceiling Height`
-        If this field is 0.0, negative or autocalculate, then the average height
-        of the zone is automatically calculated and used in subsequent calculations.
-        If this field is positive, then the number entered here will be used.
-        Note that the Zone Ceiling Height is the distance from the Floor to
-        the Ceiling in the Zone, not an absolute height from the ground.
+
+        |  If this field is 0.0, negative or autocalculate, then the average height
+        |  of the zone is automatically calculated and used in subsequent calculations.
+        |  If this field is positive, then the number entered here will be used.
+        |  Note that the Zone Ceiling Height is the distance from the Floor to
+        |  the Ceiling in the Zone, not an absolute height from the ground.
+        |  Units: m
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Ceiling Height`
-                Units: m
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `ceiling_height` or None if not set
+            float or "Autocalculate": the value of `ceiling_height` or None if not set
+
         """
         return self["Ceiling Height"]
 
@@ -630,20 +650,22 @@ class Zone(DataObject):
     @property
     def volume(self):
         """field `Volume`
-        If this field is 0.0, negative or autocalculate, then the volume of the zone
-        is automatically calculated and used in subsequent calculations.
-        If this field is positive, then the number entered here will be used.
+
+        |  If this field is 0.0, negative or autocalculate, then the volume of the zone
+        |  is automatically calculated and used in subsequent calculations.
+        |  If this field is positive, then the number entered here will be used.
+        |  Units: m3
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Volume`
-                Units: m3
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `volume` or None if not set
+            float or "Autocalculate": the value of `volume` or None if not set
+
         """
         return self["Volume"]
 
@@ -655,20 +677,22 @@ class Zone(DataObject):
     @property
     def floor_area(self):
         """field `Floor Area`
-        If this field is 0.0, negative or autocalculate, then the floor area of the zone
-        is automatically calculated and used in subsequent calculations.
-        If this field is positive, then the number entered here will be used.
+
+        |  If this field is 0.0, negative or autocalculate, then the floor area of the zone
+        |  is automatically calculated and used in subsequent calculations.
+        |  If this field is positive, then the number entered here will be used.
+        |  Units: m2
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Floor Area`
-                Units: m2
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `floor_area` or None if not set
+            float or "Autocalculate": the value of `floor_area` or None if not set
+
         """
         return self["Floor Area"]
 
@@ -680,14 +704,15 @@ class Zone(DataObject):
     @property
     def zone_inside_convection_algorithm(self):
         """field `Zone Inside Convection Algorithm`
-        Will default to same value as SurfaceConvectionAlgorithm:Inside object
-        setting this field overrides the default SurfaceConvectionAlgorithm:Inside for this zone
-        Simple = constant natural convection (ASHRAE)
-        TARP = variable natural convection based on temperature difference (ASHRAE)
-        CeilingDiffuser = ACH based forced and mixed convection correlations
-        for ceiling diffuser configuration with simple natural convection limit
-        AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
-        TrombeWall = variable natural convection in an enclosed rectangular cavity
+
+        |  Will default to same value as SurfaceConvectionAlgorithm:Inside object
+        |  setting this field overrides the default SurfaceConvectionAlgorithm:Inside for this zone
+        |  Simple = constant natural convection (ASHRAE)
+        |  TARP = variable natural convection based on temperature difference (ASHRAE)
+        |  CeilingDiffuser = ACH based forced and mixed convection correlations
+        |  for ceiling diffuser configuration with simple natural convection limit
+        |  AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
+        |  TrombeWall = variable natural convection in an enclosed rectangular cavity
 
         Args:
             value (str): value for IDD Field `Zone Inside Convection Algorithm`
@@ -697,6 +722,7 @@ class Zone(DataObject):
 
         Returns:
             str: the value of `zone_inside_convection_algorithm` or None if not set
+
         """
         return self["Zone Inside Convection Algorithm"]
 
@@ -708,13 +734,14 @@ class Zone(DataObject):
     @property
     def zone_outside_convection_algorithm(self):
         """field `Zone Outside Convection Algorithm`
-        Will default to same value as SurfaceConvectionAlgorithm:Outside object
-        setting this field overrides the default SurfaceConvectionAlgorithm:Outside for this zone
-        SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
-        TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
-        MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
-        DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
-        AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
+
+        |  Will default to same value as SurfaceConvectionAlgorithm:Outside object
+        |  setting this field overrides the default SurfaceConvectionAlgorithm:Outside for this zone
+        |  SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
+        |  TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
+        |  MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
+        |  DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
+        |  AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
 
         Args:
             value (str): value for IDD Field `Zone Outside Convection Algorithm`
@@ -724,6 +751,7 @@ class Zone(DataObject):
 
         Returns:
             str: the value of `zone_outside_convection_algorithm` or None if not set
+
         """
         return self["Zone Outside Convection Algorithm"]
 
@@ -736,9 +764,10 @@ class Zone(DataObject):
     def part_of_total_floor_area(self):
         """field `Part of Total Floor Area`
 
+        |  Default value: Yes
+
         Args:
             value (str): value for IDD Field `Part of Total Floor Area`
-                Default value: Yes
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -793,7 +822,9 @@ class ZoneList(DataObject):
 
     @property
     def name(self):
-        """field `Name` Name of the Zone List.
+        """field `Name`
+
+        |  Name of the Zone List
 
         Args:
             value (str): value for IDD Field `Name`
@@ -892,7 +923,9 @@ class ZoneGroup(DataObject):
 
     @property
     def name(self):
-        """field `Name` Name of the Zone Group.
+        """field `Name`
+
+        |  Name of the Zone Group
 
         Args:
             value (str): value for IDD Field `Name`
@@ -936,10 +969,11 @@ class ZoneGroup(DataObject):
     def zone_list_multiplier(self):
         """field `Zone List Multiplier`
 
+        |  Default value: 1
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Zone List Multiplier`
-                Default value: 1
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1139,8 +1173,9 @@ class BuildingSurfaceDetailed(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1161,7 +1196,9 @@ class BuildingSurfaceDetailed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1204,14 +1241,15 @@ class BuildingSurfaceDetailed(DataObject):
     @property
     def outside_boundary_condition_object(self):
         """field `Outside Boundary Condition Object`
-        Non-blank only if the field Outside Boundary Condition is Surface,
-        Zone, OtherSideCoefficients or OtherSideConditionsModel
-        If Surface, specify name of corresponding surface in adjacent zone or
-        specify current surface name for internal partition separating like zones
-        If Zone, specify the name of the corresponding zone and
-        the program will generate the corresponding interzone surface
-        If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
-        If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
+
+        |  Non-blank only if the field Outside Boundary Condition is Surface,
+        |  Zone, OtherSideCoefficients or OtherSideConditionsModel
+        |  If Surface, specify name of corresponding surface in adjacent zone or
+        |  specify current surface name for internal partition separating like zones
+        |  If Zone, specify the name of the corresponding zone and
+        |  the program will generate the corresponding interzone surface
+        |  If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
+        |  If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -1221,6 +1259,7 @@ class BuildingSurfaceDetailed(DataObject):
 
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
+
         """
         return self["Outside Boundary Condition Object"]
 
@@ -1233,9 +1272,10 @@ class BuildingSurfaceDetailed(DataObject):
     def sun_exposure(self):
         """field `Sun Exposure`
 
+        |  Default value: SunExposed
+
         Args:
             value (str): value for IDD Field `Sun Exposure`
-                Default value: SunExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1255,9 +1295,10 @@ class BuildingSurfaceDetailed(DataObject):
     def wind_exposure(self):
         """field `Wind Exposure`
 
+        |  Default value: WindExposed
+
         Args:
             value (str): value for IDD Field `Wind Exposure`
-                Default value: WindExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1276,21 +1317,23 @@ class BuildingSurfaceDetailed(DataObject):
     @property
     def view_factor_to_ground(self):
         """field `View Factor to Ground`
-        From the exterior of the surface
-        Unused if one uses the "reflections" options in Solar Distribution in Building input
-        unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
-        autocalculate will automatically calculate this value from the tilt of the surface
+
+        |  From the exterior of the surface
+        |  Unused if one uses the "reflections" options in Solar Distribution in Building input
+        |  unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
+        |  autocalculate will automatically calculate this value from the tilt of the surface
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `view_factor_to_ground` or None if not set
+            float or "Autocalculate": the value of `view_factor_to_ground` or None if not set
+
         """
         return self["View Factor to Ground"]
 
@@ -1302,25 +1345,27 @@ class BuildingSurfaceDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 120 vertex coordinates -- extensible object
-        "extensible" -- duplicate last set of x,y,z coordinates (last 3 fields),
-        remembering to remove ; from "inner" fields.
-        for clarity in any error messages, renumber the fields as well.
-        (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  If world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  shown with 120 vertex coordinates -- extensible object
+        |  "extensible" -- duplicate last set of x,y,z coordinates (last 3 fields),
+        |  remembering to remove ; from "inner" fields.
+        |  for clarity in any error messages, renumber the fields as well.
+        |  (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  If world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -1538,8 +1583,9 @@ class WallDetailed(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1560,7 +1606,9 @@ class WallDetailed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1603,14 +1651,15 @@ class WallDetailed(DataObject):
     @property
     def outside_boundary_condition_object(self):
         """field `Outside Boundary Condition Object`
-        Non-blank only if the field Outside Boundary Condition is Surface,
-        Zone, OtherSideCoefficients or OtherSideConditionsModel
-        If Surface, specify name of corresponding surface in adjacent zone or
-        specify current surface name for internal partition separating like zones
-        If Zone, specify the name of the corresponding zone and
-        the program will generate the corresponding interzone surface
-        If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
-        If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
+
+        |  Non-blank only if the field Outside Boundary Condition is Surface,
+        |  Zone, OtherSideCoefficients or OtherSideConditionsModel
+        |  If Surface, specify name of corresponding surface in adjacent zone or
+        |  specify current surface name for internal partition separating like zones
+        |  If Zone, specify the name of the corresponding zone and
+        |  the program will generate the corresponding interzone surface
+        |  If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
+        |  If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -1620,6 +1669,7 @@ class WallDetailed(DataObject):
 
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
+
         """
         return self["Outside Boundary Condition Object"]
 
@@ -1632,9 +1682,10 @@ class WallDetailed(DataObject):
     def sun_exposure(self):
         """field `Sun Exposure`
 
+        |  Default value: SunExposed
+
         Args:
             value (str): value for IDD Field `Sun Exposure`
-                Default value: SunExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1654,9 +1705,10 @@ class WallDetailed(DataObject):
     def wind_exposure(self):
         """field `Wind Exposure`
 
+        |  Default value: WindExposed
+
         Args:
             value (str): value for IDD Field `Wind Exposure`
-                Default value: WindExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1675,21 +1727,23 @@ class WallDetailed(DataObject):
     @property
     def view_factor_to_ground(self):
         """field `View Factor to Ground`
-        From the exterior of the surface
-        Unused if one uses the "reflections" options in Solar Distribution in Building input
-        unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
-        autocalculate will automatically calculate this value from the tilt of the surface
+
+        |  From the exterior of the surface
+        |  Unused if one uses the "reflections" options in Solar Distribution in Building input
+        |  unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
+        |  autocalculate will automatically calculate this value from the tilt of the surface
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `view_factor_to_ground` or None if not set
+            float or "Autocalculate": the value of `view_factor_to_ground` or None if not set
+
         """
         return self["View Factor to Ground"]
 
@@ -1701,23 +1755,25 @@ class WallDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 10 vertex coordinates -- extensible object
-        "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
-        (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  If world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  shown with 10 vertex coordinates -- extensible object
+        |  "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
+        |  (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  If world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -1934,8 +1990,9 @@ class RoofCeilingDetailed(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1956,7 +2013,9 @@ class RoofCeilingDetailed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1999,14 +2058,15 @@ class RoofCeilingDetailed(DataObject):
     @property
     def outside_boundary_condition_object(self):
         """field `Outside Boundary Condition Object`
-        Non-blank only if the field Outside Boundary Condition is Surface,
-        Zone, OtherSideCoefficients or OtherSideConditionsModel
-        If Surface, specify name of corresponding surface in adjacent zone or
-        specify current surface name for internal partition separating like zones
-        If Zone, specify the name of the corresponding zone and
-        the program will generate the corresponding interzone surface
-        If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
-        If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
+
+        |  Non-blank only if the field Outside Boundary Condition is Surface,
+        |  Zone, OtherSideCoefficients or OtherSideConditionsModel
+        |  If Surface, specify name of corresponding surface in adjacent zone or
+        |  specify current surface name for internal partition separating like zones
+        |  If Zone, specify the name of the corresponding zone and
+        |  the program will generate the corresponding interzone surface
+        |  If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
+        |  If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -2016,6 +2076,7 @@ class RoofCeilingDetailed(DataObject):
 
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
+
         """
         return self["Outside Boundary Condition Object"]
 
@@ -2028,9 +2089,10 @@ class RoofCeilingDetailed(DataObject):
     def sun_exposure(self):
         """field `Sun Exposure`
 
+        |  Default value: SunExposed
+
         Args:
             value (str): value for IDD Field `Sun Exposure`
-                Default value: SunExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2050,9 +2112,10 @@ class RoofCeilingDetailed(DataObject):
     def wind_exposure(self):
         """field `Wind Exposure`
 
+        |  Default value: WindExposed
+
         Args:
             value (str): value for IDD Field `Wind Exposure`
-                Default value: WindExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2071,21 +2134,23 @@ class RoofCeilingDetailed(DataObject):
     @property
     def view_factor_to_ground(self):
         """field `View Factor to Ground`
-        From the exterior of the surface
-        Unused if one uses the "reflections" options in Solar Distribution in Building input
-        unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
-        autocalculate will automatically calculate this value from the tilt of the surface
+
+        |  From the exterior of the surface
+        |  Unused if one uses the "reflections" options in Solar Distribution in Building input
+        |  unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
+        |  autocalculate will automatically calculate this value from the tilt of the surface
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `view_factor_to_ground` or None if not set
+            float or "Autocalculate": the value of `view_factor_to_ground` or None if not set
+
         """
         return self["View Factor to Ground"]
 
@@ -2097,23 +2162,25 @@ class RoofCeilingDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 10 vertex coordinates -- extensible object
-        "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
-        (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  If world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  shown with 10 vertex coordinates -- extensible object
+        |  "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
+        |  (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  If world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -2331,8 +2398,9 @@ class FloorDetailed(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -2353,7 +2421,9 @@ class FloorDetailed(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2396,14 +2466,15 @@ class FloorDetailed(DataObject):
     @property
     def outside_boundary_condition_object(self):
         """field `Outside Boundary Condition Object`
-        Non-blank only if the field Outside Boundary Condition is Surface,
-        Zone, OtherSideCoefficients or OtherSideConditionsModel
-        If Surface, specify name of corresponding surface in adjacent zone or
-        specify current surface name for internal partition separating like zones
-        If Zone, specify the name of the corresponding zone and
-        the program will generate the corresponding interzone surface
-        If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
-        If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
+
+        |  Non-blank only if the field Outside Boundary Condition is Surface,
+        |  Zone, OtherSideCoefficients or OtherSideConditionsModel
+        |  If Surface, specify name of corresponding surface in adjacent zone or
+        |  specify current surface name for internal partition separating like zones
+        |  If Zone, specify the name of the corresponding zone and
+        |  the program will generate the corresponding interzone surface
+        |  If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
+        |  If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -2413,6 +2484,7 @@ class FloorDetailed(DataObject):
 
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
+
         """
         return self["Outside Boundary Condition Object"]
 
@@ -2425,9 +2497,10 @@ class FloorDetailed(DataObject):
     def sun_exposure(self):
         """field `Sun Exposure`
 
+        |  Default value: SunExposed
+
         Args:
             value (str): value for IDD Field `Sun Exposure`
-                Default value: SunExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2447,9 +2520,10 @@ class FloorDetailed(DataObject):
     def wind_exposure(self):
         """field `Wind Exposure`
 
+        |  Default value: WindExposed
+
         Args:
             value (str): value for IDD Field `Wind Exposure`
-                Default value: WindExposed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2468,21 +2542,23 @@ class FloorDetailed(DataObject):
     @property
     def view_factor_to_ground(self):
         """field `View Factor to Ground`
-        From the exterior of the surface
-        Unused if one uses the "reflections" options in Solar Distribution in Building input
-        unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
-        autocalculate will automatically calculate this value from the tilt of the surface
+
+        |  From the exterior of the surface
+        |  Unused if one uses the "reflections" options in Solar Distribution in Building input
+        |  unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
+        |  autocalculate will automatically calculate this value from the tilt of the surface
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `view_factor_to_ground` or None if not set
+            float or "Autocalculate": the value of `view_factor_to_ground` or None if not set
+
         """
         return self["View Factor to Ground"]
 
@@ -2494,23 +2570,25 @@ class FloorDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 10 vertex coordinates -- extensible object
-        "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
-        (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  If world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  shown with 10 vertex coordinates -- extensible object
+        |  "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
+        |  (and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  If world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -2699,8 +2777,9 @@ class WallExterior(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -2721,7 +2800,9 @@ class WallExterior(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2743,18 +2824,20 @@ class WallExterior(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -2765,13 +2848,15 @@ class WallExterior(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Walls are usually tilted 90 degrees.
+        """field `Tilt Angle`
+
+        |  Walls are usually tilted 90 degrees
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2789,12 +2874,13 @@ class WallExterior(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting (x,y,z) coordinate is the
-        Lower Left Corner of the Wall.
+        """field `Starting X Coordinate`
+
+        |  Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2814,9 +2900,10 @@ class WallExterior(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2836,9 +2923,10 @@ class WallExterior(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2858,9 +2946,10 @@ class WallExterior(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2880,9 +2969,10 @@ class WallExterior(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3020,8 +3110,9 @@ class WallAdiabatic(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -3042,7 +3133,9 @@ class WallAdiabatic(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3064,18 +3157,20 @@ class WallAdiabatic(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -3086,13 +3181,15 @@ class WallAdiabatic(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Walls are usually tilted 90 degrees.
+        """field `Tilt Angle`
+
+        |  Walls are usually tilted 90 degrees
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3110,12 +3207,13 @@ class WallAdiabatic(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting (x,y,z) coordinate is the
-        Lower Left Corner of the Wall.
+        """field `Starting X Coordinate`
+
+        |  Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3135,9 +3233,10 @@ class WallAdiabatic(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3157,9 +3256,10 @@ class WallAdiabatic(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3179,9 +3279,10 @@ class WallAdiabatic(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3201,9 +3302,10 @@ class WallAdiabatic(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3342,9 +3444,10 @@ class WallUnderground(DataObject):
     @property
     def construction_name(self):
         """field `Construction Name`
-        To be matched with a construction in this input file.
-        If the construction is type "Construction:CfactorUndergroundWall",
-        then the GroundFCfactorMethod will be used.
+
+        |  To be matched with a construction in this input file.
+        |  If the construction is type "Construction:CfactorUndergroundWall",
+        |  then the GroundFCfactorMethod will be used.
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -3354,6 +3457,7 @@ class WallUnderground(DataObject):
 
         Returns:
             str: the value of `construction_name` or None if not set
+
         """
         return self["Construction Name"]
 
@@ -3364,7 +3468,9 @@ class WallUnderground(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3386,18 +3492,20 @@ class WallUnderground(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -3408,13 +3516,15 @@ class WallUnderground(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Walls are usually tilted 90 degrees.
+        """field `Tilt Angle`
+
+        |  Walls are usually tilted 90 degrees
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3432,12 +3542,13 @@ class WallUnderground(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting (x,y,z) coordinate is the
-        Lower Left Corner of the Wall.
+        """field `Starting X Coordinate`
+
+        |  Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3457,9 +3568,10 @@ class WallUnderground(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3479,9 +3591,10 @@ class WallUnderground(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3501,9 +3614,10 @@ class WallUnderground(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3523,9 +3637,10 @@ class WallUnderground(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3670,8 +3785,9 @@ class WallInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -3692,7 +3808,9 @@ class WallInterzone(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone for the inside of the surface.
+        """field `Zone Name`
+
+        |  Zone for the inside of the surface
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3713,10 +3831,11 @@ class WallInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior walls. Specify a zone name of an
-        adjacent zone to automatically generate the interior wall in the
-        adjacent zone.
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior walls.
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior wall in the adjacent zone.
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -3738,18 +3857,20 @@ class WallInterzone(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -3760,13 +3881,15 @@ class WallInterzone(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Walls are usually tilted 90 degrees.
+        """field `Tilt Angle`
+
+        |  Walls are usually tilted 90 degrees
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3784,12 +3907,13 @@ class WallInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting (x,y,z) coordinate is the
-        Lower Left Corner of the Wall.
+        """field `Starting X Coordinate`
+
+        |  Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3809,9 +3933,10 @@ class WallInterzone(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3831,9 +3956,10 @@ class WallInterzone(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3853,9 +3979,10 @@ class WallInterzone(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3875,9 +4002,10 @@ class WallInterzone(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4018,8 +4146,9 @@ class Roof(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4040,7 +4169,9 @@ class Roof(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4061,12 +4192,14 @@ class Roof(DataObject):
 
     @property
     def azimuth_angle(self):
-        """field `Azimuth Angle` Facing direction of outside of Roof.
+        """field `Azimuth Angle`
+
+        |  Facing direction of outside of Roof
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4084,12 +4217,14 @@ class Roof(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Flat Roofs are tilted 0 degrees.
+        """field `Tilt Angle`
+
+        |  Flat Roofs are tilted 0 degrees
+        |  Units: deg
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4107,12 +4242,13 @@ class Roof(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` If not Flat, Starting coordinate is
-        the Lower Left Corner of the Roof.
+        """field `Starting X Coordinate`
+
+        |  If not Flat, Starting coordinate is the Lower Left Corner of the Roof
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4132,9 +4268,10 @@ class Roof(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4154,9 +4291,10 @@ class Roof(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4174,11 +4312,13 @@ class Roof(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4196,11 +4336,13 @@ class Roof(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4338,8 +4480,9 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4360,7 +4503,9 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4381,12 +4526,14 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def azimuth_angle(self):
-        """field `Azimuth Angle` Facing direction of outside of Ceiling.
+        """field `Azimuth Angle`
+
+        |  Facing direction of outside of Ceiling
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4404,12 +4551,14 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Ceilings are usually tilted 0 degrees.
+        """field `Tilt Angle`
+
+        |  Ceilings are usually tilted 0 degrees
+        |  Units: deg
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4427,12 +4576,13 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` If not Flat, Starting coordinate is
-        the Lower Left Corner of the Ceiling.
+        """field `Starting X Coordinate`
+
+        |  If not Flat, Starting coordinate is the Lower Left Corner of the Ceiling
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4452,9 +4602,10 @@ class CeilingAdiabatic(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4474,9 +4625,10 @@ class CeilingAdiabatic(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4494,11 +4646,13 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4516,11 +4670,13 @@ class CeilingAdiabatic(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4666,8 +4822,9 @@ class CeilingInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4688,7 +4845,9 @@ class CeilingInterzone(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone for the inside of the surface.
+        """field `Zone Name`
+
+        |  Zone for the inside of the surface
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4709,10 +4868,11 @@ class CeilingInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior floors Specify a zone name of an
-        adjacent zone to automatically generate the interior floor in the
-        adjacent zone.
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior floors
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior floor in the adjacent zone.
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -4734,18 +4894,20 @@ class CeilingInterzone(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of wall (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -4756,12 +4918,14 @@ class CeilingInterzone(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Ceilings are usually tilted 0 degrees.
+        """field `Tilt Angle`
+
+        |  Ceilings are usually tilted 0 degrees
+        |  Units: deg
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4779,12 +4943,13 @@ class CeilingInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` If not Flat, should be Lower Left
-        Corner (from outside)
+        """field `Starting X Coordinate`
+
+        |  If not Flat, should be Lower Left Corner (from outside)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4804,9 +4969,10 @@ class CeilingInterzone(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4826,9 +4992,10 @@ class CeilingInterzone(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4846,11 +5013,13 @@ class CeilingInterzone(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4868,11 +5037,13 @@ class CeilingInterzone(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5012,9 +5183,10 @@ class FloorGroundContact(DataObject):
     @property
     def construction_name(self):
         """field `Construction Name`
-        To be matched with a construction in this input file
-        If the construction is type "Construction:FfactorGroundFloor",
-        then the GroundFCfactorMethod will be used.
+
+        |  To be matched with a construction in this input file
+        |  If the construction is type "Construction:FfactorGroundFloor",
+        |  then the GroundFCfactorMethod will be used.
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -5024,6 +5196,7 @@ class FloorGroundContact(DataObject):
 
         Returns:
             str: the value of `construction_name` or None if not set
+
         """
         return self["Construction Name"]
 
@@ -5034,7 +5207,9 @@ class FloorGroundContact(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5057,10 +5232,11 @@ class FloorGroundContact(DataObject):
     def azimuth_angle(self):
         """field `Azimuth Angle`
 
+        |  Units: deg
+        |  value <= 360.0
+
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5078,13 +5254,15 @@ class FloorGroundContact(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Floors are usually tilted 180 degrees.
+        """field `Tilt Angle`
+
+        |  Floors are usually tilted 180 degrees
+        |  Units: deg
+        |  Default value: 180.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 180.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5102,12 +5280,13 @@ class FloorGroundContact(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` if not flat, should be lower left
-        corner (from outside)
+        """field `Starting X Coordinate`
+
+        |  if not flat, should be lower left corner (from outside)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5127,9 +5306,10 @@ class FloorGroundContact(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5149,9 +5329,10 @@ class FloorGroundContact(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5169,11 +5350,13 @@ class FloorGroundContact(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5191,11 +5374,13 @@ class FloorGroundContact(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5335,8 +5520,9 @@ class FloorAdiabatic(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -5357,7 +5543,9 @@ class FloorAdiabatic(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5380,10 +5568,11 @@ class FloorAdiabatic(DataObject):
     def azimuth_angle(self):
         """field `Azimuth Angle`
 
+        |  Units: deg
+        |  value <= 360.0
+
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5401,13 +5590,15 @@ class FloorAdiabatic(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Floors are usually tilted 180 degrees.
+        """field `Tilt Angle`
+
+        |  Floors are usually tilted 180 degrees
+        |  Units: deg
+        |  Default value: 180.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 180.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5425,12 +5616,13 @@ class FloorAdiabatic(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` if not flat, should be lower left
-        corner (from outside)
+        """field `Starting X Coordinate`
+
+        |  if not flat, should be lower left corner (from outside)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5450,9 +5642,10 @@ class FloorAdiabatic(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5472,9 +5665,10 @@ class FloorAdiabatic(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5492,11 +5686,13 @@ class FloorAdiabatic(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5514,11 +5710,13 @@ class FloorAdiabatic(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5664,8 +5862,9 @@ class FloorInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -5686,7 +5885,9 @@ class FloorInterzone(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone for the inside of the surface.
+        """field `Zone Name`
+
+        |  Zone for the inside of the surface
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5707,10 +5908,11 @@ class FloorInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior ceilings. Specify a zone name of an
-        adjacent zone to automatically generate the interior ceiling in the
-        adjacent zone.
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior ceilings.
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior ceiling in the adjacent zone.
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -5733,10 +5935,11 @@ class FloorInterzone(DataObject):
     def azimuth_angle(self):
         """field `Azimuth Angle`
 
+        |  Units: deg
+        |  value <= 360.0
+
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5754,13 +5957,15 @@ class FloorInterzone(DataObject):
 
     @property
     def tilt_angle(self):
-        """field `Tilt Angle` Floors are usually tilted 180 degrees.
+        """field `Tilt Angle`
+
+        |  Floors are usually tilted 180 degrees
+        |  Units: deg
+        |  Default value: 180.0
+        |  value <= 180.0
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 180.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5778,12 +5983,13 @@ class FloorInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` If not Flat, should be Lower Left
-        Corner (from outside)
+        """field `Starting X Coordinate`
+
+        |  If not Flat, should be Lower Left Corner (from outside)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5803,9 +6009,10 @@ class FloorInterzone(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5825,9 +6032,10 @@ class FloorInterzone(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5845,11 +6053,13 @@ class FloorInterzone(DataObject):
 
     @property
     def length(self):
-        """field `Length` Along X Axis.
+        """field `Length`
+
+        |  Along X Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5867,11 +6077,13 @@ class FloorInterzone(DataObject):
 
     @property
     def width(self):
-        """field `Width` Along Y Axis.
+        """field `Width`
+
+        |  Along Y Axis
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6128,8 +6340,9 @@ class FenestrationSurfaceDetailed(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -6172,12 +6385,13 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def outside_boundary_condition_object(self):
         """field `Outside Boundary Condition Object`
-        Non-blank only if base surface field Outside Boundary Condition is
-        Surface or OtherSideCoefficients
-        If Base Surface's Surface, specify name of corresponding subsurface in adjacent zone or
-        specify current subsurface name for internal partition separating like zones
-        If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
-        or leave blank to inherit Base Surface's OtherSide Coefficients
+
+        |  Non-blank only if base surface field Outside Boundary Condition is
+        |  Surface or OtherSideCoefficients
+        |  If Base Surface's Surface, specify name of corresponding subsurface in adjacent zone or
+        |  specify current subsurface name for internal partition separating like zones
+        |  If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
+        |  or leave blank to inherit Base Surface's OtherSide Coefficients
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -6187,6 +6401,7 @@ class FenestrationSurfaceDetailed(DataObject):
 
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
+
         """
         return self["Outside Boundary Condition Object"]
 
@@ -6198,21 +6413,23 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def view_factor_to_ground(self):
         """field `View Factor to Ground`
-        From the exterior of the surface
-        Unused if one uses the "reflections" options in Solar Distribution in Building input
-        unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
-        autocalculate will automatically calculate this value from the tilt of the surface
+
+        |  From the exterior of the surface
+        |  Unused if one uses the "reflections" options in Solar Distribution in Building input
+        |  unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
+        |  autocalculate will automatically calculate this value from the tilt of the surface
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `view_factor_to_ground` or None if not set
+            float or "Autocalculate": the value of `view_factor_to_ground` or None if not set
+
         """
         return self["View Factor to Ground"]
 
@@ -6224,9 +6441,10 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def shading_control_name(self):
         """field `Shading Control Name`
-        enter the name of a WindowProperty:ShadingControl object
-        used for windows and glass doors only
-        If not specified, window or glass door has no shading (blind, roller shade, etc.)
+
+        |  enter the name of a WindowProperty:ShadingControl object
+        |  used for windows and glass doors only
+        |  If not specified, window or glass door has no shading (blind, roller shade, etc.)
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -6236,6 +6454,7 @@ class FenestrationSurfaceDetailed(DataObject):
 
         Returns:
             str: the value of `shading_control_name` or None if not set
+
         """
         return self["Shading Control Name"]
 
@@ -6247,11 +6466,12 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def frame_and_divider_name(self):
         """field `Frame and Divider Name`
-        Enter the name of a WindowProperty:FrameAndDivider object
-        Used only for exterior windows (rectangular) and glass doors.
-        Unused for triangular windows.
-        If not specified (blank), window or glass door has no frame or divider
-        and no beam solar reflection from reveal surfaces.
+
+        |  Enter the name of a WindowProperty:FrameAndDivider object
+        |  Used only for exterior windows (rectangular) and glass doors.
+        |  Unused for triangular windows.
+        |  If not specified (blank), window or glass door has no frame or divider
+        |  and no beam solar reflection from reveal surfaces.
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -6261,6 +6481,7 @@ class FenestrationSurfaceDetailed(DataObject):
 
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
+
         """
         return self["Frame and Divider Name"]
 
@@ -6272,19 +6493,21 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -6296,21 +6519,23 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  If world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  If world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
+        |  value <= 4.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
-                value <= 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -6323,9 +6548,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_1_xcoordinate(self):
         """field `Vertex 1 X-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6346,9 +6572,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_1_ycoordinate(self):
         """field `Vertex 1 Y-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6369,9 +6596,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_1_zcoordinate(self):
         """field `Vertex 1 Z-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6392,9 +6620,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_2_xcoordinate(self):
         """field `Vertex 2 X-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6415,9 +6644,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_2_ycoordinate(self):
         """field `Vertex 2 Y-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6438,9 +6668,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_2_zcoordinate(self):
         """field `Vertex 2 Z-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6461,9 +6692,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_3_xcoordinate(self):
         """field `Vertex 3 X-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6484,9 +6716,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_3_ycoordinate(self):
         """field `Vertex 3 Y-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6507,9 +6740,10 @@ class FenestrationSurfaceDetailed(DataObject):
     def vertex_3_zcoordinate(self):
         """field `Vertex 3 Z-coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6529,11 +6763,12 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def vertex_4_xcoordinate(self):
         """field `Vertex 4 X-coordinate`
-        Not used for triangles
+
+        |  Not used for triangles
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6553,11 +6788,12 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def vertex_4_ycoordinate(self):
         """field `Vertex 4 Y-coordinate`
-        Not used for triangles
+
+        |  Not used for triangles
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6577,11 +6813,12 @@ class FenestrationSurfaceDetailed(DataObject):
     @property
     def vertex_4_zcoordinate(self):
         """field `Vertex 4 Z-coordinate`
-        Not used for triangles
+
+        |  Not used for triangles
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6713,8 +6950,9 @@ class Window(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -6735,9 +6973,10 @@ class Window(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Window is on (i.e., Base Surface) Window assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
+        |  Window assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -6759,9 +6998,10 @@ class Window(DataObject):
     @property
     def shading_control_name(self):
         """field `Shading Control Name`
-        enter the name of a WindowProperty:ShadingControl object
-        used for windows and glass doors only
-        If not specified, window or glass door has no shading (blind, roller shade, etc.)
+
+        |  enter the name of a WindowProperty:ShadingControl object
+        |  used for windows and glass doors only
+        |  If not specified, window or glass door has no shading (blind, roller shade, etc.)
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -6771,6 +7011,7 @@ class Window(DataObject):
 
         Returns:
             str: the value of `shading_control_name` or None if not set
+
         """
         return self["Shading Control Name"]
 
@@ -6782,11 +7023,12 @@ class Window(DataObject):
     @property
     def frame_and_divider_name(self):
         """field `Frame and Divider Name`
-        Enter the name of a WindowProperty:FrameAndDivider object
-        Used only for exterior windows (rectangular) and glass doors.
-        Unused for triangular windows.
-        If not specified (blank), window or glass door has no frame or divider
-        and no beam solar reflection from reveal surfaces.
+
+        |  Enter the name of a WindowProperty:FrameAndDivider object
+        |  Used only for exterior windows (rectangular) and glass doors.
+        |  Unused for triangular windows.
+        |  If not specified (blank), window or glass door has no frame or divider
+        |  and no beam solar reflection from reveal surfaces.
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -6796,6 +7038,7 @@ class Window(DataObject):
 
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
+
         """
         return self["Frame and Divider Name"]
 
@@ -6807,19 +7050,21 @@ class Window(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -6830,12 +7075,13 @@ class Window(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Window starting coordinate is
-        specified relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Window starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6854,17 +7100,19 @@ class Window(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -6877,9 +7125,10 @@ class Window(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6899,9 +7148,10 @@ class Window(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7018,8 +7268,9 @@ class Door(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -7040,9 +7291,10 @@ class Door(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Door is on (i.e., Base Surface) Door assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+        |  Door assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -7064,19 +7316,21 @@ class Door(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -7087,12 +7341,13 @@ class Door(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Door starting coordinate is specified
-        relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Door starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7111,17 +7366,19 @@ class Door(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -7134,9 +7391,10 @@ class Door(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7156,9 +7414,10 @@ class Door(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7289,8 +7548,9 @@ class GlazedDoor(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -7311,9 +7571,10 @@ class GlazedDoor(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Door is on (i.e., Base Surface) Door assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+        |  Door assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -7335,9 +7596,10 @@ class GlazedDoor(DataObject):
     @property
     def shading_control_name(self):
         """field `Shading Control Name`
-        enter the name of a WindowProperty:ShadingControl object
-        used for windows and glass doors only
-        If not specified, window or glass door has no shading (blind, roller shade, etc.)
+
+        |  enter the name of a WindowProperty:ShadingControl object
+        |  used for windows and glass doors only
+        |  If not specified, window or glass door has no shading (blind, roller shade, etc.)
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -7347,6 +7609,7 @@ class GlazedDoor(DataObject):
 
         Returns:
             str: the value of `shading_control_name` or None if not set
+
         """
         return self["Shading Control Name"]
 
@@ -7358,11 +7621,12 @@ class GlazedDoor(DataObject):
     @property
     def frame_and_divider_name(self):
         """field `Frame and Divider Name`
-        Enter the name of a WindowProperty:FrameAndDivider object
-        Used only for exterior windows (rectangular) and glass doors.
-        Unused for triangular windows.
-        If not specified (blank), window or glass door has no frame or divider
-        and no beam solar reflection from reveal surfaces.
+
+        |  Enter the name of a WindowProperty:FrameAndDivider object
+        |  Used only for exterior windows (rectangular) and glass doors.
+        |  Unused for triangular windows.
+        |  If not specified (blank), window or glass door has no frame or divider
+        |  and no beam solar reflection from reveal surfaces.
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -7372,6 +7636,7 @@ class GlazedDoor(DataObject):
 
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
+
         """
         return self["Frame and Divider Name"]
 
@@ -7383,19 +7648,21 @@ class GlazedDoor(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -7406,12 +7673,13 @@ class GlazedDoor(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Door starting coordinate is specified
-        relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Door starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7430,17 +7698,19 @@ class GlazedDoor(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -7453,9 +7723,10 @@ class GlazedDoor(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7475,9 +7746,10 @@ class GlazedDoor(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7603,8 +7875,9 @@ class WindowInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -7625,9 +7898,10 @@ class WindowInterzone(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Window is on (i.e., Base Surface) Window assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
+        |  Window assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -7648,11 +7922,13 @@ class WindowInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior windows. Specify a zone name of an
-        adjacent zone to automatically generate the interior window in the
-        adjacent zone. a blank field will set up a Window in an adjacent zone
-        (same zone as adjacent to base surface)
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior windows.
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior window in the adjacent zone.
+        |  a blank field will set up a Window in an adjacent zone
+        |  (same zone as adjacent to base surface)
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -7674,19 +7950,21 @@ class WindowInterzone(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -7697,12 +7975,13 @@ class WindowInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Window starting coordinate is
-        specified relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Window starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7721,17 +8000,19 @@ class WindowInterzone(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -7744,9 +8025,10 @@ class WindowInterzone(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7766,9 +8048,10 @@ class WindowInterzone(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7894,8 +8177,9 @@ class DoorInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -7916,9 +8200,10 @@ class DoorInterzone(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Door is on (i.e., Base Surface) Door assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+        |  Door assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -7939,11 +8224,13 @@ class DoorInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior doors. Specify a zone name of an
-        adjacent zone to automatically generate the interior door in the
-        adjacent zone. a blank field will set up a Window in an adjacent zone
-        (same zone as adjacent to base surface)
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior doors.
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior door in the adjacent zone.
+        |  a blank field will set up a Window in an adjacent zone
+        |  (same zone as adjacent to base surface)
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -7965,19 +8252,21 @@ class DoorInterzone(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -7988,12 +8277,13 @@ class DoorInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Door starting coordinate is specified
-        relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Door starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8012,17 +8302,19 @@ class DoorInterzone(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -8035,9 +8327,10 @@ class DoorInterzone(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8057,9 +8350,10 @@ class DoorInterzone(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8185,8 +8479,9 @@ class GlazedDoorInterzone(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -8207,9 +8502,10 @@ class GlazedDoorInterzone(DataObject):
 
     @property
     def building_surface_name(self):
-        """field `Building Surface Name` Name of Surface (Wall, usually) the
-        Door is on (i.e., Base Surface) Door assumes the azimuth and tilt
-        angles of the surface it is on.
+        """field `Building Surface Name`
+
+        |  Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+        |  Door assumes the azimuth and tilt angles of the surface it is on.
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -8230,11 +8526,13 @@ class GlazedDoorInterzone(DataObject):
 
     @property
     def outside_boundary_condition_object(self):
-        """field `Outside Boundary Condition Object` Specify a surface name in
-        an adjacent zone for known interior doors. Specify a zone name of an
-        adjacent zone to automatically generate the interior door in the
-        adjacent zone. a blank field will set up a Window in an adjacent zone
-        (same zone as adjacent to base surface)
+        """field `Outside Boundary Condition Object`
+
+        |  Specify a surface name in an adjacent zone for known interior doors.
+        |  Specify a zone name of an adjacent zone to automatically generate
+        |  the interior door in the adjacent zone.
+        |  a blank field will set up a Window in an adjacent zone
+        |  (same zone as adjacent to base surface)
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -8256,19 +8554,21 @@ class GlazedDoorInterzone(DataObject):
     @property
     def multiplier(self):
         """field `Multiplier`
-        Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
-        Non-integer values will be truncated to integer
+
+        |  Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+        |  Non-integer values will be truncated to integer
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Multiplier`
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `multiplier` or None if not set
+
         """
         return self["Multiplier"]
 
@@ -8279,12 +8579,13 @@ class GlazedDoorInterzone(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Door starting coordinate is specified
-        relative to the Base Surface origin.
+        """field `Starting X Coordinate`
+
+        |  Door starting coordinate is specified relative to the Base Surface origin.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8303,17 +8604,19 @@ class GlazedDoorInterzone(DataObject):
     @property
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
-        How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+
+        |  How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
+
         """
         return self["Starting Z Coordinate"]
 
@@ -8326,9 +8629,10 @@ class GlazedDoorInterzone(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8348,9 +8652,10 @@ class GlazedDoorInterzone(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8512,8 +8817,10 @@ class WindowPropertyShadingControl(DataObject):
 
     @property
     def name(self):
-        """field `Name` Referenced by surfaces that are exterior windows Not
-        used by interzone windows.
+        """field `Name`
+
+        |  Referenced by surfaces that are exterior windows
+        |  Not used by interzone windows
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8556,11 +8863,12 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def construction_with_shading_name(self):
         """field `Construction with Shading Name`
-        Required if Shading Type = SwitchableGlazing
-        Required if Shading Type = interior or exterior shade or blind, or exterior screen, and
-        "Shading Device Material Name" is not specified.
-        If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
-        the former takes precedence.
+
+        |  Required if Shading Type = SwitchableGlazing
+        |  Required if Shading Type = interior or exterior shade or blind, or exterior screen, and
+        |  "Shading Device Material Name" is not specified.
+        |  If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
+        |  the former takes precedence.
 
         Args:
             value (str): value for IDD Field `Construction with Shading Name`
@@ -8570,6 +8878,7 @@ class WindowPropertyShadingControl(DataObject):
 
         Returns:
             str: the value of `construction_with_shading_name` or None if not set
+
         """
         return self["Construction with Shading Name"]
 
@@ -8581,26 +8890,27 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def shading_control_type(self):
         """field `Shading Control Type`
-        OnIfScheduleAllows requires that Schedule Name be specified and
-        Shading Control Is Scheduled = Yes.
-        AlwaysOn, AlwaysOff and OnIfScheduleAllows are the only valid control types for ExteriorScreen.
-        The following six control types are used primarily to reduce
-        zone cooling load due to window solar gain
-        Following entry should be used only if Shading Type = SwitchableGlazing
-        and window is in a daylit zone
-        The following three control types are used to reduce zone Heating load. They can be
-        used with any Shading Type but are most appropriate for opaque interior or exterior
-        shades with high insulating value ("opaque movable insulation")
-        The following two control types are used to reduce zone heating and cooling load.
-        They can be used with any Shading Type but are most appropriate for translucent interior
-        or exterior shades with high insulating value ("translucent movable insulation")
-        The following two control types are used to reduce zone Cooling load.
-        They can be used with any Shading Type but are most appropriate for interior
-        or exterior blinds,interior or exterior shades with low insulating value, or
-        switchable glazing
-        The following four control types require that both Setpoint and Setpoint2 be specified
-        Setpoint will correspond to outdoor air temp or zone air temp (deg C)
-        Setpoint2 will correspond to solar on window or horizontal solar (W/m2)
+
+        |  OnIfScheduleAllows requires that Schedule Name be specified and
+        |  Shading Control Is Scheduled = Yes.
+        |  AlwaysOn, AlwaysOff and OnIfScheduleAllows are the only valid control types for ExteriorScreen.
+        |  The following six control types are used primarily to reduce
+        |  zone cooling load due to window solar gain
+        |  Following entry should be used only if Shading Type = SwitchableGlazing
+        |  and window is in a daylit zone
+        |  The following three control types are used to reduce zone Heating load. They can be
+        |  used with any Shading Type but are most appropriate for opaque interior or exterior
+        |  shades with high insulating value ("opaque movable insulation")
+        |  The following two control types are used to reduce zone heating and cooling load.
+        |  They can be used with any Shading Type but are most appropriate for translucent interior
+        |  or exterior shades with high insulating value ("translucent movable insulation")
+        |  The following two control types are used to reduce zone Cooling load.
+        |  They can be used with any Shading Type but are most appropriate for interior
+        |  or exterior blinds,interior or exterior shades with low insulating value, or
+        |  switchable glazing
+        |  The following four control types require that both Setpoint and Setpoint2 be specified
+        |  Setpoint will correspond to outdoor air temp or zone air temp (deg C)
+        |  Setpoint2 will correspond to solar on window or horizontal solar (W/m2)
 
         Args:
             value (str): value for IDD Field `Shading Control Type`
@@ -8610,6 +8920,7 @@ class WindowPropertyShadingControl(DataObject):
 
         Returns:
             str: the value of `shading_control_type` or None if not set
+
         """
         return self["Shading Control Type"]
 
@@ -8621,11 +8932,12 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def schedule_name(self):
         """field `Schedule Name`
-        Required if Shading Control Is Scheduled = Yes.
-        If schedule value = 1, shading control is active, i.e., shading can take place only
-        if the control test passes. If schedule value = 0, shading is off whether or not
-        the control test passes. Schedule Name is required if Shading Control Is Scheduled = Yes.
-        If Schedule Name is not specified, shading control is assumed to be active at all times.
+
+        |  Required if Shading Control Is Scheduled = Yes.
+        |  If schedule value = 1, shading control is active, i.e., shading can take place only
+        |  if the control test passes. If schedule value = 0, shading is off whether or not
+        |  the control test passes. Schedule Name is required if Shading Control Is Scheduled = Yes.
+        |  If Schedule Name is not specified, shading control is assumed to be active at all times.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -8635,6 +8947,7 @@ class WindowPropertyShadingControl(DataObject):
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
@@ -8646,20 +8959,22 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def setpoint(self):
         """field `Setpoint`
-        W/m2 for solar-based controls, W for cooling- or heating-based controls,
-        deg C for temperature-based controls.
-        Unused for Shading Control Type = AlwaysOn, AlwaysOff, OnIfScheduleAllows,
-        OnIfHighGlare, Glare, and DaylightIlluminance
+
+        |  W/m2 for solar-based controls, W for cooling- or heating-based controls,
+        |  deg C for temperature-based controls.
+        |  Unused for Shading Control Type = AlwaysOn, AlwaysOff, OnIfScheduleAllows,
+        |  OnIfHighGlare, Glare, and DaylightIlluminance
+        |  Units: W/m2, W or deg C
 
         Args:
             value (float): value for IDD Field `Setpoint`
-                Units: W/m2, W or deg C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `setpoint` or None if not set
+
         """
         return self["Setpoint"]
 
@@ -8671,18 +8986,20 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def shading_control_is_scheduled(self):
         """field `Shading Control Is Scheduled`
-        If Yes, Schedule Name is required; if No, Schedule Name is not used.
-        Shading Control Is Scheduled = Yes is required if Shading Control Type = OnIfScheduleAllows.
+
+        |  If Yes, Schedule Name is required; if No, Schedule Name is not used.
+        |  Shading Control Is Scheduled = Yes is required if Shading Control Type = OnIfScheduleAllows.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Shading Control Is Scheduled`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `shading_control_is_scheduled` or None if not set
+
         """
         return self["Shading Control Is Scheduled"]
 
@@ -8694,20 +9011,22 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def glare_control_is_active(self):
         """field `Glare Control Is Active`
-        If Yes and window is in a daylit zone, shading is on if zone's discomfort glare index exceeds
-        the maximum discomfort glare index specified in the Daylighting object referenced by the zone.
-        The glare test is OR'ed with the test specified by Shading Control Type.
-        Glare Control Is Active = Yes is required if Shading Control Type = OnIfHighGlare.
+
+        |  If Yes and window is in a daylit zone, shading is on if zone's discomfort glare index exceeds
+        |  the maximum discomfort glare index specified in the Daylighting object referenced by the zone.
+        |  The glare test is OR'ed with the test specified by Shading Control Type.
+        |  Glare Control Is Active = Yes is required if Shading Control Type = OnIfHighGlare.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Glare Control Is Active`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `glare_control_is_active` or None if not set
+
         """
         return self["Glare Control Is Active"]
 
@@ -8719,11 +9038,12 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def shading_device_material_name(self):
         """field `Shading Device Material Name`
-        Enter the name of a WindowMaterial:Shade, WindowMaterial:Screen or WindowMaterial:Blind object.
-        Required if "Construction with Shading Name" is not specified.
-        Not used if Shading Control Type = SwitchableGlazing, BetweenGlassShade, or BetweenGlassBlind.
-        If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
-        the former takes precedence.
+
+        |  Enter the name of a WindowMaterial:Shade, WindowMaterial:Screen or WindowMaterial:Blind object.
+        |  Required if "Construction with Shading Name" is not specified.
+        |  Not used if Shading Control Type = SwitchableGlazing, BetweenGlassShade, or BetweenGlassBlind.
+        |  If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
+        |  the former takes precedence.
 
         Args:
             value (str): value for IDD Field `Shading Device Material Name`
@@ -8733,6 +9053,7 @@ class WindowPropertyShadingControl(DataObject):
 
         Returns:
             str: the value of `shading_device_material_name` or None if not set
+
         """
         return self["Shading Device Material Name"]
 
@@ -8744,18 +9065,20 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def type_of_slat_angle_control_for_blinds(self):
         """field `Type of Slat Angle Control for Blinds`
-        Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
-        If choice is ScheduledSlatAngle then Slat Angle Schedule Name is required.
+
+        |  Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
+        |  If choice is ScheduledSlatAngle then Slat Angle Schedule Name is required.
+        |  Default value: FixedSlatAngle
 
         Args:
             value (str): value for IDD Field `Type of Slat Angle Control for Blinds`
-                Default value: FixedSlatAngle
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `type_of_slat_angle_control_for_blinds` or None if not set
+
         """
         return self["Type of Slat Angle Control for Blinds"]
 
@@ -8767,9 +9090,10 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def slat_angle_schedule_name(self):
         """field `Slat Angle Schedule Name`
-        Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
-        Required if Type of Slat Angle Control for Blinds = ScheduledSlatAngle
-        Schedule values should be degrees (0 minimum, 180 maximum)
+
+        |  Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
+        |  Required if Type of Slat Angle Control for Blinds = ScheduledSlatAngle
+        |  Schedule values should be degrees (0 minimum, 180 maximum)
 
         Args:
             value (str): value for IDD Field `Slat Angle Schedule Name`
@@ -8779,6 +9103,7 @@ class WindowPropertyShadingControl(DataObject):
 
         Returns:
             str: the value of `slat_angle_schedule_name` or None if not set
+
         """
         return self["Slat Angle Schedule Name"]
 
@@ -8790,21 +9115,23 @@ class WindowPropertyShadingControl(DataObject):
     @property
     def setpoint_2(self):
         """field `Setpoint 2`
-        W/m2 for solar-based controls, deg C for temperature-based controls.
-        Used only as the second setpoint for the following two-setpoint control types:
-        OnIfHighOutdoorAirTempAndHighSolarOnWindow, OnIfHighOutdoorAirTempAndHighHorizontalSolar,
-        OnIfHighZoneAirTempAndHighSolarOnWindow, and OnIfHighZoneAirTempAndHighHorizontalSolar
+
+        |  W/m2 for solar-based controls, deg C for temperature-based controls.
+        |  Used only as the second setpoint for the following two-setpoint control types:
+        |  OnIfHighOutdoorAirTempAndHighSolarOnWindow, OnIfHighOutdoorAirTempAndHighHorizontalSolar,
+        |  OnIfHighZoneAirTempAndHighSolarOnWindow, and OnIfHighZoneAirTempAndHighHorizontalSolar
+        |  Units: W/m2 or deg C
+        |  IP-Units: unknown
 
         Args:
             value (float): value for IDD Field `Setpoint 2`
-                Units: W/m2 or deg C
-                IP-Units: unknown
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `setpoint_2` or None if not set
+
         """
         return self["Setpoint 2"]
 
@@ -9085,8 +9412,10 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def name(self):
-        """field `Name` Referenced by surfaces that are exterior windows Not
-        used by interzone windows.
+        """field `Name`
+
+        |  Referenced by surfaces that are exterior windows
+        |  Not used by interzone windows
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9107,13 +9436,15 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_width(self):
-        """field `Frame Width` Width of frame in plane of window Frame width
-        assumed the same on all sides of window.
+        """field `Frame Width`
+
+        |  Width of frame in plane of window
+        |  Frame width assumed the same on all sides of window
+        |  Units: m
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Frame Width`
-                Units: m
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9131,13 +9462,14 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_outside_projection(self):
-        """field `Frame Outside Projection` Amount that frame projects outward
-        from the outside face of the glazing.
+        """field `Frame Outside Projection`
+
+        |  Amount that frame projects outward from the outside face of the glazing
+        |  Units: m
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Frame Outside Projection`
-                Units: m
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9155,13 +9487,14 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_inside_projection(self):
-        """field `Frame Inside Projection` Amount that frame projects inward
-        from the inside face of the glazing.
+        """field `Frame Inside Projection`
+
+        |  Amount that frame projects inward from the inside face of the glazing
+        |  Units: m
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Frame Inside Projection`
-                Units: m
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9180,19 +9513,21 @@ class WindowPropertyFrameAndDivider(DataObject):
     @property
     def frame_conductance(self):
         """field `Frame Conductance`
-        Effective conductance of frame
-        Excludes air films
-        Obtained from WINDOW 5 or other 2-D calculation
+
+        |  Effective conductance of frame
+        |  Excludes air films
+        |  Obtained from WINDOW 5 or other 2-D calculation
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Frame Conductance`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `frame_conductance` or None if not set
+
         """
         return self["Frame Conductance"]
 
@@ -9205,13 +9540,14 @@ class WindowPropertyFrameAndDivider(DataObject):
     def ratio_of_frameedge_glass_conductance_to_centerofglass_conductance(
             self):
         """field `Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance`
-        Excludes air films; applies only to multipane windows
-        Obtained from WINDOW 5 or other 2-D calculation
+
+        |  Excludes air films; applies only to multipane windows
+        |  Obtained from WINDOW 5 or other 2-D calculation
+        |  Default value: 1.0
+        |  value <= 4.0
 
         Args:
             value (float): value for IDD Field `Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance`
-                Default value: 1.0
-                value <= 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9234,13 +9570,14 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_solar_absorptance(self):
-        """field `Frame Solar Absorptance` Assumed same on outside and inside
-        of frame.
+        """field `Frame Solar Absorptance`
+
+        |  Assumed same on outside and inside of frame
+        |  Default value: 0.7
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Frame Solar Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9258,13 +9595,14 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_visible_absorptance(self):
-        """field `Frame Visible Absorptance` Assumed same on outside and inside
-        of frame.
+        """field `Frame Visible Absorptance`
+
+        |  Assumed same on outside and inside of frame
+        |  Default value: 0.7
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Frame Visible Absorptance`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9282,12 +9620,13 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def frame_thermal_hemispherical_emissivity(self):
-        """field `Frame Thermal Hemispherical Emissivity` Assumed same on
-        outside and inside of frame.
+        """field `Frame Thermal Hemispherical Emissivity`
+
+        |  Assumed same on outside and inside of frame
+        |  Default value: 0.9
 
         Args:
             value (float): value for IDD Field `Frame Thermal Hemispherical Emissivity`
-                Default value: 0.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9307,9 +9646,10 @@ class WindowPropertyFrameAndDivider(DataObject):
     def divider_type(self):
         """field `Divider Type`
 
+        |  Default value: DividedLite
+
         Args:
             value (str): value for IDD Field `Divider Type`
-                Default value: DividedLite
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9327,13 +9667,15 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_width(self):
-        """field `Divider Width` Width of dividers in plane of window Width
-        assumed the same for all dividers.
+        """field `Divider Width`
+
+        |  Width of dividers in plane of window
+        |  Width assumed the same for all dividers
+        |  Units: m
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Divider Width`
-                Units: m
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9352,7 +9694,8 @@ class WindowPropertyFrameAndDivider(DataObject):
     @property
     def number_of_horizontal_dividers(self):
         """field `Number of Horizontal Dividers`
-        "Horizontal" means parallel to local window X-axis
+
+        |  "Horizontal" means parallel to local window X-axis
 
         Args:
             value (float): value for IDD Field `Number of Horizontal Dividers`
@@ -9362,6 +9705,7 @@ class WindowPropertyFrameAndDivider(DataObject):
 
         Returns:
             float: the value of `number_of_horizontal_dividers` or None if not set
+
         """
         return self["Number of Horizontal Dividers"]
 
@@ -9373,7 +9717,8 @@ class WindowPropertyFrameAndDivider(DataObject):
     @property
     def number_of_vertical_dividers(self):
         """field `Number of Vertical Dividers`
-        "Vertical" means parallel to local window Y-axis
+
+        |  "Vertical" means parallel to local window Y-axis
 
         Args:
             value (float): value for IDD Field `Number of Vertical Dividers`
@@ -9383,6 +9728,7 @@ class WindowPropertyFrameAndDivider(DataObject):
 
         Returns:
             float: the value of `number_of_vertical_dividers` or None if not set
+
         """
         return self["Number of Vertical Dividers"]
 
@@ -9393,14 +9739,15 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_outside_projection(self):
-        """field `Divider Outside Projection` Amount that divider projects
-        outward from the outside face of the glazing Outside projection assumed
-        the same for all divider elements.
+        """field `Divider Outside Projection`
+
+        |  Amount that divider projects outward from the outside face of the glazing
+        |  Outside projection assumed the same for all divider elements
+        |  Units: m
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Divider Outside Projection`
-                Units: m
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9418,14 +9765,15 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_inside_projection(self):
-        """field `Divider Inside Projection` Amount that divider projects
-        inward from the inside face of the glazing Inside projection assumed
-        the same for all divider elements.
+        """field `Divider Inside Projection`
+
+        |  Amount that divider projects inward from the inside face of the glazing
+        |  Inside projection assumed the same for all divider elements
+        |  Units: m
+        |  value <= 0.5
 
         Args:
             value (float): value for IDD Field `Divider Inside Projection`
-                Units: m
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9444,19 +9792,21 @@ class WindowPropertyFrameAndDivider(DataObject):
     @property
     def divider_conductance(self):
         """field `Divider Conductance`
-        Effective conductance of divider
-        Excludes air films
-        Obtained from WINDOW 5 or other 2-D calculation
+
+        |  Effective conductance of divider
+        |  Excludes air films
+        |  Obtained from WINDOW 5 or other 2-D calculation
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Divider Conductance`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `divider_conductance` or None if not set
+
         """
         return self["Divider Conductance"]
 
@@ -9469,13 +9819,14 @@ class WindowPropertyFrameAndDivider(DataObject):
     def ratio_of_divideredge_glass_conductance_to_centerofglass_conductance(
             self):
         """field `Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance`
-        Excludes air films
-        Obtained from WINDOW 5 or other 2-D calculation
+
+        |  Excludes air films
+        |  Obtained from WINDOW 5 or other 2-D calculation
+        |  Default value: 1.0
+        |  value <= 4.0
 
         Args:
             value (float): value for IDD Field `Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance`
-                Default value: 1.0
-                value <= 4.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9498,12 +9849,13 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_solar_absorptance(self):
-        """field `Divider Solar Absorptance` Assumed same on outside and inside
-        of divider.
+        """field `Divider Solar Absorptance`
+
+        |  Assumed same on outside and inside of divider
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Divider Solar Absorptance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9521,12 +9873,13 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_visible_absorptance(self):
-        """field `Divider Visible Absorptance` Assumed same on outside and
-        inside of divider.
+        """field `Divider Visible Absorptance`
+
+        |  Assumed same on outside and inside of divider
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Divider Visible Absorptance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9544,13 +9897,14 @@ class WindowPropertyFrameAndDivider(DataObject):
 
     @property
     def divider_thermal_hemispherical_emissivity(self):
-        """field `Divider Thermal Hemispherical Emissivity` Assumed same on
-        outside and inside of divider.
+        """field `Divider Thermal Hemispherical Emissivity`
+
+        |  Assumed same on outside and inside of divider
+        |  Default value: 0.9
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Divider Thermal Hemispherical Emissivity`
-                Default value: 0.9
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9571,9 +9925,10 @@ class WindowPropertyFrameAndDivider(DataObject):
     def outside_reveal_solar_absorptance(self):
         """field `Outside Reveal Solar Absorptance`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Outside Reveal Solar Absorptance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9593,10 +9948,11 @@ class WindowPropertyFrameAndDivider(DataObject):
     def inside_sill_depth(self):
         """field `Inside Sill Depth`
 
+        |  Units: m
+        |  value <= 2.0
+
         Args:
             value (float): value for IDD Field `Inside Sill Depth`
-                Units: m
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9616,9 +9972,10 @@ class WindowPropertyFrameAndDivider(DataObject):
     def inside_sill_solar_absorptance(self):
         """field `Inside Sill Solar Absorptance`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Inside Sill Solar Absorptance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9637,23 +9994,25 @@ class WindowPropertyFrameAndDivider(DataObject):
     @property
     def inside_reveal_depth(self):
         """field `Inside Reveal Depth`
-        Distance from plane of inside surface of glazing
-        to plane of inside surface of wall.
-        Outside reveal depth is determined from the geometry
-        of the window and the wall it is on; it is non-zero if the plane of
-        the outside surface of the glazing is set back from the plane of the
-        outside surface of the wall.
+
+        |  Distance from plane of inside surface of glazing
+        |  to plane of inside surface of wall.
+        |  Outside reveal depth is determined from the geometry
+        |  of the window and the wall it is on; it is non-zero if the plane of
+        |  the outside surface of the glazing is set back from the plane of the
+        |  outside surface of the wall.
+        |  Units: m
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Inside Reveal Depth`
-                Units: m
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `inside_reveal_depth` or None if not set
+
         """
         return self["Inside Reveal Depth"]
 
@@ -9666,9 +10025,10 @@ class WindowPropertyFrameAndDivider(DataObject):
     def inside_reveal_solar_absorptance(self):
         """field `Inside Reveal Solar Absorptance`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Inside Reveal Solar Absorptance`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9769,8 +10129,9 @@ class WindowPropertyAirflowControl(DataObject):
 
     @property
     def name(self):
-        """field `Name` Name must be that of an exterior window with two or
-        three glass layers.
+        """field `Name`
+
+        |  Name must be that of an exterior window with two or three glass layers.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9793,9 +10154,10 @@ class WindowPropertyAirflowControl(DataObject):
     def airflow_source(self):
         """field `Airflow Source`
 
+        |  Default value: IndoorAir
+
         Args:
             value (str): value for IDD Field `Airflow Source`
-                Default value: IndoorAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9815,9 +10177,10 @@ class WindowPropertyAirflowControl(DataObject):
     def airflow_destination(self):
         """field `Airflow Destination`
 
+        |  Default value: OutdoorAir
+
         Args:
             value (str): value for IDD Field `Airflow Destination`
-                Default value: OutdoorAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9835,12 +10198,14 @@ class WindowPropertyAirflowControl(DataObject):
 
     @property
     def maximum_flow_rate(self):
-        """field `Maximum Flow Rate` Above is m3/s per m of glazing width.
+        """field `Maximum Flow Rate`
+
+        |  Above is m3/s per m of glazing width
+        |  Units: m3/s-m
+        |  IP-Units: ft3/min-ft
 
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s-m
-                IP-Units: ft3/min-ft
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9859,18 +10224,20 @@ class WindowPropertyAirflowControl(DataObject):
     @property
     def airflow_control_type(self):
         """field `Airflow Control Type`
-        ScheduledOnly requires that Airflow Has Multiplier Schedule Name = Yes
-        and that Airflow Multiplier Schedule Name is specified.
+
+        |  ScheduledOnly requires that Airflow Has Multiplier Schedule Name = Yes
+        |  and that Airflow Multiplier Schedule Name is specified.
+        |  Default value: AlwaysOnAtMaximumFlow
 
         Args:
             value (str): value for IDD Field `Airflow Control Type`
-                Default value: AlwaysOnAtMaximumFlow
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `airflow_control_type` or None if not set
+
         """
         return self["Airflow Control Type"]
 
@@ -9881,12 +10248,13 @@ class WindowPropertyAirflowControl(DataObject):
 
     @property
     def airflow_is_scheduled(self):
-        """field `Airflow Is Scheduled` If Yes, then Airflow Multiplier
-        Schedule Name must be specified.
+        """field `Airflow Is Scheduled`
+
+        |  If Yes, then Airflow Multiplier Schedule Name must be specified
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Airflow Is Scheduled`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9905,8 +10273,9 @@ class WindowPropertyAirflowControl(DataObject):
     @property
     def airflow_multiplier_schedule_name(self):
         """field `Airflow Multiplier Schedule Name`
-        Required if Airflow Is Scheduled = Yes.
-        Schedule values are 0.0 or 1.0 and multiply Maximum Air Flow.
+
+        |  Required if Airflow Is Scheduled = Yes.
+        |  Schedule values are 0.0 or 1.0 and multiply Maximum Air Flow.
 
         Args:
             value (str): value for IDD Field `Airflow Multiplier Schedule Name`
@@ -9916,6 +10285,7 @@ class WindowPropertyAirflowControl(DataObject):
 
         Returns:
             str: the value of `airflow_multiplier_schedule_name` or None if not set
+
         """
         return self["Airflow Multiplier Schedule Name"]
 
@@ -10006,8 +10376,9 @@ class WindowPropertyStormWindow(DataObject):
     @property
     def window_name(self):
         """field `Window Name`
-        Must be the name of a FenestrationSurface:Detailed object with Surface Type = WINDOW.
-        The WindowProperty:StormWindow object can only be used with exterior windows.
+
+        |  Must be the name of a FenestrationSurface:Detailed object with Surface Type = WINDOW.
+        |  The WindowProperty:StormWindow object can only be used with exterior windows.
 
         Args:
             value (str): value for IDD Field `Window Name`
@@ -10017,6 +10388,7 @@ class WindowPropertyStormWindow(DataObject):
 
         Returns:
             str: the value of `window_name` or None if not set
+
         """
         return self["Window Name"]
 
@@ -10028,9 +10400,10 @@ class WindowPropertyStormWindow(DataObject):
     @property
     def storm_glass_layer_name(self):
         """field `Storm Glass Layer Name`
-        Must be a WindowMaterial:Glazing or WindowMaterial:Glazing:RefractionExtinctionMethod
-        Gap between storm glass layer and adjacent glass layer is assumed to be filled
-        with Air
+
+        |  Must be a WindowMaterial:Glazing or WindowMaterial:Glazing:RefractionExtinctionMethod
+        |  Gap between storm glass layer and adjacent glass layer is assumed to be filled
+        |  with Air
 
         Args:
             value (str): value for IDD Field `Storm Glass Layer Name`
@@ -10040,6 +10413,7 @@ class WindowPropertyStormWindow(DataObject):
 
         Returns:
             str: the value of `storm_glass_layer_name` or None if not set
+
         """
         return self["Storm Glass Layer Name"]
 
@@ -10052,11 +10426,12 @@ class WindowPropertyStormWindow(DataObject):
     def distance_between_storm_glass_layer_and_adjacent_glass(self):
         """field `Distance Between Storm Glass Layer and Adjacent Glass`
 
+        |  Units: m
+        |  Default value: 0.05
+        |  value <= 0.5
+
         Args:
             value (float): value for IDD Field `Distance Between Storm Glass Layer and Adjacent Glass`
-                Units: m
-                Default value: 0.05
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10079,10 +10454,11 @@ class WindowPropertyStormWindow(DataObject):
     def month_that_storm_glass_layer_is_put_on(self):
         """field `Month that Storm Glass Layer is Put On`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Month that Storm Glass Layer is Put On`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10102,10 +10478,11 @@ class WindowPropertyStormWindow(DataObject):
     def day_of_month_that_storm_glass_layer_is_put_on(self):
         """field `Day of Month that Storm Glass Layer is Put On`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `Day of Month that Storm Glass Layer is Put On`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10126,10 +10503,11 @@ class WindowPropertyStormWindow(DataObject):
     def month_that_storm_glass_layer_is_taken_off(self):
         """field `Month that Storm Glass Layer is Taken Off`
 
+        |  value >= 1
+        |  value <= 12
+
         Args:
             value (int): value for IDD Field `Month that Storm Glass Layer is Taken Off`
-                value >= 1
-                value <= 12
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10150,10 +10528,11 @@ class WindowPropertyStormWindow(DataObject):
     def day_of_month_that_storm_glass_layer_is_taken_off(self):
         """field `Day of Month that Storm Glass Layer is Taken Off`
 
+        |  value >= 1
+        |  value <= 31
+
         Args:
             value (int): value for IDD Field `Day of Month that Storm Glass Layer is Taken Off`
-                value >= 1
-                value <= 31
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10243,8 +10622,9 @@ class InternalMass(DataObject):
 
     @property
     def construction_name(self):
-        """field `Construction Name` To be matched with a construction in this
-        input file.
+        """field `Construction Name`
+
+        |  To be matched with a construction in this input file
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -10265,8 +10645,10 @@ class InternalMass(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Zone the surface is a part of used to be Interior
-        Environment.
+        """field `Zone Name`
+
+        |  Zone the surface is a part of
+        |  used to be Interior Environment
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -10289,9 +10671,10 @@ class InternalMass(DataObject):
     def surface_area(self):
         """field `Surface Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Surface Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10417,18 +10800,20 @@ class ShadingSite(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -10441,11 +10826,12 @@ class ShadingSite(DataObject):
     def tilt_angle(self):
         """field `Tilt Angle`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10463,12 +10849,13 @@ class ShadingSite(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting coordinate is the Lower Left
-        Corner of the Shade.
+        """field `Starting X Coordinate`
+
+        |  Starting coordinate is the Lower Left Corner of the Shade
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10488,9 +10875,10 @@ class ShadingSite(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10510,9 +10898,10 @@ class ShadingSite(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10532,9 +10921,10 @@ class ShadingSite(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10554,9 +10944,10 @@ class ShadingSite(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10682,18 +11073,20 @@ class ShadingBuilding(DataObject):
     @property
     def azimuth_angle(self):
         """field `Azimuth Angle`
-        Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+
+        |  Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+        |  Units: deg
+        |  value <= 360.0
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
-                Units: deg
-                value <= 360.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `azimuth_angle` or None if not set
+
         """
         return self["Azimuth Angle"]
 
@@ -10706,11 +11099,12 @@ class ShadingBuilding(DataObject):
     def tilt_angle(self):
         """field `Tilt Angle`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Tilt Angle`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10728,12 +11122,13 @@ class ShadingBuilding(DataObject):
 
     @property
     def starting_x_coordinate(self):
-        """field `Starting X Coordinate` Starting coordinate is the Lower Left
-        Corner of the Shade.
+        """field `Starting X Coordinate`
+
+        |  Starting coordinate is the Lower Left Corner of the Shade
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10753,9 +11148,10 @@ class ShadingBuilding(DataObject):
     def starting_y_coordinate(self):
         """field `Starting Y Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10775,9 +11171,10 @@ class ShadingBuilding(DataObject):
     def starting_z_coordinate(self):
         """field `Starting Z Coordinate`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10797,9 +11194,10 @@ class ShadingBuilding(DataObject):
     def length(self):
         """field `Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10819,9 +11217,10 @@ class ShadingBuilding(DataObject):
     def height(self):
         """field `Height`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -10924,8 +11323,9 @@ class ShadingSiteDetailed(DataObject):
 
     @property
     def transmittance_schedule_name(self):
-        """field `Transmittance Schedule Name` Transmittance schedule for the
-        shading device, defaults to zero (always opaque)
+        """field `Transmittance Schedule Name`
+
+        |  Transmittance schedule for the shading device, defaults to zero (always opaque)
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -10947,20 +11347,22 @@ class ShadingSiteDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 6 vertex coordinates -- extensible object
-        Rules for vertices are given in GlobalGeometryRules coordinates --
-        For this object all surface coordinates are in world coordinates.
+
+        |  shown with 6 vertex coordinates -- extensible object
+        |  Rules for vertices are given in GlobalGeometryRules coordinates --
+        |  For this object all surface coordinates are in world coordinates.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -11113,8 +11515,9 @@ class ShadingBuildingDetailed(DataObject):
 
     @property
     def transmittance_schedule_name(self):
-        """field `Transmittance Schedule Name` Transmittance schedule for the
-        shading device, defaults to zero (always opaque)
+        """field `Transmittance Schedule Name`
+
+        |  Transmittance schedule for the shading device, defaults to zero (always opaque)
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -11136,21 +11539,23 @@ class ShadingBuildingDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 6 vertex coordinates -- extensible object
-        Rules for vertices are given in GlobalGeometryRules coordinates --
-        For this object all surface coordinates are relative to the building origin (0,0,0)
-        and will rotate with the BUILDING north axis.
+
+        |  shown with 6 vertex coordinates -- extensible object
+        |  Rules for vertices are given in GlobalGeometryRules coordinates --
+        |  For this object all surface coordinates are relative to the building origin (0,0,0)
+        |  and will rotate with the BUILDING north axis.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -11337,9 +11742,10 @@ class ShadingOverhang(DataObject):
     def height_above_window_or_door(self):
         """field `Height above Window or Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height above Window or Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11359,11 +11765,12 @@ class ShadingOverhang(DataObject):
     def tilt_angle_from_window_or_door(self):
         """field `Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11383,9 +11790,10 @@ class ShadingOverhang(DataObject):
     def left_extension_from_window_or_door_width(self):
         """field `Left extension from Window/Door Width`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left extension from Window/Door Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11403,12 +11811,13 @@ class ShadingOverhang(DataObject):
 
     @property
     def right_extension_from_window_or_door_width(self):
-        """field `Right extension from Window/Door Width` N3 + N4 + Window/Door
-        Width is Overhang Length.
+        """field `Right extension from Window/Door Width`
+
+        |  N3 + N4 + Window/Door Width is Overhang Length
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Right extension from Window/Door Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11428,9 +11837,10 @@ class ShadingOverhang(DataObject):
     def depth(self):
         """field `Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11567,9 +11977,10 @@ class ShadingOverhangProjection(DataObject):
     def height_above_window_or_door(self):
         """field `Height above Window or Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Height above Window or Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11589,11 +12000,12 @@ class ShadingOverhangProjection(DataObject):
     def tilt_angle_from_window_or_door(self):
         """field `Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11613,9 +12025,10 @@ class ShadingOverhangProjection(DataObject):
     def left_extension_from_window_or_door_width(self):
         """field `Left extension from Window/Door Width`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left extension from Window/Door Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11633,12 +12046,13 @@ class ShadingOverhangProjection(DataObject):
 
     @property
     def right_extension_from_window_or_door_width(self):
-        """field `Right extension from Window/Door Width` N3 + N4 + Window/Door
-        Width is Overhang Length.
+        """field `Right extension from Window/Door Width`
+
+        |  N3 + N4 + Window/Door Width is Overhang Length
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Right extension from Window/Door Width`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11658,9 +12072,10 @@ class ShadingOverhangProjection(DataObject):
     def depth_as_fraction_of_window_or_door_height(self):
         """field `Depth as Fraction of Window/Door Height`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Depth as Fraction of Window/Door Height`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11842,9 +12257,10 @@ class ShadingFin(DataObject):
     def left_extension_from_window_or_door(self):
         """field `Left Extension from Window/Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left Extension from Window/Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11864,9 +12280,10 @@ class ShadingFin(DataObject):
     def left_distance_above_top_of_window(self):
         """field `Left Distance Above Top of Window`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left Distance Above Top of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11884,12 +12301,13 @@ class ShadingFin(DataObject):
 
     @property
     def left_distance_below_bottom_of_window(self):
-        """field `Left Distance Below Bottom of Window` N2 + N3 + height of
-        Window/Door is height of Fin.
+        """field `Left Distance Below Bottom of Window`
+
+        |  N2 + N3 + height of Window/Door is height of Fin
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Left Distance Below Bottom of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11909,11 +12327,12 @@ class ShadingFin(DataObject):
     def left_tilt_angle_from_window_or_door(self):
         """field `Left Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Left Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11933,9 +12352,10 @@ class ShadingFin(DataObject):
     def left_depth(self):
         """field `Left Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11955,9 +12375,10 @@ class ShadingFin(DataObject):
     def right_extension_from_window_or_door(self):
         """field `Right Extension from Window/Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Right Extension from Window/Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11977,9 +12398,10 @@ class ShadingFin(DataObject):
     def right_distance_above_top_of_window(self):
         """field `Right Distance Above Top of Window`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Right Distance Above Top of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -11997,12 +12419,13 @@ class ShadingFin(DataObject):
 
     @property
     def right_distance_below_bottom_of_window(self):
-        """field `Right Distance Below Bottom of Window` N7 + N8 + height of
-        Window/Door is height of Fin.
+        """field `Right Distance Below Bottom of Window`
+
+        |  N7 + N8 + height of Window/Door is height of Fin
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Right Distance Below Bottom of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12022,11 +12445,12 @@ class ShadingFin(DataObject):
     def right_tilt_angle_from_window_or_door(self):
         """field `Right Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Right Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12046,9 +12470,10 @@ class ShadingFin(DataObject):
     def right_depth(self):
         """field `Right Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Right Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12229,9 +12654,10 @@ class ShadingFinProjection(DataObject):
     def left_extension_from_window_or_door(self):
         """field `Left Extension from Window/Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left Extension from Window/Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12251,9 +12677,10 @@ class ShadingFinProjection(DataObject):
     def left_distance_above_top_of_window(self):
         """field `Left Distance Above Top of Window`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Left Distance Above Top of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12271,12 +12698,13 @@ class ShadingFinProjection(DataObject):
 
     @property
     def left_distance_below_bottom_of_window(self):
-        """field `Left Distance Below Bottom of Window` N2 + N3 + height of
-        Window/Door is height of Fin.
+        """field `Left Distance Below Bottom of Window`
+
+        |  N2 + N3 + height of Window/Door is height of Fin
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Left Distance Below Bottom of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12296,11 +12724,12 @@ class ShadingFinProjection(DataObject):
     def left_tilt_angle_from_window_or_door(self):
         """field `Left Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Left Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12320,9 +12749,10 @@ class ShadingFinProjection(DataObject):
     def left_depth_as_fraction_of_window_or_door_width(self):
         """field `Left Depth as Fraction of Window/Door Width`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Left Depth as Fraction of Window/Door Width`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12343,9 +12773,10 @@ class ShadingFinProjection(DataObject):
     def right_extension_from_window_or_door(self):
         """field `Right Extension from Window/Door`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Right Extension from Window/Door`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12365,9 +12796,10 @@ class ShadingFinProjection(DataObject):
     def right_distance_above_top_of_window(self):
         """field `Right Distance Above Top of Window`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Right Distance Above Top of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12385,12 +12817,13 @@ class ShadingFinProjection(DataObject):
 
     @property
     def right_distance_below_bottom_of_window(self):
-        """field `Right Distance Below Bottom of Window` N7 + N8 + height of
-        Window/Door is height of Fin.
+        """field `Right Distance Below Bottom of Window`
+
+        |  N7 + N8 + height of Window/Door is height of Fin
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Right Distance Below Bottom of Window`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12410,11 +12843,12 @@ class ShadingFinProjection(DataObject):
     def right_tilt_angle_from_window_or_door(self):
         """field `Right Tilt Angle from Window/Door`
 
+        |  Units: deg
+        |  Default value: 90.0
+        |  value <= 180.0
+
         Args:
             value (float): value for IDD Field `Right Tilt Angle from Window/Door`
-                Units: deg
-                Default value: 90.0
-                value <= 180.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12434,9 +12868,10 @@ class ShadingFinProjection(DataObject):
     def right_depth_as_fraction_of_window_or_door_width(self):
         """field `Right Depth as Fraction of Window/Door Width`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Right Depth as Fraction of Window/Door Width`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12568,8 +13003,9 @@ class ShadingZoneDetailed(DataObject):
 
     @property
     def transmittance_schedule_name(self):
-        """field `Transmittance Schedule Name` Transmittance schedule for the
-        shading device, defaults to zero (always opaque)
+        """field `Transmittance Schedule Name`
+
+        |  Transmittance schedule for the shading device, defaults to zero (always opaque)
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -12591,21 +13027,23 @@ class ShadingZoneDetailed(DataObject):
     @property
     def number_of_vertices(self):
         """field `Number of Vertices`
-        shown with 6 vertex coordinates -- extensible object
-        vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
-        are "relative" to the Zone Origin.  if world, then building and zone origins are used
-        for some internal calculations, but all coordinates are given in an "absolute" system.
+
+        |  shown with 6 vertex coordinates -- extensible object
+        |  vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
+        |  are "relative" to the Zone Origin.  if world, then building and zone origins are used
+        |  for some internal calculations, but all coordinates are given in an "absolute" system.
+        |  Default value: "autocalculate"
+        |  value >= 3.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
-                Default value: "autocalculate"
-                value >= 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `number_of_vertices` or None if not set
+            float or "Autocalculate": the value of `number_of_vertices` or None if not set
+
         """
         return self["Number of Vertices"]
 
@@ -12759,10 +13197,11 @@ class ShadingPropertyReflectance(DataObject):
         """field `Diffuse Solar Reflectance of Unglazed Part of Shading
         Surface`
 
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Diffuse Solar Reflectance of Unglazed Part of Shading Surface`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12788,10 +13227,11 @@ class ShadingPropertyReflectance(DataObject):
         """field `Diffuse Visible Reflectance of Unglazed Part of Shading
         Surface`
 
+        |  Default value: 0.2
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Diffuse Visible Reflectance of Unglazed Part of Shading Surface`
-                Default value: 0.2
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12816,9 +13256,10 @@ class ShadingPropertyReflectance(DataObject):
     def fraction_of_shading_surface_that_is_glazed(self):
         """field `Fraction of Shading Surface That Is Glazed`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Shading Surface That Is Glazed`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -12838,7 +13279,8 @@ class ShadingPropertyReflectance(DataObject):
     @property
     def glazing_construction_name(self):
         """field `Glazing Construction Name`
-        Required if Fraction of Shading Surface That Is Glazed > 0.0
+
+        |  Required if Fraction of Shading Surface That Is Glazed > 0.0
 
         Args:
             value (str): value for IDD Field `Glazing Construction Name`
@@ -12848,6 +13290,7 @@ class ShadingPropertyReflectance(DataObject):
 
         Returns:
             str: the value of `glazing_construction_name` or None if not set
+
         """
         return self["Glazing Construction Name"]
 

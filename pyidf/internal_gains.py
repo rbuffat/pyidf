@@ -296,7 +296,7 @@ class People(DataObject):
     def number_of_people_schedule_name(self):
         """field `Number of People Schedule Name`
 
-        units in schedule should be fraction applied to number of people (0.0 - 1.0)
+        |  units in schedule should be fraction applied to number of people (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Number of People Schedule Name`
@@ -318,21 +318,23 @@ class People(DataObject):
     @property
     def number_of_people_calculation_method(self):
         """field `Number of People Calculation Method`
-        The entered calculation method is used to create the maximum number of people
-        for this set of attributes (i.e. sensible fraction, schedule, etc)
-        Choices: People -- simply enter number of occupants.
-        People per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Number of people
-        Zone Floor Area per Person -- enter the number to apply.  Floor Area / Value = Number of people
+
+        |  The entered calculation method is used to create the maximum number of people
+        |  for this set of attributes (i.e. sensible fraction, schedule, etc)
+        |  Choices: People -- simply enter number of occupants.
+        |  People per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Number of people
+        |  Zone Floor Area per Person -- enter the number to apply.  Floor Area / Value = Number of people
+        |  Default value: People
 
         Args:
             value (str): value for IDD Field `Number of People Calculation Method`
-                Default value: People
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `number_of_people_calculation_method` or None if not set
+
         """
         return self["Number of People Calculation Method"]
 
@@ -366,9 +368,10 @@ class People(DataObject):
     def people_per_zone_floor_area(self):
         """field `People per Zone Floor Area`
 
+        |  Units: person/m2
+
         Args:
             value (float): value for IDD Field `People per Zone Floor Area`
-                Units: person/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -388,9 +391,10 @@ class People(DataObject):
     def zone_floor_area_per_person(self):
         """field `Zone Floor Area per Person`
 
+        |  Units: m2/person
+
         Args:
             value (float): value for IDD Field `Zone Floor Area per Person`
-                Units: m2/person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -410,9 +414,10 @@ class People(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -430,19 +435,20 @@ class People(DataObject):
 
     @property
     def sensible_heat_fraction(self):
-        """field `Sensible Heat Fraction` if input, overrides program
-        calculated sensible/latent split.
+        """field `Sensible Heat Fraction`
+
+        |  if input, overrides program calculated sensible/latent split
+        |  Default value: "autocalculate"
+        |  value <= 1.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Sensible Heat Fraction`
-                Default value: "autocalculate"
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `sensible_heat_fraction` or None if not set
+            float or "Autocalculate": the value of `sensible_heat_fraction` or None if not set
 
         """
         return self["Sensible Heat Fraction"]
@@ -454,8 +460,10 @@ class People(DataObject):
 
     @property
     def activity_level_schedule_name(self):
-        """field `Activity Level Schedule Name` Note that W has to be converted
-        to mets in TC routine units in schedule are W/person.
+        """field `Activity Level Schedule Name`
+
+        |  Note that W has to be converted to mets in TC routine
+        |  units in schedule are W/person
 
         Args:
             value (str): value for IDD Field `Activity Level Schedule Name`
@@ -477,21 +485,23 @@ class People(DataObject):
     @property
     def carbon_dioxide_generation_rate(self):
         """field `Carbon Dioxide Generation Rate`
-        CO2 generation rate per unit of activity level.
-        The default value is obtained from ASHRAE Std 62.1 at 0.0084 cfm/met/person over
-        the general adult population.
+
+        |  CO2 generation rate per unit of activity level.
+        |  The default value is obtained from ASHRAE Std 62.1 at 0.0084 cfm/met/person over
+        |  the general adult population.
+        |  Units: m3/s-W
+        |  Default value: 3.82e-08
+        |  value <= 3.82e-07
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Generation Rate`
-                Units: m3/s-W
-                Default value: 3.82e-08
-                value <= 3.82e-07
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `carbon_dioxide_generation_rate` or None if not set
+
         """
         return self["Carbon Dioxide Generation Rate"]
 
@@ -504,9 +514,10 @@ class People(DataObject):
     def enable_ashrae_55_comfort_warnings(self):
         """field `Enable ASHRAE 55 Comfort Warnings`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Enable ASHRAE 55 Comfort Warnings`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -524,12 +535,13 @@ class People(DataObject):
 
     @property
     def mean_radiant_temperature_calculation_type(self):
-        """field `Mean Radiant Temperature Calculation Type` optional (only
-        required for thermal comfort runs)
+        """field `Mean Radiant Temperature Calculation Type`
+
+        |  optional (only required for thermal comfort runs)
+        |  Default value: ZoneAveraged
 
         Args:
             value (str): value for IDD Field `Mean Radiant Temperature Calculation Type`
-                Default value: ZoneAveraged
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -548,8 +560,9 @@ class People(DataObject):
 
     @property
     def surface_name_or_angle_factor_list_name(self):
-        """field `Surface Name/Angle Factor List Name` optional (only required
-        for thermal comfort runs)
+        """field `Surface Name/Angle Factor List Name`
+
+        |  optional (only required for thermal comfort runs)
 
         Args:
             value (str): value for IDD Field `Surface Name/Angle Factor List Name`
@@ -571,8 +584,9 @@ class People(DataObject):
     @property
     def work_efficiency_schedule_name(self):
         """field `Work Efficiency Schedule Name`
-        units in schedule are 0.0 to 1.0
-        optional (only required for thermal comfort runs)
+
+        |  units in schedule are 0.0 to 1.0
+        |  optional (only required for thermal comfort runs)
 
         Args:
             value (str): value for IDD Field `Work Efficiency Schedule Name`
@@ -582,6 +596,7 @@ class People(DataObject):
 
         Returns:
             str: the value of `work_efficiency_schedule_name` or None if not set
+
         """
         return self["Work Efficiency Schedule Name"]
 
@@ -594,9 +609,10 @@ class People(DataObject):
     def clothing_insulation_calculation_method(self):
         """field `Clothing Insulation Calculation Method`
 
+        |  Default value: ClothingInsulationSchedule
+
         Args:
             value (str): value for IDD Field `Clothing Insulation Calculation Method`
-                Default value: ClothingInsulationSchedule
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -616,9 +632,9 @@ class People(DataObject):
 
     @property
     def clothing_insulation_calculation_method_schedule_name(self):
-        """field `Clothing Insulation Calculation Method Schedule Name` a
-        schedule value of 1 for the Scheduled method, and 2 for the
-        DynamicClothingModelASHRAE55 method.
+        """field `Clothing Insulation Calculation Method Schedule Name`
+
+        |  a schedule value of 1 for the Scheduled method, and 2 for the DynamicClothingModelASHRAE55 method
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Calculation Method Schedule Name`
@@ -640,9 +656,10 @@ class People(DataObject):
 
     @property
     def clothing_insulation_schedule_name(self):
-        """field `Clothing Insulation Schedule Name` use "Clo" from ASHRAE or
-        Thermal Comfort guides optional (only required for thermal comfort
-        runs)
+        """field `Clothing Insulation Schedule Name`
+
+        |  use "Clo" from ASHRAE or Thermal Comfort guides
+        |  optional (only required for thermal comfort runs)
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Schedule Name`
@@ -663,8 +680,10 @@ class People(DataObject):
 
     @property
     def air_velocity_schedule_name(self):
-        """field `Air Velocity Schedule Name` units in the schedule are m/s
-        optional (only required for thermal comfort runs)
+        """field `Air Velocity Schedule Name`
+
+        |  units in the schedule are m/s
+        |  optional (only required for thermal comfort runs)
 
         Args:
             value (str): value for IDD Field `Air Velocity Schedule Name`
@@ -685,8 +704,9 @@ class People(DataObject):
 
     @property
     def thermal_comfort_model_1_type(self):
-        """field `Thermal Comfort Model 1 Type` optional (only needed for
-        people thermal comfort results reporting)
+        """field `Thermal Comfort Model 1 Type`
+
+        |  optional (only needed for people thermal comfort results reporting)
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 1 Type`
@@ -707,8 +727,9 @@ class People(DataObject):
 
     @property
     def thermal_comfort_model_2_type(self):
-        """field `Thermal Comfort Model 2 Type` optional (second type of
-        thermal comfort model and results reporting)
+        """field `Thermal Comfort Model 2 Type`
+
+        |  optional (second type of thermal comfort model and results reporting)
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 2 Type`
@@ -729,8 +750,9 @@ class People(DataObject):
 
     @property
     def thermal_comfort_model_3_type(self):
-        """field `Thermal Comfort Model 3 Type` optional (third thermal comfort
-        model and report type)
+        """field `Thermal Comfort Model 3 Type`
+
+        |  optional (third thermal comfort model and report type)
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 3 Type`
@@ -751,8 +773,9 @@ class People(DataObject):
 
     @property
     def thermal_comfort_model_4_type(self):
-        """field `Thermal Comfort Model 4 Type` optional (fourth thermal
-        comfort model and report type)
+        """field `Thermal Comfort Model 4 Type`
+
+        |  optional (fourth thermal comfort model and report type)
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 4 Type`
@@ -773,8 +796,9 @@ class People(DataObject):
 
     @property
     def thermal_comfort_model_5_type(self):
-        """field `Thermal Comfort Model 5 Type` optional (fifth thermal comfort
-        model and report type)
+        """field `Thermal Comfort Model 5 Type`
+
+        |  optional (fifth thermal comfort model and report type)
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 5 Type`
@@ -1210,9 +1234,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_1(self):
         """field `Angle Factor 1`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 1`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1253,9 +1278,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_2(self):
         """field `Angle Factor 2`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 2`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1296,9 +1322,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_3(self):
         """field `Angle Factor 3`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 3`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1339,9 +1366,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_4(self):
         """field `Angle Factor 4`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 4`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1382,9 +1410,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_5(self):
         """field `Angle Factor 5`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 5`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1425,9 +1454,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_6(self):
         """field `Angle Factor 6`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 6`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1468,9 +1498,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_7(self):
         """field `Angle Factor 7`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 7`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1511,9 +1542,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_8(self):
         """field `Angle Factor 8`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 8`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1554,9 +1586,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_9(self):
         """field `Angle Factor 9`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 9`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1597,9 +1630,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_10(self):
         """field `Angle Factor 10`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 10`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1640,9 +1674,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_11(self):
         """field `Angle Factor 11`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 11`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1683,9 +1718,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_12(self):
         """field `Angle Factor 12`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 12`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1726,9 +1762,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_13(self):
         """field `Angle Factor 13`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 13`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1769,9 +1806,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_14(self):
         """field `Angle Factor 14`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 14`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1812,9 +1850,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_15(self):
         """field `Angle Factor 15`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 15`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1855,9 +1894,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_16(self):
         """field `Angle Factor 16`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 16`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1898,9 +1938,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_17(self):
         """field `Angle Factor 17`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 17`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1941,9 +1982,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_18(self):
         """field `Angle Factor 18`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 18`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1984,9 +2026,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_19(self):
         """field `Angle Factor 19`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 19`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2027,9 +2070,10 @@ class ComfortViewFactorAngles(DataObject):
     def angle_factor_20(self):
         """field `Angle Factor 20`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Angle Factor 20`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2248,7 +2292,7 @@ class Lights(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)
+        |  units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2270,21 +2314,23 @@ class Lights(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of lights
-        for this set of attributes
-        Choices: LightingLevel => Lighting Level -- simply enter watts of lights
-        Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Lights
-        Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Lights
+
+        |  The entered calculation method is used to create the maximum amount of lights
+        |  for this set of attributes
+        |  Choices: LightingLevel => Lighting Level -- simply enter watts of lights
+        |  Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Lights
+        |  Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Lights
+        |  Default value: LightingLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: LightingLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -2297,10 +2343,11 @@ class Lights(DataObject):
     def lighting_level(self):
         """field `Lighting Level`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Lighting Level`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2320,10 +2367,11 @@ class Lights(DataObject):
     def watts_per_zone_floor_area(self):
         """field `Watts per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: W/ft2
+
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
-                Units: W/m2
-                IP-Units: W/ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2343,10 +2391,11 @@ class Lights(DataObject):
     def watts_per_person(self):
         """field `Watts per Person`
 
+        |  Units: W/person
+        |  IP-Units: W/person
+
         Args:
             value (float): value for IDD Field `Watts per Person`
-                Units: W/person
-                IP-Units: W/person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2365,18 +2414,20 @@ class Lights(DataObject):
     @property
     def return_air_fraction(self):
         """field `Return Air Fraction`
-        Used only for sizing calculation if return-air-fraction
-        coefficients are specified.
+
+        |  Used only for sizing calculation if return-air-fraction
+        |  coefficients are specified.
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Return Air Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `return_air_fraction` or None if not set
+
         """
         return self["Return Air Fraction"]
 
@@ -2389,9 +2440,10 @@ class Lights(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2411,9 +2463,10 @@ class Lights(DataObject):
     def fraction_visible(self):
         """field `Fraction Visible`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Visible`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2432,19 +2485,21 @@ class Lights(DataObject):
     @property
     def fraction_replaceable(self):
         """field `Fraction Replaceable`
-        For Daylighting:Controls and Daylighting:DElight:Controls,
-        must be 0 or 1:  0 = no dimming control, 1 = full dimming control
+
+        |  For Daylighting:Controls and Daylighting:DElight:Controls,
+        |  must be 0 or 1:  0 = no dimming control, 1 = full dimming control
+        |  Default value: 1.0
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction Replaceable`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `fraction_replaceable` or None if not set
+
         """
         return self["Fraction Replaceable"]
 
@@ -2457,9 +2512,10 @@ class Lights(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2480,9 +2536,10 @@ class Lights(DataObject):
     def return_air_fraction_calculated_from_plenum_temperature(self):
         """field `Return Air Fraction Calculated from Plenum Temperature`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `Return Air Fraction Calculated from Plenum Temperature`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2503,9 +2560,11 @@ class Lights(DataObject):
 
     @property
     def return_air_fraction_function_of_plenum_temperature_coefficient_1(self):
-        """field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
-        Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
-        Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
+        """field `Return Air Fraction Function of Plenum Temperature
+        Coefficient 1`
+
+        |  Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
+        |  Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
 
         Args:
             value (float): value for IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
@@ -2515,6 +2574,7 @@ class Lights(DataObject):
 
         Returns:
             float: the value of `return_air_fraction_function_of_plenum_temperature_coefficient_1` or None if not set
+
         """
         return self[
             "Return Air Fraction Function of Plenum Temperature Coefficient 1"]
@@ -2530,19 +2590,22 @@ class Lights(DataObject):
 
     @property
     def return_air_fraction_function_of_plenum_temperature_coefficient_2(self):
-        """field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
-        Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
-        Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
+        """field `Return Air Fraction Function of Plenum Temperature
+        Coefficient 2`
+
+        |  Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
+        |  Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
+        |  Units: 1/K
 
         Args:
             value (float): value for IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
-                Units: 1/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `return_air_fraction_function_of_plenum_temperature_coefficient_2` or None if not set
+
         """
         return self[
             "Return Air Fraction Function of Plenum Temperature Coefficient 2"]
@@ -2720,7 +2783,7 @@ class ElectricEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)
+        |  units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2742,21 +2805,23 @@ class ElectricEquipment(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of electric equipment
-        for this set of attributes
-        Choices: EquipmentLevel => Equipment Level -- simply enter watts of equipment
-        Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
-        Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+
+        |  The entered calculation method is used to create the maximum amount of electric equipment
+        |  for this set of attributes
+        |  Choices: EquipmentLevel => Equipment Level -- simply enter watts of equipment
+        |  Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
+        |  Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+        |  Default value: EquipmentLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: EquipmentLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -2769,10 +2834,11 @@ class ElectricEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2792,10 +2858,11 @@ class ElectricEquipment(DataObject):
     def watts_per_zone_floor_area(self):
         """field `Watts per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: W/ft2
+
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
-                Units: W/m2
-                IP-Units: W/ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2815,10 +2882,11 @@ class ElectricEquipment(DataObject):
     def watts_per_person(self):
         """field `Watts per Person`
 
+        |  Units: W/person
+        |  IP-Units: W/person
+
         Args:
             value (float): value for IDD Field `Watts per Person`
-                Units: W/person
-                IP-Units: W/person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2838,9 +2906,10 @@ class ElectricEquipment(DataObject):
     def fraction_latent(self):
         """field `Fraction Latent`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Latent`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2860,9 +2929,10 @@ class ElectricEquipment(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2882,9 +2952,10 @@ class ElectricEquipment(DataObject):
     def fraction_lost(self):
         """field `Fraction Lost`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2904,9 +2975,10 @@ class ElectricEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3100,7 +3172,7 @@ class GasEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to design level of gas equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to design level of gas equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3122,21 +3194,23 @@ class GasEquipment(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of gas equipment
-        for this set of attributes
-        Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
-        Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
-        Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+
+        |  The entered calculation method is used to create the maximum amount of gas equipment
+        |  for this set of attributes
+        |  Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
+        |  Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
+        |  Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+        |  Default value: EquipmentLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: EquipmentLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -3149,10 +3223,11 @@ class GasEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: Btu/h
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: Btu/h
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3172,10 +3247,11 @@ class GasEquipment(DataObject):
     def power_per_zone_floor_area(self):
         """field `Power per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: Btu/h-ft2
+
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
-                Units: W/m2
-                IP-Units: Btu/h-ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3195,10 +3271,11 @@ class GasEquipment(DataObject):
     def power_per_person(self):
         """field `Power per Person`
 
+        |  Units: W/Person
+        |  IP-Units: Btu/h-person
+
         Args:
             value (float): value for IDD Field `Power per Person`
-                Units: W/Person
-                IP-Units: Btu/h-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3218,9 +3295,10 @@ class GasEquipment(DataObject):
     def fraction_latent(self):
         """field `Fraction Latent`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Latent`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3240,9 +3318,10 @@ class GasEquipment(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3262,9 +3341,10 @@ class GasEquipment(DataObject):
     def fraction_lost(self):
         """field `Fraction Lost`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3283,23 +3363,25 @@ class GasEquipment(DataObject):
     @property
     def carbon_dioxide_generation_rate(self):
         """field `Carbon Dioxide Generation Rate`
-        CO2 generation rate per unit of power input
-        The default value assumes the equipment is fully vented.
-        For unvented equipment, a suggested value is 3.45E-8 m3/s-W. This value is
-        converted from a natural gas CO2 emission rate of 117 lbs CO2 per million Btu.
-        The maximum value assumes to be 10 times of the recommended value.
+
+        |  CO2 generation rate per unit of power input
+        |  The default value assumes the equipment is fully vented.
+        |  For unvented equipment, a suggested value is 3.45E-8 m3/s-W. This value is
+        |  converted from a natural gas CO2 emission rate of 117 lbs CO2 per million Btu.
+        |  The maximum value assumes to be 10 times of the recommended value.
+        |  Units: m3/s-W
+        |  IP-Units: (ft3/min)/(Btu/h)
+        |  value <= 4e-07
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Generation Rate`
-                Units: m3/s-W
-                IP-Units: (ft3/min)/(Btu/h)
-                value <= 4e-07
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `carbon_dioxide_generation_rate` or None if not set
+
         """
         return self["Carbon Dioxide Generation Rate"]
 
@@ -3312,9 +3394,10 @@ class GasEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3497,7 +3580,7 @@ class HotWaterEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to design level of hot water equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to design level of hot water equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3519,21 +3602,23 @@ class HotWaterEquipment(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of hot water equipment
-        for this set of attributes
-        Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
-        Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
-        Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+
+        |  The entered calculation method is used to create the maximum amount of hot water equipment
+        |  for this set of attributes
+        |  Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
+        |  Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
+        |  Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+        |  Default value: EquipmentLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: EquipmentLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -3546,10 +3631,11 @@ class HotWaterEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: Btu/h
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: Btu/h
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3569,10 +3655,11 @@ class HotWaterEquipment(DataObject):
     def power_per_zone_floor_area(self):
         """field `Power per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: Btu/h-ft2
+
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
-                Units: W/m2
-                IP-Units: Btu/h-ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3592,10 +3679,11 @@ class HotWaterEquipment(DataObject):
     def power_per_person(self):
         """field `Power per Person`
 
+        |  Units: W/Person
+        |  IP-Units: Btu/h-person
+
         Args:
             value (float): value for IDD Field `Power per Person`
-                Units: W/Person
-                IP-Units: Btu/h-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3615,9 +3703,10 @@ class HotWaterEquipment(DataObject):
     def fraction_latent(self):
         """field `Fraction Latent`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Latent`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3637,9 +3726,10 @@ class HotWaterEquipment(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3659,9 +3749,10 @@ class HotWaterEquipment(DataObject):
     def fraction_lost(self):
         """field `Fraction Lost`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3681,9 +3772,10 @@ class HotWaterEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3861,7 +3953,7 @@ class SteamEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to design level of steam equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to design level of steam equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3883,21 +3975,23 @@ class SteamEquipment(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of steam equipment
-        for this set of attributes
-        Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
-        Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
-        Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+
+        |  The entered calculation method is used to create the maximum amount of steam equipment
+        |  for this set of attributes
+        |  Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
+        |  Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
+        |  Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+        |  Default value: EquipmentLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: EquipmentLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -3910,10 +4004,11 @@ class SteamEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: Btu/h
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: Btu/h
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3933,10 +4028,11 @@ class SteamEquipment(DataObject):
     def power_per_zone_floor_area(self):
         """field `Power per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: Btu/h-ft2
+
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
-                Units: W/m2
-                IP-Units: Btu/h-ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3956,10 +4052,11 @@ class SteamEquipment(DataObject):
     def power_per_person(self):
         """field `Power per Person`
 
+        |  Units: W/Person
+        |  IP-Units: Btu/h-person
+
         Args:
             value (float): value for IDD Field `Power per Person`
-                Units: W/Person
-                IP-Units: Btu/h-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3979,9 +4076,10 @@ class SteamEquipment(DataObject):
     def fraction_latent(self):
         """field `Fraction Latent`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Latent`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4001,9 +4099,10 @@ class SteamEquipment(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4023,9 +4122,10 @@ class SteamEquipment(DataObject):
     def fraction_lost(self):
         """field `Fraction Lost`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4045,9 +4145,10 @@ class SteamEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4214,7 +4315,7 @@ class OtherEquipment(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to design level of other equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to design level of other equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -4236,22 +4337,24 @@ class OtherEquipment(DataObject):
     @property
     def design_level_calculation_method(self):
         """field `Design Level Calculation Method`
-        The entered calculation method is used to create the maximum amount of other equipment.
-        to set a loss, use a negative value in the following fields.
-        for this set of attributes
-        Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
-        Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
-        Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+
+        |  The entered calculation method is used to create the maximum amount of other equipment.
+        |  to set a loss, use a negative value in the following fields.
+        |  for this set of attributes
+        |  Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
+        |  Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
+        |  Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
+        |  Default value: EquipmentLevel
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
-                Default value: EquipmentLevel
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `design_level_calculation_method` or None if not set
+
         """
         return self["Design Level Calculation Method"]
 
@@ -4264,10 +4367,11 @@ class OtherEquipment(DataObject):
     def design_level(self):
         """field `Design Level`
 
+        |  Units: W
+        |  IP-Units: Btu/h
+
         Args:
             value (float): value for IDD Field `Design Level`
-                Units: W
-                IP-Units: Btu/h
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4287,10 +4391,11 @@ class OtherEquipment(DataObject):
     def power_per_zone_floor_area(self):
         """field `Power per Zone Floor Area`
 
+        |  Units: W/m2
+        |  IP-Units: Btu/h-ft2
+
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
-                Units: W/m2
-                IP-Units: Btu/h-ft2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4310,10 +4415,11 @@ class OtherEquipment(DataObject):
     def power_per_person(self):
         """field `Power per Person`
 
+        |  Units: W/Person
+        |  IP-Units: Btu/h-person
+
         Args:
             value (float): value for IDD Field `Power per Person`
-                Units: W/Person
-                IP-Units: Btu/h-person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4333,9 +4439,10 @@ class OtherEquipment(DataObject):
     def fraction_latent(self):
         """field `Fraction Latent`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Latent`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4355,9 +4462,10 @@ class OtherEquipment(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4377,9 +4485,10 @@ class OtherEquipment(DataObject):
     def fraction_lost(self):
         """field `Fraction Lost`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4531,7 +4640,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)
+        |  units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -4554,9 +4663,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def capacity_at_low_temperature(self):
         """field `Capacity at Low Temperature`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Capacity at Low Temperature`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4576,9 +4686,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def low_temperature(self):
         """field `Low Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Low Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4598,9 +4709,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def capacity_at_high_temperature(self):
         """field `Capacity at High Temperature`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Capacity at High Temperature`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4620,9 +4732,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def high_temperature(self):
         """field `High Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `High Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4642,9 +4755,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4664,9 +4778,10 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4773,12 +4888,13 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
 
     @property
     def design_generation_rate(self):
-        """field `Design Generation Rate` Positive values represent sources and
-        negative values represent sinks.
+        """field `Design Generation Rate`
+
+        |  Positive values represent sources and negative values represent sinks.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4798,7 +4914,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -4924,11 +5040,13 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @property
     def design_generation_rate(self):
-        """field `Design Generation Rate` The values represent source.
+        """field `Design Generation Rate`
+
+        |  The values represent source.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4948,7 +5066,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
     def generation_schedule_name(self):
         """field `Generation Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
 
         Args:
             value (str): value for IDD Field `Generation Schedule Name`
@@ -4969,11 +5087,13 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @property
     def design_removal_coefficient(self):
-        """field `Design Removal Coefficient` The value represent sink.
+        """field `Design Removal Coefficient`
+
+        |  The value represent sink.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Removal Coefficient`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4993,8 +5113,8 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
     def removal_schedule_name(self):
         """field `Removal Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Design removal Coefficient
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Design removal Coefficient
 
         Args:
             value (str): value for IDD Field `Removal Schedule Name`
@@ -5116,9 +5236,10 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
     def design_generation_rate_coefficient(self):
         """field `Design Generation Rate Coefficient`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5138,8 +5259,8 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
     def generation_schedule_name(self):
         """field `Generation Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Design Generation Rate Coefficient
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Design Generation Rate Coefficient
 
         Args:
             value (str): value for IDD Field `Generation Schedule Name`
@@ -5162,10 +5283,11 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
     def generation_exponent(self):
         """field `Generation Exponent`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Generation Exponent`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5283,9 +5405,10 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
     def design_generation_rate_coefficient(self):
         """field `Design Generation Rate Coefficient`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5305,8 +5428,8 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Design Generation Rate Coefficient
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Design Generation Rate Coefficient
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5327,13 +5450,14 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @property
     def cutoff_generic_contaminant_at_which_emission_ceases(self):
-        """field `Cutoff Generic Contaminant at which Emission Ceases` When the
-        zone concentration level is greater than the cutoff level, emission
-        stops, and the source level is zero.
+        """field `Cutoff Generic Contaminant at which Emission Ceases`
+
+        |  When the zone concentration level is greater than the cutoff level, emission stops,
+        |  and the source level is zero.
+        |  Units: ppm
 
         Args:
             value (float): value for IDD Field `Cutoff Generic Contaminant at which Emission Ceases`
-                Units: ppm
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5452,9 +5576,10 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
     def initial_emission_rate(self):
         """field `Initial Emission Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Initial Emission Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5474,9 +5599,9 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
-        zero.
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
+        |  zero.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5499,9 +5624,10 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
     def delay_time_constant(self):
         """field `Delay Time Constant`
 
+        |  Units: s
+
         Args:
             value (float): value for IDD Field `Delay Time Constant`
-                Units: s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5619,9 +5745,10 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
     def mass_transfer_coefficient(self):
         """field `Mass Transfer Coefficient`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Mass Transfer Coefficient`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5641,9 +5768,9 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
-        zero.
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
+        |  zero.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5666,9 +5793,10 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
     def henry_adsorption_constant_or_partition_coefficient(self):
         """field `Henry adsorption constant or partition coefficient`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Henry adsorption constant or partition coefficient`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5778,9 +5906,10 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
     def deposition_velocity(self):
         """field `Deposition Velocity`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Deposition Velocity`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5800,9 +5929,9 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
-        zero.
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
+        |  zero.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5914,9 +6043,10 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
     def deposition_rate(self):
         """field `Deposition Rate`
 
+        |  Units: m/s
+
         Args:
             value (float): value for IDD Field `Deposition Rate`
-                Units: m/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5936,9 +6066,9 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
     def schedule_name(self):
         """field `Schedule Name`
 
-        Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
-        Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
-        zero.
+        |  Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
+        |  Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
+        |  zero.
 
         Args:
             value (str): value for IDD Field `Schedule Name`

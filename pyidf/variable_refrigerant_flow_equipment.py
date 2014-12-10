@@ -705,8 +705,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_pump_name(self):
-        """field `Heat Pump Name` Enter a unique name for this variable
-        refrigerant flow heat pump.
+        """field `Heat Pump Name`
+
+        |  Enter a unique name for this variable refrigerant flow heat pump.
 
         Args:
             value (str): value for IDD Field `Heat Pump Name`
@@ -727,13 +728,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. Enter the name of a
-        schedule that defines the availability of the unit. Schedule values of
-        0 denote the unit is off. All other values denote the unit is
-        available. If this field is left blank, the unit is available the
-        entire simulation.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  Enter the name of a schedule that defines the availability of the unit.
+        |  Schedule values of 0 denote the unit is off. All other values denote the unit is available.
+        |  If this field is left blank, the unit is available the entire simulation.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -754,19 +755,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def gross_rated_total_cooling_capacity(self):
-        """field `Gross Rated Total Cooling Capacity` Enter the total cooling
-        capacity in watts at rated conditions or set to autosize. Total cooling
-        capacity not accounting for the effect of supply air fan heat.
+        """field `Gross Rated Total Cooling Capacity`
+
+        |  Enter the total cooling capacity in watts at rated conditions or set to autosize.
+        |  Total cooling capacity not accounting for the effect of supply air fan heat
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Gross Rated Total Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `gross_rated_total_cooling_capacity` or None if not set
+            float or "Autosize": the value of `gross_rated_total_cooling_capacity` or None if not set
 
         """
         return self["Gross Rated Total Cooling Capacity"]
@@ -778,15 +780,16 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def gross_rated_cooling_cop(self):
-        """field `Gross Rated Cooling COP` Enter the coefficient of performance
-        at rated conditions or leave blank to use default. COP includes
-        compressor and condenser fan electrical energy input COP does not
-        include supply fan heat or supply fan electric power input.
+        """field `Gross Rated Cooling COP`
+
+        |  Enter the coefficient of performance at rated conditions or leave blank to use default.
+        |  COP includes compressor and condenser fan electrical energy input
+        |  COP does not include supply fan heat or supply fan electric power input
+        |  Units: W/W
+        |  Default value: 3.3
 
         Args:
             value (float): value for IDD Field `Gross Rated Cooling COP`
-                Units: W/W
-                Default value: 3.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -804,14 +807,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_cooling_mode(self):
-        """field `Minimum Outdoor Temperature in Cooling Mode` Enter the
-        minimum outdoor temperature allowed for cooling operation. Cooling is
-        disabled below this temperature.
+        """field `Minimum Outdoor Temperature in Cooling Mode`
+
+        |  Enter the minimum outdoor temperature allowed for cooling operation.
+        |  Cooling is disabled below this temperature.
+        |  Units: C
+        |  Default value: -6.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Cooling Mode`
-                Units: C
-                Default value: -6.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -830,14 +834,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_cooling_mode(self):
-        """field `Maximum Outdoor Temperature in Cooling Mode` Enter the
-        maximum outdoor temperature allowed for cooling operation. Cooling is
-        disabled above this temperature.
+        """field `Maximum Outdoor Temperature in Cooling Mode`
+
+        |  Enter the maximum outdoor temperature allowed for cooling operation.
+        |  Cooling is disabled above this temperature.
+        |  Units: C
+        |  Default value: 43.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Cooling Mode`
-                Units: C
-                Default value: 43.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -857,12 +862,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(
             self):
-        """field `Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter a curve name that represents full load cooling capacity ratio as a
-        function of outdoor dry-bulb temperature and indoor wet-bulb temperature.
-        Up to two curves are allowed if the performance cannot be represented by a single curve.
-        The following two fields are used if two curves are required.
+        """field `Cooling Capacity Ratio Modifier Function of Low Temperature
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter a curve name that represents full load cooling capacity ratio as a
+        |  function of outdoor dry-bulb temperature and indoor wet-bulb temperature.
+        |  Up to two curves are allowed if the performance cannot be represented by a single curve.
+        |  The following two fields are used if two curves are required.
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name`
@@ -872,6 +879,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"]
@@ -888,12 +896,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_capacity_ratio_boundary_curve_name(self):
         """field `Cooling Capacity Ratio Boundary Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve object is used to allow separate low and high cooling capacity ratio
-        performance curves. This curve represents a line passing through the points where
-        performance changes. The curve calculates outdoor dry-bulb temperature given weighted
-        average indoor wet-bulb temperature. If a single performance curve is used,
-        leave this field blank.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve object is used to allow separate low and high cooling capacity ratio
+        |  performance curves. This curve represents a line passing through the points where
+        |  performance changes. The curve calculates outdoor dry-bulb temperature given weighted
+        |  average indoor wet-bulb temperature. If a single performance curve is used,
+        |  leave this field blank.
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Ratio Boundary Curve Name`
@@ -903,6 +912,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_ratio_boundary_curve_name` or None if not set
+
         """
         return self["Cooling Capacity Ratio Boundary Curve Name"]
 
@@ -915,13 +925,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(
             self):
-        """field `Cooling Capacity Ratio Modifier Function of High Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        This curve object is used to describe the high outdoor temperature
-        performance curve used to describe cooling capacity ratio.
-        This curve is used when a single performance curve does not accurately describe
-        cooling capacity ratio as a function of temperature.
-        If a single performance curve is used, leave this field blank.
+        """field `Cooling Capacity Ratio Modifier Function of High Temperature
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  This curve object is used to describe the high outdoor temperature
+        |  performance curve used to describe cooling capacity ratio.
+        |  This curve is used when a single performance curve does not accurately describe
+        |  cooling capacity ratio as a function of temperature.
+        |  If a single performance curve is used, leave this field blank.
 
         Args:
             value (str): value for IDD Field `Cooling Capacity Ratio Modifier Function of High Temperature Curve Name`
@@ -931,6 +943,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"]
@@ -947,10 +960,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
             self):
-        """field `Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter a curve name that represents cooling energy ratio as a function of
-        outdoor dry-bulb temperature and indoor wet-bulb temperature
+        """field `Cooling Energy Input Ratio Modifier Function of Low
+        Temperature Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter a curve name that represents cooling energy ratio as a function of
+        |  outdoor dry-bulb temperature and indoor wet-bulb temperature
 
         Args:
             value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name`
@@ -960,6 +975,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
@@ -976,12 +992,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_energy_input_ratio_boundary_curve_name(self):
         """field `Cooling Energy Input Ratio Boundary Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve object is used to allow separate low and high cooling energy input ratio
-        performance curves. This curve represents a line passing through the points where
-        performance changes. The curve calculates outdoor dry-bulb temperature given weighted
-        average indoor wet-bulb temperature. If a single performance curve is used,
-        leave this field blank.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve object is used to allow separate low and high cooling energy input ratio
+        |  performance curves. This curve represents a line passing through the points where
+        |  performance changes. The curve calculates outdoor dry-bulb temperature given weighted
+        |  average indoor wet-bulb temperature. If a single performance curve is used,
+        |  leave this field blank.
 
         Args:
             value (str): value for IDD Field `Cooling Energy Input Ratio Boundary Curve Name`
@@ -991,6 +1008,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_energy_input_ratio_boundary_curve_name` or None if not set
+
         """
         return self["Cooling Energy Input Ratio Boundary Curve Name"]
 
@@ -1003,12 +1021,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
             self):
-        """field `Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        This curve object is used to describe the high outdoor temperature
-        performance curve used to describe cooling energy ratio.
-        This curve is used when a single performance curve does not accurately describe
-        cooling energy ratio as a function of temperature
+        """field `Cooling Energy Input Ratio Modifier Function of High
+        Temperature Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  This curve object is used to describe the high outdoor temperature
+        |  performance curve used to describe cooling energy ratio.
+        |  This curve is used when a single performance curve does not accurately describe
+        |  cooling energy ratio as a function of temperature
 
         Args:
             value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name`
@@ -1018,6 +1038,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
+
         """
         return self[
             "Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"]
@@ -1035,11 +1056,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
             self):
         """field `Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Enter a curve name that represents cooling energy ratio as a function of
-        part-load ratio for part-load ratios less than or equal to 1.
-        If this field is left blank, the model assumes energy is proportional to
-        part-load ratio.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Enter a curve name that represents cooling energy ratio as a function of
+        |  part-load ratio for part-load ratios less than or equal to 1.
+        |  If this field is left blank, the model assumes energy is proportional to
+        |  part-load ratio.
 
         Args:
             value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
@@ -1067,12 +1089,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
             self):
         """field `Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Enter a curve name that represents cooling energy ratio as a function of
-        part-load ratio for part-load ratios greater than 1. Part-load ratios
-        can exceed 1 in variable speed compresson systems.
-        If this field is left blank, the model assumes energy is proportional to
-        part-load ratio.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Enter a curve name that represents cooling energy ratio as a function of
+        |  part-load ratio for part-load ratios greater than 1. Part-load ratios
+        |  can exceed 1 in variable speed compresson systems.
+        |  If this field is left blank, the model assumes energy is proportional to
+        |  part-load ratio.
 
         Args:
             value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
@@ -1099,11 +1122,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_combination_ratio_correction_factor_curve_name(self):
         """field `Cooling Combination Ratio Correction Factor Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve defines how rated capacity changes when the total indoor terminal unit cooling
-        capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.
-        If this field is left blank, the model assumes total indoor terminal unit cooling
-        capacity is equal to the Gross Rated Total Cooling Capacity defined above.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve defines how rated capacity changes when the total indoor terminal unit cooling
+        |  capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.
+        |  If this field is left blank, the model assumes total indoor terminal unit cooling
+        |  capacity is equal to the Gross Rated Total Cooling Capacity defined above.
 
         Args:
             value (str): value for IDD Field `Cooling Combination Ratio Correction Factor Curve Name`
@@ -1113,6 +1137,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `cooling_combination_ratio_correction_factor_curve_name` or None if not set
+
         """
         return self["Cooling Combination Ratio Correction Factor Curve Name"]
 
@@ -1127,9 +1152,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def cooling_partload_fraction_correlation_curve_name(self):
         """field `Cooling Part-Load Fraction Correlation Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve defines the cycling losses when the heat pump compressor cycles on and off
-        below the Minimum Heat Pump Part-Load Ratio specified in the field below.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve defines the cycling losses when the heat pump compressor cycles on and off
+        |  below the Minimum Heat Pump Part-Load Ratio specified in the field below.
 
         Args:
             value (str): value for IDD Field `Cooling Part-Load Fraction Correlation Curve Name`
@@ -1151,19 +1177,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def gross_rated_heating_capacity(self):
-        """field `Gross Rated Heating Capacity` Enter the heating capacity in
-        watts at rated conditions or set to autosize. Heating capacity not
-        accounting for the effect of supply air fan heat.
+        """field `Gross Rated Heating Capacity`
+
+        |  Enter the heating capacity in watts at rated conditions or set to autosize.
+        |  Heating capacity not accounting for the effect of supply air fan heat
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Gross Rated Heating Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `gross_rated_heating_capacity` or None if not set
+            float or "Autosize": the value of `gross_rated_heating_capacity` or None if not set
 
         """
         return self["Gross Rated Heating Capacity"]
@@ -1176,22 +1203,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def rated_heating_capacity_sizing_ratio(self):
         """field `Rated Heating Capacity Sizing Ratio`
-        If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
-        to be equal to the cooling capacity multiplied by this sizing ratio. The zone
-        terminal unit heating coils are also sized using this ratio unless the sizing
-        ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+
+        |  If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
+        |  to be equal to the cooling capacity multiplied by this sizing ratio. The zone
+        |  terminal unit heating coils are also sized using this ratio unless the sizing
+        |  ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+        |  Units: W/W
+        |  Default value: 1.0
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `Rated Heating Capacity Sizing Ratio`
-                Units: W/W
-                Default value: 1.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_heating_capacity_sizing_ratio` or None if not set
+
         """
         return self["Rated Heating Capacity Sizing Ratio"]
 
@@ -1202,14 +1231,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def gross_rated_heating_cop(self):
-        """field `Gross Rated Heating COP` COP includes compressor and
-        condenser fan electrical energy input COP does not include supply fan
-        heat or supply fan electrical energy input.
+        """field `Gross Rated Heating COP`
+
+        |  COP includes compressor and condenser fan electrical energy input
+        |  COP does not include supply fan heat or supply fan electrical energy input
+        |  Units: W/W
+        |  Default value: 3.4
 
         Args:
             value (float): value for IDD Field `Gross Rated Heating COP`
-                Units: W/W
-                Default value: 3.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1227,13 +1257,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_heating_mode(self):
-        """field `Minimum Outdoor Temperature in Heating Mode` Enter the
-        minimum outdoor temperature allowed for cooling operation.
+        """field `Minimum Outdoor Temperature in Heating Mode`
+
+        |  Enter the minimum outdoor temperature allowed for cooling operation.
+        |  Units: C
+        |  Default value: -20.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Heating Mode`
-                Units: C
-                Default value: -20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1252,13 +1283,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_heating_mode(self):
-        """field `Maximum Outdoor Temperature in Heating Mode` Enter the
-        maximum outdoor temperature allowed for heating operation.
+        """field `Maximum Outdoor Temperature in Heating Mode`
+
+        |  Enter the maximum outdoor temperature allowed for heating operation.
+        |  Units: C
+        |  Default value: 16.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Heating Mode`
-                Units: C
-                Default value: 16.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1278,15 +1310,17 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(
             self):
-        """field `Heating Capacity Ratio Modifier Function of Low Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter a curve name that represents full load heating capacity ratio as a
-        function of outdoor wet-bulb temperature and indoor dry-bulb temperature.
-        Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
-        See Heating Performance Curve Outdoor Temperature Type input below to determine which
-        outdoor temperature type to use.
-        Up to two curves are allowed if the performance cannot be represented by a single curve.
-        The following two fields are used if two curves are required.
+        """field `Heating Capacity Ratio Modifier Function of Low Temperature
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter a curve name that represents full load heating capacity ratio as a
+        |  function of outdoor wet-bulb temperature and indoor dry-bulb temperature.
+        |  Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
+        |  See Heating Performance Curve Outdoor Temperature Type input below to determine which
+        |  outdoor temperature type to use.
+        |  Up to two curves are allowed if the performance cannot be represented by a single curve.
+        |  The following two fields are used if two curves are required.
 
         Args:
             value (str): value for IDD Field `Heating Capacity Ratio Modifier Function of Low Temperature Curve Name`
@@ -1296,6 +1330,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"]
@@ -1312,13 +1347,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_capacity_ratio_boundary_curve_name(self):
         """field `Heating Capacity Ratio Boundary Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve object is used to allow separate low and high heating capacity ratio
-        performance curves. This curve represents a line passing through the points where
-        performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
-        given weighted average indoor dry-bulb temperature. See Heating Performance Curve
-        Outdoor Temperature Type input below to determine which outdoor temperature type to use.
-        If a single performance curve is used, leave this field blank.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve object is used to allow separate low and high heating capacity ratio
+        |  performance curves. This curve represents a line passing through the points where
+        |  performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
+        |  given weighted average indoor dry-bulb temperature. See Heating Performance Curve
+        |  Outdoor Temperature Type input below to determine which outdoor temperature type to use.
+        |  If a single performance curve is used, leave this field blank.
 
         Args:
             value (str): value for IDD Field `Heating Capacity Ratio Boundary Curve Name`
@@ -1328,6 +1364,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_capacity_ratio_boundary_curve_name` or None if not set
+
         """
         return self["Heating Capacity Ratio Boundary Curve Name"]
 
@@ -1340,13 +1377,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(
             self):
-        """field `Heating Capacity Ratio Modifier Function of High Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        This curve object is used to describe the high outdoor temperature
-        performance curve used to describe heating capacity ratio.
-        This curve is used when a single performance curve does not accurately describe
-        heating capacity ratio as a function of temperature.
-        If a single performance curve is used, leave this field blank.
+        """field `Heating Capacity Ratio Modifier Function of High Temperature
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  This curve object is used to describe the high outdoor temperature
+        |  performance curve used to describe heating capacity ratio.
+        |  This curve is used when a single performance curve does not accurately describe
+        |  heating capacity ratio as a function of temperature.
+        |  If a single performance curve is used, leave this field blank.
 
         Args:
             value (str): value for IDD Field `Heating Capacity Ratio Modifier Function of High Temperature Curve Name`
@@ -1356,6 +1395,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Capacity Ratio Modifier Function of High Temperature Curve Name"]
@@ -1372,13 +1412,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
             self):
-        """field `Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter a curve name that represents heating energy ratio as a function of
-        outdoor wet-bulb temperature and indoor dry-bulb temperature
-        Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
-        See Heating Performance Curve Outdoor Temperature Type input below to determine which
-        outdoor temperature type to use.
+        """field `Heating Energy Input Ratio Modifier Function of Low
+        Temperature Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter a curve name that represents heating energy ratio as a function of
+        |  outdoor wet-bulb temperature and indoor dry-bulb temperature
+        |  Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
+        |  See Heating Performance Curve Outdoor Temperature Type input below to determine which
+        |  outdoor temperature type to use.
 
         Args:
             value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name`
@@ -1388,6 +1430,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
@@ -1404,13 +1447,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_energy_input_ratio_boundary_curve_name(self):
         """field `Heating Energy Input Ratio Boundary Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve object is used to allow separate low and high heating energy input ratio
-        performance curves. This curve represents a line passing through the points where
-        performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
-        given weighted average indoor dry-bulb temperature. See Heating Performance Curve
-        Outdoor Temperature Type input below to determine which outdoor temperature type to use.
-        If a single performance curve is used, leave this field blank.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve object is used to allow separate low and high heating energy input ratio
+        |  performance curves. This curve represents a line passing through the points where
+        |  performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
+        |  given weighted average indoor dry-bulb temperature. See Heating Performance Curve
+        |  Outdoor Temperature Type input below to determine which outdoor temperature type to use.
+        |  If a single performance curve is used, leave this field blank.
 
         Args:
             value (str): value for IDD Field `Heating Energy Input Ratio Boundary Curve Name`
@@ -1420,6 +1464,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_energy_input_ratio_boundary_curve_name` or None if not set
+
         """
         return self["Heating Energy Input Ratio Boundary Curve Name"]
 
@@ -1432,10 +1477,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
             self):
-        """field `Heating Energy Input Ratio Modifier Function of High Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        This curve object is used to allow separate performance curves for heating energy.
-        If a single performance curve is used, leave this field blank.
+        """field `Heating Energy Input Ratio Modifier Function of High
+        Temperature Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  This curve object is used to allow separate performance curves for heating energy.
+        |  If a single performance curve is used, leave this field blank.
 
         Args:
             value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of High Temperature Curve Name`
@@ -1445,6 +1492,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
+
         """
         return self[
             "Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"]
@@ -1461,19 +1509,21 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_performance_curve_outdoor_temperature_type(self):
         """field `Heating Performance Curve Outdoor Temperature Type`
-        Determines temperature type for heating capacity curves and heating energy curves.
-        This input determines whether the outdoor air dry-bulb or wet-bulb temperature
-        is used to evaluate these curves.
+
+        |  Determines temperature type for heating capacity curves and heating energy curves.
+        |  This input determines whether the outdoor air dry-bulb or wet-bulb temperature
+        |  is used to evaluate these curves.
+        |  Default value: WetBulbTemperature
 
         Args:
             value (str): value for IDD Field `Heating Performance Curve Outdoor Temperature Type`
-                Default value: WetBulbTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_performance_curve_outdoor_temperature_type` or None if not set
+
         """
         return self["Heating Performance Curve Outdoor Temperature Type"]
 
@@ -1489,8 +1539,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
             self):
         """field `Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve represents the heating energy input ratio for part-load ratios less than 1.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve represents the heating energy input ratio for part-load ratios less than 1.
 
         Args:
             value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
@@ -1518,8 +1569,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
             self):
         """field `Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve represents the heating energy input ratio for part-load ratios greater than 1.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve represents the heating energy input ratio for part-load ratios greater than 1.
 
         Args:
             value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
@@ -1546,11 +1598,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_combination_ratio_correction_factor_curve_name(self):
         """field `Heating Combination Ratio Correction Factor Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve defines how rated capacity changes when the total indoor terminal unit heating
-        capacity is greater than the Gross Rated Heating Capacity defined in this object.
-        If this field is left blank, the model assumes total indoor terminal unit heating
-        capacity is equal to the Gross Rated Heating Capacity defined above.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve defines how rated capacity changes when the total indoor terminal unit heating
+        |  capacity is greater than the Gross Rated Heating Capacity defined in this object.
+        |  If this field is left blank, the model assumes total indoor terminal unit heating
+        |  capacity is equal to the Gross Rated Heating Capacity defined above.
 
         Args:
             value (str): value for IDD Field `Heating Combination Ratio Correction Factor Curve Name`
@@ -1560,6 +1613,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heating_combination_ratio_correction_factor_curve_name` or None if not set
+
         """
         return self["Heating Combination Ratio Correction Factor Curve Name"]
 
@@ -1574,9 +1628,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heating_partload_fraction_correlation_curve_name(self):
         """field `Heating Part-Load Fraction Correlation Curve Name`
-        Table:OneIndependentVariable object can also be used
-        This curve defines the cycling losses when the heat pump compressor cycles on and off
-        below the Minimum Heat Pump Part-Load Ratio specified in the following field.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  This curve defines the cycling losses when the heat pump compressor cycles on and off
+        |  below the Minimum Heat Pump Part-Load Ratio specified in the following field.
 
         Args:
             value (str): value for IDD Field `Heating Part-Load Fraction Correlation Curve Name`
@@ -1599,14 +1654,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def minimum_heat_pump_partload_ratio(self):
         """field `Minimum Heat Pump Part-Load Ratio`
-        Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
-        below this value, the heat pump compressor will cycle to meet the cooling or heating
-        demand.
+
+        |  Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
+        |  below this value, the heat pump compressor will cycle to meet the cooling or heating
+        |  demand.
+        |  Units: dimensionless
+        |  Default value: 0.15
 
         Args:
             value (float): value for IDD Field `Minimum Heat Pump Part-Load Ratio`
-                Units: dimensionless
-                Default value: 0.15
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1625,8 +1681,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def zone_name_for_master_thermostat_location(self):
-        """field `Zone Name for Master Thermostat Location` Enter the name of
-        the zone where the master thermostat is located.
+        """field `Zone Name for Master Thermostat Location`
+
+        |  Enter the name of the zone where the master thermostat is located.
 
         Args:
             value (str): value for IDD Field `Zone Name for Master Thermostat Location`
@@ -1648,14 +1705,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def master_thermostat_priority_control_type(self):
-        """field `Master Thermostat Priority Control Type` Choose a thermostat
-        control logic scheme. If these control types fail to control zone
-        temperature within a reasonable limit, consider using multiple VRF
-        systems.
+        """field `Master Thermostat Priority Control Type`
+
+        |  Choose a thermostat control logic scheme. If these control types fail to control zone
+        |  temperature within a reasonable limit, consider using multiple VRF systems
+        |  Default value: MasterThermostatPriority
 
         Args:
             value (str): value for IDD Field `Master Thermostat Priority Control Type`
-                Default value: MasterThermostatPriority
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1676,10 +1733,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def thermostat_priority_schedule_name(self):
-        """field `Thermostat Priority Schedule Name` this field is required if
-        Master Thermostat Priority Control Type is Scheduled. Schedule values
-        of 0 denote cooling, 1 for heating, and all other values disable the
-        system.
+        """field `Thermostat Priority Schedule Name`
+
+        |  this field is required if Master Thermostat Priority Control Type is Scheduled.
+        |  Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.
 
         Args:
             value (str): value for IDD Field `Thermostat Priority Schedule Name`
@@ -1700,9 +1757,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def zone_terminal_unit_list_name(self):
-        """field `Zone Terminal Unit List Name` Enter the name of a
-        ZoneTerminalUnitList. This list connects zone terminal units to this
-        heat pump.
+        """field `Zone Terminal Unit List Name`
+
+        |  Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this
+        |  heat pump.
 
         Args:
             value (str): value for IDD Field `Zone Terminal Unit List Name`
@@ -1723,12 +1781,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_pump_waste_heat_recovery(self):
-        """field `Heat Pump Waste Heat Recovery` This field is reserved for
-        future use. The only valid choice is No.
+        """field `Heat Pump Waste Heat Recovery`
+
+        |  This field is reserved for future use. The only valid choice is No.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Heat Pump Waste Heat Recovery`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1748,12 +1807,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(
             self):
         """field `Equivalent Piping Length used for Piping Correction Factor in
-        Cooling Mode` Enter the equivalent length of the farthest terminal unit
-        from the condenser.
+        Cooling Mode`
+
+        |  Enter the equivalent length of the farthest terminal unit from the condenser
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Cooling Mode`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1776,12 +1836,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def vertical_height_used_for_piping_correction_factor(self):
-        """field `Vertical Height used for Piping Correction Factor` Enter the
-        height difference between the highest and lowest terminal unit.
+        """field `Vertical Height used for Piping Correction Factor`
+
+        |  Enter the height difference between the highest and lowest terminal unit
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Vertical Height used for Piping Correction Factor`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1800,13 +1861,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def piping_correction_factor_for_length_in_cooling_mode_curve_name(self):
-        """field `Piping Correction Factor for Length in Cooling Mode Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Table:TwoIndependentVariables object can also be used
-        PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-        PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)
-        where L = length and CR = combination ratio
-        specifies coefficients for a0, a1, a2, and a3 in the PCF equation
+        """field `Piping Correction Factor for Length in Cooling Mode Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Table:TwoIndependentVariables object can also be used
+        |  PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+        |  PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)
+        |  where L = length and CR = combination ratio
+        |  specifies coefficients for a0, a1, a2, and a3 in the PCF equation
 
         Args:
             value (str): value for IDD Field `Piping Correction Factor for Length in Cooling Mode Curve Name`
@@ -1816,6 +1879,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `piping_correction_factor_for_length_in_cooling_mode_curve_name` or None if not set
+
         """
         return self[
             "Piping Correction Factor for Length in Cooling Mode Curve Name"]
@@ -1831,21 +1895,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def piping_correction_factor_for_height_in_cooling_mode_coefficient(self):
-        """field `Piping Correction Factor for Height in Cooling Mode Coefficient`
-        PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-        PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-        where L = length, H = height, and CR = combination ratio
-        specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        """field `Piping Correction Factor for Height in Cooling Mode
+        Coefficient`
+
+        |  PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+        |  PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+        |  where L = length, H = height, and CR = combination ratio
+        |  specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        |  Units: 1/m
 
         Args:
             value (float): value for IDD Field `Piping Correction Factor for Height in Cooling Mode Coefficient`
-                Units: 1/m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `piping_correction_factor_for_height_in_cooling_mode_coefficient` or None if not set
+
         """
         return self[
             "Piping Correction Factor for Height in Cooling Mode Coefficient"]
@@ -1863,12 +1930,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(
             self):
         """field `Equivalent Piping Length used for Piping Correction Factor in
-        Heating Mode` Enter the equivalent length of the farthest terminal unit
-        from the condenser.
+        Heating Mode`
+
+        |  Enter the equivalent length of the farthest terminal unit from the condenser
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Heating Mode`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1891,13 +1959,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def piping_correction_factor_for_length_in_heating_mode_curve_name(self):
-        """field `Piping Correction Factor for Length in Heating Mode Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Table:TwoIndependentVariables object can also be used
-        PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-        PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-        where L = length and CR = combination ratio
-        specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation
+        """field `Piping Correction Factor for Length in Heating Mode Curve
+        Name`
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Table:TwoIndependentVariables object can also be used
+        |  PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+        |  PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+        |  where L = length and CR = combination ratio
+        |  specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation
 
         Args:
             value (str): value for IDD Field `Piping Correction Factor for Length in Heating Mode Curve Name`
@@ -1907,6 +1977,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `piping_correction_factor_for_length_in_heating_mode_curve_name` or None if not set
+
         """
         return self[
             "Piping Correction Factor for Length in Heating Mode Curve Name"]
@@ -1922,21 +1993,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def piping_correction_factor_for_height_in_heating_mode_coefficient(self):
-        """field `Piping Correction Factor for Height in Heating Mode Coefficient`
-        PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-        PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-        where L = length, H = height, and CR = combination ratio
-        specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        """field `Piping Correction Factor for Height in Heating Mode
+        Coefficient`
+
+        |  PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
+        |  PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
+        |  where L = length, H = height, and CR = combination ratio
+        |  specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        |  Units: 1/m
 
         Args:
             value (float): value for IDD Field `Piping Correction Factor for Height in Heating Mode Coefficient`
-                Units: 1/m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `piping_correction_factor_for_height_in_heating_mode_coefficient` or None if not set
+
         """
         return self[
             "Piping Correction Factor for Height in Heating Mode Coefficient"]
@@ -1952,14 +2026,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def crankcase_heater_power_per_compressor(self):
-        """field `Crankcase Heater Power per Compressor` Enter the value of the
-        resistive heater located in the compressor(s). This heater is used to
-        warm the refrigerant and oil when the compressor is off.
+        """field `Crankcase Heater Power per Compressor`
+
+        |  Enter the value of the resistive heater located in the compressor(s). This heater
+        |  is used to warm the refrigerant and oil when the compressor is off.
+        |  Units: W
+        |  Default value: 33.0
 
         Args:
             value (float): value for IDD Field `Crankcase Heater Power per Compressor`
-                Units: W
-                Default value: 33.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1977,13 +2052,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def number_of_compressors(self):
-        """field `Number of Compressors` Enter the total number of compressor.
-        This input is used only for crankcase heater calculations.
+        """field `Number of Compressors`
+
+        |  Enter the total number of compressor. This input is used only for crankcase
+        |  heater calculations.
+        |  Units: dimensionless
+        |  Default value: 2
 
         Args:
             value (int): value for IDD Field `Number of Compressors`
-                Units: dimensionless
-                Default value: 2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2001,15 +2078,16 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def ratio_of_compressor_size_to_total_compressor_capacity(self):
-        """field `Ratio of Compressor Size to Total Compressor Capacity` Enter
-        the ratio of the first stage compressor to total compressor capacity.
-        All other compressors are assumed to be equally sized. This inputs is
-        used only for crankcase heater calculations.
+        """field `Ratio of Compressor Size to Total Compressor Capacity`
+
+        |  Enter the ratio of the first stage compressor to total compressor capacity.
+        |  All other compressors are assumed to be equally sized. This inputs is used
+        |  only for crankcase heater calculations.
+        |  Units: W/W
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Ratio of Compressor Size to Total Compressor Capacity`
-                Units: W/W
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2029,12 +2107,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def maximum_outdoor_drybulb_temperature_for_crankcase_heater(self):
         """field `Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater`
-        Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+
+        |  Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        |  Units: C
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2057,14 +2136,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def defrost_strategy(self):
-        """field `Defrost Strategy` Select a defrost strategy. Reverse cycle
-        reverses the operating mode from heating to cooling to melt frost
-        formation on the condenser coil. The resistive strategy uses a resitive
-        heater to melt the frost.
+        """field `Defrost Strategy`
+
+        |  Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling
+        |  to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater
+        |  to melt the frost.
+        |  Default value: Resistive
 
         Args:
             value (str): value for IDD Field `Defrost Strategy`
-                Default value: Resistive
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2082,13 +2162,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def defrost_control(self):
-        """field `Defrost Control` Choose a defrost control type. Either use a
-        fixed Timed defrost period or select OnDemand to defrost only when
-        necessary.
+        """field `Defrost Control`
+
+        |  Choose a defrost control type. Either use a fixed Timed defrost period or select
+        |  OnDemand to defrost only when necessary.
+        |  Default value: Timed
 
         Args:
             value (str): value for IDD Field `Defrost Control`
-                Default value: Timed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2107,9 +2188,11 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(
             self):
-        """field `Defrost Energy Input Ratio Modifier Function of Temperature Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        A valid performance curve must be used if reversecycle defrost strategy is selected.
+        """field `Defrost Energy Input Ratio Modifier Function of Temperature
+        Curve Name`
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  A valid performance curve must be used if reversecycle defrost strategy is selected.
 
         Args:
             value (str): value for IDD Field `Defrost Energy Input Ratio Modifier Function of Temperature Curve Name`
@@ -2119,6 +2202,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name` or None if not set
+
         """
         return self[
             "Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"]
@@ -2134,13 +2218,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def defrost_time_period_fraction(self):
-        """field `Defrost Time Period Fraction` Fraction of time in defrost
-        mode. Only applicable if timed defrost control is specified.
+        """field `Defrost Time Period Fraction`
+
+        |  Fraction of time in defrost mode.
+        |  Only applicable if timed defrost control is specified.
+        |  Units: dimensionless
+        |  Default value: 0.058333
 
         Args:
             value (float): value for IDD Field `Defrost Time Period Fraction`
-                Units: dimensionless
-                Default value: 0.058333
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2158,20 +2244,21 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def resistive_defrost_heater_capacity(self):
-        """field `Resistive Defrost Heater Capacity` Enter the size of the
-        resistive defrost heating element. Only applicable if resistive defrost
-        strategy is specified.
+        """field `Resistive Defrost Heater Capacity`
+
+        |  Enter the size of the resistive defrost heating element.
+        |  Only applicable if resistive defrost strategy is specified
+        |  Units: W
+        |  IP-Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Resistive Defrost Heater Capacity`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `resistive_defrost_heater_capacity` or None if not set
+            float or "Autosize": the value of `resistive_defrost_heater_capacity` or None if not set
 
         """
         return self["Resistive Defrost Heater Capacity"]
@@ -2184,12 +2271,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def maximum_outdoor_drybulb_temperature_for_defrost_operation(self):
         """field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
-        Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+
+        |  Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        |  Units: C
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
-                Units: C
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2213,17 +2301,19 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def condenser_type(self):
         """field `Condenser Type`
-        Select either an air-cooled, evaporatively-cooled or water-cooled condenser.
+
+        |  Select either an air-cooled, evaporatively-cooled or water-cooled condenser.
+        |  Default value: AirCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `condenser_type` or None if not set
+
         """
         return self["Condenser Type"]
 
@@ -2235,9 +2325,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def condenser_inlet_node_name(self):
         """field `Condenser Inlet Node Name`
-        Choose an outside air node name or leave this field blank to use weather data.
-        If this field is blank, the Condenser Type is assumed to be AirCooled.
-        This input must be specified if Condenser Type = WaterCooled.
+
+        |  Choose an outside air node name or leave this field blank to use weather data.
+        |  If this field is blank, the Condenser Type is assumed to be AirCooled.
+        |  This input must be specified if Condenser Type = WaterCooled.
 
         Args:
             value (str): value for IDD Field `Condenser Inlet Node Name`
@@ -2247,6 +2338,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `condenser_inlet_node_name` or None if not set
+
         """
         return self["Condenser Inlet Node Name"]
 
@@ -2258,8 +2350,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def condenser_outlet_node_name(self):
         """field `Condenser Outlet Node Name`
-        Enter a water outlet node name if Condenser Type = WaterCooled.
-        Leave this field blank if Condenser Type = Air or EvaporativelyCooled.
+
+        |  Enter a water outlet node name if Condenser Type = WaterCooled.
+        |  Leave this field blank if Condenser Type = Air or EvaporativelyCooled.
 
         Args:
             value (str): value for IDD Field `Condenser Outlet Node Name`
@@ -2269,6 +2362,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `condenser_outlet_node_name` or None if not set
+
         """
         return self["Condenser Outlet Node Name"]
 
@@ -2280,17 +2374,19 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def water_condenser_volume_flow_rate(self):
         """field `Water Condenser Volume Flow Rate`
-        Only used when Condenser Type = WaterCooled.
+
+        |  Only used when Condenser Type = WaterCooled.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Water Condenser Volume Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `water_condenser_volume_flow_rate` or None if not set
+            float or "Autosize": the value of `water_condenser_volume_flow_rate` or None if not set
+
         """
         return self["Water Condenser Volume Flow Rate"]
 
@@ -2302,20 +2398,22 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def evaporative_condenser_effectiveness(self):
         """field `Evaporative Condenser Effectiveness`
-        Enter the effectiveness of the evaporatively cooled condenser.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Enter the effectiveness of the evaporatively cooled condenser.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Evaporative Condenser Effectiveness`
-                Units: dimensionless
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporative_condenser_effectiveness` or None if not set
+
         """
         return self["Evaporative Condenser Effectiveness"]
 
@@ -2327,18 +2425,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def evaporative_condenser_air_flow_rate(self):
         """field `Evaporative Condenser Air Flow Rate`
-        Used to calculate evaporative condenser water use.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Used to calculate evaporative condenser water use.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Evaporative Condenser Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporative_condenser_air_flow_rate` or None if not set
+            float or "Autosize": the value of `evaporative_condenser_air_flow_rate` or None if not set
+
         """
         return self["Evaporative Condenser Air Flow Rate"]
 
@@ -2350,18 +2450,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def evaporative_condenser_pump_rated_power_consumption(self):
         """field `Evaporative Condenser Pump Rated Power Consumption`
-        Rated power consumed by the evaporative condenser's water pump.
-        This field is only used when the Condenser Type = EvaporativelyCooled.
+
+        |  Rated power consumed by the evaporative condenser's water pump.
+        |  This field is only used when the Condenser Type = EvaporativelyCooled.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Evaporative Condenser Pump Rated Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporative_condenser_pump_rated_power_consumption` or None if not set
+            float or "Autosize": the value of `evaporative_condenser_pump_rated_power_consumption` or None if not set
+
         """
         return self["Evaporative Condenser Pump Rated Power Consumption"]
 
@@ -2373,8 +2475,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def supply_water_storage_tank_name(self):
-        """field `Supply Water Storage Tank Name` A separate storage tank may
-        be used to supply an evaporatively cooled condenser.
+        """field `Supply Water Storage Tank Name`
+
+        |  A separate storage tank may be used to supply an evaporatively cooled condenser.
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -2396,21 +2499,23 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the basin heater is available (field Basin Heater Operating Schedule Name).
-        For this situation, the heater maintains the basin water temperature at the basin heater
-        setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-        The basin heater only operates when the DX coil is off.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the basin heater is available (field Basin Heater Operating Schedule Name).
+        |  For this situation, the heater maintains the basin water temperature at the basin heater
+        |  setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
+        |  The basin heater only operates when the DX coil is off.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -2422,20 +2527,22 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Enter the outdoor dry-bulb temperature when the basin heater turns on.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -2447,11 +2554,12 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def basin_heater_operating_schedule_name(self):
         """field `Basin Heater Operating Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-        air dry-bulb temperature is below the basin heater setpoint temperature.
-        If a schedule name is not entered, the basin heater is allowed to operate
-        throughout the entire simulation.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
+        |  air dry-bulb temperature is below the basin heater setpoint temperature.
+        |  If a schedule name is not entered, the basin heater is allowed to operate
+        |  throughout the entire simulation.
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -2461,6 +2569,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `basin_heater_operating_schedule_name` or None if not set
+
         """
         return self["Basin Heater Operating Schedule Name"]
 
@@ -2473,9 +2582,10 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     def fuel_type(self):
         """field `Fuel Type`
 
+        |  Default value: Electricity
+
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Default value: Electricity
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2493,13 +2603,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def minimum_outdoor_temperature_in_heat_recovery_mode(self):
-        """field `Minimum Outdoor Temperature in Heat Recovery Mode` The
-        minimum outdoor temperature below which heat recovery mode will not
-        operate.
+        """field `Minimum Outdoor Temperature in Heat Recovery Mode`
+
+        |  The minimum outdoor temperature below which heat
+        |  recovery mode will not operate.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature in Heat Recovery Mode`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2518,13 +2629,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def maximum_outdoor_temperature_in_heat_recovery_mode(self):
-        """field `Maximum Outdoor Temperature in Heat Recovery Mode` The
-        maximum outdoor temperature above which heat recovery mode will not
-        operate.
+        """field `Maximum Outdoor Temperature in Heat Recovery Mode`
+
+        |  The maximum outdoor temperature above which heat
+        |  recovery mode will not operate.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature in Heat Recovery Mode`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2544,10 +2656,11 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heat_recovery_cooling_capacity_modifier_curve_name(self):
         """field `Heat Recovery Cooling Capacity Modifier Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter the name of a performance curve which represents
-        the change in cooling capacity when heat recovery is active
-        A default constant of 0.9 is used if this input is blank
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter the name of a performance curve which represents
+        |  the change in cooling capacity when heat recovery is active
+        |  A default constant of 0.9 is used if this input is blank
 
         Args:
             value (str): value for IDD Field `Heat Recovery Cooling Capacity Modifier Curve Name`
@@ -2557,6 +2670,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heat_recovery_cooling_capacity_modifier_curve_name` or None if not set
+
         """
         return self["Heat Recovery Cooling Capacity Modifier Curve Name"]
 
@@ -2569,22 +2683,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def initial_heat_recovery_cooling_capacity_fraction(self):
         """field `Initial Heat Recovery Cooling Capacity Fraction`
-        Enter the fractional capacity available at the start
-        of heat recovery mode. The capacity exponentially approaches
-        the steady-state value according to the inputs for
-        Heat Recovery Cooling Capacity Modifier and Heat Recovery
-        Cooling Capacity Time Constant
+
+        |  Enter the fractional capacity available at the start
+        |  of heat recovery mode. The capacity exponentially approaches
+        |  the steady-state value according to the inputs for
+        |  Heat Recovery Cooling Capacity Modifier and Heat Recovery
+        |  Cooling Capacity Time Constant
+        |  Units: W/W
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Initial Heat Recovery Cooling Capacity Fraction`
-                Units: W/W
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `initial_heat_recovery_cooling_capacity_fraction` or None if not set
+
         """
         return self["Initial Heat Recovery Cooling Capacity Fraction"]
 
@@ -2596,14 +2712,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_recovery_cooling_capacity_time_constant(self):
-        """field `Heat Recovery Cooling Capacity Time Constant` Enter the time
-        constant used to model the transition from cooling only mode to heat
-        recovery mode.
+        """field `Heat Recovery Cooling Capacity Time Constant`
+
+        |  Enter the time constant used to model the transition
+        |  from cooling only mode to heat recovery mode
+        |  Units: hr
+        |  Default value: 0.15
 
         Args:
             value (float): value for IDD Field `Heat Recovery Cooling Capacity Time Constant`
-                Units: hr
-                Default value: 0.15
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2623,10 +2740,11 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heat_recovery_cooling_energy_modifier_curve_name(self):
         """field `Heat Recovery Cooling Energy Modifier Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter the name of a performance curve which represents
-        the change in cooling energy when heat recovery is active
-        A default constant of 1.1 is used if this input is blank
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter the name of a performance curve which represents
+        |  the change in cooling energy when heat recovery is active
+        |  A default constant of 1.1 is used if this input is blank
 
         Args:
             value (str): value for IDD Field `Heat Recovery Cooling Energy Modifier Curve Name`
@@ -2636,6 +2754,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heat_recovery_cooling_energy_modifier_curve_name` or None if not set
+
         """
         return self["Heat Recovery Cooling Energy Modifier Curve Name"]
 
@@ -2648,22 +2767,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def initial_heat_recovery_cooling_energy_fraction(self):
         """field `Initial Heat Recovery Cooling Energy Fraction`
-        Enter the fractional electric consumption rate at the start
-        of heat recovery mode. The electric consumption rate exponentially
-        approaches the steady-state value according to the inputs for
-        Heat Recovery Cooling Energy Modifier and Heat Recovery
-        Cooling Energy Time Constant
+
+        |  Enter the fractional electric consumption rate at the start
+        |  of heat recovery mode. The electric consumption rate exponentially
+        |  approaches the steady-state value according to the inputs for
+        |  Heat Recovery Cooling Energy Modifier and Heat Recovery
+        |  Cooling Energy Time Constant
+        |  Units: W/W
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Initial Heat Recovery Cooling Energy Fraction`
-                Units: W/W
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `initial_heat_recovery_cooling_energy_fraction` or None if not set
+
         """
         return self["Initial Heat Recovery Cooling Energy Fraction"]
 
@@ -2675,13 +2796,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_recovery_cooling_energy_time_constant(self):
-        """field `Heat Recovery Cooling Energy Time Constant` Enter the time
-        constant used to model the transition from cooling only mode to heat
-        recovery mode.
+        """field `Heat Recovery Cooling Energy Time Constant`
+
+        |  Enter the time constant used to model the transition
+        |  from cooling only mode to heat recovery mode
+        |  Units: hr
 
         Args:
             value (float): value for IDD Field `Heat Recovery Cooling Energy Time Constant`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2701,10 +2823,11 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heat_recovery_heating_capacity_modifier_curve_name(self):
         """field `Heat Recovery Heating Capacity Modifier Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter the name of a performance curve which represents
-        the change in heating capacity when heat recovery is active
-        A default constant of 1.1 is used if this input is blank
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter the name of a performance curve which represents
+        |  the change in heating capacity when heat recovery is active
+        |  A default constant of 1.1 is used if this input is blank
 
         Args:
             value (str): value for IDD Field `Heat Recovery Heating Capacity Modifier Curve Name`
@@ -2714,6 +2837,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heat_recovery_heating_capacity_modifier_curve_name` or None if not set
+
         """
         return self["Heat Recovery Heating Capacity Modifier Curve Name"]
 
@@ -2726,22 +2850,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def initial_heat_recovery_heating_capacity_fraction(self):
         """field `Initial Heat Recovery Heating Capacity Fraction`
-        Enter the fractional capacity available at the start
-        of heat recovery mode. The capacity exponentially approaches
-        the steady-state value according to the inputs for
-        Heat Recovery Heating Capacity Modifier and Heat Recovery
-        Heating Capacity Time Constant
+
+        |  Enter the fractional capacity available at the start
+        |  of heat recovery mode. The capacity exponentially approaches
+        |  the steady-state value according to the inputs for
+        |  Heat Recovery Heating Capacity Modifier and Heat Recovery
+        |  Heating Capacity Time Constant
+        |  Units: W/W
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Initial Heat Recovery Heating Capacity Fraction`
-                Units: W/W
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `initial_heat_recovery_heating_capacity_fraction` or None if not set
+
         """
         return self["Initial Heat Recovery Heating Capacity Fraction"]
 
@@ -2753,14 +2879,15 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_recovery_heating_capacity_time_constant(self):
-        """field `Heat Recovery Heating Capacity Time Constant` Enter the time
-        constant used to model the transition from cooling only mode to heat
-        recovery mode.
+        """field `Heat Recovery Heating Capacity Time Constant`
+
+        |  Enter the time constant used to model the transition
+        |  from cooling only mode to heat recovery mode
+        |  Units: hr
+        |  Default value: 0.15
 
         Args:
             value (float): value for IDD Field `Heat Recovery Heating Capacity Time Constant`
-                Units: hr
-                Default value: 0.15
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2780,10 +2907,11 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def heat_recovery_heating_energy_modifier_curve_name(self):
         """field `Heat Recovery Heating Energy Modifier Curve Name`
-        Table:TwoIndependentVariables object can also be used
-        Enter the name of a performance curve which represents
-        the change in heating electric consumption rate when heat recovery is active
-        A default constant of 1.1 is used if this input is blank
+
+        |  Table:TwoIndependentVariables object can also be used
+        |  Enter the name of a performance curve which represents
+        |  the change in heating electric consumption rate when heat recovery is active
+        |  A default constant of 1.1 is used if this input is blank
 
         Args:
             value (str): value for IDD Field `Heat Recovery Heating Energy Modifier Curve Name`
@@ -2793,6 +2921,7 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
         Returns:
             str: the value of `heat_recovery_heating_energy_modifier_curve_name` or None if not set
+
         """
         return self["Heat Recovery Heating Energy Modifier Curve Name"]
 
@@ -2805,22 +2934,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
     @property
     def initial_heat_recovery_heating_energy_fraction(self):
         """field `Initial Heat Recovery Heating Energy Fraction`
-        Enter the fractional electric consumption rate at the start
-        of heat recovery mode. The electric consumption rate exponentially
-        approaches the steady-state value according to the inputs for
-        Heat Recovery Cooling Energy Modifier and Heat Recovery
-        Cooling Energy Time Constant
+
+        |  Enter the fractional electric consumption rate at the start
+        |  of heat recovery mode. The electric consumption rate exponentially
+        |  approaches the steady-state value according to the inputs for
+        |  Heat Recovery Cooling Energy Modifier and Heat Recovery
+        |  Cooling Energy Time Constant
+        |  Units: W/W
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Initial Heat Recovery Heating Energy Fraction`
-                Units: W/W
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `initial_heat_recovery_heating_energy_fraction` or None if not set
+
         """
         return self["Initial Heat Recovery Heating Energy Fraction"]
 
@@ -2832,13 +2963,14 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
     @property
     def heat_recovery_heating_energy_time_constant(self):
-        """field `Heat Recovery Heating Energy Time Constant` Enter the time
-        constant used to model the transition from cooling only mode to heat
-        recovery mode.
+        """field `Heat Recovery Heating Energy Time Constant`
+
+        |  Enter the time constant used to model the transition
+        |  from cooling only mode to heat recovery mode
+        |  Units: hr
 
         Args:
             value (float): value for IDD Field `Heat Recovery Heating Energy Time Constant`
-                Units: hr
 
         Raises:
             ValueError: if `value` is not a valid value

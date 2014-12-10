@@ -529,7 +529,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def name(self):
-        """field `Name` Unique name for the Unitary System.
+        """field `Name`
+
+        |  Unique name for the Unitary System.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -550,12 +552,14 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def control_type(self):
-        """field `Control Type` Load control requires a Controlling Zone name.
-        SetPoint control requires set points at coil outlet node.
+        """field `Control Type`
+
+        |  Load control requires a Controlling Zone name.
+        |  SetPoint control requires set points at coil outlet node.
+        |  Default value: Load
 
         Args:
             value (str): value for IDD Field `Control Type`
-                Default value: Load
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -574,8 +578,9 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def controlling_zone_or_thermostat_location(self):
         """field `Controlling Zone or Thermostat Location`
-        Used only for Load based control
-        Zone name where thermostat is located. Required when Control Type = Load.
+
+        |  Used only for Load based control
+        |  Zone name where thermostat is located. Required when Control Type = Load.
 
         Args:
             value (str): value for IDD Field `Controlling Zone or Thermostat Location`
@@ -585,6 +590,7 @@ class AirLoopHvacUnitarySystem(DataObject):
 
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
+
         """
         return self["Controlling Zone or Thermostat Location"]
 
@@ -597,28 +603,30 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        Multimode = activate enhanced dehumidification mode
-        as needed and meet sensible load.  Valid only with
-        cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
-        This control mode allows the heat exchanger to be turned
-        on and off based on the zone dehumidification requirements.
-        A ZoneControl:Humidistat object is also required.
-        CoolReheat = cool beyond the dry bulb setpoint.
-        as required to meet the humidity setpoint.  Valid with all
-        cooling coil types. When a heat exchanger assisted cooling
-        coil is used, the heat exchanger is locked on at all times.
-        A ZoneControl:Humidistat object is also required.
+
+        |  None = meet sensible load only
+        |  Multimode = activate enhanced dehumidification mode
+        |  as needed and meet sensible load.  Valid only with
+        |  cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
+        |  This control mode allows the heat exchanger to be turned
+        |  on and off based on the zone dehumidification requirements.
+        |  A ZoneControl:Humidistat object is also required.
+        |  CoolReheat = cool beyond the dry bulb setpoint.
+        |  as required to meet the humidity setpoint.  Valid with all
+        |  cooling coil types. When a heat exchanger assisted cooling
+        |  coil is used, the heat exchanger is locked on at all times.
+        |  A ZoneControl:Humidistat object is also required.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -629,12 +637,13 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. A schedule value
-        greater than zero (usually 1 is used) indicates that the unit is
-        available to operate as needed. A value less than or equal to zero
-        (usually zero is used) denotes that the unit must be off.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  A schedule value greater than zero (usually 1 is used) indicates that the unit is
+        |  available to operate as needed. A value less than or equal to zero (usually zero
+        |  is used) denotes that the unit must be off.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -655,8 +664,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` Enter the node name used as the inlet
-        air node for the unitary system.
+        """field `Air Inlet Node Name`
+
+        |  Enter the node name used as the inlet air node for the unitary system.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -677,8 +687,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` Enter the node name used as the outlet
-        air node for the unitary system.
+        """field `Air Outlet Node Name`
+
+        |  Enter the node name used as the outlet air node for the unitary system.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -700,15 +711,16 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
-        Enter the type of supply air fan if included in the unitary system.
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
-        air fan operating mode schedule values greater than 0).
-        Specify a Fan:OnOff object when the Supply Air Fan Operating Mode Schedule Name
-        input field above is left blank.
-        Specifiy a Fan:VariableVolume when modeling VAV systems which used setpoint based control
-        if the fan is included in the unitary system object.
-        The variable or constant volume fan may be specified on the branch instead of contained
-        within the unitary system object (i.e., this field may be blank for certain configurations).
+
+        |  Enter the type of supply air fan if included in the unitary system.
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
+        |  air fan operating mode schedule values greater than 0).
+        |  Specify a Fan:OnOff object when the Supply Air Fan Operating Mode Schedule Name
+        |  input field above is left blank.
+        |  Specifiy a Fan:VariableVolume when modeling VAV systems which used setpoint based control
+        |  if the fan is included in the unitary system object.
+        |  The variable or constant volume fan may be specified on the branch instead of contained
+        |  within the unitary system object (i.e., this field may be blank for certain configurations).
 
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
@@ -718,6 +730,7 @@ class AirLoopHvacUnitarySystem(DataObject):
 
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
+
         """
         return self["Supply Fan Object Type"]
 
@@ -728,8 +741,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supply_fan_name(self):
-        """field `Supply Fan Name` Enter the name of the supply air fan if
-        included in the unitary system.
+        """field `Supply Fan Name`
+
+        |  Enter the name of the supply air fan if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Supply Fan Name`
@@ -750,8 +764,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def fan_placement(self):
-        """field `Fan Placement` Enter the type of supply air fan if included
-        in the unitary system.
+        """field `Fan Placement`
+
+        |  Enter the type of supply air fan if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -773,15 +788,16 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
         """field `Supply Air Fan Operating Mode Schedule Name`
-        A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
-        fan cycles on and off in tandem with the cooling or heating coil).
-        Any other schedule value indicates continuous fan mode (supply air fan operates
-        continuously regardless of cooling or heating coil operation). Provide a schedule
-        with non-zero values when high humidity control is specified.
-        Leaving this schedule name blank will default to constant fan mode for the
-        entire simulation period.
-        This field is not used when set point based control is used where a set point
-        controls the coil (i.e., model assumes constant fan mode operation).
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the cooling or heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of cooling or heating coil operation). Provide a schedule
+        |  with non-zero values when high humidity control is specified.
+        |  Leaving this schedule name blank will default to constant fan mode for the
+        |  entire simulation period.
+        |  This field is not used when set point based control is used where a set point
+        |  controls the coil (i.e., model assumes constant fan mode operation).
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -791,6 +807,7 @@ class AirLoopHvacUnitarySystem(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
@@ -802,8 +819,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` Enter the type of heating coil if
-        included in the unitary system.
+        """field `Heating Coil Object Type`
+
+        |  Enter the type of heating coil if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -824,8 +842,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heating_coil_name(self):
-        """field `Heating Coil Name` Enter the name of the heating coil if
-        included in the unitary system.
+        """field `Heating Coil Name`
+
+        |  Enter the name of the heating coil if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -846,13 +865,14 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def dx_heating_coil_sizing_ratio(self):
-        """field `DX Heating Coil Sizing Ratio` Used to adjust heat pump
-        heating capacity with respect to DX cooling capacity used only for heat
-        pump configurations (i.e., a cooling and DX heating coil is used).
+        """field `DX Heating Coil Sizing Ratio`
+
+        |  Used to adjust heat pump heating capacity with respect to DX cooling capacity
+        |  used only for heat pump configurations (i.e., a cooling and DX heating coil is used).
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `DX Heating Coil Sizing Ratio`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -870,8 +890,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def cooling_coil_object_type(self):
-        """field `Cooling Coil Object Type` Enter the type of cooling coil if
-        included in the unitary system.
+        """field `Cooling Coil Object Type`
+
+        |  Enter the type of cooling coil if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -892,8 +913,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """field `Cooling Coil Name` Enter the name of the cooling coil if
-        included in the unitary system.
+        """field `Cooling Coil Name`
+
+        |  Enter the name of the cooling coil if included in the unitary system.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -914,13 +936,15 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def use_doas_dx_cooling_coil(self):
-        """field `Use DOAS DX Cooling Coil` If Yes, the DX cooling coil runs as
-        100% DOAS DX coil. If No, the DX cooling coil runs as a regular DX
-        coil. If left blank the default is regular dx coil.
+        """field `Use DOAS DX Cooling Coil`
+
+        |  If Yes, the DX cooling coil runs as 100% DOAS DX coil.
+        |  If No, the DX cooling coil runs as a regular DX coil.
+        |  If left blank the default is regular dx coil.
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `Use DOAS DX Cooling Coil`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -938,17 +962,17 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def doas_dx_cooling_coil_leaving_minimum_air_temperature(self):
-        """field `DOAS DX Cooling Coil Leaving Minimum Air Temperature` DX
-        cooling coil leaving minimum air temperature defines the minimum DOAS
-        DX cooling coil leaving air temperature that should be maintained to
-        avoid frost formation. This input field is optional and only used along
-        with the input field above.
+        """field `DOAS DX Cooling Coil Leaving Minimum Air Temperature`
+
+        |  DX cooling coil leaving minimum air temperature defines the minimum DOAS DX cooling coil
+        |  leaving air temperature that should be maintained to avoid frost formation. This input
+        |  field is optional and only used along with the input field above.
+        |  Units: C
+        |  Default value: 2.0
+        |  value <= 7.2
 
         Args:
             value (float): value for IDD Field `DOAS DX Cooling Coil Leaving Minimum Air Temperature`
-                Units: C
-                Default value: 2.0
-                value <= 7.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -967,17 +991,18 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def latent_load_control(self):
-        """field `Latent Load Control` SensibleOnlyLoadControl is selected when
-        thermostat control is used. LatentOnlyLoadControl is selected when
-        humidistat control is used. LatentWithSensibleLoadControl is selected
-        when thermostat control is used and dehumidification is required only
-        when a sensible load exists. LatentOrSensibleLoadControl is selected
-        when thermostat control is used and dehumidification is required any
-        time the humidistat set point is exceeded.
+        """field `Latent Load Control`
+
+        |  SensibleOnlyLoadControl is selected when thermostat control is used.
+        |  LatentOnlyLoadControl is selected when humidistat control is used.
+        |  LatentWithSensibleLoadControl is selected when thermostat control is used and
+        |  dehumidification is required only when a sensible load exists.
+        |  LatentOrSensibleLoadControl is selected when thermostat control is used and
+        |  dehumidification is required any time the humidistat set point is exceeded.
+        |  Default value: SensibleOnlyLoadControl
 
         Args:
             value (str): value for IDD Field `Latent Load Control`
-                Default value: SensibleOnlyLoadControl
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -995,9 +1020,10 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """field `Supplemental Heating Coil Object Type` Enter the type of
-        supplemental heating coil if included in the unitary system. Only
-        required if dehumidification control type is "CoolReheat".
+        """field `Supplemental Heating Coil Object Type`
+
+        |  Enter the type of supplemental heating coil if included in the unitary system.
+        |  Only required if dehumidification control type is "CoolReheat".
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -1018,9 +1044,10 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supplemental_heating_coil_name(self):
-        """field `Supplemental Heating Coil Name` Enter the name of the
-        supplemental heating coil if included in the unitary system. Only
-        required if dehumidification control type is "CoolReheat".
+        """field `Supplemental Heating Coil Name`
+
+        |  Enter the name of the supplemental heating coil if included in the unitary system.
+        |  Only required if dehumidification control type is "CoolReheat".
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -1041,17 +1068,17 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supply_air_flow_rate_method_during_cooling_operation(self):
-        """field `Supply Air Flow Rate Method During Cooling Operation` Enter
-        the method used to determine the cooling supply air volume flow rate.
-        None is used when a cooling coil is not included in the unitary system
-        or this field may be blank. SupplyAirFlowRate is selected when the
-        magnitude of the supply air volume is used. FlowPerFloorArea is
-        selected when the supply air volume flow rate is based on total floor
-        area served by the unitary system. FractionOfAutosizedCoolingValue is
-        selected when the supply air volume is a fraction of the value
-        determined by the simulation. FlowPerCoolingCapacity is selected when
-        the supply air volume is a fraction of the cooling capacity as
-        determined by the simulation.
+        """field `Supply Air Flow Rate Method During Cooling Operation`
+
+        |  Enter the method used to determine the cooling supply air volume flow rate.
+        |  None is used when a cooling coil is not included in the unitary system or this field may be blank.
+        |  SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
+        |  FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area
+        |  served by the unitary system.
+        |  FractionOfAutosizedCoolingValue is selected when the supply air volume is a fraction of the
+        |  value determined by the simulation.
+        |  FlowPerCoolingCapacity is selected when the supply air volume is a fraction of the cooling
+        |  capacity as determined by the simulation.
 
         Args:
             value (str): value for IDD Field `Supply Air Flow Rate Method During Cooling Operation`
@@ -1073,21 +1100,21 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """field `Supply Air Flow Rate During Cooling Operation` Enter the
-        magnitude of the supply air volume flow rate during cooling operation.
-        Required field when Supply air Flow Rate Method During Cooling
-        Operation is SupplyAirFlowRate. This field may be blank if a cooling
-        coil is not included in the unitary system.
+        """field `Supply Air Flow Rate During Cooling Operation`
+
+        |  Enter the magnitude of the supply air volume flow rate during cooling operation.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
+        |  This field may be blank if a cooling coil is not included in the unitary system.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
@@ -1101,14 +1128,14 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self):
         """field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
-        Enter the supply air volume flow rate per total floor area fraction.
-        Required field when Supply air Flow Rate Method During Cooling
-        Operation is FlowPerFloorArea. This field may be blank if a cooling
-        coil is not included in the unitary system.
+
+        |  Enter the supply air volume flow rate per total floor area fraction.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
+        |  This field may be blank if a cooling coil is not included in the unitary system.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1132,10 +1159,10 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self):
         """field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
-        Enter the supply air volume flow rate as a fraction of the cooling
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        During Cooling Operation is FractionOfAutosizedCoolingValue. This field
-        may be blank if a cooling coil is not included in the unitary system.
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is FractionOfAutosizedCoolingValue.
+        |  This field may be blank if a cooling coil is not included in the unitary system.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
@@ -1163,14 +1190,15 @@ class AirLoopHvacUnitarySystem(DataObject):
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation(
             self):
         """field `Design Supply Air Flow Rate Per Unit of Capacity During
-        Cooling Operation` Enter the supply air volume flow rate as a fraction
-        of the cooling capacity. Required field when Supply air Flow Rate
-        Method During Cooling Operation is FlowPerCoolingCapacity. This field
-        may be blank if a cooling coil is not included in the unitary system.
+        Cooling Operation`
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling capacity.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerCoolingCapacity.
+        |  This field may be blank if a cooling coil is not included in the unitary system.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1193,17 +1221,17 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supply_air_flow_rate_method_during_heating_operation(self):
-        """field `Supply air Flow Rate Method During Heating Operation` Enter
-        the method used to determine the heating supply air volume flow rate.
-        None is used when a heating coil is not included in the unitary system
-        or this field may be blank. SupplyAirFlowRate is selected when the
-        magnitude of the supply air volume is used. FlowPerFloorArea is
-        selected when the supply air volume flow rate is based on total floor
-        area served by the unitary system. FractionOfAutosizedHeatingValue is
-        selected when the supply air volume is a fraction of the value
-        determined by the simulation. FlowPerHeatingCapacity is selected when
-        the supply air volume is a fraction of the heating capacity as
-        determined by the simulation.
+        """field `Supply air Flow Rate Method During Heating Operation`
+
+        |  Enter the method used to determine the heating supply air volume flow rate.
+        |  None is used when a heating coil is not included in the unitary system or this field may be blank.
+        |  SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
+        |  FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area
+        |  served by the unitary system.
+        |  FractionOfAutosizedHeatingValue is selected when the supply air volume is a fraction of the
+        |  value determined by the simulation.
+        |  FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating
+        |  capacity as determined by the simulation.
 
         Args:
             value (str): value for IDD Field `Supply air Flow Rate Method During Heating Operation`
@@ -1225,21 +1253,21 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """field `Supply Air Flow Rate During Heating Operation` Enter the
-        magnitude of the supply air volume flow rate during heating operation.
-        Required field when Supply air Flow Rate Method During Heating
-        Operation is SupplyAirFlowRate. This field may be blank if a heating
-        coil is not included in the unitary system.
+        """field `Supply Air Flow Rate During Heating Operation`
+
+        |  Enter the magnitude of the supply air volume flow rate during heating operation.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
+        |  This field may be blank if a heating coil is not included in the unitary system.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Heating Operation"]
@@ -1253,14 +1281,14 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self):
         """field `Supply Air Flow Rate Per Floor Area during Heating Operation`
-        Enter the supply air volume flow rate per total floor area fraction.
-        Required field when Supply air Flow Rate Method During Heating
-        Operation is FlowPerFloorArea. This field may be blank if a heating
-        coil is not included in the unitary system.
+
+        |  Enter the supply air volume flow rate per total floor area fraction.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
+        |  This field may be blank if a heating coil is not included in the unitary system.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area during Heating Operation`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1284,10 +1312,10 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self):
         """field `Fraction of Autosized Design Heating Supply Air Flow Rate`
-        Enter the supply air volume flow rate as a fraction of the heating
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        During Heating Operation is FractionOfAutosizedHeatingValue. This field
-        may be blank if a heating coil is not included in the unitary system.
+
+        |  Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FractionOfAutosizedHeatingValue.
+        |  This field may be blank if a heating coil is not included in the unitary system.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
@@ -1315,14 +1343,15 @@ class AirLoopHvacUnitarySystem(DataObject):
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation(
             self):
         """field `Design Supply Air Flow Rate Per Unit of Capacity During
-        Heating Operation` Enter the supply air volume flow rate as a fraction
-        of the heating capacity. Required field when Supply air Flow Rate
-        Method During Heating Operation is FlowPerHeatingCapacity. This field
-        may be blank if a heating coil is not included in the unitary system.
+        Heating Operation`
+
+        |  Enter the supply air volume flow rate as a fraction of the heating capacity.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
+        |  This field may be blank if a heating coil is not included in the unitary system.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1347,20 +1376,21 @@ class AirLoopHvacUnitarySystem(DataObject):
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(
             self):
         """field `Supply Air Flow Rate Method When No Cooling or Heating is
-        Required` Enter the method used to determine the supply air volume flow
-        rate when no cooling or heating is required. None is used when a
-        heating coil is not included in the unitary system or this field may be
-        blank. SupplyAirFlowRate is selected when the magnitude of the supply
-        air volume is used. FlowPerFloorArea is selected when the supply air
-        volume flow rate is based on total floor area served by the unitary
-        system. FractionOfAutosizedCoolingValue is selected when the supply air
-        volume is a fraction of the cooling value determined by the simulation.
-        FractionOfAutosizedHeatingValue is selected when the supply air volume
-        is a fraction of the heating value determined by the simulation.
-        FlowPerCoolingCapacity is selected when the supply air volume is a
-        fraction of the cooling capacity as determined by the simulation.
-        FlowPerHeatingCapacity is selected when the supply air volume is a
-        fraction of the heating capacity as determined by the simulation.
+        Required`
+
+        |  Enter the method used to determine the supply air volume flow rate when no cooling or heating is required.
+        |  None is used when a heating coil is not included in the unitary system or this field may be blank.
+        |  SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
+        |  FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area
+        |  served by the unitary system.
+        |  FractionOfAutosizedCoolingValue is selected when the supply air volume is a fraction of the
+        |  cooling value determined by the simulation.
+        |  FractionOfAutosizedHeatingValue is selected when the supply air volume is a fraction of the
+        |  heating value determined by the simulation.
+        |  FlowPerCoolingCapacity is selected when the supply air volume is a fraction of the cooling
+        |  capacity as determined by the simulation.
+        |  FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating
+        |  capacity as determined by the simulation.
 
         Args:
             value (str): value for IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
@@ -1387,20 +1417,19 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Required`
-        Enter the magnitude of the supply air volume flow rate during when no
-        cooling or heating is required. Required field when Supply air Flow
-        Rate Method When No Cooling or Heating is Required is
-        SupplyAirFlowRate.
+
+        |  Enter the magnitude of the supply air volume flow rate during when no cooling or heating is required.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is SupplyAirFlowRate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
 
         """
         return self[
@@ -1419,13 +1448,14 @@ class AirLoopHvacUnitarySystem(DataObject):
     def supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required(
             self):
         """field `Supply Air Flow Rate Per Floor Area When No Cooling or
-        Heating is Required` Enter the supply air volume flow rate per total
-        floor area fraction. Required field when Supply air Flow Rate Method
-        When No Cooling or Heating is Required is FlowPerFloorArea.
+        Heating is Required`
+
+        |  Enter the supply air volume flow rate per total floor area fraction.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FlowPerFloorArea.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1449,10 +1479,9 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self):
         """field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
-        Enter the supply air volume flow rate as a fraction of the cooling
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        When No Cooling or Heating is Required is
-        FractionOfAutosizedCoolingValue.
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedCoolingValue.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
@@ -1479,10 +1508,9 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def fraction_of_autosized_design_heating_supply_air_flow_rate_v3(self):
         """field `Fraction of Autosized Design Heating Supply Air Flow Rate v3`
-        Enter the supply air volume flow rate as a fraction of the heating
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        When No Cooling or Heating is Required is
-        FractionOfAutosizedHeatingValue.
+
+        |  Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedHeatingValue.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate v3`
@@ -1510,13 +1538,14 @@ class AirLoopHvacUnitarySystem(DataObject):
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3(
             self):
         """field `Design Supply Air Flow Rate Per Unit of Capacity During
-        Cooling Operation v3` Enter the supply air volume flow rate as a
-        fraction of the cooling capacity. Required field when Supply air Flow
-        Rate Method During Heating Operation is FlowPerCoolingCapacity.
+        Cooling Operation v3`
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling capacity.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FlowPerCoolingCapacity.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1541,13 +1570,14 @@ class AirLoopHvacUnitarySystem(DataObject):
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3(
             self):
         """field `Design Supply Air Flow Rate Per Unit of Capacity During
-        Heating Operation v3` Enter the supply air volume flow rate as a
-        fraction of the heating capacity. Required field when Supply air Flow
-        Rate Method During Heating Operation is FlowPerHeatingCapacity.
+        Heating Operation v3`
+
+        |  Enter the supply air volume flow rate as a fraction of the heating capacity.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1570,19 +1600,20 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def maximum_supply_air_temperature(self):
-        """field `Maximum Supply Air Temperature` Enter the maximum supply air
-        temperature leaving the heating coil.
+        """field `Maximum Supply Air Temperature`
+
+        |  Enter the maximum supply air temperature leaving the heating coil.
+        |  Units: C
+        |  Default value: 80.0
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 80.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature` or None if not set
 
         """
         return self["Maximum Supply Air Temperature"]
@@ -1596,12 +1627,13 @@ class AirLoopHvacUnitarySystem(DataObject):
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(
             self):
         """field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-        Enter the maximum outdoor dry-bulb temperature for supplemental heater operation.
+
+        |  Enter the maximum outdoor dry-bulb temperature for supplemental heater operation.
+        |  Units: C
+        |  Default value: 21.0
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-                Units: C
-                Default value: 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1625,9 +1657,10 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def outdoor_drybulb_temperature_sensor_node_name(self):
         """field `Outdoor Dry-Bulb Temperature Sensor Node Name`
-        If this field is blank, outdoor temperature from the weather file is used.
-        If this field is not blank, the node name specified determines the outdoor temperature used
-        for controlling supplemental heater operation.
+
+        |  If this field is blank, outdoor temperature from the weather file is used.
+        |  If this field is not blank, the node name specified determines the outdoor temperature used
+        |  for controlling supplemental heater operation.
 
         Args:
             value (str): value for IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
@@ -1650,21 +1683,23 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def maximum_cycling_rate(self):
         """field `Maximum Cycling Rate`
-        Used only for water source heat pump.
-        The maximum on-off cycling rate for the compressor.
-        Suggested value is 2.5 for a typical heat pump.
+
+        |  Used only for water source heat pump.
+        |  The maximum on-off cycling rate for the compressor.
+        |  Suggested value is 2.5 for a typical heat pump.
+        |  Units: cycles/hr
+        |  Default value: 2.5
+        |  value <= 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Cycling Rate`
-                Units: cycles/hr
-                Default value: 2.5
-                value <= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
+
         """
         return self["Maximum Cycling Rate"]
 
@@ -1675,15 +1710,17 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heat_pump_time_constant(self):
-        """field `Heat Pump Time Constant` Used only for water source heat
-        pump. Time constant for the cooling coil's capacity to reach steady
-        state after startup. Suggested value is 60 for a typical heat pump.
+        """field `Heat Pump Time Constant`
+
+        |  Used only for water source heat pump.
+        |  Time constant for the cooling coil's capacity to reach steady state after startup.
+        |  Suggested value is 60 for a typical heat pump.
+        |  Units: s
+        |  Default value: 60.0
+        |  value <= 500.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Time Constant`
-                Units: s
-                Default value: 60.0
-                value <= 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1702,15 +1739,16 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def fraction_of_oncycle_power_use(self):
         """field `Fraction of On-Cycle Power Use`
-        Used only for water source heat pump.
-        The fraction of on-cycle power use to adjust the part load fraction based on
-        the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
-        Suggested value is 0.01 for a typical heat pump.
+
+        |  Used only for water source heat pump.
+        |  The fraction of on-cycle power use to adjust the part load fraction based on
+        |  the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
+        |  Suggested value is 0.01 for a typical heat pump.
+        |  Default value: 0.01
+        |  value <= 0.05
 
         Args:
             value (float): value for IDD Field `Fraction of On-Cycle Power Use`
-                Default value: 0.01
-                value <= 0.05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1729,15 +1767,17 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heat_pump_fan_delay_time(self):
-        """field `Heat Pump Fan Delay Time` Used only for water source heat
-        pump. Programmed time delay for heat pump fan to shut off after
-        compressor cycle off. Only required when fan operating mode is cycling.
-        Enter 0 when fan operating mode is continuous.
+        """field `Heat Pump Fan Delay Time`
+
+        |  Used only for water source heat pump.
+        |  Programmed time delay for heat pump fan to shut off after compressor cycle off.
+        |  Only required when fan operating mode is cycling.
+        |  Enter 0 when fan operating mode is continuous.
+        |  Units: s
+        |  Default value: 60.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
-                Units: s
-                Default value: 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1756,11 +1796,12 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def ancilliary_oncycle_electric_power(self):
         """field `Ancilliary On-Cycle Electric Power`
-        Enter the value of ancilliary electric power for controls or other devices consumed during the on cycle.
+
+        |  Enter the value of ancilliary electric power for controls or other devices consumed during the on cycle.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Ancilliary On-Cycle Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1780,11 +1821,12 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def ancilliary_offcycle_electric_power(self):
         """field `Ancilliary Off-Cycle Electric Power`
-        Enter the value of ancilliary electric power for controls or other devices consumed during the off cycle.
+
+        |  Enter the value of ancilliary electric power for controls or other devices consumed during the off cycle.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Ancilliary Off-Cycle Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1804,18 +1846,20 @@ class AirLoopHvacUnitarySystem(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
-        Used for heat recovery to an EnergyPlus plant loop.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Used for heat recovery to an EnergyPlus plant loop.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -1826,14 +1870,15 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def maximum_temperature_for_heat_recovery(self):
-        """field `Maximum Temperature for Heat Recovery` Enter the maximum heat
-        recovery inlet temperature allowed for heat recovery.
+        """field `Maximum Temperature for Heat Recovery`
+
+        |  Enter the maximum heat recovery inlet temperature allowed for heat recovery.
+        |  Units: C
+        |  Default value: 80.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Maximum Temperature for Heat Recovery`
-                Units: C
-                Default value: 80.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1851,9 +1896,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heat_recovery_water_inlet_node_name(self):
-        """field `Heat Recovery Water Inlet Node Name` Enter the name of the
-        heat recovery water inlet node if plant water loop connections are
-        present.
+        """field `Heat Recovery Water Inlet Node Name`
+
+        |  Enter the name of the heat recovery water inlet node if plant water loop connections are present.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
@@ -1874,9 +1919,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def heat_recovery_water_outlet_node_name(self):
-        """field `Heat Recovery Water Outlet Node Name` Enter the name of the
-        heat recovery water outlet node if plant water loop connections are
-        present.
+        """field `Heat Recovery Water Outlet Node Name`
+
+        |  Enter the name of the heat recovery water outlet node if plant water loop connections are present.
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
@@ -1897,9 +1942,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def design_specification_multispeed_heat_pump_object_type(self):
-        """field `Design Specification Multispeed Heat Pump Object Type` Enter
-        the type of performance specification object used to describe the
-        multispeed coil.
+        """field `Design Specification Multispeed Heat Pump Object Type`
+
+        |  Enter the type of performance specification object used to describe the multispeed coil.
 
         Args:
             value (str): value for IDD Field `Design Specification Multispeed Heat Pump Object Type`
@@ -1923,9 +1968,9 @@ class AirLoopHvacUnitarySystem(DataObject):
 
     @property
     def design_specification_multispeed_heat_pump_object_name(self):
-        """field `Design Specification Multispeed Heat Pump Object Name` Enter
-        the name of the performance specification object used to describe the
-        multispeed coil.
+        """field `Design Specification Multispeed Heat Pump Object Name`
+
+        |  Enter the name of the performance specification object used to describe the multispeed coil.
 
         Args:
             value (str): value for IDD Field `Design Specification Multispeed Heat Pump Object Name`
@@ -2031,12 +2076,14 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
 
     @property
     def number_of_speeds_for_heating(self):
-        """field `Number of Speeds for Heating` Used only for Multi speed coils
-        Enter the number of the following sets of data for air flow rates.
+        """field `Number of Speeds for Heating`
+
+        |  Used only for Multi speed coils
+        |  Enter the number of the following sets of data for air flow rates.
+        |  value <= 10
 
         Args:
             value (int): value for IDD Field `Number of Speeds for Heating`
-                value <= 10
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2054,12 +2101,14 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
 
     @property
     def number_of_speeds_for_cooling(self):
-        """field `Number of Speeds for Cooling` Used only for Multi speed coils
-        Enter the number of the following sets of data for air flow rates.
+        """field `Number of Speeds for Cooling`
+
+        |  Used only for Multi speed coils
+        |  Enter the number of the following sets of data for air flow rates.
+        |  value <= 10
 
         Args:
             value (int): value for IDD Field `Number of Speeds for Cooling`
-                value <= 10
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2269,9 +2318,10 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2334,13 +2384,14 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """field `Supply Air Fan Operating Mode Schedule Name` A fan operating
-        mode schedule value of 0 indicates cycling fan mode (supply air fan
-        cycles on and off in tandem with the heating coil). Any other schedule
-        value indicates continuous fan mode (supply air fan operates
-        continuously regardless of heating coil operation). Leaving this
-        schedule name blank will default to cycling fan mode for the entire
-        simulation period.
+        """field `Supply Air Fan Operating Mode Schedule Name`
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of heating coil operation).
+        |  Leaving this schedule name blank will default to cycling fan mode for the
+        |  entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -2364,16 +2415,17 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 80.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature` or None if not set
 
         """
         return self["Maximum Supply Air Temperature"]
@@ -2386,17 +2438,19 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
     @property
     def supply_air_flow_rate(self):
         """field `Supply Air Flow Rate`
-        This value should be > 0 and <= than the fan air flow rate.
+
+        |  This value should be > 0 and <= than the fan air flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate` or None if not set
+
         """
         return self["Supply Air Flow Rate"]
 
@@ -2430,8 +2484,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
     @property
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
-        operating mode schedule values are greater than 0).
+
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
+        |  operating mode schedule values are greater than 0).
 
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
@@ -2441,6 +2496,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
 
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
+
         """
         return self["Supply Fan Object Type"]
 
@@ -2474,9 +2530,10 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2494,8 +2551,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` works with gas, electric, hot water
-        and steam heating coils.
+        """field `Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -2746,12 +2804,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. A schedule value
-        greater than zero (usually 1 is used) indicates that the unit is
-        available to operate as needed. A value less than or equal to zero
-        (usually zero is used) denotes that the unit must be off.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  A schedule value greater than zero (usually 1 is used) indicates that the unit is
+        |  available to operate as needed. A value less than or equal to zero (usually zero
+        |  is used) denotes that the unit must be off.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2815,13 +2874,14 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
         """field `Supply Air Fan Operating Mode Schedule Name`
-        A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
-        fan cycles on and off in tandem with the cooling or heating coil).
-        Any other schedule value indicates continuous fan mode (supply air fan operates
-        continuously regardless of cooling or heating coil operation). Provide a schedule
-        with non-zero values when high humidity control is specified.
-        Leaving this schedule name blank will default to cycling fan mode for the
-        entire simulation period.
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the cooling or heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of cooling or heating coil operation). Provide a schedule
+        |  with non-zero values when high humidity control is specified.
+        |  Leaving this schedule name blank will default to cycling fan mode for the
+        |  entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -2831,6 +2891,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
@@ -2844,16 +2905,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 80.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature` or None if not set
 
         """
         return self["Maximum Supply Air Temperature"]
@@ -2865,18 +2927,19 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """field `Supply Air Flow Rate During Cooling Operation` Must be less
-        than or equal to the fan's maximum flow rate.
+        """field `Supply Air Flow Rate During Cooling Operation`
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
@@ -2889,18 +2952,19 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """field `Supply Air Flow Rate During Heating Operation` Must be less
-        than or equal to the fan's maximum flow fate.
+        """field `Supply Air Flow Rate During Heating Operation`
+
+        |  Must be less than or equal to the fan's maximum flow fate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Heating Operation"]
@@ -2914,22 +2978,22 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to the fan's maximum flow rate. Only used
-        when fan operating mode is continuous (disregarded for cycling fan
-        mode). This air flow rate is used when no heating or cooling is
-        required (i.e., the DX coil compressor and heating coil are off). If
-        this field is left blank or zero, the supply air flow rate from the
-        previous on cycle (either cooling or heating) is used.
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Only used when fan operating mode is continuous (disregarded for cycling fan mode).
+        |  This air flow rate is used when no heating or cooling is required (i.e., the DX coil
+        |  compressor and heating coil are off). If this field is left blank or zero, the supply
+        |  air flow rate from the previous on cycle (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -2969,8 +3033,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     @property
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
-        air fan operating mode schedule values not equal to 0).
+
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
+        |  air fan operating mode schedule values not equal to 0).
 
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
@@ -2980,6 +3045,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
+
         """
         return self["Supply Fan Object Type"]
 
@@ -3013,9 +3079,10 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3033,8 +3100,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` works with gas, electric, hot water
-        and steam heating coils.
+        """field `Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -3076,8 +3144,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def cooling_coil_object_type(self):
-        """field `Cooling Coil Object Type` Only works with DX cooling coil
-        types.
+        """field `Cooling Coil Object Type`
+
+        |  Only works with DX cooling coil types
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -3120,28 +3189,30 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        Multimode = activate enhanced dehumidification mode
-        as needed and meet sensible load.  Valid only with
-        cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
-        This control mode allows the heat exchanger to be turned
-        on and off based on the zone dehumidification requirements.
-        A ZoneControl:Humidistat object is also required.
-        CoolReheat = cool beyond the dry bulb setpoint.
-        as required to meet the humidity setpoint.  Valid with all
-        cooling coil types. When a heat exchanger assisted cooling
-        coil is used, the heat exchanger is locked on at all times.
-        A ZoneControl:Humidistat object is also required.
+
+        |  None = meet sensible load only
+        |  Multimode = activate enhanced dehumidification mode
+        |  as needed and meet sensible load.  Valid only with
+        |  cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
+        |  This control mode allows the heat exchanger to be turned
+        |  on and off based on the zone dehumidification requirements.
+        |  A ZoneControl:Humidistat object is also required.
+        |  CoolReheat = cool beyond the dry bulb setpoint.
+        |  as required to meet the humidity setpoint.  Valid with all
+        |  cooling coil types. When a heat exchanger assisted cooling
+        |  coil is used, the heat exchanger is locked on at all times.
+        |  A ZoneControl:Humidistat object is also required.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -3152,9 +3223,10 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def reheat_coil_object_type(self):
-        """field `Reheat Coil Object Type` Only required if dehumidification
-        control type is "CoolReheat" works with gas, electric, hot water and
-        steam heating coils.
+        """field `Reheat Coil Object Type`
+
+        |  Only required if dehumidification control type is "CoolReheat"
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -3175,8 +3247,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
 
     @property
     def reheat_coil_name(self):
-        """field `Reheat Coil Name` Only required if dehumidification control
-        type is "CoolReheat".
+        """field `Reheat Coil Name`
+
+        |  Only required if dehumidification control type is "CoolReheat"
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -3341,9 +3414,10 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3406,13 +3480,14 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """field `Supply Air Fan Operating Mode Schedule Name` A fan operating
-        mode schedule value of 0 indicates cycling fan mode (supply air fan
-        cycles on and off in tandem with the heating coil). Any other schedule
-        value indicates continuous fan mode (supply air fan operates
-        continuously regardless of heating coil operation). Leaving this
-        schedule name blank will default to cycling fan mode for the entire
-        simulation period.
+        """field `Supply Air Fan Operating Mode Schedule Name`
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of heating coil operation).
+        |  Leaving this schedule name blank will default to cycling fan mode for the
+        |  entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -3436,16 +3511,17 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 80.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature` or None if not set
 
         """
         return self["Maximum Supply Air Temperature"]
@@ -3458,17 +3534,19 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
     @property
     def supply_air_flow_rate(self):
         """field `Supply Air Flow Rate`
-        This value should be > 0 and <= than the fan air flow rate.
+
+        |  This value should be > 0 and <= than the fan air flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate` or None if not set
+
         """
         return self["Supply Air Flow Rate"]
 
@@ -3502,8 +3580,9 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
     @property
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
-        operating mode schedule values are greater than 0).
+
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
+        |  operating mode schedule values are greater than 0).
 
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
@@ -3513,6 +3592,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
 
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
+
         """
         return self["Supply Fan Object Type"]
 
@@ -3546,9 +3626,10 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3566,8 +3647,9 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` works with gas, electric, hot water
-        and steam heating coils.
+        """field `Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -3819,9 +3901,10 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3885,13 +3968,14 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
         """field `Supply Air Fan Operating Mode Schedule Name`
-        A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
-        fan cycles on and off in tandem with the cooling or heating coil).
-        Any other schedule value indicates continuous fan mode (supply air fan operates
-        continuously regardless of cooling or heating coil operation). Provide a schedule
-        with non-zero values when high humidity control is specified.
-        Leaving this schedule name blank will default to cycling fan mode for the
-        entire simulation period.
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the cooling or heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of cooling or heating coil operation). Provide a schedule
+        |  with non-zero values when high humidity control is specified.
+        |  Leaving this schedule name blank will default to cycling fan mode for the
+        |  entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -3901,6 +3985,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
@@ -3914,16 +3999,17 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     def maximum_supply_air_temperature(self):
         """field `Maximum Supply Air Temperature`
 
+        |  Units: C
+        |  Default value: 80.0
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature`
-                Units: C
-                Default value: 80.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature` or None if not set
 
         """
         return self["Maximum Supply Air Temperature"]
@@ -3935,18 +4021,19 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """field `Supply Air Flow Rate During Cooling Operation` Must be less
-        than or equal to the fan's maximum flow rate.
+        """field `Supply Air Flow Rate During Cooling Operation`
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
@@ -3959,18 +4046,19 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """field `Supply Air Flow Rate During Heating Operation` Must be less
-        than or equal to the fan's maximum flow rate.
+        """field `Supply Air Flow Rate During Heating Operation`
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Heating Operation"]
@@ -3984,22 +4072,22 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to the fan's maximum flow rate. Only used
-        when fan operating mode is continuous (disregarded for cycling fan
-        mode). This air flow rate is used when no heating or cooling is
-        required (i.e., the DX coil compressor and heating coil are off). If
-        this field is left blank or zero, the supply air flow rate from the
-        previous on cycle (either cooling or heating) is used.
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Only used when fan operating mode is continuous (disregarded for cycling fan mode).
+        |  This air flow rate is used when no heating or cooling is required (i.e., the DX coil
+        |  compressor and heating coil are off). If this field is left blank or zero, the supply
+        |  air flow rate from the previous on cycle (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -4039,8 +4127,9 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     @property
     def supply_fan_object_type(self):
         """field `Supply Fan Object Type`
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
-        air fan operating mode schedule values not equal to 0).
+
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
+        |  air fan operating mode schedule values not equal to 0).
 
         Args:
             value (str): value for IDD Field `Supply Fan Object Type`
@@ -4050,6 +4139,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
+
         """
         return self["Supply Fan Object Type"]
 
@@ -4083,9 +4173,10 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4103,8 +4194,9 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` works with gas, electric, hot water
-        and steam heating coils.
+        """field `Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -4147,8 +4239,9 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     @property
     def cooling_coil_object_type(self):
         """field `Cooling Coil Object Type`
-        Only works with DX cooling coil types or
-        Coil:Cooling:DX:VariableSpeed.
+
+        |  Only works with DX cooling coil types or
+        |  Coil:Cooling:DX:VariableSpeed.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -4158,6 +4251,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -4190,28 +4284,30 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        Multimode = activate enhanced dehumidification mode
-        as needed and meet sensible load.  Valid only with
-        cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
-        This control mode allows the heat exchanger to be turned
-        on and off based on the zone dehumidification requirements.
-        A ZoneControl:Humidistat object is also required.
-        CoolReheat = cool beyond the dry bulb setpoint.
-        as required to meet the humidity setpoint.  Valid with all
-        cooling coil types. When a heat exchanger assisted Cooling
-        coil is used, the heat exchanger is locked on at all times.
-        A ZoneControl:Humidistat object is also required.
+
+        |  None = meet sensible load only
+        |  Multimode = activate enhanced dehumidification mode
+        |  as needed and meet sensible load.  Valid only with
+        |  cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
+        |  This control mode allows the heat exchanger to be turned
+        |  on and off based on the zone dehumidification requirements.
+        |  A ZoneControl:Humidistat object is also required.
+        |  CoolReheat = cool beyond the dry bulb setpoint.
+        |  as required to meet the humidity setpoint.  Valid with all
+        |  cooling coil types. When a heat exchanger assisted Cooling
+        |  coil is used, the heat exchanger is locked on at all times.
+        |  A ZoneControl:Humidistat object is also required.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -4222,9 +4318,10 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def reheat_coil_object_type(self):
-        """field `Reheat Coil Object Type` Only required if dehumidification
-        control type is "CoolReheat" works with gas, electric, desuperheating,
-        hot water and steam heating coils.
+        """field `Reheat Coil Object Type`
+
+        |  Only required if dehumidification control type is "CoolReheat"
+        |  works with gas, electric, desuperheating, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -4245,8 +4342,9 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
 
     @property
     def reheat_coil_name(self):
-        """field `Reheat Coil Name` Only required if dehumidification control
-        type is "CoolReheat".
+        """field `Reheat Coil Name`
+
+        |  Only required if dehumidification control type is "CoolReheat"
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -4482,12 +4580,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available. A schedule value
-        greater than zero (usually 1 is used) indicates that the unit is
-        available to operate as needed. A value less than or equal to zero
-        (usually zero is used) denotes that the unit must be off.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  A schedule value greater than zero (usually 1 is used) indicates that the unit is
+        |  available to operate as needed. A value less than or equal to zero (usually zero
+        |  is used) denotes that the unit must be off.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4550,18 +4649,19 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """field `Supply Air Flow Rate During Cooling Operation` Must be less
-        than or equal to the fan's maximum flow rate.
+        """field `Supply Air Flow Rate During Cooling Operation`
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
@@ -4574,18 +4674,19 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """field `Supply Air Flow Rate During Heating Operation` Must be less
-        than or equal to the fan's maximum flow rate.
+        """field `Supply Air Flow Rate During Heating Operation`
+
+        |  Must be less than or equal to the fan's maximum flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Supply Air Flow Rate During Heating Operation"]
@@ -4599,22 +4700,22 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to the fans maximum flow rate. Only used
-        when fan operating mode is continuous (disregarded for cycling fan
-        mode). This air flow rate is used when no heating or cooling is
-        required (i.e., the DX coil compressor and supplemental heating coil
-        are off). If this field is left blank or zero, the supply air flow rate
-        from the previous on cycle (either cooling or heating) is used.
+
+        |  Must be less than or equal to the fans maximum flow rate.
+        |  Only used when fan operating mode is continuous (disregarded for cycling fan mode).
+        |  This air flow rate is used when no heating or cooling is required (i.e., the DX coil
+        |  compressor and supplemental heating coil are off). If this field is left blank or zero,
+        |  the supply air flow rate from the previous on cycle (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -4654,9 +4755,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     @property
     def supply_air_fan_object_type(self):
         """field `Supply Air Fan Object Type`
-        Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
-        operating mode schedule values are greater than 0 or the fan operating mode
-        schedule name field is left blank).
+
+        |  Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
+        |  operating mode schedule values are greater than 0 or the fan operating mode
+        |  schedule name field is left blank).
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -4666,6 +4768,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -4676,7 +4779,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """field `Supply Air Fan Name` Needs to match in the fan object.
+        """field `Supply Air Fan Name`
+
+        |  Needs to match in the fan object
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -4698,8 +4803,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     @property
     def heating_coil_object_type(self):
         """field `Heating Coil Object Type`
-        Only works with Coil:Heating:DX:SingleSpeed or
-        Coil:Heating:DX:VariableSpeed
+
+        |  Only works with Coil:Heating:DX:SingleSpeed or
+        |  Coil:Heating:DX:VariableSpeed
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -4709,6 +4815,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
@@ -4719,8 +4826,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def heating_coil_name(self):
-        """field `Heating Coil Name` Needs to match in the DX heating coil
-        object.
+        """field `Heating Coil Name`
+
+        |  Needs to match in the DX heating coil object
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -4742,9 +4850,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     @property
     def cooling_coil_object_type(self):
         """field `Cooling Coil Object Type`
-        Only works with Coil:Cooling:DX:SingleSpeed or
-        CoilSystem:Cooling:DX:HeatExchangerAssisted or
-        Coil:Cooling:DX:VariableSpeed
+
+        |  Only works with Coil:Cooling:DX:SingleSpeed or
+        |  CoilSystem:Cooling:DX:HeatExchangerAssisted or
+        |  Coil:Cooling:DX:VariableSpeed
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -4754,6 +4863,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -4764,8 +4874,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """field `Cooling Coil Name` Needs to match in the DX cooling coil
-        object.
+        """field `Cooling Coil Name`
+
+        |  Needs to match in the DX cooling coil object
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -4786,8 +4897,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """field `Supplemental Heating Coil Object Type` works with gas,
-        electric, hot water and steam heating coils.
+        """field `Supplemental Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -4808,8 +4920,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supplemental_heating_coil_name(self):
-        """field `Supplemental Heating Coil Name` Needs to match in the
-        supplemental heating coil object.
+        """field `Supplemental Heating Coil Name`
+
+        |  Needs to match in the supplemental heating coil object
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -4832,15 +4945,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     def maximum_supply_air_temperature_from_supplemental_heater(self):
         """field `Maximum Supply Air Temperature from Supplemental Heater`
 
+        |  Units: C
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
 
         """
         return self["Maximum Supply Air Temperature from Supplemental Heater"]
@@ -4858,11 +4972,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
             self):
         """field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
 
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
+
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4887,9 +5002,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4907,13 +5023,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """field `Supply Air Fan Operating Mode Schedule Name` A fan operating
-        mode schedule value of 0 indicates cycling fan mode (supply air fan
-        cycles on and off in tandem with the cooling or heating coil). Any
-        other schedule value indicates continuous fan mode (supply air fan
-        operates continuously regardless of cooling or heating coil operation).
-        Leaving this schedule name blank will default to cycling fan mode for
-        the entire simulation period.
+        """field `Supply Air Fan Operating Mode Schedule Name`
+
+        |  A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
+        |  fan cycles on and off in tandem with the cooling or heating coil).
+        |  Any other schedule value indicates continuous fan mode (supply air fan operates
+        |  continuously regardless of cooling or heating coil operation).
+        |  Leaving this schedule name blank will default to cycling fan mode for the
+        |  entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -4936,28 +5053,30 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        Multimode = activate enhanced dehumidification mode
-        as needed and meet sensible load.  Valid only with
-        cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
-        This control mode allows the heat exchanger to be turned
-        on and off based on the zone dehumidification requirements.
-        A ZoneControl:Humidistat object is also required.
-        CoolReheat = cool beyond the dry bulb setpoint.
-        as required to meet the humidity setpoint.  Valid with all
-        cooling coil types. When a heat exchanger assisted Cooling
-        coil is used, the heat exchanger is locked on at all times.
-        A ZoneControl:Humidistat object is also required.
+
+        |  None = meet sensible load only
+        |  Multimode = activate enhanced dehumidification mode
+        |  as needed and meet sensible load.  Valid only with
+        |  cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.
+        |  This control mode allows the heat exchanger to be turned
+        |  on and off based on the zone dehumidification requirements.
+        |  A ZoneControl:Humidistat object is also required.
+        |  CoolReheat = cool beyond the dry bulb setpoint.
+        |  as required to meet the humidity setpoint.  Valid with all
+        |  cooling coil types. When a heat exchanger assisted Cooling
+        |  coil is used, the heat exchanger is locked on at all times.
+        |  A ZoneControl:Humidistat object is also required.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -5243,9 +5362,10 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5309,17 +5429,19 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def supply_air_flow_rate(self):
         """field `Supply Air Flow Rate`
-        This value should be > 0 and <= than the fan air flow rate.
+
+        |  This value should be > 0 and <= than the fan air flow rate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate` or None if not set
+
         """
         return self["Supply Air Flow Rate"]
 
@@ -5352,7 +5474,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def supply_air_fan_object_type(self):
-        """field `Supply Air Fan Object Type` Only works with On/Off Fan.
+        """field `Supply Air Fan Object Type`
+
+        |  Only works with On/Off Fan
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -5374,7 +5498,8 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def supply_air_fan_name(self):
         """field `Supply Air Fan Name`
-        Needs to match Fan:OnOff object
+
+        |  Needs to match Fan:OnOff object
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -5384,6 +5509,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
@@ -5416,7 +5542,8 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def heating_coil_name(self):
         """field `Heating Coil Name`
-        Needs to match in the water-to-air heatpump heating coil object
+
+        |  Needs to match in the water-to-air heatpump heating coil object
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -5426,6 +5553,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
@@ -5438,9 +5566,10 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     def heating_convergence(self):
         """field `Heating Convergence`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Heating Convergence`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5480,7 +5609,8 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def cooling_coil_name(self):
         """field `Cooling Coil Name`
-        Needs to match in the water-to-air heatpump cooling coil object
+
+        |  Needs to match in the water-to-air heatpump cooling coil object
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -5490,6 +5620,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
@@ -5502,9 +5633,10 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     def cooling_convergence(self):
         """field `Cooling Convergence`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Cooling Convergence`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5523,20 +5655,22 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def maximum_cycling_rate(self):
         """field `Maximum Cycling Rate`
-        The maximum on-off cycling rate for the compressor
-        Suggested value is 2.5 for a typical heat pump
+
+        |  The maximum on-off cycling rate for the compressor
+        |  Suggested value is 2.5 for a typical heat pump
+        |  Units: cycles/hr
+        |  Default value: 2.5
+        |  value <= 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Cycling Rate`
-                Units: cycles/hr
-                Default value: 2.5
-                value <= 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
+
         """
         return self["Maximum Cycling Rate"]
 
@@ -5547,15 +5681,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def heat_pump_time_constant(self):
-        """field `Heat Pump Time Constant` Time constant for the cooling coil's
-        capacity to reach steady state after startup Suggested value is 60 for
-        a typical heat pump.
+        """field `Heat Pump Time Constant`
+
+        |  Time constant for the cooling coil's capacity to reach steady state after startup
+        |  Suggested value is 60 for a typical heat pump
+        |  Units: s
+        |  Default value: 60.0
+        |  value <= 500.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Time Constant`
-                Units: s
-                Default value: 60.0
-                value <= 500.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5574,14 +5709,15 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def fraction_of_oncycle_power_use(self):
         """field `Fraction of On-Cycle Power Use`
-        The fraction of on-cycle power use to adjust the part load fraction based on
-        the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
-        Suggested value is 0.01 for a typical heat pump
+
+        |  The fraction of on-cycle power use to adjust the part load fraction based on
+        |  the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
+        |  Suggested value is 0.01 for a typical heat pump
+        |  Default value: 0.01
+        |  value <= 0.05
 
         Args:
             value (float): value for IDD Field `Fraction of On-Cycle Power Use`
-                Default value: 0.01
-                value <= 0.05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5600,15 +5736,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def heat_pump_fan_delay_time(self):
-        """field `Heat Pump Fan Delay Time` Programmed time delay for heat pump
-        fan to shut off after compressor cycle off. Only required when fan
-        operating mode is cycling Enter 0 when fan operating mode is
-        continuous.
+        """field `Heat Pump Fan Delay Time`
+
+        |  Programmed time delay for heat pump fan to shut off after compressor cycle off.
+        |  Only required when fan operating mode is cycling
+        |  Enter 0 when fan operating mode is continuous
+        |  Units: s
+        |  Default value: 60.0
 
         Args:
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
-                Units: s
-                Default value: 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5626,8 +5763,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """field `Supplemental Heating Coil Object Type` works with gas,
-        electric, hot water and steam heating coils.
+        """field `Supplemental Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -5648,8 +5786,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def supplemental_heating_coil_name(self):
-        """field `Supplemental Heating Coil Name` Needs to match in the
-        supplemental heating coil object.
+        """field `Supplemental Heating Coil Name`
+
+        |  Needs to match in the supplemental heating coil object
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -5672,15 +5811,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     def maximum_supply_air_temperature_from_supplemental_heater(self):
         """field `Maximum Supply Air Temperature from Supplemental Heater`
 
+        |  Units: C
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
 
         """
         return self["Maximum Supply Air Temperature from Supplemental Heater"]
@@ -5698,11 +5838,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
             self):
         """field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
 
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
+
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5727,6 +5868,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     def outdoor_drybulb_temperature_sensor_node_name(self):
         """field `Outdoor Dry-Bulb Temperature Sensor Node Name`
 
+
         Args:
             value (str): value for IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
 
@@ -5749,9 +5891,10 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     def fan_placement(self):
         """field `Fan Placement`
 
+        |  Default value: BlowThrough
+
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Default value: BlowThrough
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5769,12 +5912,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """field `Supply Air Fan Operating Mode Schedule Name` Enter the name
-        of a schedule that controls fan operation. Schedule values of 0 denote
-        cycling fan operation (fan cycles with cooling or heating coil).
-        Schedule values greater than 0 denote constant fan operation (fan runs
-        continually regardless of coil operation). The fan operating mode
-        defaults to cycling fan operation if this field is left blank.
+        """field `Supply Air Fan Operating Mode Schedule Name`
+
+        |  Enter the name of a schedule that controls fan operation. Schedule values of 0 denote
+        |  cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater
+        |  than 0 denote constant fan operation (fan runs continually regardless of coil operation).
+        |  The fan operating mode defaults to cycling fan operation if this field is left blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -5797,21 +5940,23 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only
-        CoolReheat = cool beyond the dry bulb setpoint.
-        as required to meet the humidity setpoint.  Valid only with
-        Coil:Cooling:WaterToAirHeatPump:EquationFit or
-        Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit
+
+        |  None = meet sensible load only
+        |  CoolReheat = cool beyond the dry bulb setpoint.
+        |  as required to meet the humidity setpoint.  Valid only with
+        |  Coil:Cooling:WaterToAirHeatPump:EquationFit or
+        |  Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -5823,20 +5968,22 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
     @property
     def heat_pump_coil_water_flow_mode(self):
         """field `Heat Pump Coil Water Flow Mode`
-        used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit
-        Constant results in 100% water flow regardless of compressor PLR
-        Cycling results in water flow that matches compressor PLR
-        ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
+
+        |  used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit
+        |  Constant results in 100% water flow regardless of compressor PLR
+        |  Cycling results in water flow that matches compressor PLR
+        |  ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
+        |  Default value: Cycling
 
         Args:
             value (str): value for IDD Field `Heat Pump Coil Water Flow Mode`
-                Default value: Cycling
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heat_pump_coil_water_flow_mode` or None if not set
+
         """
         return self["Heat Pump Coil Water Flow Mode"]
 
@@ -6096,7 +6243,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def name(self):
-        """field `Name` Enter a unique name for this unitary system.
+        """field `Name`
+
+        |  Enter a unique name for this unitary system.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6118,10 +6267,11 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
-        Enter the availability schedule name. Schedule values of zero denote system
-        is Off. Non-zero schedule values denote system is available to operate.
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
+        |  Enter the availability schedule name. Schedule values of zero denote system
+        |  is Off. Non-zero schedule values denote system is available to operate.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6131,6 +6281,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
@@ -6141,18 +6292,20 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def system_air_flow_rate_during_cooling_operation(self):
-        """field `System Air Flow Rate During Cooling Operation` Enter the
-        system air flow rate during cooling operation or specify autosize.
+        """field `System Air Flow Rate During Cooling Operation`
+
+        |  Enter the system air flow rate during cooling
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `System Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `system_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `system_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["System Air Flow Rate During Cooling Operation"]
@@ -6165,18 +6318,20 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def system_air_flow_rate_during_heating_operation(self):
-        """field `System Air Flow Rate During Heating Operation` Enter the
-        system air flow rate during heating operation or specify autosize.
+        """field `System Air Flow Rate During Heating Operation`
+
+        |  Enter the system air flow rate during heating
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `System Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `system_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `system_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["System Air Flow Rate During Heating Operation"]
@@ -6190,21 +6345,22 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def system_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `System Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when the supply air fan operating mode is continuous (see
-        field Supply air fan operating mode schedule name). This system air
-        flow rate is used when no heating or cooling is required and the coils
-        are off. If this field is left blank or zero, the system air flow rate
-        from the previous on cycle (either cooling or heating) is used.
+
+        |  Only used when the supply air fan operating mode is continuous (see field
+        |  Supply air fan operating mode schedule name). This system air flow rate
+        |  is used when no heating or cooling is required and the coils are off.
+        |  If this field is left blank or zero, the system air flow rate from the
+        |  previous on cycle (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `System Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `system_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `system_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -6221,18 +6377,20 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """field `Outdoor Air Flow Rate During Cooling Operation` Enter the
-        outdoor air flow rate during cooling operation or specify autosize.
+        """field `Outdoor Air Flow Rate During Cooling Operation`
+
+        |  Enter the outdoor air flow rate during
+        |  cooling operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
@@ -6245,18 +6403,20 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """field `Outdoor Air Flow Rate During Heating Operation` Enter the
-        outdoor air flow rate during heating operation or specify autosize.
+        """field `Outdoor Air Flow Rate During Heating Operation`
+
+        |  Enter the outdoor air flow rate during
+        |  heating operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
@@ -6270,21 +6430,22 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when the supply air fan operating mode is continuous (see
-        field Supply air fan operating mode schedule name). This outdoor air
-        flow rate is used when no heating or cooling is required and the coils
-        are off. If this field is left blank or zero, the outdoor air flow rate
-        from the previous on cycle (either cooling or heating) is used.
+
+        |  Only used when the supply air fan operating mode is continuous (see field
+        |  Supply air fan operating mode schedule name). This outdoor air flow rate
+        |  is used when no heating or cooling is required and the coils are off.
+        |  If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
+        |  (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -6302,9 +6463,10 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def outdoor_air_flow_rate_multiplier_schedule_name(self):
         """field `Outdoor Air Flow Rate Multiplier Schedule Name`
-        Enter the name of a schedule that contains multipliers for the outdoor air
-        flow rates. Schedule values must be from 0 to 1.
-        If field is left blank, model assumes multiplier is 1 for the entire simulation period.
+
+        |  Enter the name of a schedule that contains multipliers for the outdoor air
+        |  flow rates. Schedule values must be from 0 to 1.
+        |  If field is left blank, model assumes multiplier is 1 for the entire simulation period.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Flow Rate Multiplier Schedule Name`
@@ -6314,6 +6476,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
         Returns:
             str: the value of `outdoor_air_flow_rate_multiplier_schedule_name` or None if not set
+
         """
         return self["Outdoor Air Flow Rate Multiplier Schedule Name"]
 
@@ -6325,8 +6488,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` Enter the name of the unitary system's
-        air inlet node.
+        """field `Air Inlet Node Name`
+
+        |  Enter the name of the unitary system's air inlet node.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -6347,10 +6511,11 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def bypass_duct_mixer_node_name(self):
-        """field `Bypass Duct Mixer Node Name` Enter the name of the bypass
-        duct mixer node. This name should be the name of the return air node
-        for the outdoor air mixer associated with this system. This node name
-        must be different from the air inlet node name.
+        """field `Bypass Duct Mixer Node Name`
+
+        |  Enter the name of the bypass duct mixer node. This name should be the name
+        |  of the return air node for the outdoor air mixer associated with this system.
+        |  This node name must be different from the air inlet node name.
 
         Args:
             value (str): value for IDD Field `Bypass Duct Mixer Node Name`
@@ -6371,12 +6536,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def bypass_duct_splitter_node_name(self):
-        """field `Bypass Duct Splitter Node Name` Enter the name of the bypass
-        duct splitter node. This splitter air node is the outlet node of the
-        last component in this unitary system. For blow through fan placement,
-        the splitter air node is the outlet node of the heating coil. For draw
-        through fan placement, the splitter node is the outlet node of the
-        supply air fan.
+        """field `Bypass Duct Splitter Node Name`
+
+        |  Enter the name of the bypass duct splitter node.
+        |  This splitter air node is the outlet node of the last component in this unitary
+        |  system. For blow through fan placement, the splitter air node is the outlet
+        |  node of the heating coil. For draw through fan placement, the splitter node
+        |  is the outlet node of the supply air fan.
 
         Args:
             value (str): value for IDD Field `Bypass Duct Splitter Node Name`
@@ -6397,8 +6563,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def air_outlet_node_name(self):
-        """field `Air Outlet Node Name` Enter the name of the unitary system's
-        air outlet node.
+        """field `Air Outlet Node Name`
+
+        |  Enter the name of the unitary system's air outlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -6420,7 +6587,8 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def outdoor_air_mixer_object_type(self):
         """field `Outdoor Air Mixer Object Type`
-        currently only one type OutdoorAir:Mixer object is available.
+
+        |  currently only one type OutdoorAir:Mixer object is available.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -6430,6 +6598,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -6440,8 +6609,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """field `Outdoor Air Mixer Name` Enter the name of the outdoor air
-        mixer used with this unitary system.
+        """field `Outdoor Air Mixer Name`
+
+        |  Enter the name of the outdoor air mixer used with this unitary system.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -6462,8 +6632,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def supply_air_fan_object_type(self):
-        """field `Supply Air Fan Object Type` Specify the type of supply air
-        fan used in this unitary system.
+        """field `Supply Air Fan Object Type`
+
+        |  Specify the type of supply air fan used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -6484,8 +6655,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """field `Supply Air Fan Name` Enter the name of the supply air fan
-        used in this unitary system.
+        """field `Supply Air Fan Name`
+
+        |  Enter the name of the supply air fan used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -6506,10 +6678,11 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def supply_air_fan_placement(self):
-        """field `Supply Air Fan Placement` Specify supply air fan placement as
-        either blow through or draw through. BlowThrough means the supply air
-        fan is located before the cooling coil. DrawThrough means the supply
-        air fan is located after the heating coil.
+        """field `Supply Air Fan Placement`
+
+        |  Specify supply air fan placement as either blow through or draw through.
+        |  BlowThrough means the supply air fan is located before the cooling
+        |  coil. DrawThrough means the supply air fan is located after the heating coil.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Placement`
@@ -6531,12 +6704,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
         """field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule to control the supply air fan. Schedule Name values of zero
-        mean that the supply air fan will cycle off if there is no cooling or heating load
-        in any of the zones being served by this system. Non-zero schedule values mean
-        that the supply air fan will operate continuously even if there is no cooling or
-        heating load in any of the zones being served. If this field is left blank,
-        the supply air fan will operate continuously for the entire simulation period.
+
+        |  Enter the name of a schedule to control the supply air fan. Schedule Name values of zero
+        |  mean that the supply air fan will cycle off if there is no cooling or heating load
+        |  in any of the zones being served by this system. Non-zero schedule values mean
+        |  that the supply air fan will operate continuously even if there is no cooling or
+        |  heating load in any of the zones being served. If this field is left blank,
+        |  the supply air fan will operate continuously for the entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -6546,6 +6720,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
@@ -6557,8 +6732,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def cooling_coil_object_type(self):
-        """field `Cooling Coil Object Type` Specify the type of cooling coil
-        used in this unitary system.
+        """field `Cooling Coil Object Type`
+
+        |  Specify the type of cooling coil used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -6579,8 +6755,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """field `Cooling Coil Name` Enter the name of the cooling coil used in
-        this unitary system.
+        """field `Cooling Coil Name`
+
+        |  Enter the name of the cooling coil used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -6601,9 +6778,10 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` works with DX, gas, electric, hot
-        water and steam heating coils Specify the type of heating coil used in
-        this unitary system.
+        """field `Heating Coil Object Type`
+
+        |  works with DX, gas, electric, hot water and steam heating coils
+        |  Specify the type of heating coil used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -6624,8 +6802,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
 
     @property
     def heating_coil_name(self):
-        """field `Heating Coil Name` Enter the name of the heating coil used in
-        this unitary system.
+        """field `Heating Coil Name`
+
+        |  Enter the name of the heating coil used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -6647,21 +6826,23 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def priority_control_mode(self):
         """field `Priority Control Mode`
-        CoolingPriority = system provides cooling if any zone requires cooling.
-        HeatingPriority = system provides heating if any zone requires heating.
-        ZonePriority = system controlled based on the total number of zones
-        requiring cooling or heating (highest number of zones
-        in cooling or heating determines the system's operating mode).
+
+        |  CoolingPriority = system provides cooling if any zone requires cooling.
+        |  HeatingPriority = system provides heating if any zone requires heating.
+        |  ZonePriority = system controlled based on the total number of zones
+        |  requiring cooling or heating (highest number of zones
+        |  in cooling or heating determines the system's operating mode).
+        |  Default value: ZonePriority
 
         Args:
             value (str): value for IDD Field `Priority Control Mode`
-                Default value: ZonePriority
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `priority_control_mode` or None if not set
+
         """
         return self["Priority Control Mode"]
 
@@ -6673,14 +6854,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def minimum_outlet_air_temperature_during_cooling_operation(self):
         """field `Minimum Outlet Air Temperature During Cooling Operation`
-        Specify the minimum outlet air temperature allowed for this unitary
-        system during cooling operation. This value should be less than the
-        maximum outlet air temperature during heating operation.
+
+        |  Specify the minimum outlet air temperature allowed for this unitary system
+        |  during cooling operation. This value should be less than the maximum outlet
+        |  air temperature during heating operation.
+        |  Units: C
+        |  Default value: 8.0
 
         Args:
             value (float): value for IDD Field `Minimum Outlet Air Temperature During Cooling Operation`
-                Units: C
-                Default value: 8.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6702,14 +6884,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def maximum_outlet_air_temperature_during_heating_operation(self):
         """field `Maximum Outlet Air Temperature During Heating Operation`
-        Specify the maximum outlet air temperature allowed for this unitary
-        system during heating operation. This value should be greater than the
-        minimum outlet air temperature during cooling operation.
+
+        |  Specify the maximum outlet air temperature allowed for this unitary system
+        |  during heating operation. This value should be greater than the minimum outlet
+        |  air temperature during cooling operation.
+        |  Units: C
+        |  Default value: 50.0
 
         Args:
             value (float): value for IDD Field `Maximum Outlet Air Temperature During Heating Operation`
-                Units: C
-                Default value: 50.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6731,29 +6914,31 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
     @property
     def dehumidification_control_type(self):
         """field `Dehumidification Control Type`
-        None = meet sensible load only.
-        Multimode = activate enhanced dehumidification mode
-        as needed and meet sensible load.  Valid only with
-        Coil:Cooling:DX:TwoStageWithHumidityControlMode.
-        CoolReheat = cool beyond the Dry-Bulb temperature setpoint
-        as required to meet the humidity setpoint.  Valid only with
-        Coil:Cooling:DX:TwoStageWithHumidityControlMode.
-        For all dehumidification controls, the max humidity setpoint
-        on this unitary system's air outlet node is used.
-        This must be set using ZoneControl:Humidistat and
-        SetpointManager:SingleZone:Humidity:Maximum,
-        SetpointManager:MultiZone:Humidity:Maximum or
-        SetpointManager:MultiZone:MaximumHumidity:Average objects.
+
+        |  None = meet sensible load only.
+        |  Multimode = activate enhanced dehumidification mode
+        |  as needed and meet sensible load.  Valid only with
+        |  Coil:Cooling:DX:TwoStageWithHumidityControlMode.
+        |  CoolReheat = cool beyond the Dry-Bulb temperature setpoint
+        |  as required to meet the humidity setpoint.  Valid only with
+        |  Coil:Cooling:DX:TwoStageWithHumidityControlMode.
+        |  For all dehumidification controls, the max humidity setpoint
+        |  on this unitary system's air outlet node is used.
+        |  This must be set using ZoneControl:Humidistat and
+        |  SetpointManager:SingleZone:Humidity:Maximum,
+        |  SetpointManager:MultiZone:Humidity:Maximum or
+        |  SetpointManager:MultiZone:MaximumHumidity:Average objects.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -7105,9 +7290,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -7192,8 +7378,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def supply_air_fan_object_type(self):
-        """field `Supply Air Fan Object Type` Select the type of supply air fan
-        used in this unitary system.
+        """field `Supply Air Fan Object Type`
+
+        |  Select the type of supply air fan used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -7214,8 +7401,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """field `Supply Air Fan Name` Enter the name of the supply air fan
-        used in this unitary system.
+        """field `Supply Air Fan Name`
+
+        |  Enter the name of the supply air fan used in this unitary system.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -7236,11 +7424,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def supply_air_fan_placement(self):
-        """field `Supply Air Fan Placement` Select supply air fan placement as
-        either BlowThrough or DrawThrough. BlowThrough means the supply air fan
-        is located before the cooling coil. DrawThrough means the supply air
-        fan is located after the heating coil but before the optional
-        supplemental heating coil.
+        """field `Supply Air Fan Placement`
+
+        |  Select supply air fan placement as either BlowThrough or DrawThrough.
+        |  BlowThrough means the supply air fan is located before the cooling
+        |  coil. DrawThrough means the supply air fan is located after the heating coil
+        |  but before the optional supplemental heating coil.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Placement`
@@ -7262,12 +7451,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
         """field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule to control the supply air fan. Schedule values of zero
-        mean that the supply air fan will cycle off if there is no cooling or heating load
-        in the control zone. Non-zero schedule values mean that the supply air fan
-        will operate continuously even if there is no cooling or heating load
-        in the control zone. If this field is left blank, the supply air fan will
-        operate continuously for the entire simulation period.
+
+        |  Enter the name of a schedule to control the supply air fan. Schedule values of zero
+        |  mean that the supply air fan will cycle off if there is no cooling or heating load
+        |  in the control zone. Non-zero schedule values mean that the supply air fan
+        |  will operate continuously even if there is no cooling or heating load
+        |  in the control zone. If this field is left blank, the supply air fan will
+        |  operate continuously for the entire simulation period.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -7277,6 +7467,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
@@ -7288,8 +7479,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """field `Heating Coil Object Type` Multi Speed DX, Electric, Gas, and
-        Single speed Water and Steam coils.
+        """field `Heating Coil Object Type`
+
+        |  Multi Speed DX, Electric, Gas, and Single speed Water and Steam coils
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -7332,13 +7524,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def minimum_outdoor_drybulb_temperature_for_compressor_operation(self):
         """field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
-        Needs to match the corresponding minimum outdoor temperature defined
-        in the DX heating coil object.
+
+        |  Needs to match the corresponding minimum outdoor temperature defined
+        |  in the DX heating coil object.
+        |  Units: C
+        |  Default value: -8.0
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
-                Units: C
-                Default value: -8.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7363,7 +7556,8 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def cooling_coil_object_type(self):
         """field `Cooling Coil Object Type`
-        Only works with Coil:Cooling:DX:MultiSpeed
+
+        |  Only works with Coil:Cooling:DX:MultiSpeed
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -7373,6 +7567,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -7383,8 +7578,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """field `Cooling Coil Name` Needs to match in the DX Cooling Coil
-        object.
+        """field `Cooling Coil Name`
+
+        |  Needs to match in the DX Cooling Coil object
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -7405,8 +7601,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """field `Supplemental Heating Coil Object Type` works with gas,
-        electric, hot water and steam heating coils.
+        """field `Supplemental Heating Coil Object Type`
+
+        |  works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -7427,8 +7624,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def supplemental_heating_coil_name(self):
-        """field `Supplemental Heating Coil Name` Needs to match in the
-        supplemental heating coil object.
+        """field `Supplemental Heating Coil Name`
+
+        |  Needs to match in the supplemental heating coil object
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -7451,15 +7649,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     def maximum_supply_air_temperature_from_supplemental_heater(self):
         """field `Maximum Supply Air Temperature from Supplemental Heater`
 
+        |  Units: C
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
+            float or "Autosize": the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
 
         """
         return self["Maximum Supply Air Temperature from Supplemental Heater"]
@@ -7477,11 +7676,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
             self):
         """field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
 
+        |  Units: C
+        |  Default value: 21.0
+        |  value <= 21.0
+
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-                Units: C
-                Default value: 21.0
-                value <= 21.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7506,9 +7706,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     def auxiliary_oncycle_electric_power(self):
         """field `Auxiliary On-Cycle Electric Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Auxiliary On-Cycle Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7529,9 +7730,10 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     def auxiliary_offcycle_electric_power(self):
         """field `Auxiliary Off-Cycle Electric Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Auxiliary Off-Cycle Electric Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7551,18 +7753,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        If non-zero, then the heat recovery inlet and outlet node names must be entered.
-        Used for heat recovery to an EnergyPlus plant loop.
+
+        |  If non-zero, then the heat recovery inlet and outlet node names must be entered.
+        |  Used for heat recovery to an EnergyPlus plant loop.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
@@ -7575,11 +7779,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     def maximum_temperature_for_heat_recovery(self):
         """field `Maximum Temperature for Heat Recovery`
 
+        |  Units: C
+        |  Default value: 80.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Maximum Temperature for Heat Recovery`
-                Units: C
-                Default value: 80.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7640,21 +7845,22 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when the supply air fan operating mode is continuous (see
-        field Supply Air Fan Operating Mode Schedule Name). This air flow rate
-        is used when no heating or cooling is required and the coils are off.
-        If this field is left blank or zero, the supply air flow rate from the
-        previous on cycle (either cooling or heating) is used.
+
+        |  Only used when the supply air fan operating mode is continuous (see field
+        |  Supply Air Fan Operating Mode Schedule Name). This air flow rate
+        |  is used when no heating or cooling is required and the coils are off.
+        |  If this field is left blank or zero, the supply air flow rate from the
+        |  previous on cycle (either cooling or heating) is used.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
 
         """
         return self[
@@ -7672,20 +7878,22 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
     @property
     def number_of_speeds_for_heating(self):
         """field `Number of Speeds for Heating`
-        Enter the number of the following sets of data for air flow rates.
-        If Heating Coil Object Type is Coil:Heating:Water or Coil:Heating:Steam,
-        this field should be 1.
+
+        |  Enter the number of the following sets of data for air flow rates.
+        |  If Heating Coil Object Type is Coil:Heating:Water or Coil:Heating:Steam,
+        |  this field should be 1.
+        |  value >= 1
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Speeds for Heating`
-                value >= 1
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_speeds_for_heating` or None if not set
+
         """
         return self["Number of Speeds for Heating"]
 
@@ -7696,13 +7904,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def number_of_speeds_for_cooling(self):
-        """field `Number of Speeds for Cooling` Enter the number of the
-        following sets of data for air flow rates.
+        """field `Number of Speeds for Cooling`
+
+        |  Enter the number of the following sets of data for air flow rates.
+        |  value >= 2
+        |  value <= 4
 
         Args:
             value (int): value for IDD Field `Number of Speeds for Cooling`
-                value >= 2
-                value <= 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7720,19 +7929,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_1_supply_air_flow_rate_during_heating_operation(self):
-        """field `Speed 1 Supply Air Flow Rate During Heating Operation` Enter
-        the operating supply air flow rate during heating operation or specify
-        autosize.
+        """field `Speed 1 Supply Air Flow Rate During Heating Operation`
+
+        |  Enter the operating supply air flow rate during heating
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 1 Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_1_supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `speed_1_supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Speed 1 Supply Air Flow Rate During Heating Operation"]
@@ -7747,19 +7957,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_2_supply_air_flow_rate_during_heating_operation(self):
-        """field `Speed 2 Supply Air Flow Rate During Heating Operation` Enter
-        the operating supply air flow rate during heating operation or specify
-        autosize.
+        """field `Speed 2 Supply Air Flow Rate During Heating Operation`
+
+        |  Enter the operating supply air flow rate during heating
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 2 Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_2_supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `speed_2_supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Speed 2 Supply Air Flow Rate During Heating Operation"]
@@ -7774,19 +7985,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_3_supply_air_flow_rate_during_heating_operation(self):
-        """field `Speed 3 Supply Air Flow Rate During Heating Operation` Enter
-        the operating supply air flow rate during heating operation or specify
-        autosize.
+        """field `Speed 3 Supply Air Flow Rate During Heating Operation`
+
+        |  Enter the operating supply air flow rate during heating
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 3 Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_3_supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `speed_3_supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Speed 3 Supply Air Flow Rate During Heating Operation"]
@@ -7801,19 +8013,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_4_supply_air_flow_rate_during_heating_operation(self):
-        """field `Speed 4 Supply Air Flow Rate During Heating Operation` Enter
-        the operating supply air flow rate during heating operation or specify
-        autosize.
+        """field `Speed 4 Supply Air Flow Rate During Heating Operation`
+
+        |  Enter the operating supply air flow rate during heating
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 4 Supply Air Flow Rate During Heating Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_4_supply_air_flow_rate_during_heating_operation` or None if not set
+            float or "Autosize": the value of `speed_4_supply_air_flow_rate_during_heating_operation` or None if not set
 
         """
         return self["Speed 4 Supply Air Flow Rate During Heating Operation"]
@@ -7828,19 +8041,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_1_supply_air_flow_rate_during_cooling_operation(self):
-        """field `Speed 1 Supply Air Flow Rate During Cooling Operation` Enter
-        the operating supply air flow rate during cooling operation or specify
-        autosize.
+        """field `Speed 1 Supply Air Flow Rate During Cooling Operation`
+
+        |  Enter the operating supply air flow rate during cooling
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 1 Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_1_supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `speed_1_supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Speed 1 Supply Air Flow Rate During Cooling Operation"]
@@ -7855,19 +8069,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_2_supply_air_flow_rate_during_cooling_operation(self):
-        """field `Speed 2 Supply Air Flow Rate During Cooling Operation` Enter
-        the operating supply air flow rate during cooling operation or specify
-        autosize.
+        """field `Speed 2 Supply Air Flow Rate During Cooling Operation`
+
+        |  Enter the operating supply air flow rate during cooling
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 2 Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_2_supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `speed_2_supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Speed 2 Supply Air Flow Rate During Cooling Operation"]
@@ -7882,19 +8097,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_3_supply_air_flow_rate_during_cooling_operation(self):
-        """field `Speed 3 Supply Air Flow Rate During Cooling Operation` Enter
-        the operating supply air flow rate during cooling operation or specify
-        autosize.
+        """field `Speed 3 Supply Air Flow Rate During Cooling Operation`
+
+        |  Enter the operating supply air flow rate during cooling
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 3 Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_3_supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `speed_3_supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Speed 3 Supply Air Flow Rate During Cooling Operation"]
@@ -7909,19 +8125,20 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
 
     @property
     def speed_4_supply_air_flow_rate_during_cooling_operation(self):
-        """field `Speed 4 Supply Air Flow Rate During Cooling Operation` Enter
-        the operating supply air flow rate during cooling operation or specify
-        autosize.
+        """field `Speed 4 Supply Air Flow Rate During Cooling Operation`
+
+        |  Enter the operating supply air flow rate during cooling
+        |  operation or specify autosize.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Speed 4 Supply Air Flow Rate During Cooling Operation`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `speed_4_supply_air_flow_rate_during_cooling_operation` or None if not set
+            float or "Autosize": the value of `speed_4_supply_air_flow_rate_during_cooling_operation` or None if not set
 
         """
         return self["Speed 4 Supply Air Flow Rate During Cooling Operation"]

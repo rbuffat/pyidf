@@ -116,9 +116,10 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -141,9 +142,10 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
     def direct_pad_area(self):
         """field `Direct Pad Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Direct Pad Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -163,9 +165,10 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
     def direct_pad_depth(self):
         """field `Direct Pad Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Direct Pad Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -185,10 +188,11 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
     def recirculating_water_pump_power_consumption(self):
         """field `Recirculating Water Pump Power Consumption`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -249,8 +253,9 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @property
     def control_type(self):
-        """field `Control Type` This field is not currently used and can be
-        left blank.
+        """field `Control Type`
+
+        |  This field is not currently used and can be left blank
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -442,9 +447,10 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -467,9 +473,10 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def direct_pad_area(self):
         """field `Direct Pad Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Direct Pad Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -489,9 +496,10 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def direct_pad_depth(self):
         """field `Direct Pad Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Direct Pad Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -511,10 +519,11 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def recirculating_water_pump_power_consumption(self):
         """field `Recirculating Water Pump Power Consumption`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -535,9 +544,10 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def secondary_fan_flow_rate(self):
         """field `Secondary Fan Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Secondary Fan Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -557,9 +567,10 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def secondary_fan_total_efficiency(self):
         """field `Secondary Fan Total Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -579,10 +590,11 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
     def secondary_fan_delta_pressure(self):
         """field `Secondary Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -663,8 +675,9 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @property
     def control_type(self):
-        """field `Control Type` This field is not currently used and can be
-        left blank.
+        """field `Control Type`
+
+        |  This field is not currently used and can be left blank
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -706,8 +719,9 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @property
     def secondary_air_inlet_node_name(self):
-        """field `Secondary Air Inlet Node Name` Enter the name of an outdoor
-        air node.
+        """field `Secondary Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -867,9 +881,10 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -892,9 +907,10 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
     def coil_maximum_efficiency(self):
         """field `Coil Maximum Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Coil Maximum Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -935,10 +951,11 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
     def recirculating_water_pump_power_consumption(self):
         """field `Recirculating Water Pump Power Consumption`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -959,9 +976,10 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
     def secondary_fan_flow_rate(self):
         """field `Secondary Fan Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Secondary Fan Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -981,9 +999,10 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
     def secondary_fan_total_efficiency(self):
         """field `Secondary Fan Total Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1003,10 +1022,11 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
     def secondary_fan_delta_pressure(self):
         """field `Secondary Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1066,8 +1086,9 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @property
     def control_type(self):
-        """field `Control Type` This field is not currently used and can be
-        left blank.
+        """field `Control Type`
+
+        |  This field is not currently used and can be left blank
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -1109,8 +1130,9 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @property
     def secondary_air_inlet_node_name(self):
-        """field `Secondary Air Inlet Node Name` Enter the name of an outdoor
-        air node.
+        """field `Secondary Air Inlet Node Name`
+
+        |  Enter the name of an outdoor air node
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -1308,9 +1330,10 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1333,9 +1356,10 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     def cooler_maximum_effectiveness(self):
         """field `Cooler Maximum Effectiveness`
 
+        |  value <= 2.0
+
         Args:
             value (float): value for IDD Field `Cooler Maximum Effectiveness`
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1376,10 +1400,11 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     def recirculating_water_pump_power_consumption(self):
         """field `Recirculating Water Pump Power Consumption`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1400,15 +1425,16 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     def secondary_fan_flow_rate(self):
         """field `Secondary Fan Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Secondary Fan Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `secondary_fan_flow_rate` or None if not set
+            float or "Autosize": the value of `secondary_fan_flow_rate` or None if not set
 
         """
         return self["Secondary Fan Flow Rate"]
@@ -1422,9 +1448,10 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     def secondary_fan_total_efficiency(self):
         """field `Secondary Fan Total Efficiency`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1444,10 +1471,11 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     def secondary_fan_delta_pressure(self):
         """field `Secondary Fan Delta Pressure`
 
+        |  Units: Pa
+        |  IP-Units: inH2O
+
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
-                Units: Pa
-                IP-Units: inH2O
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1633,8 +1661,9 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @property
     def drift_loss_fraction(self):
-        """field `Drift Loss Fraction` Rate of drift loss as a fraction of
-        evaporated water flow rate.
+        """field `Drift Loss Fraction`
+
+        |  Rate of drift loss as a fraction of evaporated water flow rate
 
         Args:
             value (float): value for IDD Field `Drift Loss Fraction`
@@ -1656,21 +1685,23 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the evaporative cooler.
-        Blowdown is water intentionally drained from the cooler in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        A typical value is 3.  If left blank then there is no blowdown.
+
+        |  Characterizes the rate of blowdown in the evaporative cooler.
+        |  Blowdown is water intentionally drained from the cooler in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  A typical value is 3.  If left blank then there is no blowdown.
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 
@@ -1797,9 +1828,10 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1820,12 +1852,13 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @property
     def cooler_effectiveness(self):
-        """field `Cooler Effectiveness` effectiveness with respect to wetbulb
-        depression.
+        """field `Cooler Effectiveness`
+
+        |  effectiveness with respect to wetbulb depression
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Cooler Effectiveness`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1845,10 +1878,11 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
     def recirculating_water_pump_power_consumption(self):
         """field `Recirculating Water Pump Power Consumption`
 
+        |  Units: W
+        |  IP-Units: W
+
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
-                Units: W
-                IP-Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1951,8 +1985,9 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @property
     def drift_loss_fraction(self):
-        """field `Drift Loss Fraction` Rate of drift loss as a fraction of
-        evaporated water flow rate.
+        """field `Drift Loss Fraction`
+
+        |  Rate of drift loss as a fraction of evaporated water flow rate
 
         Args:
             value (float): value for IDD Field `Drift Loss Fraction`
@@ -1974,21 +2009,23 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
     @property
     def blowdown_concentration_ratio(self):
         """field `Blowdown Concentration Ratio`
-        Characterizes the rate of blowdown in the evaporative cooler.
-        Blowdown is water intentionally drained from the cooler in order to offset the build up
-        of solids in the water that would otherwise occur because of evaporation.
-        Ratio of solids in the blowdown water to solids in the make up water.
-        A typical value is 3. If left blank then there is no blowdown.
+
+        |  Characterizes the rate of blowdown in the evaporative cooler.
+        |  Blowdown is water intentionally drained from the cooler in order to offset the build up
+        |  of solids in the water that would otherwise occur because of evaporation.
+        |  Ratio of solids in the blowdown water to solids in the make up water.
+        |  A typical value is 3. If left blank then there is no blowdown.
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `blowdown_concentration_ratio` or None if not set
+
         """
         return self["Blowdown Concentration Ratio"]
 

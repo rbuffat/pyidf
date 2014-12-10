@@ -135,9 +135,10 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
     def gross_area(self):
         """field `Gross Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Gross Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -157,9 +158,10 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
     def test_fluid(self):
         """field `Test Fluid`
 
+        |  Default value: Water
+
         Args:
             value (str): value for IDD Field `Test Fluid`
-                Default value: Water
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -179,9 +181,10 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
     def test_flow_rate(self):
         """field `Test Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Test Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -221,17 +224,19 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
     @property
     def coefficient_1_of_efficiency_equation(self):
         """field `Coefficient 1 of Efficiency Equation`
-        Y-intercept term
+
+        |  Y-intercept term
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Coefficient 1 of Efficiency Equation`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `coefficient_1_of_efficiency_equation` or None if not set
+
         """
         return self["Coefficient 1 of Efficiency Equation"]
 
@@ -242,11 +247,13 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
 
     @property
     def coefficient_2_of_efficiency_equation(self):
-        """field `Coefficient 2 of Efficiency Equation` 1st Order term.
+        """field `Coefficient 2 of Efficiency Equation`
+
+        |  1st Order term
+        |  Units: W/m2-K
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of Efficiency Equation`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -264,11 +271,13 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
 
     @property
     def coefficient_3_of_efficiency_equation(self):
-        """field `Coefficient 3 of Efficiency Equation` 2nd order term.
+        """field `Coefficient 3 of Efficiency Equation`
+
+        |  2nd order term
+        |  Units: W/m2-K2
 
         Args:
             value (float): value for IDD Field `Coefficient 3 of Efficiency Equation`
-                Units: W/m2-K2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -286,7 +295,9 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
 
     @property
     def coefficient_2_of_incident_angle_modifier(self):
-        """field `Coefficient 2 of Incident Angle Modifier` 1st order term.
+        """field `Coefficient 2 of Incident Angle Modifier`
+
+        |  1st order term
 
         Args:
             value (float): value for IDD Field `Coefficient 2 of Incident Angle Modifier`
@@ -308,7 +319,9 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
 
     @property
     def coefficient_3_of_incident_angle_modifier(self):
-        """field `Coefficient 3 of Incident Angle Modifier` 2nd order term.
+        """field `Coefficient 3 of Incident Angle Modifier`
+
+        |  2nd order term
 
         Args:
             value (float): value for IDD Field `Coefficient 3 of Incident Angle Modifier`
@@ -502,9 +515,10 @@ class SolarCollectorFlatPlateWater(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -657,6 +671,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
     def photovoltaicthermal_model_performance_name(self):
         """field `Photovoltaic-Thermal Model Performance Name`
 
+
         Args:
             value (str): value for IDD Field `Photovoltaic-Thermal Model Performance Name`
 
@@ -678,7 +693,8 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
     @property
     def photovoltaic_name(self):
         """field `Photovoltaic Name`
-        Enter the name of a Generator:Photovoltaic object.
+
+        |  Enter the name of a Generator:Photovoltaic object.
 
         Args:
             value (str): value for IDD Field `Photovoltaic Name`
@@ -688,6 +704,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
 
         Returns:
             str: the value of `photovoltaic_name` or None if not set
+
         """
         return self["Photovoltaic Name"]
 
@@ -805,15 +822,16 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_flow_rate` or None if not set
+            float or "Autosize": the value of `design_flow_rate` or None if not set
 
         """
         return self["Design Flow Rate"]
@@ -917,10 +935,11 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     def fraction_of_surface_area_with_active_thermal_collector(self):
         """field `Fraction of Surface Area with Active Thermal Collector`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Surface Area with Active Thermal Collector`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -964,17 +983,19 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     @property
     def value_for_thermal_conversion_efficiency_if_fixed(self):
         """field `Value for Thermal Conversion Efficiency if Fixed`
-        Efficiency = (thermal power generated [W])/(incident solar[W])
+
+        |  Efficiency = (thermal power generated [W])/(incident solar[W])
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Value for Thermal Conversion Efficiency if Fixed`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `value_for_thermal_conversion_efficiency_if_fixed` or None if not set
+
         """
         return self["Value for Thermal Conversion Efficiency if Fixed"]
 
@@ -1010,10 +1031,11 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     def front_surface_emittance(self):
         """field `Front Surface Emittance`
 
+        |  Default value: 0.84
+        |  value < 1.0
+
         Args:
             value (float): value for IDD Field `Front Surface Emittance`
-                Default value: 0.84
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1179,9 +1201,10 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
     def bottom_surface_boundary_conditions_type(self):
         """field `Bottom Surface Boundary Conditions Type`
 
+        |  Default value: AmbientAir
+
         Args:
             value (str): value for IDD Field `Bottom Surface Boundary Conditions Type`
-                Default value: AmbientAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1201,9 +1224,10 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
     @property
     def boundary_condition_model_name(self):
         """field `Boundary Condition Model Name`
-        Enter the name of a SurfaceProperty:OtherSideConditionsModel
-        object. Specified only if the boundary condition type is
-        OtherSideConditionsModel, otherwise leave it blank
+
+        |  Enter the name of a SurfaceProperty:OtherSideConditionsModel
+        |  object. Specified only if the boundary condition type is
+        |  OtherSideConditionsModel, otherwise leave it blank
 
         Args:
             value (str): value for IDD Field `Boundary Condition Model Name`
@@ -1213,6 +1237,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
 
         Returns:
             str: the value of `boundary_condition_model_name` or None if not set
+
         """
         return self["Boundary Condition Model Name"]
 
@@ -1267,9 +1292,10 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1518,8 +1544,9 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def ics_collector_type(self):
-        """field `ICS Collector Type` Currently only RectangularTank ICS
-        collector type is available.
+        """field `ICS Collector Type`
+
+        |  Currently only RectangularTank ICS collector type is available.
 
         Args:
             value (str): value for IDD Field `ICS Collector Type`
@@ -1542,9 +1569,10 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     def gross_area(self):
         """field `Gross Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Gross Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1564,9 +1592,10 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     def collector_water_volume(self):
         """field `Collector Water Volume`
 
+        |  Units: m3
+
         Args:
             value (float): value for IDD Field `Collector Water Volume`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1584,13 +1613,14 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def bottom_heat_loss_conductance(self):
-        """field `Bottom Heat Loss Conductance` Heat loss conductance of the
-        collector bottom insulation.
+        """field `Bottom Heat Loss Conductance`
+
+        |  Heat loss conductance of the collector bottom insulation
+        |  Units: W/m2-K
+        |  Default value: 0.4
 
         Args:
             value (float): value for IDD Field `Bottom Heat Loss Conductance`
-                Units: W/m2-K
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1608,13 +1638,14 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def side_heat_loss_conductance(self):
-        """field `Side Heat Loss Conductance` heat loss conductance of the
-        collector side insulation.
+        """field `Side Heat Loss Conductance`
+
+        |  heat loss conductance of the collector side insulation
+        |  Units: W/m2-K
+        |  Default value: 0.6
 
         Args:
             value (float): value for IDD Field `Side Heat Loss Conductance`
-                Units: W/m2-K
-                Default value: 0.6
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1632,16 +1663,18 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def aspect_ratio(self):
-        """field `Aspect Ratio` This value is ratio of the width (short side)
-        to length (long side of) of the collector.  Used to calculate the
-        perimeter of the collector.
+        """field `Aspect Ratio`
+
+        |  This value is ratio of the width (short side) to length
+        |  (long side of) of the collector.  Used to calculate the
+        |  perimeter of the collector
+        |  Units: m
+        |  Default value: 0.8
+        |  value > 0.5
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Aspect Ratio`
-                Units: m
-                Default value: 0.8
-                value > 0.5
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1659,15 +1692,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def collector_side_height(self):
-        """field `Collector Side Height` This value is used to estimate
-        collector side area for the heat loss calculation through the collector
-        side.
+        """field `Collector Side Height`
+
+        |  This value is used to estimate collector side area for the heat
+        |  loss calculation through the collector side
+        |  Units: m
+        |  Default value: 0.2
+        |  value < 0.3
 
         Args:
             value (float): value for IDD Field `Collector Side Height`
-                Units: m
-                Default value: 0.2
-                value < 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1685,12 +1719,14 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def thermal_mass_of_absorber_plate(self):
-        """field `Thermal Mass of Absorber Plate` Calculated from the specific
-        heat, density and thickness of the absorber plate.
+        """field `Thermal Mass of Absorber Plate`
+
+        |  Calculated from the specific heat, density and thickness
+        |  of the absorber plate.
+        |  Units: J/m2-K
 
         Args:
             value (float): value for IDD Field `Thermal Mass of Absorber Plate`
-                Units: J/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1709,21 +1745,23 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     @property
     def number_of_covers(self):
         """field `Number of Covers`
-        Number of transparent covers. Common practice is to use low-iron
-        glass as the outer cover and very thin transparent sheet such as
-        Teflon as the inner cover.
+
+        |  Number of transparent covers. Common practice is to use low-iron
+        |  glass as the outer cover and very thin transparent sheet such as
+        |  Teflon as the inner cover.
+        |  Default value: 2
+        |  value >= 1
+        |  value <= 2
 
         Args:
             value (int): value for IDD Field `Number of Covers`
-                Default value: 2
-                value >= 1
-                value <= 2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `number_of_covers` or None if not set
+
         """
         return self["Number of Covers"]
 
@@ -1734,14 +1772,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def cover_spacing(self):
-        """field `Cover Spacing` The gap between the transparent covers and
-        between the inner cover and the absorber plate.
+        """field `Cover Spacing`
+
+        |  The gap between the transparent covers and between the inner cover
+        |  and the absorber plate
+        |  Units: m
+        |  Default value: 0.05
+        |  value <= 0.2
 
         Args:
             value (float): value for IDD Field `Cover Spacing`
-                Units: m
-                Default value: 0.05
-                value <= 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1760,22 +1800,24 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     @property
     def refractive_index_of_outer_cover(self):
         """field `Refractive Index of Outer Cover`
-        Refractive index of outer cover. Typically low-iron glass is used
-        as the outer cover material, and used as the default outer cover
-        with a vallue of 1.526.
+
+        |  Refractive index of outer cover. Typically low-iron glass is used
+        |  as the outer cover material, and used as the default outer cover
+        |  with a vallue of 1.526.
+        |  Units: dimensionless
+        |  Default value: 1.526
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Refractive Index of Outer Cover`
-                Units: dimensionless
-                Default value: 1.526
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `refractive_index_of_outer_cover` or None if not set
+
         """
         return self["Refractive Index of Outer Cover"]
 
@@ -1787,20 +1829,22 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     @property
     def extinction_coefficient_times_thickness_of_outer_cover(self):
         """field `Extinction Coefficient Times Thickness of Outer Cover`
-        Clear glass has extinction coefficient of about 15 [1/m]
-        and with thickness of 3.0mm, the product of the extinction
-        coefficient and thickness becomes 0.045 (=15 * 0.003)
+
+        |  Clear glass has extinction coefficient of about 15 [1/m]
+        |  and with thickness of 3.0mm, the product of the extinction
+        |  coefficient and thickness becomes 0.045 (=15 * 0.003)
+        |  Units: dimensionless
+        |  Default value: 0.045
 
         Args:
             value (float): value for IDD Field `Extinction Coefficient Times Thickness of Outer Cover`
-                Units: dimensionless
-                Default value: 0.045
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_outer_cover` or None if not set
+
         """
         return self["Extinction Coefficient Times Thickness of Outer Cover"]
 
@@ -1814,14 +1858,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def emissivity_of_outer_cover(self):
-        """field `Emissivity of Outer Cover` Thermal emissivity of the outer
-        cover, commonly glass is used as the out collector cover material.
+        """field `Emissivity of Outer Cover`
+
+        |  Thermal emissivity of the outer cover, commonly glass is used as
+        |  the out collector cover material.
+        |  Units: dimensionless
+        |  Default value: 0.88
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Emissivity of Outer Cover`
-                Units: dimensionless
-                Default value: 0.88
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1839,16 +1885,17 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def refractive_index_of_inner_cover(self):
-        """field `Refractive Index of Inner Cover` Typical material is very
-        thin sheet of Teflon (PTFE). The default value is refractive index of
-        Teflon.
+        """field `Refractive Index of Inner Cover`
+
+        |  Typical material is very thin sheet of Teflon (PTFE). The default
+        |  value is refractive index of Teflon.
+        |  Units: dimensionless
+        |  Default value: 1.37
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Refractive Index of Inner Cover`
-                Units: dimensionless
-                Default value: 1.37
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1867,20 +1914,22 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     @property
     def extinction_coefficient_times_thickness_of_the_inner_cover(self):
         """field `Extinction Coefficient Times Thickness of the inner Cover`
-        Default inner cover is very thin sheet of Teflon with
-        extinction coefficient of approximately 40.0 and a thickness
-        0.2mm yields a default value of 0.008.
+
+        |  Default inner cover is very thin sheet of Teflon with
+        |  extinction coefficient of approximately 40.0 and a thickness
+        |  0.2mm yields a default value of 0.008.
+        |  Units: dimensionless
+        |  Default value: 0.008
 
         Args:
             value (float): value for IDD Field `Extinction Coefficient Times Thickness of the inner Cover`
-                Units: dimensionless
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_the_inner_cover` or None if not set
+
         """
         return self[
             "Extinction Coefficient Times Thickness of the inner Cover"]
@@ -1896,14 +1945,15 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def emmissivity_of_inner_cover(self):
-        """field `Emmissivity of Inner Cover` Thermal emissivity of the inner
-        cover matrial.
+        """field `Emmissivity of Inner Cover`
+
+        |  Thermal emissivity of the inner cover matrial
+        |  Units: dimensionless
+        |  Default value: 0.88
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Emmissivity of Inner Cover`
-                Units: dimensionless
-                Default value: 0.88
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1921,14 +1971,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def absorptance_of_absorber_plate(self):
-        """field `Absorptance of Absorber Plate` The absober plate solar
-        absorptance.  Copper is assumed as the default absorber plate.
+        """field `Absorptance of Absorber Plate`
+
+        |  The absober plate solar absorptance.  Copper is assumed as
+        |  the default absorber plate.
+        |  Units: dimensionless
+        |  Default value: 0.96
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Absorptance of Absorber Plate`
-                Units: dimensionless
-                Default value: 0.96
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1946,14 +1998,15 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
     @property
     def emissivity_of_absorber_plate(self):
-        """field `Emissivity of Absorber Plate` Thermal emissivity of the
-        absorber plate.
+        """field `Emissivity of Absorber Plate`
+
+        |  Thermal emissivity of the absorber plate
+        |  Units: dimensionless
+        |  Default value: 0.3
+        |  value < 1.0
 
         Args:
             value (float): value for IDD Field `Emissivity of Absorber Plate`
-                Units: dimensionless
-                Default value: 0.3
-                value < 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2216,7 +2269,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def boundary_conditions_model_name(self):
         """field `Boundary Conditions Model Name`
-        Enter the name of a SurfaceProperty:OtherSideConditionsModel object
+
+        |  Enter the name of a SurfaceProperty:OtherSideConditionsModel object
 
         Args:
             value (str): value for IDD Field `Boundary Conditions Model Name`
@@ -2226,6 +2280,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
         Returns:
             str: the value of `boundary_conditions_model_name` or None if not set
+
         """
         return self["Boundary Conditions Model Name"]
 
@@ -2236,9 +2291,10 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this collector. Schedule value > 0 means it is available. If this field
-        is blank, the collector is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this collector. Schedule value > 0 means it is available.
+        |  If this field is blank, the collector is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2260,7 +2316,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def inlet_node_name(self):
         """field `Inlet Node Name`
-        required field if no SolarCollector:UnglazedTranspired:Multisystem
+
+        |  required field if no SolarCollector:UnglazedTranspired:Multisystem
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -2270,6 +2327,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
         Returns:
             str: the value of `inlet_node_name` or None if not set
+
         """
         return self["Inlet Node Name"]
 
@@ -2281,7 +2339,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def outlet_node_name(self):
         """field `Outlet Node Name`
-        required field if no SolarCollector:UnglazedTranspired:Multisystem
+
+        |  required field if no SolarCollector:UnglazedTranspired:Multisystem
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -2291,6 +2350,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
         Returns:
             str: the value of `outlet_node_name` or None if not set
+
         """
         return self["Outlet Node Name"]
 
@@ -2302,8 +2362,9 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def setpoint_node_name(self):
         """field `Setpoint Node Name`
-        This node is where the mixed air setpoint is determined.
-        required field if no SolarCollector:UnglazedTranspired:Multisystem
+
+        |  This node is where the mixed air setpoint is determined.
+        |  required field if no SolarCollector:UnglazedTranspired:Multisystem
 
         Args:
             value (str): value for IDD Field `Setpoint Node Name`
@@ -2313,6 +2374,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
         Returns:
             str: the value of `setpoint_node_name` or None if not set
+
         """
         return self["Setpoint Node Name"]
 
@@ -2324,8 +2386,9 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def zone_node_name(self):
         """field `Zone Node Name`
-        This node is used to indentify the affected zone
-        required field if no SolarCollector:UnglazedTranspired:Multisystem
+
+        |  This node is used to indentify the affected zone
+        |  required field if no SolarCollector:UnglazedTranspired:Multisystem
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -2335,6 +2398,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
         Returns:
             str: the value of `zone_node_name` or None if not set
+
         """
         return self["Zone Node Name"]
 
@@ -2368,9 +2432,10 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def diameter_of_perforations_in_collector(self):
         """field `Diameter of Perforations in Collector`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Diameter of Perforations in Collector`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2390,9 +2455,10 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def distance_between_perforations_in_collector(self):
         """field `Distance Between Perforations in Collector`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Distance Between Perforations in Collector`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2413,10 +2479,11 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def thermal_emissivity_of_collector_surface(self):
         """field `Thermal Emissivity of Collector Surface`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Thermal Emissivity of Collector Surface`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2437,10 +2504,11 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def solar_absorbtivity_of_collector_surface(self):
         """field `Solar Absorbtivity of Collector Surface`
 
+        |  Units: dimensionless
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Solar Absorbtivity of Collector Surface`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2480,12 +2548,13 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
     @property
     def effective_gap_thickness_of_plenum_behind_collector(self):
-        """field `Effective Gap Thickness of Plenum Behind Collector` if
-        corrugated, use average depth.
+        """field `Effective Gap Thickness of Plenum Behind Collector`
+
+        |  if corrugated, use average depth
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Effective Gap Thickness of Plenum Behind Collector`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2504,12 +2573,13 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
     @property
     def effective_cross_section_area_of_plenum_behind_collector(self):
-        """field `Effective Cross Section Area of Plenum Behind Collector` if
-        corrugated, use average depth.
+        """field `Effective Cross Section Area of Plenum Behind Collector`
+
+        |  if corrugated, use average depth
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Effective Cross Section Area of Plenum Behind Collector`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2532,9 +2602,10 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def hole_layout_pattern_for_pitch(self):
         """field `Hole Layout Pattern for Pitch`
 
+        |  Default value: Square
+
         Args:
             value (str): value for IDD Field `Hole Layout Pattern for Pitch`
-                Default value: Square
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2554,9 +2625,10 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def heat_exchange_effectiveness_correlation(self):
         """field `Heat Exchange Effectiveness Correlation`
 
+        |  Default value: Kutscher1994
+
         Args:
             value (str): value for IDD Field `Heat Exchange Effectiveness Correlation`
-                Default value: Kutscher1994
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2576,15 +2648,16 @@ class SolarCollectorUnglazedTranspired(DataObject):
     @property
     def ratio_of_actual_collector_surface_area_to_projected_surface_area(self):
         """field `Ratio of Actual Collector Surface Area to Projected Surface
-        Area` This parameter is used to help account for corrugations in the
-        collector.
+        Area`
+
+        |  This parameter is used to help account for corrugations in the collector
+        |  Units: dimensionless
+        |  Default value: 1.0
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Ratio of Actual Collector Surface Area to Projected Surface Area`
-                Units: dimensionless
-                Default value: 1.0
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2628,15 +2701,16 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
     @property
     def collector_thickness(self):
-        """field `Collector Thickness` Collector thickness is not required for
-        Kutscher correlation Collector thickness is required for Van Decker et
-        al. correlation.
+        """field `Collector Thickness`
+
+        |  Collector thickness is not required for Kutscher correlation
+        |  Collector thickness is required for Van Decker et al. correlation
+        |  Units: m
+        |  value >= 0.0005
+        |  value <= 0.007
 
         Args:
             value (float): value for IDD Field `Collector Thickness`
-                Units: m
-                value >= 0.0005
-                value <= 0.007
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2654,13 +2728,15 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
     @property
     def effectiveness_for_perforations_with_respect_to_wind(self):
-        """field `Effectiveness for Perforations with Respect to Wind` Cv.
+        """field `Effectiveness for Perforations with Respect to Wind`
+
+        |  Cv
+        |  Units: dimensionless
+        |  Default value: 0.25
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Effectiveness for Perforations with Respect to Wind`
-                Units: dimensionless
-                Default value: 0.25
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2681,13 +2757,15 @@ class SolarCollectorUnglazedTranspired(DataObject):
     def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(
             self):
         """field `Discharge Coefficient for Openings with Respect to Buoyancy
-        Driven Flow` Cd.
+        Driven Flow`
+
+        |  Cd
+        |  Units: dimensionless
+        |  Default value: 0.65
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
-                Units: dimensionless
-                Default value: 0.65
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2797,7 +2875,8 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
     @property
     def solar_collector_name(self):
         """field `Solar Collector Name`
-        Enter the name of a SolarCollector:UnglazedTranspired object.
+
+        |  Enter the name of a SolarCollector:UnglazedTranspired object.
 
         Args:
             value (str): value for IDD Field `Solar Collector Name`
@@ -2807,6 +2886,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
 
         Returns:
             str: the value of `solar_collector_name` or None if not set
+
         """
         return self["Solar Collector Name"]
 

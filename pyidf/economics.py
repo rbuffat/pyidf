@@ -143,9 +143,10 @@ class CurrencyType(DataObject):
 
     @property
     def monetary_unit(self):
-        """field `Monetary Unit` The commonly used three letter currency code
-        for the units of money for the country or region. Based on ISO 4217
-        currency codes.  Common currency codes are USD for $ and EUR for Euros.
+        """field `Monetary Unit`
+
+        |  The commonly used three letter currency code for the units of money for the country or region.
+        |  Based on ISO 4217 currency codes.  Common currency codes are USD for $ and EUR for Euros.
 
         Args:
             value (str): value for IDD Field `Monetary Unit`
@@ -241,12 +242,14 @@ class ComponentCostAdjustments(DataObject):
 
     @property
     def miscellaneous_cost_per_conditioned_area(self):
-        """field `Miscellaneous Cost per Conditioned Area` based on conditioned
-        floor area for cost not accounted for in current line item cost model.
+        """field `Miscellaneous Cost per Conditioned Area`
+
+        |  based on conditioned floor area
+        |  for cost not accounted for in current line item cost model
+        |  Units: $/m2
 
         Args:
             value (float): value for IDD Field `Miscellaneous Cost per Conditioned Area`
-                Units: $/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -267,9 +270,10 @@ class ComponentCostAdjustments(DataObject):
     def design_and_engineering_fees(self):
         """field `Design and Engineering Fees`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Design and Engineering Fees`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -289,9 +293,10 @@ class ComponentCostAdjustments(DataObject):
     def contractor_fee(self):
         """field `Contractor Fee`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Contractor Fee`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -311,9 +316,10 @@ class ComponentCostAdjustments(DataObject):
     def contingency(self):
         """field `Contingency`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Contingency`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -333,9 +339,10 @@ class ComponentCostAdjustments(DataObject):
     def permits_bonding_and_insurance(self):
         """field `Permits, Bonding and Insurance`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Permits, Bonding and Insurance`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -355,9 +362,10 @@ class ComponentCostAdjustments(DataObject):
     def commissioning_fee(self):
         """field `Commissioning Fee`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Commissioning Fee`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -375,12 +383,13 @@ class ComponentCostAdjustments(DataObject):
 
     @property
     def regional_adjustment_factor(self):
-        """field `Regional Adjustment Factor` for use with average data in line
-        item and Misc cost models.
+        """field `Regional Adjustment Factor`
+
+        |  for use with average data in line item and Misc cost models
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Regional Adjustment Factor`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -483,12 +492,13 @@ class ComponentCostReference(DataObject):
 
     @property
     def reference_building_line_item_costs(self):
-        """field `Reference Building Line Item Costs` should be comparable to
-        the components in current line item cost model.
+        """field `Reference Building Line Item Costs`
+
+        |  should be comparable to the components in current line item cost model
+        |  Units: $
 
         Args:
             value (float): value for IDD Field `Reference Building Line Item Costs`
-                Units: $
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -507,12 +517,13 @@ class ComponentCostReference(DataObject):
     @property
     def reference_building_miscellaneous_cost_per_conditioned_area(self):
         """field `Reference Building Miscellaneous Cost per Conditioned Area`
-        based on conditioned floor area for cost not accounted for in reference
-        line item costs.
+
+        |  based on conditioned floor area
+        |  for cost not accounted for in reference line item costs
+        |  Units: $/m2
 
         Args:
             value (float): value for IDD Field `Reference Building Miscellaneous Cost per Conditioned Area`
-                Units: $/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -537,9 +548,10 @@ class ComponentCostReference(DataObject):
     def reference_building_design_and_engineering_fees(self):
         """field `Reference Building Design and Engineering Fees`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Reference Building Design and Engineering Fees`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -560,9 +572,10 @@ class ComponentCostReference(DataObject):
     def reference_building_contractor_fee(self):
         """field `Reference Building Contractor Fee`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Reference Building Contractor Fee`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -603,9 +616,10 @@ class ComponentCostReference(DataObject):
     def reference_building_permits_bonding_and_insurance(self):
         """field `Reference Building Permits, Bonding and Insurance`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Reference Building Permits, Bonding and Insurance`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -626,9 +640,10 @@ class ComponentCostReference(DataObject):
     def reference_building_commissioning_fee(self):
         """field `Reference Building Commissioning Fee`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Reference Building Commissioning Fee`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -646,12 +661,13 @@ class ComponentCostReference(DataObject):
 
     @property
     def reference_building_regional_adjustment_factor(self):
-        """field `Reference Building Regional Adjustment Factor` for use with
-        average data in line item and Misc cost models.
+        """field `Reference Building Regional Adjustment Factor`
+
+        |  for use with average data in line item and Misc cost models
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Reference Building Regional Adjustment Factor`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -840,7 +856,8 @@ class ComponentCostLineItem(DataObject):
     @property
     def line_item_type(self):
         """field `Line Item Type`
-        extend choice-keys as Cases are added to code
+
+        |  extend choice-keys as Cases are added to code
 
         Args:
             value (str): value for IDD Field `Line Item Type`
@@ -850,6 +867,7 @@ class ComponentCostLineItem(DataObject):
 
         Returns:
             str: the value of `line_item_type` or None if not set
+
         """
         return self["Line Item Type"]
 
@@ -861,7 +879,8 @@ class ComponentCostLineItem(DataObject):
     @property
     def item_name(self):
         """field `Item Name`
-        wildcard "*" is acceptable for some components
+
+        |  wildcard "*" is acceptable for some components
 
         Args:
             value (str): value for IDD Field `Item Name`
@@ -871,6 +890,7 @@ class ComponentCostLineItem(DataObject):
 
         Returns:
             str: the value of `item_name` or None if not set
+
         """
         return self["Item Name"]
 
@@ -882,7 +902,8 @@ class ComponentCostLineItem(DataObject):
     @property
     def object_enduse_key(self):
         """field `Object End-Use Key`
-        not yet used
+
+        |  not yet used
 
         Args:
             value (str): value for IDD Field `Object End-Use Key`
@@ -906,9 +927,10 @@ class ComponentCostLineItem(DataObject):
     def cost_per_each(self):
         """field `Cost per Each`
 
+        |  Units: $
+
         Args:
             value (float): value for IDD Field `Cost per Each`
-                Units: $
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -928,9 +950,10 @@ class ComponentCostLineItem(DataObject):
     def cost_per_area(self):
         """field `Cost per Area`
 
+        |  Units: $/m2
+
         Args:
             value (float): value for IDD Field `Cost per Area`
-                Units: $/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -950,9 +973,10 @@ class ComponentCostLineItem(DataObject):
     def cost_per_unit_of_output_capacity(self):
         """field `Cost per Unit of Output Capacity`
 
+        |  Units: $/kW
+
         Args:
             value (float): value for IDD Field `Cost per Unit of Output Capacity`
-                Units: $/kW
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -970,12 +994,13 @@ class ComponentCostLineItem(DataObject):
 
     @property
     def cost_per_unit_of_output_capacity_per_cop(self):
-        """field `Cost per Unit of Output Capacity per COP` The value is per
-        change in COP.
+        """field `Cost per Unit of Output Capacity per COP`
+
+        |  The value is per change in COP.
+        |  Units: $/kW
 
         Args:
             value (float): value for IDD Field `Cost per Unit of Output Capacity per COP`
-                Units: $/kW
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -996,9 +1021,10 @@ class ComponentCostLineItem(DataObject):
     def cost_per_volume(self):
         """field `Cost per Volume`
 
+        |  Units: $/m3
+
         Args:
             value (float): value for IDD Field `Cost per Volume`
-                Units: $/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1018,9 +1044,10 @@ class ComponentCostLineItem(DataObject):
     def cost_per_volume_rate(self):
         """field `Cost per Volume Rate`
 
+        |  Units: $/(m3/s)
+
         Args:
             value (float): value for IDD Field `Cost per Volume Rate`
-                Units: $/(m3/s)
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1038,12 +1065,13 @@ class ComponentCostLineItem(DataObject):
 
     @property
     def cost_per_energy_per_temperature_difference(self):
-        """field `Cost per Energy per Temperature Difference` as in for use
-        with UA sizing of Coils.
+        """field `Cost per Energy per Temperature Difference`
+
+        |  as in for use with UA sizing of Coils
+        |  Units: $/(W/K)
 
         Args:
             value (float): value for IDD Field `Cost per Energy per Temperature Difference`
-                Units: $/(W/K)
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1062,12 +1090,13 @@ class ComponentCostLineItem(DataObject):
 
     @property
     def quantity(self):
-        """field `Quantity` optional for use with Cost per Each and "General"
-        object Type.
+        """field `Quantity`
+
+        |  optional for use with Cost per Each and "General" object Type
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Quantity`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1228,9 +1257,10 @@ class UtilityCostTariff(DataObject):
 
     @property
     def name(self):
-        """field `Name` The name of the tariff. Tariffs are sometimes called
-        rates. The name is used in identifying the output results and in
-        associating all of the charges and other objects that make up a tariff.
+        """field `Name`
+
+        |  The name of the tariff. Tariffs are sometimes called rates. The name is used in identifying
+        |  the output results and in associating all of the charges and other objects that make up a tariff.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1252,7 +1282,8 @@ class UtilityCostTariff(DataObject):
     @property
     def output_meter_name(self):
         """field `Output Meter Name`
-        The name of any standard meter or custom meter or but usually set to either Electricity:Facility or Gas:Facility
+
+        |  The name of any standard meter or custom meter or but usually set to either Electricity:Facility or Gas:Facility
 
         Args:
             value (str): value for IDD Field `Output Meter Name`
@@ -1262,6 +1293,7 @@ class UtilityCostTariff(DataObject):
 
         Returns:
             str: the value of `output_meter_name` or None if not set
+
         """
         return self["Output Meter Name"]
 
@@ -1272,9 +1304,10 @@ class UtilityCostTariff(DataObject):
 
     @property
     def conversion_factor_choice(self):
-        """field `Conversion Factor Choice` A choice that allows several
-        different predefined conversion factors to be used; otherwise user
-        defined conversion factors are used as defined in the next two fields.
+        """field `Conversion Factor Choice`
+
+        |  A choice that allows several different predefined conversion factors to be used; otherwise user
+        |  defined conversion factors are used as defined in the next two fields.
 
         Args:
             value (str): value for IDD Field `Conversion Factor Choice`
@@ -1296,11 +1329,12 @@ class UtilityCostTariff(DataObject):
     @property
     def energy_conversion_factor(self):
         """field `Energy Conversion Factor`
-        Is a multiplier used to convert energy into the units specified by the utility in their tariff. If
-        left blank it defaults to 1 (no conversion). This field should will be used only if Conversion Factor
-        Choice is set to UserDefined.  Within EnergyPlus energy always has units of J (joules).  For
-        conversion from J to kWh use the value of 0.0000002778. This is also used for all objects that
-        reference the UtilityCost:Tariff.
+
+        |  Is a multiplier used to convert energy into the units specified by the utility in their tariff. If
+        |  left blank it defaults to 1 (no conversion). This field should will be used only if Conversion Factor
+        |  Choice is set to UserDefined.  Within EnergyPlus energy always has units of J (joules).  For
+        |  conversion from J to kWh use the value of 0.0000002778. This is also used for all objects that
+        |  reference the UtilityCost:Tariff.
 
         Args:
             value (float): value for IDD Field `Energy Conversion Factor`
@@ -1310,6 +1344,7 @@ class UtilityCostTariff(DataObject):
 
         Returns:
             float: the value of `energy_conversion_factor` or None if not set
+
         """
         return self["Energy Conversion Factor"]
 
@@ -1321,11 +1356,12 @@ class UtilityCostTariff(DataObject):
     @property
     def demand_conversion_factor(self):
         """field `Demand Conversion Factor`
-        Is a multiplier used to convert demand into the units specified by the utility in their tariff. If
-        left blank it defaults to 1 (no conversion).  This field should will be used only if Conversion
-        Factor Choice is set to UserDefined.  Within EnergyPlus demand always has units of J/s (joules/sec)
-        which equivalent to W (watts).  For conversion from W to kW use the value of 0.001. This is also used
-        for all objects that reference the UtilityCost:Tariff.
+
+        |  Is a multiplier used to convert demand into the units specified by the utility in their tariff. If
+        |  left blank it defaults to 1 (no conversion).  This field should will be used only if Conversion
+        |  Factor Choice is set to UserDefined.  Within EnergyPlus demand always has units of J/s (joules/sec)
+        |  which equivalent to W (watts).  For conversion from W to kW use the value of 0.001. This is also used
+        |  for all objects that reference the UtilityCost:Tariff.
 
         Args:
             value (float): value for IDD Field `Demand Conversion Factor`
@@ -1335,6 +1371,7 @@ class UtilityCostTariff(DataObject):
 
         Returns:
             float: the value of `demand_conversion_factor` or None if not set
+
         """
         return self["Demand Conversion Factor"]
 
@@ -1346,8 +1383,9 @@ class UtilityCostTariff(DataObject):
     @property
     def time_of_use_period_schedule_name(self):
         """field `Time of Use Period Schedule Name`
-        The name of the schedule that defines the time-of-use periods that occur each day. The values for the
-        different variables are: 1 for Peak. 2 for Shoulder. 3 for OffPeak. 4 for MidPeak.
+
+        |  The name of the schedule that defines the time-of-use periods that occur each day. The values for the
+        |  different variables are: 1 for Peak. 2 for Shoulder. 3 for OffPeak. 4 for MidPeak.
 
         Args:
             value (str): value for IDD Field `Time of Use Period Schedule Name`
@@ -1357,6 +1395,7 @@ class UtilityCostTariff(DataObject):
 
         Returns:
             str: the value of `time_of_use_period_schedule_name` or None if not set
+
         """
         return self["Time of Use Period Schedule Name"]
 
@@ -1368,8 +1407,9 @@ class UtilityCostTariff(DataObject):
     @property
     def season_schedule_name(self):
         """field `Season Schedule Name`
-        The name of a schedule that defines the seasons.  The schedule values are: 1 for Winter. 2 for Spring.
-        3 for Summer. 4 for Autumn.
+
+        |  The name of a schedule that defines the seasons.  The schedule values are: 1 for Winter. 2 for Spring.
+        |  3 for Summer. 4 for Autumn.
 
         Args:
             value (str): value for IDD Field `Season Schedule Name`
@@ -1379,6 +1419,7 @@ class UtilityCostTariff(DataObject):
 
         Returns:
             str: the value of `season_schedule_name` or None if not set
+
         """
         return self["Season Schedule Name"]
 
@@ -1389,16 +1430,14 @@ class UtilityCostTariff(DataObject):
 
     @property
     def month_schedule_name(self):
-        """field `Month Schedule Name` The name of the schedule that defines
-        the billing periods of the year. Normally this entry is allowed to
-        default and a schedule will be internally used that has the breaks
-        between billing periods occurring at the same time as the breaks
-        between months i.e. at midnight prior to the first day of the month. If
-        other billing periods are used such as two month cycles or a single
-        bill for an entire season such as some natural gas companies do in the
-        summer then the month schedule may be used to redefine it. Make sure
-        that the month schedule and season schedule are consistent otherwise an
-        error will be issued.
+        """field `Month Schedule Name`
+
+        |  The name of the schedule that defines the billing periods of the year. Normally this entry is allowed
+        |  to default and a schedule will be internally used that has the breaks between billing periods occurring
+        |  at the same time as the breaks between months i.e. at midnight prior to the first day of the month.
+        |  If other billing periods are used such as two month cycles or a single bill for an entire season such
+        |  as some natural gas companies do in the summer then the month schedule may be used to redefine it.
+        |  Make sure that the month schedule and season schedule are consistent otherwise an error will be issued.
 
         Args:
             value (str): value for IDD Field `Month Schedule Name`
@@ -1419,11 +1458,11 @@ class UtilityCostTariff(DataObject):
 
     @property
     def demand_window_length(self):
-        """field `Demand Window Length` The determination of demand can vary by
-        utility. Some utilities use the peak instantaneous demand measured but
-        most use a fifteen minute average demand or a one hour average demand.
-        Some gas utilities measure demand as the use during the peak day or
-        peak week.
+        """field `Demand Window Length`
+
+        |  The determination of demand can vary by utility. Some utilities use the peak instantaneous demand
+        |  measured but most use a fifteen minute average demand or a one hour average demand. Some gas utilities
+        |  measure demand as the use during the peak day or peak week.
 
         Args:
             value (str): value for IDD Field `Demand Window Length`
@@ -1444,10 +1483,10 @@ class UtilityCostTariff(DataObject):
 
     @property
     def monthly_charge_or_variable_name(self):
-        """field `Monthly Charge or Variable Name` The fixed monthly service
-        charge that many utilities have.  The entry may be numeric and gets
-        added to the ServiceCharges variable or if a variable name is entered
-        here its values for each month are used.
+        """field `Monthly Charge or Variable Name`
+
+        |  The fixed monthly service charge that many utilities have.  The entry may be numeric and gets added to
+        |  the ServiceCharges variable or if a variable name is entered here its values for each month are used.
 
         Args:
             value (str): value for IDD Field `Monthly Charge or Variable Name`
@@ -1468,9 +1507,10 @@ class UtilityCostTariff(DataObject):
 
     @property
     def minimum_monthly_charge_or_variable_name(self):
-        """field `Minimum Monthly Charge or Variable Name` The minimum total
-        charge for the tariff or if a variable name is entered here its values
-        for each month are used.
+        """field `Minimum Monthly Charge or Variable Name`
+
+        |  The minimum total charge for the tariff or if a variable name is entered here its
+        |  values for each month are used.
 
         Args:
             value (str): value for IDD Field `Minimum Monthly Charge or Variable Name`
@@ -1492,11 +1532,11 @@ class UtilityCostTariff(DataObject):
 
     @property
     def real_time_pricing_charge_schedule_name(self):
-        """field `Real Time Pricing Charge Schedule Name` Used with real time
-        pricing rates. The name of a schedule that contains the cost of energy
-        for that particular time period of the year. Real time rates can be
-        modeled using a charge schedule with the actual real time prices
-        entered in the schedule.
+        """field `Real Time Pricing Charge Schedule Name`
+
+        |  Used with real time pricing rates. The name of a schedule that contains the cost of
+        |  energy for that particular time period of the year. Real time rates can be modeled using a charge
+        |  schedule with the actual real time prices entered in the schedule.
 
         Args:
             value (str): value for IDD Field `Real Time Pricing Charge Schedule Name`
@@ -1517,11 +1557,11 @@ class UtilityCostTariff(DataObject):
 
     @property
     def customer_baseline_load_schedule_name(self):
-        """field `Customer Baseline Load Schedule Name` Used with real time
-        pricing rates. The name of a schedule that contains the baseline energy
-        use for the customer. Many real time rates apply the charges as a
-        credit or debit only to the difference between the baseline use and the
-        actual use.
+        """field `Customer Baseline Load Schedule Name`
+
+        |  Used with real time pricing rates. The name of a schedule that contains the baseline
+        |  energy use for the customer. Many real time rates apply the charges as a credit or debit only to the
+        |  difference between the baseline use and the actual use.
 
         Args:
             value (str): value for IDD Field `Customer Baseline Load Schedule Name`
@@ -1542,12 +1582,12 @@ class UtilityCostTariff(DataObject):
 
     @property
     def group_name(self):
-        """field `Group Name` The group name of the tariff such as distribution
-        transmission supplier etc. If more than one tariff with the same group
-        name is present and qualifies only the lowest cost tariff is used.
-        Usually the group name field is left blank which results in all tariffs
-        using the same meter variable being compared and the lowest cost one
-        being selected.
+        """field `Group Name`
+
+        |  The group name of the tariff such as distribution transmission supplier etc. If more than one tariff
+        |  with the same group name is present and qualifies only the lowest cost tariff is used. Usually the group
+        |  name field is left blank which results in all tariffs using the same meter variable being compared and
+        |  the lowest cost one being selected.
 
         Args:
             value (str): value for IDD Field `Group Name`
@@ -1568,15 +1608,15 @@ class UtilityCostTariff(DataObject):
 
     @property
     def buy_or_sell(self):
-        """field `Buy Or Sell` Sets whether the tariff is used for buying
-        selling or both to the utility.  This should be allowed to default to
-        buyFromUtility unless a power generation system is included in the
-        building that may generate more power than the building needs during
-        the year.
+        """field `Buy Or Sell`
+
+        |  Sets whether the tariff is used for buying selling or both to the utility.  This
+        |  should be allowed to default to buyFromUtility unless a power generation system is included in the
+        |  building that may generate more power than the building needs during the year
+        |  Default value: BuyFromUtility
 
         Args:
             value (str): value for IDD Field `Buy Or Sell`
-                Default value: BuyFromUtility
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1685,7 +1725,9 @@ class UtilityCostQualify(DataObject):
 
     @property
     def name(self):
-        """field `Name` Displayed in the report if the tariff does not qualify.
+        """field `Name`
+
+        |  Displayed in the report if the tariff does not qualify
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1707,7 +1749,8 @@ class UtilityCostQualify(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Qualify.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Qualify.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -1717,6 +1760,7 @@ class UtilityCostQualify(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -1727,9 +1771,10 @@ class UtilityCostQualify(DataObject):
 
     @property
     def variable_name(self):
-        """field `Variable Name` The name of the variable used. For energy and
-        demand the automatically created variables totalEnergy and totalDemand
-        should be used respectively.
+        """field `Variable Name`
+
+        |  The name of the variable used. For energy and demand the automatically created variables totalEnergy
+        |  and totalDemand should be used respectively.
 
         Args:
             value (str): value for IDD Field `Variable Name`
@@ -1752,9 +1797,10 @@ class UtilityCostQualify(DataObject):
     def qualify_type(self):
         """field `Qualify Type`
 
+        |  Default value: Maximum
+
         Args:
             value (str): value for IDD Field `Qualify Type`
-                Default value: Maximum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1772,12 +1818,11 @@ class UtilityCostQualify(DataObject):
 
     @property
     def threshold_value_or_variable_name(self):
-        """field `Threshold Value or Variable Name` The minimum or maximum
-        value for the qualify. If the variable has values that are less than
-        this value when the qualify type is minimum then the tariff may be
-        disqualified.  If the variable has values that are greater than this
-        value when the qualify type is maximum then the tariff may be
-        disqualified.
+        """field `Threshold Value or Variable Name`
+
+        |  The minimum or maximum value for the qualify. If the variable has values that are less than this value
+        |  when the qualify type is minimum then the tariff may be disqualified.  If the variable has values that
+        |  are greater than this value when the qualify type is maximum then the tariff may be disqualified.
 
         Args:
             value (str): value for IDD Field `Threshold Value or Variable Name`
@@ -1799,8 +1844,9 @@ class UtilityCostQualify(DataObject):
     @property
     def season(self):
         """field `Season`
-        If the UtilityCost:Qualify only applies to a season enter the season name. If this field is left blank
-        it defaults to Annual.
+
+        |  If the UtilityCost:Qualify only applies to a season enter the season name. If this field is left blank
+        |  it defaults to Annual.
 
         Args:
             value (str): value for IDD Field `Season`
@@ -1810,6 +1856,7 @@ class UtilityCostQualify(DataObject):
 
         Returns:
             str: the value of `season` or None if not set
+
         """
         return self["Season"]
 
@@ -1820,16 +1867,16 @@ class UtilityCostQualify(DataObject):
 
     @property
     def threshold_test(self):
-        """field `Threshold Test` Uses the number in Number of Months in one of
-        two different ways depending on the Threshold  Test. If the Threshold
-        Test is set to Count then the qualification is based on the count of
-        the total number of months per year.  If the Threshold Test is set to
-        consecutive then the qualification is based on a consecutive number of
-        months.
+        """field `Threshold Test`
+
+        |  Uses the number in Number of Months in one of two different ways depending on the Threshold  Test. If
+        |  the Threshold Test is set to Count then the qualification is based on the count of the total number
+        |  of months per year.  If the Threshold Test is set to consecutive then the qualification is based on
+        |  a consecutive number of months.
+        |  Default value: Consecutive
 
         Args:
             value (str): value for IDD Field `Threshold Test`
-                Default value: Consecutive
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1848,21 +1895,23 @@ class UtilityCostQualify(DataObject):
     @property
     def number_of_months(self):
         """field `Number of Months`
-        A number from 1 to 12.  If no value entered 12 is assumed when the qualify type is minimum and 1 when
-        the qualify type is maximum.  This is the number of months that the threshold test applies to determine
-        if the rate qualifies or not.  If the season is less than 12 months (if it is not annual) then the
-        value is automatically reduced to the number of months of the seaon.
+
+        |  A number from 1 to 12.  If no value entered 12 is assumed when the qualify type is minimum and 1 when
+        |  the qualify type is maximum.  This is the number of months that the threshold test applies to determine
+        |  if the rate qualifies or not.  If the season is less than 12 months (if it is not annual) then the
+        |  value is automatically reduced to the number of months of the seaon.
+        |  value >= 1.0
+        |  value <= 12.0
 
         Args:
             value (float): value for IDD Field `Number of Months`
-                value >= 1.0
-                value <= 12.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `number_of_months` or None if not set
+
         """
         return self["Number of Months"]
 
@@ -1952,11 +2001,12 @@ class UtilityCostChargeSimple(DataObject):
     @property
     def name(self):
         """field `Name`
-        Charge Variable Name
-        This is the name associated with the UtilityCost:Charge:Simple object and will appear in the report.
-        In addition the results of the UtilityCost:Charge:Simple calculation are stored in a variable with the
-        same name.  That way the results may be used for further calculation.  Spaces are not significant in
-        Charge variable names. They are removed during the utility bill calculation process.
+
+        |  Charge Variable Name
+        |  This is the name associated with the UtilityCost:Charge:Simple object and will appear in the report.
+        |  In addition the results of the UtilityCost:Charge:Simple calculation are stored in a variable with the
+        |  same name.  That way the results may be used for further calculation.  Spaces are not significant in
+        |  Charge variable names. They are removed during the utility bill calculation process.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1966,6 +2016,7 @@ class UtilityCostChargeSimple(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -1977,7 +2028,8 @@ class UtilityCostChargeSimple(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Charge:Simple.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Charge:Simple.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -1987,6 +2039,7 @@ class UtilityCostChargeSimple(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -1998,13 +2051,14 @@ class UtilityCostChargeSimple(DataObject):
     @property
     def source_variable(self):
         """field `Source Variable`
-        The name of the source used by the UtilityCost:Charge:Simple.  This is usually the name of the variable
-        holding the energy or demand but may also be the name of any variable including the subtotal or basis
-        if other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges
-        ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then
-        peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.
-        In addition see the Tariff Report to see other native variablles that may be available. Also you can
-        create additional user defined variables to model complex tariffs.
+
+        |  The name of the source used by the UtilityCost:Charge:Simple.  This is usually the name of the variable
+        |  holding the energy or demand but may also be the name of any variable including the subtotal or basis
+        |  if other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges
+        |  ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then
+        |  peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.
+        |  In addition see the Tariff Report to see other native variablles that may be available. Also you can
+        |  create additional user defined variables to model complex tariffs.
 
         Args:
             value (str): value for IDD Field `Source Variable`
@@ -2014,6 +2068,7 @@ class UtilityCostChargeSimple(DataObject):
 
         Returns:
             str: the value of `source_variable` or None if not set
+
         """
         return self["Source Variable"]
 
@@ -2025,8 +2080,9 @@ class UtilityCostChargeSimple(DataObject):
     @property
     def season(self):
         """field `Season`
-        If this is set to annual the calculations are performed for the UtilityCost:Charge:Simple for the entire
-        year (all months) otherwise it is calculated only for those months in the season defined.
+
+        |  If this is set to annual the calculations are performed for the UtilityCost:Charge:Simple for the entire
+        |  year (all months) otherwise it is calculated only for those months in the season defined.
 
         Args:
             value (str): value for IDD Field `Season`
@@ -2036,6 +2092,7 @@ class UtilityCostChargeSimple(DataObject):
 
         Returns:
             str: the value of `season` or None if not set
+
         """
         return self["Season"]
 
@@ -2046,10 +2103,11 @@ class UtilityCostChargeSimple(DataObject):
 
     @property
     def category_variable_name(self):
-        """field `Category Variable Name` This field shows where the charge
-        should be added. The reason to enter this field appropriately is so
-        that the charge gets reported in a reasonable category.  The charge
-        automatically gets added to the variable that is the category.
+        """field `Category Variable Name`
+
+        |  This field shows where the charge should be added. The reason to enter this field appropriately is so
+        |  that the charge gets reported in a reasonable category.  The charge automatically gets added to the
+        |  variable that is the category.
 
         Args:
             value (str): value for IDD Field `Category Variable Name`
@@ -2070,14 +2128,13 @@ class UtilityCostChargeSimple(DataObject):
 
     @property
     def cost_per_unit_value_or_variable_name(self):
-        """field `Cost per Unit Value or Variable Name` This field contains
-        either a single number or the name of a variable.  The number is
-        multiplied with all of the energy or demand or other source that is
-        specified in the source field.  If a variable is used then the monthly
-        values of the variable are multiplied against the variable specified in
-        the source field.  This field makes it easy to include a simple charge
-        without specifying block sizes. This is a good way to include a tax or
-        cost adjustment.
+        """field `Cost per Unit Value or Variable Name`
+
+        |  This field contains either a single number or the name of a variable.  The number is multiplied with
+        |  all of the energy or demand or other source that is specified in the source field.  If a variable is
+        |  used then the monthly values of the variable are multiplied against the variable specified in the
+        |  source field.  This field makes it easy to include a simple charge without specifying block sizes.
+        |  This is a good way to include a tax or cost adjustment.
 
         Args:
             value (str): value for IDD Field `Cost per Unit Value or Variable Name`
@@ -2393,10 +2450,11 @@ class UtilityCostChargeBlock(DataObject):
     @property
     def name(self):
         """field `Name`
-        Charge Variable Name
-        This is the name associated with the UtilityCost:Charge:Block object and will appear in the report.
-        In addition the results of the UtilityCost:Charge:Block are stored in a variable with the same name.
-        That way the results may be used for further calculation.
+
+        |  Charge Variable Name
+        |  This is the name associated with the UtilityCost:Charge:Block object and will appear in the report.
+        |  In addition the results of the UtilityCost:Charge:Block are stored in a variable with the same name.
+        |  That way the results may be used for further calculation.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2406,6 +2464,7 @@ class UtilityCostChargeBlock(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
@@ -2417,7 +2476,8 @@ class UtilityCostChargeBlock(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Charge:Block.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Charge:Block.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -2427,6 +2487,7 @@ class UtilityCostChargeBlock(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -2438,13 +2499,14 @@ class UtilityCostChargeBlock(DataObject):
     @property
     def source_variable(self):
         """field `Source Variable`
-        The name of the source used by the UtilityCost:Charge:Block.  This is usually the name of the variable
-        holding the energy or demand but may also be the name of any variable including the subtotal or basis if
-        other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges
-        ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then
-        peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.
-        In addition see the Tariff Report to see other native variablles that may be available. Also you can
-        create additional user defined variables to model complex tariffs.
+
+        |  The name of the source used by the UtilityCost:Charge:Block.  This is usually the name of the variable
+        |  holding the energy or demand but may also be the name of any variable including the subtotal or basis if
+        |  other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges
+        |  ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then
+        |  peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.
+        |  In addition see the Tariff Report to see other native variablles that may be available. Also you can
+        |  create additional user defined variables to model complex tariffs.
 
         Args:
             value (str): value for IDD Field `Source Variable`
@@ -2454,6 +2516,7 @@ class UtilityCostChargeBlock(DataObject):
 
         Returns:
             str: the value of `source_variable` or None if not set
+
         """
         return self["Source Variable"]
 
@@ -2465,18 +2528,20 @@ class UtilityCostChargeBlock(DataObject):
     @property
     def season(self):
         """field `Season`
-        If this is set to annual the calculations are performed for the UtilityCost:Charge:Block for the entire
-        year (all months) otherwise it is calculated only for those months in the season defined.
+
+        |  If this is set to annual the calculations are performed for the UtilityCost:Charge:Block for the entire
+        |  year (all months) otherwise it is calculated only for those months in the season defined.
+        |  Default value: Season
 
         Args:
             value (str): value for IDD Field `Season`
-                Default value: Season
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `season` or None if not set
+
         """
         return self["Season"]
 
@@ -2487,10 +2552,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def category_variable_name(self):
-        """field `Category Variable Name` This field shows where the charge
-        should be added. The reason to enter this field appropriately is so
-        that the charge gets reported in a reasonable category.  The charge
-        automatically gets added to the variable that is the category.
+        """field `Category Variable Name`
+
+        |  This field shows where the charge should be added. The reason to enter this field appropriately is so
+        |  that the charge gets reported in a reasonable category.  The charge automatically gets added to the
+        |  variable that is the category.
 
         Args:
             value (str): value for IDD Field `Category Variable Name`
@@ -2511,11 +2577,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def remaining_into_variable(self):
-        """field `Remaining Into Variable` If the blocks do not use all of the
-        energy or demand from the source some energy and demand remains then
-        the remaining amount should be assigned to a variable. If no variable
-        is assigned and some amount of energy or demand is not used in the
-        block structure a warning will be issued.
+        """field `Remaining Into Variable`
+
+        |  If the blocks do not use all of the energy or demand from the source some energy and demand remains
+        |  then the remaining amount should be assigned to a variable. If no variable is assigned and some amount
+        |  of energy or demand is not used in the block structure a warning will be issued.
 
         Args:
             value (str): value for IDD Field `Remaining Into Variable`
@@ -2536,16 +2602,14 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_multiplier_value_or_variable_name(self):
-        """field `Block Size Multiplier Value or Variable Name` The sizes of
-        the blocks are usually used directly but if a value or a variable is
-        entered here the block sizes entered in the rest of the charge are
-        first multiplied by the entered value prior to being used. This is
-        common for rates that are kWh/kW rates and in that case the variable
-        that holds the monthly total electric demand would be entered.  If no
-        value is entered a default value of one is assumed so that the block
-        sizes remain exactly as entered.  This field is unusual for the
-        EnergyPlus syntax because it can be either a number or a name of a
-        variable.
+        """field `Block Size Multiplier Value or Variable Name`
+
+        |  The sizes of the blocks are usually used directly but if a value or a variable is entered here the block
+        |  sizes entered in the rest of the charge are first multiplied by the entered value prior to being used.
+        |  This is common for rates that are kWh/kW rates and in that case the variable that holds the monthly
+        |  total electric demand would be entered.  If no value is entered a default value of one is assumed so
+        |  that the block sizes remain exactly as entered.  This field is unusual for the EnergyPlus syntax because
+        |  it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size Multiplier Value or Variable Name`
@@ -2567,11 +2631,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_1_value_or_variable_name(self):
-        """field `Block Size 1 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 1 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 1 Value or Variable Name`
@@ -2592,9 +2656,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_1_cost_per_unit_value_or_variable_name(self):
-        """field `Block 1 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 1 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 1 Cost per Unit Value or Variable Name`
@@ -2616,11 +2681,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_2_value_or_variable_name(self):
-        """field `Block Size 2 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 2 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 2 Value or Variable Name`
@@ -2641,9 +2706,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_2_cost_per_unit_value_or_variable_name(self):
-        """field `Block 2 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 2 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 2 Cost per Unit Value or Variable Name`
@@ -2665,11 +2731,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_3_value_or_variable_name(self):
-        """field `Block Size 3 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 3 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 3 Value or Variable Name`
@@ -2690,9 +2756,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_3_cost_per_unit_value_or_variable_name(self):
-        """field `Block 3 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 3 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 3 Cost per Unit Value or Variable Name`
@@ -2714,11 +2781,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_4_value_or_variable_name(self):
-        """field `Block Size 4 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 4 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 4 Value or Variable Name`
@@ -2739,9 +2806,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_4_cost_per_unit_value_or_variable_name(self):
-        """field `Block 4 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 4 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 4 Cost per Unit Value or Variable Name`
@@ -2763,11 +2831,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_5_value_or_variable_name(self):
-        """field `Block Size 5 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 5 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 5 Value or Variable Name`
@@ -2788,9 +2856,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_5_cost_per_unit_value_or_variable_name(self):
-        """field `Block 5 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 5 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 5 Cost per Unit Value or Variable Name`
@@ -2812,11 +2881,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_6_value_or_variable_name(self):
-        """field `Block Size 6 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 6 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 6 Value or Variable Name`
@@ -2837,9 +2906,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_6_cost_per_unit_value_or_variable_name(self):
-        """field `Block 6 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 6 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 6 Cost per Unit Value or Variable Name`
@@ -2861,11 +2931,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_7_value_or_variable_name(self):
-        """field `Block Size 7 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 7 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 7 Value or Variable Name`
@@ -2886,9 +2956,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_7_cost_per_unit_value_or_variable_name(self):
-        """field `Block 7 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 7 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 7 Cost per Unit Value or Variable Name`
@@ -2910,11 +2981,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_8_value_or_variable_name(self):
-        """field `Block Size 8 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 8 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 8 Value or Variable Name`
@@ -2935,9 +3006,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_8_cost_per_unit_value_or_variable_name(self):
-        """field `Block 8 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 8 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 8 Cost per Unit Value or Variable Name`
@@ -2959,11 +3031,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_9_value_or_variable_name(self):
-        """field `Block Size 9 Value or Variable Name` The size of the block of
-        the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 9 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 9 Value or Variable Name`
@@ -2984,9 +3056,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_9_cost_per_unit_value_or_variable_name(self):
-        """field `Block 9 Cost per Unit Value or Variable Name` The cost of the
-        block. This field is unusual for the EnergyPlus syntax because it can
-        be either a number or a name of a variable.
+        """field `Block 9 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 9 Cost per Unit Value or Variable Name`
@@ -3008,11 +3081,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_10_value_or_variable_name(self):
-        """field `Block Size 10 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 10 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 10 Value or Variable Name`
@@ -3033,9 +3106,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_10_cost_per_unit_value_or_variable_name(self):
-        """field `Block 10 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 10 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 10 Cost per Unit Value or Variable Name`
@@ -3057,11 +3131,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_11_value_or_variable_name(self):
-        """field `Block Size 11 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 11 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 11 Value or Variable Name`
@@ -3082,9 +3156,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_11_cost_per_unit_value_or_variable_name(self):
-        """field `Block 11 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 11 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 11 Cost per Unit Value or Variable Name`
@@ -3106,11 +3181,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_12_value_or_variable_name(self):
-        """field `Block Size 12 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 12 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 12 Value or Variable Name`
@@ -3131,9 +3206,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_12_cost_per_unit_value_or_variable_name(self):
-        """field `Block 12 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 12 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 12 Cost per Unit Value or Variable Name`
@@ -3155,11 +3231,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_13_value_or_variable_name(self):
-        """field `Block Size 13 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 13 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 13 Value or Variable Name`
@@ -3180,9 +3256,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_13_cost_per_unit_value_or_variable_name(self):
-        """field `Block 13 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 13 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 13 Cost per Unit Value or Variable Name`
@@ -3204,11 +3281,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_14_value_or_variable_name(self):
-        """field `Block Size 14 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 14 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 14 Value or Variable Name`
@@ -3229,9 +3306,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_14_cost_per_unit_value_or_variable_name(self):
-        """field `Block 14 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 14 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 14 Cost per Unit Value or Variable Name`
@@ -3253,11 +3331,11 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_size_15_value_or_variable_name(self):
-        """field `Block Size 15 Value or Variable Name` The size of the block
-        of the charges is entered here. For most rates that use multiple blocks
-        this will be the value for the block size. Using remaining may be used
-        when the remaining amount should be included in that block.  This field
-        is unusual because it can be either a number or a name of a variable.
+        """field `Block Size 15 Value or Variable Name`
+
+        |  The size of the block of the charges is entered here. For most rates that use multiple blocks this will
+        |  be the value for the block size. Using remaining may be used when the remaining amount should be included
+        |  in that block.  This field is unusual because it can be either a number or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block Size 15 Value or Variable Name`
@@ -3278,9 +3356,10 @@ class UtilityCostChargeBlock(DataObject):
 
     @property
     def block_15_cost_per_unit_value_or_variable_name(self):
-        """field `Block 15 Cost per Unit Value or Variable Name` The cost of
-        the block. This field is unusual for the EnergyPlus syntax because it
-        can be either a number or a name of a variable.
+        """field `Block 15 Cost per Unit Value or Variable Name`
+
+        |  The cost of the block. This field is unusual for the EnergyPlus syntax because it can be either a number
+        |  or a name of a variable.
 
         Args:
             value (str): value for IDD Field `Block 15 Cost per Unit Value or Variable Name`
@@ -3389,8 +3468,10 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def name(self):
-        """field `Name` Ratchet Variable Name The name of the ratchet and the
-        name of the result of this single ratchet.
+        """field `Name`
+
+        |  Ratchet Variable Name
+        |  The name of the ratchet and the name of the result of this single ratchet.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3412,7 +3493,8 @@ class UtilityCostRatchet(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Ratchet.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Ratchet.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -3422,6 +3504,7 @@ class UtilityCostRatchet(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -3432,12 +3515,12 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def baseline_source_variable(self):
-        """field `Baseline Source Variable` When the ratcheted value exceeds
-        the baseline value for a month the ratcheted value is used but when the
-        baseline value is greater then the ratcheted value the baseline value
-        is used. Usually the electric demand charge is used.  The baseline
-        source variable can be the results of another ratchet object. This
-        allows utility tariffs that have multiple ratchets to be modeled.
+        """field `Baseline Source Variable`
+
+        |  When the ratcheted value exceeds the baseline value for a month the ratcheted value is used but when the
+        |  baseline value is greater then the ratcheted value the baseline value is used. Usually the electric
+        |  demand charge is used.  The baseline source variable can be the results of another ratchet object. This
+        |  allows utility tariffs that have multiple ratchets to be modeled.
 
         Args:
             value (str): value for IDD Field `Baseline Source Variable`
@@ -3458,12 +3541,12 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def adjustment_source_variable(self):
-        """field `Adjustment Source Variable` The variable that the ratchet is
-        calculated from. It is often but not always the same as the baseline
-        source variable.  The ratcheting calculations using offset and
-        multiplier are using the values from the adjustment source variable. If
-        left blank the adjustment source variable is the same as the baseline
-        source variable.
+        """field `Adjustment Source Variable`
+
+        |  The variable that the ratchet is calculated from. It is often but not always the same as the baseline
+        |  source variable.  The ratcheting calculations using offset and multiplier are using the values from the
+        |  adjustment source variable. If left blank the adjustment source variable is the same as the baseline
+        |  source variable.
 
         Args:
             value (str): value for IDD Field `Adjustment Source Variable`
@@ -3484,11 +3567,11 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def season_from(self):
-        """field `Season From` The name of the season that is being examined.
-        The maximum value for all of the months in the named season is what is
-        used with the multiplier and offset.  This is most commonly Summer or
-        Annual.  When Monthly is used the adjustment source variable is used
-        directly for all months.
+        """field `Season From`
+
+        |  The name of the season that is being examined.  The maximum value for all of the months in the named
+        |  season is what is used with the multiplier and offset.  This is most commonly Summer or Annual.  When
+        |  Monthly is used the adjustment source variable is used directly for all months.
 
         Args:
             value (str): value for IDD Field `Season From`
@@ -3509,11 +3592,11 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def season_to(self):
-        """field `Season To` The name of the season when the ratchet would be
-        calculated.  This is most commonly Winter.  The ratchet only is applied
-        to the months in the named season. The resulting variable for months
-        not in the Season To selection will contain the values as appear in the
-        baseline source variable.
+        """field `Season To`
+
+        |  The name of the season when the ratchet would be calculated.  This is most commonly Winter.  The ratchet
+        |  only is applied to the months in the named season. The resulting variable for months not in the Season To
+        |  selection will contain the values as appear in the baseline source variable.
 
         Args:
             value (str): value for IDD Field `Season To`
@@ -3535,9 +3618,10 @@ class UtilityCostRatchet(DataObject):
     @property
     def multiplier_value_or_variable_name(self):
         """field `Multiplier Value or Variable Name`
-        Often the ratchet has a clause such as "the current month demand or 90% of the summer month demand".  For
-        this case a value of 0.9 would be entered here as the multiplier.  This value may be left blank if no
-        multiplier is needed and a value of one will be used as a default.
+
+        |  Often the ratchet has a clause such as "the current month demand or 90% of the summer month demand".  For
+        |  this case a value of 0.9 would be entered here as the multiplier.  This value may be left blank if no
+        |  multiplier is needed and a value of one will be used as a default.
 
         Args:
             value (str): value for IDD Field `Multiplier Value or Variable Name`
@@ -3547,6 +3631,7 @@ class UtilityCostRatchet(DataObject):
 
         Returns:
             str: the value of `multiplier_value_or_variable_name` or None if not set
+
         """
         return self["Multiplier Value or Variable Name"]
 
@@ -3557,12 +3642,12 @@ class UtilityCostRatchet(DataObject):
 
     @property
     def offset_value_or_variable_name(self):
-        """field `Offset Value or Variable Name` A less common strategy is to
-        say that the ratchet must be all demand greater than a value in this
-        case an offset that is added to the demand may be entered here. If
-        entered it is common for the offset value to be negative representing
-        that the demand be reduced.   If no value is entered it is assumed to
-        be zero and not affect the ratchet.
+        """field `Offset Value or Variable Name`
+
+        |  A less common strategy is to say that the ratchet must be all demand greater than a value in this case
+        |  an offset that is added to the demand may be entered here. If entered it is common for the offset value
+        |  to be negative representing that the demand be reduced.   If no value is entered it is assumed to be
+        |  zero and not affect the ratchet.
 
         Args:
             value (str): value for IDD Field `Offset Value or Variable Name`
@@ -3732,7 +3817,8 @@ class UtilityCostVariable(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Variable.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Variable.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -3742,6 +3828,7 @@ class UtilityCostVariable(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -3754,9 +3841,10 @@ class UtilityCostVariable(DataObject):
     def variable_type(self):
         """field `Variable Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Variable Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4293,7 +4381,8 @@ class UtilityCostComputation(DataObject):
     @property
     def tariff_name(self):
         """field `Tariff Name`
-        The name of the UtilityCost:Tariff that is associated with this UtilityCost:Variable.
+
+        |  The name of the UtilityCost:Tariff that is associated with this UtilityCost:Variable.
 
         Args:
             value (str): value for IDD Field `Tariff Name`
@@ -4303,6 +4392,7 @@ class UtilityCostComputation(DataObject):
 
         Returns:
             str: the value of `tariff_name` or None if not set
+
         """
         return self["Tariff Name"]
 
@@ -4313,9 +4403,10 @@ class UtilityCostComputation(DataObject):
 
     @property
     def compute_step_1(self):
-        """field `Compute Step 1` Contain a simple language that describes the
-        steps used in the computation process similar to a programming
-        language.
+        """field `Compute Step 1`
+
+        |  Contain a simple language that describes the steps used in the computation process similar to a
+        |  programming language.
 
         Args:
             value (str): value for IDD Field `Compute Step 1`
@@ -5130,14 +5221,15 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def discounting_convention(self):
-        """field `Discounting Convention` The field specifies if the
-        discounting of future costs should be computed as occurring at the end
-        of each year or the middle of each year or the beginning of each year.
-        The most common discounting convention uses the end of each year.
+        """field `Discounting Convention`
+
+        |  The field specifies if the discounting of future costs should be computed as occurring at the end
+        |  of each year or the middle of each year or the beginning of each year. The most common discounting
+        |  convention uses the end of each year.
+        |  Default value: EndOfYear
 
         Args:
             value (str): value for IDD Field `Discounting Convention`
-                Default value: EndOfYear
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5155,16 +5247,16 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def inflation_approach(self):
-        """field `Inflation Approach` This field is used to determine if the
-        analysis should use constant dollars or current dollars which is
-        related to how inflation is treated. If ConstantDollar is selected then
-        the Real Discount Rate input is used and it excludes the rate of
-        inflation. If CurrentDollar is selected then the Nominal Discount Rate
-        input is used and it includes the rate of inflation.
+        """field `Inflation Approach`
+
+        |  This field is used to determine if the analysis should use constant dollars or current dollars
+        |  which is related to how inflation is treated. If ConstantDollar is selected then the Real Discount
+        |  Rate input is used and it excludes the rate of inflation. If CurrentDollar is selected then the
+        |  Nominal Discount Rate input is used and it includes the rate of inflation.
+        |  Default value: ConstantDollar
 
         Args:
             value (str): value for IDD Field `Inflation Approach`
-                Default value: ConstantDollar
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5183,10 +5275,11 @@ class LifeCycleCostParameters(DataObject):
     @property
     def real_discount_rate(self):
         """field `Real Discount Rate`
-        Enter the real discount rate as a decimal. For a 3% rate enter the value 0.03. This input is
-        used when the Inflation Approach is ConstantDollar. The real discount rate reflects the interest
-        rates needed to make current and future expenditures have comparable equivalent values when
-        general inflation is ignored. When Inflation Approach is set to CurrentDollar this input is ignored.
+
+        |  Enter the real discount rate as a decimal. For a 3% rate enter the value 0.03. This input is
+        |  used when the Inflation Approach is ConstantDollar. The real discount rate reflects the interest
+        |  rates needed to make current and future expenditures have comparable equivalent values when
+        |  general inflation is ignored. When Inflation Approach is set to CurrentDollar this input is ignored.
 
         Args:
             value (float): value for IDD Field `Real Discount Rate`
@@ -5196,6 +5289,7 @@ class LifeCycleCostParameters(DataObject):
 
         Returns:
             float: the value of `real_discount_rate` or None if not set
+
         """
         return self["Real Discount Rate"]
 
@@ -5207,10 +5301,11 @@ class LifeCycleCostParameters(DataObject):
     @property
     def nominal_discount_rate(self):
         """field `Nominal Discount Rate`
-        Enter the nominal discount rate as a decimal. For a 5% rate enter the value 0.05. This input
-        is used when the Inflation Approach is CurrentDollar. The real discount rate reflects the interest
-        rates needed to make current and future expenditures have comparable equivalent values when general
-        inflation is included. When Inflation Approach is set to ConstantDollar this input is ignored.
+
+        |  Enter the nominal discount rate as a decimal. For a 5% rate enter the value 0.05. This input
+        |  is used when the Inflation Approach is CurrentDollar. The real discount rate reflects the interest
+        |  rates needed to make current and future expenditures have comparable equivalent values when general
+        |  inflation is included. When Inflation Approach is set to ConstantDollar this input is ignored.
 
         Args:
             value (float): value for IDD Field `Nominal Discount Rate`
@@ -5220,6 +5315,7 @@ class LifeCycleCostParameters(DataObject):
 
         Returns:
             float: the value of `nominal_discount_rate` or None if not set
+
         """
         return self["Nominal Discount Rate"]
 
@@ -5231,8 +5327,9 @@ class LifeCycleCostParameters(DataObject):
     @property
     def inflation(self):
         """field `Inflation`
-        Enter the rate of inflation for general goods and services as a decimal. For a 2% rate enter
-        the value 0.02.
+
+        |  Enter the rate of inflation for general goods and services as a decimal. For a 2% rate enter
+        |  the value 0.02.
 
         Args:
             value (float): value for IDD Field `Inflation`
@@ -5242,6 +5339,7 @@ class LifeCycleCostParameters(DataObject):
 
         Returns:
             float: the value of `inflation` or None if not set
+
         """
         return self["Inflation"]
 
@@ -5252,12 +5350,13 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def base_date_month(self):
-        """field `Base Date Month` Enter the month that is the beginning of
-        study period also known as the beginning of the base period.
+        """field `Base Date Month`
+
+        |  Enter the month that is the beginning of study period also known as the beginning of the base period.
+        |  Default value: January
 
         Args:
             value (str): value for IDD Field `Base Date Month`
-                Default value: January
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5276,19 +5375,21 @@ class LifeCycleCostParameters(DataObject):
     @property
     def base_date_year(self):
         """field `Base Date Year`
-        Enter the four digit year that is the beginning of study period such as 2010. The study period is
-        also known as the base period.
+
+        |  Enter the four digit year that is the beginning of study period such as 2010. The study period is
+        |  also known as the base period.
+        |  value >= 1900
+        |  value <= 2100
 
         Args:
             value (int): value for IDD Field `Base Date Year`
-                value >= 1900
-                value <= 2100
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `base_date_year` or None if not set
+
         """
         return self["Base Date Year"]
 
@@ -5299,15 +5400,16 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def service_date_month(self):
-        """field `Service Date Month` Enter the month that is the beginning of
-        building occupancy. Energy costs computed by EnergyPlus are assumed to
-        occur during the year following the service date. The service date must
-        be the same or later than the Base Date. This field could also be
-        referred to as part of beneficial occupancy date.
+        """field `Service Date Month`
+
+        |  Enter the month that is the beginning of building occupancy. Energy costs computed by EnergyPlus
+        |  are assumed to occur during the year following the service date. The service date must be the
+        |  same or later than the Base Date. This field could also be referred to as part of beneficial
+        |  occupancy date.
+        |  Default value: January
 
         Args:
             value (str): value for IDD Field `Service Date Month`
-                Default value: January
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5326,18 +5428,20 @@ class LifeCycleCostParameters(DataObject):
     @property
     def service_date_year(self):
         """field `Service Date Year`
-        Enter the four digit year that is the beginning of occupancy such as 2010.
+
+        |  Enter the four digit year that is the beginning of occupancy such as 2010.
+        |  value >= 1900
+        |  value <= 2100
 
         Args:
             value (int): value for IDD Field `Service Date Year`
-                value >= 1900
-                value <= 2100
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `service_date_year` or None if not set
+
         """
         return self["Service Date Year"]
 
@@ -5348,15 +5452,16 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def length_of_study_period_in_years(self):
-        """field `Length of Study Period in Years` Enter the number of years of
-        the study period. It is the number of years that the study continues
-        based on the start at the base date. The default value is 25 years.
-        Only integers may be used indicating whole years.
+        """field `Length of Study Period in Years`
+
+        |  Enter the number of years of the study period. It is the number of years that the study continues
+        |  based on the start at the base date. The default value is 25 years. Only integers may be used
+        |  indicating whole years.
+        |  value >= 1
+        |  value <= 100
 
         Args:
             value (int): value for IDD Field `Length of Study Period in Years`
-                value >= 1
-                value <= 100
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5375,14 +5480,15 @@ class LifeCycleCostParameters(DataObject):
     @property
     def tax_rate(self):
         """field `Tax rate`
-        Enter the overall marginal tax rate for the project costs. This does not include energy or water
-        taxes. The tax rate entered should be based on the marginal tax rate for the entity and not the
-        average tax rate. Enter the tax rate results in present value calculations after taxes. Most
-        analyses do not factor in the impact of taxes and assume that all options under consideration
-        have roughly the same tax impact. Due to this many times the tax rate can be left to default
-        to zero and the present value results before taxes are used to make decisions. The value
-        should be entered as a decimal value. For 15% enter 0.15. For an analysis that does not include
-        tax impacts enter 0.0.
+
+        |  Enter the overall marginal tax rate for the project costs. This does not include energy or water
+        |  taxes. The tax rate entered should be based on the marginal tax rate for the entity and not the
+        |  average tax rate. Enter the tax rate results in present value calculations after taxes. Most
+        |  analyses do not factor in the impact of taxes and assume that all options under consideration
+        |  have roughly the same tax impact. Due to this many times the tax rate can be left to default
+        |  to zero and the present value results before taxes are used to make decisions. The value
+        |  should be entered as a decimal value. For 15% enter 0.15. For an analysis that does not include
+        |  tax impacts enter 0.0.
 
         Args:
             value (float): value for IDD Field `Tax rate`
@@ -5392,6 +5498,7 @@ class LifeCycleCostParameters(DataObject):
 
         Returns:
             float: the value of `tax_rate` or None if not set
+
         """
         return self["Tax rate"]
 
@@ -5402,14 +5509,15 @@ class LifeCycleCostParameters(DataObject):
 
     @property
     def depreciation_method(self):
-        """field `Depreciation Method` For an analysis that includes income tax
-        impacts this entry describes how capital costs are depreciated. Only
-        one depreciation method may be used for an analysis and is applied to
-        all capital expenditures.
+        """field `Depreciation Method`
+
+        |  For an analysis that includes income tax impacts this entry describes how capital costs are
+        |  depreciated. Only one depreciation method may be used for an analysis and is applied to all
+        |  capital expenditures.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Depreciation Method`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5555,9 +5663,10 @@ class LifeCycleCostRecurringCosts(DataObject):
     def category(self):
         """field `Category`
 
+        |  Default value: Maintenance
+
         Args:
             value (str): value for IDD Field `Category`
-                Default value: Maintenance
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5575,10 +5684,11 @@ class LifeCycleCostRecurringCosts(DataObject):
 
     @property
     def cost(self):
-        """field `Cost` Enter the cost in dollars (or the appropriate monetary
-        unit) for the recurring costs. Enter the cost for each time it occurs.
-        For example if the annual maintenance cost is 500 dolllars enter 500
-        here.
+        """field `Cost`
+
+        |  Enter the cost in dollars (or the appropriate monetary unit) for the recurring costs. Enter
+        |  the cost for each time it occurs. For example if the annual maintenance cost is 500 dolllars
+        |  enter 500 here.
 
         Args:
             value (float): value for IDD Field `Cost`
@@ -5599,13 +5709,14 @@ class LifeCycleCostRecurringCosts(DataObject):
 
     @property
     def start_of_costs(self):
-        """field `Start of Costs` Enter when the costs start. The First Year of
-        Cost is based on the number of years past the Start of Costs. For most
-        maintenance costs the Start of Costs should be Service Period.
+        """field `Start of Costs`
+
+        |  Enter when the costs start. The First Year of Cost is based on the number of years past the
+        |  Start of Costs. For most maintenance costs the Start of Costs should be Service Period.
+        |  Default value: ServicePeriod
 
         Args:
             value (str): value for IDD Field `Start of Costs`
-                Default value: ServicePeriod
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5623,16 +5734,16 @@ class LifeCycleCostRecurringCosts(DataObject):
 
     @property
     def years_from_start(self):
-        """field `Years from Start` This field and the Months From Start field
-        together represent the time from either the start of the Service Period
-        on the service month and year or start of the Base Period on the base
-        month and year (depending on the Start of Costs field) that the costs
-        start to occur. Only integers should be entered representing whole
-        years.
+        """field `Years from Start`
+
+        |  This field and the Months From Start field together represent the time from either the start
+        |  of the Service Period on the service month and year or start of the Base Period on the base
+        |  month and year (depending on the Start of Costs field) that the costs start to occur. Only
+        |  integers should be entered representing whole years.
+        |  value <= 100
 
         Args:
             value (int): value for IDD Field `Years from Start`
-                value <= 100
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5650,17 +5761,17 @@ class LifeCycleCostRecurringCosts(DataObject):
 
     @property
     def months_from_start(self):
-        """field `Months from Start` This field and the Years From Start field
-        together represent the time from either the start of the Service Period
-        on the service month and year or start of the Base Period on the base
-        month and year (depending on the Start of Costs field) that the costs
-        start to occur. Only integers should be entered representing whole
-        months. The Years From Start (times 12) and Months From Start are added
-        together.
+        """field `Months from Start`
+
+        |  This field and the Years From Start field together represent the time from either the start
+        |  of the Service Period on the service month and year or start of the Base Period on the base
+        |  month and year (depending on the Start of Costs field) that the costs start to occur. Only
+        |  integers should be entered representing whole months. The Years From Start (times 12) and
+        |  Months From Start are added together.
+        |  value <= 1200
 
         Args:
             value (int): value for IDD Field `Months from Start`
-                value <= 1200
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5679,21 +5790,23 @@ class LifeCycleCostRecurringCosts(DataObject):
     @property
     def repeat_period_years(self):
         """field `Repeat Period Years`
-        This field and the Repeat Period Months field indicate how much time elapses between
-        reoccurrences of the cost. For costs that occur every year such the Repeat Period Years
-        should be 1 and Repeat Period Months should be 0. Only integers should be entered
-        representing whole years.
+
+        |  This field and the Repeat Period Months field indicate how much time elapses between
+        |  reoccurrences of the cost. For costs that occur every year such the Repeat Period Years
+        |  should be 1 and Repeat Period Months should be 0. Only integers should be entered
+        |  representing whole years.
+        |  Default value: 1
+        |  value <= 100
 
         Args:
             value (int): value for IDD Field `Repeat Period Years`
-                Default value: 1
-                value <= 100
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `repeat_period_years` or None if not set
+
         """
         return self["Repeat Period Years"]
 
@@ -5704,14 +5817,15 @@ class LifeCycleCostRecurringCosts(DataObject):
 
     @property
     def repeat_period_months(self):
-        """field `Repeat Period Months` This field and the Repeat Period Years
-        field indicate how much time elapses between reoccurrences of the cost.
-        Only integers should be entered representing whole years. The Repeat
-        Period Years (times 12) and Repeat Period Months are added together.
+        """field `Repeat Period Months`
+
+        |  This field and the Repeat Period Years field indicate how much time elapses between
+        |  reoccurrences of the cost. Only integers should be entered representing whole years.
+        |  The Repeat Period Years (times 12) and Repeat Period Months are added together.
+        |  value <= 1200
 
         Args:
             value (int): value for IDD Field `Repeat Period Months`
-                value <= 1200
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5730,20 +5844,22 @@ class LifeCycleCostRecurringCosts(DataObject):
     @property
     def annual_escalation_rate(self):
         """field `Annual escalation rate`
-        Enter the annual escalation rate as a decimal. For a 1% rate enter the value 0.01.
-        This input is used when the Inflation Approach is CurrentDollar. When Inflation
-        Approach is set to ConstantDollar this input is ignored.
+
+        |  Enter the annual escalation rate as a decimal. For a 1% rate enter the value 0.01.
+        |  This input is used when the Inflation Approach is CurrentDollar. When Inflation
+        |  Approach is set to ConstantDollar this input is ignored.
+        |  value >= -0.3
+        |  value <= 0.3
 
         Args:
             value (float): value for IDD Field `Annual escalation rate`
-                value >= -0.3
-                value <= 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `annual_escalation_rate` or None if not set
+
         """
         return self["Annual escalation rate"]
 
@@ -5849,9 +5965,10 @@ class LifeCycleCostNonrecurringCost(DataObject):
     def category(self):
         """field `Category`
 
+        |  Default value: Construction
+
         Args:
             value (str): value for IDD Field `Category`
-                Default value: Construction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5870,10 +5987,11 @@ class LifeCycleCostNonrecurringCost(DataObject):
     @property
     def cost(self):
         """field `Cost`
-        Enter the non-recurring cost value. For construction and other capital costs the value
-        entered is typically a positive value. For salvage costs the value entered is typically a
-        negative value which represents the money paid to the investor for the equipment at the
-        end of the study period.
+
+        |  Enter the non-recurring cost value. For construction and other capital costs the value
+        |  entered is typically a positive value. For salvage costs the value entered is typically a
+        |  negative value which represents the money paid to the investor for the equipment at the
+        |  end of the study period.
 
         Args:
             value (float): value for IDD Field `Cost`
@@ -5883,6 +6001,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
 
         Returns:
             float: the value of `cost` or None if not set
+
         """
         return self["Cost"]
 
@@ -5894,19 +6013,21 @@ class LifeCycleCostNonrecurringCost(DataObject):
     @property
     def start_of_costs(self):
         """field `Start of Costs`
-        Enter when the costs start. The First Year of Cost is based on the number of years past the
-        Start of Costs. For most non-recurring costs the Start of Costs should be Base Period which
-        begins at the base month and year.
+
+        |  Enter when the costs start. The First Year of Cost is based on the number of years past the
+        |  Start of Costs. For most non-recurring costs the Start of Costs should be Base Period which
+        |  begins at the base month and year.
+        |  Default value: ServicePeriod
 
         Args:
             value (str): value for IDD Field `Start of Costs`
-                Default value: ServicePeriod
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `start_of_costs` or None if not set
+
         """
         return self["Start of Costs"]
 
@@ -5917,16 +6038,16 @@ class LifeCycleCostNonrecurringCost(DataObject):
 
     @property
     def years_from_start(self):
-        """field `Years from Start` This field and the Months From Start field
-        together represent the time from either the start of the Service Period
-        on the service month and year or start of the Base Period on the base
-        month and year (depending on the Start of Cost field) that the costs
-        start to occur. Only integers should be entered representing whole
-        years.
+        """field `Years from Start`
+
+        |  This field and the Months From Start field together represent the time from either the start
+        |  of the Service Period on the service month and year or start of the Base Period on the base
+        |  month and year (depending on the Start of Cost field) that the costs start to occur. Only
+        |  integers should be entered representing whole years.
+        |  value <= 100
 
         Args:
             value (int): value for IDD Field `Years from Start`
-                value <= 100
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5944,17 +6065,17 @@ class LifeCycleCostNonrecurringCost(DataObject):
 
     @property
     def months_from_start(self):
-        """field `Months from Start` This field and the Years From Start field
-        together represent the time from either the start of the Service Period
-        on the service month and year or start of the Base Period on the base
-        month and year (depending on the Start of Cost field) that the costs
-        start to occur. Only integers should be entered representing whole
-        months. The Years From Start (times 12) and Months From Start are added
-        together.
+        """field `Months from Start`
+
+        |  This field and the Years From Start field together represent the time from either the start
+        |  of the Service Period on the service month and year or start of the Base Period on the base
+        |  month and year (depending on the Start of Cost field) that the costs start to occur. Only
+        |  integers should be entered representing whole months. The Years From Start (times 12) and
+        |  Months From Start are added together.
+        |  value <= 1200
 
         Args:
             value (int): value for IDD Field `Months from Start`
-                value <= 1200
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6056,12 +6177,12 @@ class LifeCycleCostUsePriceEscalation(DataObject):
 
     @property
     def name(self):
-        """field `Name` The identifier used for the object. The name usually
-        identifies the location (such as the state or region or country or
-        census area) that the escalations apply to. In addition the name should
-        identify the building class such as residential or commercial or
-        industrial and the use type such as electricity or natural gas or
-        water.
+        """field `Name`
+
+        |  The identifier used for the object. The name usually identifies the location (such as the
+        |  state or region or country or census area) that the escalations apply to. In addition the
+        |  name should identify the building class such as residential or commercial or industrial
+        |  and the use type such as electricity or natural gas or water.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6103,15 +6224,16 @@ class LifeCycleCostUsePriceEscalation(DataObject):
 
     @property
     def escalation_start_year(self):
-        """field `Escalation Start Year` This field and the Escalation Start
-        Month define the time that corresponds to Year 1 Escalation such as
-        2010 when the escalation rates are applied. This field and the
-        Escalation Start Month define the time that escalation begins.
+        """field `Escalation Start Year`
+
+        |  This field and the Escalation Start Month define the time that corresponds to Year 1 Escalation
+        |  such as 2010 when the escalation rates are applied. This field and the Escalation Start Month
+        |  define the time that escalation begins.
+        |  value >= 1900
+        |  value <= 2100
 
         Args:
             value (int): value for IDD Field `Escalation Start Year`
-                value >= 1900
-                value <= 2100
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6129,14 +6251,15 @@ class LifeCycleCostUsePriceEscalation(DataObject):
 
     @property
     def escalation_start_month(self):
-        """field `Escalation Start Month` This field and the Escalation Start
-        Year define the time that corresponds to Year 1 Escalation such as 2010
-        when the escalation rates are applied. This field and the Escalation
-        Start Year define the time that escalation begins.
+        """field `Escalation Start Month`
+
+        |  This field and the Escalation Start Year define the time that corresponds to Year 1 Escalation
+        |  such as 2010 when the escalation rates are applied. This field and the Escalation Start Year
+        |  define the time that escalation begins.
+        |  Default value: January
 
         Args:
             value (str): value for IDD Field `Escalation Start Month`
-                Default value: January
 
         Raises:
             ValueError: if `value` is not a valid value

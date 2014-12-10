@@ -127,9 +127,10 @@ class WaterUseEquipment(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -150,9 +151,10 @@ class WaterUseEquipment(DataObject):
     def peak_flow_rate(self):
         """field `Peak Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Peak Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -171,7 +173,8 @@ class WaterUseEquipment(DataObject):
     @property
     def flow_rate_fraction_schedule_name(self):
         """field `Flow Rate Fraction Schedule Name`
-        Defaults to 1.0 at all times
+
+        |  Defaults to 1.0 at all times
 
         Args:
             value (str): value for IDD Field `Flow Rate Fraction Schedule Name`
@@ -181,6 +184,7 @@ class WaterUseEquipment(DataObject):
 
         Returns:
             str: the value of `flow_rate_fraction_schedule_name` or None if not set
+
         """
         return self["Flow Rate Fraction Schedule Name"]
 
@@ -191,8 +195,9 @@ class WaterUseEquipment(DataObject):
 
     @property
     def target_temperature_schedule_name(self):
-        """field `Target Temperature Schedule Name` Defaults to hot water
-        supply temperature.
+        """field `Target Temperature Schedule Name`
+
+        |  Defaults to hot water supply temperature
 
         Args:
             value (str): value for IDD Field `Target Temperature Schedule Name`
@@ -213,8 +218,9 @@ class WaterUseEquipment(DataObject):
 
     @property
     def hot_water_supply_temperature_schedule_name(self):
-        """field `Hot Water Supply Temperature Schedule Name` Defaults to cold
-        water supply temperature.
+        """field `Hot Water Supply Temperature Schedule Name`
+
+        |  Defaults to cold water supply temperature
 
         Args:
             value (str): value for IDD Field `Hot Water Supply Temperature Schedule Name`
@@ -237,7 +243,8 @@ class WaterUseEquipment(DataObject):
     @property
     def cold_water_supply_temperature_schedule_name(self):
         """field `Cold Water Supply Temperature Schedule Name`
-        Defaults to water temperatures calculated by Site:WaterMainsTemperature object
+
+        |  Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
             value (str): value for IDD Field `Cold Water Supply Temperature Schedule Name`
@@ -247,6 +254,7 @@ class WaterUseEquipment(DataObject):
 
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
+
         """
         return self["Cold Water Supply Temperature Schedule Name"]
 
@@ -280,7 +288,8 @@ class WaterUseEquipment(DataObject):
     @property
     def sensible_fraction_schedule_name(self):
         """field `Sensible Fraction Schedule Name`
-        Defaults to 0.0 at all times
+
+        |  Defaults to 0.0 at all times
 
         Args:
             value (str): value for IDD Field `Sensible Fraction Schedule Name`
@@ -290,6 +299,7 @@ class WaterUseEquipment(DataObject):
 
         Returns:
             str: the value of `sensible_fraction_schedule_name` or None if not set
+
         """
         return self["Sensible Fraction Schedule Name"]
 
@@ -301,7 +311,8 @@ class WaterUseEquipment(DataObject):
     @property
     def latent_fraction_schedule_name(self):
         """field `Latent Fraction Schedule Name`
-        Defaults to 0.0 at all times
+
+        |  Defaults to 0.0 at all times
 
         Args:
             value (str): value for IDD Field `Latent Fraction Schedule Name`
@@ -311,6 +322,7 @@ class WaterUseEquipment(DataObject):
 
         Returns:
             str: the value of `latent_fraction_schedule_name` or None if not set
+
         """
         return self["Latent Fraction Schedule Name"]
 
@@ -492,8 +504,9 @@ class WaterUseConnections(DataObject):
 
     @property
     def supply_water_storage_tank_name(self):
-        """field `Supply Water Storage Tank Name` If blank, or tank is empty,
-        defaults to fresh water from the mains.
+        """field `Supply Water Storage Tank Name`
+
+        |  If blank, or tank is empty, defaults to fresh water from the mains
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -535,8 +548,9 @@ class WaterUseConnections(DataObject):
 
     @property
     def hot_water_supply_temperature_schedule_name(self):
-        """field `Hot Water Supply Temperature Schedule Name` Defaults to cold
-        water supply temperature.
+        """field `Hot Water Supply Temperature Schedule Name`
+
+        |  Defaults to cold water supply temperature
 
         Args:
             value (str): value for IDD Field `Hot Water Supply Temperature Schedule Name`
@@ -559,7 +573,8 @@ class WaterUseConnections(DataObject):
     @property
     def cold_water_supply_temperature_schedule_name(self):
         """field `Cold Water Supply Temperature Schedule Name`
-        Defaults to water temperatures calculated by Site:WaterMainsTemperature object
+
+        |  Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
             value (str): value for IDD Field `Cold Water Supply Temperature Schedule Name`
@@ -569,6 +584,7 @@ class WaterUseConnections(DataObject):
 
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
+
         """
         return self["Cold Water Supply Temperature Schedule Name"]
 
@@ -582,9 +598,10 @@ class WaterUseConnections(DataObject):
     def drain_water_heat_exchanger_type(self):
         """field `Drain Water Heat Exchanger Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -604,9 +621,10 @@ class WaterUseConnections(DataObject):
     def drain_water_heat_exchanger_destination(self):
         """field `Drain Water Heat Exchanger Destination`
 
+        |  Default value: Plant
+
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Destination`
-                Default value: Plant
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -626,9 +644,10 @@ class WaterUseConnections(DataObject):
     def drain_water_heat_exchanger_ufactor_times_area(self):
         """field `Drain Water Heat Exchanger U-Factor Times Area`
 
+        |  Units: W/K
+
         Args:
             value (float): value for IDD Field `Drain Water Heat Exchanger U-Factor Times Area`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -904,11 +923,13 @@ class WaterUseStorage(DataObject):
 
     @property
     def maximum_capacity(self):
-        """field `Maximum Capacity` Defaults to unlimited capacity.
+        """field `Maximum Capacity`
+
+        |  Defaults to unlimited capacity.
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Maximum Capacity`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -928,9 +949,10 @@ class WaterUseStorage(DataObject):
     def initial_volume(self):
         """field `Initial Volume`
 
+        |  Units: m3
+
         Args:
             value (float): value for IDD Field `Initial Volume`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -948,11 +970,13 @@ class WaterUseStorage(DataObject):
 
     @property
     def design_in_flow_rate(self):
-        """field `Design In Flow Rate` Defaults to unlimited flow.
+        """field `Design In Flow Rate`
+
+        |  Defaults to unlimited flow.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design In Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -970,11 +994,13 @@ class WaterUseStorage(DataObject):
 
     @property
     def design_out_flow_rate(self):
-        """field `Design Out Flow Rate` Defaults to unlimited flow.
+        """field `Design Out Flow Rate`
+
+        |  Defaults to unlimited flow.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Design Out Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -992,7 +1018,9 @@ class WaterUseStorage(DataObject):
 
     @property
     def overflow_destination(self):
-        """field `Overflow Destination` If blank, overflow is discarded.
+        """field `Overflow Destination`
+
+        |  If blank, overflow is discarded
 
         Args:
             value (str): value for IDD Field `Overflow Destination`
@@ -1035,12 +1063,13 @@ class WaterUseStorage(DataObject):
 
     @property
     def float_valve_on_capacity(self):
-        """field `Float Valve On Capacity` Lower range of target storage level
-        e.g. float valve kicks on.
+        """field `Float Valve On Capacity`
+
+        |  Lower range of target storage level e.g. float valve kicks on
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Float Valve On Capacity`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1058,12 +1087,13 @@ class WaterUseStorage(DataObject):
 
     @property
     def float_valve_off_capacity(self):
-        """field `Float Valve Off Capacity` Upper range of target storage level
-        e.g. float valve kicks off.
+        """field `Float Valve Off Capacity`
+
+        |  Upper range of target storage level e.g. float valve kicks off
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Float Valve Off Capacity`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1081,13 +1111,15 @@ class WaterUseStorage(DataObject):
 
     @property
     def backup_mains_capacity(self):
-        """field `Backup Mains Capacity` Lower range of secondary target
-        storage level used to keep tanks at a minimum level using mains water
-        if well can't keep up.
+        """field `Backup Mains Capacity`
+
+        |  Lower range of secondary target storage level
+        |  used to keep tanks at a minimum level using
+        |  mains water if well can't keep up
+        |  Units: m3
 
         Args:
             value (float): value for IDD Field `Backup Mains Capacity`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1233,9 +1265,10 @@ class WaterUseStorage(DataObject):
     def tank_surface_area(self):
         """field `Tank Surface Area`
 
+        |  Units: m2
+
         Args:
             value (float): value for IDD Field `Tank Surface Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1255,9 +1288,10 @@ class WaterUseStorage(DataObject):
     def tank_u_value(self):
         """field `Tank U Value`
 
+        |  Units: W/m2-K
+
         Args:
             value (float): value for IDD Field `Tank U Value`
-                Units: W/m2-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1453,9 +1487,10 @@ class WaterUseWell(DataObject):
     def pump_depth(self):
         """field `Pump Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pump Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1475,9 +1510,10 @@ class WaterUseWell(DataObject):
     def pump_rated_flow_rate(self):
         """field `Pump Rated Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Pump Rated Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1497,9 +1533,10 @@ class WaterUseWell(DataObject):
     def pump_rated_head(self):
         """field `Pump Rated Head`
 
+        |  Units: Pa
+
         Args:
             value (float): value for IDD Field `Pump Rated Head`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1519,9 +1556,10 @@ class WaterUseWell(DataObject):
     def pump_rated_power_consumption(self):
         """field `Pump Rated Power Consumption`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Pump Rated Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1562,9 +1600,10 @@ class WaterUseWell(DataObject):
     def well_recovery_rate(self):
         """field `Well Recovery Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Well Recovery Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1584,9 +1623,10 @@ class WaterUseWell(DataObject):
     def nominal_well_storage_volume(self):
         """field `Nominal Well Storage Volume`
 
+        |  Units: m3
+
         Args:
             value (float): value for IDD Field `Nominal Well Storage Volume`
-                Units: m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1627,9 +1667,10 @@ class WaterUseWell(DataObject):
     def water_table_depth(self):
         """field `Water Table Depth`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Water Table Depth`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1801,9 +1842,11 @@ class WaterUseRainCollector(DataObject):
 
     @property
     def collection_loss_factor(self):
-        """field `Collection Loss Factor` this is the portion of rain that is
-        lost in the process of collecting it the rain collected is one minus
-        this factor.
+        """field `Collection Loss Factor`
+
+        |  this is the portion of rain
+        |  that is lost in the process of collecting it
+        |  the rain collected is one minus this factor
 
         Args:
             value (float): value for IDD Field `Collection Loss Factor`
@@ -1845,11 +1888,13 @@ class WaterUseRainCollector(DataObject):
 
     @property
     def maximum_collection_rate(self):
-        """field `Maximum Collection Rate` Defaults to unlimited flow.
+        """field `Maximum Collection Rate`
+
+        |  Defaults to unlimited flow.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Maximum Collection Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value

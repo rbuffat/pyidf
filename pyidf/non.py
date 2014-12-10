@@ -135,7 +135,9 @@ class LoadProfilePlant(DataObject):
 
     @property
     def load_schedule_name(self):
-        """field `Load Schedule Name` Schedule values are load in [W]
+        """field `Load Schedule Name`
+
+        |  Schedule values are load in [W]
 
         Args:
             value (str): value for IDD Field `Load Schedule Name`
@@ -158,9 +160,10 @@ class LoadProfilePlant(DataObject):
     def peak_flow_rate(self):
         """field `Peak Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Peak Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value

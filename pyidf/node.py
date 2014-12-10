@@ -109,15 +109,16 @@ class Branch(DataObject):
     def maximum_flow_rate(self):
         """field `Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_flow_rate` or None if not set
 
         """
         return self["Maximum Flow Rate"]
@@ -130,12 +131,13 @@ class Branch(DataObject):
     @property
     def pressure_drop_curve_name(self):
         """field `Pressure Drop Curve Name`
-        Optional field to include this branch in plant pressure drop calculations
-        This field is only relevant for branches in PlantLoops and CondenserLoops
-        Air loops do not account for pressure drop using this field
-        Valid curve types are: Curve:Functional:PressureDrop or
-        one of Curve:{Linear,Quadratic,Cubic,Exponent}')
-        Table:OneIndependentVariable object can also be used
+
+        |  Optional field to include this branch in plant pressure drop calculations
+        |  This field is only relevant for branches in PlantLoops and CondenserLoops
+        |  Air loops do not account for pressure drop using this field
+        |  Valid curve types are: Curve:Functional:PressureDrop or
+        |  one of Curve:{Linear,Quadratic,Cubic,Exponent}')
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Pressure Drop Curve Name`
@@ -145,6 +147,7 @@ class Branch(DataObject):
 
         Returns:
             str: the value of `pressure_drop_curve_name` or None if not set
+
         """
         return self["Pressure Drop Curve Name"]
 
@@ -765,14 +768,14 @@ class OutdoorAirNode(DataObject):
 
     @property
     def height_above_ground(self):
-        """field `Height Above Ground` A value less than zero indicates that
-        the height will be ignored and the weather file conditions will be
-        used.
+        """field `Height Above Ground`
+
+        |  A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
+        |  Units: m
+        |  Default value: -1.0
 
         Args:
             value (float): value for IDD Field `Height Above Ground`
-                Units: m
-                Default value: -1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1238,9 +1241,10 @@ class PipeIndoor(DataObject):
     def environment_type(self):
         """field `Environment Type`
 
+        |  Default value: Zone
+
         Args:
             value (str): value for IDD Field `Environment Type`
-                Default value: Zone
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1323,10 +1327,11 @@ class PipeIndoor(DataObject):
     def pipe_inside_diameter(self):
         """field `Pipe Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1346,9 +1351,10 @@ class PipeIndoor(DataObject):
     def pipe_length(self):
         """field `Pipe Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pipe Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1544,10 +1550,11 @@ class PipeOutdoor(DataObject):
     def pipe_inside_diameter(self):
         """field `Pipe Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1567,9 +1574,10 @@ class PipeOutdoor(DataObject):
     def pipe_length(self):
         """field `Pipe Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pipe Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1802,13 +1810,14 @@ class PipeUnderground(DataObject):
 
     @property
     def pipe_inside_diameter(self):
-        """field `Pipe Inside Diameter` pipe thickness is defined in the
-        Construction object.
+        """field `Pipe Inside Diameter`
+
+        |  pipe thickness is defined in the Construction object
+        |  Units: m
+        |  IP-Units: in
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
-                Units: m
-                IP-Units: in
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1828,9 +1837,10 @@ class PipeUnderground(DataObject):
     def pipe_length(self):
         """field `Pipe Length`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pipe Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1869,11 +1879,13 @@ class PipeUnderground(DataObject):
 
     @property
     def average_soil_surface_temperature(self):
-        """field `Average Soil Surface Temperature` optional.
+        """field `Average Soil Surface Temperature`
+
+        |  optional
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Average Soil Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1891,11 +1903,13 @@ class PipeUnderground(DataObject):
 
     @property
     def amplitude_of_soil_surface_temperature(self):
-        """field `Amplitude of Soil Surface Temperature` optional.
+        """field `Amplitude of Soil Surface Temperature`
+
+        |  optional
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1913,11 +1927,13 @@ class PipeUnderground(DataObject):
 
     @property
     def phase_constant_of_soil_surface_temperature(self):
-        """field `Phase Constant of Soil Surface Temperature` optional.
+        """field `Phase Constant of Soil Surface Temperature`
+
+        |  optional
+        |  Units: days
 
         Args:
             value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
-                Units: days
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2259,11 +2275,13 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def xmax(self):
-        """field `Xmax` Domain extent in the local 'X' direction.
+        """field `Xmax`
+
+        |  Domain extent in the local 'X' direction
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Xmax`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2281,11 +2299,13 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def ymax(self):
-        """field `Ymax` Domain extent in the local 'Y' direction.
+        """field `Ymax`
+
+        |  Domain extent in the local 'Y' direction
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Ymax`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2303,11 +2323,13 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def zmax(self):
-        """field `Zmax` Domain extent in the local 'Y' direction.
+        """field `Zmax`
+
+        |  Domain extent in the local 'Y' direction
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Zmax`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2326,11 +2348,12 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def xdirection_mesh_density_parameter(self):
         """field `X-Direction Mesh Density Parameter`
-        If mesh type is symmetric geometric, this should be an even number.
+
+        |  If mesh type is symmetric geometric, this should be an even number.
+        |  Default value: 4
 
         Args:
             value (int): value for IDD Field `X-Direction Mesh Density Parameter`
-                Default value: 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2350,6 +2373,7 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def xdirection_mesh_type(self):
         """field `X-Direction Mesh Type`
+
 
         Args:
             value (str): value for IDD Field `X-Direction Mesh Type`
@@ -2372,14 +2396,15 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def xdirection_geometric_coefficient(self):
         """field `X-Direction Geometric Coefficient`
-        optional
-        Only used if mesh type is symmetric geometric
+
+        |  optional
+        |  Only used if mesh type is symmetric geometric
+        |  Default value: 1.3
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `X-Direction Geometric Coefficient`
-                Default value: 1.3
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2399,11 +2424,12 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def ydirection_mesh_density_parameter(self):
         """field `Y-Direction Mesh Density Parameter`
-        If mesh type is symmetric geometric, this should be an even number.
+
+        |  If mesh type is symmetric geometric, this should be an even number.
+        |  Default value: 4
 
         Args:
             value (int): value for IDD Field `Y-Direction Mesh Density Parameter`
-                Default value: 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2423,6 +2449,7 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def ydirection_mesh_type(self):
         """field `Y-Direction Mesh Type`
+
 
         Args:
             value (str): value for IDD Field `Y-Direction Mesh Type`
@@ -2445,14 +2472,15 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def ydirection_geometric_coefficient(self):
         """field `Y-Direction Geometric Coefficient`
-        optional
-        Only used if mesh type is symmetric geometric
+
+        |  optional
+        |  Only used if mesh type is symmetric geometric
+        |  Default value: 1.3
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Y-Direction Geometric Coefficient`
-                Default value: 1.3
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2472,11 +2500,12 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def zdirection_mesh_density_parameter(self):
         """field `Z-Direction Mesh Density Parameter`
-        If mesh type is symmetric geometric, this should be an even number.
+
+        |  If mesh type is symmetric geometric, this should be an even number.
+        |  Default value: 4
 
         Args:
             value (int): value for IDD Field `Z-Direction Mesh Density Parameter`
-                Default value: 4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2496,6 +2525,7 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def zdirection_mesh_type(self):
         """field `Z-Direction Mesh Type`
+
 
         Args:
             value (str): value for IDD Field `Z-Direction Mesh Type`
@@ -2518,14 +2548,15 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def zdirection_geometric_coefficient(self):
         """field `Z-Direction Geometric Coefficient`
-        optional
-        Only used if mesh type is symmetric geometric
+
+        |  optional
+        |  Only used if mesh type is symmetric geometric
+        |  Default value: 1.3
+        |  value >= 1.0
+        |  value <= 2.0
 
         Args:
             value (float): value for IDD Field `Z-Direction Geometric Coefficient`
-                Default value: 1.3
-                value >= 1.0
-                value <= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2546,9 +2577,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def soil_thermal_conductivity(self):
         """field `Soil Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2568,9 +2600,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def soil_density(self):
         """field `Soil Density`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Soil Density`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2588,12 +2621,14 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def soil_specific_heat(self):
-        """field `Soil Specific Heat` This is a dry soil property, which is
-        adjusted for freezing effects by the simulation algorithm.
+        """field `Soil Specific Heat`
+
+        |  This is a dry soil property, which is adjusted for freezing effects
+        |  by the simulation algorithm.
+        |  Units: J/kg-K
 
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
-                Units: J/kg-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2613,11 +2648,12 @@ class PipingSystemUndergroundDomain(DataObject):
     def soil_moisture_content_volume_fraction(self):
         """field `Soil Moisture Content Volume Fraction`
 
+        |  Units: percent
+        |  Default value: 30.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
-                Units: percent
-                Default value: 30.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2637,11 +2673,12 @@ class PipingSystemUndergroundDomain(DataObject):
     def soil_moisture_content_volume_fraction_at_saturation(self):
         """field `Soil Moisture Content Volume Fraction at Saturation`
 
+        |  Units: percent
+        |  Default value: 50.0
+        |  value <= 100.0
+
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
-                Units: percent
-                Default value: 50.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2662,9 +2699,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def kusudaachenbach_average_surface_temperature(self):
         """field `Kusuda-Achenbach Average Surface Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2685,9 +2723,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def kusudaachenbach_average_amplitude_of_surface_temperature(self):
         """field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2712,9 +2751,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self):
         """field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
 
+        |  Units: days
+
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-                Units: days
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2738,18 +2778,20 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def this_domain_includes_basement_surface_interaction(self):
         """field `This Domain Includes Basement Surface Interaction`
-        if Yes, then the following basement inputs are used
-        if No, then the following basement inputs are *ignored*
+
+        |  if Yes, then the following basement inputs are used
+        |  if No, then the following basement inputs are *ignored*
+        |  Default value: No
 
         Args:
             value (str): value for IDD Field `This Domain Includes Basement Surface Interaction`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `this_domain_includes_basement_surface_interaction` or None if not set
+
         """
         return self["This Domain Includes Basement Surface Interaction"]
 
@@ -2761,12 +2803,13 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def width_of_basement_floor_in_ground_domain(self):
-        """field `Width of Basement Floor in Ground Domain` Required only if
-        Domain Has Basement Interaction.
+        """field `Width of Basement Floor in Ground Domain`
+
+        |  Required only if Domain Has Basement Interaction
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Width of Basement Floor in Ground Domain`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2785,12 +2828,13 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def depth_of_basement_wall_in_ground_domain(self):
-        """field `Depth of Basement Wall In Ground Domain` Required only if
-        Domain Has Basement Interaction.
+        """field `Depth of Basement Wall In Ground Domain`
+
+        |  Required only if Domain Has Basement Interaction
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Depth of Basement Wall In Ground Domain`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2809,8 +2853,9 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def shift_pipe_x_coordinates_by_basement_width(self):
-        """field `Shift Pipe X Coordinates By Basement Width` Required only if
-        Domain Has Basement Interaction.
+        """field `Shift Pipe X Coordinates By Basement Width`
+
+        |  Required only if Domain Has Basement Interaction
 
         Args:
             value (str): value for IDD Field `Shift Pipe X Coordinates By Basement Width`
@@ -2832,8 +2877,9 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def name_of_basement_wall_boundary_condition_model(self):
-        """field `Name of Basement Wall Boundary Condition Model` Required only
-        if Domain Has Basement Interaction.
+        """field `Name of Basement Wall Boundary Condition Model`
+
+        |  Required only if Domain Has Basement Interaction
 
         Args:
             value (str): value for IDD Field `Name of Basement Wall Boundary Condition Model`
@@ -2855,8 +2901,9 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @property
     def name_of_basement_floor_boundary_condition_model(self):
-        """field `Name of Basement Floor Boundary Condition Model` Required
-        only if Domain Has Basement Interaction.
+        """field `Name of Basement Floor Boundary Condition Model`
+
+        |  Required only if Domain Has Basement Interaction
 
         Args:
             value (str): value for IDD Field `Name of Basement Floor Boundary Condition Model`
@@ -2882,12 +2929,13 @@ class PipingSystemUndergroundDomain(DataObject):
         """field `Convergence Criterion for the Outer Cartesian Domain
         Iteration Loop`
 
+        |  Units: deltaC
+        |  Default value: 0.001
+        |  value >= 1e-06
+        |  value <= 0.5
+
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
-                Units: deltaC
-                Default value: 0.001
-                value >= 1e-06
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2913,11 +2961,12 @@ class PipingSystemUndergroundDomain(DataObject):
         """field `Maximum Iterations in the Outer Cartesian Domain Iteration
         Loop`
 
+        |  Default value: 500
+        |  value >= 3
+        |  value <= 10000
+
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
-                Default value: 500
-                value >= 3
-                value <= 10000
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2941,23 +2990,25 @@ class PipingSystemUndergroundDomain(DataObject):
     @property
     def evapotranspiration_ground_cover_parameter(self):
         """field `Evapotranspiration Ground Cover Parameter`
-        This specifies the ground cover effects during evapotranspiration
-        calculations.  The value roughly represents the following cases:
-        = 0   : concrete or other solid, non-permeable ground surface material
-        = 0.5 : short grass, much like a manicured lawn
-        = 1   : standard reference state (12 cm grass)
-        = 1.5 : wild growth
+
+        |  This specifies the ground cover effects during evapotranspiration
+        |  calculations.  The value roughly represents the following cases:
+        |  = 0   : concrete or other solid, non-permeable ground surface material
+        |  = 0.5 : short grass, much like a manicured lawn
+        |  = 1   : standard reference state (12 cm grass)
+        |  = 1.5 : wild growth
+        |  Default value: 0.4
+        |  value <= 1.5
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
-                Default value: 0.4
-                value <= 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evapotranspiration_ground_cover_parameter` or None if not set
+
         """
         return self["Evapotranspiration Ground Cover Parameter"]
 
@@ -2971,9 +3022,10 @@ class PipingSystemUndergroundDomain(DataObject):
     def number_of_pipe_circuits_entered_for_this_domain(self):
         """field `Number of Pipe Circuits Entered for this Domain`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Pipe Circuits Entered for this Domain`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3196,9 +3248,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def pipe_thermal_conductivity(self):
         """field `Pipe Thermal Conductivity`
 
+        |  Units: W/m-K
+
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
-                Units: W/m-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3218,9 +3271,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def pipe_density(self):
         """field `Pipe Density`
 
+        |  Units: kg/m3
+
         Args:
             value (float): value for IDD Field `Pipe Density`
-                Units: kg/m3
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3240,9 +3294,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def pipe_specific_heat(self):
         """field `Pipe Specific Heat`
 
+        |  Units: J/kg-K
+
         Args:
             value (float): value for IDD Field `Pipe Specific Heat`
-                Units: J/kg-K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3262,9 +3317,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def pipe_inner_diameter(self):
         """field `Pipe Inner Diameter`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pipe Inner Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3284,9 +3340,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def pipe_outer_diameter(self):
         """field `Pipe Outer Diameter`
 
+        |  Units: m
+
         Args:
             value (float): value for IDD Field `Pipe Outer Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3306,9 +3363,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def design_flow_rate(self):
         """field `Design Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3370,12 +3428,13 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def convergence_criterion_for_the_inner_radial_iteration_loop(self):
         """field `Convergence Criterion for the Inner Radial Iteration Loop`
 
+        |  Units: deltaC
+        |  Default value: 0.001
+        |  value >= 1e-06
+        |  value <= 0.5
+
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
-                Units: deltaC
-                Default value: 0.001
-                value >= 1e-06
-                value <= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3400,11 +3459,12 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def maximum_iterations_in_the_inner_radial_iteration_loop(self):
         """field `Maximum Iterations in the Inner Radial Iteration Loop`
 
+        |  Default value: 500
+        |  value >= 3
+        |  value <= 10000
+
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
-                Default value: 500
-                value >= 3
-                value <= 10000
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3426,11 +3486,12 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
         """field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh
         Region`
 
+        |  Default value: 3
+        |  value >= 1
+        |  value <= 15
+
         Args:
             value (int): value for IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
-                Default value: 3
-                value >= 1
-                value <= 15
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3454,8 +3515,9 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     @property
     def radial_thickness_of_inner_radial_near_pipe_mesh_region(self):
         """field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
-        Required because it must be selected by user instead of being inferred
-        from circuit/domain object inputs.
+
+        |  Required because it must be selected by user instead of being
+        |  inferred from circuit/domain object inputs.
 
         Args:
             value (float): value for IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
@@ -3481,9 +3543,10 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
     def number_of_pipe_segments_entered_for_this_pipe_circuit(self):
         """field `Number of Pipe Segments Entered for this Pipe Circuit`
 
+        |  value >= 1
+
         Args:
             value (int): value for IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3613,20 +3676,22 @@ class PipingSystemUndergroundPipeSegment(DataObject):
     @property
     def x_position(self):
         """field `X Position`
-        This segment will be centered at this distance from the x=0
-        domain surface or the basement wall surface, based on whether
-        a basement exists in this domain and the selection of the
-        shift input field found in the domain object.
+
+        |  This segment will be centered at this distance from the x=0
+        |  domain surface or the basement wall surface, based on whether
+        |  a basement exists in this domain and the selection of the
+        |  shift input field found in the domain object.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `X Position`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `x_position` or None if not set
+
         """
         return self["X Position"]
 
@@ -3637,13 +3702,15 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @property
     def y_position(self):
-        """field `Y Position` This segment will be centered at this distance
-        away from the ground surface; thus this value represents the burial
-        depth of this pipe segment.
+        """field `Y Position`
+
+        |  This segment will be centered at this distance away from the
+        |  ground surface; thus this value represents the burial depth
+        |  of this pipe segment.
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Y Position`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3661,9 +3728,11 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @property
     def flow_direction(self):
-        """field `Flow Direction` This segment will be simulated such that the
-        flow is in the selected direction.  This can allow for detailed
-        analysis of circuiting effects in a single domain.
+        """field `Flow Direction`
+
+        |  This segment will be simulated such that the flow is in the
+        |  selected direction.  This can allow for detailed analysis
+        |  of circuiting effects in a single domain.
 
         Args:
             value (str): value for IDD Field `Flow Direction`

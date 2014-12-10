@@ -187,9 +187,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -252,16 +253,17 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
 
     @property
     def rated_average_water_temperature(self):
-        """field `Rated Average Water Temperature` Rated average water
-        temperature is the average of the inlet and outlet water temperatures
-        at rated conditions.
+        """field `Rated Average Water Temperature`
+
+        |  Rated average water temperature is the average of the inlet and outlet water temperatures
+        |  at rated conditions.
+        |  Units: C
+        |  Default value: 87.78
+        |  value >= 20.0
+        |  value <= 150.0
 
         Args:
             value (float): value for IDD Field `Rated Average Water Temperature`
-                Units: C
-                Default value: 87.78
-                value >= 20.0
-                value <= 150.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -280,22 +282,24 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     @property
     def rated_water_mass_flow_rate(self):
         """field `Rated Water Mass Flow Rate`
-        Standard is I=B=R Rating document where all baseboards are rated at either 0.063 kg/s (1 gpm)
-        or 0.252 kg/s (4 gpm).  It is recommended that users find data for the baseboard heater that
-        corresponds to performance at 0.063 kg/s unless the flow rate is expected to be above 0.252 kg/s.
-        If the flow rate is expected to be above 0.252 kg/s, this field should be 0.252 kg/s.
+
+        |  Standard is I=B=R Rating document where all baseboards are rated at either 0.063 kg/s (1 gpm)
+        |  or 0.252 kg/s (4 gpm).  It is recommended that users find data for the baseboard heater that
+        |  corresponds to performance at 0.063 kg/s unless the flow rate is expected to be above 0.252 kg/s.
+        |  If the flow rate is expected to be above 0.252 kg/s, this field should be 0.252 kg/s.
+        |  Units: Kg/s
+        |  Default value: 0.063
+        |  value <= 10.0
 
         Args:
             value (float): value for IDD Field `Rated Water Mass Flow Rate`
-                Units: Kg/s
-                Default value: 0.063
-                value <= 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_water_mass_flow_rate` or None if not set
+
         """
         return self["Rated Water Mass Flow Rate"]
 
@@ -307,22 +311,24 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -334,23 +340,25 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     @property
     def heating_design_capacity(self):
         """field `Heating Design Capacity`
-        Enter the design heating capacity. Required field when the heating design capacity method
-        HeatingDesignCapacity. This input field is rated heating capacity. Users must multiply the
-        actual finned length published in the literature to determine the rated capacity. Rated
-        Capacity is for an inlet air dry-bulb temperature of 18.0C, the Rated Water Mass Flow Rate
-        of 0.063kg/s or 0.252kg/s, and the Rated Average Water Temperature between 32.2C and 115.6C.
+
+        |  Enter the design heating capacity. Required field when the heating design capacity method
+        |  HeatingDesignCapacity. This input field is rated heating capacity. Users must multiply the
+        |  actual finned length published in the literature to determine the rated capacity. Rated
+        |  Capacity is for an inlet air dry-bulb temperature of 18.0C, the Rated Water Mass Flow Rate
+        |  of 0.063kg/s or 0.252kg/s, and the Rated Average Water Temperature between 32.2C and 115.6C.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
+
         """
         return self["Heating Design Capacity"]
 
@@ -361,13 +369,14 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -387,12 +396,12 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -413,15 +422,16 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     def maximum_water_flow_rate(self):
         """field `Maximum Water Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Water Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_water_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_water_flow_rate` or None if not set
 
         """
         return self["Maximum Water Flow Rate"]
@@ -435,9 +445,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -457,9 +468,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -479,9 +491,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
     def fraction_of_radiant_energy_incident_on_people(self):
         """field `Fraction of Radiant Energy Incident on People`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -711,9 +724,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -777,22 +791,24 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -803,21 +819,22 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -829,13 +846,14 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -855,12 +873,12 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -881,11 +899,12 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def degree_of_subcooling(self):
         """field `Degree of SubCooling`
 
+        |  Units: deltaC
+        |  Default value: 5.0
+        |  value >= 1.0
+
         Args:
             value (float): value for IDD Field `Degree of SubCooling`
-                Units: deltaC
-                Default value: 5.0
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -905,15 +924,16 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def maximum_steam_flow_rate(self):
         """field `Maximum Steam Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Steam Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_steam_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_steam_flow_rate` or None if not set
 
         """
         return self["Maximum Steam Flow Rate"]
@@ -927,9 +947,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -949,9 +970,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -971,9 +993,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     def fraction_of_radiant_energy_incident_on_people(self):
         """field `Fraction of Radiant Energy Incident on People`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1171,9 +1194,10 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1195,22 +1219,24 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -1221,21 +1247,22 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -1247,13 +1274,14 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1273,12 +1301,12 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1299,10 +1327,11 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     def efficiency(self):
         """field `Efficiency`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1322,9 +1351,10 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     def fraction_radiant(self):
         """field `Fraction Radiant`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction Radiant`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1344,9 +1374,10 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     def fraction_of_radiant_energy_incident_on_people(self):
         """field `Fraction of Radiant Energy Incident on People`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1539,9 +1570,10 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1605,22 +1637,24 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -1631,21 +1665,22 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -1657,13 +1692,14 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1683,12 +1719,12 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1709,15 +1745,16 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
     def ufactor_times_area_value(self):
         """field `U-Factor Times Area Value`
 
+        |  Units: W/K
+
         Args:
             value (float or "Autosize"): value for IDD Field `U-Factor Times Area Value`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `ufactor_times_area_value` or None if not set
+            float or "Autosize": the value of `ufactor_times_area_value` or None if not set
         """
         return self["U-Factor Times Area Value"]
 
@@ -1732,16 +1769,17 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
     def maximum_water_flow_rate(self):
         """field `Maximum Water Flow Rate`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Water Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_water_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_water_flow_rate` or None if not set
 
         """
         return self["Maximum Water Flow Rate"]
@@ -1755,9 +1793,10 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
     def convergence_tolerance(self):
         """field `Convergence Tolerance`
 
+        |  Default value: 0.001
+
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
-                Default value: 0.001
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1876,9 +1915,10 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1900,22 +1940,24 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -1926,21 +1968,22 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -1952,13 +1995,14 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1978,12 +2022,12 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2004,10 +2048,11 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
     def efficiency(self):
         """field `Efficiency`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Efficiency`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2321,9 +2366,10 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2344,7 +2390,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of zone system is serving.
+        """field `Zone Name`
+
+        |  Name of zone system is serving
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2366,9 +2414,10 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     @property
     def surface_name_or_radiant_surface_group_name(self):
         """field `Surface Name or Radiant Surface Group Name`
-        Identifies surfaces that radiant system is embedded in.
-        For a system with multiple surfaces, enter the name of
-        a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
+
+        |  Identifies surfaces that radiant system is embedded in.
+        |  For a system with multiple surfaces, enter the name of
+        |  a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -2378,6 +2427,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
+
         """
         return self["Surface Name or Radiant Surface Group Name"]
 
@@ -2391,11 +2441,12 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def hydronic_tubing_inside_diameter(self):
         """field `Hydronic Tubing Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.013
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
-                Units: m
-                IP-Units: in
-                Default value: 0.013
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2413,18 +2464,19 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def hydronic_tubing_length(self):
-        """field `Hydronic Tubing Length` (total length of pipe embedded in
-        surface)
+        """field `Hydronic Tubing Length`
+
+        |  (total length of pipe embedded in surface)
+        |  Units: m
 
         Args:
             value (float or "Autosize"): value for IDD Field `Hydronic Tubing Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `hydronic_tubing_length` or None if not set
+            float or "Autosize": the value of `hydronic_tubing_length` or None if not set
 
         """
         return self["Hydronic Tubing Length"]
@@ -2436,12 +2488,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def temperature_control_type(self):
-        """field `Temperature Control Type` (Temperature on which unit is
-        controlled)
+        """field `Temperature Control Type`
+
+        |  (Temperature on which unit is controlled)
+        |  Default value: MeanAirTemperature
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
-                Default value: MeanAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2460,22 +2513,24 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -2486,21 +2541,22 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -2512,13 +2568,14 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2538,12 +2595,12 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2564,16 +2621,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def maximum_hot_water_flow(self):
         """field `Maximum Hot Water Flow`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_hot_water_flow` or None if not set
+            float or "Autosize": the value of `maximum_hot_water_flow` or None if not set
 
         """
         return self["Maximum Hot Water Flow"]
@@ -2629,11 +2687,12 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def heating_control_throttling_range(self):
         """field `Heating Control Throttling Range`
 
+        |  Units: deltaC
+        |  Default value: 0.5
+        |  value >= 0.5
+
         Args:
             value (float): value for IDD Field `Heating Control Throttling Range`
-                Units: deltaC
-                Default value: 0.5
-                value >= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2674,23 +2733,25 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     @property
     def cooling_design_capacity_method(self):
         """field `Cooling Design Capacity Method`
-        Enter the method used to determine the cooling design capacity for scalable sizing.
-        CoolingDesignCapacity => selected when the design cooling capacity value is specified or
-        auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined
-        from user specified cooling capacity per floor area and total floor area of cooled zone
-        served by the hydrolic unit. FractionOfAutosizedCoolingCapacity => is selected when the
-        design cooling capacity is determined from a user specified fraction and the auto-sized
-        design cooling capacity of the system.
+
+        |  Enter the method used to determine the cooling design capacity for scalable sizing.
+        |  CoolingDesignCapacity => selected when the design cooling capacity value is specified or
+        |  auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined
+        |  from user specified cooling capacity per floor area and total floor area of cooled zone
+        |  served by the hydrolic unit. FractionOfAutosizedCoolingCapacity => is selected when the
+        |  design cooling capacity is determined from a user specified fraction and the auto-sized
+        |  design cooling capacity of the system.
+        |  Default value: CoolingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Cooling Design Capacity Method`
-                Default value: CoolingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
+
         """
         return self["Cooling Design Capacity Method"]
 
@@ -2701,19 +2762,20 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def cooling_design_capacity(self):
-        """field `Cooling Design Capacity` Enter the design cooling capacity.
-        Required field when the cooling design capacity method
-        CoolingDesignCapacity.
+        """field `Cooling Design Capacity`
+
+        |  Enter the design cooling capacity. Required field when the cooling design capacity method
+        |  CoolingDesignCapacity.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_design_capacity` or None if not set
+            float or "Autosize": the value of `cooling_design_capacity` or None if not set
 
         """
         return self["Cooling Design Capacity"]
@@ -2725,14 +2787,14 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
     @property
     def cooling_design_capacity_per_floor_area(self):
-        """field `Cooling Design Capacity Per Floor Area` Enter the cooling
-        design capacity per total floor area of cooled zones served by the
-        unit. Required field when the cooling design capacity method field is
-        CapacityPerFloorArea.
+        """field `Cooling Design Capacity Per Floor Area`
+
+        |  Enter the cooling design capacity per total floor area of cooled zones served by the unit.
+        |  Required field when the cooling design capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2751,8 +2813,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     @property
     def fraction_of_autosized_cooling_design_capacity(self):
         """field `Fraction of Autosized Cooling Design Capacity`
-        Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
-        design capacity method field is FractionOfAutosizedCoolingCapacity.
+
+        |  Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
+        |  design capacity method field is FractionOfAutosizedCoolingCapacity.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
@@ -2762,6 +2825,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
 
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
+
         """
         return self["Fraction of Autosized Cooling Design Capacity"]
 
@@ -2775,16 +2839,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def maximum_cold_water_flow(self):
         """field `Maximum Cold Water Flow`
 
+        |  Units: m3/s
+        |  IP-Units: gal/min
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow`
-                Units: m3/s
-                IP-Units: gal/min
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_cold_water_flow` or None if not set
+            float or "Autosize": the value of `maximum_cold_water_flow` or None if not set
 
         """
         return self["Maximum Cold Water Flow"]
@@ -2840,11 +2905,12 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def cooling_control_throttling_range(self):
         """field `Cooling Control Throttling Range`
 
+        |  Units: deltaC
+        |  Default value: 0.5
+        |  value >= 0.5
+
         Args:
             value (float): value for IDD Field `Cooling Control Throttling Range`
-                Units: deltaC
-                Default value: 0.5
-                value >= 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2886,9 +2952,10 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def condensation_control_type(self):
         """field `Condensation Control Type`
 
+        |  Default value: SimpleOff
+
         Args:
             value (str): value for IDD Field `Condensation Control Type`
-                Default value: SimpleOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2908,10 +2975,11 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def condensation_control_dewpoint_offset(self):
         """field `Condensation Control Dewpoint Offset`
 
+        |  Units: C
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Condensation Control Dewpoint Offset`
-                Units: C
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2931,9 +2999,10 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def number_of_circuits(self):
         """field `Number of Circuits`
 
+        |  Default value: OnePerSurface
+
         Args:
             value (str): value for IDD Field `Number of Circuits`
-                Default value: OnePerSurface
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2953,10 +3022,11 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
     def circuit_length(self):
         """field `Circuit Length`
 
+        |  Units: m
+        |  Default value: 106.7
+
         Args:
             value (float): value for IDD Field `Circuit Length`
-                Units: m
-                Default value: 106.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3249,9 +3319,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3272,7 +3343,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of zone system is serving.
+        """field `Zone Name`
+
+        |  Name of zone system is serving
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3294,9 +3367,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     @property
     def surface_name_or_radiant_surface_group_name(self):
         """field `Surface Name or Radiant Surface Group Name`
-        Identifies surfaces that radiant system is embedded in.
-        For a system with multiple surfaces, enter the name of
-        a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
+
+        |  Identifies surfaces that radiant system is embedded in.
+        |  For a system with multiple surfaces, enter the name of
+        |  a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -3306,6 +3380,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
+
         """
         return self["Surface Name or Radiant Surface Group Name"]
 
@@ -3319,10 +3394,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def hydronic_tubing_inside_diameter(self):
         """field `Hydronic Tubing Inside Diameter`
 
+        |  Units: m
+        |  Default value: 0.013
+
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
-                Units: m
-                Default value: 0.013
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3340,12 +3416,13 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def hydronic_tubing_length(self):
-        """field `Hydronic Tubing Length` Total length of pipe embedded in
-        surface.
+        """field `Hydronic Tubing Length`
+
+        |  Total length of pipe embedded in surface
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3363,11 +3440,13 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def temperature_control_type(self):
-        """field `Temperature Control Type` Temperature used to control system.
+        """field `Temperature Control Type`
+
+        |  Temperature used to control system
+        |  Default value: MeanAirTemperature
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
-                Default value: MeanAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3387,9 +3466,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def rated_flow_rate(self):
         """field `Rated Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3407,11 +3487,13 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """field `Pump Flow Rate Schedule Name` Modifies the Rated Flow Rate of
-        the pump on a time basis the default is that the pump is ON and runs
-        according to its other operational requirements specified above.  The
-        schedule is for special pump operations. Values here are between 0 and
-        1 and are multipliers on the previous field (Rated Flow Rate).
+        """field `Pump Flow Rate Schedule Name`
+
+        |  Modifies the Rated Flow Rate of the pump on a time basis
+        |  the default is that the pump is ON and runs according to its other
+        |  operational requirements specified above.  The schedule is for special
+        |  pump operations. Values here are between 0 and 1 and are multipliers
+        |  on the previous field (Rated Flow Rate).
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -3432,12 +3514,14 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def rated_pump_head(self):
-        """field `Rated Pump Head` default head is 60 feet.
+        """field `Rated Pump Head`
+
+        |  default head is 60 feet
+        |  Units: Pa
+        |  Default value: 179352.0
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                Default value: 179352.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3457,9 +3541,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def rated_power_consumption(self):
         """field `Rated Power Consumption`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3479,10 +3564,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def motor_efficiency(self):
         """field `Motor Efficiency`
 
+        |  Default value: 0.9
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3502,9 +3588,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def fraction_of_motor_inefficiencies_to_fluid_stream(self):
         """field `Fraction of Motor Inefficiencies to Fluid Stream`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3565,18 +3652,19 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def heating_high_water_temperature_schedule_name(self):
-        """field `Heating High Water Temperature Schedule Name` Water and
-        control temperatures for heating work together to provide a linear
-        function that determines the water temperature sent to the radiant
-        system.  The current control temperature (see Temperature Control Type
-        above) is compared to the high and low control temperatures at the
-        current time. If the control temperature is above the high temperature,
-        then the inlet water temperature is set to the low water temperature.
-        If the control temperature is below the low temperature, then the inlet
-        water temperature is set to the high water temperature.  If the control
-        temperature is between the high and low value, then the inlet water
-        temperature is linearly interpolated between the low and high water
-        temperature values.
+        """field `Heating High Water Temperature Schedule Name`
+
+        |  Water and control temperatures for heating work together to provide
+        |  a linear function that determines the water temperature sent to the
+        |  radiant system.  The current control temperature (see Temperature Control Type above) is
+        |  compared to the high and low control temperatures at the current time.
+        |  If the control temperature is above the high temperature, then the
+        |  inlet water temperature is set to the low water temperature.  If the
+        |  control temperature is below the low temperature, then the inlet
+        |  water temperature is set to the high water temperature.  If the control
+        |  temperature is between the high and low value, then the inlet water
+        |  temperature is linearly interpolated between the low and high water
+        |  temperature values.
 
         Args:
             value (str): value for IDD Field `Heating High Water Temperature Schedule Name`
@@ -3706,9 +3794,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
 
     @property
     def cooling_high_water_temperature_schedule_name(self):
-        """field `Cooling High Water Temperature Schedule Name` See note for
-        Heating High Water Temperature Schedule above for interpretation
-        information (or see the Input/Output Reference).
+        """field `Cooling High Water Temperature Schedule Name`
+
+        |  See note for Heating High Water Temperature Schedule above for
+        |  interpretation information (or see the Input/Output Reference).
 
         Args:
             value (str): value for IDD Field `Cooling High Water Temperature Schedule Name`
@@ -3798,9 +3887,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def condensation_control_type(self):
         """field `Condensation Control Type`
 
+        |  Default value: SimpleOff
+
         Args:
             value (str): value for IDD Field `Condensation Control Type`
-                Default value: SimpleOff
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3820,10 +3910,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def condensation_control_dewpoint_offset(self):
         """field `Condensation Control Dewpoint Offset`
 
+        |  Units: C
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Condensation Control Dewpoint Offset`
-                Units: C
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3843,9 +3934,10 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def number_of_circuits(self):
         """field `Number of Circuits`
 
+        |  Default value: OnePerSurface
+
         Args:
             value (str): value for IDD Field `Number of Circuits`
-                Default value: OnePerSurface
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3865,10 +3957,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     def circuit_length(self):
         """field `Circuit Length`
 
+        |  Units: m
+        |  Default value: 106.7
+
         Args:
             value (float): value for IDD Field `Circuit Length`
-                Units: m
-                Default value: 106.7
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4021,9 +4114,10 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4044,7 +4138,9 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of zone system is serving.
+        """field `Zone Name`
+
+        |  Name of zone system is serving
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4066,9 +4162,10 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     @property
     def surface_name_or_radiant_surface_group_name(self):
         """field `Surface Name or Radiant Surface Group Name`
-        Identifies surfaces that radiant system is embedded in.
-        For a system with multiple surfaces, enter the name of
-        a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
+
+        |  Identifies surfaces that radiant system is embedded in.
+        |  For a system with multiple surfaces, enter the name of
+        |  a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -4078,6 +4175,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
+
         """
         return self["Surface Name or Radiant Surface Group Name"]
 
@@ -4090,22 +4188,24 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the maximum electrical heating design capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the maximum electrical heating design capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -4116,21 +4216,22 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  IP-Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                IP-Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -4142,13 +4243,14 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4168,12 +4270,12 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4192,11 +4294,13 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
 
     @property
     def temperature_control_type(self):
-        """field `Temperature Control Type` Temperature used to control unit.
+        """field `Temperature Control Type`
+
+        |  Temperature used to control unit
+        |  Default value: MeanAirTemperature
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
-                Default value: MeanAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4216,9 +4320,10 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     def heating_throttling_range(self):
         """field `Heating Throttling Range`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Heating Throttling Range`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4566,9 +4671,10 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4589,7 +4695,9 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` Name of zone system is serving.
+        """field `Zone Name`
+
+        |  Name of zone system is serving
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4611,22 +4719,24 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the maximum heating power input capacity.
-        HeatingDesignCapacity = > selected when the design heating capacity value or autosize
-        is specified. CapacityPerFloorArea = > selected when the design heating capacity is
-        determine from user specified heating capacity per floor area and zone floor area.
-        FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity.
+
+        |  Enter the method used to determine the maximum heating power input capacity.
+        |  HeatingDesignCapacity = > selected when the design heating capacity value or autosize
+        |  is specified. CapacityPerFloorArea = > selected when the design heating capacity is
+        |  determine from user specified heating capacity per floor area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -4637,20 +4747,21 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating
-        capacity.Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity.Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -4662,13 +4773,14 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area.Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area.Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4688,12 +4800,12 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
 
-        Enter the fraction of auto - sized heating design capacity.Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Enter the fraction of auto - sized heating design capacity.Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4712,7 +4824,9 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def fuel_type(self):
-        """field `Fuel Type` Natural gas or electricity.
+        """field `Fuel Type`
+
+        |  Natural gas or electricity
 
         Args:
             value (str): value for IDD Field `Fuel Type`
@@ -4734,18 +4848,20 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     @property
     def combustion_efficiency(self):
         """field `Combustion Efficiency`
-        Not used for non-gas radiant heaters
+
+        |  Not used for non-gas radiant heaters
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Combustion Efficiency`
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `combustion_efficiency` or None if not set
+
         """
         return self["Combustion Efficiency"]
 
@@ -4757,13 +4873,13 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     @property
     def fraction_of_input_converted_to_radiant_energy(self):
         """field `Fraction of Input Converted to Radiant Energy`
-        Radiant+latent+lost fractions must sum to 1 or less, remainder is
-        considered convective heat.
+
+        |  Radiant+latent+lost fractions must sum to 1 or less, remainder is considered convective heat
+        |  Default value: 0.7
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Input Converted to Radiant Energy`
-                Default value: 0.7
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4784,9 +4900,10 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     def fraction_of_input_converted_to_latent_energy(self):
         """field `Fraction of Input Converted to Latent Energy`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Input Converted to Latent Energy`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4805,12 +4922,13 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def fraction_of_input_that_is_lost(self):
-        """field `Fraction of Input that Is Lost` Fraction of input vented to
-        outdoor environment.
+        """field `Fraction of Input that Is Lost`
+
+        |  Fraction of input vented to outdoor environment
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Input that Is Lost`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4828,12 +4946,13 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def temperature_control_type(self):
-        """field `Temperature Control Type` Temperature type used to control
-        unit.
+        """field `Temperature Control Type`
+
+        |  Temperature type used to control unit
+        |  Default value: OperativeTemperature
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
-                Default value: OperativeTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4853,10 +4972,11 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
     def heating_throttling_range(self):
         """field `Heating Throttling Range`
 
+        |  Units: deltaC
+        |  Default value: 2.0
+
         Args:
             value (float): value for IDD Field `Heating Throttling Range`
-                Units: deltaC
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4874,8 +4994,9 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def heating_setpoint_temperature_schedule_name(self):
-        """field `Heating Setpoint Temperature Schedule Name` This setpoint is
-        an "operative temperature" setpoint.
+        """field `Heating Setpoint Temperature Schedule Name`
+
+        |  This setpoint is an "operative temperature" setpoint
 
         Args:
             value (str): value for IDD Field `Heating Setpoint Temperature Schedule Name`
@@ -4897,13 +5018,14 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
 
     @property
     def fraction_of_radiant_energy_incident_on_people(self):
-        """field `Fraction of Radiant Energy Incident on People` This will
-        affect thermal comfort but from an energy balance standpoint this value
-        gets added to the convective gains from the radiant heater.
+        """field `Fraction of Radiant Energy Incident on People`
+
+        |  This will affect thermal comfort but from an energy balance standpoint this value
+        |  gets added to the convective gains from the radiant heater
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5323,9 +5445,10 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5346,7 +5469,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def zone_name(self):
-        """field `Zone Name` (name of zone system is serving)
+        """field `Zone Name`
+
+        |  (name of zone system is serving)
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5367,8 +5492,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def surface_name_or_radiant_surface_group_name(self):
-        """field `Surface Name or Radiant Surface Group Name` (name of surface
-        system is embedded in) or list of surfaces.
+        """field `Surface Name or Radiant Surface Group Name`
+
+        |  (name of surface system is embedded in) or list of surfaces
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -5392,15 +5518,16 @@ class ZoneHvacVentilatedSlab(DataObject):
     def maximum_air_flow_rate(self):
         """field `Maximum Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_air_flow_rate` or None if not set
 
         """
         return self["Maximum Air Flow Rate"]
@@ -5435,15 +5562,16 @@ class ZoneHvacVentilatedSlab(DataObject):
     def minimum_outdoor_air_flow_rate(self):
         """field `Minimum Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `minimum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Minimum Outdoor Air Flow Rate"]
@@ -5476,18 +5604,19 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def maximum_outdoor_air_flow_rate(self):
-        """field `Maximum Outdoor Air Flow Rate` schedule values multiply the
-        minimum outdoor air flow rate.
+        """field `Maximum Outdoor Air Flow Rate`
+
+        |  schedule values multiply the minimum outdoor air flow rate
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `maximum_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Maximum Outdoor Air Flow Rate"]
@@ -5500,8 +5629,8 @@ class ZoneHvacVentilatedSlab(DataObject):
     @property
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self):
         """field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
-        Note that this depends on the control type as to whether schedule
-        values are a fraction or temperature.
+
+        |  Note that this depends on the control type as to whether schedule values are a fraction or temperature
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
@@ -5529,9 +5658,10 @@ class ZoneHvacVentilatedSlab(DataObject):
     def system_configuration_type(self):
         """field `System Configuration Type`
 
+        |  Default value: SlabOnly
+
         Args:
             value (str): value for IDD Field `System Configuration Type`
-                Default value: SlabOnly
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5551,11 +5681,12 @@ class ZoneHvacVentilatedSlab(DataObject):
     def hollow_core_inside_diameter(self):
         """field `Hollow Core Inside Diameter`
 
+        |  Units: m
+        |  IP-Units: in
+        |  Default value: 0.05
+
         Args:
             value (float): value for IDD Field `Hollow Core Inside Diameter`
-                Units: m
-                IP-Units: in
-                Default value: 0.05
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5573,12 +5704,13 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def hollow_core_length(self):
-        """field `Hollow Core Length` (length of core cavity embedded in
-        surface)
+        """field `Hollow Core Length`
+
+        |  (length of core cavity embedded in surface)
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Hollow Core Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5596,7 +5728,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def number_of_cores(self):
-        """field `Number of Cores` flow will be divided evenly among the cores.
+        """field `Number of Cores`
+
+        |  flow will be divided evenly among the cores
 
         Args:
             value (float): value for IDD Field `Number of Cores`
@@ -5617,12 +5751,13 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def temperature_control_type(self):
-        """field `Temperature Control Type` (temperature on which unit is
-        controlled)
+        """field `Temperature Control Type`
+
+        |  (temperature on which unit is controlled)
+        |  Default value: OutdoorDryBulbTemperature
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
-                Default value: OutdoorDryBulbTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5640,17 +5775,19 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def heating_high_air_temperature_schedule_name(self):
-        """field `Heating High Air Temperature Schedule Name` Air and control
-        temperatures for heating work together to provide a linear function
-        that determines the air temperature sent to the radiant system. The
-        current control temperature (see A14) is compared to the high and low
-        control temperatures at the current time. If the control temperature is
-        above the high temperature, then the inlet air temperature is set to
-        the low air temperature. If the control temperature is below the low
-        temperature, then the inlet air temperature is set to the high air
-        temperature. If the control temperature is between the high and low
-        value, then the inlet air temperature is linearly interpolated between
-        the low and high air temperature values.
+        """field `Heating High Air Temperature Schedule Name`
+
+        |  Air and control temperatures for heating work together to provide
+        |  a linear function that determines the air temperature sent to the
+        |  radiant system. The current control temperature (see A14) is
+        |  compared to the high and low control temperatures at the current time.
+        |  If the control temperature is above the high temperature, then the
+        |  inlet air temperature is set to the low air temperature. If the
+        |  control temperature is below the low temperature, then the inlet
+        |  air temperature is set to the high air temperature. If the control
+        |  temperature is between the high and low value, then the inlet air
+        |  temperature is linearly interpolated between the low and high air
+        |  temperature values.
 
         Args:
             value (str): value for IDD Field `Heating High Air Temperature Schedule Name`
@@ -5738,9 +5875,10 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def cooling_high_air_temperature_schedule_name(self):
-        """field `Cooling High Air Temperature Schedule Name` See note for
-        heating high air temperature schedule above for interpretation
-        information (or see the Input/Output Reference).
+        """field `Cooling High Air Temperature Schedule Name`
+
+        |  See note for heating high air temperature schedule above for
+        |  interpretation information (or see the Input/Output Reference).
 
         Args:
             value (str): value for IDD Field `Cooling High Air Temperature Schedule Name`
@@ -5828,9 +5966,10 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def return_air_node_name(self):
-        """field `Return Air Node Name` This is the zone return air inlet to
-        the ventilated slab system outdoor air mixer. This node is typically a
-        zone exhaust node (do not connect to "Zone Return Air Node").
+        """field `Return Air Node Name`
+
+        |  This is the zone return air inlet to the ventilated slab system outdoor air mixer.
+        |  This node is typically a zone exhaust node (do not connect to "Zone Return Air Node").
 
         Args:
             value (str): value for IDD Field `Return Air Node Name`
@@ -5851,8 +5990,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def slab_in_node_name(self):
-        """field `Slab In Node Name` This is the node entering the slab or
-        series of slabs after the fan and coil(s).
+        """field `Slab In Node Name`
+
+        |  This is the node entering the slab or series of slabs after the fan and coil(s).
 
         Args:
             value (str): value for IDD Field `Slab In Node Name`
@@ -5873,9 +6013,11 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def zone_supply_air_node_name(self):
-        """field `Zone Supply Air Node Name` This is the node name exiting the
-        slab. This node is typically a zone inlet node. Leave blank when the
-        system configuration is SlabOnly or SeriesSlabs.
+        """field `Zone Supply Air Node Name`
+
+        |  This is the node name exiting the slab.
+        |  This node is typically a zone inlet node.
+        |  Leave blank when the system configuration is SlabOnly or SeriesSlabs.
 
         Args:
             value (str): value for IDD Field `Zone Supply Air Node Name`
@@ -5897,8 +6039,9 @@ class ZoneHvacVentilatedSlab(DataObject):
     @property
     def outdoor_air_node_name(self):
         """field `Outdoor Air Node Name`
-        This node is the outdoor air inlet to the ventilated slab oa mixer.
-        This node should also be specified in an OutdoorAir:Node or OutdoorAir:NodeList object.
+
+        |  This node is the outdoor air inlet to the ventilated slab oa mixer.
+        |  This node should also be specified in an OutdoorAir:Node or OutdoorAir:NodeList object.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -5908,6 +6051,7 @@ class ZoneHvacVentilatedSlab(DataObject):
 
         Returns:
             str: the value of `outdoor_air_node_name` or None if not set
+
         """
         return self["Outdoor Air Node Name"]
 
@@ -5918,8 +6062,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def relief_air_node_name(self):
-        """field `Relief Air Node Name` This node is the relief air node from
-        the ventilated slab outdoor air mixer.
+        """field `Relief Air Node Name`
+
+        |  This node is the relief air node from the ventilated slab outdoor air mixer.
 
         Args:
             value (str): value for IDD Field `Relief Air Node Name`
@@ -5940,8 +6085,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def outdoor_air_mixer_outlet_node_name(self):
-        """field `Outdoor Air Mixer Outlet Node Name` This is the node name
-        leaving the outdoor air mixer and entering the fan and coil(s).
+        """field `Outdoor Air Mixer Outlet Node Name`
+
+        |  This is the node name leaving the outdoor air mixer and entering the fan and coil(s).
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Outlet Node Name`
@@ -5962,8 +6108,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def fan_outlet_node_name(self):
-        """field `Fan Outlet Node Name` This is the node name of the fan
-        outlet.
+        """field `Fan Outlet Node Name`
+
+        |  This is the node name of the fan outlet.
 
         Args:
             value (str): value for IDD Field `Fan Outlet Node Name`
@@ -5985,7 +6132,8 @@ class ZoneHvacVentilatedSlab(DataObject):
     @property
     def fan_name(self):
         """field `Fan Name`
-        Allowable fan type is Fan:ConstantVolume
+
+        |  Allowable fan type is Fan:ConstantVolume
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -5995,6 +6143,7 @@ class ZoneHvacVentilatedSlab(DataObject):
 
         Returns:
             str: the value of `fan_name` or None if not set
+
         """
         return self["Fan Name"]
 
@@ -6152,8 +6301,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """field `Availability Manager List Name` Enter the name of an
-        AvailabilityManagerAssignmentList object.
+        """field `Availability Manager List Name`
+
+        |  Enter the name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -6174,8 +6324,9 @@ class ZoneHvacVentilatedSlab(DataObject):
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """field `Design Specification ZoneHVAC Sizing Object Name` Enter the
-        name of a DesignSpecificationZoneHVACSizing object.
+        """field `Design Specification ZoneHVAC Sizing Object Name`
+
+        |  Enter the name of a DesignSpecificationZoneHVACSizing object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`

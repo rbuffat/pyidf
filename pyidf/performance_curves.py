@@ -170,9 +170,10 @@ class CurveLinear(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -192,9 +193,10 @@ class CurveLinear(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -212,12 +214,13 @@ class CurveLinear(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -235,12 +238,13 @@ class CurveLinear(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -260,9 +264,10 @@ class CurveLinear(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -282,9 +287,10 @@ class CurveLinear(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -623,9 +629,10 @@ class CurveQuadLinear(DataObject):
     def minimum_value_of_w(self):
         """field `Minimum Value of w`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of w`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -645,9 +652,10 @@ class CurveQuadLinear(DataObject):
     def maximum_value_of_w(self):
         """field `Maximum Value of w`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of w`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -667,9 +675,10 @@ class CurveQuadLinear(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -689,9 +698,10 @@ class CurveQuadLinear(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -711,9 +721,10 @@ class CurveQuadLinear(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of y`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Minimum Value of y`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -733,9 +744,10 @@ class CurveQuadLinear(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of y`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Maximum Value of y`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -755,9 +767,10 @@ class CurveQuadLinear(DataObject):
     def minimum_value_of_z(self):
         """field `Minimum Value of z`
 
+        |  Units are based on field `A5`
+
         Args:
             value (float): value for IDD Field `Minimum Value of z`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -777,9 +790,10 @@ class CurveQuadLinear(DataObject):
     def maximum_value_of_z(self):
         """field `Maximum Value of z`
 
+        |  Units are based on field `A5`
+
         Args:
             value (float): value for IDD Field `Maximum Value of z`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -797,12 +811,13 @@ class CurveQuadLinear(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -820,12 +835,13 @@ class CurveQuadLinear(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -845,9 +861,10 @@ class CurveQuadLinear(DataObject):
     def input_unit_type_for_w(self):
         """field `Input Unit Type for w`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for w`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -867,9 +884,10 @@ class CurveQuadLinear(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -889,9 +907,10 @@ class CurveQuadLinear(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -911,9 +930,10 @@ class CurveQuadLinear(DataObject):
     def input_unit_type_for_z(self):
         """field `Input Unit Type for z`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for z`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1098,6 +1118,7 @@ class CurveQuadratic(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -1120,9 +1141,10 @@ class CurveQuadratic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1142,9 +1164,10 @@ class CurveQuadratic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1162,12 +1185,13 @@ class CurveQuadratic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1185,12 +1209,13 @@ class CurveQuadratic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1210,9 +1235,10 @@ class CurveQuadratic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1232,9 +1258,10 @@ class CurveQuadratic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1426,6 +1453,7 @@ class CurveCubic(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -1447,6 +1475,7 @@ class CurveCubic(DataObject):
     @property
     def coefficient4_x3(self):
         """field `Coefficient4 x**3`
+
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -1470,9 +1499,10 @@ class CurveCubic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1492,9 +1522,10 @@ class CurveCubic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1512,12 +1543,13 @@ class CurveCubic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1535,12 +1567,13 @@ class CurveCubic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1560,9 +1593,10 @@ class CurveCubic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1582,9 +1616,10 @@ class CurveCubic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1784,6 +1819,7 @@ class CurveQuartic(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -1805,6 +1841,7 @@ class CurveQuartic(DataObject):
     @property
     def coefficient4_x3(self):
         """field `Coefficient4 x**3`
+
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -1828,6 +1865,7 @@ class CurveQuartic(DataObject):
     def coefficient5_x4(self):
         """field `Coefficient5 x**4`
 
+
         Args:
             value (float): value for IDD Field `Coefficient5 x**4`
 
@@ -1850,9 +1888,10 @@ class CurveQuartic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1872,9 +1911,10 @@ class CurveQuartic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1892,12 +1932,13 @@ class CurveQuartic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1915,12 +1956,13 @@ class CurveQuartic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1940,9 +1982,10 @@ class CurveQuartic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1962,9 +2005,10 @@ class CurveQuartic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2169,12 +2213,13 @@ class CurveExponent(DataObject):
 
     @property
     def minimum_value_of_x(self):
-        """field `Minimum Value of x` Specify the minimum value of the
-        independent variable x allowed.
+        """field `Minimum Value of x`
+
+        |  Specify the minimum value of the independent variable x allowed
+        |  Units are based on field `A2`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2192,12 +2237,13 @@ class CurveExponent(DataObject):
 
     @property
     def maximum_value_of_x(self):
-        """field `Maximum Value of x` Specify the maximum value of the
-        independent variable x allowed.
+        """field `Maximum Value of x`
+
+        |  Specify the maximum value of the independent variable x allowed
+        |  Units are based on field `A2`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2215,12 +2261,13 @@ class CurveExponent(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2238,12 +2285,13 @@ class CurveExponent(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2263,9 +2311,10 @@ class CurveExponent(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2285,9 +2334,10 @@ class CurveExponent(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2550,6 +2600,7 @@ class CurveBicubic(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -2593,6 +2644,7 @@ class CurveBicubic(DataObject):
     def coefficient5_y2(self):
         """field `Coefficient5 y**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
 
@@ -2614,6 +2666,7 @@ class CurveBicubic(DataObject):
     @property
     def coefficient6_xy(self):
         """field `Coefficient6 x*y`
+
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -2637,6 +2690,7 @@ class CurveBicubic(DataObject):
     def coefficient7_x3(self):
         """field `Coefficient7 x**3`
 
+
         Args:
             value (float): value for IDD Field `Coefficient7 x**3`
 
@@ -2658,6 +2712,7 @@ class CurveBicubic(DataObject):
     @property
     def coefficient8_y3(self):
         """field `Coefficient8 y**3`
+
 
         Args:
             value (float): value for IDD Field `Coefficient8 y**3`
@@ -2681,6 +2736,7 @@ class CurveBicubic(DataObject):
     def coefficient9_x2y(self):
         """field `Coefficient9 x**2*y`
 
+
         Args:
             value (float): value for IDD Field `Coefficient9 x**2*y`
 
@@ -2702,6 +2758,7 @@ class CurveBicubic(DataObject):
     @property
     def coefficient10_xy2(self):
         """field `Coefficient10 x*y**2`
+
 
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
@@ -2725,9 +2782,10 @@ class CurveBicubic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2747,9 +2805,10 @@ class CurveBicubic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2769,9 +2828,10 @@ class CurveBicubic(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Minimum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2791,9 +2851,10 @@ class CurveBicubic(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Maximum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2811,12 +2872,13 @@ class CurveBicubic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2834,12 +2896,13 @@ class CurveBicubic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2859,9 +2922,10 @@ class CurveBicubic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2881,9 +2945,10 @@ class CurveBicubic(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for Y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2903,9 +2968,10 @@ class CurveBicubic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3139,6 +3205,7 @@ class CurveBiquadratic(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -3182,6 +3249,7 @@ class CurveBiquadratic(DataObject):
     def coefficient5_y2(self):
         """field `Coefficient5 y**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
 
@@ -3203,6 +3271,7 @@ class CurveBiquadratic(DataObject):
     @property
     def coefficient6_xy(self):
         """field `Coefficient6 x*y`
+
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -3226,9 +3295,10 @@ class CurveBiquadratic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3248,9 +3318,10 @@ class CurveBiquadratic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3270,9 +3341,10 @@ class CurveBiquadratic(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Minimum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3292,9 +3364,10 @@ class CurveBiquadratic(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Maximum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3312,12 +3385,13 @@ class CurveBiquadratic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3335,12 +3409,13 @@ class CurveBiquadratic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3360,9 +3435,10 @@ class CurveBiquadratic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3382,9 +3458,10 @@ class CurveBiquadratic(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for Y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3404,9 +3481,10 @@ class CurveBiquadratic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3640,6 +3718,7 @@ class CurveQuadraticLinear(DataObject):
     def coefficient3_x2(self):
         """field `Coefficient3 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
 
@@ -3683,6 +3762,7 @@ class CurveQuadraticLinear(DataObject):
     def coefficient5_xy(self):
         """field `Coefficient5 x*y`
 
+
         Args:
             value (float): value for IDD Field `Coefficient5 x*y`
 
@@ -3704,6 +3784,7 @@ class CurveQuadraticLinear(DataObject):
     @property
     def coefficient6_x2y(self):
         """field `Coefficient6 x**2*y`
+
 
         Args:
             value (float): value for IDD Field `Coefficient6 x**2*y`
@@ -3727,9 +3808,10 @@ class CurveQuadraticLinear(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3749,9 +3831,10 @@ class CurveQuadraticLinear(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3771,9 +3854,10 @@ class CurveQuadraticLinear(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Minimum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3793,9 +3877,10 @@ class CurveQuadraticLinear(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Maximum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3813,12 +3898,13 @@ class CurveQuadraticLinear(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3836,12 +3922,13 @@ class CurveQuadraticLinear(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A4`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3861,9 +3948,10 @@ class CurveQuadraticLinear(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3883,9 +3971,10 @@ class CurveQuadraticLinear(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for Y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3905,9 +3994,10 @@ class CurveQuadraticLinear(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4301,6 +4391,7 @@ class CurveTriquadratic(DataObject):
     def coefficient2_x2(self):
         """field `Coefficient2 x**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient2 x**2`
 
@@ -4343,6 +4434,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient4_y2(self):
         """field `Coefficient4 y**2`
+
 
         Args:
             value (float): value for IDD Field `Coefficient4 y**2`
@@ -4387,6 +4479,7 @@ class CurveTriquadratic(DataObject):
     def coefficient6_z2(self):
         """field `Coefficient6 z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient6 z**2`
 
@@ -4430,6 +4523,7 @@ class CurveTriquadratic(DataObject):
     def coefficient8_x2y2(self):
         """field `Coefficient8 x**2*y**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient8 x**2*y**2`
 
@@ -4451,6 +4545,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient9_xy(self):
         """field `Coefficient9 x*y`
+
 
         Args:
             value (float): value for IDD Field `Coefficient9 x*y`
@@ -4474,6 +4569,7 @@ class CurveTriquadratic(DataObject):
     def coefficient10_xy2(self):
         """field `Coefficient10 x*y**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
 
@@ -4495,6 +4591,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient11_x2y(self):
         """field `Coefficient11 x**2*y`
+
 
         Args:
             value (float): value for IDD Field `Coefficient11 x**2*y`
@@ -4518,6 +4615,7 @@ class CurveTriquadratic(DataObject):
     def coefficient12_x2z2(self):
         """field `Coefficient12 x**2*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient12 x**2*z**2`
 
@@ -4539,6 +4637,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient13_xz(self):
         """field `Coefficient13 x*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient13 x*z`
@@ -4562,6 +4661,7 @@ class CurveTriquadratic(DataObject):
     def coefficient14_xz2(self):
         """field `Coefficient14 x*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient14 x*z**2`
 
@@ -4583,6 +4683,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient15_x2z(self):
         """field `Coefficient15 x**2*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient15 x**2*z`
@@ -4606,6 +4707,7 @@ class CurveTriquadratic(DataObject):
     def coefficient16_y2z2(self):
         """field `Coefficient16 y**2*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient16 y**2*z**2`
 
@@ -4627,6 +4729,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient17_yz(self):
         """field `Coefficient17 y*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient17 y*z`
@@ -4650,6 +4753,7 @@ class CurveTriquadratic(DataObject):
     def coefficient18_yz2(self):
         """field `Coefficient18 y*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient18 y*z**2`
 
@@ -4671,6 +4775,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient19_y2z(self):
         """field `Coefficient19 y**2*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient19 y**2*z`
@@ -4694,6 +4799,7 @@ class CurveTriquadratic(DataObject):
     def coefficient20_x2y2z2(self):
         """field `Coefficient20 x**2*y**2*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient20 x**2*y**2*z**2`
 
@@ -4715,6 +4821,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient21_x2y2z(self):
         """field `Coefficient21 x**2*y**2*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient21 x**2*y**2*z`
@@ -4738,6 +4845,7 @@ class CurveTriquadratic(DataObject):
     def coefficient22_x2yz2(self):
         """field `Coefficient22 x**2*y*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient22 x**2*y*z**2`
 
@@ -4759,6 +4867,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient23_xy2z2(self):
         """field `Coefficient23 x*y**2*z**2`
+
 
         Args:
             value (float): value for IDD Field `Coefficient23 x*y**2*z**2`
@@ -4782,6 +4891,7 @@ class CurveTriquadratic(DataObject):
     def coefficient24_x2yz(self):
         """field `Coefficient24 x**2*y*z`
 
+
         Args:
             value (float): value for IDD Field `Coefficient24 x**2*y*z`
 
@@ -4803,6 +4913,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient25_xy2z(self):
         """field `Coefficient25 x*y**2*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient25 x*y**2*z`
@@ -4826,6 +4937,7 @@ class CurveTriquadratic(DataObject):
     def coefficient26_xyz2(self):
         """field `Coefficient26 x*y*z**2`
 
+
         Args:
             value (float): value for IDD Field `Coefficient26 x*y*z**2`
 
@@ -4847,6 +4959,7 @@ class CurveTriquadratic(DataObject):
     @property
     def coefficient27_xyz(self):
         """field `Coefficient27 x*y*z`
+
 
         Args:
             value (float): value for IDD Field `Coefficient27 x*y*z`
@@ -4870,9 +4983,10 @@ class CurveTriquadratic(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4892,9 +5006,10 @@ class CurveTriquadratic(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4914,9 +5029,10 @@ class CurveTriquadratic(DataObject):
     def minimum_value_of_y(self):
         """field `Minimum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Minimum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4936,9 +5052,10 @@ class CurveTriquadratic(DataObject):
     def maximum_value_of_y(self):
         """field `Maximum Value of y`
 
+        |  Units are based on field `A3`
+
         Args:
             value (float): value for IDD Field `Maximum Value of y`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4958,9 +5075,10 @@ class CurveTriquadratic(DataObject):
     def minimum_value_of_z(self):
         """field `Minimum Value of z`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Minimum Value of z`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4980,9 +5098,10 @@ class CurveTriquadratic(DataObject):
     def maximum_value_of_z(self):
         """field `Maximum Value of z`
 
+        |  Units are based on field `A4`
+
         Args:
             value (float): value for IDD Field `Maximum Value of z`
-                Units are based on field `A4`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5000,12 +5119,13 @@ class CurveTriquadratic(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A5`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5023,12 +5143,13 @@ class CurveTriquadratic(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A5`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A5`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5048,9 +5169,10 @@ class CurveTriquadratic(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for X`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5070,9 +5192,10 @@ class CurveTriquadratic(DataObject):
     def input_unit_type_for_y(self):
         """field `Input Unit Type for Y`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5092,9 +5215,10 @@ class CurveTriquadratic(DataObject):
     def input_unit_type_for_z(self):
         """field `Input Unit Type for Z`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for Z`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5114,9 +5238,10 @@ class CurveTriquadratic(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5225,12 +5350,13 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @property
     def diameter(self):
-        """field `Diameter` "D" in above expression, used to also calculate
-        local velocity.
+        """field `Diameter`
+
+        |  "D" in above expression, used to also calculate local velocity
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Diameter`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5248,11 +5374,13 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @property
     def minor_loss_coefficient(self):
-        """field `Minor Loss Coefficient` "K" in above expression.
+        """field `Minor Loss Coefficient`
+
+        |  "K" in above expression
+        |  Units: dimensionless
 
         Args:
             value (float): value for IDD Field `Minor Loss Coefficient`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5270,11 +5398,13 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @property
     def length(self):
-        """field `Length` "L" in above expression.
+        """field `Length`
+
+        |  "L" in above expression
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Length`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5293,17 +5423,19 @@ class CurveFunctionalPressureDrop(DataObject):
     @property
     def roughness(self):
         """field `Roughness`
-        This will be used to calculate "f" from Moody-chart approximations
+
+        |  This will be used to calculate "f" from Moody-chart approximations
+        |  Units: m
 
         Args:
             value (float): value for IDD Field `Roughness`
-                Units: m
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `roughness` or None if not set
+
         """
         return self["Roughness"]
 
@@ -5315,8 +5447,9 @@ class CurveFunctionalPressureDrop(DataObject):
     @property
     def fixed_friction_factor(self):
         """field `Fixed Friction Factor`
-        Optional way to set a constant value for "f", instead of using
-        internal Moody-chart approximations
+
+        |  Optional way to set a constant value for "f", instead of using
+        |  internal Moody-chart approximations
 
         Args:
             value (float): value for IDD Field `Fixed Friction Factor`
@@ -5326,6 +5459,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
         Returns:
             float: the value of `fixed_friction_factor` or None if not set
+
         """
         return self["Fixed Friction Factor"]
 
@@ -5550,9 +5684,10 @@ class CurveFanPressureRise(DataObject):
     def minimum_value_of_qfan(self):
         """field `Minimum Value of Qfan`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Minimum Value of Qfan`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5572,9 +5707,10 @@ class CurveFanPressureRise(DataObject):
     def maximum_value_of_qfan(self):
         """field `Maximum Value of Qfan`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Maximum Value of Qfan`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5594,10 +5730,11 @@ class CurveFanPressureRise(DataObject):
     def minimum_value_of_psm(self):
         """field `Minimum Value of Psm`
 
+        |  Units: Pa
+        |  IP-Units: Pa
+
         Args:
             value (float): value for IDD Field `Minimum Value of Psm`
-                Units: Pa
-                IP-Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5617,10 +5754,11 @@ class CurveFanPressureRise(DataObject):
     def maximum_value_of_psm(self):
         """field `Maximum Value of Psm`
 
+        |  Units: Pa
+        |  IP-Units: Pa
+
         Args:
             value (float): value for IDD Field `Maximum Value of Psm`
-                Units: Pa
-                IP-Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5638,13 +5776,14 @@ class CurveFanPressureRise(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units: Pa
+        |  IP-Units: Pa
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units: Pa
-                IP-Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5662,13 +5801,14 @@ class CurveFanPressureRise(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units: Pa
+        |  IP-Units: Pa
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units: Pa
-                IP-Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5788,7 +5928,9 @@ class CurveExponentialSkewNormal(DataObject):
 
     @property
     def name(self):
-        """field `Name` See InputOut Reference for curve description.
+        """field `Name`
+
+        |  See InputOut Reference for curve description
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5895,9 +6037,10 @@ class CurveExponentialSkewNormal(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5917,9 +6060,10 @@ class CurveExponentialSkewNormal(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5937,12 +6081,13 @@ class CurveExponentialSkewNormal(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5960,12 +6105,13 @@ class CurveExponentialSkewNormal(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5985,9 +6131,10 @@ class CurveExponentialSkewNormal(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6007,9 +6154,10 @@ class CurveExponentialSkewNormal(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6136,7 +6284,9 @@ class CurveSigmoid(DataObject):
 
     @property
     def name(self):
-        """field `Name` See InputOut Reference for curve description.
+        """field `Name`
+
+        |  See InputOut Reference for curve description
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6264,9 +6414,10 @@ class CurveSigmoid(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6286,9 +6437,10 @@ class CurveSigmoid(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6306,12 +6458,13 @@ class CurveSigmoid(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6329,12 +6482,13 @@ class CurveSigmoid(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6354,9 +6508,10 @@ class CurveSigmoid(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6376,9 +6531,10 @@ class CurveSigmoid(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6577,9 +6733,10 @@ class CurveRectangularHyperbola1(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6599,9 +6756,10 @@ class CurveRectangularHyperbola1(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6619,12 +6777,13 @@ class CurveRectangularHyperbola1(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6642,12 +6801,13 @@ class CurveRectangularHyperbola1(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6667,9 +6827,10 @@ class CurveRectangularHyperbola1(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6689,9 +6850,10 @@ class CurveRectangularHyperbola1(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6890,9 +7052,10 @@ class CurveRectangularHyperbola2(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6912,9 +7075,10 @@ class CurveRectangularHyperbola2(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6932,12 +7096,13 @@ class CurveRectangularHyperbola2(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6955,12 +7120,13 @@ class CurveRectangularHyperbola2(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6980,9 +7146,10 @@ class CurveRectangularHyperbola2(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7002,9 +7169,10 @@ class CurveRectangularHyperbola2(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7203,9 +7371,10 @@ class CurveExponentialDecay(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7225,9 +7394,10 @@ class CurveExponentialDecay(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7245,12 +7415,13 @@ class CurveExponentialDecay(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7268,12 +7439,13 @@ class CurveExponentialDecay(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7293,9 +7465,10 @@ class CurveExponentialDecay(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7315,9 +7488,10 @@ class CurveExponentialDecay(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7572,9 +7746,10 @@ class CurveDoubleExponentialDecay(DataObject):
     def minimum_value_of_x(self):
         """field `Minimum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Minimum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7594,9 +7769,10 @@ class CurveDoubleExponentialDecay(DataObject):
     def maximum_value_of_x(self):
         """field `Maximum Value of x`
 
+        |  Units are based on field `A2`
+
         Args:
             value (float): value for IDD Field `Maximum Value of x`
-                Units are based on field `A2`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7614,12 +7790,13 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @property
     def minimum_curve_output(self):
-        """field `Minimum Curve Output` Specify the minimum value calculated by
-        this curve object.
+        """field `Minimum Curve Output`
+
+        |  Specify the minimum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7637,12 +7814,13 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @property
     def maximum_curve_output(self):
-        """field `Maximum Curve Output` Specify the maximum value calculated by
-        this curve object.
+        """field `Maximum Curve Output`
+
+        |  Specify the maximum value calculated by this curve object
+        |  Units are based on field `A3`
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
-                Units are based on field `A3`
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7662,9 +7840,10 @@ class CurveDoubleExponentialDecay(DataObject):
     def input_unit_type_for_x(self):
         """field `Input Unit Type for x`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7684,9 +7863,10 @@ class CurveDoubleExponentialDecay(DataObject):
     def output_unit_type(self):
         """field `Output Unit Type`
 
+        |  Default value: Dimensionless
+
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Default value: Dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value

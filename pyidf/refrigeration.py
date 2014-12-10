@@ -380,9 +380,10 @@ class RefrigerationCase(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -404,7 +405,8 @@ class RefrigerationCase(DataObject):
     @property
     def zone_name(self):
         """field `Zone Name`
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
+
+        |  This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -414,6 +416,7 @@ class RefrigerationCase(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
@@ -426,10 +429,11 @@ class RefrigerationCase(DataObject):
     def rated_ambient_temperature(self):
         """field `Rated Ambient Temperature`
 
+        |  Units: C
+        |  Default value: 23.9
+
         Args:
             value (float): value for IDD Field `Rated Ambient Temperature`
-                Units: C
-                Default value: 23.9
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -449,11 +453,12 @@ class RefrigerationCase(DataObject):
     def rated_ambient_relative_humidity(self):
         """field `Rated Ambient Relative Humidity`
 
+        |  Units: percent
+        |  Default value: 55.0
+        |  value < 100.0
+
         Args:
             value (float): value for IDD Field `Rated Ambient Relative Humidity`
-                Units: percent
-                Default value: 55.0
-                value < 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -473,10 +478,11 @@ class RefrigerationCase(DataObject):
     def rated_total_cooling_capacity_per_unit_length(self):
         """field `Rated Total Cooling Capacity per Unit Length`
 
+        |  Units: W/m
+        |  Default value: 1900.0
+
         Args:
             value (float): value for IDD Field `Rated Total Cooling Capacity per Unit Length`
-                Units: W/m
-                Default value: 1900.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -497,10 +503,11 @@ class RefrigerationCase(DataObject):
     def rated_latent_heat_ratio(self):
         """field `Rated Latent Heat Ratio`
 
+        |  Default value: 0.3
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Rated Latent Heat Ratio`
-                Default value: 0.3
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -520,10 +527,11 @@ class RefrigerationCase(DataObject):
     def rated_runtime_fraction(self):
         """field `Rated Runtime Fraction`
 
+        |  Default value: 0.85
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Rated Runtime Fraction`
-                Default value: 0.85
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -543,10 +551,11 @@ class RefrigerationCase(DataObject):
     def case_length(self):
         """field `Case Length`
 
+        |  Units: m
+        |  Default value: 3.0
+
         Args:
             value (float): value for IDD Field `Case Length`
-                Units: m
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -566,11 +575,12 @@ class RefrigerationCase(DataObject):
     def case_operating_temperature(self):
         """field `Case Operating Temperature`
 
+        |  Units: C
+        |  Default value: 1.1
+        |  value < 20.0
+
         Args:
             value (float): value for IDD Field `Case Operating Temperature`
-                Units: C
-                Default value: 1.1
-                value < 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -590,9 +600,10 @@ class RefrigerationCase(DataObject):
     def latent_case_credit_curve_type(self):
         """field `Latent Case Credit Curve Type`
 
+        |  Default value: CaseTemperatureMethod
+
         Args:
             value (str): value for IDD Field `Latent Case Credit Curve Type`
-                Default value: CaseTemperatureMethod
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -611,7 +622,8 @@ class RefrigerationCase(DataObject):
     @property
     def latent_case_credit_curve_name(self):
         """field `Latent Case Credit Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Latent Case Credit Curve Name`
@@ -621,6 +633,7 @@ class RefrigerationCase(DataObject):
 
         Returns:
             str: the value of `latent_case_credit_curve_name` or None if not set
+
         """
         return self["Latent Case Credit Curve Name"]
 
@@ -633,10 +646,11 @@ class RefrigerationCase(DataObject):
     def standard_case_fan_power_per_unit_length(self):
         """field `Standard Case Fan Power per Unit Length`
 
+        |  Units: W/m
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Standard Case Fan Power per Unit Length`
-                Units: W/m
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -657,10 +671,11 @@ class RefrigerationCase(DataObject):
     def operating_case_fan_power_per_unit_length(self):
         """field `Operating Case Fan Power per Unit Length`
 
+        |  Units: W/m
+        |  Default value: 75.0
+
         Args:
             value (float): value for IDD Field `Operating Case Fan Power per Unit Length`
-                Units: W/m
-                Default value: 75.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -681,10 +696,11 @@ class RefrigerationCase(DataObject):
     def standard_case_lighting_power_per_unit_length(self):
         """field `Standard Case Lighting Power per Unit Length`
 
+        |  Units: W/m
+        |  Default value: 90.0
+
         Args:
             value (float): value for IDD Field `Standard Case Lighting Power per Unit Length`
-                Units: W/m
-                Default value: 90.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -703,12 +719,13 @@ class RefrigerationCase(DataObject):
 
     @property
     def installed_case_lighting_power_per_unit_length(self):
-        """field `Installed Case Lighting Power per Unit Length` default set
-        equal to Standard Case Lighting Power per Unit Length.
+        """field `Installed Case Lighting Power per Unit Length`
+
+        |  default set equal to Standard Case Lighting Power per Unit Length
+        |  Units: W/m
 
         Args:
             value (float): value for IDD Field `Installed Case Lighting Power per Unit Length`
-                Units: W/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -750,10 +767,11 @@ class RefrigerationCase(DataObject):
     def fraction_of_lighting_energy_to_case(self):
         """field `Fraction of Lighting Energy to Case`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Lighting Energy to Case`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -773,9 +791,10 @@ class RefrigerationCase(DataObject):
     def case_antisweat_heater_power_per_unit_length(self):
         """field `Case Anti-Sweat Heater Power per Unit Length`
 
+        |  Units: W/m
+
         Args:
             value (float): value for IDD Field `Case Anti-Sweat Heater Power per Unit Length`
-                Units: W/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -795,12 +814,13 @@ class RefrigerationCase(DataObject):
     @property
     def minimum_antisweat_heater_power_per_unit_length(self):
         """field `Minimum Anti-Sweat Heater Power per Unit Length`
-        This field is only applicable to the Linear, Dewpoint Method, and
-        Heat Balance Method anti-sweat heater control types
+
+        |  This field is only applicable to the Linear, Dewpoint Method, and
+        |  Heat Balance Method anti-sweat heater control types
+        |  Units: W/m
 
         Args:
             value (float): value for IDD Field `Minimum Anti-Sweat Heater Power per Unit Length`
-                Units: W/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -821,9 +841,10 @@ class RefrigerationCase(DataObject):
     def antisweat_heater_control_type(self):
         """field `Anti-Sweat Heater Control Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Anti-Sweat Heater Control Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -843,13 +864,14 @@ class RefrigerationCase(DataObject):
     @property
     def humidity_at_zero_antisweat_heater_energy(self):
         """field `Humidity at Zero Anti-Sweat Heater Energy`
-        This field is only applicable to Linear AS heater control type
-        Zone relative humidity (%) where anti-sweat heater energy is zero
+
+        |  This field is only applicable to Linear AS heater control type
+        |  Zone relative humidity (%) where anti-sweat heater energy is zero
+        |  Units: percent
+        |  Default value: -10.0
 
         Args:
             value (float): value for IDD Field `Humidity at Zero Anti-Sweat Heater Energy`
-                Units: percent
-                Default value: -10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -868,14 +890,15 @@ class RefrigerationCase(DataObject):
 
     @property
     def case_height(self):
-        """field `Case Height` This field only applicable to Heat Balance
-        Method AS heater control type Height must be greater than zero if Heat
-        Balance Method AS heater control is selected.
+        """field `Case Height`
+
+        |  This field only applicable to Heat Balance Method AS heater control type
+        |  Height must be greater than zero if Heat Balance Method AS heater control is selected
+        |  Units: m
+        |  Default value: 1.5
 
         Args:
             value (float): value for IDD Field `Case Height`
-                Units: m
-                Default value: 1.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -895,10 +918,11 @@ class RefrigerationCase(DataObject):
     def fraction_of_antisweat_heater_energy_to_case(self):
         """field `Fraction of Anti-Sweat Heater Energy to Case`
 
+        |  Default value: 1.0
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Fraction of Anti-Sweat Heater Energy to Case`
-                Default value: 1.0
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -917,12 +941,13 @@ class RefrigerationCase(DataObject):
 
     @property
     def case_defrost_power_per_unit_length(self):
-        """field `Case Defrost Power per Unit Length` Used to evaluate load on
-        case as well as power or heat consumption.
+        """field `Case Defrost Power per Unit Length`
+
+        |  Used to evaluate load on case as well as power or heat consumption
+        |  Units: W/m
 
         Args:
             value (float): value for IDD Field `Case Defrost Power per Unit Length`
-                Units: W/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -942,9 +967,10 @@ class RefrigerationCase(DataObject):
     def case_defrost_type(self):
         """field `Case Defrost Type`
 
+        |  Default value: OffCycle
+
         Args:
             value (str): value for IDD Field `Case Defrost Type`
-                Default value: OffCycle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -963,7 +989,8 @@ class RefrigerationCase(DataObject):
     @property
     def case_defrost_schedule_name(self):
         """field `Case Defrost Schedule Name`
-        A case defrost schedule name is required unless case defrost type = None
+
+        |  A case defrost schedule name is required unless case defrost type = None
 
         Args:
             value (str): value for IDD Field `Case Defrost Schedule Name`
@@ -973,6 +1000,7 @@ class RefrigerationCase(DataObject):
 
         Returns:
             str: the value of `case_defrost_schedule_name` or None if not set
+
         """
         return self["Case Defrost Schedule Name"]
 
@@ -984,12 +1012,13 @@ class RefrigerationCase(DataObject):
     @property
     def case_defrost_dripdown_schedule_name(self):
         """field `Case Defrost Drip-Down Schedule Name`
-        If left blank, the defrost schedule will be used
-        The start time for each defrost period in this drip-down schedule should coincide with
-        the start time for each defrost period in the case defrost schedule (previous input
-        field).The length of each defrost drip-down period must be greater than or equal to the
-        corresponding defrost period specified in the case defrost schedule. This extra time
-        allows the melted frost to drip from the coil before refrigeration is restarted.
+
+        |  If left blank, the defrost schedule will be used
+        |  The start time for each defrost period in this drip-down schedule should coincide with
+        |  the start time for each defrost period in the case defrost schedule (previous input
+        |  field).The length of each defrost drip-down period must be greater than or equal to the
+        |  corresponding defrost period specified in the case defrost schedule. This extra time
+        |  allows the melted frost to drip from the coil before refrigeration is restarted.
 
         Args:
             value (str): value for IDD Field `Case Defrost Drip-Down Schedule Name`
@@ -1011,13 +1040,14 @@ class RefrigerationCase(DataObject):
 
     @property
     def defrost_energy_correction_curve_type(self):
-        """field `Defrost Energy Correction Curve Type` Case Temperature,
-        Relative Humidity, and Dewpoint Method are applicable to case defrost
-        types with temperature termination only.
+        """field `Defrost Energy Correction Curve Type`
+
+        |  Case Temperature, Relative Humidity, and Dewpoint Method are applicable to case defrost
+        |  types with temperature termination only.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Defrost Energy Correction Curve Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1036,9 +1066,10 @@ class RefrigerationCase(DataObject):
     @property
     def defrost_energy_correction_curve_name(self):
         """field `Defrost Energy Correction Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Defrost Energy Correction Curve Name is applicable to case defrost types
-        with temperature termination only.
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Defrost Energy Correction Curve Name is applicable to case defrost types
+        |  with temperature termination only.
 
         Args:
             value (str): value for IDD Field `Defrost Energy Correction Curve Name`
@@ -1048,6 +1079,7 @@ class RefrigerationCase(DataObject):
 
         Returns:
             str: the value of `defrost_energy_correction_curve_name` or None if not set
+
         """
         return self["Defrost Energy Correction Curve Name"]
 
@@ -1060,9 +1092,10 @@ class RefrigerationCase(DataObject):
     def under_case_hvac_return_air_fraction(self):
         """field `Under Case HVAC Return Air Fraction`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Under Case HVAC Return Air Fraction`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1080,9 +1113,10 @@ class RefrigerationCase(DataObject):
 
     @property
     def refrigerated_case_restocking_schedule_name(self):
-        """field `Refrigerated Case Restocking Schedule Name` Schedule values
-        should be in units of Watts per unit case length (W/m) Leave this field
-        blank if no restocking is to be modeled.
+        """field `Refrigerated Case Restocking Schedule Name`
+
+        |  Schedule values should be in units of Watts per unit case length (W/m)
+        |  Leave this field blank if no restocking is to be modeled
 
         Args:
             value (str): value for IDD Field `Refrigerated Case Restocking Schedule Name`
@@ -1104,9 +1138,10 @@ class RefrigerationCase(DataObject):
 
     @property
     def case_credit_fraction_schedule_name(self):
-        """field `Case Credit Fraction Schedule Name` Schedule values should be
-        from 0 to 1 Leave this field blank if no case credit fraction is to be
-        applied.
+        """field `Case Credit Fraction Schedule Name`
+
+        |  Schedule values should be from 0 to 1
+        |  Leave this field blank if no case credit fraction is to be applied
 
         Args:
             value (str): value for IDD Field `Case Credit Fraction Schedule Name`
@@ -1128,22 +1163,24 @@ class RefrigerationCase(DataObject):
     @property
     def design_evaporator_temperature_or_brine_inlet_temperature(self):
         """field `Design Evaporator Temperature or Brine Inlet Temperature`
-        Required for detailed refrigeration system, not for compressor rack
-        For a DX system, enter the saturated temperature for refrigerant pressure leaving case
-        For a brine-cooled cooled (secondary system) case, enter the brine inlet temperature
-        Default is 5 C less than case operating temperature
+
+        |  Required for detailed refrigeration system, not for compressor rack
+        |  For a DX system, enter the saturated temperature for refrigerant pressure leaving case
+        |  For a brine-cooled cooled (secondary system) case, enter the brine inlet temperature
+        |  Default is 5 C less than case operating temperature
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Design Evaporator Temperature or Brine Inlet Temperature`
-                Units: C
-                value >= -70.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `design_evaporator_temperature_or_brine_inlet_temperature` or None if not set
+
         """
         return self["Design Evaporator Temperature or Brine Inlet Temperature"]
 
@@ -1160,9 +1197,10 @@ class RefrigerationCase(DataObject):
     def average_refrigerant_charge_inventory(self):
         """field `Average Refrigerant Charge Inventory`
 
+        |  Units: kg/m
+
         Args:
             value (float): value for IDD Field `Average Refrigerant Charge Inventory`
-                Units: kg/m
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1452,9 +1490,10 @@ class RefrigerationCompressorRack(DataObject):
     def heat_rejection_location(self):
         """field `Heat Rejection Location`
 
+        |  Default value: Outdoors
+
         Args:
             value (str): value for IDD Field `Heat Rejection Location`
-                Default value: Outdoors
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1472,14 +1511,15 @@ class RefrigerationCompressorRack(DataObject):
 
     @property
     def design_compressor_rack_cop(self):
-        """field `Design Compressor Rack COP` It is important that this COP
-        correspond to the lowest saturated suction temperature needed to serve
-        all refrigeration loads.
+        """field `Design Compressor Rack COP`
+
+        |  It is important that this COP correspond to the lowest saturated suction
+        |  temperature needed to serve all refrigeration loads
+        |  Units: W/W
+        |  Default value: 2.0
 
         Args:
             value (float): value for IDD Field `Design Compressor Rack COP`
-                Units: W/W
-                Default value: 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1498,9 +1538,10 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def compressor_rack_cop_function_of_temperature_curve_name(self):
         """field `Compressor Rack COP Function of Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
-        It is important that this COP curve correspond to the lowest saturated suction
-        temperature needed to serve all refrigeration loads
+
+        |  Table:OneIndependentVariable object can also be used
+        |  It is important that this COP curve correspond to the lowest saturated suction
+        |  temperature needed to serve all refrigeration loads
 
         Args:
             value (str): value for IDD Field `Compressor Rack COP Function of Temperature Curve Name`
@@ -1510,6 +1551,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `compressor_rack_cop_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Compressor Rack COP Function of Temperature Curve Name"]
 
@@ -1523,13 +1565,14 @@ class RefrigerationCompressorRack(DataObject):
 
     @property
     def design_condenser_fan_power(self):
-        """field `Design Condenser Fan Power` Design power for condenser
-        fan(s).
+        """field `Design Condenser Fan Power`
+
+        |  Design power for condenser fan(s).
+        |  Units: W
+        |  Default value: 250.0
 
         Args:
             value (float): value for IDD Field `Design Condenser Fan Power`
-                Units: W
-                Default value: 250.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1548,7 +1591,8 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def condenser_fan_power_function_of_temperature_curve_name(self):
         """field `Condenser Fan Power Function of Temperature Curve Name`
-        Table:OneIndependentVariable object can also be used
+
+        |  Table:OneIndependentVariable object can also be used
 
         Args:
             value (str): value for IDD Field `Condenser Fan Power Function of Temperature Curve Name`
@@ -1558,6 +1602,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `condenser_fan_power_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Condenser Fan Power Function of Temperature Curve Name"]
 
@@ -1571,12 +1616,13 @@ class RefrigerationCompressorRack(DataObject):
 
     @property
     def condenser_type(self):
-        """field `Condenser Type` Applicable only when Heat Rejection Location
-        is Outdoors.
+        """field `Condenser Type`
+
+        |  Applicable only when Heat Rejection Location is Outdoors.
+        |  Default value: AirCooled
 
         Args:
             value (str): value for IDD Field `Condenser Type`
-                Default value: AirCooled
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1595,6 +1641,7 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def watercooled_condenser_inlet_node_name(self):
         """field `Water-Cooled Condenser Inlet Node Name`
+
 
         Args:
             value (str): value for IDD Field `Water-Cooled Condenser Inlet Node Name`
@@ -1618,6 +1665,7 @@ class RefrigerationCompressorRack(DataObject):
     def watercooled_condenser_outlet_node_name(self):
         """field `Water-Cooled Condenser Outlet Node Name`
 
+
         Args:
             value (str): value for IDD Field `Water-Cooled Condenser Outlet Node Name`
 
@@ -1639,11 +1687,12 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def watercooled_loop_flow_type(self):
         """field `Water-Cooled Loop Flow Type`
-        Applicable only when Condenser Type is WaterCooled.
+
+        |  Applicable only when Condenser Type is WaterCooled.
+        |  Default value: VariableFlow
 
         Args:
             value (str): value for IDD Field `Water-Cooled Loop Flow Type`
-                Default value: VariableFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1663,7 +1712,8 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def watercooled_condenser_outlet_temperature_schedule_name(self):
         """field `Water-Cooled Condenser Outlet Temperature Schedule Name`
-        Applicable only when loop Flow type is VariableFlow.
+
+        |  Applicable only when loop Flow type is VariableFlow.
 
         Args:
             value (str): value for IDD Field `Water-Cooled Condenser Outlet Temperature Schedule Name`
@@ -1688,11 +1738,12 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def watercooled_condenser_design_flow_rate(self):
         """field `Water-Cooled Condenser Design Flow Rate`
-        Applicable only when loop flow type is ConstantFlow.
+
+        |  Applicable only when loop flow type is ConstantFlow.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Water-Cooled Condenser Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1713,9 +1764,10 @@ class RefrigerationCompressorRack(DataObject):
     def watercooled_condenser_maximum_flow_rate(self):
         """field `Water-Cooled Condenser Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Water-Cooled Condenser Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1736,12 +1788,13 @@ class RefrigerationCompressorRack(DataObject):
     def watercooled_condenser_maximum_water_outlet_temperature(self):
         """field `Water-Cooled Condenser Maximum Water Outlet Temperature`
 
+        |  Units: C
+        |  Default value: 55.0
+        |  value >= 10.0
+        |  value <= 60.0
+
         Args:
             value (float): value for IDD Field `Water-Cooled Condenser Maximum Water Outlet Temperature`
-                Units: C
-                Default value: 55.0
-                value >= 10.0
-                value <= 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1764,12 +1817,13 @@ class RefrigerationCompressorRack(DataObject):
     def watercooled_condenser_minimum_water_inlet_temperature(self):
         """field `Water-Cooled Condenser Minimum Water Inlet Temperature`
 
+        |  Units: C
+        |  Default value: 10.0
+        |  value >= 10.0
+        |  value <= 30.0
+
         Args:
             value (float): value for IDD Field `Water-Cooled Condenser Minimum Water Inlet Temperature`
-                Units: C
-                Default value: 10.0
-                value >= 10.0
-                value <= 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1791,11 +1845,12 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def evaporative_condenser_availability_schedule_name(self):
         """field `Evaporative Condenser Availability Schedule Name`
-        This field is only used for Condenser Type = EvaporativelyCooled.
-        Schedule values greater than 0 indicate that evaporative cooling of the
-        condenser is available. This schedule allows the user to define seasonal
-        shutdown/draining of the water cooling system in cold climate applications.
-        For periods with schedule values of 0, the condenser operates as AirCooled.
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled.
+        |  Schedule values greater than 0 indicate that evaporative cooling of the
+        |  condenser is available. This schedule allows the user to define seasonal
+        |  shutdown/draining of the water cooling system in cold climate applications.
+        |  For periods with schedule values of 0, the condenser operates as AirCooled.
 
         Args:
             value (str): value for IDD Field `Evaporative Condenser Availability Schedule Name`
@@ -1805,6 +1860,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `evaporative_condenser_availability_schedule_name` or None if not set
+
         """
         return self["Evaporative Condenser Availability Schedule Name"]
 
@@ -1817,19 +1873,21 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def evaporative_condenser_effectiveness(self):
         """field `Evaporative Condenser Effectiveness`
-        Applicable only for Condenser Type = EvaporativlyCooled.
+
+        |  Applicable only for Condenser Type = EvaporativlyCooled.
+        |  Units: dimensionless
+        |  Default value: 0.9
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Evaporative Condenser Effectiveness`
-                Units: dimensionless
-                Default value: 0.9
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporative_condenser_effectiveness` or None if not set
+
         """
         return self["Evaporative Condenser Effectiveness"]
 
@@ -1841,19 +1899,21 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def evaporative_condenser_air_flow_rate(self):
         """field `Evaporative Condenser Air Flow Rate`
-        Applicable only for Condenser Type = EvaporativelyCooled.
-        Used to calculate evaporative condenser water use.
+
+        |  Applicable only for Condenser Type = EvaporativelyCooled.
+        |  Used to calculate evaporative condenser water use.
+        |  Units: m3/s
+        |  Default value: "Autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Evaporative Condenser Air Flow Rate`
-                Units: m3/s
-                Default value: "Autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `evaporative_condenser_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `evaporative_condenser_air_flow_rate` or None if not set
+
         """
         return self["Evaporative Condenser Air Flow Rate"]
 
@@ -1865,22 +1925,24 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for Condenser Type = EvaporativelyCooled and for periods
-        when the evaporatively cooled condenser is available (field Evaporative Condenser Availability
-        Schedule Name). For this situation, the heater heats the basin water when the
-        outdoor air dry-bulb temperature falls below the setpoint temperature, but
-        only when the condenser fans are off (i.e., no refrigerated case load).
+
+        |  This field is only used for Condenser Type = EvaporativelyCooled and for periods
+        |  when the evaporatively cooled condenser is available (field Evaporative Condenser Availability
+        |  Schedule Name). For this situation, the heater heats the basin water when the
+        |  outdoor air dry-bulb temperature falls below the setpoint temperature, but
+        |  only when the condenser fans are off (i.e., no refrigerated case load).
+        |  Units: W/K
+        |  Default value: 200.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
-                Default value: 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -1892,19 +1954,21 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature at which the basin heater turns on.
+
+        |  Enter the outdoor dry-bulb temperature at which the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -1916,19 +1980,21 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def design_evaporative_condenser_water_pump_power(self):
         """field `Design Evaporative Condenser Water Pump Power`
-        Design recirc water pump power for Condenser Type = EvaporativelyCooled.
-        Applicable only for Condenser Type = EvaporativelyCooled.
+
+        |  Design recirc water pump power for Condenser Type = EvaporativelyCooled.
+        |  Applicable only for Condenser Type = EvaporativelyCooled.
+        |  Units: W
+        |  Default value: 1000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Evaporative Condenser Water Pump Power`
-                Units: W
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_evaporative_condenser_water_pump_power` or None if not set
+            float or "Autocalculate": the value of `design_evaporative_condenser_water_pump_power` or None if not set
+
         """
         return self["Design Evaporative Condenser Water Pump Power"]
 
@@ -1941,8 +2007,9 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def evaporative_water_supply_tank_name(self):
         """field `Evaporative Water Supply Tank Name`
-        If blank, water supply is from Mains.
-        Applicable only for Condenser Type = EvaporativelyCooled.
+
+        |  If blank, water supply is from Mains.
+        |  Applicable only for Condenser Type = EvaporativelyCooled.
 
         Args:
             value (str): value for IDD Field `Evaporative Water Supply Tank Name`
@@ -1952,6 +2019,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `evaporative_water_supply_tank_name` or None if not set
+
         """
         return self["Evaporative Water Supply Tank Name"]
 
@@ -1963,11 +2031,12 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def condenser_air_inlet_node_name(self):
         """field `Condenser Air Inlet Node Name`
-        Applicable only when Heat Rejection Location is Outdoors and Condenser Type is
-        not WaterCooled; otherwise, leave field blank. If field is left blank with
-        Heat Rejection Location = Outdoors, then the model assumes that the Inlet Air
-        conditions are the outdoor air conditions for the current timestep
-        (e.g., no adjustment for height above ground).
+
+        |  Applicable only when Heat Rejection Location is Outdoors and Condenser Type is
+        |  not WaterCooled; otherwise, leave field blank. If field is left blank with
+        |  Heat Rejection Location = Outdoors, then the model assumes that the Inlet Air
+        |  conditions are the outdoor air conditions for the current timestep
+        |  (e.g., no adjustment for height above ground).
 
         Args:
             value (str): value for IDD Field `Condenser Air Inlet Node Name`
@@ -1977,6 +2046,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `condenser_air_inlet_node_name` or None if not set
+
         """
         return self["Condenser Air Inlet Node Name"]
 
@@ -1989,9 +2059,10 @@ class RefrigerationCompressorRack(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2010,9 +2081,11 @@ class RefrigerationCompressorRack(DataObject):
 
     @property
     def refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name(self):
-        """field `Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:Walkin or
-        Refrigeration:CaseAndWalkinList object.
+        """field `Refrigeration Case Name or WalkIn Name or CaseAndWalkInList
+        Name`
+
+        |  Enter the name of a Refrigeration:Case or Refrigeration:Walkin or
+        |  Refrigeration:CaseAndWalkinList object.
 
         Args:
             value (str): value for IDD Field `Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name`
@@ -2022,6 +2095,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name` or None if not set
+
         """
         return self[
             "Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"]
@@ -2038,9 +2112,10 @@ class RefrigerationCompressorRack(DataObject):
     @property
     def heat_rejection_zone_name(self):
         """field `Heat Rejection Zone Name`
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
-        Required only if walk-in[s] are connected to this rack
-        AND the heat rejection location is "Zone"
+
+        |  This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
+        |  Required only if walk-in[s] are connected to this rack
+        |  AND the heat rejection location is "Zone"
 
         Args:
             value (str): value for IDD Field `Heat Rejection Zone Name`
@@ -2050,6 +2125,7 @@ class RefrigerationCompressorRack(DataObject):
 
         Returns:
             str: the value of `heat_rejection_zone_name` or None if not set
+
         """
         return self["Heat Rejection Zone Name"]
 
@@ -2289,11 +2365,12 @@ class RefrigerationCondenserAirCooled(DataObject):
     @property
     def rated_effective_total_heat_rejection_rate_curve_name(self):
         """field `Rated Effective Total Heat Rejection Rate Curve Name`
-        Rating as per ARI 460
-        Be sure the rating corresponds to the correct refrigerant
-        Table:OneIndependentVariable object can also be used
-        HeatRejection(W)=C1 +C2(Condensing Temp - Entering Air Temp, deg C)
-        Will be adjusted for elevation automatically
+
+        |  Rating as per ARI 460
+        |  Be sure the rating corresponds to the correct refrigerant
+        |  Table:OneIndependentVariable object can also be used
+        |  HeatRejection(W)=C1 +C2(Condensing Temp - Entering Air Temp, deg C)
+        |  Will be adjusted for elevation automatically
 
         Args:
             value (str): value for IDD Field `Rated Effective Total Heat Rejection Rate Curve Name`
@@ -2303,6 +2380,7 @@ class RefrigerationCondenserAirCooled(DataObject):
 
         Returns:
             str: the value of `rated_effective_total_heat_rejection_rate_curve_name` or None if not set
+
         """
         return self["Rated Effective Total Heat Rejection Rate Curve Name"]
 
@@ -2314,12 +2392,13 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def rated_subcooling_temperature_difference(self):
-        """field `Rated Subcooling Temperature Difference` must correspond to
-        rating given for total heat rejection effect.
+        """field `Rated Subcooling Temperature Difference`
+
+        |  must correspond to rating given for total heat rejection effect
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Rated Subcooling Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2340,9 +2419,10 @@ class RefrigerationCondenserAirCooled(DataObject):
     def condenser_fan_speed_control_type(self):
         """field `Condenser Fan Speed Control Type`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Condenser Fan Speed Control Type`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2360,13 +2440,14 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def rated_fan_power(self):
-        """field `Rated Fan Power` Power for condenser fan(s) corresponding to
-        rated total heat rejection effect.
+        """field `Rated Fan Power`
+
+        |  Power for condenser fan(s) corresponding to rated total heat rejection effect.
+        |  Units: W
+        |  Default value: 250.0
 
         Args:
             value (float): value for IDD Field `Rated Fan Power`
-                Units: W
-                Default value: 250.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2384,13 +2465,14 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def minimum_fan_air_flow_ratio(self):
-        """field `Minimum Fan Air Flow Ratio` Minimum air flow fraction through
-        condenser fan.
+        """field `Minimum Fan Air Flow Ratio`
+
+        |  Minimum air flow fraction through condenser fan
+        |  Units: dimensionless
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Fan Air Flow Ratio`
-                Units: dimensionless
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2408,11 +2490,13 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def air_inlet_node_name_or_zone_name(self):
-        """field `Air Inlet Node Name or Zone Name` If field is left blank,
-        then the model assumes that the inlet air conditions are the outdoor
-        air conditions for the current timestep (e.g., no adjustment for height
-        above ground). If the condenser rejects heat to a conditioned zone,
-        enter the zone name here.
+        """field `Air Inlet Node Name or Zone Name`
+
+        |  If field is left blank,
+        |  then the model assumes that the inlet air
+        |  conditions are the outdoor air conditions for the current timestep
+        |  (e.g., no adjustment for height above ground).
+        |  If the condenser rejects heat to a conditioned zone, enter the zone name here.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name or Zone Name`
@@ -2435,9 +2519,10 @@ class RefrigerationCondenserAirCooled(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2456,12 +2541,13 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def condenser_refrigerant_operating_charge_inventory(self):
-        """field `Condenser Refrigerant Operating Charge Inventory` optional
-        input.
+        """field `Condenser Refrigerant Operating Charge Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condenser Refrigerant Operating Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2480,11 +2566,13 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def condensate_receiver_refrigerant_inventory(self):
-        """field `Condensate Receiver Refrigerant Inventory` optional input.
+        """field `Condensate Receiver Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Receiver Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2503,11 +2591,13 @@ class RefrigerationCondenserAirCooled(DataObject):
 
     @property
     def condensate_piping_refrigerant_inventory(self):
-        """field `Condensate Piping Refrigerant Inventory` optional input.
+        """field `Condensate Piping Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Piping Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2777,12 +2867,14 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def rated_effective_total_heat_rejection_rate(self):
-        """field `Rated Effective Total Heat Rejection Rate` Rating as per ARI
-        490 Be sure the rating corresponds to the correct refrigerant.
+        """field `Rated Effective Total Heat Rejection Rate`
+
+        |  Rating as per ARI 490
+        |  Be sure the rating corresponds to the correct refrigerant
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Effective Total Heat Rejection Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2801,12 +2893,13 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def rated_subcooling_temperature_difference(self):
-        """field `Rated Subcooling Temperature Difference` must correspond to
-        rating given for total heat rejection effect.
+        """field `Rated Subcooling Temperature Difference`
+
+        |  must correspond to rating given for total heat rejection effect
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Rated Subcooling Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2827,9 +2920,10 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     def fan_speed_control_type(self):
         """field `Fan Speed Control Type`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Fan Speed Control Type`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2847,12 +2941,13 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def rated_fan_power(self):
-        """field `Rated Fan Power` Power for condenser fan(s) corresponding to
-        rated total heat rejection effect.
+        """field `Rated Fan Power`
+
+        |  Power for condenser fan(s) corresponding to rated total heat rejection effect.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Fan Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2870,13 +2965,14 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def minimum_fan_air_flow_ratio(self):
-        """field `Minimum Fan Air Flow Ratio` Minimum air flow fraction through
-        condenser fan.
+        """field `Minimum Fan Air Flow Ratio`
+
+        |  Minimum air flow fraction through condenser fan
+        |  Units: dimensionless
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Fan Air Flow Ratio`
-                Units: dimensionless
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2895,19 +2991,21 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def approach_temperature_constant_term(self):
         """field `Approach Temperature Constant Term`
-        A1 in delta T = A1 + A2(hrcf) + A3/(hrcf) + A4(Twb)
+
+        |  A1 in delta T = A1 + A2(hrcf) + A3/(hrcf) + A4(Twb)
+        |  Units: C
+        |  Default value: 6.63
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Approach Temperature Constant Term`
-                Units: C
-                Default value: 6.63
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `approach_temperature_constant_term` or None if not set
+
         """
         return self["Approach Temperature Constant Term"]
 
@@ -2919,19 +3017,21 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def approach_temperature_coefficient_2(self):
         """field `Approach Temperature Coefficient 2`
-        A2 in delta T = A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+
+        |  A2 in delta T = A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+        |  Units: C
+        |  Default value: 0.468
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Approach Temperature Coefficient 2`
-                Units: C
-                Default value: 0.468
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `approach_temperature_coefficient_2` or None if not set
+
         """
         return self["Approach Temperature Coefficient 2"]
 
@@ -2943,19 +3043,21 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def approach_temperature_coefficient_3(self):
         """field `Approach Temperature Coefficient 3`
-        A3 in delta T = A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+
+        |  A3 in delta T = A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+        |  Units: C
+        |  Default value: 17.93
+        |  value <= 30.0
 
         Args:
             value (float): value for IDD Field `Approach Temperature Coefficient 3`
-                Units: C
-                Default value: 17.93
-                value <= 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `approach_temperature_coefficient_3` or None if not set
+
         """
         return self["Approach Temperature Coefficient 3"]
 
@@ -2967,20 +3069,22 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def approach_temperature_coefficient_4(self):
         """field `Approach Temperature Coefficient 4`
-        A4 in deltaT=A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+
+        |  A4 in deltaT=A1 + A2(hrcf) +A3/(hrcf) +A4(Twb)
+        |  Units: dimensionless
+        |  Default value: -0.322
+        |  value >= -20.0
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Approach Temperature Coefficient 4`
-                Units: dimensionless
-                Default value: -0.322
-                value >= -20.0
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `approach_temperature_coefficient_4` or None if not set
+
         """
         return self["Approach Temperature Coefficient 4"]
 
@@ -2991,13 +3095,14 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def minimum_capacity_factor(self):
-        """field `Minimum Capacity Factor` taken from manufacturer's Heat
-        Rejection Capacity Factor Table.
+        """field `Minimum Capacity Factor`
+
+        |  taken from manufacturer's Heat Rejection Capacity Factor Table
+        |  Units: dimensionless
+        |  Default value: 0.5
 
         Args:
             value (float): value for IDD Field `Minimum Capacity Factor`
-                Units: dimensionless
-                Default value: 0.5
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3015,13 +3120,14 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def maximum_capacity_factor(self):
-        """field `Maximum Capacity Factor` taken from manufacturer's Heat
-        Rejection Capacity Factor Table.
+        """field `Maximum Capacity Factor`
+
+        |  taken from manufacturer's Heat Rejection Capacity Factor Table
+        |  Units: dimensionless
+        |  Default value: 5.0
 
         Args:
             value (float): value for IDD Field `Maximum Capacity Factor`
-                Units: dimensionless
-                Default value: 5.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3039,9 +3145,12 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` If field is left blank, then the model
-        assumes that the inlet air conditions are the outdoor air conditions
-        for the current timestep (e.g., no adjustment for height above ground).
+        """field `Air Inlet Node Name`
+
+        |  If field is left blank,
+        |  then the model assumes that the inlet air
+        |  conditions are the outdoor air conditions for the current timestep
+        |  (e.g., no adjustment for height above ground).
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -3062,19 +3171,20 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def rated_air_flow_rate(self):
-        """field `Rated Air Flow Rate` Used to calculate evaporative condenser
-        water use and fan energy use.
+        """field `Rated Air Flow Rate`
+
+        |  Used to calculate evaporative condenser water use and fan energy use.
+        |  Units: m3/s
+        |  Default value: "autocalculate"
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Rated Air Flow Rate`
-                Units: m3/s
-                Default value: "autocalculate"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_air_flow_rate` or None if not set
+            float or "Autocalculate": the value of `rated_air_flow_rate` or None if not set
 
         """
         return self["Rated Air Flow Rate"]
@@ -3087,22 +3197,24 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def basin_heater_capacity(self):
         """field `Basin Heater Capacity`
-        This field is only used for periods
-        when the evap condenser is available (field Evaporative Condenser Availability
-        Schedule). For this situation, the heater heats the basin water when the
-        outdoor air dry-bulb temperature falls below the set point temperature, but
-        only when the condenser fans are off (i.e., no refrigerated case load).
+
+        |  This field is only used for periods
+        |  when the evap condenser is available (field Evaporative Condenser Availability
+        |  Schedule). For this situation, the heater heats the basin water when the
+        |  outdoor air dry-bulb temperature falls below the set point temperature, but
+        |  only when the condenser fans are off (i.e., no refrigerated case load).
+        |  Units: W/K
+        |  Default value: 200.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
-                Units: W/K
-                Default value: 200.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
+
         """
         return self["Basin Heater Capacity"]
 
@@ -3114,19 +3226,21 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     @property
     def basin_heater_setpoint_temperature(self):
         """field `Basin Heater Setpoint Temperature`
-        Enter the outdoor dry-bulb temperature at which the basin heater turns on.
+
+        |  Enter the outdoor dry-bulb temperature at which the basin heater turns on.
+        |  Units: C
+        |  Default value: 2.0
+        |  value >= 2.0
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
-                Units: C
-                Default value: 2.0
-                value >= 2.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
+
         """
         return self["Basin Heater Setpoint Temperature"]
 
@@ -3137,19 +3251,20 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def rated_water_pump_power(self):
-        """field `Rated Water Pump Power` Design recirculating water pump
-        power.
+        """field `Rated Water Pump Power`
+
+        |  Design recirculating water pump power.
+        |  Units: W
+        |  Default value: 1000.0
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Rated Water Pump Power`
-                Units: W
-                Default value: 1000.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `rated_water_pump_power` or None if not set
+            float or "Autocalculate": the value of `rated_water_pump_power` or None if not set
 
         """
         return self["Rated Water Pump Power"]
@@ -3161,8 +3276,9 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def evaporative_water_supply_tank_name(self):
-        """field `Evaporative Water Supply Tank Name` If blank, water supply is
-        from Mains.
+        """field `Evaporative Water Supply Tank Name`
+
+        |  If blank, water supply is from Mains.
 
         Args:
             value (str): value for IDD Field `Evaporative Water Supply Tank Name`
@@ -3183,12 +3299,12 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def evaporative_condenser_availability_schedule_name(self):
-        """field `Evaporative Condenser Availability Schedule Name` Schedule
-        values greater than 0 indicate that evaporative cooling of the
-        condenser is available. This schedule allows the user to define
-        seasonal shutdown/draining of the water cooling system in cold climate
-        applications. For periods with schedule values of 0, the condenser
-        operates as Air Cooled.
+        """field `Evaporative Condenser Availability Schedule Name`
+
+        |  Schedule values greater than 0 indicate that evaporative cooling of the
+        |  condenser is available. This schedule allows the user to define seasonal
+        |  shutdown/draining of the water cooling system in cold climate applications.
+        |  For periods with schedule values of 0, the condenser operates as Air Cooled.
 
         Args:
             value (str): value for IDD Field `Evaporative Condenser Availability Schedule Name`
@@ -3212,9 +3328,10 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3233,12 +3350,13 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def condenser_refrigerant_operating_charge_inventory(self):
-        """field `Condenser Refrigerant Operating Charge Inventory` optional
-        input.
+        """field `Condenser Refrigerant Operating Charge Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condenser Refrigerant Operating Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3257,11 +3375,13 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def condensate_receiver_refrigerant_inventory(self):
-        """field `Condensate Receiver Refrigerant Inventory` optional input.
+        """field `Condensate Receiver Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Receiver Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3280,11 +3400,13 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
 
     @property
     def condensate_piping_refrigerant_inventory(self):
-        """field `Condensate Piping Refrigerant Inventory` optional input.
+        """field `Condensate Piping Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Piping Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3488,13 +3610,15 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def rated_effective_total_heat_rejection_rate(self):
-        """field `Rated Effective Total Heat Rejection Rate` Rating as per ARI
-        450 Be sure the rating corresponds to the correct refrigerant not used
-        in calculations, only for identification and output.
+        """field `Rated Effective Total Heat Rejection Rate`
+
+        |  Rating as per ARI 450
+        |  Be sure the rating corresponds to the correct refrigerant
+        |  not used in calculations, only for identification and output
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Effective Total Heat Rejection Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3513,12 +3637,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def rated_condensing_temperature(self):
-        """field `Rated Condensing Temperature` must correspond to rating given
-        for total heat rejection effect.
+        """field `Rated Condensing Temperature`
+
+        |  must correspond to rating given for total heat rejection effect
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Rated Condensing Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3536,12 +3661,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def rated_subcooling_temperature_difference(self):
-        """field `Rated Subcooling Temperature Difference` must correspond to
-        rating given for total heat rejection effect.
+        """field `Rated Subcooling Temperature Difference`
+
+        |  must correspond to rating given for total heat rejection effect
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Rated Subcooling Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3560,12 +3686,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def rated_water_inlet_temperature(self):
-        """field `Rated Water Inlet Temperature` must correspond to rating
-        given for total heat rejection effect.
+        """field `Rated Water Inlet Temperature`
+
+        |  must correspond to rating given for total heat rejection effect
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Rated Water Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3627,9 +3754,10 @@ class RefrigerationCondenserWaterCooled(DataObject):
     def watercooled_loop_flow_type(self):
         """field `Water-Cooled Loop Flow Type`
 
+        |  Default value: VariableFlow
+
         Args:
             value (str): value for IDD Field `Water-Cooled Loop Flow Type`
-                Default value: VariableFlow
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3648,8 +3776,9 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def water_outlet_temperature_schedule_name(self):
-        """field `Water Outlet Temperature Schedule Name` Applicable only when
-        loop flow type is Variable Flow.
+        """field `Water Outlet Temperature Schedule Name`
+
+        |  Applicable only when loop flow type is Variable Flow.
 
         Args:
             value (str): value for IDD Field `Water Outlet Temperature Schedule Name`
@@ -3671,18 +3800,20 @@ class RefrigerationCondenserWaterCooled(DataObject):
     @property
     def water_design_flow_rate(self):
         """field `Water Design Flow Rate`
-        note required units must be converted from L/s as specified in ARI 450-2007
-        Applicable only when loop flow type is Constant Flow.
+
+        |  note required units must be converted from L/s as specified in ARI 450-2007
+        |  Applicable only when loop flow type is Constant Flow.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Water Design Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `water_design_flow_rate` or None if not set
+
         """
         return self["Water Design Flow Rate"]
 
@@ -3695,9 +3826,10 @@ class RefrigerationCondenserWaterCooled(DataObject):
     def water_maximum_flow_rate(self):
         """field `Water Maximum Flow Rate`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Water Maximum Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3717,12 +3849,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
     def water_maximum_water_outlet_temperature(self):
         """field `Water Maximum Water Outlet Temperature`
 
+        |  Units: C
+        |  Default value: 55.0
+        |  value >= 10.0
+        |  value <= 60.0
+
         Args:
             value (float): value for IDD Field `Water Maximum Water Outlet Temperature`
-                Units: C
-                Default value: 55.0
-                value >= 10.0
-                value <= 60.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3740,15 +3873,16 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def water_minimum_water_inlet_temperature(self):
-        """field `Water Minimum Water Inlet Temperature` related to the minimum
-        allowed refrigeration system condensing temperature.
+        """field `Water Minimum Water Inlet Temperature`
+
+        |  related to the minimum allowed refrigeration system condensing temperature
+        |  Units: C
+        |  Default value: 10.0
+        |  value >= 10.0
+        |  value <= 30.0
 
         Args:
             value (float): value for IDD Field `Water Minimum Water Inlet Temperature`
-                Units: C
-                Default value: 10.0
-                value >= 10.0
-                value <= 30.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3768,9 +3902,10 @@ class RefrigerationCondenserWaterCooled(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3789,12 +3924,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def condenser_refrigerant_operating_charge_inventory(self):
-        """field `Condenser Refrigerant Operating Charge Inventory` optional
-        input.
+        """field `Condenser Refrigerant Operating Charge Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condenser Refrigerant Operating Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3813,11 +3949,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def condensate_receiver_refrigerant_inventory(self):
-        """field `Condensate Receiver Refrigerant Inventory` optional input.
+        """field `Condensate Receiver Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Receiver Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3836,11 +3974,13 @@ class RefrigerationCondenserWaterCooled(DataObject):
 
     @property
     def condensate_piping_refrigerant_inventory(self):
-        """field `Condensate Piping Refrigerant Inventory` optional input.
+        """field `Condensate Piping Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Piping Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3969,12 +4109,13 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def rated_condensing_temperature(self):
-        """field `Rated Condensing Temperature` This is the condensing
-        temperature for the lower temperature secondary loop.
+        """field `Rated Condensing Temperature`
+
+        |  This is the condensing temperature for the lower temperature secondary loop
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Rated Condensing Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3992,13 +4133,14 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def rated_approach_temperature_difference(self):
-        """field `Rated Approach Temperature Difference` This is the difference
-        between the condensing and evaporating temperatures.
+        """field `Rated Approach Temperature Difference`
+
+        |  This is the difference between the condensing and evaporating temperatures
+        |  Units: DeltaC
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Rated Approach Temperature Difference`
-                Units: DeltaC
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4016,12 +4158,13 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def rated_effective_total_heat_rejection_rate(self):
-        """field `Rated Effective Total Heat Rejection Rate` used for
-        identification and rough system size error checking.
+        """field `Rated Effective Total Heat Rejection Rate`
+
+        |  used for identification and rough system size error checking
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Effective Total Heat Rejection Rate`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4040,13 +4183,15 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def condensing_temperature_control_type(self):
-        """field `Condensing Temperature Control Type` Fixed keeps condensing
-        temperature constant Float sets the condensing temperature according to
-        the other loads on the higher temperature system.
+        """field `Condensing Temperature Control Type`
+
+        |  Fixed keeps condensing temperature constant
+        |  Float sets the condensing temperature according to
+        |  the other loads on the higher temperature system
+        |  Default value: Fixed
 
         Args:
             value (str): value for IDD Field `Condensing Temperature Control Type`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4064,12 +4209,13 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def condenser_refrigerant_operating_charge_inventory(self):
-        """field `Condenser Refrigerant Operating Charge Inventory` optional
-        input.
+        """field `Condenser Refrigerant Operating Charge Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condenser Refrigerant Operating Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4088,11 +4234,13 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def condensate_receiver_refrigerant_inventory(self):
-        """field `Condensate Receiver Refrigerant Inventory` optional input.
+        """field `Condensate Receiver Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Receiver Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4111,11 +4259,13 @@ class RefrigerationCondenserCascade(DataObject):
 
     @property
     def condensate_piping_refrigerant_inventory(self):
-        """field `Condensate Piping Refrigerant Inventory` optional input.
+        """field `Condensate Piping Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Condensate Piping Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4298,10 +4448,11 @@ class RefrigerationGasCoolerAirCooled(DataObject):
     @property
     def rated_total_heat_rejection_rate_curve_name(self):
         """field `Rated Total Heat Rejection Rate Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Be sure the rating corresponds to the correct refrigerant (R744)
-        HeatRejection(W)=C1 +C2(Gas Cooler Outlet Temp - Entering Air Temp, deg C)
-        Will be adjusted for elevation automatically
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Be sure the rating corresponds to the correct refrigerant (R744)
+        |  HeatRejection(W)=C1 +C2(Gas Cooler Outlet Temp - Entering Air Temp, deg C)
+        |  Will be adjusted for elevation automatically
 
         Args:
             value (str): value for IDD Field `Rated Total Heat Rejection Rate Curve Name`
@@ -4311,6 +4462,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
         Returns:
             str: the value of `rated_total_heat_rejection_rate_curve_name` or None if not set
+
         """
         return self["Rated Total Heat Rejection Rate Curve Name"]
 
@@ -4324,9 +4476,10 @@ class RefrigerationGasCoolerAirCooled(DataObject):
     def gas_cooler_fan_speed_control_type(self):
         """field `Gas Cooler Fan Speed Control Type`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Gas Cooler Fan Speed Control Type`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4344,13 +4497,14 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def rated_fan_power(self):
-        """field `Rated Fan Power` Power for gas cooler fan(s) corresponding to
-        rated total heat rejection effect.
+        """field `Rated Fan Power`
+
+        |  Power for gas cooler fan(s) corresponding to rated total heat rejection effect.
+        |  Units: W
+        |  Default value: 5000.0
 
         Args:
             value (float): value for IDD Field `Rated Fan Power`
-                Units: W
-                Default value: 5000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4368,13 +4522,14 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def minimum_fan_air_flow_ratio(self):
-        """field `Minimum Fan Air Flow Ratio` Minimum air flow fraction through
-        gas cooler fan.
+        """field `Minimum Fan Air Flow Ratio`
+
+        |  Minimum air flow fraction through gas cooler fan
+        |  Units: dimensionless
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Fan Air Flow Ratio`
-                Units: dimensionless
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4392,13 +4547,14 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def transition_temperature(self):
-        """field `Transition Temperature` Temperature at which system
-        transitions between subcritical and transcritical operation.
+        """field `Transition Temperature`
+
+        |  Temperature at which system transitions between subcritical and transcritical operation.
+        |  Units: C
+        |  Default value: 27.0
 
         Args:
             value (float): value for IDD Field `Transition Temperature`
-                Units: C
-                Default value: 27.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4416,14 +4572,15 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def transcritical_approach_temperature(self):
-        """field `Transcritical Approach Temperature` Temperature difference
-        between the CO2 exiting the gas cooler and the air entering the gas
-        cooler during transcritical operation.
+        """field `Transcritical Approach Temperature`
+
+        |  Temperature difference between the CO2 exiting the gas cooler and the air entering the
+        |  gas cooler during transcritical operation.
+        |  Units: DeltaC
+        |  Default value: 3.0
 
         Args:
             value (float): value for IDD Field `Transcritical Approach Temperature`
-                Units: DeltaC
-                Default value: 3.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4441,14 +4598,15 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def subcritical_temperature_difference(self):
-        """field `Subcritical Temperature Difference` Temperature difference
-        between the saturated condensing temperature and the air temperature
-        during subcritical operation.
+        """field `Subcritical Temperature Difference`
+
+        |  Temperature difference between the saturated condensing temperature and the air
+        |  temperature during subcritical operation.
+        |  Units: DeltaC
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Subcritical Temperature Difference`
-                Units: DeltaC
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4466,13 +4624,14 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def minimum_condensing_temperature(self):
-        """field `Minimum Condensing Temperature` Minimum saturated condensing
-        temperature during subcritical operation.
+        """field `Minimum Condensing Temperature`
+
+        |  Minimum saturated condensing temperature during subcritical operation.
+        |  Units: C
+        |  Default value: 10.0
 
         Args:
             value (float): value for IDD Field `Minimum Condensing Temperature`
-                Units: C
-                Default value: 10.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4490,9 +4649,12 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """field `Air Inlet Node Name` If field is left blank, then the model
-        assumes that the inlet air conditions are the outdoor air conditions
-        for the current timestep (e.g., no adjustment for height above ground).
+        """field `Air Inlet Node Name`
+
+        |  If field is left blank,
+        |  then the model assumes that the inlet air
+        |  conditions are the outdoor air conditions for the current timestep
+        |  (e.g., no adjustment for height above ground).
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -4515,9 +4677,10 @@ class RefrigerationGasCoolerAirCooled(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4536,12 +4699,13 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def gas_cooler_refrigerant_operating_charge_inventory(self):
-        """field `Gas Cooler Refrigerant Operating Charge Inventory` optional
-        input.
+        """field `Gas Cooler Refrigerant Operating Charge Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Gas Cooler Refrigerant Operating Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4560,11 +4724,13 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def gas_cooler_receiver_refrigerant_inventory(self):
-        """field `Gas Cooler Receiver Refrigerant Inventory` optional input.
+        """field `Gas Cooler Receiver Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Gas Cooler Receiver Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4583,12 +4749,13 @@ class RefrigerationGasCoolerAirCooled(DataObject):
 
     @property
     def gas_cooler_outlet_piping_refrigerant_inventory(self):
-        """field `Gas Cooler Outlet Piping Refrigerant Inventory` optional
-        input.
+        """field `Gas Cooler Outlet Piping Refrigerant Inventory`
+
+        |  optional input
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Gas Cooler Outlet Piping Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4796,12 +4963,13 @@ class RefrigerationSubcooler(DataObject):
 
     @property
     def subcooler_type(self):
-        """field `Subcooler Type` plan to add ambient subcoolers at future
-        time.
+        """field `Subcooler Type`
+
+        |  plan to add ambient subcoolers at future time
+        |  Default value: LiquidSuction
 
         Args:
             value (str): value for IDD Field `Subcooler Type`
-                Default value: LiquidSuction
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4820,12 +4988,13 @@ class RefrigerationSubcooler(DataObject):
     @property
     def liquid_suction_design_subcooling_temperature_difference(self):
         """field `Liquid Suction Design Subcooling Temperature Difference`
-        Applicable only and required for liquid suction heat exchangers design
-        liquid suction subcooling.
+
+        |  Applicable only and required for liquid suction heat exchangers
+        |  design liquid suction subcooling
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Liquid Suction Design Subcooling Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4846,13 +5015,14 @@ class RefrigerationSubcooler(DataObject):
 
     @property
     def design_liquid_inlet_temperature(self):
-        """field `Design Liquid Inlet Temperature` design inlet temperature on
-        liquid side Applicable only and required for liquid suction heat
-        exchangers (LSHX)
+        """field `Design Liquid Inlet Temperature`
+
+        |  design inlet temperature on liquid side
+        |  Applicable only and required for liquid suction heat exchangers (LSHX)
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Design Liquid Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4870,14 +5040,16 @@ class RefrigerationSubcooler(DataObject):
 
     @property
     def design_vapor_inlet_temperature(self):
-        """field `Design Vapor Inlet Temperature` design inlet temperature on
-        vapor side Applicable only and required for liquid suction heat
-        exchangers (LSHX) Design vapor inlet temperature must be less than or
-        equal to the Liquid inlet design temp.
+        """field `Design Vapor Inlet Temperature`
+
+        |  design inlet temperature on vapor side
+        |  Applicable only and required for liquid suction heat exchangers (LSHX)
+        |  Design vapor inlet temperature must be less than or equal to
+        |  the Liquid inlet design temp
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Design Vapor Inlet Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -4896,8 +5068,9 @@ class RefrigerationSubcooler(DataObject):
     @property
     def capacityproviding_system(self):
         """field `Capacity-Providing System`
-        Name of the Detailed Refrigeration System providing cooling capacity
-        Applicable only and required for mechanical subcoolers
+
+        |  Name of the Detailed Refrigeration System providing cooling capacity
+        |  Applicable only and required for mechanical subcoolers
 
         Args:
             value (str): value for IDD Field `Capacity-Providing System`
@@ -4919,13 +5092,14 @@ class RefrigerationSubcooler(DataObject):
 
     @property
     def outlet_control_temperature(self):
-        """field `Outlet Control Temperature` Control Temperature Out for
-        subcooled liquid Applicable only and required for mechanical
-        subcoolers.
+        """field `Outlet Control Temperature`
+
+        |  Control Temperature Out for subcooled liquid
+        |  Applicable only and required for mechanical subcoolers
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Outlet Control Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5068,16 +5242,17 @@ class RefrigerationCompressor(DataObject):
     @property
     def refrigeration_compressor_power_curve_name(self):
         """field `Refrigeration Compressor Power Curve Name`
-        Table:TwoIndependentVariable object can also be used
-        the input order for the Curve:Bicubic does not
-        match the ARI 540-2004 Eq. 1 coefficient order
-        N1 is ARI_C1, N2 is ARI_C2, N3 is ARI_C4, N4 is ARI_C3,
-        N5 is ARI_C6, N6 is ARI_C5, N7 is ARI_C7, N8 is ARI_C10,
-        N9 is ARI_C8, N10 is ARI_C9,
-        N11 is Minimum Suction dewpoint temperature,
-        N12 is Maximum Suction dewpoint temperature,
-        N13 is Minimum Discharge dewpoint temperature,
-        N14 is Maximum Discharge dewpoint temperature
+
+        |  Table:TwoIndependentVariable object can also be used
+        |  the input order for the Curve:Bicubic does not
+        |  match the ARI 540-2004 Eq. 1 coefficient order
+        |  N1 is ARI_C1, N2 is ARI_C2, N3 is ARI_C4, N4 is ARI_C3,
+        |  N5 is ARI_C6, N6 is ARI_C5, N7 is ARI_C7, N8 is ARI_C10,
+        |  N9 is ARI_C8, N10 is ARI_C9,
+        |  N11 is Minimum Suction dewpoint temperature,
+        |  N12 is Maximum Suction dewpoint temperature,
+        |  N13 is Minimum Discharge dewpoint temperature,
+        |  N14 is Maximum Discharge dewpoint temperature
 
         Args:
             value (str): value for IDD Field `Refrigeration Compressor Power Curve Name`
@@ -5087,6 +5262,7 @@ class RefrigerationCompressor(DataObject):
 
         Returns:
             str: the value of `refrigeration_compressor_power_curve_name` or None if not set
+
         """
         return self["Refrigeration Compressor Power Curve Name"]
 
@@ -5099,16 +5275,17 @@ class RefrigerationCompressor(DataObject):
     @property
     def refrigeration_compressor_capacity_curve_name(self):
         """field `Refrigeration Compressor Capacity Curve Name`
-        Table:TwoIndependentVariable object can also be used
-        the input order for the Curve:Bicubic does not
-        match the ARI 540-2004 Eq. 1 coefficient order
-        N1 is ARI_C1, N2 is ARI_C2, N3 is ARI_C4, N4 is ARI_C3,
-        N5 is ARI_C6, N6 is ARI_C5, N7 is ARI_C7, N8 is ARI_C10,
-        N9 is ARI_C8, N10 is ARI_C9,
-        N11 is Minimum Suction dewpoint temperature,
-        N12 is Maximum Suction dewpoint temperature,
-        N13 is Minimum Discharge dewpoint temperature,
-        N14 is Maximum Discharge dewpoint temperature
+
+        |  Table:TwoIndependentVariable object can also be used
+        |  the input order for the Curve:Bicubic does not
+        |  match the ARI 540-2004 Eq. 1 coefficient order
+        |  N1 is ARI_C1, N2 is ARI_C2, N3 is ARI_C4, N4 is ARI_C3,
+        |  N5 is ARI_C6, N6 is ARI_C5, N7 is ARI_C7, N8 is ARI_C10,
+        |  N9 is ARI_C8, N10 is ARI_C9,
+        |  N11 is Minimum Suction dewpoint temperature,
+        |  N12 is Maximum Suction dewpoint temperature,
+        |  N13 is Minimum Discharge dewpoint temperature,
+        |  N14 is Maximum Discharge dewpoint temperature
 
         Args:
             value (str): value for IDD Field `Refrigeration Compressor Capacity Curve Name`
@@ -5118,6 +5295,7 @@ class RefrigerationCompressor(DataObject):
 
         Returns:
             str: the value of `refrigeration_compressor_capacity_curve_name` or None if not set
+
         """
         return self["Refrigeration Compressor Capacity Curve Name"]
 
@@ -5129,13 +5307,15 @@ class RefrigerationCompressor(DataObject):
 
     @property
     def rated_superheat(self):
-        """field `Rated Superheat` Use this input field OR the next, not both
-        This is used if the compressor rating is based upon degrees of
-        superheat.
+        """field `Rated Superheat`
+
+        |  Use this input field OR the next, not both
+        |  This is used if the compressor rating is based upon
+        |  degrees of superheat
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Rated Superheat`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5153,13 +5333,15 @@ class RefrigerationCompressor(DataObject):
 
     @property
     def rated_return_gas_temperature(self):
-        """field `Rated Return Gas Temperature` Use this input field OR the
-        previous, not both This is used if the compressor rating is based upon
-        rated return gas temperature (Rated Suction Temperature)
+        """field `Rated Return Gas Temperature`
+
+        |  Use this input field OR the previous, not both
+        |  This is used if the compressor rating is based upon
+        |  rated return gas temperature (Rated Suction Temperature)
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Rated Return Gas Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5177,13 +5359,15 @@ class RefrigerationCompressor(DataObject):
 
     @property
     def rated_liquid_temperature(self):
-        """field `Rated Liquid Temperature` Use this input field OR the next,
-        not both This is used if the compressor rating is based upon rated
-        liquid temperature at the expansion valve.
+        """field `Rated Liquid Temperature`
+
+        |  Use this input field OR the next, not both
+        |  This is used if the compressor rating is based upon
+        |  rated liquid temperature at the expansion valve
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Rated Liquid Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5201,13 +5385,15 @@ class RefrigerationCompressor(DataObject):
 
     @property
     def rated_subcooling(self):
-        """field `Rated Subcooling` Use this input field OR the previous, not
-        both This is used if the compressor rating is based upon degrees of
-        subcooling.
+        """field `Rated Subcooling`
+
+        |  Use this input field OR the previous, not both
+        |  This is used if the compressor rating is based upon
+        |  degrees of subcooling
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Rated Subcooling`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5227,9 +5413,10 @@ class RefrigerationCompressor(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5250,9 +5437,10 @@ class RefrigerationCompressor(DataObject):
     def mode_of_operation(self):
         """field `Mode of Operation`
 
+        |  Default value: Subcritical
+
         Args:
             value (str): value for IDD Field `Mode of Operation`
-                Default value: Subcritical
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5581,11 +5769,12 @@ class RefrigerationSystem(DataObject):
     @property
     def refrigerated_case_or_walkin_or_caseandwalkinlist_name(self):
         """field `Refrigerated Case or Walkin or CaseAndWalkInList Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-        If there is more than one refrigerated case or walkin served by this system,
-        enter the name of a Refrigeration:CaseAndWalkInList object.
-        Only cases and walkins served directly by the system should be included in this list.
-        Any cases served indirectly via a secondary chiller should NOT be included in this list
+
+        |  Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
+        |  If there is more than one refrigerated case or walkin served by this system,
+        |  enter the name of a Refrigeration:CaseAndWalkInList object.
+        |  Only cases and walkins served directly by the system should be included in this list.
+        |  Any cases served indirectly via a secondary chiller should NOT be included in this list
 
         Args:
             value (str): value for IDD Field `Refrigerated Case or Walkin or CaseAndWalkInList Name`
@@ -5595,6 +5784,7 @@ class RefrigerationSystem(DataObject):
 
         Returns:
             str: the value of `refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
+
         """
         return self["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
@@ -5609,12 +5799,13 @@ class RefrigerationSystem(DataObject):
     @property
     def refrigeration_transfer_load_or_transferload_list_name(self):
         """field `Refrigeration Transfer Load or TransferLoad List Name`
-        Enter the name of a Refrigeration:SecondarySystem object OR
-        a Refrigeration:Condenser:Cascade object OR,
-        a Refrigeration:TransferLoadList object.
-        A transfer load is identified as one which moves the load from one system to another.
-        So if you have more than one such load (including cascade condensers and secondary
-        loops) served by the same system, use a TransferLoadList object.
+
+        |  Enter the name of a Refrigeration:SecondarySystem object OR
+        |  a Refrigeration:Condenser:Cascade object OR,
+        |  a Refrigeration:TransferLoadList object.
+        |  A transfer load is identified as one which moves the load from one system to another.
+        |  So if you have more than one such load (including cascade condensers and secondary
+        |  loops) served by the same system, use a TransferLoadList object.
 
         Args:
             value (str): value for IDD Field `Refrigeration Transfer Load or TransferLoad List Name`
@@ -5624,6 +5815,7 @@ class RefrigerationSystem(DataObject):
 
         Returns:
             str: the value of `refrigeration_transfer_load_or_transferload_list_name` or None if not set
+
         """
         return self["Refrigeration Transfer Load or TransferLoad List Name"]
 
@@ -5679,12 +5871,14 @@ class RefrigerationSystem(DataObject):
 
     @property
     def minimum_condensing_temperature(self):
-        """field `Minimum Condensing Temperature` related to the proper
-        operation of the thermal expansion valves and compressors.
+        """field `Minimum Condensing Temperature`
+
+        |  related to the proper operation of the thermal expansion
+        |  valves and compressors
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Minimum Condensing Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5703,11 +5897,12 @@ class RefrigerationSystem(DataObject):
     @property
     def refrigeration_system_working_fluid_type(self):
         """field `Refrigeration System Working Fluid Type`
-        Fluid property data for the refrigerant must be entered.
-        The fluid property data, including the objects:
-        FluidProperties:Name, FluidProperties:Temperatures,
-        FluidProperties:Saturated and FluidProperties:Superheated
-        can be copied from the FluidPropertiesRefData.idf dataset
+
+        |  Fluid property data for the refrigerant must be entered.
+        |  The fluid property data, including the objects:
+        |  FluidProperties:Name, FluidProperties:Temperatures,
+        |  FluidProperties:Saturated and FluidProperties:Superheated
+        |  can be copied from the FluidPropertiesRefData.idf dataset
 
         Args:
             value (str): value for IDD Field `Refrigeration System Working Fluid Type`
@@ -5717,6 +5912,7 @@ class RefrigerationSystem(DataObject):
 
         Returns:
             str: the value of `refrigeration_system_working_fluid_type` or None if not set
+
         """
         return self["Refrigeration System Working Fluid Type"]
 
@@ -5730,9 +5926,10 @@ class RefrigerationSystem(DataObject):
     def suction_temperature_control_type(self):
         """field `Suction Temperature Control Type`
 
+        |  Default value: ConstantSuctionTemperature
+
         Args:
             value (str): value for IDD Field `Suction Temperature Control Type`
-                Default value: ConstantSuctionTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5752,9 +5949,11 @@ class RefrigerationSystem(DataObject):
 
     @property
     def mechanical_subcooler_name(self):
-        """field `Mechanical Subcooler Name` Optional Field Recipient of
-        refrigeration capacity, that is receives cool liquid from another
-        refrigeraiton system to help meet aggregate case loads.
+        """field `Mechanical Subcooler Name`
+
+        |  Optional Field
+        |  Recipient of refrigeration capacity, that is receives cool liquid
+        |  from another refrigeraiton system to help meet aggregate case loads
 
         Args:
             value (str): value for IDD Field `Mechanical Subcooler Name`
@@ -5775,8 +5974,10 @@ class RefrigerationSystem(DataObject):
 
     @property
     def liquid_suction_heat_exchanger_subcooler_name(self):
-        """field `Liquid Suction Heat Exchanger Subcooler Name` Optional Field
-        Liquid Suction Heat Exchanger Name, or leave blank.
+        """field `Liquid Suction Heat Exchanger Subcooler Name`
+
+        |  Optional Field
+        |  Liquid Suction Heat Exchanger Name, or leave blank
 
         Args:
             value (str): value for IDD Field `Liquid Suction Heat Exchanger Subcooler Name`
@@ -5798,12 +5999,13 @@ class RefrigerationSystem(DataObject):
 
     @property
     def sum_ua_suction_piping(self):
-        """field `Sum UA Suction Piping` Use only if you want to include
-        suction piping heat gain in refrigeration load.
+        """field `Sum UA Suction Piping`
+
+        |  Use only if you want to include suction piping heat gain in refrigeration load
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Sum UA Suction Piping`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5822,9 +6024,10 @@ class RefrigerationSystem(DataObject):
     @property
     def suction_piping_zone_name(self):
         """field `Suction Piping Zone Name`
-        This will be used to determine the temperature used for distribution piping heat gain
-        and the pipe heat gains  as cooling credit for the zone.
-        Required only if Sum UA Distribution Piping >0.0
+
+        |  This will be used to determine the temperature used for distribution piping heat gain
+        |  and the pipe heat gains  as cooling credit for the zone.
+        |  Required only if Sum UA Distribution Piping >0.0
 
         Args:
             value (str): value for IDD Field `Suction Piping Zone Name`
@@ -5834,6 +6037,7 @@ class RefrigerationSystem(DataObject):
 
         Returns:
             str: the value of `suction_piping_zone_name` or None if not set
+
         """
         return self["Suction Piping Zone Name"]
 
@@ -5846,9 +6050,10 @@ class RefrigerationSystem(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5869,9 +6074,10 @@ class RefrigerationSystem(DataObject):
     def number_of_compressor_stages(self):
         """field `Number of Compressor Stages`
 
+        |  Default value: 1
+
         Args:
             value (int): value for IDD Field `Number of Compressor Stages`
-                Default value: 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5891,9 +6097,10 @@ class RefrigerationSystem(DataObject):
     def intercooler_type(self):
         """field `Intercooler Type`
 
+        |  Default value: None
+
         Args:
             value (str): value for IDD Field `Intercooler Type`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5913,9 +6120,10 @@ class RefrigerationSystem(DataObject):
     def shellandcoil_intercooler_effectiveness(self):
         """field `Shell-and-Coil Intercooler Effectiveness`
 
+        |  Default value: 0.8
+
         Args:
             value (float): value for IDD Field `Shell-and-Coil Intercooler Effectiveness`
-                Default value: 0.8
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -5935,6 +6143,7 @@ class RefrigerationSystem(DataObject):
     @property
     def highstage_compressor_or_compressorlist_name(self):
         """field `High-Stage Compressor or CompressorList Name`
+
 
         Args:
             value (str): value for IDD Field `High-Stage Compressor or CompressorList Name`
@@ -6134,12 +6343,14 @@ class RefrigerationTranscriticalSystem(DataObject):
     @property
     def medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name(
             self):
-        """field `Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-        If there is more than one refrigerated case or walkin served by this system,
-        enter the name of a Refrigeration:CaseAndWalkInList object.
-        Only medium temperature cases and walkins served directly by the system should
-        be included in this list.
+        """field `Medium Temperature Refrigerated Case or Walkin or
+        CaseAndWalkInList Name`
+
+        |  Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
+        |  If there is more than one refrigerated case or walkin served by this system,
+        |  enter the name of a Refrigeration:CaseAndWalkInList object.
+        |  Only medium temperature cases and walkins served directly by the system should
+        |  be included in this list.
 
         Args:
             value (str): value for IDD Field `Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name`
@@ -6149,6 +6360,7 @@ class RefrigerationTranscriticalSystem(DataObject):
 
         Returns:
             str: the value of `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
+
         """
         return self[
             "Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
@@ -6165,12 +6377,14 @@ class RefrigerationTranscriticalSystem(DataObject):
     @property
     def low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name(
             self):
-        """field `Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-        If there is more than one refrigerated case or walkin served by this system,
-        enter the name of a Refrigeration:CaseAndWalkInList object.
-        Only low temperature cases and walkins served directly by the system should be
-        included in this list.
+        """field `Low Temperature Refrigerated Case or Walkin or
+        CaseAndWalkInList Name`
+
+        |  Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
+        |  If there is more than one refrigerated case or walkin served by this system,
+        |  enter the name of a Refrigeration:CaseAndWalkInList object.
+        |  Only low temperature cases and walkins served directly by the system should be
+        |  included in this list.
 
         Args:
             value (str): value for IDD Field `Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name`
@@ -6180,6 +6394,7 @@ class RefrigerationTranscriticalSystem(DataObject):
 
         Returns:
             str: the value of `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
+
         """
         return self[
             "Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
@@ -6262,10 +6477,11 @@ class RefrigerationTranscriticalSystem(DataObject):
     def receiver_pressure(self):
         """field `Receiver Pressure`
 
+        |  Units: Pa
+        |  Default value: 4000000.0
+
         Args:
             value (float): value for IDD Field `Receiver Pressure`
-                Units: Pa
-                Default value: 4000000.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6285,9 +6501,10 @@ class RefrigerationTranscriticalSystem(DataObject):
     def subcooler_effectiveness(self):
         """field `Subcooler Effectiveness`
 
+        |  Default value: 0.4
+
         Args:
             value (float): value for IDD Field `Subcooler Effectiveness`
-                Default value: 0.4
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6306,11 +6523,12 @@ class RefrigerationTranscriticalSystem(DataObject):
     @property
     def refrigeration_system_working_fluid_type(self):
         """field `Refrigeration System Working Fluid Type`
-        Fluid property data for the refrigerant must be entered.
-        The fluid property data, including the objects:
-        FluidProperties:Name, FluidProperties:Temperatures,
-        FluidProperties:Saturated and FluidProperties:Superheated
-        can be copied from the FluidPropertiesRefData.idf dataset
+
+        |  Fluid property data for the refrigerant must be entered.
+        |  The fluid property data, including the objects:
+        |  FluidProperties:Name, FluidProperties:Temperatures,
+        |  FluidProperties:Saturated and FluidProperties:Superheated
+        |  can be copied from the FluidPropertiesRefData.idf dataset
 
         Args:
             value (str): value for IDD Field `Refrigeration System Working Fluid Type`
@@ -6320,6 +6538,7 @@ class RefrigerationTranscriticalSystem(DataObject):
 
         Returns:
             str: the value of `refrigeration_system_working_fluid_type` or None if not set
+
         """
         return self["Refrigeration System Working Fluid Type"]
 
@@ -6331,12 +6550,13 @@ class RefrigerationTranscriticalSystem(DataObject):
 
     @property
     def sum_ua_suction_piping_for_medium_temperature_loads(self):
-        """field `Sum UA Suction Piping for Medium Temperature Loads` Use only
-        if you want to include suction piping heat gain in refrigeration load.
+        """field `Sum UA Suction Piping for Medium Temperature Loads`
+
+        |  Use only if you want to include suction piping heat gain in refrigeration load
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Sum UA Suction Piping for Medium Temperature Loads`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6356,9 +6576,10 @@ class RefrigerationTranscriticalSystem(DataObject):
     @property
     def medium_temperature_suction_piping_zone_name(self):
         """field `Medium Temperature Suction Piping Zone Name`
-        This will be used to determine the temperature used for distribution piping heat
-        gain and the pipe heat gains as cooling credit for the zone.
-        Required only if Sum UA Distribution Piping for Medium Temperature Loads > 0.0
+
+        |  This will be used to determine the temperature used for distribution piping heat
+        |  gain and the pipe heat gains as cooling credit for the zone.
+        |  Required only if Sum UA Distribution Piping for Medium Temperature Loads > 0.0
 
         Args:
             value (str): value for IDD Field `Medium Temperature Suction Piping Zone Name`
@@ -6368,6 +6589,7 @@ class RefrigerationTranscriticalSystem(DataObject):
 
         Returns:
             str: the value of `medium_temperature_suction_piping_zone_name` or None if not set
+
         """
         return self["Medium Temperature Suction Piping Zone Name"]
 
@@ -6379,12 +6601,13 @@ class RefrigerationTranscriticalSystem(DataObject):
 
     @property
     def sum_ua_suction_piping_for_low_temperature_loads(self):
-        """field `Sum UA Suction Piping for Low Temperature Loads` Use only if
-        you want to include suction piping heat gain in refrigeration load.
+        """field `Sum UA Suction Piping for Low Temperature Loads`
+
+        |  Use only if you want to include suction piping heat gain in refrigeration load
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Sum UA Suction Piping for Low Temperature Loads`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6404,9 +6627,10 @@ class RefrigerationTranscriticalSystem(DataObject):
     @property
     def low_temperature_suction_piping_zone_name(self):
         """field `Low Temperature Suction Piping Zone Name`
-        This will be used to determine the temperature used for distribution piping heat
-        gain and the pipe heat gains as cooling credit for the zone.
-        Required only if Sum UA Distribution Piping for Low Temperature Loads > 0.0
+
+        |  This will be used to determine the temperature used for distribution piping heat
+        |  gain and the pipe heat gains as cooling credit for the zone.
+        |  Required only if Sum UA Distribution Piping for Low Temperature Loads > 0.0
 
         Args:
             value (str): value for IDD Field `Low Temperature Suction Piping Zone Name`
@@ -6416,6 +6640,7 @@ class RefrigerationTranscriticalSystem(DataObject):
 
         Returns:
             str: the value of `low_temperature_suction_piping_zone_name` or None if not set
+
         """
         return self["Low Temperature Suction Piping Zone Name"]
 
@@ -6429,9 +6654,10 @@ class RefrigerationTranscriticalSystem(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6687,9 +6913,10 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def refrigerated_case_or_walkin_or_caseandwalkinlist_name(self):
         """field `Refrigerated Case or Walkin or CaseAndWalkInList Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-        If there is more than one refrigerated case or walkin served by this secondary system,
-        enter the name of a Refrigeration:CaseAndWalkInList object.
+
+        |  Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
+        |  If there is more than one refrigerated case or walkin served by this secondary system,
+        |  enter the name of a Refrigeration:CaseAndWalkInList object.
 
         Args:
             value (str): value for IDD Field `Refrigerated Case or Walkin or CaseAndWalkInList Name`
@@ -6699,6 +6926,7 @@ class RefrigerationSecondarySystem(DataObject):
 
         Returns:
             str: the value of `refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
+
         """
         return self["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
@@ -6713,16 +6941,17 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def circulating_fluid_type(self):
         """field `Circulating Fluid Type`
-        If "FluidAlwaysLiquid" is selected, the fluid properties
-        must be input using the objects: FluidProperties:Name,
-        FluidProperties:GlycolConcentration, and, if user defined fluid type,
-        FluidProperties:Temperatures and FluidProperties:Concentration.
-        Many sets of fluid properties can be found in GlycolPropertiesRefData.idf.
-        If "FluidPhaseChange" is selected, the refrigerant properties
-        must be input using the objects: (if user defined fluid type): FluidProperties:Name,
-        FluidProperties:Temperatures, FluidProperties:Saturated, and
-        FluidProperties:Superheated.
-        Many sets of refrigerant data can be found in FluidPropertiesRefData.idf.
+
+        |  If "FluidAlwaysLiquid" is selected, the fluid properties
+        |  must be input using the objects: FluidProperties:Name,
+        |  FluidProperties:GlycolConcentration, and, if user defined fluid type,
+        |  FluidProperties:Temperatures and FluidProperties:Concentration.
+        |  Many sets of fluid properties can be found in GlycolPropertiesRefData.idf.
+        |  If "FluidPhaseChange" is selected, the refrigerant properties
+        |  must be input using the objects: (if user defined fluid type): FluidProperties:Name,
+        |  FluidProperties:Temperatures, FluidProperties:Saturated, and
+        |  FluidProperties:Superheated.
+        |  Many sets of refrigerant data can be found in FluidPropertiesRefData.idf.
 
         Args:
             value (str): value for IDD Field `Circulating Fluid Type`
@@ -6732,6 +6961,7 @@ class RefrigerationSecondarySystem(DataObject):
 
         Returns:
             str: the value of `circulating_fluid_type` or None if not set
+
         """
         return self["Circulating Fluid Type"]
 
@@ -6743,7 +6973,8 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def circulating_fluid_name(self):
         """field `Circulating Fluid Name`
-        This must correspond to a name in the FluidProperties:Name object.
+
+        |  This must correspond to a name in the FluidProperties:Name object.
 
         Args:
             value (str): value for IDD Field `Circulating Fluid Name`
@@ -6753,6 +6984,7 @@ class RefrigerationSecondarySystem(DataObject):
 
         Returns:
             str: the value of `circulating_fluid_name` or None if not set
+
         """
         return self["Circulating Fluid Name"]
 
@@ -6764,20 +6996,22 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def evaporator_capacity(self):
         """field `Evaporator Capacity`
-        For "FluidAlwaysLiquid", at least one of the two, Evaporator Capacity OR
-        Evaporator Flow Rate for Secondary Fluid, is required.
-        For "FluidPhaseChange", the default capacity is the sum of the rated capacities of the
-        Cases and Walk-ins served by the secondary loop.
+
+        |  For "FluidAlwaysLiquid", at least one of the two, Evaporator Capacity OR
+        |  Evaporator Flow Rate for Secondary Fluid, is required.
+        |  For "FluidPhaseChange", the default capacity is the sum of the rated capacities of the
+        |  Cases and Walk-ins served by the secondary loop.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Evaporator Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporator_capacity` or None if not set
+
         """
         return self["Evaporator Capacity"]
 
@@ -6788,15 +7022,16 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def evaporator_flow_rate_for_secondary_fluid(self):
-        """field `Evaporator Flow Rate for Secondary Fluid` For
-        "FluidAlwaysLiquid", at least one of the two, Evaporator Capacity OR
-        Evaporator Flow Rate for Secondary Fluid, is required. For
-        "FluidPhaseChange" loops, this input is not used. (see PhaseChange
-        Circulating Rate)
+        """field `Evaporator Flow Rate for Secondary Fluid`
+
+        |  For "FluidAlwaysLiquid", at least one of the two, Evaporator Capacity OR
+        |  Evaporator Flow Rate for Secondary Fluid, is required.
+        |  For "FluidPhaseChange" loops, this input is not used. (see PhaseChange Circulating
+        |  Rate)
+        |  Units: M3/s
 
         Args:
             value (float): value for IDD Field `Evaporator Flow Rate for Secondary Fluid`
-                Units: M3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6816,20 +7051,22 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def evaporator_evaporating_temperature(self):
         """field `Evaporator Evaporating Temperature`
-        This is the evaporating temperature in the heat exchanger
-        used to chill or condense the secondary loop circulating fluid.
-        It is NOT the temperature in any cases or walk-ins served by the
-        secondary loop.
+
+        |  This is the evaporating temperature in the heat exchanger
+        |  used to chill or condense the secondary loop circulating fluid.
+        |  It is NOT the temperature in any cases or walk-ins served by the
+        |  secondary loop.
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Evaporator Evaporating Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `evaporator_evaporating_temperature` or None if not set
+
         """
         return self["Evaporator Evaporating Temperature"]
 
@@ -6840,16 +7077,17 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def evaporator_approach_temperature_difference(self):
-        """field `Evaporator Approach Temperature Difference` For
-        "FluidAlwaysLiquid", this is the rated difference between the
-        temperature of the circulating fluid leaving the heat exchanger and the
-        heat exchanger's rated evaporating temperature. For "FluidPhaseChange",
-        this is the difference between the temperature of the evaporating and
-        condensing temperatures in the heat exchanger.
+        """field `Evaporator Approach Temperature Difference`
+
+        |  For "FluidAlwaysLiquid", this is the rated difference between the temperature of the
+        |  circulating fluid leaving the heat exchanger
+        |  and the heat exchanger's rated evaporating temperature.
+        |  For "FluidPhaseChange", this is the difference between the temperature of the
+        |  evaporating and condensing temperatures in the heat exchanger.
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Evaporator Approach Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6868,15 +7106,16 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def evaporator_range_temperature_difference(self):
-        """field `Evaporator Range Temperature Difference` For
-        "FluidAlwaysLiquid", this is the rated difference between the
-        temperature of the circulating fluid entering the heat exchanger and
-        the temperature of the circulating fluid leaving the heat exchanger,
-        and is Required. For "FluidPhaseChange", this input is not used.
+        """field `Evaporator Range Temperature Difference`
+
+        |  For "FluidAlwaysLiquid", this is the rated difference between the temperature of the
+        |  circulating fluid entering the heat exchanger and the temperature of the
+        |  circulating fluid leaving the heat exchanger, and is Required.
+        |  For "FluidPhaseChange", this input is not used.
+        |  Units: DeltaC
 
         Args:
             value (float): value for IDD Field `Evaporator Range Temperature Difference`
-                Units: DeltaC
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6897,9 +7136,10 @@ class RefrigerationSecondarySystem(DataObject):
     def number_of_pumps_in_loop(self):
         """field `Number of Pumps in Loop`
 
+        |  Default value: 1
+
         Args:
             value (int): value for IDD Field `Number of Pumps in Loop`
-                Default value: 1
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6917,14 +7157,16 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def total_pump_flow_rate(self):
-        """field `Total Pump Flow Rate` For "FluidAlwaysLiquid",if not input,
-        Evaporator Flow Rate for Secondary Fluid will be used. For
-        "FluidPhaseChange", if not input, this will be calculated using the
-        PhaseChange Circulating Rate.
+        """field `Total Pump Flow Rate`
+
+        |  For "FluidAlwaysLiquid",if not input, Evaporator Flow Rate for Secondary Fluid
+        |  will be used.
+        |  For "FluidPhaseChange", if not input, this will be calculated using the
+        |  PhaseChange Circulating Rate.
+        |  Units: M3/s
 
         Args:
             value (float): value for IDD Field `Total Pump Flow Rate`
-                Units: M3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6942,12 +7184,13 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def total_pump_power(self):
-        """field `Total Pump Power` Either the Total Pump Power or the Total
-        Pump Head is required.
+        """field `Total Pump Power`
+
+        |  Either the Total Pump Power or the Total Pump Head is required.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Total Pump Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6965,12 +7208,13 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def total_pump_head(self):
-        """field `Total Pump Head` Either the Total Pump Power or the Total
-        Pump Head is required.
+        """field `Total Pump Head`
+
+        |  Either the Total Pump Power or the Total Pump Head is required.
+        |  Units: Pa
 
         Args:
             value (float): value for IDD Field `Total Pump Head`
-                Units: Pa
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -6988,15 +7232,16 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def phasechange_circulating_rate(self):
-        """field `PhaseChange Circulating Rate` This is the total mass flow at
-        the pump divided by the gaseous mass flow leaving the refrigeration
-        load.
+        """field `PhaseChange Circulating Rate`
+
+        |  This is the total mass flow at the pump divided by the gaseous mass flow
+        |  leaving the refrigeration load.
+        |  Units: dimensionless
+        |  Default value: 2.5
+        |  value >= 1.0
 
         Args:
             value (float): value for IDD Field `PhaseChange Circulating Rate`
-                Units: dimensionless
-                Default value: 2.5
-                value >= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7016,9 +7261,10 @@ class RefrigerationSecondarySystem(DataObject):
     def pump_drive_type(self):
         """field `Pump Drive Type`
 
+        |  Default value: Constant
+
         Args:
             value (str): value for IDD Field `Pump Drive Type`
-                Default value: Constant
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7036,8 +7282,10 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def variable_speed_pump_cubic_curve_name(self):
-        """field `Variable Speed Pump Cubic Curve Name` Variable Speed Pump
-        Curve Name is applicable to variable speed pumps only.
+        """field `Variable Speed Pump Cubic Curve Name`
+
+        |  Variable Speed Pump Curve Name is applicable to variable speed pumps
+        |  only.
 
         Args:
             value (str): value for IDD Field `Variable Speed Pump Cubic Curve Name`
@@ -7059,22 +7307,24 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def pump_motor_heat_to_fluid(self):
         """field `Pump Motor Heat to Fluid`
-        This is the portion of the pump motor heat added to secondary circulating fluid
-        and is equal to the motor efficiency for non-hermetic motor.
-        Enter 1.0 for a semi-hermetic motor.
+
+        |  This is the portion of the pump motor heat added to secondary circulating fluid
+        |  and is equal to the motor efficiency for non-hermetic motor.
+        |  Enter 1.0 for a semi-hermetic motor.
+        |  Units: dimensionless
+        |  Default value: 0.85
+        |  value >= 0.5
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Pump Motor Heat to Fluid`
-                Units: dimensionless
-                Default value: 0.85
-                value >= 0.5
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `pump_motor_heat_to_fluid` or None if not set
+
         """
         return self["Pump Motor Heat to Fluid"]
 
@@ -7085,12 +7335,13 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def sum_ua_distribution_piping(self):
-        """field `Sum UA Distribution Piping` Use only if you want to include
-        distribution piping heat gain in refrigeration load.
+        """field `Sum UA Distribution Piping`
+
+        |  Use only if you want to include distribution piping heat gain in refrigeration load.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Sum UA Distribution Piping`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7109,9 +7360,10 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def distribution_piping_zone_name(self):
         """field `Distribution Piping Zone Name`
-        This will be used to determine the temperature used for distribution piping heat gain.
-        The pipe heat gains are also counted as cooling credit for the zone.
-        Required only if Sum UA Distribution Piping >0.0
+
+        |  This will be used to determine the temperature used for distribution piping heat gain.
+        |  The pipe heat gains are also counted as cooling credit for the zone.
+        |  Required only if Sum UA Distribution Piping >0.0
 
         Args:
             value (str): value for IDD Field `Distribution Piping Zone Name`
@@ -7121,6 +7373,7 @@ class RefrigerationSecondarySystem(DataObject):
 
         Returns:
             str: the value of `distribution_piping_zone_name` or None if not set
+
         """
         return self["Distribution Piping Zone Name"]
 
@@ -7131,12 +7384,13 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def sum_ua_receiver_or_separator_shell(self):
-        """field `Sum UA Receiver/Separator Shell` Use only if you want to
-        include Receiver/Separator Shell heat gain in refrigeration load.
+        """field `Sum UA Receiver/Separator Shell`
+
+        |  Use only if you want to include Receiver/Separator Shell heat gain in refrigeration load.
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Sum UA Receiver/Separator Shell`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7155,9 +7409,10 @@ class RefrigerationSecondarySystem(DataObject):
     @property
     def receiver_or_separator_zone_name(self):
         """field `Receiver/Separator Zone Name`
-        This will be used to determine the temperature used for Receiver/Separator Shell heat gain.
-        The shell heat gains are also counted as cooling credit for the zone.
-        Required only if Sum UA Receiver/Separator Shell >0.0
+
+        |  This will be used to determine the temperature used for Receiver/Separator Shell heat gain.
+        |  The shell heat gains are also counted as cooling credit for the zone.
+        |  Required only if Sum UA Receiver/Separator Shell >0.0
 
         Args:
             value (str): value for IDD Field `Receiver/Separator Zone Name`
@@ -7167,6 +7422,7 @@ class RefrigerationSecondarySystem(DataObject):
 
         Returns:
             str: the value of `receiver_or_separator_zone_name` or None if not set
+
         """
         return self["Receiver/Separator Zone Name"]
 
@@ -7177,14 +7433,15 @@ class RefrigerationSecondarySystem(DataObject):
 
     @property
     def evaporator_refrigerant_inventory(self):
-        """field `Evaporator Refrigerant Inventory` This value refers to the
-        refrigerant circulating within the primary system providing cooling to
-        the chiller for the secondary loop, not to the fluid circulating within
-        the secondary loop itself.
+        """field `Evaporator Refrigerant Inventory`
+
+        |  This value refers to the refrigerant circulating within the primary system providing
+        |  cooling to the chiller for the secondary loop, not to the fluid circulating
+        |  within the secondary loop itself.
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Evaporator Refrigerant Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7204,9 +7461,10 @@ class RefrigerationSecondarySystem(DataObject):
     def enduse_subcategory(self):
         """field `End-Use Subcategory`
 
+        |  Default value: General
+
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
-                Default value: General
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7554,9 +7812,10 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -7579,9 +7838,10 @@ class RefrigerationWalkIn(DataObject):
     def rated_coil_cooling_capacity(self):
         """field `Rated Coil Cooling Capacity`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Coil Cooling Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7601,10 +7861,11 @@ class RefrigerationWalkIn(DataObject):
     def operating_temperature(self):
         """field `Operating Temperature`
 
+        |  Units: C
+        |  value < 20.0
+
         Args:
             value (float): value for IDD Field `Operating Temperature`
-                Units: C
-                value < 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7622,16 +7883,18 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def rated_cooling_source_temperature(self):
-        """field `Rated Cooling Source Temperature` If DXEvaporator, use
-        evaporating temperature (saturated suction temperature) If BrineCoil,
-        use Brine entering temperature used to set minimum suction pressure for
-        DX systems and minimum brine temp for secondary systems.
+        """field `Rated Cooling Source Temperature`
+
+        |  If DXEvaporator, use evaporating temperature (saturated suction temperature)
+        |  If BrineCoil, use Brine entering temperature
+        |  used to set minimum suction pressure for DX systems and
+        |  minimum brine temp for secondary systems
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Rated Cooling Source Temperature`
-                Units: C
-                value >= -70.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7650,18 +7913,20 @@ class RefrigerationWalkIn(DataObject):
     @property
     def rated_total_heating_power(self):
         """field `Rated Total Heating Power`
-        Include total for all anti-sweat, door, drip-pan, and floor heater power
-        Do not include defrost heater power
+
+        |  Include total for all anti-sweat, door, drip-pan, and floor heater power
+        |  Do not include defrost heater power
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Total Heating Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_total_heating_power` or None if not set
+
         """
         return self["Rated Total Heating Power"]
 
@@ -7673,11 +7938,12 @@ class RefrigerationWalkIn(DataObject):
     @property
     def heating_power_schedule_name(self):
         """field `Heating Power Schedule Name`
-        Values will be used to multiply the total heating power
-        Values in the schedule should be between 0.0 and 1.0
-        For example, this could be used if display door antisweat heaters
-        are turned off at night
-        Defaults to always on if schedule name left blank.
+
+        |  Values will be used to multiply the total heating power
+        |  Values in the schedule should be between 0.0 and 1.0
+        |  For example, this could be used if display door antisweat heaters
+        |  are turned off at night
+        |  Defaults to always on if schedule name left blank.
 
         Args:
             value (str): value for IDD Field `Heating Power Schedule Name`
@@ -7687,6 +7953,7 @@ class RefrigerationWalkIn(DataObject):
 
         Returns:
             str: the value of `heating_power_schedule_name` or None if not set
+
         """
         return self["Heating Power Schedule Name"]
 
@@ -7699,10 +7966,11 @@ class RefrigerationWalkIn(DataObject):
     def rated_cooling_coil_fan_power(self):
         """field `Rated Cooling Coil Fan Power`
 
+        |  Units: W
+        |  Default value: 375.0
+
         Args:
             value (float): value for IDD Field `Rated Cooling Coil Fan Power`
-                Units: W
-                Default value: 375.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7722,9 +7990,10 @@ class RefrigerationWalkIn(DataObject):
     def rated_circulation_fan_power(self):
         """field `Rated Circulation Fan Power`
 
+        |  Units: W
+
         Args:
             value (float): value for IDD Field `Rated Circulation Fan Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7742,12 +8011,13 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def rated_total_lighting_power(self):
-        """field `Rated Total Lighting Power` Enter the total (display + task)
-        installed lighting power.
+        """field `Rated Total Lighting Power`
+
+        |  Enter the total (display + task) installed lighting power.
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Total Lighting Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7765,8 +8035,10 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def lighting_schedule_name(self):
-        """field `Lighting Schedule Name` The schedule should contain values
-        between 0 and 1 Defaults to always on if schedule name left blank.
+        """field `Lighting Schedule Name`
+
+        |  The schedule should contain values between 0 and 1
+        |  Defaults to always on if schedule name left blank.
 
         Args:
             value (str): value for IDD Field `Lighting Schedule Name`
@@ -7787,13 +8059,14 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def defrost_type(self):
-        """field `Defrost Type` HotFluid includes either hot gas defrost for a
-        DX system or Hot Brine defrost if this walk in is cooled by brine from
-        a secondary chiller.
+        """field `Defrost Type`
+
+        |  HotFluid includes either hot gas defrost for a DX system or
+        |  Hot Brine defrost if this walk in is cooled by brine from a secondary chiller
+        |  Default value: Electric
 
         Args:
             value (str): value for IDD Field `Defrost Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7813,9 +8086,10 @@ class RefrigerationWalkIn(DataObject):
     def defrost_control_type(self):
         """field `Defrost Control Type`
 
+        |  Default value: TimeSchedule
+
         Args:
             value (str): value for IDD Field `Defrost Control Type`
-                Default value: TimeSchedule
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7833,8 +8107,9 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def defrost_schedule_name(self):
-        """field `Defrost Schedule Name` The schedule values should be 0 (off)
-        or 1 (on)
+        """field `Defrost Schedule Name`
+
+        |  The schedule values should be 0 (off) or 1 (on)
 
         Args:
             value (str): value for IDD Field `Defrost Schedule Name`
@@ -7856,12 +8131,13 @@ class RefrigerationWalkIn(DataObject):
     @property
     def defrost_dripdown_schedule_name(self):
         """field `Defrost Drip-Down Schedule Name`
-        The schedule values should be 0 (off) or 1 (on)
-        The start time for each defrost period in this drip-down schedule should coincide with
-        the start time for each defrost period in the defrost schedule (previous input
-        field).The length of each defrost drip-down period must be greater than or equal to the
-        corresponding defrost period specified in the defrost schedule. This extra time
-        allows the melted frost to drip from the coil before refrigeration is restarted.
+
+        |  The schedule values should be 0 (off) or 1 (on)
+        |  The start time for each defrost period in this drip-down schedule should coincide with
+        |  the start time for each defrost period in the defrost schedule (previous input
+        |  field).The length of each defrost drip-down period must be greater than or equal to the
+        |  corresponding defrost period specified in the defrost schedule. This extra time
+        |  allows the melted frost to drip from the coil before refrigeration is restarted.
 
         Args:
             value (str): value for IDD Field `Defrost Drip-Down Schedule Name`
@@ -7883,12 +8159,13 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def defrost_power(self):
-        """field `Defrost Power` needed for all defrost types except none and
-        offcycle.
+        """field `Defrost Power`
+
+        |  needed for all defrost types except none and offcycle
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Defrost Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7907,20 +8184,22 @@ class RefrigerationWalkIn(DataObject):
     @property
     def temperature_termination_defrost_fraction_to_ice(self):
         """field `Temperature Termination Defrost Fraction to Ice`
-        This is the portion of the defrost energy that is available to melt frost
-        Needed only for defrost control type TemperatureTermination
-        defaults to 0.7 for electric defrost and to 0.3 for hot fluid defrost
+
+        |  This is the portion of the defrost energy that is available to melt frost
+        |  Needed only for defrost control type TemperatureTermination
+        |  defaults to 0.7 for electric defrost and to 0.3 for hot fluid defrost
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Temperature Termination Defrost Fraction to Ice`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_termination_defrost_fraction_to_ice` or None if not set
+
         """
         return self["Temperature Termination Defrost Fraction to Ice"]
 
@@ -7932,8 +8211,10 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def restocking_schedule_name(self):
-        """field `Restocking Schedule Name` Schedule values should be in units
-        of Watts Leave this field blank if no restocking is to be modeled.
+        """field `Restocking Schedule Name`
+
+        |  Schedule values should be in units of Watts
+        |  Leave this field blank if no restocking is to be modeled
 
         Args:
             value (str): value for IDD Field `Restocking Schedule Name`
@@ -7954,12 +8235,13 @@ class RefrigerationWalkIn(DataObject):
 
     @property
     def average_refrigerant_charge_inventory(self):
-        """field `Average Refrigerant Charge Inventory` This value is only used
-        if the Cooling Source Type is DXEvaporator.
+        """field `Average Refrigerant Charge Inventory`
+
+        |  This value is only used if the Cooling Source Type is DXEvaporator
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Average Refrigerant Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -7978,17 +8260,19 @@ class RefrigerationWalkIn(DataObject):
     @property
     def insulated_floor_surface_area(self):
         """field `Insulated Floor Surface Area`
-        floor area of walk-in cooler
+
+        |  floor area of walk-in cooler
+        |  Units: m2
 
         Args:
             value (float): value for IDD Field `Insulated Floor Surface Area`
-                Units: m2
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `insulated_floor_surface_area` or None if not set
+
         """
         return self["Insulated Floor Surface Area"]
 
@@ -8000,16 +8284,17 @@ class RefrigerationWalkIn(DataObject):
     @property
     def insulated_floor_uvalue(self):
         """field `Insulated Floor U-Value`
-        The default value corresponds to R18
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R15 is U 0.3785 W/m2-K
-        R5 is U 1.136 W/m2-K
+
+        |  The default value corresponds to R18
+        |  To convert other Archaic American R-values to U, divide 5.678 by the R-value
+        |  Some examples:
+        |  R15 is U 0.3785 W/m2-K
+        |  R5 is U 1.136 W/m2-K
+        |  Units: W/m2-K
+        |  Default value: 0.3154
 
         Args:
             value (float): value for IDD Field `Insulated Floor U-Value`
-                Units: W/m2-K
-                Default value: 0.3154
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8485,9 +8770,10 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -8508,13 +8794,12 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def capacity_rating_type(self):
-        """field `Capacity Rating Type` In each case, select the rating option
-        that corresponds to the expected service conditions. For example, U.S.
-        manufacturers quote a separate Unit Load Factor for wet or frosted
-        coils. If the evaporating temperature is less than 0C, input the
-        frosted coil value. Within the European convention, select SC1, 2, 3,
-        4, or 5 depending upon the expected evaporating temperature.
-        \type choice.
+        """field `Capacity Rating Type`
+
+        |  In each case, select the rating option that corresponds to the expected service conditions.
+        |  For example, U.S. manufacturers quote a separate Unit Load Factor for wet or frosted coils.
+        |  If the evaporating temperature is less than 0C, input the frosted coil value.
+        |  Within the European convention, select SC1, 2, 3, 4, or 5 depending upon the expected evaporating temperature.        \type choice
 
         Args:
             value (str): value for IDD Field `Capacity Rating Type`
@@ -8535,17 +8820,18 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def rated_unit_load_factor(self):
-        """field `Rated Unit Load Factor` The sensible cooling capacity in
-        watts (W/C) at rated conditions. The value entered for this field must
-        be greater than zero, with no default value. This value is only used if
-        the Capacity Rating Type is UnitLoadFactorSensibleOnly. The value given
-        must be based upon the difference between the chiller inlet and outlet
-        air temperatures, not on the difference between the zone mean
-        temperature and the outlet air temperature.
+        """field `Rated Unit Load Factor`
+
+        |  The sensible cooling capacity in watts (W/C) at rated conditions.
+        |  The value entered for this field must be greater than zero, with no default value.
+        |  This value is only used if the Capacity Rating Type is UnitLoadFactorSensibleOnly.
+        |  The value given must be based upon the difference between the chiller inlet and
+        |  outlet air temperatures, not on the difference between the zone mean temperature
+        |  and the outlet air temperature
+        |  Units: W/K
 
         Args:
             value (float): value for IDD Field `Rated Unit Load Factor`
-                Units: W/K
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8563,17 +8849,18 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def rated_capacity(self):
-        """field `Rated Capacity` This value is only used if the Capacity
-        Rating Type is NOT UnitLoadFactorSensibleOnly. For
-        CapacityTotalSpecificConditions, this capacity includes both sensible
-        and latent at the conditions given in the next two fields. Note that
-        the European Standard ratings are sensible only and the European
-        Nominal ratings include latent capacity as well. The value given here
-        must correspond to the capacity rating type given previously.
+        """field `Rated Capacity`
+
+        |  This value is only used if the Capacity Rating Type is NOT UnitLoadFactorSensibleOnly.
+        |  For CapacityTotalSpecificConditions, this capacity includes both sensible and latent
+        |  at the conditions given in the next two fields.
+        |  Note that the European Standard ratings are sensible only and
+        |  the European Nominal ratings include latent capacity as well.
+        |  The value given here must correspond to the capacity rating type given previously
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8592,20 +8879,22 @@ class RefrigerationAirChiller(DataObject):
     @property
     def rated_relative_humidity(self):
         """field `Rated Relative Humidity`
-        This field is ONLY used if the Capacity Rating Type is CapacityTotalSpecificConditions and
-        represents the relative humidity at rated conditions. The default is 85.
+
+        |  This field is ONLY used if the Capacity Rating Type is CapacityTotalSpecificConditions and
+        |  represents the relative humidity at rated conditions. The default is 85.
+        |  Units: percent
+        |  Default value: 85.0
+        |  value <= 100.0
 
         Args:
             value (float): value for IDD Field `Rated Relative Humidity`
-                Units: percent
-                Default value: 85.0
-                value <= 100.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `rated_relative_humidity` or None if not set
+
         """
         return self["Rated Relative Humidity"]
 
@@ -8616,16 +8905,18 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def rated_cooling_source_temperature(self):
-        """field `Rated Cooling Source Temperature` If DXEvaporator, use
-        evaporating temperature (saturated suction temperature) If BrineCoil,
-        use Brine entering temperature used to set minimum suction pressure for
-        DX systems and minimum brine temp for secondary systems.
+        """field `Rated Cooling Source Temperature`
+
+        |  If DXEvaporator, use evaporating temperature (saturated suction temperature)
+        |  If BrineCoil, use Brine entering temperature
+        |  used to set minimum suction pressure for DX systems and
+        |  minimum brine temp for secondary systems
+        |  Units: C
+        |  value >= -70.0
+        |  value <= 40.0
 
         Args:
             value (float): value for IDD Field `Rated Cooling Source Temperature`
-                Units: C
-                value >= -70.0
-                value <= 40.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8643,14 +8934,15 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def rated_temperature_difference_dt1(self):
-        """field `Rated Temperature Difference DT1` The rated difference
-        between the air entering the refrigeration chiller and the cooling
-        source temperature in C.
+        """field `Rated Temperature Difference DT1`
+
+        |  The rated difference between the air entering the refrigeration chiller and the
+        |  cooling source temperature in C.
+        |  Units: deltaC
+        |  value <= 20.0
 
         Args:
             value (float): value for IDD Field `Rated Temperature Difference DT1`
-                Units: deltaC
-                value <= 20.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8669,21 +8961,24 @@ class RefrigerationAirChiller(DataObject):
     @property
     def maximum_temperature_difference_between_inlet_air_and_evaporating_temperature(
             self):
-        """field `Maximum Temperature Difference Between Inlet Air and Evaporating Temperature`
-        The maximum difference between the air entering the refrigeration chiller and the
-        cooling source temperature in C used to limit capacity during pull-down.
-        defaults to 1.3 times the Rated Temperature Difference DT1
+        """field `Maximum Temperature Difference Between Inlet Air and
+        Evaporating Temperature`
+
+        |  The maximum difference between the air entering the refrigeration chiller and the
+        |  cooling source temperature in C used to limit capacity during pull-down.
+        |  defaults to 1.3 times the Rated Temperature Difference DT1
+        |  Units: deltaC
+        |  value <= 25.0
 
         Args:
             value (float): value for IDD Field `Maximum Temperature Difference Between Inlet Air and Evaporating Temperature`
-                Units: deltaC
-                value <= 25.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature` or None if not set
+
         """
         return self[
             "Maximum Temperature Difference Between Inlet Air and Evaporating Temperature"]
@@ -8699,13 +8994,14 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def coil_material_correction_factor(self):
-        """field `Coil Material Correction Factor` This is the manufacturer's
-        correction factor for coil material corresponding to rating.
+        """field `Coil Material Correction Factor`
+
+        |  This is the manufacturer's correction factor for coil material corresponding to rating
+        |  Units: dimensionless
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Coil Material Correction Factor`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8723,13 +9019,14 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def refrigerant_correction_factor(self):
-        """field `Refrigerant Correction Factor` This is the manufacturer's
-        correction factor for refrigerant corresponding to rating.
+        """field `Refrigerant Correction Factor`
+
+        |  This is the manufacturer's correction factor for refrigerant corresponding to rating
+        |  Units: dimensionless
+        |  Default value: 1.0
 
         Args:
             value (float): value for IDD Field `Refrigerant Correction Factor`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8748,8 +9045,9 @@ class RefrigerationAirChiller(DataObject):
     @property
     def capacity_correction_curve_type(self):
         """field `Capacity Correction Curve Type`
-        In each case, select the correction curve type that corresponds to the rating type.
-        default LinearSHR60 unless Capcity Rating Type = CapacityTotalSpecificConditions
+
+        |  In each case, select the correction curve type that corresponds to the rating type.
+        |  default LinearSHR60 unless Capcity Rating Type = CapacityTotalSpecificConditions
 
         Args:
             value (str): value for IDD Field `Capacity Correction Curve Type`
@@ -8759,6 +9057,7 @@ class RefrigerationAirChiller(DataObject):
 
         Returns:
             str: the value of `capacity_correction_curve_type` or None if not set
+
         """
         return self["Capacity Correction Curve Type"]
 
@@ -8770,9 +9069,10 @@ class RefrigerationAirChiller(DataObject):
     @property
     def capacity_correction_curve_name(self):
         """field `Capacity Correction Curve Name`
-        Table:OneIndependentVariable object can also be used
-        Can also be the name of a "Table:OneIndependentVariable" or a "Table:MultiVariableLookup"
-        Should be blank for LinearSHR60 correction curve type
+
+        |  Table:OneIndependentVariable object can also be used
+        |  Can also be the name of a "Table:OneIndependentVariable" or a "Table:MultiVariableLookup"
+        |  Should be blank for LinearSHR60 correction curve type
 
         Args:
             value (str): value for IDD Field `Capacity Correction Curve Name`
@@ -8782,6 +9082,7 @@ class RefrigerationAirChiller(DataObject):
 
         Returns:
             str: the value of `capacity_correction_curve_name` or None if not set
+
         """
         return self["Capacity Correction Curve Name"]
 
@@ -8792,14 +9093,15 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def shr60_correction_factor(self):
-        """field `SHR60 Correction Factor` only used when the capacity
-        correction curve type is LinearSHR60.
+        """field `SHR60 Correction Factor`
+
+        |  only used when the capacity correction curve type is LinearSHR60
+        |  Units: dimensionless
+        |  Default value: 1.48
+        |  value <= 1.67
 
         Args:
             value (float): value for IDD Field `SHR60 Correction Factor`
-                Units: dimensionless
-                Default value: 1.48
-                value <= 1.67
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8817,12 +9119,14 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def rated_total_heating_power(self):
-        """field `Rated Total Heating Power` Include total for all heater power
-        Do not include defrost heater power.
+        """field `Rated Total Heating Power`
+
+        |  Include total for all heater power
+        |  Do not include defrost heater power
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Rated Total Heating Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8841,9 +9145,10 @@ class RefrigerationAirChiller(DataObject):
     @property
     def heating_power_schedule_name(self):
         """field `Heating Power Schedule Name`
-        Values will be used to multiply the total heating power
-        Values in the schedule should be between 0.0 and 1.0
-        Defaults to always on if schedule name left blank.
+
+        |  Values will be used to multiply the total heating power
+        |  Values in the schedule should be between 0.0 and 1.0
+        |  Defaults to always on if schedule name left blank.
 
         Args:
             value (str): value for IDD Field `Heating Power Schedule Name`
@@ -8853,6 +9158,7 @@ class RefrigerationAirChiller(DataObject):
 
         Returns:
             str: the value of `heating_power_schedule_name` or None if not set
+
         """
         return self["Heating Power Schedule Name"]
 
@@ -8865,9 +9171,10 @@ class RefrigerationAirChiller(DataObject):
     def fan_speed_control_type(self):
         """field `Fan Speed Control Type`
 
+        |  Default value: Fixed
+
         Args:
             value (str): value for IDD Field `Fan Speed Control Type`
-                Default value: Fixed
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8887,10 +9194,11 @@ class RefrigerationAirChiller(DataObject):
     def rated_fan_power(self):
         """field `Rated Fan Power`
 
+        |  Units: W
+        |  Default value: 375.0
+
         Args:
             value (float): value for IDD Field `Rated Fan Power`
-                Units: W
-                Default value: 375.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8910,9 +9218,10 @@ class RefrigerationAirChiller(DataObject):
     def rated_air_flow(self):
         """field `Rated Air Flow`
 
+        |  Units: m3/s
+
         Args:
             value (float): value for IDD Field `Rated Air Flow`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8930,13 +9239,14 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def minimum_fan_air_flow_ratio(self):
-        """field `Minimum Fan Air Flow Ratio` Minimum air flow fraction through
-        fan.
+        """field `Minimum Fan Air Flow Ratio`
+
+        |  Minimum air flow fraction through fan
+        |  Units: dimensionless
+        |  Default value: 0.2
 
         Args:
             value (float): value for IDD Field `Minimum Fan Air Flow Ratio`
-                Units: dimensionless
-                Default value: 0.2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8954,13 +9264,14 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def defrost_type(self):
-        """field `Defrost Type` HotFluid includes either hot gas defrost for a
-        DX system or Hot Brine defrost if this walk in is cooled by brine from
-        a secondary chiller.
+        """field `Defrost Type`
+
+        |  HotFluid includes either hot gas defrost for a DX system or
+        |  Hot Brine defrost if this walk in is cooled by brine from a secondary chiller
+        |  Default value: Electric
 
         Args:
             value (str): value for IDD Field `Defrost Type`
-                Default value: Electric
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -8980,9 +9291,10 @@ class RefrigerationAirChiller(DataObject):
     def defrost_control_type(self):
         """field `Defrost Control Type`
 
+        |  Default value: TimeSchedule
+
         Args:
             value (str): value for IDD Field `Defrost Control Type`
-                Default value: TimeSchedule
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9000,8 +9312,9 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def defrost_schedule_name(self):
-        """field `Defrost Schedule Name` The schedule values should be 0 (off)
-        or 1 (on)
+        """field `Defrost Schedule Name`
+
+        |  The schedule values should be 0 (off) or 1 (on)
 
         Args:
             value (str): value for IDD Field `Defrost Schedule Name`
@@ -9023,12 +9336,13 @@ class RefrigerationAirChiller(DataObject):
     @property
     def defrost_dripdown_schedule_name(self):
         """field `Defrost Drip-Down Schedule Name`
-        The schedule values should be 0 (off) or 1 (on)
-        The start time for each defrost period in this drip-down schedule should coincide with
-        the start time for each defrost period in the defrost schedule (previous input
-        field).The length of each defrost drip-down period must be greater than or equal to the
-        corresponding defrost period specified in the defrost schedule. This extra time
-        allows the melted frost to drip from the coil before refrigeration is restarted.
+
+        |  The schedule values should be 0 (off) or 1 (on)
+        |  The start time for each defrost period in this drip-down schedule should coincide with
+        |  the start time for each defrost period in the defrost schedule (previous input
+        |  field).The length of each defrost drip-down period must be greater than or equal to the
+        |  corresponding defrost period specified in the defrost schedule. This extra time
+        |  allows the melted frost to drip from the coil before refrigeration is restarted.
 
         Args:
             value (str): value for IDD Field `Defrost Drip-Down Schedule Name`
@@ -9050,12 +9364,13 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def defrost_power(self):
-        """field `Defrost Power` needed for all defrost types except none and
-        offcycle.
+        """field `Defrost Power`
+
+        |  needed for all defrost types except none and offcycle
+        |  Units: W
 
         Args:
             value (float): value for IDD Field `Defrost Power`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9074,20 +9389,22 @@ class RefrigerationAirChiller(DataObject):
     @property
     def temperature_termination_defrost_fraction_to_ice(self):
         """field `Temperature Termination Defrost Fraction to Ice`
-        This is the portion of the defrost energy that is available to melt frost
-        Needed only for defrost control type TemperatureTermination
-        defaults to 0.7 for electric defrost and to 0.3 for hot fluid defrost
+
+        |  This is the portion of the defrost energy that is available to melt frost
+        |  Needed only for defrost control type TemperatureTermination
+        |  defaults to 0.7 for electric defrost and to 0.3 for hot fluid defrost
+        |  Units: dimensionless
+        |  value <= 1.0
 
         Args:
             value (float): value for IDD Field `Temperature Termination Defrost Fraction to Ice`
-                Units: dimensionless
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `temperature_termination_defrost_fraction_to_ice` or None if not set
+
         """
         return self["Temperature Termination Defrost Fraction to Ice"]
 
@@ -9101,9 +9418,10 @@ class RefrigerationAirChiller(DataObject):
     def vertical_location(self):
         """field `Vertical Location`
 
+        |  Default value: Middle
+
         Args:
             value (str): value for IDD Field `Vertical Location`
-                Default value: Middle
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9121,12 +9439,13 @@ class RefrigerationAirChiller(DataObject):
 
     @property
     def average_refrigerant_charge_inventory(self):
-        """field `Average Refrigerant Charge Inventory` This value is only used
-        if the Cooling Source Type is DXEvaporator.
+        """field `Average Refrigerant Charge Inventory`
+
+        |  This value is only used if the Cooling Source Type is DXEvaporator
+        |  Units: kg
 
         Args:
             value (float): value for IDD Field `Average Refrigerant Charge Inventory`
-                Units: kg
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -9228,9 +9547,10 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
 
     @property
     def availability_schedule_name(self):
-        """field `Availability Schedule Name` Availability schedule name for
-        this system. Schedule value > 0 means the system is available. If this
-        field is blank, the system is always available.
+        """field `Availability Schedule Name`
+
+        |  Availability schedule name for this system. Schedule value > 0 means the system is available.
+        |  If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9252,7 +9572,8 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
     @property
     def zone_name(self):
         """field `Zone Name`
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
+
+        |  This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -9262,6 +9583,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
@@ -9274,10 +9596,10 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
     def air_inlet_node_name(self):
         """field `Air Inlet Node Name`
 
-        Not used - reserved for future use
-        Name of the zone exhaust node (see Node) from which the refrigeration chiller
-        draws its indoor air.
-        This should be one of the zone exhaust nodes for the zone cooled by the chiller set.
+        |  Not used - reserved for future use
+        |  Name of the zone exhaust node (see Node) from which the refrigeration chiller
+        |  draws its indoor air.
+        |  This should be one of the zone exhaust nodes for the zone cooled by the chiller set.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -9300,9 +9622,9 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
     def air_outlet_node_name(self):
         """field `Air Outlet Node Name`
 
-        Not used - reserved for future use
-        The name of the node where the chiller coil sends its outlet air,
-        which must be one of the inlet air nodes for the zone which is being cooled.
+        |  Not used - reserved for future use
+        |  The name of the node where the chiller coil sends its outlet air,
+        |  which must be one of the inlet air nodes for the zone which is being cooled.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`

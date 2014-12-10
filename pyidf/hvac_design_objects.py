@@ -118,14 +118,14 @@ class DesignSpecificationOutdoorAir(DataObject):
     def outdoor_air_method(self):
         """field `Outdoor Air Method`
 
-        Flow/Person => Outdoor Air Flow per Person * Occupancy = Design Flow Rate,
-        Flow/Area => Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,
-        Flow/Zone => Outdoor Air Flow per Zone = Design Flow Rate,
-        AirChanges/Hour => Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate
+        |  Flow/Person => Outdoor Air Flow per Person * Occupancy = Design Flow Rate,
+        |  Flow/Area => Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,
+        |  Flow/Zone => Outdoor Air Flow per Zone = Design Flow Rate,
+        |  AirChanges/Hour => Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate
+        |  Default value: Flow/Person
 
         Args:
             value (str): value for IDD Field `Outdoor Air Method`
-                Default value: Flow/Person
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -144,20 +144,22 @@ class DesignSpecificationOutdoorAir(DataObject):
     @property
     def outdoor_air_flow_per_person(self):
         """field `Outdoor Air Flow per Person`
-        0.00944 m3/s is equivalent to 20 cfm per person
-        This input should be used if the field Outdoor Air Method is Flow/Person.
-        This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum
+
+        |  0.00944 m3/s is equivalent to 20 cfm per person
+        |  This input should be used if the field Outdoor Air Method is Flow/Person.
+        |  This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum
+        |  Units: m3/s-person
+        |  Default value: 0.00944
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow per Person`
-                Units: m3/s-person
-                Default value: 0.00944
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `outdoor_air_flow_per_person` or None if not set
+
         """
         return self["Outdoor Air Flow per Person"]
 
@@ -168,13 +170,14 @@ class DesignSpecificationOutdoorAir(DataObject):
 
     @property
     def outdoor_air_flow_per_zone_floor_area(self):
-        """field `Outdoor Air Flow per Zone Floor Area` This input should be
-        used if the field Outdoor Air Method is Flow/Area. This input is used
-        if the field Outdoor Air Method is Flow/Area, Sum, or Maximum.
+        """field `Outdoor Air Flow per Zone Floor Area`
+
+        |  This input should be used if the field Outdoor Air Method is Flow/Area.
+        |  This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow per Zone Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -192,13 +195,14 @@ class DesignSpecificationOutdoorAir(DataObject):
 
     @property
     def outdoor_air_flow_per_zone(self):
-        """field `Outdoor Air Flow per Zone` This input should be used if the
-        field Outdoor Air Method is Flow/Zone. This input is used if the field
-        Outdoor Air Method is Flow/Zone, Sum, or Maximum.
+        """field `Outdoor Air Flow per Zone`
+
+        |  This input should be used if the field Outdoor Air Method is Flow/Zone.
+        |  This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow per Zone`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -216,14 +220,14 @@ class DesignSpecificationOutdoorAir(DataObject):
 
     @property
     def outdoor_air_flow_air_changes_per_hour(self):
-        """field `Outdoor Air Flow Air Changes per Hour` This input should be
-        used if the field Outdoor Air Method is AirChanges/Hour. This input is
-        used if the field Outdoor Air Method is AirChanges/Hour, Sum, or
-        Maximum.
+        """field `Outdoor Air Flow Air Changes per Hour`
+
+        |  This input should be used if the field Outdoor Air Method is AirChanges/Hour.
+        |  This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum
+        |  Units: 1/hr
 
         Args:
             value (float): value for IDD Field `Outdoor Air Flow Air Changes per Hour`
-                Units: 1/hr
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -242,8 +246,9 @@ class DesignSpecificationOutdoorAir(DataObject):
     @property
     def outdoor_air_flow_rate_fraction_schedule_name(self):
         """field `Outdoor Air Flow Rate Fraction Schedule Name`
-        Schedule values are multiplied by the Outdoor Air Flow rate calculated using
-        the previous four inputs. Schedule values are limited to 0 to 1.
+
+        |  Schedule values are multiplied by the Outdoor Air Flow rate calculated using
+        |  the previous four inputs. Schedule values are limited to 0 to 1.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Flow Rate Fraction Schedule Name`
@@ -253,6 +258,7 @@ class DesignSpecificationOutdoorAir(DataObject):
 
         Returns:
             str: the value of `outdoor_air_flow_rate_fraction_schedule_name` or None if not set
+
         """
         return self["Outdoor Air Flow Rate Fraction Schedule Name"]
 
@@ -350,10 +356,11 @@ class DesignSpecificationZoneAirDistribution(DataObject):
     def zone_air_distribution_effectiveness_in_cooling_mode(self):
         """field `Zone Air Distribution Effectiveness in Cooling Mode`
 
+        |  Units: dimensionless
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Zone Air Distribution Effectiveness in Cooling Mode`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -374,10 +381,11 @@ class DesignSpecificationZoneAirDistribution(DataObject):
     def zone_air_distribution_effectiveness_in_heating_mode(self):
         """field `Zone Air Distribution Effectiveness in Heating Mode`
 
+        |  Units: dimensionless
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Zone Air Distribution Effectiveness in Heating Mode`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -396,9 +404,10 @@ class DesignSpecificationZoneAirDistribution(DataObject):
 
     @property
     def zone_air_distribution_effectiveness_schedule_name(self):
-        """field `Zone Air Distribution Effectiveness Schedule Name` optionally
-        used to replace Zone Air Distribution Effectiveness in Cooling and
-        Heating Mode.
+        """field `Zone Air Distribution Effectiveness Schedule Name`
+
+        |  optionally used to replace Zone Air Distribution Effectiveness in Cooling and
+        |  Heating Mode
 
         Args:
             value (str): value for IDD Field `Zone Air Distribution Effectiveness Schedule Name`
@@ -422,9 +431,10 @@ class DesignSpecificationZoneAirDistribution(DataObject):
     def zone_secondary_recirculation_fraction(self):
         """field `Zone Secondary Recirculation Fraction`
 
+        |  Units: dimensionless
+
         Args:
             value (float): value for IDD Field `Zone Secondary Recirculation Fraction`
-                Units: dimensionless
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -492,9 +502,10 @@ class SizingParameters(DataObject):
     def heating_sizing_factor(self):
         """field `Heating Sizing Factor`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Heating Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -514,9 +525,10 @@ class SizingParameters(DataObject):
     def cooling_sizing_factor(self):
         """field `Cooling Sizing Factor`
 
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Cooling Sizing Factor`
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -535,19 +547,21 @@ class SizingParameters(DataObject):
     @property
     def timesteps_in_averaging_window(self):
         """field `Timesteps in Averaging Window`
-        blank => set the timesteps in averaging window to
-        Number of Timesteps per Hour resulting in a 1 hour averaging window
-        default is number of timesteps for 1 hour averaging window
+
+        |  blank => set the timesteps in averaging window to
+        |  Number of Timesteps per Hour resulting in a 1 hour averaging window
+        |  default is number of timesteps for 1 hour averaging window
+        |  value >= 1
 
         Args:
             value (int): value for IDD Field `Timesteps in Averaging Window`
-                value >= 1
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             int: the value of `timesteps_in_averaging_window` or None if not set
+
         """
         return self["Timesteps in Averaging Window"]
 
@@ -808,9 +822,10 @@ class SizingZone(DataObject):
     def zone_cooling_design_supply_air_temperature_input_method(self):
         """field `Zone Cooling Design Supply Air Temperature Input Method`
 
+        |  Default value: SupplyAirTemperature
+
         Args:
             value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -832,18 +847,20 @@ class SizingZone(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature(self):
         """field `Zone Cooling Design Supply Air Temperature`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature"]
 
@@ -856,20 +873,22 @@ class SizingZone(DataObject):
     @property
     def zone_cooling_design_supply_air_temperature_difference(self):
         """field `Zone Cooling Design Supply Air Temperature Difference`
-        Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be subtracted from the zone temperature
-        at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+
+        |  Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be subtracted from the zone temperature
+        |  at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Cooling Design Supply Air Temperature Difference"]
 
@@ -885,9 +904,10 @@ class SizingZone(DataObject):
     def zone_heating_design_supply_air_temperature_input_method(self):
         """field `Zone Heating Design Supply Air Temperature Input Method`
 
+        |  Default value: SupplyAirTemperature
+
         Args:
             value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
-                Default value: SupplyAirTemperature
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -909,18 +929,20 @@ class SizingZone(DataObject):
     @property
     def zone_heating_design_supply_air_temperature(self):
         """field `Zone Heating Design Supply Air Temperature`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = SupplyAirTemperature
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = SupplyAirTemperature
+        |  Units: C
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature"]
 
@@ -933,20 +955,22 @@ class SizingZone(DataObject):
     @property
     def zone_heating_design_supply_air_temperature_difference(self):
         """field `Zone Heating Design Supply Air Temperature Difference`
-        Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-        Supply Air Temperature Input Method = TemperatureDifference
-        The absolute value of this field will be added to the zone temperature
-        at peak load to calculate the Zone Heating Design Supply Air Temperature.
+
+        |  Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
+        |  Supply Air Temperature Input Method = TemperatureDifference
+        |  The absolute value of this field will be added to the zone temperature
+        |  at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        |  Units: deltaC
 
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
+
         """
         return self["Zone Heating Design Supply Air Temperature Difference"]
 
@@ -962,9 +986,10 @@ class SizingZone(DataObject):
     def zone_cooling_design_supply_air_humidity_ratio(self):
         """field `Zone Cooling Design Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+
         Args:
             value (float): value for IDD Field `Zone Cooling Design Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -985,9 +1010,10 @@ class SizingZone(DataObject):
     def zone_heating_design_supply_air_humidity_ratio(self):
         """field `Zone Heating Design Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+
         Args:
             value (float): value for IDD Field `Zone Heating Design Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1029,7 +1055,8 @@ class SizingZone(DataObject):
     @property
     def zone_heating_sizing_factor(self):
         """field `Zone Heating Sizing Factor`
-        if blank or zero, global heating sizing factor from Sizing:Parameters is used.
+
+        |  if blank or zero, global heating sizing factor from Sizing:Parameters is used.
 
         Args:
             value (float): value for IDD Field `Zone Heating Sizing Factor`
@@ -1039,6 +1066,7 @@ class SizingZone(DataObject):
 
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
+
         """
         return self["Zone Heating Sizing Factor"]
 
@@ -1050,7 +1078,8 @@ class SizingZone(DataObject):
     @property
     def zone_cooling_sizing_factor(self):
         """field `Zone Cooling Sizing Factor`
-        if blank or zero, global cooling sizing factor from Sizing:Parameters is used.
+
+        |  if blank or zero, global cooling sizing factor from Sizing:Parameters is used.
 
         Args:
             value (float): value for IDD Field `Zone Cooling Sizing Factor`
@@ -1060,6 +1089,7 @@ class SizingZone(DataObject):
 
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
+
         """
         return self["Zone Cooling Sizing Factor"]
 
@@ -1072,9 +1102,10 @@ class SizingZone(DataObject):
     def cooling_design_air_flow_method(self):
         """field `Cooling Design Air Flow Method`
 
+        |  Default value: DesignDay
+
         Args:
             value (str): value for IDD Field `Cooling Design Air Flow Method`
-                Default value: DesignDay
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1092,13 +1123,15 @@ class SizingZone(DataObject):
 
     @property
     def cooling_design_air_flow_rate(self):
-        """field `Cooling Design Air Flow Rate` This input is used if Cooling
-        Design Air Flow Method is Flow/Zone This value will be multiplied by
-        the global or zone sizing factor and by zone multipliers.
+        """field `Cooling Design Air Flow Rate`
+
+        |  This input is used if Cooling Design Air Flow Method is Flow/Zone
+        |  This value will be multiplied by the global or zone sizing factor and
+        |  by zone multipliers.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Cooling Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1116,14 +1149,15 @@ class SizingZone(DataObject):
 
     @property
     def cooling_minimum_air_flow_per_zone_floor_area(self):
-        """field `Cooling Minimum Air Flow per Zone Floor Area` default is .15
-        cfm/ft2 This input is used if Cooling Design Air Flow Method is
-        DesignDayWithLimit.
+        """field `Cooling Minimum Air Flow per Zone Floor Area`
+
+        |  default is .15 cfm/ft2
+        |  This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+        |  Units: m3/s-m2
+        |  Default value: 0.000762
 
         Args:
             value (float): value for IDD Field `Cooling Minimum Air Flow per Zone Floor Area`
-                Units: m3/s-m2
-                Default value: 0.000762
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1142,12 +1176,13 @@ class SizingZone(DataObject):
 
     @property
     def cooling_minimum_air_flow(self):
-        """field `Cooling Minimum Air Flow` This input is used if Cooling
-        Design Air Flow Method is DesignDayWithLimit.
+        """field `Cooling Minimum Air Flow`
+
+        |  This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Cooling Minimum Air Flow`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1165,10 +1200,11 @@ class SizingZone(DataObject):
 
     @property
     def cooling_minimum_air_flow_fraction(self):
-        """field `Cooling Minimum Air Flow Fraction` fraction of the Cooling
-        design Air Flow Rate This input is currently used in sizing the Fan
-        minimum Flow Rate. It does not currently affect other component
-        autosizing.
+        """field `Cooling Minimum Air Flow Fraction`
+
+        |  fraction of the Cooling design Air Flow Rate
+        |  This input is currently used in sizing the Fan minimum Flow Rate.
+        |  It does not currently affect other component autosizing.
 
         Args:
             value (float): value for IDD Field `Cooling Minimum Air Flow Fraction`
@@ -1191,9 +1227,10 @@ class SizingZone(DataObject):
     def heating_design_air_flow_method(self):
         """field `Heating Design Air Flow Method`
 
+        |  Default value: DesignDay
+
         Args:
             value (str): value for IDD Field `Heating Design Air Flow Method`
-                Default value: DesignDay
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1211,13 +1248,15 @@ class SizingZone(DataObject):
 
     @property
     def heating_design_air_flow_rate(self):
-        """field `Heating Design Air Flow Rate` This input is used if Heating
-        Design Air Flow Method is Flow/Zone. This value will be multiplied by
-        the global or zone sizing factor and by zone multipliers.
+        """field `Heating Design Air Flow Rate`
+
+        |  This input is used if Heating Design Air Flow Method is Flow/Zone.
+        |  This value will be multiplied by the global or zone sizing factor and
+        |  by zone multipliers.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Heating Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1236,20 +1275,22 @@ class SizingZone(DataObject):
     @property
     def heating_maximum_air_flow_per_zone_floor_area(self):
         """field `Heating Maximum Air Flow per Zone Floor Area`
-        default is .40 cfm/ft2
-        This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.
-        This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+
+        |  default is .40 cfm/ft2
+        |  This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.
+        |  This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        |  Units: m3/s-m2
+        |  Default value: 0.002032
 
         Args:
             value (float): value for IDD Field `Heating Maximum Air Flow per Zone Floor Area`
-                Units: m3/s-m2
-                Default value: 0.002032
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_maximum_air_flow_per_zone_floor_area` or None if not set
+
         """
         return self["Heating Maximum Air Flow per Zone Floor Area"]
 
@@ -1262,19 +1303,21 @@ class SizingZone(DataObject):
     @property
     def heating_maximum_air_flow(self):
         """field `Heating Maximum Air Flow`
-        default is 300 cfm
-        This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+
+        |  default is 300 cfm
+        |  This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        |  Units: m3/s
+        |  Default value: 0.1415762
 
         Args:
             value (float): value for IDD Field `Heating Maximum Air Flow`
-                Units: m3/s
-                Default value: 0.1415762
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_maximum_air_flow` or None if not set
+
         """
         return self["Heating Maximum Air Flow"]
 
@@ -1286,18 +1329,20 @@ class SizingZone(DataObject):
     @property
     def heating_maximum_air_flow_fraction(self):
         """field `Heating Maximum Air Flow Fraction`
-        fraction of the Heating Design Air Flow Rate
-        This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+
+        |  fraction of the Heating Design Air Flow Rate
+        |  This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        |  Default value: 0.3
 
         Args:
             value (float): value for IDD Field `Heating Maximum Air Flow Fraction`
-                Default value: 0.3
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_maximum_air_flow_fraction` or None if not set
+
         """
         return self["Heating Maximum Air Flow Fraction"]
 
@@ -1598,26 +1643,28 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def cooling_design_air_flow_method(self):
         """field `Cooling Design Air Flow Method`
-        Enter the method used to determine the cooling supply air volume flow rate.
-        None is used when a cooling coil is not included in the Zone HVAC Equip or this field
-        may be blank. SupplyAirFlowRate => selected when the magnitude of the supply air volume
-        flow rate is specified. FlowPerFloorArea => selected when the supply air volume flow rate
-        is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area
-        value specified. FractionOfAutosizedCoolingAirflow => is selected when the supply air volume
-        is determined from a user specified fraction and the autosized cooling supply air flow rate
-        value determined by the simulation. FlowPerCoolingCapacity => is selected when the supply
-        air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity
-        determined by the simulation.
+
+        |  Enter the method used to determine the cooling supply air volume flow rate.
+        |  None is used when a cooling coil is not included in the Zone HVAC Equip or this field
+        |  may be blank. SupplyAirFlowRate => selected when the magnitude of the supply air volume
+        |  flow rate is specified. FlowPerFloorArea => selected when the supply air volume flow rate
+        |  is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area
+        |  value specified. FractionOfAutosizedCoolingAirflow => is selected when the supply air volume
+        |  is determined from a user specified fraction and the autosized cooling supply air flow rate
+        |  value determined by the simulation. FlowPerCoolingCapacity => is selected when the supply
+        |  air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity
+        |  determined by the simulation.
+        |  Default value: SupplyAirFlowRate
 
         Args:
             value (str): value for IDD Field `Cooling Design Air Flow Method`
-                Default value: SupplyAirFlowRate
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_design_air_flow_method` or None if not set
+
         """
         return self["Cooling Design Air Flow Method"]
 
@@ -1628,21 +1675,21 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def cooling_design_supply_air_flow_rate(self):
-        """field `Cooling Design Supply Air Flow Rate` Enter the magnitude of
-        supply air volume flow rate during cooling operation. Required field
-        when Supply air Flow Rate Method During Cooling Operation is
-        SupplyAirFlowRate. This field may be blank if a cooling coil is not
-        included in the Zone HVAC equipment.
+        """field `Cooling Design Supply Air Flow Rate`
+
+        |  Enter the magnitude of supply air volume flow rate during cooling operation.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
+        |  This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Design Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_design_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `cooling_design_supply_air_flow_rate` or None if not set
 
         """
         return self["Cooling Design Supply Air Flow Rate"]
@@ -1654,15 +1701,15 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def cooling_design_supply_air_flow_rate_per_floor_area(self):
-        """field `Cooling Design Supply Air Flow Rate Per Floor Area` Enter the
-        cooling supply air volume flow rate per total conditioned floor area.
-        Required field when Supply air Flow Rate Method During Cooling
-        Operation is FlowPerFloorArea. This field may be blank if a cooling
-        coil is not included in the Zone HVAC equipment.
+        """field `Cooling Design Supply Air Flow Rate Per Floor Area`
+
+        |  Enter the cooling supply air volume flow rate per total conditioned floor area.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
+        |  This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Cooling Design Supply Air Flow Rate Per Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1682,11 +1729,11 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def fraction_of_autosized_cooling_design_supply_air_flow_rate(self):
         """field `Fraction of Autosized Cooling Design Supply Air Flow Rate`
-        Enter the supply air volume flow rate as a fraction of the cooling
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        During Cooling Operation is FractionOfAutosizedCoolingAirflow. This
-        field may be blank if a cooling coil is not included in the Zone HVAC
-        equipment.
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is
+        |  FractionOfAutosizedCoolingAirflow.
+        |  This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Cooling Design Supply Air Flow Rate`
@@ -1713,14 +1760,16 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def cooling_design_supply_air_flow_rate_per_unit_cooling_capacity(self):
         """field `Cooling Design Supply Air Flow Rate Per Unit Cooling
-        Capacity` Enter the cooling supply air volume flow rate unit cooling
-        capacity. Required field when Supply air Flow Rate Method During
-        Cooling Operation is FlowPerCoolingCapacity. This field may be blank if
-        a cooling coil is not included in the Zone HVAC equipment.
+        Capacity`
+
+        |  Enter the cooling supply air volume flow rate unit cooling capacity.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is
+        |  FlowPerCoolingCapacity. This field may be blank if a cooling coil is not
+        |  included in the Zone HVAC equipment.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1744,27 +1793,30 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(
             self):
-        """field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
-        Enter the method used to determine the supply air volume flow rate When No Cooling or Heating
-        is Required. None is used when a cooling or heating coils is not included in the Zone HVAC
-        Equipment or this field may be blank. SupplyAirFlowRate => selected when the magnitude of the
-        supply air volume flow rate is specified. FlowPerFloorArea => selected when the supply air
-        volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per
-        Floor Area is specified. FractionOfAutosizedCoolingAirflow => is selected when the supply
-        air volume is determined from a user specified fraction and the Autosized cooling supply
-        air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow => is
-        selected when the supply air volume is determined from a user specified fraction and the
-        Autosized heating supply air flow rate value determined by the simulation.
+        """field `Supply Air Flow Rate Method When No Cooling or Heating is
+        Required`
+
+        |  Enter the method used to determine the supply air volume flow rate When No Cooling or Heating
+        |  is Required. None is used when a cooling or heating coils is not included in the Zone HVAC
+        |  Equipment or this field may be blank. SupplyAirFlowRate => selected when the magnitude of the
+        |  supply air volume flow rate is specified. FlowPerFloorArea => selected when the supply air
+        |  volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per
+        |  Floor Area is specified. FractionOfAutosizedCoolingAirflow => is selected when the supply
+        |  air volume is determined from a user specified fraction and the Autosized cooling supply
+        |  air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow => is
+        |  selected when the supply air volume is determined from a user specified fraction and the
+        |  Autosized heating supply air flow rate value determined by the simulation.
+        |  Default value: SupplyAirFlowRate
 
         Args:
             value (str): value for IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
-                Default value: SupplyAirFlowRate
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required` or None if not set
+
         """
         return self[
             "Supply Air Flow Rate Method When No Cooling or Heating is Required"]
@@ -1781,20 +1833,20 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self):
         """field `Supply Air Flow Rate When No Cooling or Heating is Required`
-        Enter the magnitude of the supply air volume flow rate during when no
-        cooling or heating is required. Required field when Supply air Flow
-        Rate Method When No Cooling or Heating is Required is
-        SupplyAirFlowRate.
+
+        |  Enter the magnitude of the supply air volume flow rate during when no cooling or heating
+        |  is required. Required field when Supply air Flow Rate Method When No Cooling or Heating
+        |  is Required is SupplyAirFlowRate.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
+            float or "Autosize": the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
 
         """
         return self[
@@ -1813,13 +1865,15 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     def supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required(
             self):
         """field `Supply Air Flow Rate Per Floor Area When No Clg or Htg is
-        Required` Enter the supply air volume flow rate per total floor area.
-        Required field when Supply air Flow Rate Method When No Cooling or
-        Heating is Required is FlowPerFloorArea.
+        Required`
+
+        |  Enter the supply air volume flow rate per total floor area.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+        |  is FlowPerFloorArea.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1844,10 +1898,11 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     def fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required(
             self):
         """field `Fraction of Design Cooling Supply Air Flow Rate When No Clg
-        or Htg Required` Enter the supply air volume flow rate as a fraction of
-        the cooling supply air flow rate. Required field when Supply air Flow
-        Rate Method When No Cooling or Heating is Required is
-        FractionOfAutosizedCoolingAirflow.
+        or Htg Required`
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+        |  is FractionOfAutosizedCoolingAirflow.
 
         Args:
             value (float): value for IDD Field `Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required`
@@ -1875,10 +1930,11 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     def fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required(
             self):
         """field `Fraction of Design Heating Supply Air Flow Rate When No Clg
-        or Htg Required` Enter the supply air volume flow rate as a fraction of
-        the heating supply air flow rate. Required field when Supply air Flow
-        Rate Method When No Cooling or Heating is Required is
-        FractionOfAutosizedHeatingAirflow.
+        or Htg Required`
+
+        |  Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+        |  Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
+        |  is FractionOfAutosizedHeatingAirflow.
 
         Args:
             value (float): value for IDD Field `Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required`
@@ -1905,26 +1961,28 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def heating_design_air_flow_method(self):
         """field `Heating Design Air Flow Method`
-        Enter the method used to determine the heating supply air volume flow rate.
-        None is used when a heating coil is not included in the Zone HVAC Equipment or this field may
-        be blank. SupplyAirFlowRate => selected when the magnitude of the heating supply air volume
-        flow rate is specified.  FlowPerFloorArea => selected when the supply air volume flow rate is
-        determined from total floor area served by a Zone HVAC unit and user specified value of Flow
-        Per Floor Area. FractionOfAutosizedHeatingAirflow => is selected when the supply air volume
-        is determined from a user specified fraction and the Autosized heating supply air flow rate
-        value determined by the simulation. FlowPerHeatingCapacity => is selected when the supply
-        air volume is determined from user specified flow per Heating Capacity and Heating Capacity
-        determined by the simulation.
+
+        |  Enter the method used to determine the heating supply air volume flow rate.
+        |  None is used when a heating coil is not included in the Zone HVAC Equipment or this field may
+        |  be blank. SupplyAirFlowRate => selected when the magnitude of the heating supply air volume
+        |  flow rate is specified.  FlowPerFloorArea => selected when the supply air volume flow rate is
+        |  determined from total floor area served by a Zone HVAC unit and user specified value of Flow
+        |  Per Floor Area. FractionOfAutosizedHeatingAirflow => is selected when the supply air volume
+        |  is determined from a user specified fraction and the Autosized heating supply air flow rate
+        |  value determined by the simulation. FlowPerHeatingCapacity => is selected when the supply
+        |  air volume is determined from user specified flow per Heating Capacity and Heating Capacity
+        |  determined by the simulation.
+        |  Default value: SupplyAirFlowRate
 
         Args:
             value (str): value for IDD Field `Heating Design Air Flow Method`
-                Default value: SupplyAirFlowRate
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_air_flow_method` or None if not set
+
         """
         return self["Heating Design Air Flow Method"]
 
@@ -1935,21 +1993,21 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def heating_design_supply_air_flow_rate(self):
-        """field `Heating Design Supply Air Flow Rate` Enter the magnitude of
-        the supply air volume flow rate during heating operation. Required
-        field when Supply air Flow Rate Method During Heating Operation is
-        SupplyAirFlowRate. This field may be blank if a heating coil is not
-        included in the Zone HVAC equipment.
+        """field `Heating Design Supply Air Flow Rate`
+
+        |  Enter the magnitude of the supply air volume flow rate during heating operation.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
+        |  This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        |  Units: m3/s
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Supply Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_supply_air_flow_rate` or None if not set
+            float or "Autosize": the value of `heating_design_supply_air_flow_rate` or None if not set
 
         """
         return self["Heating Design Supply Air Flow Rate"]
@@ -1961,15 +2019,15 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def heating_design_supply_air_flow_rate_per_floor_area(self):
-        """field `Heating Design Supply Air Flow Rate Per Floor Area` Enter the
-        heating supply air volume flow rate per total conditioned floor area.
-        Required field when Supply air Flow Rate Method During Heating
-        Operation is FlowPerFloorArea. This field may be blank if a heating
-        coil is not included in the Zone HVAC equipment.
+        """field `Heating Design Supply Air Flow Rate Per Floor Area`
+
+        |  Enter the heating supply air volume flow rate per total conditioned floor area.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
+        |  This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Heating Design Supply Air Flow Rate Per Floor Area`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -1988,11 +2046,12 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def fraction_of_heating_design_supply_air_flow_rate(self):
-        """field `Fraction of Heating Design Supply Air Flow Rate` Enter the
-        supply air volume flow rate as a fraction of the heating supply air
-        flow rate. Required field when Supply air Flow Rate Method During
-        Heating Operation is FractionOfAutosizedHeatingAirflow. This field may
-        be blank if a heating coil is not included in the Zone HVAC equipment.
+        """field `Fraction of Heating Design Supply Air Flow Rate`
+
+        |  Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is
+        |  FractionOfAutosizedHeatingAirflow.
+        |  This field may be blank if a heating coil is not included in the Zone HVAC equipment.
 
         Args:
             value (float): value for IDD Field `Fraction of Heating Design Supply Air Flow Rate`
@@ -2015,14 +2074,16 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def heating_design_supply_air_flow_rate_per_unit_heating_capacity(self):
         """field `Heating Design Supply Air Flow Rate Per Unit Heating
-        Capacity` Enter the supply air volume flow rate per unit heating
-        capacity. Required field when Supply air Flow Rate Method During
-        Heating Operation is FlowPerHeatingCapacity. This field may be blank if
-        a heating coil is not included in the Zone HVAC equipment.
+        Capacity`
+
+        |  Enter the supply air volume flow rate per unit heating capacity.
+        |  Required field when Supply air Flow Rate Method During Heating Operation is
+        |  FlowPerHeatingCapacity.
+        |  This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Heating Design Supply Air Flow Rate Per Unit Heating Capacity`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2046,24 +2107,26 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def cooling_design_capacity_method(self):
         """field `Cooling Design Capacity Method`
-        Enter the method used to determine the cooling design capacity for scalable sizing.
-        None is used when a cooling coils is not included in the Zone HVAC Equipment or
-        this field may be blank. If this input field is left blank, then the design cooling
-        capacity is set to zero. CoolingDesignCapacity => selected when the design cooling capacity
-        value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling
-        capacity is determine from user specified cooling capacity per floor area and zone floor area.
-        FractionOfAutosizedCoolingCapacity => is selected when the design cooling capacity is
-        determined from a user specified fraction and the auto-sized design cooling capacity.
+
+        |  Enter the method used to determine the cooling design capacity for scalable sizing.
+        |  None is used when a cooling coils is not included in the Zone HVAC Equipment or
+        |  this field may be blank. If this input field is left blank, then the design cooling
+        |  capacity is set to zero. CoolingDesignCapacity => selected when the design cooling capacity
+        |  value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling
+        |  capacity is determine from user specified cooling capacity per floor area and zone floor area.
+        |  FractionOfAutosizedCoolingCapacity => is selected when the design cooling capacity is
+        |  determined from a user specified fraction and the auto-sized design cooling capacity.
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Cooling Design Capacity Method`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
+
         """
         return self["Cooling Design Capacity Method"]
 
@@ -2074,19 +2137,20 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def cooling_design_capacity(self):
-        """field `Cooling Design Capacity` Enter the design cooling capacity.
-        Required field when the cooling design capacity method
-        CoolingDesignCapacity.
+        """field `Cooling Design Capacity`
+
+        |  Enter the design cooling capacity. Required field when the cooling design capacity method
+        |  CoolingDesignCapacity.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_design_capacity` or None if not set
+            float or "Autosize": the value of `cooling_design_capacity` or None if not set
 
         """
         return self["Cooling Design Capacity"]
@@ -2098,13 +2162,14 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def cooling_design_capacity_per_floor_area(self):
-        """field `Cooling Design Capacity Per Floor Area` Enter the cooling
-        design capacity per zone floor area. Required field when the cooling
-        design capacity method field is CapacityPerFloorArea.
+        """field `Cooling Design Capacity Per Floor Area`
+
+        |  Enter the cooling design capacity per zone floor area. Required field when the cooling design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2123,8 +2188,9 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def fraction_of_autosized_cooling_design_capacity(self):
         """field `Fraction of Autosized Cooling Design Capacity`
-        Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
-        design capacity method field is FractionOfAutosizedCoolingCapacity.
+
+        |  Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
+        |  design capacity method field is FractionOfAutosizedCoolingCapacity.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
@@ -2134,6 +2200,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
+
         """
         return self["Fraction of Autosized Cooling Design Capacity"]
 
@@ -2146,24 +2213,26 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity for scalable sizing.
-        None is used when a heating coil is not included in the Zone HVAC Equipment or
-        this field may be blank. If this input field is left blank, then the design heating
-        capacity is set to zero. HeatingDesignCapacity => selected when the design heating capacity
-        value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling
-        capacity is determine from user specified heating capacity per flow area and zone floor area.
-        FractionOfAutosizedHeatingCapacity => is selected when the design heating capacity is
-        determined from a user specified fraction and the auto-sized design heating capacity
+
+        |  Enter the method used to determine the heating design capacity for scalable sizing.
+        |  None is used when a heating coil is not included in the Zone HVAC Equipment or
+        |  this field may be blank. If this input field is left blank, then the design heating
+        |  capacity is set to zero. HeatingDesignCapacity => selected when the design heating capacity
+        |  value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling
+        |  capacity is determine from user specified heating capacity per flow area and zone floor area.
+        |  FractionOfAutosizedHeatingCapacity => is selected when the design heating capacity is
+        |  determined from a user specified fraction and the auto-sized design heating capacity
+        |  Default value: None
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: None
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -2174,19 +2243,20 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating capacity.
-        Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity. Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -2198,13 +2268,14 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area. Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area. Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2223,8 +2294,9 @@ class DesignSpecificationZoneHvacSizing(DataObject):
     @property
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
-        Enter the fraction of auto-sized heating design capacity. Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+
+        |  Enter the fraction of auto-sized heating design capacity. Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -2234,6 +2306,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
 
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
+
         """
         return self["Fraction of Autosized Heating Design Capacity"]
 
@@ -2621,14 +2694,16 @@ class SizingSystem(DataObject):
 
     @property
     def type_of_load_to_size_on(self):
-        """field `Type of Load to Size On` Specifies the basis for sizing the
-        system supply air flow rate Sensible and VentilationRequirement are the
-        only available options Sensible uses the zone design air flow rates
-        VentilationRequirement uses the system ventilation requirement.
+        """field `Type of Load to Size On`
+
+        |  Specifies the basis for sizing the system supply air flow rate
+        |  Sensible and VentilationRequirement are the only available options
+        |  Sensible uses the zone design air flow rates
+        |  VentilationRequirement uses the system ventilation requirement
+        |  Default value: Sensible
 
         Args:
             value (str): value for IDD Field `Type of Load to Size On`
-                Default value: Sensible
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2648,16 +2723,17 @@ class SizingSystem(DataObject):
     def design_outdoor_air_flow_rate(self):
         """field `Design Outdoor Air Flow Rate`
 
+        |  Units: m3/s
+        |  Default value: "autosize"
+
         Args:
             value (float or "Autosize"): value for IDD Field `Design Outdoor Air Flow Rate`
-                Units: m3/s
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `design_outdoor_air_flow_rate` or None if not set
+            float or "Autosize": the value of `design_outdoor_air_flow_rate` or None if not set
 
         """
         return self["Design Outdoor Air Flow Rate"]
@@ -2671,9 +2747,10 @@ class SizingSystem(DataObject):
     def minimum_system_air_flow_ratio(self):
         """field `Minimum System Air Flow Ratio`
 
+        |  value <= 1.0
+
         Args:
             value (float): value for IDD Field `Minimum System Air Flow Ratio`
-                value <= 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2693,9 +2770,10 @@ class SizingSystem(DataObject):
     def preheat_design_temperature(self):
         """field `Preheat Design Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Preheat Design Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2715,9 +2793,10 @@ class SizingSystem(DataObject):
     def preheat_design_humidity_ratio(self):
         """field `Preheat Design Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+
         Args:
             value (float): value for IDD Field `Preheat Design Humidity Ratio`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2737,9 +2816,10 @@ class SizingSystem(DataObject):
     def precool_design_temperature(self):
         """field `Precool Design Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Precool Design Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2759,9 +2839,10 @@ class SizingSystem(DataObject):
     def precool_design_humidity_ratio(self):
         """field `Precool Design Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+
         Args:
             value (float): value for IDD Field `Precool Design Humidity Ratio`
-                Units: kgWater/kgDryAir
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2781,9 +2862,10 @@ class SizingSystem(DataObject):
     def central_cooling_design_supply_air_temperature(self):
         """field `Central Cooling Design Supply Air Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Central Cooling Design Supply Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2804,9 +2886,10 @@ class SizingSystem(DataObject):
     def central_heating_design_supply_air_temperature(self):
         """field `Central Heating Design Supply Air Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Central Heating Design Supply Air Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2827,9 +2910,10 @@ class SizingSystem(DataObject):
     def sizing_option(self):
         """field `Sizing Option`
 
+        |  Default value: NonCoincident
+
         Args:
             value (str): value for IDD Field `Sizing Option`
-                Default value: NonCoincident
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2849,9 +2933,10 @@ class SizingSystem(DataObject):
     def a_100_outdoor_air_in_cooling(self):
         """field `100% Outdoor Air in Cooling`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `100% Outdoor Air in Cooling`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2871,9 +2956,10 @@ class SizingSystem(DataObject):
     def a_100_outdoor_air_in_heating(self):
         """field `100% Outdoor Air in Heating`
 
+        |  Default value: No
+
         Args:
             value (str): value for IDD Field `100% Outdoor Air in Heating`
-                Default value: No
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2893,10 +2979,11 @@ class SizingSystem(DataObject):
     def central_cooling_design_supply_air_humidity_ratio(self):
         """field `Central Cooling Design Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.008
+
         Args:
             value (float): value for IDD Field `Central Cooling Design Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2917,10 +3004,11 @@ class SizingSystem(DataObject):
     def central_heating_design_supply_air_humidity_ratio(self):
         """field `Central Heating Design Supply Air Humidity Ratio`
 
+        |  Units: kgWater/kgDryAir
+        |  Default value: 0.008
+
         Args:
             value (float): value for IDD Field `Central Heating Design Supply Air Humidity Ratio`
-                Units: kgWater/kgDryAir
-                Default value: 0.008
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2941,9 +3029,10 @@ class SizingSystem(DataObject):
     def cooling_design_air_flow_method(self):
         """field `Cooling Design Air Flow Method`
 
+        |  Default value: DesignDay
+
         Args:
             value (str): value for IDD Field `Cooling Design Air Flow Method`
-                Default value: DesignDay
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -2962,19 +3051,21 @@ class SizingSystem(DataObject):
     @property
     def cooling_design_air_flow_rate(self):
         """field `Cooling Design Air Flow Rate`
-        This input is used if Cooling Design Air Flow Method is Flow/System
-        This value will *not* be multiplied by any sizing factor or by zone multipliers.
-        If using zone multipliers, this value must be large enough to serve the multiplied zones.
+
+        |  This input is used if Cooling Design Air Flow Method is Flow/System
+        |  This value will *not* be multiplied by any sizing factor or by zone multipliers.
+        |  If using zone multipliers, this value must be large enough to serve the multiplied zones.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Cooling Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `cooling_design_air_flow_rate` or None if not set
+
         """
         return self["Cooling Design Air Flow Rate"]
 
@@ -2986,13 +3077,13 @@ class SizingSystem(DataObject):
     @property
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self):
         """field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
-        Enter the cooling supply air volume flow rate per total conditioned
-        floor area. Required field when Supply air Flow Rate Method during
-        cooling operation is FlowPerFloorArea.
+
+        |  Enter the cooling supply air volume flow rate per total conditioned floor area.
+        |  Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3016,9 +3107,10 @@ class SizingSystem(DataObject):
     @property
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self):
         """field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
-        Enter the supply air volume flow rate as a fraction of the cooling
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        during cooling operation is FractionOfAutosizedCoolingAirflow.
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method during cooling operation is
+        |  FractionOfAutosizedCoolingAirflow.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
@@ -3044,14 +3136,15 @@ class SizingSystem(DataObject):
 
     @property
     def design_supply_air_flow_rate_per_unit_cooling_capacity(self):
-        """field `Design Supply Air Flow Rate Per Unit Cooling Capacity` Enter
-        the supply air volume flow rate per unit cooling capacity. Required
-        field when Supply air Flow Rate Method During Cooling Operation is
-        FlowPerCoolingCapacity.
+        """field `Design Supply Air Flow Rate Per Unit Cooling Capacity`
+
+        |  Enter the supply air volume flow rate per unit cooling capacity.
+        |  Required field when Supply air Flow Rate Method During Cooling Operation is
+        |  FlowPerCoolingCapacity.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit Cooling Capacity`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3074,9 +3167,10 @@ class SizingSystem(DataObject):
     def heating_design_air_flow_method(self):
         """field `Heating Design Air Flow Method`
 
+        |  Default value: DesignDay
+
         Args:
             value (str): value for IDD Field `Heating Design Air Flow Method`
-                Default value: DesignDay
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3095,19 +3189,21 @@ class SizingSystem(DataObject):
     @property
     def heating_design_air_flow_rate(self):
         """field `Heating Design Air Flow Rate`
-        This input is used if Heating Design Air Flow Method is Flow/System
-        This value will *not* be multiplied by any sizing factor or by zone multipliers.
-        If using zone multipliers, this value must be large enough to serve the multiplied zones.
+
+        |  This input is used if Heating Design Air Flow Method is Flow/System
+        |  This value will *not* be multiplied by any sizing factor or by zone multipliers.
+        |  If using zone multipliers, this value must be large enough to serve the multiplied zones.
+        |  Units: m3/s
 
         Args:
             value (float): value for IDD Field `Heating Design Air Flow Rate`
-                Units: m3/s
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             float: the value of `heating_design_air_flow_rate` or None if not set
+
         """
         return self["Heating Design Air Flow Rate"]
 
@@ -3119,13 +3215,13 @@ class SizingSystem(DataObject):
     @property
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self):
         """field `Supply Air Flow Rate Per Floor Area During Heating Operation`
-        Enter the heating supply air volume flow rate per total conditioned
-        floor area. Required field when Supply air Flow Rate Method during
-        heating operation is FlowPerFloorArea.
+
+        |  Enter the heating supply air volume flow rate per total conditioned floor area.
+        |  Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.
+        |  Units: m3/s-m2
 
         Args:
             value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Heating Operation`
-                Units: m3/s-m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3149,9 +3245,10 @@ class SizingSystem(DataObject):
     @property
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self):
         """field `Fraction of Autosized Design Heating Supply Air Flow Rate`
-        Enter the supply air volume flow rate as a fraction of the heating
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        during heating operation is FractionOfAutosizedHeatingAirflow.
+
+        |  Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
+        |  Required field when Supply air Flow Rate Method during heating operation is
+        |  FractionOfAutosizedHeatingAirflow.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
@@ -3178,9 +3275,10 @@ class SizingSystem(DataObject):
     @property
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self):
         """field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
-        Enter the supply air volume flow rate as a fraction of the cooling
-        supply air flow rate. Required field when Supply air Flow Rate Method
-        during heating operation is FractionOfAutosizedCoolingAirflow.
+
+        |  Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
+        |  Required field when Supply air Flow Rate Method during heating operation is
+        |  FractionOfAutosizedCoolingAirflow.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
@@ -3206,14 +3304,15 @@ class SizingSystem(DataObject):
 
     @property
     def design_supply_air_flow_rate_per_unit_heating_capacity(self):
-        """field `Design Supply Air Flow Rate Per Unit Heating Capacity` Enter
-        the heating supply air volume flow rate per unit heating capacity.
-        Required field when Supply air Flow Rate Method during heating
-        operation is FlowPerHeatingCapacity.
+        """field `Design Supply Air Flow Rate Per Unit Heating Capacity`
+
+        |  Enter the heating supply air volume flow rate per unit heating capacity.
+        |  Required field when Supply air Flow Rate Method during heating operation is
+        |  FlowPerHeatingCapacity.
+        |  Units: m3/s-W
 
         Args:
             value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit Heating Capacity`
-                Units: m3/s-W
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3236,9 +3335,10 @@ class SizingSystem(DataObject):
     def system_outdoor_air_method(self):
         """field `System Outdoor Air Method`
 
+        |  Default value: ZoneSum
+
         Args:
             value (str): value for IDD Field `System Outdoor Air Method`
-                Default value: ZoneSum
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3258,10 +3358,11 @@ class SizingSystem(DataObject):
     def zone_maximum_outdoor_air_fraction(self):
         """field `Zone Maximum Outdoor Air Fraction`
 
+        |  Units: dimensionless
+        |  Default value: 1.0
+
         Args:
             value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
-                Units: dimensionless
-                Default value: 1.0
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3280,25 +3381,27 @@ class SizingSystem(DataObject):
     @property
     def cooling_design_capacity_method(self):
         """field `Cooling Design Capacity Method`
-        Enter the method used to determine the system cooling design capacity for scalable sizing.
-        None is used when a cooling coils is not included in an airloop or this field may be blank.
-        If this input field is left blank, then the design cooling capacity is set to zero.
-        CoolingDesignCapacity => selected when the design cooling capacity value is specified or
-        auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined
-        from user specified cooling capacity per floor area and total floor area of cooled zones
-        served by an airloop. FractionOfAutosizedCoolingCapacity => is selected when the design
-        cooling capacity is determined from a user specified fraction and the auto-sized design
-        cooling capacity of the system.
+
+        |  Enter the method used to determine the system cooling design capacity for scalable sizing.
+        |  None is used when a cooling coils is not included in an airloop or this field may be blank.
+        |  If this input field is left blank, then the design cooling capacity is set to zero.
+        |  CoolingDesignCapacity => selected when the design cooling capacity value is specified or
+        |  auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined
+        |  from user specified cooling capacity per floor area and total floor area of cooled zones
+        |  served by an airloop. FractionOfAutosizedCoolingCapacity => is selected when the design
+        |  cooling capacity is determined from a user specified fraction and the auto-sized design
+        |  cooling capacity of the system.
+        |  Default value: CoolingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Cooling Design Capacity Method`
-                Default value: CoolingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
+
         """
         return self["Cooling Design Capacity Method"]
 
@@ -3309,20 +3412,21 @@ class SizingSystem(DataObject):
 
     @property
     def cooling_design_capacity(self):
-        """field `Cooling Design Capacity` Enter the design cooling capacity.
-        Required field when the cooling design capacity method
-        CoolingDesignCapacity.
+        """field `Cooling Design Capacity`
+
+        |  Enter the design cooling capacity. Required field when the cooling design capacity method
+        |  CoolingDesignCapacity.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Cooling Design Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `cooling_design_capacity` or None if not set
+            float or "Autosize": the value of `cooling_design_capacity` or None if not set
 
         """
         return self["Cooling Design Capacity"]
@@ -3334,14 +3438,14 @@ class SizingSystem(DataObject):
 
     @property
     def cooling_design_capacity_per_floor_area(self):
-        """field `Cooling Design Capacity Per Floor Area` Enter the cooling
-        design capacity per total floor area of cooled zones served by an
-        airloop. Required field when the cooling design capacity method field
-        is CapacityPerFloorArea.
+        """field `Cooling Design Capacity Per Floor Area`
+
+        |  Enter the cooling design capacity per total floor area of cooled zones served by an airloop.
+        |  Required field when the cooling design capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3360,8 +3464,9 @@ class SizingSystem(DataObject):
     @property
     def fraction_of_autosized_cooling_design_capacity(self):
         """field `Fraction of Autosized Cooling Design Capacity`
-        Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
-        design capacity method field is FractionOfAutosizedCoolingCapacity.
+
+        |  Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
+        |  design capacity method field is FractionOfAutosizedCoolingCapacity.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
@@ -3371,6 +3476,7 @@ class SizingSystem(DataObject):
 
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
+
         """
         return self["Fraction of Autosized Cooling Design Capacity"]
 
@@ -3383,25 +3489,27 @@ class SizingSystem(DataObject):
     @property
     def heating_design_capacity_method(self):
         """field `Heating Design Capacity Method`
-        Enter the method used to determine the heating design capacity for scalable sizing.
-        None is used when a heating coil not included in an airloop or this field may be blank.
-        If this input field is left blank, then the design heating capacity is set to zero.
-        HeatingDesignCapacity => selected when the design heating capacity value is specified or
-        auto-sized. CapacityPerFloorArea => selected when the design heating capacity is determined
-        from user specified heating capacity per flow area and total floor area of heated zones
-        served by an airloop. FractionOfAutosizedHeatingCapacity => is selected when the design
-        heating capacity is determined from a user specified fraction and the auto-sized design
-        heating capacity of the system.
+
+        |  Enter the method used to determine the heating design capacity for scalable sizing.
+        |  None is used when a heating coil not included in an airloop or this field may be blank.
+        |  If this input field is left blank, then the design heating capacity is set to zero.
+        |  HeatingDesignCapacity => selected when the design heating capacity value is specified or
+        |  auto-sized. CapacityPerFloorArea => selected when the design heating capacity is determined
+        |  from user specified heating capacity per flow area and total floor area of heated zones
+        |  served by an airloop. FractionOfAutosizedHeatingCapacity => is selected when the design
+        |  heating capacity is determined from a user specified fraction and the auto-sized design
+        |  heating capacity of the system.
+        |  Default value: HeatingDesignCapacity
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
-                Default value: HeatingDesignCapacity
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
+
         """
         return self["Heating Design Capacity Method"]
 
@@ -3412,20 +3520,21 @@ class SizingSystem(DataObject):
 
     @property
     def heating_design_capacity(self):
-        """field `Heating Design Capacity` Enter the design heating capacity.
-        Required field when the heating design capacity method
-        HeatingDesignCapacity.
+        """field `Heating Design Capacity`
+
+        |  Enter the design heating capacity. Required field when the heating design capacity method
+        |  HeatingDesignCapacity.
+        |  Units: W
+        |  Default value: "autosize"
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
-                Units: W
-                Default value: "autosize"
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            float: the value of `heating_design_capacity` or None if not set
+            float or "Autosize": the value of `heating_design_capacity` or None if not set
 
         """
         return self["Heating Design Capacity"]
@@ -3437,13 +3546,14 @@ class SizingSystem(DataObject):
 
     @property
     def heating_design_capacity_per_floor_area(self):
-        """field `Heating Design Capacity Per Floor Area` Enter the heating
-        design capacity per zone floor area. Required field when the heating
-        design capacity method field is CapacityPerFloorArea.
+        """field `Heating Design Capacity Per Floor Area`
+
+        |  Enter the heating design capacity per zone floor area. Required field when the heating design
+        |  capacity method field is CapacityPerFloorArea.
+        |  Units: W/m2
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
-                Units: W/m2
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3462,8 +3572,9 @@ class SizingSystem(DataObject):
     @property
     def fraction_of_autosized_heating_design_capacity(self):
         """field `Fraction of Autosized Heating Design Capacity`
-        Enter the fraction of auto-sized heating design capacity. Required field when capacity the
-        heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+
+        |  Enter the fraction of auto-sized heating design capacity. Required field when capacity the
+        |  heating design capacity method field is FractionOfAutosizedHeatingCapacity.
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -3473,6 +3584,7 @@ class SizingSystem(DataObject):
 
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
+
         """
         return self["Fraction of Autosized Heating Design Capacity"]
 
@@ -3539,8 +3651,9 @@ class SizingPlant(DataObject):
 
     @property
     def plant_or_condenser_loop_name(self):
-        """field `Plant or Condenser Loop Name` Enter the name of a PlantLoop
-        or a CondenserLoop object.
+        """field `Plant or Condenser Loop Name`
+
+        |  Enter the name of a PlantLoop or a CondenserLoop object
 
         Args:
             value (str): value for IDD Field `Plant or Condenser Loop Name`
@@ -3584,9 +3697,10 @@ class SizingPlant(DataObject):
     def design_loop_exit_temperature(self):
         """field `Design Loop Exit Temperature`
 
+        |  Units: C
+
         Args:
             value (float): value for IDD Field `Design Loop Exit Temperature`
-                Units: C
 
         Raises:
             ValueError: if `value` is not a valid value
@@ -3606,9 +3720,10 @@ class SizingPlant(DataObject):
     def loop_design_temperature_difference(self):
         """field `Loop Design Temperature Difference`
 
+        |  Units: deltaC
+
         Args:
             value (float): value for IDD Field `Loop Design Temperature Difference`
-                Units: deltaC
 
         Raises:
             ValueError: if `value` is not a valid value
