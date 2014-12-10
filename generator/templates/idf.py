@@ -14,10 +14,6 @@ import logging
 import pyidf
 import datetime
 from collections import OrderedDict
-{%- for file_name in file_names %}
-from pyidf.{{ file_name }} import *
-{%- endfor %}
-
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -38,7 +34,6 @@ class IDF(object):
         if path is not None:
             self.read(path)
 
-
     def add(self, dataobject):
         """ Adds a data object to the IDF. If data object is unique, it replaces an
         eventual existing data object
@@ -57,7 +52,6 @@ class IDF(object):
             self._data[group][lower_name] = [dataobject]
         else:
             self._data[group][lower_name].append(dataobject)
-
 
     def save(self, path, check=True):
         """ Save data to path
@@ -106,8 +100,8 @@ class IDF(object):
                                 i = 0
                                 while i < cval:
 
-                                    if ((i + 2) < cval and "x" in vals[i][0].lower() and 
-                                        "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
+                                    if ((i + 2) < cval and "x" in vals[i][0].lower() and
+                                            "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
                                         val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
                                         comment = ",".join([vals[i][0], vals[i + 1][0], vals[i + 2][0]])
                                         i += 3
@@ -136,7 +130,7 @@ class IDF(object):
                                         j = i + 1
                                         while j < cval:
                                             jval = vals[j][1].lower()
-                                            if "for" in jval or "until" in jval:
+                                            if "for" in jval or "until" in jval or "interpolate" in jval or "through" in jval:
                                                 break
                                             j += 1
                                         val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
@@ -163,7 +157,7 @@ class IDF(object):
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
-    
+
                                     is_fluidprops = True
                                     for j in range(min(7, cval - i)):
 
@@ -279,7 +273,7 @@ class IDF(object):
                         split = split[:-1]
 
                     splitvals = split.split(",")
-                    
+
                     if i > 1 and len(split) == 0:
                         continue
 
@@ -331,7 +325,9 @@ class IDF(object):
         """
         {%- for obj in objs %}
         if internal_name.lower() == "{% filter lower %}{{ obj.internal_name }}"{% endfilter %}:
+            from pyidf.{{ obj.file_name }} import {{ obj.class_name }}
             return {{ obj.class_name }}()
+
         {%- endfor %}
         raise ValueError("No DataDictionary known for {}".format(internal_name))
 
@@ -340,7 +336,7 @@ class IDF(object):
             group = self._create_datadict(val).schema['group']
             if group not in self._data:
                 self._data[group] = OrderedDict()
-    
+
             lower_name = val.lower()
             if lower_name not in self._data[group]:
                 self._data[group][lower_name] = []
@@ -357,7 +353,7 @@ class IDF(object):
                         i += 1
         else:
             raise TypeError("Wrong type {} for IDF".format(type(val)))
-    
+
     def __len__(self):
         count = 0
         for group in self._data:
@@ -379,9 +375,9 @@ class IDF(object):
                     return True
                 break
         return False
-        
 
     def keys(self):
+        """ Present data objects"""
         keys = []
         for group in self._data:
             for key in self._data[group]:

@@ -15,58 +15,56 @@ class {{ obj.class_name }}(DataObject):
     @property
     def {{field.field_name}}(self):
         """field `{{ field.internal_name }}`
-
-        {%- if field.attributes.deprecated %}
-        This field is not really used and will be deleted from the object.
-        The required information is gotten internally or
-        not needed by the program.
-        {%- endif %}
-
-        {%- for comment in field.attributes.note %}
-        {{comment}}
+        {% for comment in field.attributes.note %}
+        |  {{comment}}
         {%- endfor %}
+        {%- if field.attributes.deprecated %}
+        |  This field is not really used and will be deleted from the object.
+        |  The required information is gotten internally or
+        |  not needed by the program.
+        {%- endif %}
+        {%- if field.attributes.type == "choice" %}
+        |  Accepted values are:
+            {%- for k in field.attributes.key %}
+        |        - {{ k }}
+            {%- endfor %}
+            {%- endif %}
+        {%- if field.attributes.units %}
+        |  Units: {{ field.attributes.units }}
+        {%- endif %}
+        {%- if field.attributes['ip-units'] %}
+        |  IP-Units: {{ field.attributes['ip-units'] }}
+        {%- endif %}
+        {%- if field.attributes['unitsbasedonfield'] %}
+        |  Units are based on field `{{ field.attributes['unitsbasedonfield'] }}`
+        {%- endif %}
+        {%- if field.attributes.default %}
+        |  Default value: {{ field.attributes.default }}
+        {%- endif %}
+        {%- if field.attributes.minimum %}
+        |  value >= {{ field.attributes.minimum }}
+        {%- endif %}
+        {%- if field.attributes['minimum>'] %}
+        |  value > {{ field.attributes['minimum>'] }}
+        {%- endif %}
+        {%- if field.attributes.maximum %}
+        |  value <= {{ field.attributes.maximum }}
+        {%- endif %}
+        {%- if field.attributes['maximum<'] %}
+        |  value < {{ field.attributes['maximum<'] }}
+        {%- endif %}
+        {%- if field.attributes.missing %}
+        |  Missing value: {{ field.attributes.missing }}
+        {%- endif %}
 
         Args:
             value ({{ field.attributes.pytype }}{%- if field.attributes.autocalculatable %} or "Autocalculate"{%- endif %}{%- if field.attributes.autosizable %} or "Autosize"{%- endif %}): value for IDD Field `{{field.internal_name}}`
-                {%- if field.attributes.type == "choice" %}
-                Accepted values are:
-                    {%- for k in field.attributes.key %}
-                      - {{ k }}
-                    {%- endfor %}
-                    {%- endif %}
-                {%- if field.attributes.units %}
-                Units: {{ field.attributes.units }}
-                {%- endif %}
-                {%- if field.attributes['ip-units'] %}
-                IP-Units: {{ field.attributes['ip-units'] }}
-                {%- endif %}
-                {%- if field.attributes['unitsbasedonfield'] %}
-                Units are based on field `{{ field.attributes['unitsbasedonfield'] }}`
-                {%- endif %}
-                {%- if field.attributes.default %}
-                Default value: {{ field.attributes.default }}
-                {%- endif %}
-                {%- if field.attributes.minimum %}
-                value >= {{ field.attributes.minimum }}
-                {%- endif %}
-                {%- if field.attributes['minimum>'] %}
-                value > {{ field.attributes['minimum>'] }}
-                {%- endif %}
-                {%- if field.attributes.maximum %}
-                value <= {{ field.attributes.maximum }}
-                {%- endif %}
-                {%- if field.attributes['maximum<'] %}
-                value < {{ field.attributes['maximum<'] }}
-                {%- endif %}
-                {%- if field.attributes.missing %}
-                Missing value: {{ field.attributes.missing }}
-                {%- endif %}
 
         Raises:
             ValueError: if `value` is not a valid value
 
         Returns:
-            {{ field.attributes.pytype }}: the value of `{{field.field_name}}` or None if not set
+            {{ field.attributes.pytype }} {%- if field.attributes.autocalculatable %} or "Autocalculate"{%- endif %}{%- if field.attributes.autosizable %} or "Autosize"{%- endif %}: the value of `{{field.field_name}}` or None if not set
         """
         return self["{{ field.internal_name }}"]
 

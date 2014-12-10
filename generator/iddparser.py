@@ -53,7 +53,7 @@ class IDDParser():
 
     def _parse_field_name(self, line):
         # print "NewField:\t", line
-        match_field_name = re.search(r"\\field\s(.*)$", line, re.IGNORECASE)
+        match_field_name = re.search(r"\\field\s([^!]*)$", line, re.IGNORECASE)
         match_field_type = re.search(r"^\s*([AN])", line)
         match_field_id = re.search(r"^\s*([AN0-9]+)", line)
 
