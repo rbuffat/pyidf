@@ -97,6 +97,24 @@ class TestCoilHeatingDxSingleSpeed(unittest.TestCase):
         # node
         var_evaporator_air_inlet_node_name = "node|Evaporator Air Inlet Node Name"
         obj.evaporator_air_inlet_node_name = var_evaporator_air_inlet_node_name
+        # alpha
+        var_zone_name_for_evaporator_placement = "Zone Name for Evaporator Placement"
+        obj.zone_name_for_evaporator_placement = var_zone_name_for_evaporator_placement
+        # real
+        var_secondary_coil_air_flow_rate = 0.0001
+        obj.secondary_coil_air_flow_rate = var_secondary_coil_air_flow_rate
+        # real
+        var_secondary_coil_fan_flow_scaling_factor = 0.0001
+        obj.secondary_coil_fan_flow_scaling_factor = var_secondary_coil_fan_flow_scaling_factor
+        # real
+        var_nominal_sensible_heat_ratio_of_secondary_coil = 0.50005
+        obj.nominal_sensible_heat_ratio_of_secondary_coil = var_nominal_sensible_heat_ratio_of_secondary_coil
+        # object-list
+        var_sensible_heat_ratio_modifier_function_of_temperature_curve_name = "object-list|Sensible Heat Ratio Modifier Function of Temperature Curve Name"
+        obj.sensible_heat_ratio_modifier_function_of_temperature_curve_name = var_sensible_heat_ratio_modifier_function_of_temperature_curve_name
+        # object-list
+        var_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = "object-list|Sensible Heat Ratio Modifier Function of Flow Fraction Curve Name"
+        obj.sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = var_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name
 
         idf = IDF()
         idf.add(obj)
@@ -132,3 +150,9 @@ class TestCoilHeatingDxSingleSpeed(unittest.TestCase):
         self.assertAlmostEqual(idf2.coilheatingdxsinglespeeds[0].resistive_defrost_heater_capacity, var_resistive_defrost_heater_capacity)
         self.assertEqual(idf2.coilheatingdxsinglespeeds[0].region_number_for_calculating_hspf, var_region_number_for_calculating_hspf)
         self.assertEqual(idf2.coilheatingdxsinglespeeds[0].evaporator_air_inlet_node_name, var_evaporator_air_inlet_node_name)
+        self.assertEqual(idf2.coilheatingdxsinglespeeds[0].zone_name_for_evaporator_placement, var_zone_name_for_evaporator_placement)
+        self.assertAlmostEqual(idf2.coilheatingdxsinglespeeds[0].secondary_coil_air_flow_rate, var_secondary_coil_air_flow_rate)
+        self.assertAlmostEqual(idf2.coilheatingdxsinglespeeds[0].secondary_coil_fan_flow_scaling_factor, var_secondary_coil_fan_flow_scaling_factor)
+        self.assertAlmostEqual(idf2.coilheatingdxsinglespeeds[0].nominal_sensible_heat_ratio_of_secondary_coil, var_nominal_sensible_heat_ratio_of_secondary_coil)
+        self.assertEqual(idf2.coilheatingdxsinglespeeds[0].sensible_heat_ratio_modifier_function_of_temperature_curve_name, var_sensible_heat_ratio_modifier_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxsinglespeeds[0].sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name, var_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name)

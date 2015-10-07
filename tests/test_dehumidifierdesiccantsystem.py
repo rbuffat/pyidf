@@ -73,8 +73,8 @@ class TestDehumidifierDesiccantSystem(unittest.TestCase):
         # real
         var_exhaust_fan_maximum_power = 17.17
         obj.exhaust_fan_maximum_power = var_exhaust_fan_maximum_power
-        # alpha
-        var_exhaust_fan_power_curve_name = "Exhaust Fan Power Curve Name"
+        # object-list
+        var_exhaust_fan_power_curve_name = "object-list|Exhaust Fan Power Curve Name"
         obj.exhaust_fan_power_curve_name = var_exhaust_fan_power_curve_name
 
         idf = IDF()

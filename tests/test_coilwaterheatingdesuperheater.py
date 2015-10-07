@@ -58,8 +58,8 @@ class TestCoilWaterHeatingDesuperheater(unittest.TestCase):
         # alpha
         var_tank_object_type = "WaterHeater:Mixed"
         obj.tank_object_type = var_tank_object_type
-        # alpha
-        var_tank_name = "Tank Name"
+        # object-list
+        var_tank_name = "object-list|Tank Name"
         obj.tank_name = var_tank_name
         # alpha
         var_heating_source_object_type = "Coil:Cooling:DX:SingleSpeed"

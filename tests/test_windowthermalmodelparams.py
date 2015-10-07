@@ -38,13 +38,13 @@ class TestWindowThermalModelParams(unittest.TestCase):
         var_deflection_model = "NoDeflection"
         obj.deflection_model = var_deflection_model
         # real
-        var_vacuum_pressure_limit = 6.6
+        var_vacuum_pressure_limit = 0.0001
         obj.vacuum_pressure_limit = var_vacuum_pressure_limit
         # real
-        var_initial_temperature = 7.7
+        var_initial_temperature = 0.0001
         obj.initial_temperature = var_initial_temperature
         # real
-        var_initial_pressure = 8.8
+        var_initial_pressure = 0.0001
         obj.initial_pressure = var_initial_pressure
 
         idf = IDF()

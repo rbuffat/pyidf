@@ -91,8 +91,8 @@ class TestPumpVariableSpeed(unittest.TestCase):
         # object-list
         var_maximum_rpm_schedule = "object-list|Maximum RPM Schedule"
         obj.maximum_rpm_schedule = var_maximum_rpm_schedule
-        # Object-list
-        var_zone_name = "Object-list|Zone Name"
+        # object-list
+        var_zone_name = "object-list|Zone Name"
         obj.zone_name = var_zone_name
         # real
         var_skin_loss_radiative_fraction = 0.5

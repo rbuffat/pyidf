@@ -80,11 +80,11 @@ class TestGeneratorFuelCellPowerModule(unittest.TestCase):
         var_shut_down_electricity_consumption = 19.19
         obj.shut_down_electricity_consumption = var_shut_down_electricity_consumption
         # real
-        var_ancilliary_electricity_constant_term = 20.2
-        obj.ancilliary_electricity_constant_term = var_ancilliary_electricity_constant_term
+        var_ancillary_electricity_constant_term = 20.2
+        obj.ancillary_electricity_constant_term = var_ancillary_electricity_constant_term
         # real
-        var_ancilliary_electricity_linear_term = 21.21
-        obj.ancilliary_electricity_linear_term = var_ancilliary_electricity_linear_term
+        var_ancillary_electricity_linear_term = 21.21
+        obj.ancillary_electricity_linear_term = var_ancillary_electricity_linear_term
         # alpha
         var_skin_loss_calculation_mode = "ConstantRate"
         obj.skin_loss_calculation_mode = var_skin_loss_calculation_mode
@@ -150,8 +150,8 @@ class TestGeneratorFuelCellPowerModule(unittest.TestCase):
         self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].shut_down_time, var_shut_down_time)
         self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].shut_down_fuel, var_shut_down_fuel)
         self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].shut_down_electricity_consumption, var_shut_down_electricity_consumption)
-        self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].ancilliary_electricity_constant_term, var_ancilliary_electricity_constant_term)
-        self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].ancilliary_electricity_linear_term, var_ancilliary_electricity_linear_term)
+        self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].ancillary_electricity_constant_term, var_ancillary_electricity_constant_term)
+        self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].ancillary_electricity_linear_term, var_ancillary_electricity_linear_term)
         self.assertEqual(idf2.generatorfuelcellpowermodules[0].skin_loss_calculation_mode, var_skin_loss_calculation_mode)
         self.assertEqual(idf2.generatorfuelcellpowermodules[0].zone_name, var_zone_name)
         self.assertAlmostEqual(idf2.generatorfuelcellpowermodules[0].skin_loss_radiative_fraction, var_skin_loss_radiative_fraction)

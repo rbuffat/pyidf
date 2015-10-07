@@ -127,8 +127,8 @@ class TestAirConditionerVariableRefrigerantFlow(unittest.TestCase):
         # alpha
         var_master_thermostat_priority_control_type = "LoadPriority"
         obj.master_thermostat_priority_control_type = var_master_thermostat_priority_control_type
-        # alpha
-        var_thermostat_priority_schedule_name = "Thermostat Priority Schedule Name"
+        # object-list
+        var_thermostat_priority_schedule_name = "object-list|Thermostat Priority Schedule Name"
         obj.thermostat_priority_schedule_name = var_thermostat_priority_schedule_name
         # object-list
         var_zone_terminal_unit_list_name = "object-list|Zone Terminal Unit List Name"

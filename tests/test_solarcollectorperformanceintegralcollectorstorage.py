@@ -71,8 +71,8 @@ class TestSolarCollectorPerformanceIntegralCollectorStorage(unittest.TestCase):
         var_extinction_coefficient_times_thickness_of_the_inner_cover = 0.0
         obj.extinction_coefficient_times_thickness_of_the_inner_cover = var_extinction_coefficient_times_thickness_of_the_inner_cover
         # real
-        var_emmissivity_of_inner_cover = 0.5
-        obj.emmissivity_of_inner_cover = var_emmissivity_of_inner_cover
+        var_emissivity_of_inner_cover = 0.5
+        obj.emissivity_of_inner_cover = var_emissivity_of_inner_cover
         # real
         var_absorptance_of_absorber_plate = 0.5
         obj.absorptance_of_absorber_plate = var_absorptance_of_absorber_plate
@@ -105,6 +105,6 @@ class TestSolarCollectorPerformanceIntegralCollectorStorage(unittest.TestCase):
         self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].emissivity_of_outer_cover, var_emissivity_of_outer_cover)
         self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].refractive_index_of_inner_cover, var_refractive_index_of_inner_cover)
         self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].extinction_coefficient_times_thickness_of_the_inner_cover, var_extinction_coefficient_times_thickness_of_the_inner_cover)
-        self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].emmissivity_of_inner_cover, var_emmissivity_of_inner_cover)
+        self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].emissivity_of_inner_cover, var_emissivity_of_inner_cover)
         self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].absorptance_of_absorber_plate, var_absorptance_of_absorber_plate)
         self.assertAlmostEqual(idf2.solarcollectorperformanceintegralcollectorstorages[0].emissivity_of_absorber_plate, var_emissivity_of_absorber_plate)

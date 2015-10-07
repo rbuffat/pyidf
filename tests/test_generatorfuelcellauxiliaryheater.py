@@ -29,11 +29,11 @@ class TestGeneratorFuelCellAuxiliaryHeater(unittest.TestCase):
         var_excess_air_ratio = 2.2
         obj.excess_air_ratio = var_excess_air_ratio
         # real
-        var_ancilliary_power_constant_term = 3.3
-        obj.ancilliary_power_constant_term = var_ancilliary_power_constant_term
+        var_ancillary_power_constant_term = 3.3
+        obj.ancillary_power_constant_term = var_ancillary_power_constant_term
         # real
-        var_ancilliary_power_linear_term = 4.4
-        obj.ancilliary_power_linear_term = var_ancilliary_power_linear_term
+        var_ancillary_power_linear_term = 4.4
+        obj.ancillary_power_linear_term = var_ancillary_power_linear_term
         # real
         var_skin_loss_ufactor_times_area_value = 5.5
         obj.skin_loss_ufactor_times_area_value = var_skin_loss_ufactor_times_area_value
@@ -70,8 +70,8 @@ class TestGeneratorFuelCellAuxiliaryHeater(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.generatorfuelcellauxiliaryheaters[0].name, var_name)
         self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].excess_air_ratio, var_excess_air_ratio)
-        self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].ancilliary_power_constant_term, var_ancilliary_power_constant_term)
-        self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].ancilliary_power_linear_term, var_ancilliary_power_linear_term)
+        self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].ancillary_power_constant_term, var_ancillary_power_constant_term)
+        self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].ancillary_power_linear_term, var_ancillary_power_linear_term)
         self.assertAlmostEqual(idf2.generatorfuelcellauxiliaryheaters[0].skin_loss_ufactor_times_area_value, var_skin_loss_ufactor_times_area_value)
         self.assertEqual(idf2.generatorfuelcellauxiliaryheaters[0].skin_loss_destination, var_skin_loss_destination)
         self.assertEqual(idf2.generatorfuelcellauxiliaryheaters[0].zone_name_to_receive_skin_losses, var_zone_name_to_receive_skin_losses)

@@ -40,6 +40,12 @@ class TestZoneHvacEquipmentConnections(unittest.TestCase):
         # node
         var_zone_return_air_node_name = "node|Zone Return Air Node Name"
         obj.zone_return_air_node_name = var_zone_return_air_node_name
+        # object-list
+        var_zone_return_air_flow_rate_fraction_schedule_name = "object-list|Zone Return Air Flow Rate Fraction Schedule Name"
+        obj.zone_return_air_flow_rate_fraction_schedule_name = var_zone_return_air_flow_rate_fraction_schedule_name
+        # node
+        var_zone_return_air_flow_rate_basis_node_or_nodelist_name = "node|Zone Return Air Flow Rate Basis Node or NodeList Name"
+        obj.zone_return_air_flow_rate_basis_node_or_nodelist_name = var_zone_return_air_flow_rate_basis_node_or_nodelist_name
 
         idf = IDF()
         idf.add(obj)
@@ -56,3 +62,5 @@ class TestZoneHvacEquipmentConnections(unittest.TestCase):
         self.assertEqual(idf2.zonehvacequipmentconnectionss[0].zone_air_exhaust_node_or_nodelist_name, var_zone_air_exhaust_node_or_nodelist_name)
         self.assertEqual(idf2.zonehvacequipmentconnectionss[0].zone_air_node_name, var_zone_air_node_name)
         self.assertEqual(idf2.zonehvacequipmentconnectionss[0].zone_return_air_node_name, var_zone_return_air_node_name)
+        self.assertEqual(idf2.zonehvacequipmentconnectionss[0].zone_return_air_flow_rate_fraction_schedule_name, var_zone_return_air_flow_rate_fraction_schedule_name)
+        self.assertEqual(idf2.zonehvacequipmentconnectionss[0].zone_return_air_flow_rate_basis_node_or_nodelist_name, var_zone_return_air_flow_rate_basis_node_or_nodelist_name)

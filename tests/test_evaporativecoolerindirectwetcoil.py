@@ -38,14 +38,14 @@ class TestEvaporativeCoolerIndirectWetCoil(unittest.TestCase):
         var_recirculating_water_pump_power_consumption = 5.5
         obj.recirculating_water_pump_power_consumption = var_recirculating_water_pump_power_consumption
         # real
-        var_secondary_fan_flow_rate = 0.0
-        obj.secondary_fan_flow_rate = var_secondary_fan_flow_rate
+        var_secondary_air_fan_flow_rate = 0.0
+        obj.secondary_air_fan_flow_rate = var_secondary_air_fan_flow_rate
         # real
-        var_secondary_fan_total_efficiency = 0.50005
-        obj.secondary_fan_total_efficiency = var_secondary_fan_total_efficiency
+        var_secondary_air_fan_total_efficiency = 0.50005
+        obj.secondary_air_fan_total_efficiency = var_secondary_air_fan_total_efficiency
         # real
-        var_secondary_fan_delta_pressure = 0.0
-        obj.secondary_fan_delta_pressure = var_secondary_fan_delta_pressure
+        var_secondary_air_fan_delta_pressure = 0.0
+        obj.secondary_air_fan_delta_pressure = var_secondary_air_fan_delta_pressure
         # node
         var_primary_air_inlet_node_name = "node|Primary Air Inlet Node Name"
         obj.primary_air_inlet_node_name = var_primary_air_inlet_node_name
@@ -76,9 +76,9 @@ class TestEvaporativeCoolerIndirectWetCoil(unittest.TestCase):
         self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].coil_maximum_efficiency, var_coil_maximum_efficiency)
         self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].coil_flow_ratio, var_coil_flow_ratio)
         self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].recirculating_water_pump_power_consumption, var_recirculating_water_pump_power_consumption)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_fan_flow_rate, var_secondary_fan_flow_rate)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_fan_total_efficiency, var_secondary_fan_total_efficiency)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_fan_delta_pressure, var_secondary_fan_delta_pressure)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_air_fan_flow_rate, var_secondary_air_fan_flow_rate)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_air_fan_total_efficiency, var_secondary_air_fan_total_efficiency)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectwetcoils[0].secondary_air_fan_delta_pressure, var_secondary_air_fan_delta_pressure)
         self.assertEqual(idf2.evaporativecoolerindirectwetcoils[0].primary_air_inlet_node_name, var_primary_air_inlet_node_name)
         self.assertEqual(idf2.evaporativecoolerindirectwetcoils[0].primary_air_outlet_node_name, var_primary_air_outlet_node_name)
         self.assertEqual(idf2.evaporativecoolerindirectwetcoils[0].control_type, var_control_type)

@@ -85,26 +85,26 @@ class TestChillerHeaterAbsorptionDoubleEffect(unittest.TestCase):
         # real
         var_design_hot_water_flow_rate = 21.21
         obj.design_hot_water_flow_rate = var_design_hot_water_flow_rate
-        # alpha
-        var_cooling_capacity_function_of_temperature_curve_name = "Cooling Capacity Function of Temperature Curve Name"
+        # object-list
+        var_cooling_capacity_function_of_temperature_curve_name = "object-list|Cooling Capacity Function of Temperature Curve Name"
         obj.cooling_capacity_function_of_temperature_curve_name = var_cooling_capacity_function_of_temperature_curve_name
-        # alpha
-        var_fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name = "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"
+        # object-list
+        var_fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name = "object-list|Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"
         obj.fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name = var_fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name
-        # alpha
-        var_fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"
+        # object-list
+        var_fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = "object-list|Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"
         obj.fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = var_fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
-        # alpha
-        var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name = "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"
+        # object-list
+        var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name = "object-list|Electric Input to Cooling Output Ratio Function of Temperature Curve Name"
         obj.electric_input_to_cooling_output_ratio_function_of_temperature_curve_name = var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
-        # alpha
-        var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"
+        # object-list
+        var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = "object-list|Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"
         obj.electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
-        # alpha
-        var_heating_capacity_function_of_cooling_capacity_curve_name = "Heating Capacity Function of Cooling Capacity Curve Name"
+        # object-list
+        var_heating_capacity_function_of_cooling_capacity_curve_name = "object-list|Heating Capacity Function of Cooling Capacity Curve Name"
         obj.heating_capacity_function_of_cooling_capacity_curve_name = var_heating_capacity_function_of_cooling_capacity_curve_name
-        # alpha
-        var_fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name = "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"
+        # object-list
+        var_fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name = "object-list|Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"
         obj.fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name = var_fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name
         # alpha
         var_temperature_curve_input_variable = "LeavingCondenser"

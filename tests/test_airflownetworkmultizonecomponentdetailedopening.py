@@ -32,8 +32,8 @@ class TestAirflowNetworkMultiZoneComponentDetailedOpening(unittest.TestCase):
         var_air_mass_flow_exponent_when_opening_is_closed = 0.75
         obj.air_mass_flow_exponent_when_opening_is_closed = var_air_mass_flow_exponent_when_opening_is_closed
         # alpha
-        var_type_of_rectanguler_large_vertical_opening_lvo = "NonPivoted"
-        obj.type_of_rectanguler_large_vertical_opening_lvo = var_type_of_rectanguler_large_vertical_opening_lvo
+        var_type_of_rectangular_large_vertical_opening_lvo = "NonPivoted"
+        obj.type_of_rectangular_large_vertical_opening_lvo = var_type_of_rectangular_large_vertical_opening_lvo
         # real
         var_extra_crack_length_or_height_of_pivoting_axis = 0.0
         obj.extra_crack_length_or_height_of_pivoting_axis = var_extra_crack_length_or_height_of_pivoting_axis
@@ -113,7 +113,7 @@ class TestAirflowNetworkMultiZoneComponentDetailedOpening(unittest.TestCase):
         self.assertEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].name, var_name)
         self.assertAlmostEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].air_mass_flow_coefficient_when_opening_is_closed, var_air_mass_flow_coefficient_when_opening_is_closed)
         self.assertAlmostEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].air_mass_flow_exponent_when_opening_is_closed, var_air_mass_flow_exponent_when_opening_is_closed)
-        self.assertEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].type_of_rectanguler_large_vertical_opening_lvo, var_type_of_rectanguler_large_vertical_opening_lvo)
+        self.assertEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].type_of_rectangular_large_vertical_opening_lvo, var_type_of_rectangular_large_vertical_opening_lvo)
         self.assertAlmostEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].extra_crack_length_or_height_of_pivoting_axis, var_extra_crack_length_or_height_of_pivoting_axis)
         self.assertEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].number_of_sets_of_opening_factor_data, var_number_of_sets_of_opening_factor_data)
         self.assertAlmostEqual(idf2.airflownetworkmultizonecomponentdetailedopenings[0].opening_factor_1, var_opening_factor_1)

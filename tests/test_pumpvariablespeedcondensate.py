@@ -61,8 +61,8 @@ class TestPumpVariableSpeedCondensate(unittest.TestCase):
         # object-list
         var_pump_flow_rate_schedule_name = "object-list|Pump Flow Rate Schedule Name"
         obj.pump_flow_rate_schedule_name = var_pump_flow_rate_schedule_name
-        # Object-list
-        var_zone_name = "Object-list|Zone Name"
+        # object-list
+        var_zone_name = "object-list|Zone Name"
         obj.zone_name = var_zone_name
         # real
         var_skin_loss_radiative_fraction = 0.5

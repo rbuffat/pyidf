@@ -41,26 +41,26 @@ class TestHvactemplateZoneVrf(unittest.TestCase):
         var_rated_total_heating_capacity_sizing_ratio = 1.0
         obj.rated_total_heating_capacity_sizing_ratio = var_rated_total_heating_capacity_sizing_ratio
         # real
-        var_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.supply_air_flow_rate_during_cooling_operation = var_supply_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0001
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_cooling_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_is_needed = var_supply_air_flow_rate_when_no_cooling_is_needed
+        var_no_cooling_supply_air_flow_rate = 0.0
+        obj.no_cooling_supply_air_flow_rate = var_no_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.supply_air_flow_rate_during_heating_operation = var_supply_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_heating_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_heating_is_needed = var_supply_air_flow_rate_when_no_heating_is_needed
+        var_no_heating_supply_air_flow_rate = 0.0
+        obj.no_heating_supply_air_flow_rate = var_no_heating_supply_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_cooling_operation = 0.0
-        obj.outdoor_air_flow_rate_during_cooling_operation = var_outdoor_air_flow_rate_during_cooling_operation
+        var_cooling_outdoor_air_flow_rate = 0.0
+        obj.cooling_outdoor_air_flow_rate = var_cooling_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_heating_operation = 0.0
-        obj.outdoor_air_flow_rate_during_heating_operation = var_outdoor_air_flow_rate_during_heating_operation
+        var_heating_outdoor_air_flow_rate = 0.0
+        obj.heating_outdoor_air_flow_rate = var_heating_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_outdoor_air_flow_rate = 0.0
+        obj.no_load_outdoor_air_flow_rate = var_no_load_outdoor_air_flow_rate
         # alpha
         var_outdoor_air_method = "Flow/Person"
         obj.outdoor_air_method = var_outdoor_air_method
@@ -170,13 +170,13 @@ class TestHvactemplateZoneVrf(unittest.TestCase):
         self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].zone_heating_sizing_factor, var_zone_heating_sizing_factor)
         self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].zone_cooling_sizing_factor, var_zone_cooling_sizing_factor)
         self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].rated_total_heating_capacity_sizing_ratio, var_rated_total_heating_capacity_sizing_ratio)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].supply_air_flow_rate_during_cooling_operation, var_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].supply_air_flow_rate_when_no_cooling_is_needed, var_supply_air_flow_rate_when_no_cooling_is_needed)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].supply_air_flow_rate_during_heating_operation, var_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].supply_air_flow_rate_when_no_heating_is_needed, var_supply_air_flow_rate_when_no_heating_is_needed)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_flow_rate_during_cooling_operation, var_outdoor_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_flow_rate_during_heating_operation, var_outdoor_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed, var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].no_cooling_supply_air_flow_rate, var_no_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].no_heating_supply_air_flow_rate, var_no_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].cooling_outdoor_air_flow_rate, var_cooling_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].heating_outdoor_air_flow_rate, var_heating_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].no_load_outdoor_air_flow_rate, var_no_load_outdoor_air_flow_rate)
         self.assertEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_method, var_outdoor_air_method)
         self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_flow_rate_per_person, var_outdoor_air_flow_rate_per_person)
         self.assertAlmostEqual(idf2.hvactemplatezonevrfs[0].outdoor_air_flow_rate_per_zone_floor_area, var_outdoor_air_flow_rate_per_zone_floor_area)

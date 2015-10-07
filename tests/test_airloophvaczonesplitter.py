@@ -29,8 +29,8 @@ class TestAirLoopHvacZoneSplitter(unittest.TestCase):
         var_inlet_node_name = "node|Inlet Node Name"
         obj.inlet_node_name = var_inlet_node_name
         paras = []
-        var_outlet_node_name = "node|Outlet  Node Name"
-        paras.append(var_outlet_node_name)
+        var_outlet_1_node_name = "node|Outlet 1 Node Name"
+        paras.append(var_outlet_1_node_name)
         obj.add_extensible(*paras)
         
 
@@ -45,5 +45,5 @@ class TestAirLoopHvacZoneSplitter(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airloophvaczonesplitters[0].name, var_name)
         self.assertEqual(idf2.airloophvaczonesplitters[0].inlet_node_name, var_inlet_node_name)
-        index = obj.extensible_field_index("Outlet  Node Name")
-        self.assertEqual(idf2.airloophvaczonesplitters[0].extensibles[0][index], var_outlet_node_name)
+        index = obj.extensible_field_index("Outlet 1 Node Name")
+        self.assertEqual(idf2.airloophvaczonesplitters[0].extensibles[0][index], var_outlet_1_node_name)

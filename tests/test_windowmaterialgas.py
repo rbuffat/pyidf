@@ -62,7 +62,7 @@ class TestWindowMaterialGas(unittest.TestCase):
         var_molecular_weight = 110.0
         obj.molecular_weight = var_molecular_weight
         # real
-        var_specific_heat_ratio = 14.14
+        var_specific_heat_ratio = 1.0001
         obj.specific_heat_ratio = var_specific_heat_ratio
 
         idf = IDF()

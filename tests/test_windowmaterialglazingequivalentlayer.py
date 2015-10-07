@@ -26,10 +26,10 @@ class TestWindowMaterialGlazingEquivalentLayer(unittest.TestCase):
         var_name = "Name"
         obj.name = var_name
         # alpha
-        var_optical_data_type = "SpectralAverage"
+        var_optical_data_type = "Optical Data Type"
         obj.optical_data_type = var_optical_data_type
-        # alpha
-        var_window_glass_spectral_data_set_name = "Window Glass Spectral Data Set Name"
+        # object-list
+        var_window_glass_spectral_data_set_name = "object-list|Window Glass Spectral Data Set Name"
         obj.window_glass_spectral_data_set_name = var_window_glass_spectral_data_set_name
         # real
         var_front_side_beambeam_solar_transmittance = 0.5

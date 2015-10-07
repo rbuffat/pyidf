@@ -77,7 +77,7 @@ class TestHvactemplateSystemVav(unittest.TestCase):
         var_gas_heating_coil_parasitic_electric_load = 0.0
         obj.gas_heating_coil_parasitic_electric_load = var_gas_heating_coil_parasitic_electric_load
         # alpha
-        var_preheat_coil_type = "Electric"
+        var_preheat_coil_type = "HotWater"
         obj.preheat_coil_type = var_preheat_coil_type
         # object-list
         var_preheat_coil_availability_schedule_name = "object-list|Preheat Coil Availability Schedule Name"

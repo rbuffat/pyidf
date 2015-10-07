@@ -28,8 +28,8 @@ class TestSurfaceControlMovableInsulation(unittest.TestCase):
         # object-list
         var_surface_name = "object-list|Surface Name"
         obj.surface_name = var_surface_name
-        # alpha
-        var_material_name = "Material Name"
+        # object-list
+        var_material_name = "object-list|Material Name"
         obj.material_name = var_material_name
         # object-list
         var_schedule_name = "object-list|Schedule Name"

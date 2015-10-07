@@ -25,11 +25,11 @@ class TestAirflowNetworkDistributionLinkage(unittest.TestCase):
         # alpha
         var_name = "Name"
         obj.name = var_name
-        # alpha
-        var_node_1_name = "Node 1 Name"
+        # object-list
+        var_node_1_name = "object-list|Node 1 Name"
         obj.node_1_name = var_node_1_name
-        # alpha
-        var_node_2_name = "Node 2 Name"
+        # object-list
+        var_node_2_name = "object-list|Node 2 Name"
         obj.node_2_name = var_node_2_name
         # object-list
         var_component_name = "object-list|Component Name"

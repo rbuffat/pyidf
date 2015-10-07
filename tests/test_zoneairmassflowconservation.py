@@ -26,8 +26,11 @@ class TestZoneAirMassFlowConservation(unittest.TestCase):
         var_adjust_zone_mixing_for_zone_air_mass_flow_balance = "Yes"
         obj.adjust_zone_mixing_for_zone_air_mass_flow_balance = var_adjust_zone_mixing_for_zone_air_mass_flow_balance
         # alpha
-        var_source_zone_infiltration_treatment = "AddInfiltrationFlow"
-        obj.source_zone_infiltration_treatment = var_source_zone_infiltration_treatment
+        var_infiltration_balancing_method = "AddInfiltrationFlow"
+        obj.infiltration_balancing_method = var_infiltration_balancing_method
+        # alpha
+        var_infiltration_balancing_zones = "MixingSourceZonesOnly"
+        obj.infiltration_balancing_zones = var_infiltration_balancing_zones
 
         idf = IDF()
         idf.add(obj)
@@ -39,4 +42,5 @@ class TestZoneAirMassFlowConservation(unittest.TestCase):
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.zoneairmassflowconservations[0].adjust_zone_mixing_for_zone_air_mass_flow_balance, var_adjust_zone_mixing_for_zone_air_mass_flow_balance)
-        self.assertEqual(idf2.zoneairmassflowconservations[0].source_zone_infiltration_treatment, var_source_zone_infiltration_treatment)
+        self.assertEqual(idf2.zoneairmassflowconservations[0].infiltration_balancing_method, var_infiltration_balancing_method)
+        self.assertEqual(idf2.zoneairmassflowconservations[0].infiltration_balancing_zones, var_infiltration_balancing_zones)

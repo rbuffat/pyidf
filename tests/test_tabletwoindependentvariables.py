@@ -62,12 +62,12 @@ class TestTableTwoIndependentVariables(unittest.TestCase):
         var_normalization_reference = 13.13
         obj.normalization_reference = var_normalization_reference
         paras = []
-        var_x_value = 14.14
-        paras.append(var_x_value)
-        var_y_value = 15.15
-        paras.append(var_y_value)
-        var_output_value = 16.16
-        paras.append(var_output_value)
+        var_x_value_1 = 14.14
+        paras.append(var_x_value_1)
+        var_y_value_1 = 15.15
+        paras.append(var_y_value_1)
+        var_output_value_1 = 16.16
+        paras.append(var_output_value_1)
         obj.add_extensible(*paras)
         
 
@@ -93,9 +93,9 @@ class TestTableTwoIndependentVariables(unittest.TestCase):
         self.assertEqual(idf2.tabletwoindependentvariabless[0].input_unit_type_for_y, var_input_unit_type_for_y)
         self.assertEqual(idf2.tabletwoindependentvariabless[0].output_unit_type, var_output_unit_type)
         self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].normalization_reference, var_normalization_reference)
-        index = obj.extensible_field_index("X Value")
-        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_x_value)
-        index = obj.extensible_field_index("Y Value")
-        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_y_value)
-        index = obj.extensible_field_index("Output Value")
-        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_output_value)
+        index = obj.extensible_field_index("X Value #1")
+        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_x_value_1)
+        index = obj.extensible_field_index("Y Value #1")
+        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_y_value_1)
+        index = obj.extensible_field_index("Output Value #1")
+        self.assertAlmostEqual(idf2.tabletwoindependentvariabless[0].extensibles[0][index], var_output_value_1)

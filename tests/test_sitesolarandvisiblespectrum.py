@@ -28,11 +28,11 @@ class TestSiteSolarAndVisibleSpectrum(unittest.TestCase):
         # alpha
         var_spectrum_data_method = "Default"
         obj.spectrum_data_method = var_spectrum_data_method
-        # alpha
-        var_solar_spectrum_data_object_name = "Solar Spectrum Data Object Name"
+        # object-list
+        var_solar_spectrum_data_object_name = "object-list|Solar Spectrum Data Object Name"
         obj.solar_spectrum_data_object_name = var_solar_spectrum_data_object_name
-        # alpha
-        var_visible_spectrum_data_object_name = "Visible Spectrum Data Object Name"
+        # object-list
+        var_visible_spectrum_data_object_name = "object-list|Visible Spectrum Data Object Name"
         obj.visible_spectrum_data_object_name = var_visible_spectrum_data_object_name
 
         idf = IDF()

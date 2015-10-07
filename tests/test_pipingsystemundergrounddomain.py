@@ -76,23 +76,20 @@ class TestPipingSystemUndergroundDomain(unittest.TestCase):
         # real
         var_soil_moisture_content_volume_fraction_at_saturation = 50.0
         obj.soil_moisture_content_volume_fraction_at_saturation = var_soil_moisture_content_volume_fraction_at_saturation
-        # real
-        var_kusudaachenbach_average_surface_temperature = 19.19
-        obj.kusudaachenbach_average_surface_temperature = var_kusudaachenbach_average_surface_temperature
-        # real
-        var_kusudaachenbach_average_amplitude_of_surface_temperature = 20.2
-        obj.kusudaachenbach_average_amplitude_of_surface_temperature = var_kusudaachenbach_average_amplitude_of_surface_temperature
-        # real
-        var_kusudaachenbach_phase_shift_of_minimum_surface_temperature = 21.21
-        obj.kusudaachenbach_phase_shift_of_minimum_surface_temperature = var_kusudaachenbach_phase_shift_of_minimum_surface_temperature
+        # alpha
+        var_undisturbed_ground_temperature_model_type = "Site:GroundTemperature:Undisturbed:FiniteDifference"
+        obj.undisturbed_ground_temperature_model_type = var_undisturbed_ground_temperature_model_type
+        # object-list
+        var_undisturbed_ground_temperature_model_name = "object-list|Undisturbed Ground Temperature Model Name"
+        obj.undisturbed_ground_temperature_model_name = var_undisturbed_ground_temperature_model_name
         # alpha
         var_this_domain_includes_basement_surface_interaction = "Yes"
         obj.this_domain_includes_basement_surface_interaction = var_this_domain_includes_basement_surface_interaction
         # real
-        var_width_of_basement_floor_in_ground_domain = 23.23
+        var_width_of_basement_floor_in_ground_domain = 22.22
         obj.width_of_basement_floor_in_ground_domain = var_width_of_basement_floor_in_ground_domain
         # real
-        var_depth_of_basement_wall_in_ground_domain = 24.24
+        var_depth_of_basement_wall_in_ground_domain = 23.23
         obj.depth_of_basement_wall_in_ground_domain = var_depth_of_basement_wall_in_ground_domain
         # alpha
         var_shift_pipe_x_coordinates_by_basement_width = "Yes"
@@ -148,9 +145,8 @@ class TestPipingSystemUndergroundDomain(unittest.TestCase):
         self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].soil_specific_heat, var_soil_specific_heat)
         self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].soil_moisture_content_volume_fraction, var_soil_moisture_content_volume_fraction)
         self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].soil_moisture_content_volume_fraction_at_saturation, var_soil_moisture_content_volume_fraction_at_saturation)
-        self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].kusudaachenbach_average_surface_temperature, var_kusudaachenbach_average_surface_temperature)
-        self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].kusudaachenbach_average_amplitude_of_surface_temperature, var_kusudaachenbach_average_amplitude_of_surface_temperature)
-        self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].kusudaachenbach_phase_shift_of_minimum_surface_temperature, var_kusudaachenbach_phase_shift_of_minimum_surface_temperature)
+        self.assertEqual(idf2.pipingsystemundergrounddomains[0].undisturbed_ground_temperature_model_type, var_undisturbed_ground_temperature_model_type)
+        self.assertEqual(idf2.pipingsystemundergrounddomains[0].undisturbed_ground_temperature_model_name, var_undisturbed_ground_temperature_model_name)
         self.assertEqual(idf2.pipingsystemundergrounddomains[0].this_domain_includes_basement_surface_interaction, var_this_domain_includes_basement_surface_interaction)
         self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].width_of_basement_floor_in_ground_domain, var_width_of_basement_floor_in_ground_domain)
         self.assertAlmostEqual(idf2.pipingsystemundergrounddomains[0].depth_of_basement_wall_in_ground_domain, var_depth_of_basement_wall_in_ground_domain)

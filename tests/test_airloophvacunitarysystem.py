@@ -86,56 +86,56 @@ class TestAirLoopHvacUnitarySystem(unittest.TestCase):
         var_supplemental_heating_coil_name = "object-list|Supplemental Heating Coil Name"
         obj.supplemental_heating_coil_name = var_supplemental_heating_coil_name
         # alpha
-        var_supply_air_flow_rate_method_during_cooling_operation = "None"
-        obj.supply_air_flow_rate_method_during_cooling_operation = var_supply_air_flow_rate_method_during_cooling_operation
+        var_cooling_supply_air_flow_rate_method = "None"
+        obj.cooling_supply_air_flow_rate_method = var_cooling_supply_air_flow_rate_method
         # real
-        var_supply_air_flow_rate_during_cooling_operation = 0.0
-        obj.supply_air_flow_rate_during_cooling_operation = var_supply_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_per_floor_area_during_cooling_operation = 0.0
-        obj.supply_air_flow_rate_per_floor_area_during_cooling_operation = var_supply_air_flow_rate_per_floor_area_during_cooling_operation
+        var_cooling_supply_air_flow_rate_per_floor_area = 0.0
+        obj.cooling_supply_air_flow_rate_per_floor_area = var_cooling_supply_air_flow_rate_per_floor_area
         # real
-        var_fraction_of_autosized_design_cooling_supply_air_flow_rate = 0.0
-        obj.fraction_of_autosized_design_cooling_supply_air_flow_rate = var_fraction_of_autosized_design_cooling_supply_air_flow_rate
+        var_cooling_fraction_of_autosized_cooling_supply_air_flow_rate = 0.0
+        obj.cooling_fraction_of_autosized_cooling_supply_air_flow_rate = var_cooling_fraction_of_autosized_cooling_supply_air_flow_rate
         # real
-        var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = 0.0
-        obj.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation
+        var_cooling_supply_air_flow_rate_per_unit_of_capacity = 0.0
+        obj.cooling_supply_air_flow_rate_per_unit_of_capacity = var_cooling_supply_air_flow_rate_per_unit_of_capacity
         # alpha
-        var_supply_air_flow_rate_method_during_heating_operation = "None"
-        obj.supply_air_flow_rate_method_during_heating_operation = var_supply_air_flow_rate_method_during_heating_operation
+        var_heating_supply_air_flow_rate_method = "None"
+        obj.heating_supply_air_flow_rate_method = var_heating_supply_air_flow_rate_method
         # real
-        var_supply_air_flow_rate_during_heating_operation = 0.0
-        obj.supply_air_flow_rate_during_heating_operation = var_supply_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_per_floor_area_during_heating_operation = 0.0
-        obj.supply_air_flow_rate_per_floor_area_during_heating_operation = var_supply_air_flow_rate_per_floor_area_during_heating_operation
+        var_heating_supply_air_flow_rate_per_floor_area = 0.0
+        obj.heating_supply_air_flow_rate_per_floor_area = var_heating_supply_air_flow_rate_per_floor_area
         # real
-        var_fraction_of_autosized_design_heating_supply_air_flow_rate = 0.0
-        obj.fraction_of_autosized_design_heating_supply_air_flow_rate = var_fraction_of_autosized_design_heating_supply_air_flow_rate
+        var_heating_fraction_of_autosized_heating_supply_air_flow_rate = 0.0
+        obj.heating_fraction_of_autosized_heating_supply_air_flow_rate = var_heating_fraction_of_autosized_heating_supply_air_flow_rate
         # real
-        var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = 0.0
-        obj.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation
+        var_heating_supply_air_flow_rate_per_unit_of_capacity = 0.0
+        obj.heating_supply_air_flow_rate_per_unit_of_capacity = var_heating_supply_air_flow_rate_per_unit_of_capacity
         # alpha
-        var_supply_air_flow_rate_method_when_no_cooling_or_heating_is_required = "None"
-        obj.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required = var_supply_air_flow_rate_method_when_no_cooling_or_heating_is_required
+        var_no_load_supply_air_flow_rate_method = "None"
+        obj.no_load_supply_air_flow_rate_method = var_no_load_supply_air_flow_rate_method
         # real
-        var_supply_air_flow_rate_when_no_cooling_or_heating_is_required = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_or_heating_is_required = var_supply_air_flow_rate_when_no_cooling_or_heating_is_required
+        var_no_load_supply_air_flow_rate = 0.0
+        obj.no_load_supply_air_flow_rate = var_no_load_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required = 0.0
-        obj.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required = var_supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required
+        var_no_load_supply_air_flow_rate_per_floor_area = 0.0
+        obj.no_load_supply_air_flow_rate_per_floor_area = var_no_load_supply_air_flow_rate_per_floor_area
         # real
-        var_fraction_of_autosized_design_cooling_supply_air_flow_rate_v3 = 0.0
-        obj.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3 = var_fraction_of_autosized_design_cooling_supply_air_flow_rate_v3
+        var_no_load_fraction_of_autosized_cooling_supply_air_flow_rate = 0.0
+        obj.no_load_fraction_of_autosized_cooling_supply_air_flow_rate = var_no_load_fraction_of_autosized_cooling_supply_air_flow_rate
         # real
-        var_fraction_of_autosized_design_heating_supply_air_flow_rate_v3 = 0.0
-        obj.fraction_of_autosized_design_heating_supply_air_flow_rate_v3 = var_fraction_of_autosized_design_heating_supply_air_flow_rate_v3
+        var_no_load_fraction_of_autosized_heating_supply_air_flow_rate = 0.0
+        obj.no_load_fraction_of_autosized_heating_supply_air_flow_rate = var_no_load_fraction_of_autosized_heating_supply_air_flow_rate
         # real
-        var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3 = 0.0
-        obj.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3 = var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3
+        var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = 0.0
+        obj.no_load_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation
         # real
-        var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3 = 0.0
-        obj.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3 = var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3
+        var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = 0.0
+        obj.no_load_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation
         # real
         var_maximum_supply_air_temperature = 39.39
         obj.maximum_supply_air_temperature = var_maximum_supply_air_temperature
@@ -158,11 +158,11 @@ class TestAirLoopHvacUnitarySystem(unittest.TestCase):
         var_heat_pump_fan_delay_time = 0.0
         obj.heat_pump_fan_delay_time = var_heat_pump_fan_delay_time
         # real
-        var_ancilliary_oncycle_electric_power = 0.0
-        obj.ancilliary_oncycle_electric_power = var_ancilliary_oncycle_electric_power
+        var_ancillary_oncycle_electric_power = 0.0
+        obj.ancillary_oncycle_electric_power = var_ancillary_oncycle_electric_power
         # real
-        var_ancilliary_offcycle_electric_power = 0.0
-        obj.ancilliary_offcycle_electric_power = var_ancilliary_offcycle_electric_power
+        var_ancillary_offcycle_electric_power = 0.0
+        obj.ancillary_offcycle_electric_power = var_ancillary_offcycle_electric_power
         # real
         var_design_heat_recovery_water_flow_rate = 0.0
         obj.design_heat_recovery_water_flow_rate = var_design_heat_recovery_water_flow_rate
@@ -176,11 +176,11 @@ class TestAirLoopHvacUnitarySystem(unittest.TestCase):
         var_heat_recovery_water_outlet_node_name = "node|Heat Recovery Water Outlet Node Name"
         obj.heat_recovery_water_outlet_node_name = var_heat_recovery_water_outlet_node_name
         # alpha
-        var_design_specification_multispeed_heat_pump_object_type = "UnitarySystemPerformance:HeatPump:Multispeed"
-        obj.design_specification_multispeed_heat_pump_object_type = var_design_specification_multispeed_heat_pump_object_type
+        var_design_specification_multispeed_object_type = "UnitarySystemPerformance:Multispeed"
+        obj.design_specification_multispeed_object_type = var_design_specification_multispeed_object_type
         # object-list
-        var_design_specification_multispeed_heat_pump_object_name = "object-list|Design Specification Multispeed Heat Pump Object Name"
-        obj.design_specification_multispeed_heat_pump_object_name = var_design_specification_multispeed_heat_pump_object_name
+        var_design_specification_multispeed_object_name = "object-list|Design Specification Multispeed Object Name"
+        obj.design_specification_multispeed_object_name = var_design_specification_multispeed_object_name
 
         idf = IDF()
         idf.add(obj)
@@ -212,23 +212,23 @@ class TestAirLoopHvacUnitarySystem(unittest.TestCase):
         self.assertEqual(idf2.airloophvacunitarysystems[0].latent_load_control, var_latent_load_control)
         self.assertEqual(idf2.airloophvacunitarysystems[0].supplemental_heating_coil_object_type, var_supplemental_heating_coil_object_type)
         self.assertEqual(idf2.airloophvacunitarysystems[0].supplemental_heating_coil_name, var_supplemental_heating_coil_name)
-        self.assertEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_method_during_cooling_operation, var_supply_air_flow_rate_method_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_during_cooling_operation, var_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_per_floor_area_during_cooling_operation, var_supply_air_flow_rate_per_floor_area_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].fraction_of_autosized_design_cooling_supply_air_flow_rate, var_fraction_of_autosized_design_cooling_supply_air_flow_rate)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation, var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation)
-        self.assertEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_method_during_heating_operation, var_supply_air_flow_rate_method_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_during_heating_operation, var_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_per_floor_area_during_heating_operation, var_supply_air_flow_rate_per_floor_area_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].fraction_of_autosized_design_heating_supply_air_flow_rate, var_fraction_of_autosized_design_heating_supply_air_flow_rate)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation, var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation)
-        self.assertEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_method_when_no_cooling_or_heating_is_required, var_supply_air_flow_rate_method_when_no_cooling_or_heating_is_required)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_when_no_cooling_or_heating_is_required, var_supply_air_flow_rate_when_no_cooling_or_heating_is_required)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required, var_supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].fraction_of_autosized_design_cooling_supply_air_flow_rate_v3, var_fraction_of_autosized_design_cooling_supply_air_flow_rate_v3)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].fraction_of_autosized_design_heating_supply_air_flow_rate_v3, var_fraction_of_autosized_design_heating_supply_air_flow_rate_v3)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3, var_design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3, var_design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3)
+        self.assertEqual(idf2.airloophvacunitarysystems[0].cooling_supply_air_flow_rate_method, var_cooling_supply_air_flow_rate_method)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].cooling_supply_air_flow_rate_per_floor_area, var_cooling_supply_air_flow_rate_per_floor_area)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].cooling_fraction_of_autosized_cooling_supply_air_flow_rate, var_cooling_fraction_of_autosized_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].cooling_supply_air_flow_rate_per_unit_of_capacity, var_cooling_supply_air_flow_rate_per_unit_of_capacity)
+        self.assertEqual(idf2.airloophvacunitarysystems[0].heating_supply_air_flow_rate_method, var_heating_supply_air_flow_rate_method)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heating_supply_air_flow_rate_per_floor_area, var_heating_supply_air_flow_rate_per_floor_area)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heating_fraction_of_autosized_heating_supply_air_flow_rate, var_heating_fraction_of_autosized_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heating_supply_air_flow_rate_per_unit_of_capacity, var_heating_supply_air_flow_rate_per_unit_of_capacity)
+        self.assertEqual(idf2.airloophvacunitarysystems[0].no_load_supply_air_flow_rate_method, var_no_load_supply_air_flow_rate_method)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_supply_air_flow_rate, var_no_load_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_supply_air_flow_rate_per_floor_area, var_no_load_supply_air_flow_rate_per_floor_area)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_fraction_of_autosized_cooling_supply_air_flow_rate, var_no_load_fraction_of_autosized_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_fraction_of_autosized_heating_supply_air_flow_rate, var_no_load_fraction_of_autosized_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation, var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].no_load_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation, var_no_load_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].maximum_supply_air_temperature, var_maximum_supply_air_temperature)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation, var_maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation)
         self.assertEqual(idf2.airloophvacunitarysystems[0].outdoor_drybulb_temperature_sensor_node_name, var_outdoor_drybulb_temperature_sensor_node_name)
@@ -236,11 +236,11 @@ class TestAirLoopHvacUnitarySystem(unittest.TestCase):
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heat_pump_time_constant, var_heat_pump_time_constant)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].fraction_of_oncycle_power_use, var_fraction_of_oncycle_power_use)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].heat_pump_fan_delay_time, var_heat_pump_fan_delay_time)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].ancilliary_oncycle_electric_power, var_ancilliary_oncycle_electric_power)
-        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].ancilliary_offcycle_electric_power, var_ancilliary_offcycle_electric_power)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].ancillary_oncycle_electric_power, var_ancillary_oncycle_electric_power)
+        self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].ancillary_offcycle_electric_power, var_ancillary_offcycle_electric_power)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].design_heat_recovery_water_flow_rate, var_design_heat_recovery_water_flow_rate)
         self.assertAlmostEqual(idf2.airloophvacunitarysystems[0].maximum_temperature_for_heat_recovery, var_maximum_temperature_for_heat_recovery)
         self.assertEqual(idf2.airloophvacunitarysystems[0].heat_recovery_water_inlet_node_name, var_heat_recovery_water_inlet_node_name)
         self.assertEqual(idf2.airloophvacunitarysystems[0].heat_recovery_water_outlet_node_name, var_heat_recovery_water_outlet_node_name)
-        self.assertEqual(idf2.airloophvacunitarysystems[0].design_specification_multispeed_heat_pump_object_type, var_design_specification_multispeed_heat_pump_object_type)
-        self.assertEqual(idf2.airloophvacunitarysystems[0].design_specification_multispeed_heat_pump_object_name, var_design_specification_multispeed_heat_pump_object_name)
+        self.assertEqual(idf2.airloophvacunitarysystems[0].design_specification_multispeed_object_type, var_design_specification_multispeed_object_type)
+        self.assertEqual(idf2.airloophvacunitarysystems[0].design_specification_multispeed_object_name, var_design_specification_multispeed_object_name)

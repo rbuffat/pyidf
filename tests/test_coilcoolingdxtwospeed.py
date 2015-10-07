@@ -133,6 +133,9 @@ class TestCoilCoolingDxTwoSpeed(unittest.TestCase):
         # object-list
         var_low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name = "object-list|Low Speed Sensible Heat Ratio Function of Flow Fraction Curve Name"
         obj.low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name = var_low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name
+        # object-list
+        var_zone_name_for_condenser_placement = "object-list|Zone Name for Condenser Placement"
+        obj.zone_name_for_condenser_placement = var_zone_name_for_condenser_placement
 
         idf = IDF()
         idf.add(obj)
@@ -180,3 +183,4 @@ class TestCoilCoolingDxTwoSpeed(unittest.TestCase):
         self.assertEqual(idf2.coilcoolingdxtwospeeds[0].sensible_heat_ratio_function_of_flow_fraction_curve_name, var_sensible_heat_ratio_function_of_flow_fraction_curve_name)
         self.assertEqual(idf2.coilcoolingdxtwospeeds[0].low_speed_sensible_heat_ratio_function_of_temperature_curve_name, var_low_speed_sensible_heat_ratio_function_of_temperature_curve_name)
         self.assertEqual(idf2.coilcoolingdxtwospeeds[0].low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name, var_low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name)
+        self.assertEqual(idf2.coilcoolingdxtwospeeds[0].zone_name_for_condenser_placement, var_zone_name_for_condenser_placement)

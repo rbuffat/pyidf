@@ -26,19 +26,19 @@ class TestAirTerminalSingleDuctSupplySideMixer(unittest.TestCase):
         var_name = "Name"
         obj.name = var_name
         # alpha
-        var_zonehvac_terminal_unit_object_type = "ZoneHVAC Terminal Unit Object Type"
+        var_zonehvac_terminal_unit_object_type = "ZoneHVAC:FourPipeFanCoil"
         obj.zonehvac_terminal_unit_object_type = var_zonehvac_terminal_unit_object_type
-        # alpha
-        var_zonehvac_terminal_unit_name = "ZoneHVAC Terminal Unit Name"
+        # object-list
+        var_zonehvac_terminal_unit_name = "object-list|ZoneHVAC Terminal Unit Name"
         obj.zonehvac_terminal_unit_name = var_zonehvac_terminal_unit_name
-        # alpha
-        var_terminal_unit_outlet_node_name = "Terminal Unit Outlet Node Name"
+        # node
+        var_terminal_unit_outlet_node_name = "node|Terminal Unit Outlet Node Name"
         obj.terminal_unit_outlet_node_name = var_terminal_unit_outlet_node_name
-        # alpha
-        var_terminal_unit_primary_air_inlet_node_name = "Terminal Unit Primary Air Inlet Node Name"
+        # node
+        var_terminal_unit_primary_air_inlet_node_name = "node|Terminal Unit Primary Air Inlet Node Name"
         obj.terminal_unit_primary_air_inlet_node_name = var_terminal_unit_primary_air_inlet_node_name
-        # alpha
-        var_terminal_unit_secondary_air_inlet_node_name = "Terminal Unit Secondary Air Inlet Node Name"
+        # node
+        var_terminal_unit_secondary_air_inlet_node_name = "node|Terminal Unit Secondary Air Inlet Node Name"
         obj.terminal_unit_secondary_air_inlet_node_name = var_terminal_unit_secondary_air_inlet_node_name
 
         idf = IDF()

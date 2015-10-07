@@ -41,23 +41,23 @@ class TestZoneHvacPackagedTerminalAirConditioner(unittest.TestCase):
         var_outdoor_air_mixer_name = "object-list|Outdoor Air Mixer Name"
         obj.outdoor_air_mixer_name = var_outdoor_air_mixer_name
         # real
-        var_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.supply_air_flow_rate_during_cooling_operation = var_supply_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0001
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.supply_air_flow_rate_during_heating_operation = var_supply_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_supply_air_flow_rate = 0.0
+        obj.no_load_supply_air_flow_rate = var_no_load_supply_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_cooling_operation = 0.0
-        obj.outdoor_air_flow_rate_during_cooling_operation = var_outdoor_air_flow_rate_during_cooling_operation
+        var_cooling_outdoor_air_flow_rate = 0.0
+        obj.cooling_outdoor_air_flow_rate = var_cooling_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_heating_operation = 0.0
-        obj.outdoor_air_flow_rate_during_heating_operation = var_outdoor_air_flow_rate_during_heating_operation
+        var_heating_outdoor_air_flow_rate = 0.0
+        obj.heating_outdoor_air_flow_rate = var_heating_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_outdoor_air_flow_rate = 0.0
+        obj.no_load_outdoor_air_flow_rate = var_no_load_outdoor_air_flow_rate
         # alpha
         var_supply_air_fan_object_type = "Fan:OnOff"
         obj.supply_air_fan_object_type = var_supply_air_fan_object_type
@@ -104,12 +104,12 @@ class TestZoneHvacPackagedTerminalAirConditioner(unittest.TestCase):
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].air_outlet_node_name, var_air_outlet_node_name)
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].outdoor_air_mixer_object_type, var_outdoor_air_mixer_object_type)
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].outdoor_air_mixer_name, var_outdoor_air_mixer_name)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].supply_air_flow_rate_during_cooling_operation, var_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].supply_air_flow_rate_during_heating_operation, var_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].supply_air_flow_rate_when_no_cooling_or_heating_is_needed, var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].outdoor_air_flow_rate_during_cooling_operation, var_outdoor_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].outdoor_air_flow_rate_during_heating_operation, var_outdoor_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed, var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].no_load_supply_air_flow_rate, var_no_load_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].cooling_outdoor_air_flow_rate, var_cooling_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].heating_outdoor_air_flow_rate, var_heating_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacpackagedterminalairconditioners[0].no_load_outdoor_air_flow_rate, var_no_load_outdoor_air_flow_rate)
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].supply_air_fan_object_type, var_supply_air_fan_object_type)
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].supply_air_fan_name, var_supply_air_fan_name)
         self.assertEqual(idf2.zonehvacpackagedterminalairconditioners[0].heating_coil_object_type, var_heating_coil_object_type)

@@ -91,6 +91,18 @@ class TestSizingZone(unittest.TestCase):
         # object-list
         var_design_specification_zone_air_distribution_object_name = "object-list|Design Specification Zone Air Distribution Object Name"
         obj.design_specification_zone_air_distribution_object_name = var_design_specification_zone_air_distribution_object_name
+        # alpha
+        var_account_for_dedicated_outdoor_air_system = "Yes"
+        obj.account_for_dedicated_outdoor_air_system = var_account_for_dedicated_outdoor_air_system
+        # alpha
+        var_dedicated_outdoor_air_system_control_strategy = "NeutralSupplyAir"
+        obj.dedicated_outdoor_air_system_control_strategy = var_dedicated_outdoor_air_system_control_strategy
+        # real
+        var_dedicated_outdoor_air_low_setpoint_temperature_for_design = 26.26
+        obj.dedicated_outdoor_air_low_setpoint_temperature_for_design = var_dedicated_outdoor_air_low_setpoint_temperature_for_design
+        # real
+        var_dedicated_outdoor_air_high_setpoint_temperature_for_design = 27.27
+        obj.dedicated_outdoor_air_high_setpoint_temperature_for_design = var_dedicated_outdoor_air_high_setpoint_temperature_for_design
 
         idf = IDF()
         idf.add(obj)
@@ -124,3 +136,7 @@ class TestSizingZone(unittest.TestCase):
         self.assertAlmostEqual(idf2.sizingzones[0].heating_maximum_air_flow, var_heating_maximum_air_flow)
         self.assertAlmostEqual(idf2.sizingzones[0].heating_maximum_air_flow_fraction, var_heating_maximum_air_flow_fraction)
         self.assertEqual(idf2.sizingzones[0].design_specification_zone_air_distribution_object_name, var_design_specification_zone_air_distribution_object_name)
+        self.assertEqual(idf2.sizingzones[0].account_for_dedicated_outdoor_air_system, var_account_for_dedicated_outdoor_air_system)
+        self.assertEqual(idf2.sizingzones[0].dedicated_outdoor_air_system_control_strategy, var_dedicated_outdoor_air_system_control_strategy)
+        self.assertAlmostEqual(idf2.sizingzones[0].dedicated_outdoor_air_low_setpoint_temperature_for_design, var_dedicated_outdoor_air_low_setpoint_temperature_for_design)
+        self.assertAlmostEqual(idf2.sizingzones[0].dedicated_outdoor_air_high_setpoint_temperature_for_design, var_dedicated_outdoor_air_high_setpoint_temperature_for_design)

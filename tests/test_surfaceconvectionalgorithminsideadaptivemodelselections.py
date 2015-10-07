@@ -26,41 +26,41 @@ class TestSurfaceConvectionAlgorithmInsideAdaptiveModelSelections(unittest.TestC
         var_name = "Name"
         obj.name = var_name
         # alpha
-        var_simple_bouyancy_vertical_wall_equation_source = "ASHRAEVerticalWall"
-        obj.simple_bouyancy_vertical_wall_equation_source = var_simple_bouyancy_vertical_wall_equation_source
+        var_simple_buoyancy_vertical_wall_equation_source = "ASHRAEVerticalWall"
+        obj.simple_buoyancy_vertical_wall_equation_source = var_simple_buoyancy_vertical_wall_equation_source
         # object-list
-        var_simple_bouyancy_vertical_wall_user_curve_name = "object-list|Simple Bouyancy Vertical Wall User Curve Name"
-        obj.simple_bouyancy_vertical_wall_user_curve_name = var_simple_bouyancy_vertical_wall_user_curve_name
+        var_simple_buoyancy_vertical_wall_user_curve_name = "object-list|Simple Buoyancy Vertical Wall User Curve Name"
+        obj.simple_buoyancy_vertical_wall_user_curve_name = var_simple_buoyancy_vertical_wall_user_curve_name
         # alpha
-        var_simple_bouyancy_stable_horizontal_equation_source = "WaltonStableHorizontalOrTilt"
-        obj.simple_bouyancy_stable_horizontal_equation_source = var_simple_bouyancy_stable_horizontal_equation_source
+        var_simple_buoyancy_stable_horizontal_equation_source = "WaltonStableHorizontalOrTilt"
+        obj.simple_buoyancy_stable_horizontal_equation_source = var_simple_buoyancy_stable_horizontal_equation_source
         # object-list
-        var_simple_bouyancy_stable_horizontal_equation_user_curve_name = "object-list|Simple Bouyancy Stable Horizontal Equation User Curve Name"
-        obj.simple_bouyancy_stable_horizontal_equation_user_curve_name = var_simple_bouyancy_stable_horizontal_equation_user_curve_name
+        var_simple_buoyancy_stable_horizontal_equation_user_curve_name = "object-list|Simple Buoyancy Stable Horizontal Equation User Curve Name"
+        obj.simple_buoyancy_stable_horizontal_equation_user_curve_name = var_simple_buoyancy_stable_horizontal_equation_user_curve_name
         # alpha
-        var_simple_bouyancy_unstable_horizontal_equation_source = "WaltonUnstableHorizontalOrTilt"
-        obj.simple_bouyancy_unstable_horizontal_equation_source = var_simple_bouyancy_unstable_horizontal_equation_source
+        var_simple_buoyancy_unstable_horizontal_equation_source = "WaltonUnstableHorizontalOrTilt"
+        obj.simple_buoyancy_unstable_horizontal_equation_source = var_simple_buoyancy_unstable_horizontal_equation_source
         # object-list
-        var_simple_bouyancy_unstable_horizontal_equation_user_curve_name = "object-list|Simple Bouyancy Unstable Horizontal Equation User Curve Name"
-        obj.simple_bouyancy_unstable_horizontal_equation_user_curve_name = var_simple_bouyancy_unstable_horizontal_equation_user_curve_name
+        var_simple_buoyancy_unstable_horizontal_equation_user_curve_name = "object-list|Simple Buoyancy Unstable Horizontal Equation User Curve Name"
+        obj.simple_buoyancy_unstable_horizontal_equation_user_curve_name = var_simple_buoyancy_unstable_horizontal_equation_user_curve_name
         # alpha
-        var_simple_bouyancy_stable_tilted_equation_source = "WaltonStableHorizontalOrTilt"
-        obj.simple_bouyancy_stable_tilted_equation_source = var_simple_bouyancy_stable_tilted_equation_source
+        var_simple_buoyancy_stable_tilted_equation_source = "WaltonStableHorizontalOrTilt"
+        obj.simple_buoyancy_stable_tilted_equation_source = var_simple_buoyancy_stable_tilted_equation_source
         # object-list
-        var_simple_bouyancy_stable_tilted_equation_user_curve_name = "object-list|Simple Bouyancy Stable Tilted Equation User Curve Name"
-        obj.simple_bouyancy_stable_tilted_equation_user_curve_name = var_simple_bouyancy_stable_tilted_equation_user_curve_name
+        var_simple_buoyancy_stable_tilted_equation_user_curve_name = "object-list|Simple Buoyancy Stable Tilted Equation User Curve Name"
+        obj.simple_buoyancy_stable_tilted_equation_user_curve_name = var_simple_buoyancy_stable_tilted_equation_user_curve_name
         # alpha
-        var_simple_bouyancy_unstable_tilted_equation_source = "WaltonUnstableHorizontalOrTilt"
-        obj.simple_bouyancy_unstable_tilted_equation_source = var_simple_bouyancy_unstable_tilted_equation_source
+        var_simple_buoyancy_unstable_tilted_equation_source = "WaltonUnstableHorizontalOrTilt"
+        obj.simple_buoyancy_unstable_tilted_equation_source = var_simple_buoyancy_unstable_tilted_equation_source
         # object-list
-        var_simple_bouyancy_unstable_tilted_equation_user_curve_name = "object-list|Simple Bouyancy Unstable Tilted Equation User Curve Name"
-        obj.simple_bouyancy_unstable_tilted_equation_user_curve_name = var_simple_bouyancy_unstable_tilted_equation_user_curve_name
+        var_simple_buoyancy_unstable_tilted_equation_user_curve_name = "object-list|Simple Buoyancy Unstable Tilted Equation User Curve Name"
+        obj.simple_buoyancy_unstable_tilted_equation_user_curve_name = var_simple_buoyancy_unstable_tilted_equation_user_curve_name
         # alpha
-        var_simple_bouyancy_windows_equation_source = "ASHRAEVerticalWall"
-        obj.simple_bouyancy_windows_equation_source = var_simple_bouyancy_windows_equation_source
+        var_simple_buoyancy_windows_equation_source = "ASHRAEVerticalWall"
+        obj.simple_buoyancy_windows_equation_source = var_simple_buoyancy_windows_equation_source
         # object-list
-        var_simple_bouyancy_windows_equation_user_curve_name = "object-list|Simple Bouyancy Windows Equation User Curve Name"
-        obj.simple_bouyancy_windows_equation_user_curve_name = var_simple_bouyancy_windows_equation_user_curve_name
+        var_simple_buoyancy_windows_equation_user_curve_name = "object-list|Simple Buoyancy Windows Equation User Curve Name"
+        obj.simple_buoyancy_windows_equation_user_curve_name = var_simple_buoyancy_windows_equation_user_curve_name
         # alpha
         var_floor_heat_ceiling_cool_vertical_wall_equation_source = "ASHRAEVerticalWall"
         obj.floor_heat_ceiling_cool_vertical_wall_equation_source = var_floor_heat_ceiling_cool_vertical_wall_equation_source
@@ -254,17 +254,17 @@ class TestSurfaceConvectionAlgorithmInsideAdaptiveModelSelections(unittest.TestC
         var_mechanical_zone_fan_circulation_window_equation_user_curve_name = "object-list|Mechanical Zone Fan Circulation Window Equation User Curve Name"
         obj.mechanical_zone_fan_circulation_window_equation_user_curve_name = var_mechanical_zone_fan_circulation_window_equation_user_curve_name
         # alpha
-        var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_source = "BeausoleilMorrisonMixedAssistedWall"
-        obj.mixed_regime_bouyancy_assisting_flow_on_walls_equation_source = var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_source
+        var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_source = "BeausoleilMorrisonMixedAssistedWall"
+        obj.mixed_regime_buoyancy_assisting_flow_on_walls_equation_source = var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_source
         # object-list
-        var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name = "object-list|Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"
-        obj.mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name = var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name
+        var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_user_curve_name = "object-list|Mixed Regime Buoyancy Assisting Flow on Walls Equation User Curve Name"
+        obj.mixed_regime_buoyancy_assisting_flow_on_walls_equation_user_curve_name = var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_user_curve_name
         # alpha
-        var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source = "BeausoleilMorrisonMixedOpposingWall"
-        obj.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source = var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source
+        var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_source = "BeausoleilMorrisonMixedOpposingWall"
+        obj.mixed_regime_buoyancy_opposing_flow_on_walls_equation_source = var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_source
         # object-list
-        var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name = "object-list|Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"
-        obj.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name = var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name
+        var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_user_curve_name = "object-list|Mixed Regime Buoyancy Opposing Flow on Walls Equation User Curve Name"
+        obj.mixed_regime_buoyancy_opposing_flow_on_walls_equation_user_curve_name = var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_user_curve_name
         # alpha
         var_mixed_regime_stable_floor_equation_source = "BeausoleilMorrisonMixedStableFloor"
         obj.mixed_regime_stable_floor_equation_source = var_mixed_regime_stable_floor_equation_source
@@ -306,18 +306,18 @@ class TestSurfaceConvectionAlgorithmInsideAdaptiveModelSelections(unittest.TestC
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].name, var_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_vertical_wall_equation_source, var_simple_bouyancy_vertical_wall_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_vertical_wall_user_curve_name, var_simple_bouyancy_vertical_wall_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_stable_horizontal_equation_source, var_simple_bouyancy_stable_horizontal_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_stable_horizontal_equation_user_curve_name, var_simple_bouyancy_stable_horizontal_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_unstable_horizontal_equation_source, var_simple_bouyancy_unstable_horizontal_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_unstable_horizontal_equation_user_curve_name, var_simple_bouyancy_unstable_horizontal_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_stable_tilted_equation_source, var_simple_bouyancy_stable_tilted_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_stable_tilted_equation_user_curve_name, var_simple_bouyancy_stable_tilted_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_unstable_tilted_equation_source, var_simple_bouyancy_unstable_tilted_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_unstable_tilted_equation_user_curve_name, var_simple_bouyancy_unstable_tilted_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_windows_equation_source, var_simple_bouyancy_windows_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_bouyancy_windows_equation_user_curve_name, var_simple_bouyancy_windows_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_vertical_wall_equation_source, var_simple_buoyancy_vertical_wall_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_vertical_wall_user_curve_name, var_simple_buoyancy_vertical_wall_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_stable_horizontal_equation_source, var_simple_buoyancy_stable_horizontal_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_stable_horizontal_equation_user_curve_name, var_simple_buoyancy_stable_horizontal_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_unstable_horizontal_equation_source, var_simple_buoyancy_unstable_horizontal_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_unstable_horizontal_equation_user_curve_name, var_simple_buoyancy_unstable_horizontal_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_stable_tilted_equation_source, var_simple_buoyancy_stable_tilted_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_stable_tilted_equation_user_curve_name, var_simple_buoyancy_stable_tilted_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_unstable_tilted_equation_source, var_simple_buoyancy_unstable_tilted_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_unstable_tilted_equation_user_curve_name, var_simple_buoyancy_unstable_tilted_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_windows_equation_source, var_simple_buoyancy_windows_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].simple_buoyancy_windows_equation_user_curve_name, var_simple_buoyancy_windows_equation_user_curve_name)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].floor_heat_ceiling_cool_vertical_wall_equation_source, var_floor_heat_ceiling_cool_vertical_wall_equation_source)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name, var_floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].floor_heat_ceiling_cool_stable_horizontal_equation_source, var_floor_heat_ceiling_cool_stable_horizontal_equation_source)
@@ -382,10 +382,10 @@ class TestSurfaceConvectionAlgorithmInsideAdaptiveModelSelections(unittest.TestC
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name, var_mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mechanical_zone_fan_circulation_window_equation_source, var_mechanical_zone_fan_circulation_window_equation_source)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mechanical_zone_fan_circulation_window_equation_user_curve_name, var_mechanical_zone_fan_circulation_window_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_bouyancy_assisting_flow_on_walls_equation_source, var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name, var_mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source, var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source)
-        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name, var_mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_buoyancy_assisting_flow_on_walls_equation_source, var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_buoyancy_assisting_flow_on_walls_equation_user_curve_name, var_mixed_regime_buoyancy_assisting_flow_on_walls_equation_user_curve_name)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_buoyancy_opposing_flow_on_walls_equation_source, var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_source)
+        self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_buoyancy_opposing_flow_on_walls_equation_user_curve_name, var_mixed_regime_buoyancy_opposing_flow_on_walls_equation_user_curve_name)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_stable_floor_equation_source, var_mixed_regime_stable_floor_equation_source)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_stable_floor_equation_user_curve_name, var_mixed_regime_stable_floor_equation_user_curve_name)
         self.assertEqual(idf2.surfaceconvectionalgorithminsideadaptivemodelselectionss[0].mixed_regime_unstable_floor_equation_source, var_mixed_regime_unstable_floor_equation_source)

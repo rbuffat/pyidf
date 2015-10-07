@@ -22,8 +22,8 @@ class TestRoomAirNode(unittest.TestCase):
         pyidf.validation_level = ValidationLevel.error
 
         obj = RoomAirNode()
-        # Alpha
-        var_name = "Alpha|Name"
+        # alpha
+        var_name = "Name"
         obj.name = var_name
         # alpha
         var_node_type = "Inlet"

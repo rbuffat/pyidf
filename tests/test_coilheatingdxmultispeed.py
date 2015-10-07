@@ -208,6 +208,69 @@ class TestCoilHeatingDxMultiSpeed(unittest.TestCase):
         # object-list
         var_speed_4_waste_heat_function_of_temperature_curve_name = "object-list|Speed 4 Waste Heat Function of Temperature Curve Name"
         obj.speed_4_waste_heat_function_of_temperature_curve_name = var_speed_4_waste_heat_function_of_temperature_curve_name
+        # alpha
+        var_zone_name_for_evaporator_placement = "Zone Name for Evaporator Placement"
+        obj.zone_name_for_evaporator_placement = var_zone_name_for_evaporator_placement
+        # real
+        var_speed_1_secondary_coil_air_flow_rate = 0.0001
+        obj.speed_1_secondary_coil_air_flow_rate = var_speed_1_secondary_coil_air_flow_rate
+        # real
+        var_speed_1_secondary_coil_fan_flow_scaling_factor = 0.0001
+        obj.speed_1_secondary_coil_fan_flow_scaling_factor = var_speed_1_secondary_coil_fan_flow_scaling_factor
+        # real
+        var_speed_1_nominal_sensible_heat_ratio_of_secondary_coil = 0.50005
+        obj.speed_1_nominal_sensible_heat_ratio_of_secondary_coil = var_speed_1_nominal_sensible_heat_ratio_of_secondary_coil
+        # object-list
+        var_speed_1_sensible_heat_ratio_modifier_function_of_temperature_curve_name = "object-list|Speed 1 Sensible Heat Ratio Modifier Function of Temperature Curve Name"
+        obj.speed_1_sensible_heat_ratio_modifier_function_of_temperature_curve_name = var_speed_1_sensible_heat_ratio_modifier_function_of_temperature_curve_name
+        # object-list
+        var_speed_1_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = "object-list|Speed 1 Sensible Heat Ratio Modifier Function of Flow Fraction Curve Name"
+        obj.speed_1_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = var_speed_1_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name
+        # real
+        var_speed_2_secondary_coil_air_flow_rate = 0.0001
+        obj.speed_2_secondary_coil_air_flow_rate = var_speed_2_secondary_coil_air_flow_rate
+        # real
+        var_speed_2_secondary_coil_fan_flow_scaling_factor = 0.0001
+        obj.speed_2_secondary_coil_fan_flow_scaling_factor = var_speed_2_secondary_coil_fan_flow_scaling_factor
+        # real
+        var_speed_2_nominal_sensible_heat_ratio_of_secondary_coil = 0.50005
+        obj.speed_2_nominal_sensible_heat_ratio_of_secondary_coil = var_speed_2_nominal_sensible_heat_ratio_of_secondary_coil
+        # object-list
+        var_speed_2_sensible_heat_ratio_modifier_function_of_temperature_curve_name = "object-list|Speed 2 Sensible Heat Ratio Modifier Function of Temperature Curve Name"
+        obj.speed_2_sensible_heat_ratio_modifier_function_of_temperature_curve_name = var_speed_2_sensible_heat_ratio_modifier_function_of_temperature_curve_name
+        # object-list
+        var_speed_2_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = "object-list|Speed 2 Sensible Heat Ratio Modifier Function of Flow Fraction Curve Name"
+        obj.speed_2_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = var_speed_2_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name
+        # real
+        var_speed_3_secondary_coil_air_flow_rate = 0.0001
+        obj.speed_3_secondary_coil_air_flow_rate = var_speed_3_secondary_coil_air_flow_rate
+        # real
+        var_speed_3_secondary_coil_fan_flow_scaling_factor = 0.0001
+        obj.speed_3_secondary_coil_fan_flow_scaling_factor = var_speed_3_secondary_coil_fan_flow_scaling_factor
+        # real
+        var_speed_3_nominal_sensible_heat_ratio_of_secondary_coil = 0.50005
+        obj.speed_3_nominal_sensible_heat_ratio_of_secondary_coil = var_speed_3_nominal_sensible_heat_ratio_of_secondary_coil
+        # object-list
+        var_speed_3_sensible_heat_ratio_modifier_function_of_temperature_curve_name = "object-list|Speed 3 Sensible Heat Ratio Modifier Function of Temperature Curve Name"
+        obj.speed_3_sensible_heat_ratio_modifier_function_of_temperature_curve_name = var_speed_3_sensible_heat_ratio_modifier_function_of_temperature_curve_name
+        # object-list
+        var_speed_3_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = "object-list|Speed 3 Sensible Heat Ratio Modifier Function of Flow Fraction Curve Name"
+        obj.speed_3_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = var_speed_3_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name
+        # real
+        var_speed_4_secondary_coil_air_flow_rate = 0.0001
+        obj.speed_4_secondary_coil_air_flow_rate = var_speed_4_secondary_coil_air_flow_rate
+        # real
+        var_speed_4_secondary_coil_fan_flow_scaling_factor = 0.0001
+        obj.speed_4_secondary_coil_fan_flow_scaling_factor = var_speed_4_secondary_coil_fan_flow_scaling_factor
+        # real
+        var_speed_4_nominal_sensible_heat_ratio_of_secondary_coil = 0.50005
+        obj.speed_4_nominal_sensible_heat_ratio_of_secondary_coil = var_speed_4_nominal_sensible_heat_ratio_of_secondary_coil
+        # object-list
+        var_speed_4_sensible_heat_ratio_modifier_function_of_temperature_curve_name = "object-list|Speed 4 Sensible Heat Ratio Modifier Function of Temperature Curve Name"
+        obj.speed_4_sensible_heat_ratio_modifier_function_of_temperature_curve_name = var_speed_4_sensible_heat_ratio_modifier_function_of_temperature_curve_name
+        # object-list
+        var_speed_4_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = "object-list|Speed 4 Sensible Heat Ratio Modifier Function of Flow Fraction Curve Name"
+        obj.speed_4_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name = var_speed_4_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name
 
         idf = IDF()
         idf.add(obj)
@@ -280,3 +343,24 @@ class TestCoilHeatingDxMultiSpeed(unittest.TestCase):
         self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_4_part_load_fraction_correlation_curve_name, var_speed_4_part_load_fraction_correlation_curve_name)
         self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_4_rated_waste_heat_fraction_of_power_input, var_speed_4_rated_waste_heat_fraction_of_power_input)
         self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_4_waste_heat_function_of_temperature_curve_name, var_speed_4_waste_heat_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].zone_name_for_evaporator_placement, var_zone_name_for_evaporator_placement)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_1_secondary_coil_air_flow_rate, var_speed_1_secondary_coil_air_flow_rate)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_1_secondary_coil_fan_flow_scaling_factor, var_speed_1_secondary_coil_fan_flow_scaling_factor)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_1_nominal_sensible_heat_ratio_of_secondary_coil, var_speed_1_nominal_sensible_heat_ratio_of_secondary_coil)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_1_sensible_heat_ratio_modifier_function_of_temperature_curve_name, var_speed_1_sensible_heat_ratio_modifier_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_1_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name, var_speed_1_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_2_secondary_coil_air_flow_rate, var_speed_2_secondary_coil_air_flow_rate)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_2_secondary_coil_fan_flow_scaling_factor, var_speed_2_secondary_coil_fan_flow_scaling_factor)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_2_nominal_sensible_heat_ratio_of_secondary_coil, var_speed_2_nominal_sensible_heat_ratio_of_secondary_coil)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_2_sensible_heat_ratio_modifier_function_of_temperature_curve_name, var_speed_2_sensible_heat_ratio_modifier_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_2_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name, var_speed_2_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_3_secondary_coil_air_flow_rate, var_speed_3_secondary_coil_air_flow_rate)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_3_secondary_coil_fan_flow_scaling_factor, var_speed_3_secondary_coil_fan_flow_scaling_factor)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_3_nominal_sensible_heat_ratio_of_secondary_coil, var_speed_3_nominal_sensible_heat_ratio_of_secondary_coil)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_3_sensible_heat_ratio_modifier_function_of_temperature_curve_name, var_speed_3_sensible_heat_ratio_modifier_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_3_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name, var_speed_3_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_4_secondary_coil_air_flow_rate, var_speed_4_secondary_coil_air_flow_rate)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_4_secondary_coil_fan_flow_scaling_factor, var_speed_4_secondary_coil_fan_flow_scaling_factor)
+        self.assertAlmostEqual(idf2.coilheatingdxmultispeeds[0].speed_4_nominal_sensible_heat_ratio_of_secondary_coil, var_speed_4_nominal_sensible_heat_ratio_of_secondary_coil)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_4_sensible_heat_ratio_modifier_function_of_temperature_curve_name, var_speed_4_sensible_heat_ratio_modifier_function_of_temperature_curve_name)
+        self.assertEqual(idf2.coilheatingdxmultispeeds[0].speed_4_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name, var_speed_4_sensible_heat_ratio_modifier_function_of_flow_fraction_curve_name)

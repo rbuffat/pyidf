@@ -38,14 +38,14 @@ class TestEvaporativeCoolerIndirectCelDekPad(unittest.TestCase):
         var_recirculating_water_pump_power_consumption = 5.5
         obj.recirculating_water_pump_power_consumption = var_recirculating_water_pump_power_consumption
         # real
-        var_secondary_fan_flow_rate = 0.0
-        obj.secondary_fan_flow_rate = var_secondary_fan_flow_rate
+        var_secondary_air_fan_flow_rate = 0.0
+        obj.secondary_air_fan_flow_rate = var_secondary_air_fan_flow_rate
         # real
-        var_secondary_fan_total_efficiency = 0.50005
-        obj.secondary_fan_total_efficiency = var_secondary_fan_total_efficiency
+        var_secondary_air_fan_total_efficiency = 0.50005
+        obj.secondary_air_fan_total_efficiency = var_secondary_air_fan_total_efficiency
         # real
-        var_secondary_fan_delta_pressure = 0.0
-        obj.secondary_fan_delta_pressure = var_secondary_fan_delta_pressure
+        var_secondary_air_fan_delta_pressure = 0.0
+        obj.secondary_air_fan_delta_pressure = var_secondary_air_fan_delta_pressure
         # real
         var_indirect_heat_exchanger_effectiveness = 0.0
         obj.indirect_heat_exchanger_effectiveness = var_indirect_heat_exchanger_effectiveness
@@ -79,9 +79,9 @@ class TestEvaporativeCoolerIndirectCelDekPad(unittest.TestCase):
         self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].direct_pad_area, var_direct_pad_area)
         self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].direct_pad_depth, var_direct_pad_depth)
         self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].recirculating_water_pump_power_consumption, var_recirculating_water_pump_power_consumption)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_fan_flow_rate, var_secondary_fan_flow_rate)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_fan_total_efficiency, var_secondary_fan_total_efficiency)
-        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_fan_delta_pressure, var_secondary_fan_delta_pressure)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_air_fan_flow_rate, var_secondary_air_fan_flow_rate)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_air_fan_total_efficiency, var_secondary_air_fan_total_efficiency)
+        self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].secondary_air_fan_delta_pressure, var_secondary_air_fan_delta_pressure)
         self.assertAlmostEqual(idf2.evaporativecoolerindirectceldekpads[0].indirect_heat_exchanger_effectiveness, var_indirect_heat_exchanger_effectiveness)
         self.assertEqual(idf2.evaporativecoolerindirectceldekpads[0].primary_air_inlet_node_name, var_primary_air_inlet_node_name)
         self.assertEqual(idf2.evaporativecoolerindirectceldekpads[0].primary_air_outlet_node_name, var_primary_air_outlet_node_name)

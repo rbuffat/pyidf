@@ -100,6 +100,9 @@ class TestZoneHvacFourPipeFanCoil(unittest.TestCase):
         # object-list
         var_design_specification_zonehvac_sizing_object_name = "object-list|Design Specification ZoneHVAC Sizing Object Name"
         obj.design_specification_zonehvac_sizing_object_name = var_design_specification_zonehvac_sizing_object_name
+        # object-list
+        var_supply_air_fan_operating_mode_schedule_name = "object-list|Supply Air Fan Operating Mode Schedule Name"
+        obj.supply_air_fan_operating_mode_schedule_name = var_supply_air_fan_operating_mode_schedule_name
 
         idf = IDF()
         idf.add(obj)
@@ -136,3 +139,4 @@ class TestZoneHvacFourPipeFanCoil(unittest.TestCase):
         self.assertAlmostEqual(idf2.zonehvacfourpipefancoils[0].heating_convergence_tolerance, var_heating_convergence_tolerance)
         self.assertEqual(idf2.zonehvacfourpipefancoils[0].availability_manager_list_name, var_availability_manager_list_name)
         self.assertEqual(idf2.zonehvacfourpipefancoils[0].design_specification_zonehvac_sizing_object_name, var_design_specification_zonehvac_sizing_object_name)
+        self.assertEqual(idf2.zonehvacfourpipefancoils[0].supply_air_fan_operating_mode_schedule_name, var_supply_air_fan_operating_mode_schedule_name)

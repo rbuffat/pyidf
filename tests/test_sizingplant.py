@@ -34,6 +34,15 @@ class TestSizingPlant(unittest.TestCase):
         # real
         var_loop_design_temperature_difference = 0.0001
         obj.loop_design_temperature_difference = var_loop_design_temperature_difference
+        # alpha
+        var_sizing_option = "Coincident"
+        obj.sizing_option = var_sizing_option
+        # integer
+        var_zone_timesteps_in_averaging_window = 1
+        obj.zone_timesteps_in_averaging_window = var_zone_timesteps_in_averaging_window
+        # alpha
+        var_coincident_sizing_factor_mode = "None"
+        obj.coincident_sizing_factor_mode = var_coincident_sizing_factor_mode
 
         idf = IDF()
         idf.add(obj)
@@ -48,3 +57,6 @@ class TestSizingPlant(unittest.TestCase):
         self.assertEqual(idf2.sizingplants[0].loop_type, var_loop_type)
         self.assertAlmostEqual(idf2.sizingplants[0].design_loop_exit_temperature, var_design_loop_exit_temperature)
         self.assertAlmostEqual(idf2.sizingplants[0].loop_design_temperature_difference, var_loop_design_temperature_difference)
+        self.assertEqual(idf2.sizingplants[0].sizing_option, var_sizing_option)
+        self.assertEqual(idf2.sizingplants[0].zone_timesteps_in_averaging_window, var_zone_timesteps_in_averaging_window)
+        self.assertEqual(idf2.sizingplants[0].coincident_sizing_factor_mode, var_coincident_sizing_factor_mode)

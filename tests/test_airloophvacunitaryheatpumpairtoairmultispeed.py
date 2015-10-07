@@ -95,8 +95,8 @@ class TestAirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(unittest.TestCase):
         var_heat_recovery_water_outlet_node_name = "node|Heat Recovery Water Outlet Node Name"
         obj.heat_recovery_water_outlet_node_name = var_heat_recovery_water_outlet_node_name
         # real
-        var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_supply_air_flow_rate = 0.0
+        obj.no_load_supply_air_flow_rate = var_no_load_supply_air_flow_rate
         # integer
         var_number_of_speeds_for_heating = 2
         obj.number_of_speeds_for_heating = var_number_of_speeds_for_heating
@@ -104,29 +104,29 @@ class TestAirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(unittest.TestCase):
         var_number_of_speeds_for_cooling = 3
         obj.number_of_speeds_for_cooling = var_number_of_speeds_for_cooling
         # real
-        var_speed_1_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.speed_1_supply_air_flow_rate_during_heating_operation = var_speed_1_supply_air_flow_rate_during_heating_operation
+        var_heating_speed_1_supply_air_flow_rate = 0.0001
+        obj.heating_speed_1_supply_air_flow_rate = var_heating_speed_1_supply_air_flow_rate
         # real
-        var_speed_2_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.speed_2_supply_air_flow_rate_during_heating_operation = var_speed_2_supply_air_flow_rate_during_heating_operation
+        var_heating_speed_2_supply_air_flow_rate = 0.0001
+        obj.heating_speed_2_supply_air_flow_rate = var_heating_speed_2_supply_air_flow_rate
         # real
-        var_speed_3_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.speed_3_supply_air_flow_rate_during_heating_operation = var_speed_3_supply_air_flow_rate_during_heating_operation
+        var_heating_speed_3_supply_air_flow_rate = 0.0001
+        obj.heating_speed_3_supply_air_flow_rate = var_heating_speed_3_supply_air_flow_rate
         # real
-        var_speed_4_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.speed_4_supply_air_flow_rate_during_heating_operation = var_speed_4_supply_air_flow_rate_during_heating_operation
+        var_heating_speed_4_supply_air_flow_rate = 0.0001
+        obj.heating_speed_4_supply_air_flow_rate = var_heating_speed_4_supply_air_flow_rate
         # real
-        var_speed_1_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.speed_1_supply_air_flow_rate_during_cooling_operation = var_speed_1_supply_air_flow_rate_during_cooling_operation
+        var_cooling_speed_1_supply_air_flow_rate = 0.0001
+        obj.cooling_speed_1_supply_air_flow_rate = var_cooling_speed_1_supply_air_flow_rate
         # real
-        var_speed_2_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.speed_2_supply_air_flow_rate_during_cooling_operation = var_speed_2_supply_air_flow_rate_during_cooling_operation
+        var_cooling_speed_2_supply_air_flow_rate = 0.0001
+        obj.cooling_speed_2_supply_air_flow_rate = var_cooling_speed_2_supply_air_flow_rate
         # real
-        var_speed_3_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.speed_3_supply_air_flow_rate_during_cooling_operation = var_speed_3_supply_air_flow_rate_during_cooling_operation
+        var_cooling_speed_3_supply_air_flow_rate = 0.0001
+        obj.cooling_speed_3_supply_air_flow_rate = var_cooling_speed_3_supply_air_flow_rate
         # real
-        var_speed_4_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.speed_4_supply_air_flow_rate_during_cooling_operation = var_speed_4_supply_air_flow_rate_during_cooling_operation
+        var_cooling_speed_4_supply_air_flow_rate = 0.0001
+        obj.cooling_speed_4_supply_air_flow_rate = var_cooling_speed_4_supply_air_flow_rate
 
         idf = IDF()
         idf.add(obj)
@@ -161,14 +161,14 @@ class TestAirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(unittest.TestCase):
         self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].maximum_temperature_for_heat_recovery, var_maximum_temperature_for_heat_recovery)
         self.assertEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heat_recovery_water_inlet_node_name, var_heat_recovery_water_inlet_node_name)
         self.assertEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heat_recovery_water_outlet_node_name, var_heat_recovery_water_outlet_node_name)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].supply_air_flow_rate_when_no_cooling_or_heating_is_needed, var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].no_load_supply_air_flow_rate, var_no_load_supply_air_flow_rate)
         self.assertEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].number_of_speeds_for_heating, var_number_of_speeds_for_heating)
         self.assertEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].number_of_speeds_for_cooling, var_number_of_speeds_for_cooling)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_1_supply_air_flow_rate_during_heating_operation, var_speed_1_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_2_supply_air_flow_rate_during_heating_operation, var_speed_2_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_3_supply_air_flow_rate_during_heating_operation, var_speed_3_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_4_supply_air_flow_rate_during_heating_operation, var_speed_4_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_1_supply_air_flow_rate_during_cooling_operation, var_speed_1_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_2_supply_air_flow_rate_during_cooling_operation, var_speed_2_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_3_supply_air_flow_rate_during_cooling_operation, var_speed_3_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].speed_4_supply_air_flow_rate_during_cooling_operation, var_speed_4_supply_air_flow_rate_during_cooling_operation)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heating_speed_1_supply_air_flow_rate, var_heating_speed_1_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heating_speed_2_supply_air_flow_rate, var_heating_speed_2_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heating_speed_3_supply_air_flow_rate, var_heating_speed_3_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].heating_speed_4_supply_air_flow_rate, var_heating_speed_4_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].cooling_speed_1_supply_air_flow_rate, var_cooling_speed_1_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].cooling_speed_2_supply_air_flow_rate, var_cooling_speed_2_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].cooling_speed_3_supply_air_flow_rate, var_cooling_speed_3_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatpumpairtoairmultispeeds[0].cooling_speed_4_supply_air_flow_rate, var_cooling_speed_4_supply_air_flow_rate)

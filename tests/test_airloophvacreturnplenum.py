@@ -38,8 +38,8 @@ class TestAirLoopHvacReturnPlenum(unittest.TestCase):
         var_induced_air_outlet_node_or_nodelist_name = "node|Induced Air Outlet Node or NodeList Name"
         obj.induced_air_outlet_node_or_nodelist_name = var_induced_air_outlet_node_or_nodelist_name
         paras = []
-        var_inlet_node_name = "node|Inlet Node Name"
-        paras.append(var_inlet_node_name)
+        var_inlet_1_node_name = "node|Inlet 1 Node Name"
+        paras.append(var_inlet_1_node_name)
         obj.add_extensible(*paras)
         
 
@@ -57,5 +57,5 @@ class TestAirLoopHvacReturnPlenum(unittest.TestCase):
         self.assertEqual(idf2.airloophvacreturnplenums[0].zone_node_name, var_zone_node_name)
         self.assertEqual(idf2.airloophvacreturnplenums[0].outlet_node_name, var_outlet_node_name)
         self.assertEqual(idf2.airloophvacreturnplenums[0].induced_air_outlet_node_or_nodelist_name, var_induced_air_outlet_node_or_nodelist_name)
-        index = obj.extensible_field_index("Inlet Node Name")
-        self.assertEqual(idf2.airloophvacreturnplenums[0].extensibles[0][index], var_inlet_node_name)
+        index = obj.extensible_field_index("Inlet 1 Node Name")
+        self.assertEqual(idf2.airloophvacreturnplenums[0].extensibles[0][index], var_inlet_1_node_name)

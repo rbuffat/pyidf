@@ -40,14 +40,14 @@ class TestThermalStorageIceDetailed(unittest.TestCase):
         # alpha
         var_discharging_curve_object_type = "Curve:QuadraticLinear"
         obj.discharging_curve_object_type = var_discharging_curve_object_type
-        # alpha
-        var_discharging_curve_name = "Discharging Curve Name"
+        # object-list
+        var_discharging_curve_name = "object-list|Discharging Curve Name"
         obj.discharging_curve_name = var_discharging_curve_name
         # alpha
         var_charging_curve_object_type = "Curve:QuadraticLinear"
         obj.charging_curve_object_type = var_charging_curve_object_type
-        # alpha
-        var_charging_curve_name = "Charging Curve Name"
+        # object-list
+        var_charging_curve_name = "object-list|Charging Curve Name"
         obj.charging_curve_name = var_charging_curve_name
         # real
         var_timestep_of_the_curve_data = 10.1

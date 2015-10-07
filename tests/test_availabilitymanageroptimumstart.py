@@ -25,8 +25,8 @@ class TestAvailabilityManagerOptimumStart(unittest.TestCase):
         # alpha
         var_name = "Name"
         obj.name = var_name
-        # alpha
-        var_applicability_schedule_name = "Applicability Schedule Name"
+        # object-list
+        var_applicability_schedule_name = "object-list|Applicability Schedule Name"
         obj.applicability_schedule_name = var_applicability_schedule_name
         # object-list
         var_fan_schedule_name = "object-list|Fan Schedule Name"

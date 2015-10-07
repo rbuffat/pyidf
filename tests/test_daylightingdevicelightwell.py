@@ -22,8 +22,8 @@ class TestDaylightingDeviceLightWell(unittest.TestCase):
         pyidf.validation_level = ValidationLevel.error
 
         obj = DaylightingDeviceLightWell()
-        # alpha
-        var_exterior_window_name = "Exterior Window Name"
+        # object-list
+        var_exterior_window_name = "object-list|Exterior Window Name"
         obj.exterior_window_name = var_exterior_window_name
         # real
         var_height_of_well = 0.0

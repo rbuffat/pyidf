@@ -176,7 +176,7 @@ class TestWaterHeaterStratified(unittest.TestCase):
         var_indirect_water_heating_recovery_time = 0.0001
         obj.indirect_water_heating_recovery_time = var_indirect_water_heating_recovery_time
         # integer
-        var_number_of_nodes = 5
+        var_number_of_nodes = 6
         obj.number_of_nodes = var_number_of_nodes
         # real
         var_additional_destratification_conductivity = 0.0
@@ -211,6 +211,12 @@ class TestWaterHeaterStratified(unittest.TestCase):
         # real
         var_node_10_additional_loss_coefficient = 63.63
         obj.node_10_additional_loss_coefficient = var_node_10_additional_loss_coefficient
+        # real
+        var_node_11_additional_loss_coefficient = 64.64
+        obj.node_11_additional_loss_coefficient = var_node_11_additional_loss_coefficient
+        # real
+        var_node_12_additional_loss_coefficient = 65.65
+        obj.node_12_additional_loss_coefficient = var_node_12_additional_loss_coefficient
         # alpha
         var_source_side_flow_control_mode = "StorageTank"
         obj.source_side_flow_control_mode = var_source_side_flow_control_mode
@@ -290,5 +296,7 @@ class TestWaterHeaterStratified(unittest.TestCase):
         self.assertAlmostEqual(idf2.waterheaterstratifieds[0].node_8_additional_loss_coefficient, var_node_8_additional_loss_coefficient)
         self.assertAlmostEqual(idf2.waterheaterstratifieds[0].node_9_additional_loss_coefficient, var_node_9_additional_loss_coefficient)
         self.assertAlmostEqual(idf2.waterheaterstratifieds[0].node_10_additional_loss_coefficient, var_node_10_additional_loss_coefficient)
+        self.assertAlmostEqual(idf2.waterheaterstratifieds[0].node_11_additional_loss_coefficient, var_node_11_additional_loss_coefficient)
+        self.assertAlmostEqual(idf2.waterheaterstratifieds[0].node_12_additional_loss_coefficient, var_node_12_additional_loss_coefficient)
         self.assertEqual(idf2.waterheaterstratifieds[0].source_side_flow_control_mode, var_source_side_flow_control_mode)
         self.assertEqual(idf2.waterheaterstratifieds[0].indirect_alternate_setpoint_temperature_schedule_name, var_indirect_alternate_setpoint_temperature_schedule_name)

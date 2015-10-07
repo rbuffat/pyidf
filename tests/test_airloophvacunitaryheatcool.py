@@ -41,14 +41,14 @@ class TestAirLoopHvacUnitaryHeatCool(unittest.TestCase):
         var_maximum_supply_air_temperature = 6.6
         obj.maximum_supply_air_temperature = var_maximum_supply_air_temperature
         # real
-        var_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.supply_air_flow_rate_during_cooling_operation = var_supply_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0001
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.supply_air_flow_rate_during_heating_operation = var_supply_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_supply_air_flow_rate = 0.0
+        obj.no_load_supply_air_flow_rate = var_no_load_supply_air_flow_rate
         # object-list
         var_controlling_zone_or_thermostat_location = "object-list|Controlling Zone or Thermostat Location"
         obj.controlling_zone_or_thermostat_location = var_controlling_zone_or_thermostat_location
@@ -98,9 +98,9 @@ class TestAirLoopHvacUnitaryHeatCool(unittest.TestCase):
         self.assertEqual(idf2.airloophvacunitaryheatcools[0].unitary_system_air_outlet_node_name, var_unitary_system_air_outlet_node_name)
         self.assertEqual(idf2.airloophvacunitaryheatcools[0].supply_air_fan_operating_mode_schedule_name, var_supply_air_fan_operating_mode_schedule_name)
         self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].maximum_supply_air_temperature, var_maximum_supply_air_temperature)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].supply_air_flow_rate_during_cooling_operation, var_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].supply_air_flow_rate_during_heating_operation, var_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].supply_air_flow_rate_when_no_cooling_or_heating_is_needed, var_supply_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcools[0].no_load_supply_air_flow_rate, var_no_load_supply_air_flow_rate)
         self.assertEqual(idf2.airloophvacunitaryheatcools[0].controlling_zone_or_thermostat_location, var_controlling_zone_or_thermostat_location)
         self.assertEqual(idf2.airloophvacunitaryheatcools[0].supply_fan_object_type, var_supply_fan_object_type)
         self.assertEqual(idf2.airloophvacunitaryheatcools[0].supply_fan_name, var_supply_fan_name)

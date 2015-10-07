@@ -34,8 +34,8 @@ class TestElectricLoadCenterInverterFunctionOfPower(unittest.TestCase):
         # real
         var_radiative_fraction = 4.4
         obj.radiative_fraction = var_radiative_fraction
-        # alpha
-        var_efficiency_function_of_power_curve_name = "Efficiency Function of Power Curve Name"
+        # object-list
+        var_efficiency_function_of_power_curve_name = "object-list|Efficiency Function of Power Curve Name"
         obj.efficiency_function_of_power_curve_name = var_efficiency_function_of_power_curve_name
         # real
         var_rated_maximum_continuous_input_power = 6.6

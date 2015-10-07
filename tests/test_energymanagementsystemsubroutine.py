@@ -26,8 +26,8 @@ class TestEnergyManagementSystemSubroutine(unittest.TestCase):
         var_name = "Name"
         obj.name = var_name
         paras = []
-        var_program_line = "Program Line"
-        paras.append(var_program_line)
+        var_program_line_1 = "Program Line 1"
+        paras.append(var_program_line_1)
         obj.add_extensible(*paras)
         
 
@@ -41,5 +41,5 @@ class TestEnergyManagementSystemSubroutine(unittest.TestCase):
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.energymanagementsystemsubroutines[0].name, var_name)
-        index = obj.extensible_field_index("Program Line")
-        self.assertEqual(idf2.energymanagementsystemsubroutines[0].extensibles[0][index], var_program_line)
+        index = obj.extensible_field_index("Program Line 1")
+        self.assertEqual(idf2.energymanagementsystemsubroutines[0].extensibles[0][index], var_program_line_1)

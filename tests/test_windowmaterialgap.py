@@ -26,7 +26,7 @@ class TestWindowMaterialGap(unittest.TestCase):
         var_name = "Name"
         obj.name = var_name
         # real
-        var_thickness = 2.2
+        var_thickness = 0.0001
         obj.thickness = var_thickness
         # object-list
         var_gas_or_gas_mixture = "object-list|Gas (or Gas Mixture)"

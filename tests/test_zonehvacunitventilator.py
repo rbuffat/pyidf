@@ -70,8 +70,8 @@ class TestZoneHvacUnitVentilator(unittest.TestCase):
         # alpha
         var_coil_option = "None"
         obj.coil_option = var_coil_option
-        # alpha
-        var_supply_air_fan_operating_mode_schedule_name = "Supply Air Fan Operating Mode Schedule Name"
+        # object-list
+        var_supply_air_fan_operating_mode_schedule_name = "object-list|Supply Air Fan Operating Mode Schedule Name"
         obj.supply_air_fan_operating_mode_schedule_name = var_supply_air_fan_operating_mode_schedule_name
         # alpha
         var_heating_coil_object_type = "Coil:Heating:Water"

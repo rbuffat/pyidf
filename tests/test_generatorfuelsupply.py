@@ -31,12 +31,12 @@ class TestGeneratorFuelSupply(unittest.TestCase):
         # node
         var_fuel_temperature_reference_node_name = "node|Fuel Temperature Reference Node Name"
         obj.fuel_temperature_reference_node_name = var_fuel_temperature_reference_node_name
-        # alpha
-        var_fuel_temperature_schedule_name = "Fuel Temperature Schedule Name"
+        # object-list
+        var_fuel_temperature_schedule_name = "object-list|Fuel Temperature Schedule Name"
         obj.fuel_temperature_schedule_name = var_fuel_temperature_schedule_name
         # object-list
-        var_compressor_power_function_of_fuel_rate_curve_name = "object-list|Compressor Power Function of Fuel Rate Curve Name"
-        obj.compressor_power_function_of_fuel_rate_curve_name = var_compressor_power_function_of_fuel_rate_curve_name
+        var_compressor_power_multiplier_function_of_fuel_rate_curve_name = "object-list|Compressor Power Multiplier Function of Fuel Rate Curve Name"
+        obj.compressor_power_multiplier_function_of_fuel_rate_curve_name = var_compressor_power_multiplier_function_of_fuel_rate_curve_name
         # real
         var_compressor_heat_loss_factor = 0.5
         obj.compressor_heat_loss_factor = var_compressor_heat_loss_factor
@@ -144,7 +144,7 @@ class TestGeneratorFuelSupply(unittest.TestCase):
         self.assertEqual(idf2.generatorfuelsupplys[0].fuel_temperature_modeling_mode, var_fuel_temperature_modeling_mode)
         self.assertEqual(idf2.generatorfuelsupplys[0].fuel_temperature_reference_node_name, var_fuel_temperature_reference_node_name)
         self.assertEqual(idf2.generatorfuelsupplys[0].fuel_temperature_schedule_name, var_fuel_temperature_schedule_name)
-        self.assertEqual(idf2.generatorfuelsupplys[0].compressor_power_function_of_fuel_rate_curve_name, var_compressor_power_function_of_fuel_rate_curve_name)
+        self.assertEqual(idf2.generatorfuelsupplys[0].compressor_power_multiplier_function_of_fuel_rate_curve_name, var_compressor_power_multiplier_function_of_fuel_rate_curve_name)
         self.assertAlmostEqual(idf2.generatorfuelsupplys[0].compressor_heat_loss_factor, var_compressor_heat_loss_factor)
         self.assertEqual(idf2.generatorfuelsupplys[0].fuel_type, var_fuel_type)
         self.assertAlmostEqual(idf2.generatorfuelsupplys[0].liquid_generic_fuel_lower_heating_value, var_liquid_generic_fuel_lower_heating_value)

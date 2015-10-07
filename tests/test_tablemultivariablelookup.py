@@ -115,49 +115,6 @@ class TestTableMultiVariableLookup(unittest.TestCase):
         # real
         var_field_2_determined_by_the_number_of_independent_variables = 31.31
         obj.field_2_determined_by_the_number_of_independent_variables = var_field_2_determined_by_the_number_of_independent_variables
-        paras = []
-        var_field_3_determined_by_the_number_of_independent_variables = 32.32
-        paras.append(var_field_3_determined_by_the_number_of_independent_variables)
-        var_v1 = 33.33
-        paras.append(var_v1)
-        var_v2 = 34.34
-        paras.append(var_v2)
-        var_v3 = 35.35
-        paras.append(var_v3)
-        var_v4 = 36.36
-        paras.append(var_v4)
-        var_v5 = 37.37
-        paras.append(var_v5)
-        var_v6 = 38.38
-        paras.append(var_v6)
-        var_v7 = 39.39
-        paras.append(var_v7)
-        var_v8 = 40.4
-        paras.append(var_v8)
-        var_v9 = 41.41
-        paras.append(var_v9)
-        var_v10 = 42.42
-        paras.append(var_v10)
-        var_v11 = 43.43
-        paras.append(var_v11)
-        var_v12 = 44.44
-        paras.append(var_v12)
-        var_v13 = 45.45
-        paras.append(var_v13)
-        var_v14 = 46.46
-        paras.append(var_v14)
-        var_v15 = 47.47
-        paras.append(var_v15)
-        var_v16 = 48.48
-        paras.append(var_v16)
-        var_v17 = 49.49
-        paras.append(var_v17)
-        var_v18 = 50.5
-        paras.append(var_v18)
-        var_v19 = 51.51
-        paras.append(var_v19)
-        obj.add_extensible(*paras)
-        
 
         idf = IDF()
         idf.add(obj)
@@ -199,43 +156,3 @@ class TestTableMultiVariableLookup(unittest.TestCase):
         self.assertEqual(idf2.tablemultivariablelookups[0].number_of_values_for_independent_variable_x1, var_number_of_values_for_independent_variable_x1)
         self.assertAlmostEqual(idf2.tablemultivariablelookups[0].field_1_determined_by_the_number_of_independent_variables, var_field_1_determined_by_the_number_of_independent_variables)
         self.assertAlmostEqual(idf2.tablemultivariablelookups[0].field_2_determined_by_the_number_of_independent_variables, var_field_2_determined_by_the_number_of_independent_variables)
-        index = obj.extensible_field_index("Field 3 Determined by the Number of Independent Variables")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_field_3_determined_by_the_number_of_independent_variables)
-        index = obj.extensible_field_index("V1")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v1)
-        index = obj.extensible_field_index("V2")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v2)
-        index = obj.extensible_field_index("V3")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v3)
-        index = obj.extensible_field_index("V4")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v4)
-        index = obj.extensible_field_index("V5")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v5)
-        index = obj.extensible_field_index("V6")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v6)
-        index = obj.extensible_field_index("V7")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v7)
-        index = obj.extensible_field_index("V8")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v8)
-        index = obj.extensible_field_index("V9")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v9)
-        index = obj.extensible_field_index("V10")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v10)
-        index = obj.extensible_field_index("V11")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v11)
-        index = obj.extensible_field_index("V12")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v12)
-        index = obj.extensible_field_index("V13")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v13)
-        index = obj.extensible_field_index("V14")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v14)
-        index = obj.extensible_field_index("V15")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v15)
-        index = obj.extensible_field_index("V16")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v16)
-        index = obj.extensible_field_index("V17")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v17)
-        index = obj.extensible_field_index("V18")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v18)
-        index = obj.extensible_field_index("V19")
-        self.assertAlmostEqual(idf2.tablemultivariablelookups[0].extensibles[0][index], var_v19)

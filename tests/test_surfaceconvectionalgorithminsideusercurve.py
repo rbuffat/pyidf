@@ -28,17 +28,17 @@ class TestSurfaceConvectionAlgorithmInsideUserCurve(unittest.TestCase):
         # alpha
         var_reference_temperature_for_convection_heat_transfer = "MeanAirTemperature"
         obj.reference_temperature_for_convection_heat_transfer = var_reference_temperature_for_convection_heat_transfer
-        # alpha
-        var_hc_function_of_temperature_difference_curve_name = "Hc Function of Temperature Difference Curve Name"
+        # object-list
+        var_hc_function_of_temperature_difference_curve_name = "object-list|Hc Function of Temperature Difference Curve Name"
         obj.hc_function_of_temperature_difference_curve_name = var_hc_function_of_temperature_difference_curve_name
-        # alpha
-        var_hc_function_of_temperature_difference_divided_by_height_curve_name = "Hc Function of Temperature Difference Divided by Height Curve Name"
+        # object-list
+        var_hc_function_of_temperature_difference_divided_by_height_curve_name = "object-list|Hc Function of Temperature Difference Divided by Height Curve Name"
         obj.hc_function_of_temperature_difference_divided_by_height_curve_name = var_hc_function_of_temperature_difference_divided_by_height_curve_name
-        # alpha
-        var_hc_function_of_air_change_rate_curve_name = "Hc Function of Air Change Rate Curve Name"
+        # object-list
+        var_hc_function_of_air_change_rate_curve_name = "object-list|Hc Function of Air Change Rate Curve Name"
         obj.hc_function_of_air_change_rate_curve_name = var_hc_function_of_air_change_rate_curve_name
-        # alpha
-        var_hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name = "Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"
+        # object-list
+        var_hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name = "object-list|Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"
         obj.hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name = var_hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name
 
         idf = IDF()

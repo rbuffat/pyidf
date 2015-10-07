@@ -22,8 +22,8 @@ class TestWindowPropertyStormWindow(unittest.TestCase):
         pyidf.validation_level = ValidationLevel.error
 
         obj = WindowPropertyStormWindow()
-        # alpha
-        var_window_name = "Window Name"
+        # object-list
+        var_window_name = "object-list|Window Name"
         obj.window_name = var_window_name
         # object-list
         var_storm_glass_layer_name = "object-list|Storm Glass Layer Name"

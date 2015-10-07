@@ -43,8 +43,8 @@ class TestPlantComponentUserDefined(unittest.TestCase):
         # alpha
         var_plant_connection_1_loop_flow_request_mode = "NeedsFlowIfLoopOn"
         obj.plant_connection_1_loop_flow_request_mode = var_plant_connection_1_loop_flow_request_mode
-        # alpha
-        var_plant_connection_1_initialization_program_calling_manager_name = "Plant Connection 1 Initialization Program Calling Manager Name"
+        # object-list
+        var_plant_connection_1_initialization_program_calling_manager_name = "object-list|Plant Connection 1 Initialization Program Calling Manager Name"
         obj.plant_connection_1_initialization_program_calling_manager_name = var_plant_connection_1_initialization_program_calling_manager_name
         # object-list
         var_plant_connection_1_simulation_program_calling_manager_name = "object-list|Plant Connection 1 Simulation Program Calling Manager Name"

@@ -35,26 +35,26 @@ class TestZoneHvacTerminalUnitVariableRefrigerantFlow(unittest.TestCase):
         var_terminal_unit_air_outlet_node_name = "node|Terminal Unit Air Outlet Node Name"
         obj.terminal_unit_air_outlet_node_name = var_terminal_unit_air_outlet_node_name
         # real
-        var_supply_air_flow_rate_during_cooling_operation = 0.0001
-        obj.supply_air_flow_rate_during_cooling_operation = var_supply_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0001
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_cooling_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_cooling_is_needed = var_supply_air_flow_rate_when_no_cooling_is_needed
+        var_no_cooling_supply_air_flow_rate = 0.0
+        obj.no_cooling_supply_air_flow_rate = var_no_cooling_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_during_heating_operation = 0.0001
-        obj.supply_air_flow_rate_during_heating_operation = var_supply_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_supply_air_flow_rate_when_no_heating_is_needed = 0.0
-        obj.supply_air_flow_rate_when_no_heating_is_needed = var_supply_air_flow_rate_when_no_heating_is_needed
+        var_no_heating_supply_air_flow_rate = 0.0
+        obj.no_heating_supply_air_flow_rate = var_no_heating_supply_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_cooling_operation = 0.0
-        obj.outdoor_air_flow_rate_during_cooling_operation = var_outdoor_air_flow_rate_during_cooling_operation
+        var_cooling_outdoor_air_flow_rate = 0.0
+        obj.cooling_outdoor_air_flow_rate = var_cooling_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_heating_operation = 0.0
-        obj.outdoor_air_flow_rate_during_heating_operation = var_outdoor_air_flow_rate_during_heating_operation
+        var_heating_outdoor_air_flow_rate = 0.0
+        obj.heating_outdoor_air_flow_rate = var_heating_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_outdoor_air_flow_rate = 0.0
+        obj.no_load_outdoor_air_flow_rate = var_no_load_outdoor_air_flow_rate
         # object-list
         var_supply_air_fan_operating_mode_schedule_name = "object-list|Supply Air Fan Operating Mode Schedule Name"
         obj.supply_air_fan_operating_mode_schedule_name = var_supply_air_fan_operating_mode_schedule_name
@@ -114,13 +114,13 @@ class TestZoneHvacTerminalUnitVariableRefrigerantFlow(unittest.TestCase):
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].terminal_unit_availability_schedule, var_terminal_unit_availability_schedule)
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].terminal_unit_air_inlet_node_name, var_terminal_unit_air_inlet_node_name)
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].terminal_unit_air_outlet_node_name, var_terminal_unit_air_outlet_node_name)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_flow_rate_during_cooling_operation, var_supply_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_flow_rate_when_no_cooling_is_needed, var_supply_air_flow_rate_when_no_cooling_is_needed)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_flow_rate_during_heating_operation, var_supply_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_flow_rate_when_no_heating_is_needed, var_supply_air_flow_rate_when_no_heating_is_needed)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].outdoor_air_flow_rate_during_cooling_operation, var_outdoor_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].outdoor_air_flow_rate_during_heating_operation, var_outdoor_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed, var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].no_cooling_supply_air_flow_rate, var_no_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].no_heating_supply_air_flow_rate, var_no_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].cooling_outdoor_air_flow_rate, var_cooling_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].heating_outdoor_air_flow_rate, var_heating_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].no_load_outdoor_air_flow_rate, var_no_load_outdoor_air_flow_rate)
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_fan_operating_mode_schedule_name, var_supply_air_fan_operating_mode_schedule_name)
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_fan_placement, var_supply_air_fan_placement)
         self.assertEqual(idf2.zonehvacterminalunitvariablerefrigerantflows[0].supply_air_fan_object_type, var_supply_air_fan_object_type)

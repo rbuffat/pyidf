@@ -41,8 +41,8 @@ class TestAirLoopHvacUnitaryFurnaceHeatOnly(unittest.TestCase):
         var_maximum_supply_air_temperature = 6.6
         obj.maximum_supply_air_temperature = var_maximum_supply_air_temperature
         # real
-        var_supply_air_flow_rate = 0.0001
-        obj.supply_air_flow_rate = var_supply_air_flow_rate
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # object-list
         var_controlling_zone_or_thermostat_location = "object-list|Controlling Zone or Thermostat Location"
         obj.controlling_zone_or_thermostat_location = var_controlling_zone_or_thermostat_location
@@ -77,7 +77,7 @@ class TestAirLoopHvacUnitaryFurnaceHeatOnly(unittest.TestCase):
         self.assertEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].furnace_air_outlet_node_name, var_furnace_air_outlet_node_name)
         self.assertEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].supply_air_fan_operating_mode_schedule_name, var_supply_air_fan_operating_mode_schedule_name)
         self.assertAlmostEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].maximum_supply_air_temperature, var_maximum_supply_air_temperature)
-        self.assertAlmostEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].supply_air_flow_rate, var_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
         self.assertEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].controlling_zone_or_thermostat_location, var_controlling_zone_or_thermostat_location)
         self.assertEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].supply_fan_object_type, var_supply_fan_object_type)
         self.assertEqual(idf2.airloophvacunitaryfurnaceheatonlys[0].supply_fan_name, var_supply_fan_name)

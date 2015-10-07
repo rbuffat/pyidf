@@ -5,7 +5,7 @@ import logging
 from pyidf import ValidationLevel
 import pyidf
 from pyidf.idf import IDF
-from pyidf.room_air_models import GroundHeatTransferBasementYface
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementYface
 
 log = logging.getLogger(__name__)
 

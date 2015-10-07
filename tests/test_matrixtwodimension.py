@@ -5,7 +5,7 @@ import logging
 from pyidf import ValidationLevel
 import pyidf
 from pyidf.idf import IDF
-from pyidf.refrigeration import MatrixTwoDimension
+from pyidf.general_data_entry import MatrixTwoDimension
 
 log = logging.getLogger(__name__)
 
@@ -32,8 +32,8 @@ class TestMatrixTwoDimension(unittest.TestCase):
         var_number_of_columns = 3
         obj.number_of_columns = var_number_of_columns
         paras = []
-        var_value = 4.4
-        paras.append(var_value)
+        var_value_1 = 4.4
+        paras.append(var_value_1)
         obj.add_extensible(*paras)
         
 
@@ -49,5 +49,5 @@ class TestMatrixTwoDimension(unittest.TestCase):
         self.assertEqual(idf2.matrixtwodimensions[0].name, var_name)
         self.assertEqual(idf2.matrixtwodimensions[0].number_of_rows, var_number_of_rows)
         self.assertEqual(idf2.matrixtwodimensions[0].number_of_columns, var_number_of_columns)
-        index = obj.extensible_field_index("Value")
-        self.assertAlmostEqual(idf2.matrixtwodimensions[0].extensibles[0][index], var_value)
+        index = obj.extensible_field_index("Value 1")
+        self.assertAlmostEqual(idf2.matrixtwodimensions[0].extensibles[0][index], var_value_1)

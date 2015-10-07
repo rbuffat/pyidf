@@ -301,6 +301,9 @@ class TestCoilCoolingDxMultiSpeed(unittest.TestCase):
         # real
         var_speed_4_rated_evaporative_condenser_pump_power_consumption = 0.0
         obj.speed_4_rated_evaporative_condenser_pump_power_consumption = var_speed_4_rated_evaporative_condenser_pump_power_consumption
+        # object-list
+        var_zone_name_for_condenser_placement = "object-list|Zone Name for Condenser Placement"
+        obj.zone_name_for_condenser_placement = var_zone_name_for_condenser_placement
 
         idf = IDF()
         idf.add(obj)
@@ -404,3 +407,4 @@ class TestCoilCoolingDxMultiSpeed(unittest.TestCase):
         self.assertAlmostEqual(idf2.coilcoolingdxmultispeeds[0].speed_4_evaporative_condenser_effectiveness, var_speed_4_evaporative_condenser_effectiveness)
         self.assertAlmostEqual(idf2.coilcoolingdxmultispeeds[0].speed_4_evaporative_condenser_air_flow_rate, var_speed_4_evaporative_condenser_air_flow_rate)
         self.assertAlmostEqual(idf2.coilcoolingdxmultispeeds[0].speed_4_rated_evaporative_condenser_pump_power_consumption, var_speed_4_rated_evaporative_condenser_pump_power_consumption)
+        self.assertEqual(idf2.coilcoolingdxmultispeeds[0].zone_name_for_condenser_placement, var_zone_name_for_condenser_placement)

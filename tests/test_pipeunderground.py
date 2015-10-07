@@ -46,15 +46,12 @@ class TestPipeUnderground(unittest.TestCase):
         # alpha
         var_soil_material_name = "Soil Material Name"
         obj.soil_material_name = var_soil_material_name
-        # real
-        var_average_soil_surface_temperature = 9.9
-        obj.average_soil_surface_temperature = var_average_soil_surface_temperature
-        # real
-        var_amplitude_of_soil_surface_temperature = 0.0
-        obj.amplitude_of_soil_surface_temperature = var_amplitude_of_soil_surface_temperature
-        # real
-        var_phase_constant_of_soil_surface_temperature = 0.0
-        obj.phase_constant_of_soil_surface_temperature = var_phase_constant_of_soil_surface_temperature
+        # alpha
+        var_undisturbed_ground_temperature_model_type = "Site:GroundTemperature:Undisturbed:FiniteDifference"
+        obj.undisturbed_ground_temperature_model_type = var_undisturbed_ground_temperature_model_type
+        # object-list
+        var_undisturbed_ground_temperature_model_name = "object-list|Undisturbed Ground Temperature Model Name"
+        obj.undisturbed_ground_temperature_model_name = var_undisturbed_ground_temperature_model_name
 
         idf = IDF()
         idf.add(obj)
@@ -73,6 +70,5 @@ class TestPipeUnderground(unittest.TestCase):
         self.assertAlmostEqual(idf2.pipeundergrounds[0].pipe_inside_diameter, var_pipe_inside_diameter)
         self.assertAlmostEqual(idf2.pipeundergrounds[0].pipe_length, var_pipe_length)
         self.assertEqual(idf2.pipeundergrounds[0].soil_material_name, var_soil_material_name)
-        self.assertAlmostEqual(idf2.pipeundergrounds[0].average_soil_surface_temperature, var_average_soil_surface_temperature)
-        self.assertAlmostEqual(idf2.pipeundergrounds[0].amplitude_of_soil_surface_temperature, var_amplitude_of_soil_surface_temperature)
-        self.assertAlmostEqual(idf2.pipeundergrounds[0].phase_constant_of_soil_surface_temperature, var_phase_constant_of_soil_surface_temperature)
+        self.assertEqual(idf2.pipeundergrounds[0].undisturbed_ground_temperature_model_type, var_undisturbed_ground_temperature_model_type)
+        self.assertEqual(idf2.pipeundergrounds[0].undisturbed_ground_temperature_model_name, var_undisturbed_ground_temperature_model_name)

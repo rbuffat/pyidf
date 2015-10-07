@@ -28,8 +28,8 @@ class TestWindowMaterialGlazing(unittest.TestCase):
         # alpha
         var_optical_data_type = "SpectralAverage"
         obj.optical_data_type = var_optical_data_type
-        # alpha
-        var_window_glass_spectral_data_set_name = "Window Glass Spectral Data Set Name"
+        # object-list
+        var_window_glass_spectral_data_set_name = "object-list|Window Glass Spectral Data Set Name"
         obj.window_glass_spectral_data_set_name = var_window_glass_spectral_data_set_name
         # real
         var_thickness = 0.0001

@@ -29,8 +29,8 @@ class TestScheduleCompact(unittest.TestCase):
         var_schedule_type_limits_name = "object-list|Schedule Type Limits Name"
         obj.schedule_type_limits_name = var_schedule_type_limits_name
         paras = []
-        var_field = "Field"
-        paras.append(var_field)
+        var_field_1 = "Field 1"
+        paras.append(var_field_1)
         obj.add_extensible(*paras)
         
 
@@ -45,5 +45,5 @@ class TestScheduleCompact(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.schedulecompacts[0].name, var_name)
         self.assertEqual(idf2.schedulecompacts[0].schedule_type_limits_name, var_schedule_type_limits_name)
-        index = obj.extensible_field_index("Field")
-        self.assertEqual(idf2.schedulecompacts[0].extensibles[0][index], var_field)
+        index = obj.extensible_field_index("Field 1")
+        self.assertEqual(idf2.schedulecompacts[0].extensibles[0][index], var_field_1)

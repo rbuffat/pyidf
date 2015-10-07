@@ -29,8 +29,8 @@ class TestConnectorSplitter(unittest.TestCase):
         var_inlet_branch_name = "object-list|Inlet Branch Name"
         obj.inlet_branch_name = var_inlet_branch_name
         paras = []
-        var_outlet_branch_name = "object-list|Outlet Branch Name"
-        paras.append(var_outlet_branch_name)
+        var_outlet_branch_1_name = "object-list|Outlet Branch 1 Name"
+        paras.append(var_outlet_branch_1_name)
         obj.add_extensible(*paras)
         
 
@@ -45,5 +45,5 @@ class TestConnectorSplitter(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.connectorsplitters[0].name, var_name)
         self.assertEqual(idf2.connectorsplitters[0].inlet_branch_name, var_inlet_branch_name)
-        index = obj.extensible_field_index("Outlet Branch Name")
-        self.assertEqual(idf2.connectorsplitters[0].extensibles[0][index], var_outlet_branch_name)
+        index = obj.extensible_field_index("Outlet Branch 1 Name")
+        self.assertEqual(idf2.connectorsplitters[0].extensibles[0][index], var_outlet_branch_1_name)

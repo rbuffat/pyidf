@@ -49,6 +49,9 @@ class TestChillerElectricReformulatedEir(unittest.TestCase):
         # object-list
         var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name = "object-list|Electric Input to Cooling Output Ratio Function of Temperature Curve Name"
         obj.electric_input_to_cooling_output_ratio_function_of_temperature_curve_name = var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
+        # alpha
+        var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_type = "LeavingCondenserWaterTemperature"
+        obj.electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_type = var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_type
         # object-list
         var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = "object-list|Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"
         obj.electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name = var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
@@ -80,7 +83,7 @@ class TestChillerElectricReformulatedEir(unittest.TestCase):
         var_fraction_of_compressor_electric_consumption_rejected_by_condenser = 0.50005
         obj.fraction_of_compressor_electric_consumption_rejected_by_condenser = var_fraction_of_compressor_electric_consumption_rejected_by_condenser
         # real
-        var_leaving_chilled_water_lower_temperature_limit = 20.2
+        var_leaving_chilled_water_lower_temperature_limit = 21.21
         obj.leaving_chilled_water_lower_temperature_limit = var_leaving_chilled_water_lower_temperature_limit
         # alpha
         var_chiller_flow_mode_type = "ConstantFlow"
@@ -125,6 +128,7 @@ class TestChillerElectricReformulatedEir(unittest.TestCase):
         self.assertAlmostEqual(idf2.chillerelectricreformulatedeirs[0].reference_condenser_water_flow_rate, var_reference_condenser_water_flow_rate)
         self.assertEqual(idf2.chillerelectricreformulatedeirs[0].cooling_capacity_function_of_temperature_curve_name, var_cooling_capacity_function_of_temperature_curve_name)
         self.assertEqual(idf2.chillerelectricreformulatedeirs[0].electric_input_to_cooling_output_ratio_function_of_temperature_curve_name, var_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name)
+        self.assertEqual(idf2.chillerelectricreformulatedeirs[0].electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_type, var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_type)
         self.assertEqual(idf2.chillerelectricreformulatedeirs[0].electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name, var_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name)
         self.assertAlmostEqual(idf2.chillerelectricreformulatedeirs[0].minimum_part_load_ratio, var_minimum_part_load_ratio)
         self.assertAlmostEqual(idf2.chillerelectricreformulatedeirs[0].maximum_part_load_ratio, var_maximum_part_load_ratio)

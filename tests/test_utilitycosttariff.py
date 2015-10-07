@@ -55,11 +55,11 @@ class TestUtilityCostTariff(unittest.TestCase):
         # alpha
         var_minimum_monthly_charge_or_variable_name = "Minimum Monthly Charge or Variable Name"
         obj.minimum_monthly_charge_or_variable_name = var_minimum_monthly_charge_or_variable_name
-        # alpha
-        var_real_time_pricing_charge_schedule_name = "Real Time Pricing Charge Schedule Name"
+        # object-list
+        var_real_time_pricing_charge_schedule_name = "object-list|Real Time Pricing Charge Schedule Name"
         obj.real_time_pricing_charge_schedule_name = var_real_time_pricing_charge_schedule_name
-        # alpha
-        var_customer_baseline_load_schedule_name = "Customer Baseline Load Schedule Name"
+        # object-list
+        var_customer_baseline_load_schedule_name = "object-list|Customer Baseline Load Schedule Name"
         obj.customer_baseline_load_schedule_name = var_customer_baseline_load_schedule_name
         # alpha
         var_group_name = "Group Name"

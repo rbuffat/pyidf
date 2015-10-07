@@ -28,14 +28,14 @@ class TestSurfaceConvectionAlgorithmOutsideUserCurve(unittest.TestCase):
         # alpha
         var_wind_speed_type_for_curve = "WeatherFile"
         obj.wind_speed_type_for_curve = var_wind_speed_type_for_curve
-        # alpha
-        var_hf_function_of_wind_speed_curve_name = "Hf Function of Wind Speed Curve Name"
+        # object-list
+        var_hf_function_of_wind_speed_curve_name = "object-list|Hf Function of Wind Speed Curve Name"
         obj.hf_function_of_wind_speed_curve_name = var_hf_function_of_wind_speed_curve_name
-        # alpha
-        var_hn_function_of_temperature_difference_curve_name = "Hn Function of Temperature Difference Curve Name"
+        # object-list
+        var_hn_function_of_temperature_difference_curve_name = "object-list|Hn Function of Temperature Difference Curve Name"
         obj.hn_function_of_temperature_difference_curve_name = var_hn_function_of_temperature_difference_curve_name
-        # alpha
-        var_hn_function_of_temperature_difference_divided_by_height_curve_name = "Hn Function of Temperature Difference Divided by Height Curve Name"
+        # object-list
+        var_hn_function_of_temperature_difference_divided_by_height_curve_name = "object-list|Hn Function of Temperature Difference Divided by Height Curve Name"
         obj.hn_function_of_temperature_difference_divided_by_height_curve_name = var_hn_function_of_temperature_difference_divided_by_height_curve_name
 
         idf = IDF()

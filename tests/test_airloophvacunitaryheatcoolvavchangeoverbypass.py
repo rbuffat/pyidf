@@ -29,25 +29,25 @@ class TestAirLoopHvacUnitaryHeatCoolVavchangeoverBypass(unittest.TestCase):
         var_availability_schedule_name = "object-list|Availability Schedule Name"
         obj.availability_schedule_name = var_availability_schedule_name
         # real
-        var_system_air_flow_rate_during_cooling_operation = 0.0001
-        obj.system_air_flow_rate_during_cooling_operation = var_system_air_flow_rate_during_cooling_operation
+        var_cooling_supply_air_flow_rate = 0.0001
+        obj.cooling_supply_air_flow_rate = var_cooling_supply_air_flow_rate
         # real
-        var_system_air_flow_rate_during_heating_operation = 0.0001
-        obj.system_air_flow_rate_during_heating_operation = var_system_air_flow_rate_during_heating_operation
+        var_heating_supply_air_flow_rate = 0.0001
+        obj.heating_supply_air_flow_rate = var_heating_supply_air_flow_rate
         # real
-        var_system_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.system_air_flow_rate_when_no_cooling_or_heating_is_needed = var_system_air_flow_rate_when_no_cooling_or_heating_is_needed
+        var_no_load_supply_air_flow_rate = 0.0
+        obj.no_load_supply_air_flow_rate = var_no_load_supply_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_cooling_operation = 0.0
-        obj.outdoor_air_flow_rate_during_cooling_operation = var_outdoor_air_flow_rate_during_cooling_operation
+        var_cooling_outdoor_air_flow_rate = 0.0
+        obj.cooling_outdoor_air_flow_rate = var_cooling_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_during_heating_operation = 0.0
-        obj.outdoor_air_flow_rate_during_heating_operation = var_outdoor_air_flow_rate_during_heating_operation
+        var_heating_outdoor_air_flow_rate = 0.0
+        obj.heating_outdoor_air_flow_rate = var_heating_outdoor_air_flow_rate
         # real
-        var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = 0.0
-        obj.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
-        # alpha
-        var_outdoor_air_flow_rate_multiplier_schedule_name = "Outdoor Air Flow Rate Multiplier Schedule Name"
+        var_no_load_outdoor_air_flow_rate = 0.0
+        obj.no_load_outdoor_air_flow_rate = var_no_load_outdoor_air_flow_rate
+        # object-list
+        var_outdoor_air_flow_rate_multiplier_schedule_name = "object-list|Outdoor Air Flow Rate Multiplier Schedule Name"
         obj.outdoor_air_flow_rate_multiplier_schedule_name = var_outdoor_air_flow_rate_multiplier_schedule_name
         # node
         var_air_inlet_node_name = "node|Air Inlet Node Name"
@@ -115,12 +115,12 @@ class TestAirLoopHvacUnitaryHeatCoolVavchangeoverBypass(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].name, var_name)
         self.assertEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].availability_schedule_name, var_availability_schedule_name)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].system_air_flow_rate_during_cooling_operation, var_system_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].system_air_flow_rate_during_heating_operation, var_system_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].system_air_flow_rate_when_no_cooling_or_heating_is_needed, var_system_air_flow_rate_when_no_cooling_or_heating_is_needed)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].outdoor_air_flow_rate_during_cooling_operation, var_outdoor_air_flow_rate_during_cooling_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].outdoor_air_flow_rate_during_heating_operation, var_outdoor_air_flow_rate_during_heating_operation)
-        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed, var_outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].cooling_supply_air_flow_rate, var_cooling_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].heating_supply_air_flow_rate, var_heating_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].no_load_supply_air_flow_rate, var_no_load_supply_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].cooling_outdoor_air_flow_rate, var_cooling_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].heating_outdoor_air_flow_rate, var_heating_outdoor_air_flow_rate)
+        self.assertAlmostEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].no_load_outdoor_air_flow_rate, var_no_load_outdoor_air_flow_rate)
         self.assertEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].outdoor_air_flow_rate_multiplier_schedule_name, var_outdoor_air_flow_rate_multiplier_schedule_name)
         self.assertEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].air_inlet_node_name, var_air_inlet_node_name)
         self.assertEqual(idf2.airloophvacunitaryheatcoolvavchangeoverbypasss[0].bypass_duct_mixer_node_name, var_bypass_duct_mixer_node_name)

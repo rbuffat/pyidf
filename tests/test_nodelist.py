@@ -26,8 +26,8 @@ class TestNodeList(unittest.TestCase):
         var_name = "node|Name"
         obj.name = var_name
         paras = []
-        var_node_name = "node|Node Name"
-        paras.append(var_node_name)
+        var_node_1_name = "node|Node 1 Name"
+        paras.append(var_node_1_name)
         obj.add_extensible(*paras)
         
 
@@ -41,5 +41,5 @@ class TestNodeList(unittest.TestCase):
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.nodelists[0].name, var_name)
-        index = obj.extensible_field_index("Node Name")
-        self.assertEqual(idf2.nodelists[0].extensibles[0][index], var_node_name)
+        index = obj.extensible_field_index("Node 1 Name")
+        self.assertEqual(idf2.nodelists[0].extensibles[0][index], var_node_1_name)

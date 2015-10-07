@@ -49,8 +49,8 @@ class TestZoneHvacUnitHeater(unittest.TestCase):
         # object-list
         var_heating_coil_name = "object-list|Heating Coil Name"
         obj.heating_coil_name = var_heating_coil_name
-        # alpha
-        var_supply_air_fan_operating_mode_schedule_name = "Supply Air Fan Operating Mode Schedule Name"
+        # object-list
+        var_supply_air_fan_operating_mode_schedule_name = "object-list|Supply Air Fan Operating Mode Schedule Name"
         obj.supply_air_fan_operating_mode_schedule_name = var_supply_air_fan_operating_mode_schedule_name
         # alpha
         var_supply_air_fan_operation_during_no_heating = "Yes"

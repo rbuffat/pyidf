@@ -5,7 +5,7 @@ import logging
 from pyidf import ValidationLevel
 import pyidf
 from pyidf.idf import IDF
-from pyidf.pumps import BranchList
+from pyidf.node import BranchList
 
 log = logging.getLogger(__name__)
 
@@ -26,8 +26,8 @@ class TestBranchList(unittest.TestCase):
         var_name = "Name"
         obj.name = var_name
         paras = []
-        var_branch_name = "object-list|Branch Name"
-        paras.append(var_branch_name)
+        var_branch_1_name = "object-list|Branch 1 Name"
+        paras.append(var_branch_1_name)
         obj.add_extensible(*paras)
         
 
@@ -41,5 +41,5 @@ class TestBranchList(unittest.TestCase):
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.branchlists[0].name, var_name)
-        index = obj.extensible_field_index("Branch Name")
-        self.assertEqual(idf2.branchlists[0].extensibles[0][index], var_branch_name)
+        index = obj.extensible_field_index("Branch 1 Name")
+        self.assertEqual(idf2.branchlists[0].extensibles[0][index], var_branch_1_name)

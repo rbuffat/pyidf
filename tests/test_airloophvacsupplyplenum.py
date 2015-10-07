@@ -35,8 +35,8 @@ class TestAirLoopHvacSupplyPlenum(unittest.TestCase):
         var_inlet_node_name = "node|Inlet Node Name"
         obj.inlet_node_name = var_inlet_node_name
         paras = []
-        var_outlet_node_name = "node|Outlet Node Name"
-        paras.append(var_outlet_node_name)
+        var_outlet_1_node_name = "node|Outlet 1 Node Name"
+        paras.append(var_outlet_1_node_name)
         obj.add_extensible(*paras)
         
 
@@ -53,5 +53,5 @@ class TestAirLoopHvacSupplyPlenum(unittest.TestCase):
         self.assertEqual(idf2.airloophvacsupplyplenums[0].zone_name, var_zone_name)
         self.assertEqual(idf2.airloophvacsupplyplenums[0].zone_node_name, var_zone_node_name)
         self.assertEqual(idf2.airloophvacsupplyplenums[0].inlet_node_name, var_inlet_node_name)
-        index = obj.extensible_field_index("Outlet Node Name")
-        self.assertEqual(idf2.airloophvacsupplyplenums[0].extensibles[0][index], var_outlet_node_name)
+        index = obj.extensible_field_index("Outlet 1 Node Name")
+        self.assertEqual(idf2.airloophvacsupplyplenums[0].extensibles[0][index], var_outlet_1_node_name)

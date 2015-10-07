@@ -38,14 +38,14 @@ class TestAirflowNetworkMultiZoneZone(unittest.TestCase):
         var_indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = 49.99995
         obj.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = var_indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor
         # real
-        var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = 0.0001
-        obj.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor
+        var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimum_venting_open_factor = 0.0001
+        obj.indoor_and_outdoor_temperature_difference_upper_limit_for_minimum_venting_open_factor = var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimum_venting_open_factor
         # real
         var_indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = 149999.99995
         obj.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = var_indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor
         # real
-        var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = 0.0001
-        obj.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor
+        var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimum_venting_open_factor = 0.0001
+        obj.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimum_venting_open_factor = var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimum_venting_open_factor
         # object-list
         var_venting_availability_schedule_name = "object-list|Venting Availability Schedule Name"
         obj.venting_availability_schedule_name = var_venting_availability_schedule_name
@@ -55,6 +55,9 @@ class TestAirflowNetworkMultiZoneZone(unittest.TestCase):
         # real
         var_facade_width = 0.0
         obj.facade_width = var_facade_width
+        # object-list
+        var_occupant_ventilation_control_name = "object-list|Occupant Ventilation Control Name"
+        obj.occupant_ventilation_control_name = var_occupant_ventilation_control_name
 
         idf = IDF()
         idf.add(obj)
@@ -70,9 +73,10 @@ class TestAirflowNetworkMultiZoneZone(unittest.TestCase):
         self.assertEqual(idf2.airflownetworkmultizonezones[0].ventilation_control_zone_temperature_setpoint_schedule_name, var_ventilation_control_zone_temperature_setpoint_schedule_name)
         self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].minimum_venting_open_factor, var_minimum_venting_open_factor)
         self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor, var_indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor)
-        self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor, var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor)
+        self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_temperature_difference_upper_limit_for_minimum_venting_open_factor, var_indoor_and_outdoor_temperature_difference_upper_limit_for_minimum_venting_open_factor)
         self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor, var_indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor)
-        self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor, var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor)
+        self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimum_venting_open_factor, var_indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimum_venting_open_factor)
         self.assertEqual(idf2.airflownetworkmultizonezones[0].venting_availability_schedule_name, var_venting_availability_schedule_name)
         self.assertEqual(idf2.airflownetworkmultizonezones[0].single_sided_wind_pressure_coefficient_algorithm, var_single_sided_wind_pressure_coefficient_algorithm)
         self.assertAlmostEqual(idf2.airflownetworkmultizonezones[0].facade_width, var_facade_width)
+        self.assertEqual(idf2.airflownetworkmultizonezones[0].occupant_ventilation_control_name, var_occupant_ventilation_control_name)

@@ -12,10 +12,10 @@ from generator import generate_class, generate_helper, generate_test
 from generator import generate_idf, generate_init, generate_group
 from iddparser import IDDParser
 
-num_worker_threads = 4
+num_worker_threads = 1
 tidy = False
 
-version = "0.1.4-dev"
+version = "0.2.0-dev"
 
 
 def worker(q, worker):
@@ -48,9 +48,9 @@ def create_file(fname, group, objs):
 
 if __name__ == '__main__':
     parser1 = IDDParser()
-    objsalt = parser1.parse("V8-2-0-Energy+Alt.idd")
+    objsalt = parser1.parse("V8-4-0-Energy+Alt.idd")
     parser2 = IDDParser()
-    objsorg = parser2.parse("V8-2-0-Energy+.idd")
+    objsorg = parser2.parse("V8-4-0-Energy+.idd")
 
     for a in objsalt:
         objsorg[a] = objsalt[a]

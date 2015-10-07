@@ -76,15 +76,12 @@ class TestGroundHeatExchangerHorizontalTrench(unittest.TestCase):
         # real
         var_soil_moisture_content_percent_at_saturation = 50.0
         obj.soil_moisture_content_percent_at_saturation = var_soil_moisture_content_percent_at_saturation
-        # real
-        var_kusudaachenbach_average_surface_temperature = 19.19
-        obj.kusudaachenbach_average_surface_temperature = var_kusudaachenbach_average_surface_temperature
-        # real
-        var_kusudaachenbach_average_amplitude_of_surface_temperature = 20.2
-        obj.kusudaachenbach_average_amplitude_of_surface_temperature = var_kusudaachenbach_average_amplitude_of_surface_temperature
-        # real
-        var_kusudaachenbach_phase_shift_of_minimum_surface_temperature = 21.21
-        obj.kusudaachenbach_phase_shift_of_minimum_surface_temperature = var_kusudaachenbach_phase_shift_of_minimum_surface_temperature
+        # alpha
+        var_undisturbed_ground_temperature_model_type = "Site:GroundTemperature:Undisturbed:FiniteDifference"
+        obj.undisturbed_ground_temperature_model_type = var_undisturbed_ground_temperature_model_type
+        # object-list
+        var_undisturbed_ground_temperature_model_name = "object-list|Undisturbed Ground Temperature Model Name"
+        obj.undisturbed_ground_temperature_model_name = var_undisturbed_ground_temperature_model_name
         # real
         var_evapotranspiration_ground_cover_parameter = 0.75
         obj.evapotranspiration_ground_cover_parameter = var_evapotranspiration_ground_cover_parameter
@@ -116,7 +113,6 @@ class TestGroundHeatExchangerHorizontalTrench(unittest.TestCase):
         self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].pipe_specific_heat, var_pipe_specific_heat)
         self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].soil_moisture_content_percent, var_soil_moisture_content_percent)
         self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].soil_moisture_content_percent_at_saturation, var_soil_moisture_content_percent_at_saturation)
-        self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].kusudaachenbach_average_surface_temperature, var_kusudaachenbach_average_surface_temperature)
-        self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].kusudaachenbach_average_amplitude_of_surface_temperature, var_kusudaachenbach_average_amplitude_of_surface_temperature)
-        self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].kusudaachenbach_phase_shift_of_minimum_surface_temperature, var_kusudaachenbach_phase_shift_of_minimum_surface_temperature)
+        self.assertEqual(idf2.groundheatexchangerhorizontaltrenchs[0].undisturbed_ground_temperature_model_type, var_undisturbed_ground_temperature_model_type)
+        self.assertEqual(idf2.groundheatexchangerhorizontaltrenchs[0].undisturbed_ground_temperature_model_name, var_undisturbed_ground_temperature_model_name)
         self.assertAlmostEqual(idf2.groundheatexchangerhorizontaltrenchs[0].evapotranspiration_ground_cover_parameter, var_evapotranspiration_ground_cover_parameter)

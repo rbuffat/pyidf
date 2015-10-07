@@ -25,8 +25,8 @@ class TestUtilityCostChargeBlock(unittest.TestCase):
         # alpha
         var_name = "Name"
         obj.name = var_name
-        # alpha
-        var_tariff_name = "Tariff Name"
+        # object-list
+        var_tariff_name = "object-list|Tariff Name"
         obj.tariff_name = var_tariff_name
         # alpha
         var_source_variable = "Source Variable"

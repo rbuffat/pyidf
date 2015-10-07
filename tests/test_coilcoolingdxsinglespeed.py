@@ -118,6 +118,12 @@ class TestCoilCoolingDxSingleSpeed(unittest.TestCase):
         # object-list
         var_sensible_heat_ratio_function_of_flow_fraction_curve_name = "object-list|Sensible Heat Ratio Function of Flow Fraction Curve Name"
         obj.sensible_heat_ratio_function_of_flow_fraction_curve_name = var_sensible_heat_ratio_function_of_flow_fraction_curve_name
+        # alpha
+        var_report_ashrae_standard_127_performance_ratings = "Yes"
+        obj.report_ashrae_standard_127_performance_ratings = var_report_ashrae_standard_127_performance_ratings
+        # object-list
+        var_zone_name_for_condenser_placement = "object-list|Zone Name for Condenser Placement"
+        obj.zone_name_for_condenser_placement = var_zone_name_for_condenser_placement
 
         idf = IDF()
         idf.add(obj)
@@ -160,3 +166,5 @@ class TestCoilCoolingDxSingleSpeed(unittest.TestCase):
         self.assertEqual(idf2.coilcoolingdxsinglespeeds[0].basin_heater_operating_schedule_name, var_basin_heater_operating_schedule_name)
         self.assertEqual(idf2.coilcoolingdxsinglespeeds[0].sensible_heat_ratio_function_of_temperature_curve_name, var_sensible_heat_ratio_function_of_temperature_curve_name)
         self.assertEqual(idf2.coilcoolingdxsinglespeeds[0].sensible_heat_ratio_function_of_flow_fraction_curve_name, var_sensible_heat_ratio_function_of_flow_fraction_curve_name)
+        self.assertEqual(idf2.coilcoolingdxsinglespeeds[0].report_ashrae_standard_127_performance_ratings, var_report_ashrae_standard_127_performance_ratings)
+        self.assertEqual(idf2.coilcoolingdxsinglespeeds[0].zone_name_for_condenser_placement, var_zone_name_for_condenser_placement)

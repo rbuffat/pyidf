@@ -61,8 +61,8 @@ class TestPumpConstantSpeed(unittest.TestCase):
         # real
         var_rotational_speed = 13.13
         obj.rotational_speed = var_rotational_speed
-        # Object-list
-        var_zone_name = "Object-list|Zone Name"
+        # object-list
+        var_zone_name = "object-list|Zone Name"
         obj.zone_name = var_zone_name
         # real
         var_skin_loss_radiative_fraction = 0.5
