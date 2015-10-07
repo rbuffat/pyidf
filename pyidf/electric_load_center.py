@@ -11,6 +11,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class GeneratorInternalCombustionEngine(DataObject):
+
     """ Corresponds to IDD object `Generator:InternalCombustionEngine`
         This generator model is the empirical model from the Building Loads
         and System Thermodynamics (BLAST) program.  Engine performance
@@ -18,19 +19,189 @@ class GeneratorInternalCombustionEngine(DataObject):
         polynomial equations.  Three sets of coefficients are required.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated power output', {'name': u'Rated Power Output', 'pyname': u'rated_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'electric circuit node name', {'name': u'Electric Circuit Node Name', 'pyname': u'electric_circuit_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'shaft power curve name', {'name': u'Shaft Power Curve Name', 'pyname': u'shaft_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'jacket heat recovery curve name', {'name': u'Jacket Heat Recovery Curve Name', 'pyname': u'jacket_heat_recovery_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'lube heat recovery curve name', {'name': u'Lube Heat Recovery Curve Name', 'pyname': u'lube_heat_recovery_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total exhaust energy curve name', {'name': u'Total Exhaust Energy Curve Name', 'pyname': u'total_exhaust_energy_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust temperature curve name', {'name': u'Exhaust Temperature Curve Name', 'pyname': u'exhaust_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coefficient 1 of u-factor times area curve', {'name': u'Coefficient 1 of U-Factor Times Area Curve', 'pyname': u'coefficient_1_of_ufactor_times_area_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of u-factor times area curve', {'name': u'Coefficient 2 of U-Factor Times Area Curve', 'pyname': u'coefficient_2_of_ufactor_times_area_curve', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'maximum exhaust flow per unit of power output', {'name': u'Maximum Exhaust Flow per Unit of Power Output', 'pyname': u'maximum_exhaust_flow_per_unit_of_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'(kg/s)/W'}), (u'design minimum exhaust temperature', {'name': u'Design Minimum Exhaust Temperature', 'pyname': u'design_minimum_exhaust_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'Diesel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NaturalGas', u'PropaneGas', u'Diesel', u'Gasoline', u'FuelOil#1', u'FuelOil#2', u'OtherFuel1', u'OtherFuel2'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery maximum temperature', {'name': u'Heat Recovery Maximum Temperature', 'pyname': u'heat_recovery_maximum_temperature', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:InternalCombustionEngine',
- 'pyname': u'GeneratorInternalCombustionEngine',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'rated power output',
+                                       {'name': u'Rated Power Output',
+                                        'pyname': u'rated_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'electric circuit node name',
+                                       {'name': u'Electric Circuit Node Name',
+                                        'pyname': u'electric_circuit_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'minimum part load ratio',
+                                       {'name': u'Minimum Part Load Ratio',
+                                        'pyname': u'minimum_part_load_ratio',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum part load ratio',
+                                       {'name': u'Maximum Part Load Ratio',
+                                        'pyname': u'maximum_part_load_ratio',
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'optimum part load ratio',
+                                       {'name': u'Optimum Part Load Ratio',
+                                        'pyname': u'optimum_part_load_ratio',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'shaft power curve name',
+                                       {'name': u'Shaft Power Curve Name',
+                                        'pyname': u'shaft_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'jacket heat recovery curve name',
+                                       {'name': u'Jacket Heat Recovery Curve Name',
+                                        'pyname': u'jacket_heat_recovery_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'lube heat recovery curve name',
+                                       {'name': u'Lube Heat Recovery Curve Name',
+                                        'pyname': u'lube_heat_recovery_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'total exhaust energy curve name',
+                                       {'name': u'Total Exhaust Energy Curve Name',
+                                        'pyname': u'total_exhaust_energy_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'exhaust temperature curve name',
+                                       {'name': u'Exhaust Temperature Curve Name',
+                                        'pyname': u'exhaust_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'coefficient 1 of u-factor times area curve',
+                                       {'name': u'Coefficient 1 of U-Factor Times Area Curve',
+                                        'pyname': u'coefficient_1_of_ufactor_times_area_curve',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'coefficient 2 of u-factor times area curve',
+                                       {'name': u'Coefficient 2 of U-Factor Times Area Curve',
+                                        'pyname': u'coefficient_2_of_ufactor_times_area_curve',
+                                        'maximum': 2.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum exhaust flow per unit of power output',
+                                       {'name': u'Maximum Exhaust Flow per Unit of Power Output',
+                                        'pyname': u'maximum_exhaust_flow_per_unit_of_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'(kg/s)/W'}),
+                                      (u'design minimum exhaust temperature',
+                                       {'name': u'Design Minimum Exhaust Temperature',
+                                        'pyname': u'design_minimum_exhaust_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'fuel higher heating value',
+                                       {'name': u'Fuel Higher Heating Value',
+                                        'pyname': u'fuel_higher_heating_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'design heat recovery water flow rate',
+                                       {'name': u'Design Heat Recovery Water Flow Rate',
+                                        'pyname': u'design_heat_recovery_water_flow_rate',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm3/s'}),
+                                      (u'heat recovery inlet node name',
+                                       {'name': u'Heat Recovery Inlet Node Name',
+                                        'pyname': u'heat_recovery_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery outlet node name',
+                                       {'name': u'Heat Recovery Outlet Node Name',
+                                        'pyname': u'heat_recovery_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'fuel type',
+                                       {'name': u'Fuel Type',
+                                        'pyname': u'fuel_type',
+                                        'default': u'Diesel',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'NaturalGas',
+                                                            u'PropaneGas',
+                                                            u'Diesel',
+                                                            u'Gasoline',
+                                                            u'FuelOil#1',
+                                                            u'FuelOil#2',
+                                                            u'OtherFuel1',
+                                                            u'OtherFuel2'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'heat recovery maximum temperature',
+                                       {'name': u'Heat Recovery Maximum Temperature',
+                                        'pyname': u'heat_recovery_maximum_temperature',
+                                        'default': 80.0,
+                                        'maximum': 100.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:InternalCombustionEngine',
+               'pyname': u'GeneratorInternalCombustionEngine',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -40,20 +211,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def rated_power_output(self):
         """field `Rated Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -64,20 +234,18 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `rated_power_output` or None if not set
+
         """
         return self["Rated Power Output"]
 
     @rated_power_output.setter
     def rated_power_output(self, value=None):
-        """  Corresponds to IDD field `Rated Power Output`
-
-        """
+        """Corresponds to IDD field `Rated Power Output`"""
         self["Rated Power Output"] = value
 
     @property
     def electric_circuit_node_name(self):
         """field `Electric Circuit Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Electric Circuit Node Name`
@@ -87,20 +255,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `electric_circuit_node_name` or None if not set
+
         """
         return self["Electric Circuit Node Name"]
 
     @electric_circuit_node_name.setter
     def electric_circuit_node_name(self, value=None):
-        """  Corresponds to IDD field `Electric Circuit Node Name`
-
-        """
+        """Corresponds to IDD field `Electric Circuit Node Name`"""
         self["Electric Circuit Node Name"] = value
 
     @property
     def minimum_part_load_ratio(self):
         """field `Minimum Part Load Ratio`
-        
+
         |  value <= 1.0
 
         Args:
@@ -111,20 +278,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `minimum_part_load_ratio` or None if not set
+
         """
         return self["Minimum Part Load Ratio"]
 
     @minimum_part_load_ratio.setter
     def minimum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Minimum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Minimum Part Load Ratio`"""
         self["Minimum Part Load Ratio"] = value
 
     @property
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
-        
+
         |  value <= 1.0
 
         Args:
@@ -135,20 +301,18 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `maximum_part_load_ratio` or None if not set
+
         """
         return self["Maximum Part Load Ratio"]
 
     @maximum_part_load_ratio.setter
     def maximum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Maximum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Maximum Part Load Ratio`"""
         self["Maximum Part Load Ratio"] = value
 
     @property
     def optimum_part_load_ratio(self):
         """field `Optimum Part Load Ratio`
-        
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
@@ -158,20 +322,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `optimum_part_load_ratio` or None if not set
+
         """
         return self["Optimum Part Load Ratio"]
 
     @optimum_part_load_ratio.setter
     def optimum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Optimum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Optimum Part Load Ratio`"""
         self["Optimum Part Load Ratio"] = value
 
     @property
     def shaft_power_curve_name(self):
         """field `Shaft Power Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -183,20 +346,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `shaft_power_curve_name` or None if not set
+
         """
         return self["Shaft Power Curve Name"]
 
     @shaft_power_curve_name.setter
     def shaft_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Shaft Power Curve Name`
-
-        """
+        """Corresponds to IDD field `Shaft Power Curve Name`"""
         self["Shaft Power Curve Name"] = value
 
     @property
     def jacket_heat_recovery_curve_name(self):
         """field `Jacket Heat Recovery Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -208,20 +370,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `jacket_heat_recovery_curve_name` or None if not set
+
         """
         return self["Jacket Heat Recovery Curve Name"]
 
     @jacket_heat_recovery_curve_name.setter
     def jacket_heat_recovery_curve_name(self, value=None):
-        """  Corresponds to IDD field `Jacket Heat Recovery Curve Name`
-
-        """
+        """Corresponds to IDD field `Jacket Heat Recovery Curve Name`"""
         self["Jacket Heat Recovery Curve Name"] = value
 
     @property
     def lube_heat_recovery_curve_name(self):
         """field `Lube Heat Recovery Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -233,20 +394,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `lube_heat_recovery_curve_name` or None if not set
+
         """
         return self["Lube Heat Recovery Curve Name"]
 
     @lube_heat_recovery_curve_name.setter
     def lube_heat_recovery_curve_name(self, value=None):
-        """  Corresponds to IDD field `Lube Heat Recovery Curve Name`
-
-        """
+        """Corresponds to IDD field `Lube Heat Recovery Curve Name`"""
         self["Lube Heat Recovery Curve Name"] = value
 
     @property
     def total_exhaust_energy_curve_name(self):
         """field `Total Exhaust Energy Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -258,20 +418,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `total_exhaust_energy_curve_name` or None if not set
+
         """
         return self["Total Exhaust Energy Curve Name"]
 
     @total_exhaust_energy_curve_name.setter
     def total_exhaust_energy_curve_name(self, value=None):
-        """  Corresponds to IDD field `Total Exhaust Energy Curve Name`
-
-        """
+        """Corresponds to IDD field `Total Exhaust Energy Curve Name`"""
         self["Total Exhaust Energy Curve Name"] = value
 
     @property
     def exhaust_temperature_curve_name(self):
         """field `Exhaust Temperature Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -283,20 +442,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Exhaust Temperature Curve Name"]
 
     @exhaust_temperature_curve_name.setter
     def exhaust_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Temperature Curve Name`
-
-        """
+        """Corresponds to IDD field `Exhaust Temperature Curve Name`"""
         self["Exhaust Temperature Curve Name"] = value
 
     @property
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
-        
+
         |  curve = C1 * Generator Rated Power Output**C2
 
         Args:
@@ -320,7 +478,7 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        
+
         |  curve = C1 * Generator Rated Power Output**C2
         |  typical value .9
         |  value <= 2.0
@@ -346,7 +504,7 @@ class GeneratorInternalCombustionEngine(DataObject):
     @property
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
-        
+
         |  Units: (kg/s)/W
 
         Args:
@@ -357,20 +515,20 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `maximum_exhaust_flow_per_unit_of_power_output` or None if not set
+
         """
         return self["Maximum Exhaust Flow per Unit of Power Output"]
 
     @maximum_exhaust_flow_per_unit_of_power_output.setter
     def maximum_exhaust_flow_per_unit_of_power_output(self, value=None):
-        """  Corresponds to IDD field `Maximum Exhaust Flow per Unit of Power Output`
-
-        """
+        """Corresponds to IDD field `Maximum Exhaust Flow per Unit of Power
+        Output`"""
         self["Maximum Exhaust Flow per Unit of Power Output"] = value
 
     @property
     def design_minimum_exhaust_temperature(self):
         """field `Design Minimum Exhaust Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -381,20 +539,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `design_minimum_exhaust_temperature` or None if not set
+
         """
         return self["Design Minimum Exhaust Temperature"]
 
     @design_minimum_exhaust_temperature.setter
     def design_minimum_exhaust_temperature(self, value=None):
-        """  Corresponds to IDD field `Design Minimum Exhaust Temperature`
-
-        """
+        """Corresponds to IDD field `Design Minimum Exhaust Temperature`"""
         self["Design Minimum Exhaust Temperature"] = value
 
     @property
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
-        
+
         |  Units: kJ/kg
 
         Args:
@@ -405,20 +562,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `fuel_higher_heating_value` or None if not set
+
         """
         return self["Fuel Higher Heating Value"]
 
     @fuel_higher_heating_value.setter
     def fuel_higher_heating_value(self, value=None):
-        """  Corresponds to IDD field `Fuel Higher Heating Value`
-
-        """
+        """Corresponds to IDD field `Fuel Higher Heating Value`"""
         self["Fuel Higher Heating Value"] = value
 
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        
+
         |  if non-zero, then inlet, outlet nodes must be entered.
         |  Units: m3/s
         |  IP-Units: gal/min
@@ -431,20 +587,18 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Heat Recovery Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Design Heat Recovery Water Flow Rate`"""
         self["Design Heat Recovery Water Flow Rate"] = value
 
     @property
     def heat_recovery_inlet_node_name(self):
         """field `Heat Recovery Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Inlet Node Name`
@@ -454,20 +608,18 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_inlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Inlet Node Name"]
 
     @heat_recovery_inlet_node_name.setter
     def heat_recovery_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Inlet Node Name`"""
         self["Heat Recovery Inlet Node Name"] = value
 
     @property
     def heat_recovery_outlet_node_name(self):
         """field `Heat Recovery Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Outlet Node Name`
@@ -477,20 +629,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_outlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Outlet Node Name"]
 
     @heat_recovery_outlet_node_name.setter
     def heat_recovery_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Outlet Node Name`"""
         self["Heat Recovery Outlet Node Name"] = value
 
     @property
     def fuel_type(self):
         """field `Fuel Type`
-        
+
         |  Default value: Diesel
 
         Args:
@@ -501,20 +652,19 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             str: the value of `fuel_type` or None if not set
+
         """
         return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value="Diesel"):
-        """  Corresponds to IDD field `Fuel Type`
-
-        """
+        """Corresponds to IDD field `Fuel Type`"""
         self["Fuel Type"] = value
 
     @property
     def heat_recovery_maximum_temperature(self):
         """field `Heat Recovery Maximum Temperature`
-        
+
         |  Units: C
         |  Default value: 80.0
         |  value <= 100.0
@@ -527,20 +677,20 @@ class GeneratorInternalCombustionEngine(DataObject):
 
         Returns:
             float: the value of `heat_recovery_maximum_temperature` or None if not set
+
         """
         return self["Heat Recovery Maximum Temperature"]
 
     @heat_recovery_maximum_temperature.setter
     def heat_recovery_maximum_temperature(self, value=80.0):
-        """  Corresponds to IDD field `Heat Recovery Maximum Temperature`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Maximum Temperature`"""
         self["Heat Recovery Maximum Temperature"] = value
 
 
 
 
 class GeneratorCombustionTurbine(DataObject):
+
     """ Corresponds to IDD object `Generator:CombustionTurbine`
         This generator model is the empirical model from the Building Loads
         and System Thermodynamics (BLAST) program.  Generator performance
@@ -548,19 +698,211 @@ class GeneratorCombustionTurbine(DataObject):
         polynomial equations.  Three sets of coefficients are required.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated power output', {'name': u'Rated Power Output', 'pyname': u'rated_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'electric circuit node name', {'name': u'Electric Circuit Node Name', 'pyname': u'electric_circuit_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'part load based fuel input curve name', {'name': u'Part Load Based Fuel Input Curve Name', 'pyname': u'part_load_based_fuel_input_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature based fuel input curve name', {'name': u'Temperature Based Fuel Input Curve Name', 'pyname': u'temperature_based_fuel_input_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust flow curve name', {'name': u'Exhaust Flow Curve Name', 'pyname': u'exhaust_flow_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'part load based exhaust temperature curve name', {'name': u'Part Load Based Exhaust Temperature Curve Name', 'pyname': u'part_load_based_exhaust_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature based exhaust temperature curve name', {'name': u'Temperature Based Exhaust Temperature Curve Name', 'pyname': u'temperature_based_exhaust_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery lube energy curve name', {'name': u'Heat Recovery Lube Energy Curve Name', 'pyname': u'heat_recovery_lube_energy_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coefficient 1 of u-factor times area curve', {'name': u'Coefficient 1 of U-Factor Times Area Curve', 'pyname': u'coefficient_1_of_ufactor_times_area_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of u-factor times area curve', {'name': u'Coefficient 2 of U-Factor Times Area Curve', 'pyname': u'coefficient_2_of_ufactor_times_area_curve', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'maximum exhaust flow per unit of power output', {'name': u'Maximum Exhaust Flow per Unit of Power Output', 'pyname': u'maximum_exhaust_flow_per_unit_of_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'(Kg/s)/W'}), (u'design minimum exhaust temperature', {'name': u'Design Minimum Exhaust Temperature', 'pyname': u'design_minimum_exhaust_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design air inlet temperature', {'name': u'Design Air Inlet Temperature', 'pyname': u'design_air_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'NaturalGas', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NaturalGas', u'PropaneGas', u'Diesel', u'Gasoline', u'FuelOil#1', u'FuelOil#2', u'OtherFuel1', u'OtherFuel2'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery maximum temperature', {'name': u'Heat Recovery Maximum Temperature', 'pyname': u'heat_recovery_maximum_temperature', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:CombustionTurbine',
- 'pyname': u'GeneratorCombustionTurbine',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'rated power output',
+                                       {'name': u'Rated Power Output',
+                                        'pyname': u'rated_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'electric circuit node name',
+                                       {'name': u'Electric Circuit Node Name',
+                                        'pyname': u'electric_circuit_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'minimum part load ratio',
+                                       {'name': u'Minimum Part Load Ratio',
+                                        'pyname': u'minimum_part_load_ratio',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum part load ratio',
+                                       {'name': u'Maximum Part Load Ratio',
+                                        'pyname': u'maximum_part_load_ratio',
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'optimum part load ratio',
+                                       {'name': u'Optimum Part Load Ratio',
+                                        'pyname': u'optimum_part_load_ratio',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'part load based fuel input curve name',
+                                       {'name': u'Part Load Based Fuel Input Curve Name',
+                                        'pyname': u'part_load_based_fuel_input_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'temperature based fuel input curve name',
+                                       {'name': u'Temperature Based Fuel Input Curve Name',
+                                        'pyname': u'temperature_based_fuel_input_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'exhaust flow curve name',
+                                       {'name': u'Exhaust Flow Curve Name',
+                                        'pyname': u'exhaust_flow_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'part load based exhaust temperature curve name',
+                                       {'name': u'Part Load Based Exhaust Temperature Curve Name',
+                                        'pyname': u'part_load_based_exhaust_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'temperature based exhaust temperature curve name',
+                                       {'name': u'Temperature Based Exhaust Temperature Curve Name',
+                                        'pyname': u'temperature_based_exhaust_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat recovery lube energy curve name',
+                                       {'name': u'Heat Recovery Lube Energy Curve Name',
+                                        'pyname': u'heat_recovery_lube_energy_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'coefficient 1 of u-factor times area curve',
+                                       {'name': u'Coefficient 1 of U-Factor Times Area Curve',
+                                        'pyname': u'coefficient_1_of_ufactor_times_area_curve',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'coefficient 2 of u-factor times area curve',
+                                       {'name': u'Coefficient 2 of U-Factor Times Area Curve',
+                                        'pyname': u'coefficient_2_of_ufactor_times_area_curve',
+                                        'maximum': 2.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum exhaust flow per unit of power output',
+                                       {'name': u'Maximum Exhaust Flow per Unit of Power Output',
+                                        'pyname': u'maximum_exhaust_flow_per_unit_of_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'(Kg/s)/W'}),
+                                      (u'design minimum exhaust temperature',
+                                       {'name': u'Design Minimum Exhaust Temperature',
+                                        'pyname': u'design_minimum_exhaust_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'design air inlet temperature',
+                                       {'name': u'Design Air Inlet Temperature',
+                                        'pyname': u'design_air_inlet_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'fuel higher heating value',
+                                       {'name': u'Fuel Higher Heating Value',
+                                        'pyname': u'fuel_higher_heating_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'design heat recovery water flow rate',
+                                       {'name': u'Design Heat Recovery Water Flow Rate',
+                                        'pyname': u'design_heat_recovery_water_flow_rate',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm3/s'}),
+                                      (u'heat recovery inlet node name',
+                                       {'name': u'Heat Recovery Inlet Node Name',
+                                        'pyname': u'heat_recovery_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery outlet node name',
+                                       {'name': u'Heat Recovery Outlet Node Name',
+                                        'pyname': u'heat_recovery_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'fuel type',
+                                       {'name': u'Fuel Type',
+                                        'pyname': u'fuel_type',
+                                        'default': u'NaturalGas',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'NaturalGas',
+                                                            u'PropaneGas',
+                                                            u'Diesel',
+                                                            u'Gasoline',
+                                                            u'FuelOil#1',
+                                                            u'FuelOil#2',
+                                                            u'OtherFuel1',
+                                                            u'OtherFuel2'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'heat recovery maximum temperature',
+                                       {'name': u'Heat Recovery Maximum Temperature',
+                                        'pyname': u'heat_recovery_maximum_temperature',
+                                        'default': 80.0,
+                                        'maximum': 100.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'outdoor air inlet node name',
+                                       {'name': u'Outdoor Air Inlet Node Name',
+                                        'pyname': u'outdoor_air_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:CombustionTurbine',
+               'pyname': u'GeneratorCombustionTurbine',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -570,20 +912,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def rated_power_output(self):
         """field `Rated Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -594,20 +935,18 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `rated_power_output` or None if not set
+
         """
         return self["Rated Power Output"]
 
     @rated_power_output.setter
     def rated_power_output(self, value=None):
-        """  Corresponds to IDD field `Rated Power Output`
-
-        """
+        """Corresponds to IDD field `Rated Power Output`"""
         self["Rated Power Output"] = value
 
     @property
     def electric_circuit_node_name(self):
         """field `Electric Circuit Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Electric Circuit Node Name`
@@ -617,20 +956,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `electric_circuit_node_name` or None if not set
+
         """
         return self["Electric Circuit Node Name"]
 
     @electric_circuit_node_name.setter
     def electric_circuit_node_name(self, value=None):
-        """  Corresponds to IDD field `Electric Circuit Node Name`
-
-        """
+        """Corresponds to IDD field `Electric Circuit Node Name`"""
         self["Electric Circuit Node Name"] = value
 
     @property
     def minimum_part_load_ratio(self):
         """field `Minimum Part Load Ratio`
-        
+
         |  value <= 1.0
 
         Args:
@@ -641,20 +979,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `minimum_part_load_ratio` or None if not set
+
         """
         return self["Minimum Part Load Ratio"]
 
     @minimum_part_load_ratio.setter
     def minimum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Minimum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Minimum Part Load Ratio`"""
         self["Minimum Part Load Ratio"] = value
 
     @property
     def maximum_part_load_ratio(self):
         """field `Maximum Part Load Ratio`
-        
+
         |  value <= 1.0
 
         Args:
@@ -665,20 +1002,18 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_part_load_ratio` or None if not set
+
         """
         return self["Maximum Part Load Ratio"]
 
     @maximum_part_load_ratio.setter
     def maximum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Maximum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Maximum Part Load Ratio`"""
         self["Maximum Part Load Ratio"] = value
 
     @property
     def optimum_part_load_ratio(self):
         """field `Optimum Part Load Ratio`
-        
 
         Args:
             value (float): value for IDD Field `Optimum Part Load Ratio`
@@ -688,20 +1023,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `optimum_part_load_ratio` or None if not set
+
         """
         return self["Optimum Part Load Ratio"]
 
     @optimum_part_load_ratio.setter
     def optimum_part_load_ratio(self, value=None):
-        """  Corresponds to IDD field `Optimum Part Load Ratio`
-
-        """
+        """Corresponds to IDD field `Optimum Part Load Ratio`"""
         self["Optimum Part Load Ratio"] = value
 
     @property
     def part_load_based_fuel_input_curve_name(self):
         """field `Part Load Based Fuel Input Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
         |  this curve is multiplied to the Temperature Based Fuel Input Curve
@@ -715,20 +1049,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `part_load_based_fuel_input_curve_name` or None if not set
+
         """
         return self["Part Load Based Fuel Input Curve Name"]
 
     @part_load_based_fuel_input_curve_name.setter
     def part_load_based_fuel_input_curve_name(self, value=None):
-        """  Corresponds to IDD field `Part Load Based Fuel Input Curve Name`
-
-        """
+        """Corresponds to IDD field `Part Load Based Fuel Input Curve Name`"""
         self["Part Load Based Fuel Input Curve Name"] = value
 
     @property
     def temperature_based_fuel_input_curve_name(self):
         """field `Temperature Based Fuel Input Curve Name`
-        
+
         |  curve = a + b*AT + c*AT**2
         |  AT = Ambient Delta T
         |  this curve is multiplied to the Part Load Based Fuel Input Curve
@@ -742,20 +1075,20 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `temperature_based_fuel_input_curve_name` or None if not set
+
         """
         return self["Temperature Based Fuel Input Curve Name"]
 
     @temperature_based_fuel_input_curve_name.setter
     def temperature_based_fuel_input_curve_name(self, value=None):
-        """  Corresponds to IDD field `Temperature Based Fuel Input Curve Name`
-
-        """
+        """Corresponds to IDD field `Temperature Based Fuel Input Curve
+        Name`"""
         self["Temperature Based Fuel Input Curve Name"] = value
 
     @property
     def exhaust_flow_curve_name(self):
         """field `Exhaust Flow Curve Name`
-        
+
         |  curve = a + b*AT + c*AT**2
         |  AT = Ambient Delta T
 
@@ -767,20 +1100,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_flow_curve_name` or None if not set
+
         """
         return self["Exhaust Flow Curve Name"]
 
     @exhaust_flow_curve_name.setter
     def exhaust_flow_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Flow Curve Name`
-
-        """
+        """Corresponds to IDD field `Exhaust Flow Curve Name`"""
         self["Exhaust Flow Curve Name"] = value
 
     @property
     def part_load_based_exhaust_temperature_curve_name(self):
         """field `Part Load Based Exhaust Temperature Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
         |  this curve is multiplied to the Temperature Based Exhaust Temperature Curve
@@ -794,20 +1126,20 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `part_load_based_exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Part Load Based Exhaust Temperature Curve Name"]
 
     @part_load_based_exhaust_temperature_curve_name.setter
     def part_load_based_exhaust_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Part Load Based Exhaust Temperature Curve Name`
-
-        """
+        """Corresponds to IDD field `Part Load Based Exhaust Temperature Curve
+        Name`"""
         self["Part Load Based Exhaust Temperature Curve Name"] = value
 
     @property
     def temperature_based_exhaust_temperature_curve_name(self):
         """field `Temperature Based Exhaust Temperature Curve Name`
-        
+
         |  curve = a + b*AT + c*AT**2
         |  AT = Ambient Delta T
         |  this curve is multiplied to the Part Load Based Exhaust Temperature Curve
@@ -821,20 +1153,20 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `temperature_based_exhaust_temperature_curve_name` or None if not set
+
         """
         return self["Temperature Based Exhaust Temperature Curve Name"]
 
     @temperature_based_exhaust_temperature_curve_name.setter
     def temperature_based_exhaust_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Temperature Based Exhaust Temperature Curve Name`
-
-        """
+        """Corresponds to IDD field `Temperature Based Exhaust Temperature
+        Curve Name`"""
         self["Temperature Based Exhaust Temperature Curve Name"] = value
 
     @property
     def heat_recovery_lube_energy_curve_name(self):
         """field `Heat Recovery Lube Energy Curve Name`
-        
+
         |  curve = a + b*PLR + c*PLR**2
         |  PLR = Ratio of Generator Load to Rated Power Output
 
@@ -846,20 +1178,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_lube_energy_curve_name` or None if not set
+
         """
         return self["Heat Recovery Lube Energy Curve Name"]
 
     @heat_recovery_lube_energy_curve_name.setter
     def heat_recovery_lube_energy_curve_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Lube Energy Curve Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Lube Energy Curve Name`"""
         self["Heat Recovery Lube Energy Curve Name"] = value
 
     @property
     def coefficient_1_of_ufactor_times_area_curve(self):
         """field `Coefficient 1 of U-Factor Times Area Curve`
-        
+
         |  curve = C1 * Rated Power Output**C2
 
         Args:
@@ -883,7 +1214,7 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def coefficient_2_of_ufactor_times_area_curve(self):
         """field `Coefficient 2 of U-Factor Times Area Curve`
-        
+
         |  curve = C1 * Rated Power Output**C2
         |  typical value .9
         |  value <= 2.0
@@ -909,7 +1240,7 @@ class GeneratorCombustionTurbine(DataObject):
     @property
     def maximum_exhaust_flow_per_unit_of_power_output(self):
         """field `Maximum Exhaust Flow per Unit of Power Output`
-        
+
         |  Units: (Kg/s)/W
 
         Args:
@@ -920,20 +1251,20 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_exhaust_flow_per_unit_of_power_output` or None if not set
+
         """
         return self["Maximum Exhaust Flow per Unit of Power Output"]
 
     @maximum_exhaust_flow_per_unit_of_power_output.setter
     def maximum_exhaust_flow_per_unit_of_power_output(self, value=None):
-        """  Corresponds to IDD field `Maximum Exhaust Flow per Unit of Power Output`
-
-        """
+        """Corresponds to IDD field `Maximum Exhaust Flow per Unit of Power
+        Output`"""
         self["Maximum Exhaust Flow per Unit of Power Output"] = value
 
     @property
     def design_minimum_exhaust_temperature(self):
         """field `Design Minimum Exhaust Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -944,20 +1275,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `design_minimum_exhaust_temperature` or None if not set
+
         """
         return self["Design Minimum Exhaust Temperature"]
 
     @design_minimum_exhaust_temperature.setter
     def design_minimum_exhaust_temperature(self, value=None):
-        """  Corresponds to IDD field `Design Minimum Exhaust Temperature`
-
-        """
+        """Corresponds to IDD field `Design Minimum Exhaust Temperature`"""
         self["Design Minimum Exhaust Temperature"] = value
 
     @property
     def design_air_inlet_temperature(self):
         """field `Design Air Inlet Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -968,20 +1298,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `design_air_inlet_temperature` or None if not set
+
         """
         return self["Design Air Inlet Temperature"]
 
     @design_air_inlet_temperature.setter
     def design_air_inlet_temperature(self, value=None):
-        """  Corresponds to IDD field `Design Air Inlet Temperature`
-
-        """
+        """Corresponds to IDD field `Design Air Inlet Temperature`"""
         self["Design Air Inlet Temperature"] = value
 
     @property
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
-        
+
         |  Units: kJ/kg
 
         Args:
@@ -992,20 +1321,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `fuel_higher_heating_value` or None if not set
+
         """
         return self["Fuel Higher Heating Value"]
 
     @fuel_higher_heating_value.setter
     def fuel_higher_heating_value(self, value=None):
-        """  Corresponds to IDD field `Fuel Higher Heating Value`
-
-        """
+        """Corresponds to IDD field `Fuel Higher Heating Value`"""
         self["Fuel Higher Heating Value"] = value
 
     @property
     def design_heat_recovery_water_flow_rate(self):
         """field `Design Heat Recovery Water Flow Rate`
-        
+
         |  if non-zero, then inlet, outlet nodes must be entered.
         |  Units: m3/s
         |  IP-Units: gal/min
@@ -1018,20 +1346,18 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Design Heat Recovery Water Flow Rate"]
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Heat Recovery Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Design Heat Recovery Water Flow Rate`"""
         self["Design Heat Recovery Water Flow Rate"] = value
 
     @property
     def heat_recovery_inlet_node_name(self):
         """field `Heat Recovery Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Inlet Node Name`
@@ -1041,20 +1367,18 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_inlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Inlet Node Name"]
 
     @heat_recovery_inlet_node_name.setter
     def heat_recovery_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Inlet Node Name`"""
         self["Heat Recovery Inlet Node Name"] = value
 
     @property
     def heat_recovery_outlet_node_name(self):
         """field `Heat Recovery Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Outlet Node Name`
@@ -1064,20 +1388,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_outlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Outlet Node Name"]
 
     @heat_recovery_outlet_node_name.setter
     def heat_recovery_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Outlet Node Name`"""
         self["Heat Recovery Outlet Node Name"] = value
 
     @property
     def fuel_type(self):
         """field `Fuel Type`
-        
+
         |  Default value: NaturalGas
 
         Args:
@@ -1088,20 +1411,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `fuel_type` or None if not set
+
         """
         return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value="NaturalGas"):
-        """  Corresponds to IDD field `Fuel Type`
-
-        """
+        """Corresponds to IDD field `Fuel Type`"""
         self["Fuel Type"] = value
 
     @property
     def heat_recovery_maximum_temperature(self):
         """field `Heat Recovery Maximum Temperature`
-        
+
         |  Units: C
         |  Default value: 80.0
         |  value <= 100.0
@@ -1114,20 +1436,19 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             float: the value of `heat_recovery_maximum_temperature` or None if not set
+
         """
         return self["Heat Recovery Maximum Temperature"]
 
     @heat_recovery_maximum_temperature.setter
     def heat_recovery_maximum_temperature(self, value=80.0):
-        """  Corresponds to IDD field `Heat Recovery Maximum Temperature`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Maximum Temperature`"""
         self["Heat Recovery Maximum Temperature"] = value
 
     @property
     def outdoor_air_inlet_node_name(self):
         """field `Outdoor Air Inlet Node Name`
-        
+
         |  Enter the name of an outdoor air node
 
         Args:
@@ -1138,39 +1459,360 @@ class GeneratorCombustionTurbine(DataObject):
 
         Returns:
             str: the value of `outdoor_air_inlet_node_name` or None if not set
+
         """
         return self["Outdoor Air Inlet Node Name"]
 
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Outdoor Air Inlet Node Name`"""
         self["Outdoor Air Inlet Node Name"] = value
 
 
 
 
 class GeneratorMicroTurbine(DataObject):
+
     """ Corresponds to IDD object `Generator:MicroTurbine`
         MicroTurbine generators are small combustion turbines (e.g., 25kW to 500kW). The model
         calculates electrical power output, fuel use, standby and ancillary power.
         Energy recovery from exhaust air can be used to heat water.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reference electrical power output', {'name': u'Reference Electrical Power Output', 'pyname': u'reference_electrical_power_output', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum full load electrical power output', {'name': u'Minimum Full Load Electrical Power Output', 'pyname': u'minimum_full_load_electrical_power_output', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'maximum full load electrical power output', {'name': u'Maximum Full Load Electrical Power Output', 'pyname': u'maximum_full_load_electrical_power_output', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'reference electrical efficiency using lower heating value', {'name': u'Reference Electrical Efficiency Using Lower Heating Value', 'pyname': u'reference_electrical_efficiency_using_lower_heating_value', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference combustion air inlet temperature', {'name': u'Reference Combustion Air Inlet Temperature', 'pyname': u'reference_combustion_air_inlet_temperature', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference combustion air inlet humidity ratio', {'name': u'Reference Combustion Air Inlet Humidity Ratio', 'pyname': u'reference_combustion_air_inlet_humidity_ratio', 'default': 0.00638, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'reference elevation', {'name': u'Reference Elevation', 'pyname': u'reference_elevation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': -300.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'electrical power function of temperature and elevation curve name', {'name': u'Electrical Power Function of Temperature and Elevation Curve Name', 'pyname': u'electrical_power_function_of_temperature_and_elevation_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electrical efficiency function of temperature curve name', {'name': u'Electrical Efficiency Function of Temperature Curve Name', 'pyname': u'electrical_efficiency_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electrical efficiency function of part load ratio curve name', {'name': u'Electrical Efficiency Function of Part Load Ratio Curve Name', 'pyname': u'electrical_efficiency_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'NaturalGas', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NaturalGas', u'PropaneGas'], 'autocalculatable': False, 'type': 'alpha'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'default': 50000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kJ/kg'}), (u'fuel lower heating value', {'name': u'Fuel Lower Heating Value', 'pyname': u'fuel_lower_heating_value', 'default': 45450.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kJ/kg'}), (u'standby power', {'name': u'Standby Power', 'pyname': u'standby_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ancillary power', {'name': u'Ancillary Power', 'pyname': u'ancillary_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ancillary power function of fuel input curve name', {'name': u'Ancillary Power Function of Fuel Input Curve Name', 'pyname': u'ancillary_power_function_of_fuel_input_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reference thermal efficiency using lower heat value', {'name': u'Reference Thermal Efficiency Using Lower Heat Value', 'pyname': u'reference_thermal_efficiency_using_lower_heat_value', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'reference inlet water temperature', {'name': u'Reference Inlet Water Temperature', 'pyname': u'reference_inlet_water_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heat recovery water flow operating mode', {'name': u'Heat Recovery Water Flow Operating Mode', 'pyname': u'heat_recovery_water_flow_operating_mode', 'default': u'PlantControl', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantControl', u'InternalControl'], 'autocalculatable': False, 'type': 'alpha'}), (u'reference heat recovery water flow rate', {'name': u'Reference Heat Recovery Water Flow Rate', 'pyname': u'reference_heat_recovery_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heat recovery water flow rate function of temperature and power curve name', {'name': u'Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name', 'pyname': u'heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal efficiency function of temperature and elevation curve name', {'name': u'Thermal Efficiency Function of Temperature and Elevation Curve Name', 'pyname': u'thermal_efficiency_function_of_temperature_and_elevation_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery rate function of part load ratio curve name', {'name': u'Heat Recovery Rate Function of Part Load Ratio Curve Name', 'pyname': u'heat_recovery_rate_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery rate function of inlet water temperature curve name', {'name': u'Heat Recovery Rate Function of Inlet Water Temperature Curve Name', 'pyname': u'heat_recovery_rate_function_of_inlet_water_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery rate function of water flow rate curve name', {'name': u'Heat Recovery Rate Function of Water Flow Rate Curve Name', 'pyname': u'heat_recovery_rate_function_of_water_flow_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum heat recovery water flow rate', {'name': u'Minimum Heat Recovery Water Flow Rate', 'pyname': u'minimum_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum heat recovery water flow rate', {'name': u'Maximum Heat Recovery Water Flow Rate', 'pyname': u'maximum_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum heat recovery water temperature', {'name': u'Maximum Heat Recovery Water Temperature', 'pyname': u'maximum_heat_recovery_water_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'combustion air inlet node name', {'name': u'Combustion Air Inlet Node Name', 'pyname': u'combustion_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'combustion air outlet node name', {'name': u'Combustion Air Outlet Node Name', 'pyname': u'combustion_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reference exhaust air mass flow rate', {'name': u'Reference Exhaust Air Mass Flow Rate', 'pyname': u'reference_exhaust_air_mass_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s'}), (u'exhaust air flow rate function of temperature curve name', {'name': u'Exhaust Air Flow Rate Function of Temperature Curve Name', 'pyname': u'exhaust_air_flow_rate_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air flow rate function of part load ratio curve name', {'name': u'Exhaust Air Flow Rate Function of Part Load Ratio Curve Name', 'pyname': u'exhaust_air_flow_rate_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal exhaust air outlet temperature', {'name': u'Nominal Exhaust Air Outlet Temperature', 'pyname': u'nominal_exhaust_air_outlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'exhaust air temperature function of temperature curve name', {'name': u'Exhaust Air Temperature Function of Temperature Curve Name', 'pyname': u'exhaust_air_temperature_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air temperature function of part load ratio curve name', {'name': u'Exhaust Air Temperature Function of Part Load Ratio Curve Name', 'pyname': u'exhaust_air_temperature_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 11,
- 'name': u'Generator:MicroTurbine',
- 'pyname': u'GeneratorMicroTurbine',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'}),
+                                      (u'reference electrical power output',
+                                       {'name': u'Reference Electrical Power Output',
+                                        'pyname': u'reference_electrical_power_output',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'minimum full load electrical power output',
+                                       {'name': u'Minimum Full Load Electrical Power Output',
+                                        'pyname': u'minimum_full_load_electrical_power_output',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'maximum full load electrical power output',
+                                       {'name': u'Maximum Full Load Electrical Power Output',
+                                        'pyname': u'maximum_full_load_electrical_power_output',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'reference electrical efficiency using lower heating value',
+                                       {'name': u'Reference Electrical Efficiency Using Lower Heating Value',
+                                        'pyname': u'reference_electrical_efficiency_using_lower_heating_value',
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'reference combustion air inlet temperature',
+                                       {'name': u'Reference Combustion Air Inlet Temperature',
+                                        'pyname': u'reference_combustion_air_inlet_temperature',
+                                        'default': 15.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'reference combustion air inlet humidity ratio',
+                                       {'name': u'Reference Combustion Air Inlet Humidity Ratio',
+                                        'pyname': u'reference_combustion_air_inlet_humidity_ratio',
+                                        'default': 0.00638,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'kgWater/kgDryAir'}),
+                                      (u'reference elevation',
+                                       {'name': u'Reference Elevation',
+                                        'pyname': u'reference_elevation',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': -300.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm'}),
+                                      (u'electrical power function of temperature and elevation curve name',
+                                       {'name': u'Electrical Power Function of Temperature and Elevation Curve Name',
+                                        'pyname': u'electrical_power_function_of_temperature_and_elevation_curve_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'electrical efficiency function of temperature curve name',
+                                       {'name': u'Electrical Efficiency Function of Temperature Curve Name',
+                                        'pyname': u'electrical_efficiency_function_of_temperature_curve_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'electrical efficiency function of part load ratio curve name',
+                                       {'name': u'Electrical Efficiency Function of Part Load Ratio Curve Name',
+                                        'pyname': u'electrical_efficiency_function_of_part_load_ratio_curve_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'fuel type',
+                                       {'name': u'Fuel Type',
+                                        'pyname': u'fuel_type',
+                                        'default': u'NaturalGas',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'NaturalGas',
+                                                            u'PropaneGas'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'fuel higher heating value',
+                                       {'name': u'Fuel Higher Heating Value',
+                                        'pyname': u'fuel_higher_heating_value',
+                                        'default': 50000.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'fuel lower heating value',
+                                       {'name': u'Fuel Lower Heating Value',
+                                        'pyname': u'fuel_lower_heating_value',
+                                        'default': 45450.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'standby power',
+                                       {'name': u'Standby Power',
+                                        'pyname': u'standby_power',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'ancillary power',
+                                       {'name': u'Ancillary Power',
+                                        'pyname': u'ancillary_power',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'ancillary power function of fuel input curve name',
+                                       {'name': u'Ancillary Power Function of Fuel Input Curve Name',
+                                        'pyname': u'ancillary_power_function_of_fuel_input_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat recovery water inlet node name',
+                                       {'name': u'Heat Recovery Water Inlet Node Name',
+                                        'pyname': u'heat_recovery_water_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery water outlet node name',
+                                       {'name': u'Heat Recovery Water Outlet Node Name',
+                                        'pyname': u'heat_recovery_water_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'reference thermal efficiency using lower heat value',
+                                       {'name': u'Reference Thermal Efficiency Using Lower Heat Value',
+                                        'pyname': u'reference_thermal_efficiency_using_lower_heat_value',
+                                        'default': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'reference inlet water temperature',
+                                       {'name': u'Reference Inlet Water Temperature',
+                                        'pyname': u'reference_inlet_water_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'heat recovery water flow operating mode',
+                                       {'name': u'Heat Recovery Water Flow Operating Mode',
+                                        'pyname': u'heat_recovery_water_flow_operating_mode',
+                                        'default': u'PlantControl',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'PlantControl',
+                                                            u'InternalControl'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'reference heat recovery water flow rate',
+                                       {'name': u'Reference Heat Recovery Water Flow Rate',
+                                        'pyname': u'reference_heat_recovery_water_flow_rate',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm3/s'}),
+                                      (u'heat recovery water flow rate function of temperature and power curve name',
+                                       {'name': u'Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name',
+                                        'pyname': u'heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'thermal efficiency function of temperature and elevation curve name',
+                                       {'name': u'Thermal Efficiency Function of Temperature and Elevation Curve Name',
+                                        'pyname': u'thermal_efficiency_function_of_temperature_and_elevation_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat recovery rate function of part load ratio curve name',
+                                       {'name': u'Heat Recovery Rate Function of Part Load Ratio Curve Name',
+                                        'pyname': u'heat_recovery_rate_function_of_part_load_ratio_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat recovery rate function of inlet water temperature curve name',
+                                       {'name': u'Heat Recovery Rate Function of Inlet Water Temperature Curve Name',
+                                        'pyname': u'heat_recovery_rate_function_of_inlet_water_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat recovery rate function of water flow rate curve name',
+                                       {'name': u'Heat Recovery Rate Function of Water Flow Rate Curve Name',
+                                        'pyname': u'heat_recovery_rate_function_of_water_flow_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'minimum heat recovery water flow rate',
+                                       {'name': u'Minimum Heat Recovery Water Flow Rate',
+                                        'pyname': u'minimum_heat_recovery_water_flow_rate',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm3/s'}),
+                                      (u'maximum heat recovery water flow rate',
+                                       {'name': u'Maximum Heat Recovery Water Flow Rate',
+                                        'pyname': u'maximum_heat_recovery_water_flow_rate',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm3/s'}),
+                                      (u'maximum heat recovery water temperature',
+                                       {'name': u'Maximum Heat Recovery Water Temperature',
+                                        'pyname': u'maximum_heat_recovery_water_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'combustion air inlet node name',
+                                       {'name': u'Combustion Air Inlet Node Name',
+                                        'pyname': u'combustion_air_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'combustion air outlet node name',
+                                       {'name': u'Combustion Air Outlet Node Name',
+                                        'pyname': u'combustion_air_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'reference exhaust air mass flow rate',
+                                       {'name': u'Reference Exhaust Air Mass Flow Rate',
+                                        'pyname': u'reference_exhaust_air_mass_flow_rate',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'kg/s'}),
+                                      (u'exhaust air flow rate function of temperature curve name',
+                                       {'name': u'Exhaust Air Flow Rate Function of Temperature Curve Name',
+                                        'pyname': u'exhaust_air_flow_rate_function_of_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'exhaust air flow rate function of part load ratio curve name',
+                                       {'name': u'Exhaust Air Flow Rate Function of Part Load Ratio Curve Name',
+                                        'pyname': u'exhaust_air_flow_rate_function_of_part_load_ratio_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'nominal exhaust air outlet temperature',
+                                       {'name': u'Nominal Exhaust Air Outlet Temperature',
+                                        'pyname': u'nominal_exhaust_air_outlet_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'exhaust air temperature function of temperature curve name',
+                                       {'name': u'Exhaust Air Temperature Function of Temperature Curve Name',
+                                        'pyname': u'exhaust_air_temperature_function_of_temperature_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'exhaust air temperature function of part load ratio curve name',
+                                       {'name': u'Exhaust Air Temperature Function of Part Load Ratio Curve Name',
+                                        'pyname': u'exhaust_air_temperature_function_of_part_load_ratio_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 11,
+               'name': u'Generator:MicroTurbine',
+               'pyname': u'GeneratorMicroTurbine',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1180,20 +1822,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def reference_electrical_power_output(self):
         """field `Reference Electrical Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -1204,20 +1845,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_electrical_power_output` or None if not set
+
         """
         return self["Reference Electrical Power Output"]
 
     @reference_electrical_power_output.setter
     def reference_electrical_power_output(self, value=None):
-        """  Corresponds to IDD field `Reference Electrical Power Output`
-
-        """
+        """Corresponds to IDD field `Reference Electrical Power Output`"""
         self["Reference Electrical Power Output"] = value
 
     @property
     def minimum_full_load_electrical_power_output(self):
         """field `Minimum Full Load Electrical Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -1228,20 +1868,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `minimum_full_load_electrical_power_output` or None if not set
+
         """
         return self["Minimum Full Load Electrical Power Output"]
 
     @minimum_full_load_electrical_power_output.setter
     def minimum_full_load_electrical_power_output(self, value=None):
-        """  Corresponds to IDD field `Minimum Full Load Electrical Power Output`
-
-        """
+        """Corresponds to IDD field `Minimum Full Load Electrical Power
+        Output`"""
         self["Minimum Full Load Electrical Power Output"] = value
 
     @property
     def maximum_full_load_electrical_power_output(self):
         """field `Maximum Full Load Electrical Power Output`
-        
+
         |  If left blank, Maximum Full Load Electrical Power Output will be set
         |  equal to the Reference Electrical Power Output.
         |  Units: W
@@ -1254,20 +1894,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_full_load_electrical_power_output` or None if not set
+
         """
         return self["Maximum Full Load Electrical Power Output"]
 
     @maximum_full_load_electrical_power_output.setter
     def maximum_full_load_electrical_power_output(self, value=None):
-        """  Corresponds to IDD field `Maximum Full Load Electrical Power Output`
-
-        """
+        """Corresponds to IDD field `Maximum Full Load Electrical Power
+        Output`"""
         self["Maximum Full Load Electrical Power Output"] = value
 
     @property
     def reference_electrical_efficiency_using_lower_heating_value(self):
         """field `Reference Electrical Efficiency Using Lower Heating Value`
-        
+
         |  Electric power output divided by fuel energy input (LHV basis)
         |  at reference conditions.
         |  value <= 1.0
@@ -1280,20 +1920,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_electrical_efficiency_using_lower_heating_value` or None if not set
+
         """
-        return self["Reference Electrical Efficiency Using Lower Heating Value"]
+        return self[
+            "Reference Electrical Efficiency Using Lower Heating Value"]
 
     @reference_electrical_efficiency_using_lower_heating_value.setter
-    def reference_electrical_efficiency_using_lower_heating_value(self, value=None):
-        """  Corresponds to IDD field `Reference Electrical Efficiency Using Lower Heating Value`
-
-        """
-        self["Reference Electrical Efficiency Using Lower Heating Value"] = value
+    def reference_electrical_efficiency_using_lower_heating_value(
+            self,
+            value=None):
+        """Corresponds to IDD field `Reference Electrical Efficiency Using
+        Lower Heating Value`"""
+        self[
+            "Reference Electrical Efficiency Using Lower Heating Value"] = value
 
     @property
     def reference_combustion_air_inlet_temperature(self):
         """field `Reference Combustion Air Inlet Temperature`
-        
+
         |  Units: C
         |  Default value: 15.0
 
@@ -1305,20 +1949,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_combustion_air_inlet_temperature` or None if not set
+
         """
         return self["Reference Combustion Air Inlet Temperature"]
 
     @reference_combustion_air_inlet_temperature.setter
     def reference_combustion_air_inlet_temperature(self, value=15.0):
-        """  Corresponds to IDD field `Reference Combustion Air Inlet Temperature`
-
-        """
+        """Corresponds to IDD field `Reference Combustion Air Inlet
+        Temperature`"""
         self["Reference Combustion Air Inlet Temperature"] = value
 
     @property
     def reference_combustion_air_inlet_humidity_ratio(self):
         """field `Reference Combustion Air Inlet Humidity Ratio`
-        
+
         |  Units: kgWater/kgDryAir
         |  Default value: 0.00638
 
@@ -1330,20 +1974,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_combustion_air_inlet_humidity_ratio` or None if not set
+
         """
         return self["Reference Combustion Air Inlet Humidity Ratio"]
 
     @reference_combustion_air_inlet_humidity_ratio.setter
     def reference_combustion_air_inlet_humidity_ratio(self, value=0.00638):
-        """  Corresponds to IDD field `Reference Combustion Air Inlet Humidity Ratio`
-
-        """
+        """Corresponds to IDD field `Reference Combustion Air Inlet Humidity
+        Ratio`"""
         self["Reference Combustion Air Inlet Humidity Ratio"] = value
 
     @property
     def reference_elevation(self):
         """field `Reference Elevation`
-        
+
         |  Units: m
         |  value >= -300.0
 
@@ -1355,20 +1999,21 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_elevation` or None if not set
+
         """
         return self["Reference Elevation"]
 
     @reference_elevation.setter
     def reference_elevation(self, value=None):
-        """  Corresponds to IDD field `Reference Elevation`
-
-        """
+        """Corresponds to IDD field `Reference Elevation`"""
         self["Reference Elevation"] = value
 
     @property
-    def electrical_power_function_of_temperature_and_elevation_curve_name(self):
-        """field `Electrical Power Function of Temperature and Elevation Curve Name`
-        
+    def electrical_power_function_of_temperature_and_elevation_curve_name(
+            self):
+        """field `Electrical Power Function of Temperature and Elevation Curve
+        Name`
+
         |  curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
         |  T = combustion air inlet temperature (C)
         |  Elev = elevation (m)
@@ -1381,20 +2026,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_power_function_of_temperature_and_elevation_curve_name` or None if not set
+
         """
-        return self["Electrical Power Function of Temperature and Elevation Curve Name"]
+        return self[
+            "Electrical Power Function of Temperature and Elevation Curve Name"]
 
     @electrical_power_function_of_temperature_and_elevation_curve_name.setter
-    def electrical_power_function_of_temperature_and_elevation_curve_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Power Function of Temperature and Elevation Curve Name`
-
-        """
-        self["Electrical Power Function of Temperature and Elevation Curve Name"] = value
+    def electrical_power_function_of_temperature_and_elevation_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Electrical Power Function of Temperature
+        and Elevation Curve Name`"""
+        self[
+            "Electrical Power Function of Temperature and Elevation Curve Name"] = value
 
     @property
     def electrical_efficiency_function_of_temperature_curve_name(self):
         """field `Electrical Efficiency Function of Temperature Curve Name`
-        
+
         |  Quadratic curve = a + b*T + c*T**2
         |  Cubic curve = a + b*T + c*T**2 + d*T**3
         |  T = combustion air inlet temperature (C)
@@ -1407,20 +2056,23 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Electrical Efficiency Function of Temperature Curve Name"]
 
     @electrical_efficiency_function_of_temperature_curve_name.setter
-    def electrical_efficiency_function_of_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Efficiency Function of Temperature Curve Name`
-
-        """
-        self["Electrical Efficiency Function of Temperature Curve Name"] = value
+    def electrical_efficiency_function_of_temperature_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Electrical Efficiency Function of
+        Temperature Curve Name`"""
+        self[
+            "Electrical Efficiency Function of Temperature Curve Name"] = value
 
     @property
     def electrical_efficiency_function_of_part_load_ratio_curve_name(self):
         """field `Electrical Efficiency Function of Part Load Ratio Curve Name`
-        
+
         |  Quadratic curve = a + b*PLR + c*PLR**2
         |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
         |  PLR = ratio of Generator Load to steady state Electrical Power Output at
@@ -1434,20 +2086,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_function_of_part_load_ratio_curve_name` or None if not set
+
         """
-        return self["Electrical Efficiency Function of Part Load Ratio Curve Name"]
+        return self[
+            "Electrical Efficiency Function of Part Load Ratio Curve Name"]
 
     @electrical_efficiency_function_of_part_load_ratio_curve_name.setter
-    def electrical_efficiency_function_of_part_load_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Efficiency Function of Part Load Ratio Curve Name`
-
-        """
-        self["Electrical Efficiency Function of Part Load Ratio Curve Name"] = value
+    def electrical_efficiency_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Electrical Efficiency Function of Part
+        Load Ratio Curve Name`"""
+        self[
+            "Electrical Efficiency Function of Part Load Ratio Curve Name"] = value
 
     @property
     def fuel_type(self):
         """field `Fuel Type`
-        
+
         |  Default value: NaturalGas
 
         Args:
@@ -1458,20 +2114,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `fuel_type` or None if not set
+
         """
         return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value="NaturalGas"):
-        """  Corresponds to IDD field `Fuel Type`
-
-        """
+        """Corresponds to IDD field `Fuel Type`"""
         self["Fuel Type"] = value
 
     @property
     def fuel_higher_heating_value(self):
         """field `Fuel Higher Heating Value`
-        
+
         |  Units: kJ/kg
         |  Default value: 50000.0
 
@@ -1483,20 +2138,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `fuel_higher_heating_value` or None if not set
+
         """
         return self["Fuel Higher Heating Value"]
 
     @fuel_higher_heating_value.setter
     def fuel_higher_heating_value(self, value=50000.0):
-        """  Corresponds to IDD field `Fuel Higher Heating Value`
-
-        """
+        """Corresponds to IDD field `Fuel Higher Heating Value`"""
         self["Fuel Higher Heating Value"] = value
 
     @property
     def fuel_lower_heating_value(self):
         """field `Fuel Lower Heating Value`
-        
+
         |  Units: kJ/kg
         |  Default value: 45450.0
 
@@ -1508,20 +2162,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `fuel_lower_heating_value` or None if not set
+
         """
         return self["Fuel Lower Heating Value"]
 
     @fuel_lower_heating_value.setter
     def fuel_lower_heating_value(self, value=45450.0):
-        """  Corresponds to IDD field `Fuel Lower Heating Value`
-
-        """
+        """Corresponds to IDD field `Fuel Lower Heating Value`"""
         self["Fuel Lower Heating Value"] = value
 
     @property
     def standby_power(self):
         """field `Standby Power`
-        
+
         |  Electric power consumed when the generator is available but not being called
         |  by the Electric Load Center.
         |  Units: W
@@ -1534,20 +2187,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `standby_power` or None if not set
+
         """
         return self["Standby Power"]
 
     @standby_power.setter
     def standby_power(self, value=None):
-        """  Corresponds to IDD field `Standby Power`
-
-        """
+        """Corresponds to IDD field `Standby Power`"""
         self["Standby Power"] = value
 
     @property
     def ancillary_power(self):
         """field `Ancillary Power`
-        
+
         |  Electric power consumed by ancillary equipment (e.g., external fuel pressurization pump).
         |  Set to zero if Reference Electrical Power Output is the 'net' value (ancillary power
         |  already deducted). Input value is positive, but indicates negative electric generation.
@@ -1561,20 +2213,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `ancillary_power` or None if not set
+
         """
         return self["Ancillary Power"]
 
     @ancillary_power.setter
     def ancillary_power(self, value=None):
-        """  Corresponds to IDD field `Ancillary Power`
-
-        """
+        """Corresponds to IDD field `Ancillary Power`"""
         self["Ancillary Power"] = value
 
     @property
     def ancillary_power_function_of_fuel_input_curve_name(self):
         """field `Ancillary Power Function of Fuel Input Curve Name`
-        
+
         |  Quadratic curve = a + b*mdot + c*mdot**2
         |  mdot = fuel mass flow rate (kg/s)
         |  If left blank, model assumes ancillary power defined in previous field is constant
@@ -1588,20 +2239,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `ancillary_power_function_of_fuel_input_curve_name` or None if not set
+
         """
         return self["Ancillary Power Function of Fuel Input Curve Name"]
 
     @ancillary_power_function_of_fuel_input_curve_name.setter
     def ancillary_power_function_of_fuel_input_curve_name(self, value=None):
-        """  Corresponds to IDD field `Ancillary Power Function of Fuel Input Curve Name`
-
-        """
+        """Corresponds to IDD field `Ancillary Power Function of Fuel Input
+        Curve Name`"""
         self["Ancillary Power Function of Fuel Input Curve Name"] = value
 
     @property
     def heat_recovery_water_inlet_node_name(self):
         """field `Heat Recovery Water Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
@@ -1611,20 +2261,18 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_inlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Inlet Node Name"]
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Inlet Node Name`"""
         self["Heat Recovery Water Inlet Node Name"] = value
 
     @property
     def heat_recovery_water_outlet_node_name(self):
         """field `Heat Recovery Water Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
@@ -1634,20 +2282,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_outlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Outlet Node Name"]
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Outlet Node Name`"""
         self["Heat Recovery Water Outlet Node Name"] = value
 
     @property
     def reference_thermal_efficiency_using_lower_heat_value(self):
         """field `Reference Thermal Efficiency Using Lower Heat Value`
-        
+
         |  Reference thermal efficiency (heat recovery to water) based on the
         |  Lower Heating Value (LHV) of the fuel.
         |  value <= 1.0
@@ -1660,20 +2307,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_thermal_efficiency_using_lower_heat_value` or None if not set
+
         """
         return self["Reference Thermal Efficiency Using Lower Heat Value"]
 
     @reference_thermal_efficiency_using_lower_heat_value.setter
     def reference_thermal_efficiency_using_lower_heat_value(self, value=None):
-        """  Corresponds to IDD field `Reference Thermal Efficiency Using Lower Heat Value`
-
-        """
+        """Corresponds to IDD field `Reference Thermal Efficiency Using Lower
+        Heat Value`"""
         self["Reference Thermal Efficiency Using Lower Heat Value"] = value
 
     @property
     def reference_inlet_water_temperature(self):
         """field `Reference Inlet Water Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -1684,20 +2331,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_inlet_water_temperature` or None if not set
+
         """
         return self["Reference Inlet Water Temperature"]
 
     @reference_inlet_water_temperature.setter
     def reference_inlet_water_temperature(self, value=None):
-        """  Corresponds to IDD field `Reference Inlet Water Temperature`
-
-        """
+        """Corresponds to IDD field `Reference Inlet Water Temperature`"""
         self["Reference Inlet Water Temperature"] = value
 
     @property
     def heat_recovery_water_flow_operating_mode(self):
         """field `Heat Recovery Water Flow Operating Mode`
-        
+
         |  PlantControl means the heat recovery water flow rate is determined by the plant,
         |  but the user needs to supply a heat recovery water flow rate.
         |  InternalControl means the heat recovery water flow rate is controlled by this generator.
@@ -1713,20 +2359,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_flow_operating_mode` or None if not set
+
         """
         return self["Heat Recovery Water Flow Operating Mode"]
 
     @heat_recovery_water_flow_operating_mode.setter
     def heat_recovery_water_flow_operating_mode(self, value="PlantControl"):
-        """  Corresponds to IDD field `Heat Recovery Water Flow Operating Mode`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Flow Operating
+        Mode`"""
         self["Heat Recovery Water Flow Operating Mode"] = value
 
     @property
     def reference_heat_recovery_water_flow_rate(self):
         """field `Reference Heat Recovery Water Flow Rate`
-        
+
         |  Units: m3/s
 
         Args:
@@ -1737,20 +2383,22 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Reference Heat Recovery Water Flow Rate"]
 
     @reference_heat_recovery_water_flow_rate.setter
     def reference_heat_recovery_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Reference Heat Recovery Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Reference Heat Recovery Water Flow
+        Rate`"""
         self["Reference Heat Recovery Water Flow Rate"] = value
 
     @property
-    def heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name(self):
-        """field `Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name`
-        
+    def heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name(
+            self):
+        """field `Heat Recovery Water Flow Rate Function of Temperature and
+        Power Curve Name`
+
         |  curve = a + b*T + c*T**2 + d*Pnet + e*Pnet + f*T*Pnet
         |  T = heat recovery inlet water temperature
         |  Pnet = net power output = electric power output - ancillary power
@@ -1765,20 +2413,26 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name` or None if not set
+
         """
-        return self["Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"]
+        return self[
+            "Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"]
 
     @heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name.setter
-    def heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name`
-
-        """
-        self["Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"] = value
+    def heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Heat Recovery Water Flow Rate Function of
+        Temperature and Power Curve Name`"""
+        self[
+            "Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"] = value
 
     @property
-    def thermal_efficiency_function_of_temperature_and_elevation_curve_name(self):
-        """field `Thermal Efficiency Function of Temperature and Elevation Curve Name`
-        
+    def thermal_efficiency_function_of_temperature_and_elevation_curve_name(
+            self):
+        """field `Thermal Efficiency Function of Temperature and Elevation
+        Curve Name`
+
         |  Bicubic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev + g*T**3 + h*Elev**3 + i*T**2*Elev + j*T*Elev**2
         |  Biquadratic curve = a + b*T + c*T**2 + d*Elev + e*Elev**2 + f*T*Elev
         |  T = combustion air inlet temperature (C)
@@ -1793,20 +2447,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `thermal_efficiency_function_of_temperature_and_elevation_curve_name` or None if not set
+
         """
-        return self["Thermal Efficiency Function of Temperature and Elevation Curve Name"]
+        return self[
+            "Thermal Efficiency Function of Temperature and Elevation Curve Name"]
 
     @thermal_efficiency_function_of_temperature_and_elevation_curve_name.setter
-    def thermal_efficiency_function_of_temperature_and_elevation_curve_name(self, value=None):
-        """  Corresponds to IDD field `Thermal Efficiency Function of Temperature and Elevation Curve Name`
-
-        """
-        self["Thermal Efficiency Function of Temperature and Elevation Curve Name"] = value
+    def thermal_efficiency_function_of_temperature_and_elevation_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Thermal Efficiency Function of Temperature
+        and Elevation Curve Name`"""
+        self[
+            "Thermal Efficiency Function of Temperature and Elevation Curve Name"] = value
 
     @property
     def heat_recovery_rate_function_of_part_load_ratio_curve_name(self):
         """field `Heat Recovery Rate Function of Part Load Ratio Curve Name`
-        
+
         |  Quadratic curve = a + b*PLR + c*PLR**2
         |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
         |  PLR = ratio of Generator Load to steady state Electrical Power Output at
@@ -1821,20 +2479,26 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_part_load_ratio_curve_name` or None if not set
+
         """
-        return self["Heat Recovery Rate Function of Part Load Ratio Curve Name"]
+        return self[
+            "Heat Recovery Rate Function of Part Load Ratio Curve Name"]
 
     @heat_recovery_rate_function_of_part_load_ratio_curve_name.setter
-    def heat_recovery_rate_function_of_part_load_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Rate Function of Part Load Ratio Curve Name`
-
-        """
-        self["Heat Recovery Rate Function of Part Load Ratio Curve Name"] = value
+    def heat_recovery_rate_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Heat Recovery Rate Function of Part Load
+        Ratio Curve Name`"""
+        self[
+            "Heat Recovery Rate Function of Part Load Ratio Curve Name"] = value
 
     @property
-    def heat_recovery_rate_function_of_inlet_water_temperature_curve_name(self):
-        """field `Heat Recovery Rate Function of Inlet Water Temperature Curve Name`
-        
+    def heat_recovery_rate_function_of_inlet_water_temperature_curve_name(
+            self):
+        """field `Heat Recovery Rate Function of Inlet Water Temperature Curve
+        Name`
+
         |  Quadratic curve = a + b*T + c*T**2
         |  T = inlet water temperature (C)
         |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
@@ -1847,20 +2511,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_inlet_water_temperature_curve_name` or None if not set
+
         """
-        return self["Heat Recovery Rate Function of Inlet Water Temperature Curve Name"]
+        return self[
+            "Heat Recovery Rate Function of Inlet Water Temperature Curve Name"]
 
     @heat_recovery_rate_function_of_inlet_water_temperature_curve_name.setter
-    def heat_recovery_rate_function_of_inlet_water_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Rate Function of Inlet Water Temperature Curve Name`
-
-        """
-        self["Heat Recovery Rate Function of Inlet Water Temperature Curve Name"] = value
+    def heat_recovery_rate_function_of_inlet_water_temperature_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Heat Recovery Rate Function of Inlet Water
+        Temperature Curve Name`"""
+        self[
+            "Heat Recovery Rate Function of Inlet Water Temperature Curve Name"] = value
 
     @property
     def heat_recovery_rate_function_of_water_flow_rate_curve_name(self):
         """field `Heat Recovery Rate Function of Water Flow Rate Curve Name`
-        
+
         |  Quadratic curve = a + b*Flow + c*Flow**2
         |  Flow = flow rate of water through the heat exchanger (m3/s)
         |  If field is left blank, model assumes this modifier equals 1 for entire simulation.
@@ -1873,20 +2541,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `heat_recovery_rate_function_of_water_flow_rate_curve_name` or None if not set
+
         """
-        return self["Heat Recovery Rate Function of Water Flow Rate Curve Name"]
+        return self[
+            "Heat Recovery Rate Function of Water Flow Rate Curve Name"]
 
     @heat_recovery_rate_function_of_water_flow_rate_curve_name.setter
-    def heat_recovery_rate_function_of_water_flow_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Rate Function of Water Flow Rate Curve Name`
-
-        """
-        self["Heat Recovery Rate Function of Water Flow Rate Curve Name"] = value
+    def heat_recovery_rate_function_of_water_flow_rate_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Heat Recovery Rate Function of Water Flow
+        Rate Curve Name`"""
+        self[
+            "Heat Recovery Rate Function of Water Flow Rate Curve Name"] = value
 
     @property
     def minimum_heat_recovery_water_flow_rate(self):
         """field `Minimum Heat Recovery Water Flow Rate`
-        
+
         |  Units: m3/s
 
         Args:
@@ -1897,20 +2569,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `minimum_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Minimum Heat Recovery Water Flow Rate"]
 
     @minimum_heat_recovery_water_flow_rate.setter
     def minimum_heat_recovery_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Heat Recovery Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Minimum Heat Recovery Water Flow Rate`"""
         self["Minimum Heat Recovery Water Flow Rate"] = value
 
     @property
     def maximum_heat_recovery_water_flow_rate(self):
         """field `Maximum Heat Recovery Water Flow Rate`
-        
+
         |  Units: m3/s
 
         Args:
@@ -1921,20 +2592,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_heat_recovery_water_flow_rate` or None if not set
+
         """
         return self["Maximum Heat Recovery Water Flow Rate"]
 
     @maximum_heat_recovery_water_flow_rate.setter
     def maximum_heat_recovery_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Heat Recovery Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Maximum Heat Recovery Water Flow Rate`"""
         self["Maximum Heat Recovery Water Flow Rate"] = value
 
     @property
     def maximum_heat_recovery_water_temperature(self):
         """field `Maximum Heat Recovery Water Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -1945,20 +2615,20 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_heat_recovery_water_temperature` or None if not set
+
         """
         return self["Maximum Heat Recovery Water Temperature"]
 
     @maximum_heat_recovery_water_temperature.setter
     def maximum_heat_recovery_water_temperature(self, value=None):
-        """  Corresponds to IDD field `Maximum Heat Recovery Water Temperature`
-
-        """
+        """Corresponds to IDD field `Maximum Heat Recovery Water
+        Temperature`"""
         self["Maximum Heat Recovery Water Temperature"] = value
 
     @property
     def combustion_air_inlet_node_name(self):
         """field `Combustion Air Inlet Node Name`
-        
+
         |  Must be an outdoor air node.
 
         Args:
@@ -1969,20 +2639,18 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `combustion_air_inlet_node_name` or None if not set
+
         """
         return self["Combustion Air Inlet Node Name"]
 
     @combustion_air_inlet_node_name.setter
     def combustion_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Combustion Air Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Combustion Air Inlet Node Name`"""
         self["Combustion Air Inlet Node Name"] = value
 
     @property
     def combustion_air_outlet_node_name(self):
         """field `Combustion Air Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Combustion Air Outlet Node Name`
@@ -1992,20 +2660,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `combustion_air_outlet_node_name` or None if not set
+
         """
         return self["Combustion Air Outlet Node Name"]
 
     @combustion_air_outlet_node_name.setter
     def combustion_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Combustion Air Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Combustion Air Outlet Node Name`"""
         self["Combustion Air Outlet Node Name"] = value
 
     @property
     def reference_exhaust_air_mass_flow_rate(self):
         """field `Reference Exhaust Air Mass Flow Rate`
-        
+
         |  Units: kg/s
 
         Args:
@@ -2016,20 +2683,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `reference_exhaust_air_mass_flow_rate` or None if not set
+
         """
         return self["Reference Exhaust Air Mass Flow Rate"]
 
     @reference_exhaust_air_mass_flow_rate.setter
     def reference_exhaust_air_mass_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Reference Exhaust Air Mass Flow Rate`
-
-        """
+        """Corresponds to IDD field `Reference Exhaust Air Mass Flow Rate`"""
         self["Reference Exhaust Air Mass Flow Rate"] = value
 
     @property
     def exhaust_air_flow_rate_function_of_temperature_curve_name(self):
         """field `Exhaust Air Flow Rate Function of Temperature Curve Name`
-        
+
         |  Quadratic curve = a + b*T + c*T**2
         |  Cubic curve = a + b*T + c*T**2 + d*T**3
         |  T = combustion air inlet temperature (C)
@@ -2043,20 +2709,23 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_flow_rate_function_of_temperature_curve_name` or None if not set
+
         """
         return self["Exhaust Air Flow Rate Function of Temperature Curve Name"]
 
     @exhaust_air_flow_rate_function_of_temperature_curve_name.setter
-    def exhaust_air_flow_rate_function_of_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Flow Rate Function of Temperature Curve Name`
-
-        """
-        self["Exhaust Air Flow Rate Function of Temperature Curve Name"] = value
+    def exhaust_air_flow_rate_function_of_temperature_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Exhaust Air Flow Rate Function of
+        Temperature Curve Name`"""
+        self[
+            "Exhaust Air Flow Rate Function of Temperature Curve Name"] = value
 
     @property
     def exhaust_air_flow_rate_function_of_part_load_ratio_curve_name(self):
         """field `Exhaust Air Flow Rate Function of Part Load Ratio Curve Name`
-        
+
         |  Quadratic curve = a + b*PLR + c*PLR**2
         |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
         |  PLR = ratio of Generator Load to steady state Electrical Power Output at
@@ -2071,20 +2740,24 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_flow_rate_function_of_part_load_ratio_curve_name` or None if not set
+
         """
-        return self["Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"]
+        return self[
+            "Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"]
 
     @exhaust_air_flow_rate_function_of_part_load_ratio_curve_name.setter
-    def exhaust_air_flow_rate_function_of_part_load_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Flow Rate Function of Part Load Ratio Curve Name`
-
-        """
-        self["Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"] = value
+    def exhaust_air_flow_rate_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Exhaust Air Flow Rate Function of Part
+        Load Ratio Curve Name`"""
+        self[
+            "Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"] = value
 
     @property
     def nominal_exhaust_air_outlet_temperature(self):
         """field `Nominal Exhaust Air Outlet Temperature`
-        
+
         |  Exhaust air outlet temperature at reference conditions.
 
         Args:
@@ -2095,20 +2768,19 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             float: the value of `nominal_exhaust_air_outlet_temperature` or None if not set
+
         """
         return self["Nominal Exhaust Air Outlet Temperature"]
 
     @nominal_exhaust_air_outlet_temperature.setter
     def nominal_exhaust_air_outlet_temperature(self, value=None):
-        """  Corresponds to IDD field `Nominal Exhaust Air Outlet Temperature`
-
-        """
+        """Corresponds to IDD field `Nominal Exhaust Air Outlet Temperature`"""
         self["Nominal Exhaust Air Outlet Temperature"] = value
 
     @property
     def exhaust_air_temperature_function_of_temperature_curve_name(self):
         """field `Exhaust Air Temperature Function of Temperature Curve Name`
-        
+
         |  Quadratic curve = a + b*T + c*T**2
         |  Cubic curve = a + b*T + c*T**2 + d*T**3
         |  T = combustion air inlet temperature (C)
@@ -2122,20 +2794,25 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_temperature_function_of_temperature_curve_name` or None if not set
+
         """
-        return self["Exhaust Air Temperature Function of Temperature Curve Name"]
+        return self[
+            "Exhaust Air Temperature Function of Temperature Curve Name"]
 
     @exhaust_air_temperature_function_of_temperature_curve_name.setter
-    def exhaust_air_temperature_function_of_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Temperature Function of Temperature Curve Name`
-
-        """
-        self["Exhaust Air Temperature Function of Temperature Curve Name"] = value
+    def exhaust_air_temperature_function_of_temperature_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Exhaust Air Temperature Function of
+        Temperature Curve Name`"""
+        self[
+            "Exhaust Air Temperature Function of Temperature Curve Name"] = value
 
     @property
     def exhaust_air_temperature_function_of_part_load_ratio_curve_name(self):
-        """field `Exhaust Air Temperature Function of Part Load Ratio Curve Name`
-        
+        """field `Exhaust Air Temperature Function of Part Load Ratio Curve
+        Name`
+
         |  Quadratic curve = a + b*PLR + c*PLR**2
         |  Cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
         |  PLR = ratio of Generator Load to steady state Electrical Power Output at
@@ -2150,20 +2827,25 @@ class GeneratorMicroTurbine(DataObject):
 
         Returns:
             str: the value of `exhaust_air_temperature_function_of_part_load_ratio_curve_name` or None if not set
+
         """
-        return self["Exhaust Air Temperature Function of Part Load Ratio Curve Name"]
+        return self[
+            "Exhaust Air Temperature Function of Part Load Ratio Curve Name"]
 
     @exhaust_air_temperature_function_of_part_load_ratio_curve_name.setter
-    def exhaust_air_temperature_function_of_part_load_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Temperature Function of Part Load Ratio Curve Name`
-
-        """
-        self["Exhaust Air Temperature Function of Part Load Ratio Curve Name"] = value
+    def exhaust_air_temperature_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Exhaust Air Temperature Function of Part
+        Load Ratio Curve Name`"""
+        self[
+            "Exhaust Air Temperature Function of Part Load Ratio Curve Name"] = value
 
 
 
 
 class GeneratorPhotovoltaic(DataObject):
+
     """ Corresponds to IDD object `Generator:Photovoltaic`
         Describes an array of photovoltaic (PV) modules.  A series of different PV arrays
         can be connected to a single electric load center (and inverter) by listing them all
@@ -2173,19 +2855,82 @@ class GeneratorPhotovoltaic(DataObject):
         surface participates normally in all shading calculations.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic performance object type', {'name': u'Photovoltaic Performance Object Type', 'pyname': u'photovoltaic_performance_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PhotovoltaicPerformance:Simple', u'PhotovoltaicPerformance:EquivalentOne-Diode', u'PhotovoltaicPerformance:Sandia'], 'autocalculatable': False, 'type': 'alpha'}), (u'module performance name', {'name': u'Module Performance Name', 'pyname': u'module_performance_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat transfer integration mode', {'name': u'Heat Transfer Integration Mode', 'pyname': u'heat_transfer_integration_mode', 'default': u'Decoupled', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Decoupled', u'DecoupledUllebergDynamic', u'IntegratedSurfaceOutsideFace', u'IntegratedTranspiredCollector', u'IntegratedExteriorVentedCavity', u'PhotovoltaicThermalSolarCollector'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of series strings in parallel', {'name': u'Number of Series Strings in Parallel', 'pyname': u'number_of_series_strings_in_parallel', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'number of modules in series', {'name': u'Number of Modules in Series', 'pyname': u'number_of_modules_in_series', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:Photovoltaic',
- 'pyname': u'GeneratorPhotovoltaic',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'surface name',
+                                       {'name': u'Surface Name',
+                                        'pyname': u'surface_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'photovoltaic performance object type',
+                                       {'name': u'Photovoltaic Performance Object Type',
+                                        'pyname': u'photovoltaic_performance_object_type',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'PhotovoltaicPerformance:Simple',
+                                                            u'PhotovoltaicPerformance:EquivalentOne-Diode',
+                                                            u'PhotovoltaicPerformance:Sandia'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'module performance name',
+                                       {'name': u'Module Performance Name',
+                                        'pyname': u'module_performance_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat transfer integration mode',
+                                       {'name': u'Heat Transfer Integration Mode',
+                                        'pyname': u'heat_transfer_integration_mode',
+                                        'default': u'Decoupled',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Decoupled',
+                                                            u'DecoupledUllebergDynamic',
+                                                            u'IntegratedSurfaceOutsideFace',
+                                                            u'IntegratedTranspiredCollector',
+                                                            u'IntegratedExteriorVentedCavity',
+                                                            u'PhotovoltaicThermalSolarCollector'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'number of series strings in parallel',
+                                       {'name': u'Number of Series Strings in Parallel',
+                                        'pyname': u'number_of_series_strings_in_parallel',
+                                        'default': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'number of modules in series',
+                                       {'name': u'Number of Modules in Series',
+                                        'pyname': u'number_of_modules_in_series',
+                                        'default': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'dimensionless'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:Photovoltaic',
+               'pyname': u'GeneratorPhotovoltaic',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2195,20 +2940,18 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def surface_name(self):
         """field `Surface Name`
-        
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -2218,20 +2961,18 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             str: the value of `surface_name` or None if not set
+
         """
         return self["Surface Name"]
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD field `Surface Name`
-
-        """
+        """Corresponds to IDD field `Surface Name`"""
         self["Surface Name"] = value
 
     @property
     def photovoltaic_performance_object_type(self):
         """field `Photovoltaic Performance Object Type`
-        
 
         Args:
             value (str): value for IDD Field `Photovoltaic Performance Object Type`
@@ -2241,20 +2982,19 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             str: the value of `photovoltaic_performance_object_type` or None if not set
+
         """
         return self["Photovoltaic Performance Object Type"]
 
     @photovoltaic_performance_object_type.setter
     def photovoltaic_performance_object_type(self, value=None):
-        """  Corresponds to IDD field `Photovoltaic Performance Object Type`
-
-        """
+        """Corresponds to IDD field `Photovoltaic Performance Object Type`"""
         self["Photovoltaic Performance Object Type"] = value
 
     @property
     def module_performance_name(self):
         """field `Module Performance Name`
-        
+
         |  PV array modeling details
 
         Args:
@@ -2265,20 +3005,19 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             str: the value of `module_performance_name` or None if not set
+
         """
         return self["Module Performance Name"]
 
     @module_performance_name.setter
     def module_performance_name(self, value=None):
-        """  Corresponds to IDD field `Module Performance Name`
-
-        """
+        """Corresponds to IDD field `Module Performance Name`"""
         self["Module Performance Name"] = value
 
     @property
     def heat_transfer_integration_mode(self):
         """field `Heat Transfer Integration Mode`
-        
+
         |  Default value: Decoupled
 
         Args:
@@ -2289,20 +3028,19 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             str: the value of `heat_transfer_integration_mode` or None if not set
+
         """
         return self["Heat Transfer Integration Mode"]
 
     @heat_transfer_integration_mode.setter
     def heat_transfer_integration_mode(self, value="Decoupled"):
-        """  Corresponds to IDD field `Heat Transfer Integration Mode`
-
-        """
+        """Corresponds to IDD field `Heat Transfer Integration Mode`"""
         self["Heat Transfer Integration Mode"] = value
 
     @property
     def number_of_series_strings_in_parallel(self):
         """field `Number of Series Strings in Parallel`
-        
+
         |  number of series-wired strings of PV modules that are in parallel
         |  Units: dimensionless
         |  Default value: 1.0
@@ -2316,20 +3054,19 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             float: the value of `number_of_series_strings_in_parallel` or None if not set
+
         """
         return self["Number of Series Strings in Parallel"]
 
     @number_of_series_strings_in_parallel.setter
     def number_of_series_strings_in_parallel(self, value=1.0):
-        """  Corresponds to IDD field `Number of Series Strings in Parallel`
-
-        """
+        """Corresponds to IDD field `Number of Series Strings in Parallel`"""
         self["Number of Series Strings in Parallel"] = value
 
     @property
     def number_of_modules_in_series(self):
         """field `Number of Modules in Series`
-        
+
         |  Number of PV modules wired in series for each string.
         |  Units: dimensionless
         |  Default value: 1.0
@@ -2343,20 +3080,20 @@ class GeneratorPhotovoltaic(DataObject):
 
         Returns:
             float: the value of `number_of_modules_in_series` or None if not set
+
         """
         return self["Number of Modules in Series"]
 
     @number_of_modules_in_series.setter
     def number_of_modules_in_series(self, value=1.0):
-        """  Corresponds to IDD field `Number of Modules in Series`
-
-        """
+        """Corresponds to IDD field `Number of Modules in Series`"""
         self["Number of Modules in Series"] = value
 
 
 
 
 class PhotovoltaicPerformanceSimple(DataObject):
+
     """ Corresponds to IDD object `PhotovoltaicPerformance:Simple`
         Describes a simple model of photovoltaics that may be useful for early phase
         design analysis. In this model the user has direct access to the efficiency with
@@ -2364,19 +3101,59 @@ class PhotovoltaicPerformanceSimple(DataObject):
         arrays of specific modules.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fraction of surface area with active solar cells', {'name': u'Fraction of Surface Area with Active Solar Cells', 'pyname': u'fraction_of_surface_area_with_active_solar_cells', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'conversion efficiency input mode', {'name': u'Conversion Efficiency Input Mode', 'pyname': u'conversion_efficiency_input_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'value for cell efficiency if fixed', {'name': u'Value for Cell Efficiency if Fixed', 'pyname': u'value_for_cell_efficiency_if_fixed', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'efficiency schedule name', {'name': u'Efficiency Schedule Name', 'pyname': u'efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'PhotovoltaicPerformance:Simple',
- 'pyname': u'PhotovoltaicPerformanceSimple',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'fraction of surface area with active solar cells',
+                                       {'name': u'Fraction of Surface Area with Active Solar Cells',
+                                        'pyname': u'fraction_of_surface_area_with_active_solar_cells',
+                                        'maximum': 1.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'conversion efficiency input mode',
+                                       {'name': u'Conversion Efficiency Input Mode',
+                                        'pyname': u'conversion_efficiency_input_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Fixed',
+                                                            u'Scheduled'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'value for cell efficiency if fixed',
+                                       {'name': u'Value for Cell Efficiency if Fixed',
+                                        'pyname': u'value_for_cell_efficiency_if_fixed',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'efficiency schedule name',
+                                       {'name': u'Efficiency Schedule Name',
+                                        'pyname': u'efficiency_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'PhotovoltaicPerformance:Simple',
+               'pyname': u'PhotovoltaicPerformanceSimple',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2386,20 +3163,19 @@ class PhotovoltaicPerformanceSimple(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def fraction_of_surface_area_with_active_solar_cells(self):
         """field `Fraction of Surface Area with Active Solar Cells`
-        
+
         |  Units: dimensionless
         |  value <= 1.0
 
@@ -2411,20 +3187,19 @@ class PhotovoltaicPerformanceSimple(DataObject):
 
         Returns:
             float: the value of `fraction_of_surface_area_with_active_solar_cells` or None if not set
+
         """
         return self["Fraction of Surface Area with Active Solar Cells"]
 
     @fraction_of_surface_area_with_active_solar_cells.setter
     def fraction_of_surface_area_with_active_solar_cells(self, value=None):
-        """  Corresponds to IDD field `Fraction of Surface Area with Active Solar Cells`
-
-        """
+        """Corresponds to IDD field `Fraction of Surface Area with Active Solar
+        Cells`"""
         self["Fraction of Surface Area with Active Solar Cells"] = value
 
     @property
     def conversion_efficiency_input_mode(self):
         """field `Conversion Efficiency Input Mode`
-        
 
         Args:
             value (str): value for IDD Field `Conversion Efficiency Input Mode`
@@ -2434,20 +3209,19 @@ class PhotovoltaicPerformanceSimple(DataObject):
 
         Returns:
             str: the value of `conversion_efficiency_input_mode` or None if not set
+
         """
         return self["Conversion Efficiency Input Mode"]
 
     @conversion_efficiency_input_mode.setter
     def conversion_efficiency_input_mode(self, value=None):
-        """  Corresponds to IDD field `Conversion Efficiency Input Mode`
-
-        """
+        """Corresponds to IDD field `Conversion Efficiency Input Mode`"""
         self["Conversion Efficiency Input Mode"] = value
 
     @property
     def value_for_cell_efficiency_if_fixed(self):
         """field `Value for Cell Efficiency if Fixed`
-        
+
         |  Efficiency = (power generated [W])/(incident solar[W])
         |  value <= 1.0
 
@@ -2459,20 +3233,18 @@ class PhotovoltaicPerformanceSimple(DataObject):
 
         Returns:
             float: the value of `value_for_cell_efficiency_if_fixed` or None if not set
+
         """
         return self["Value for Cell Efficiency if Fixed"]
 
     @value_for_cell_efficiency_if_fixed.setter
     def value_for_cell_efficiency_if_fixed(self, value=None):
-        """  Corresponds to IDD field `Value for Cell Efficiency if Fixed`
-
-        """
+        """Corresponds to IDD field `Value for Cell Efficiency if Fixed`"""
         self["Value for Cell Efficiency if Fixed"] = value
 
     @property
     def efficiency_schedule_name(self):
         """field `Efficiency Schedule Name`
-        
 
         Args:
             value (str): value for IDD Field `Efficiency Schedule Name`
@@ -2482,39 +3254,232 @@ class PhotovoltaicPerformanceSimple(DataObject):
 
         Returns:
             str: the value of `efficiency_schedule_name` or None if not set
+
         """
         return self["Efficiency Schedule Name"]
 
     @efficiency_schedule_name.setter
     def efficiency_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Efficiency Schedule Name`
-
-        """
+        """Corresponds to IDD field `Efficiency Schedule Name`"""
         self["Efficiency Schedule Name"] = value
 
 
 
 
 class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
+
     """ Corresponds to IDD object `PhotovoltaicPerformance:EquivalentOne-Diode`
         Describes the performance characteristics of Photovoltaic (PV) modules to be modeled
         using an equivalent one-diode circuit.  This model is also known as
         the 4- or 5-parameter TRNSYS model for photovoltaics.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cell type', {'name': u'Cell type', 'pyname': u'cell_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CrystallineSilicon', u'AmorphousSilicon'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of cells in series', {'name': u'Number of Cells in Series', 'pyname': u'number_of_cells_in_series', 'default': 36, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'dimensionless'}), (u'active area', {'name': u'Active Area', 'pyname': u'active_area', 'default': 0.89, 'required-field': False, 'autosizable': False, 'minimum': 0.1, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'transmittance absorptance product', {'name': u'Transmittance Absorptance Product', 'pyname': u'transmittance_absorptance_product', 'default': 0.95, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'semiconductor bandgap', {'name': u'Semiconductor Bandgap', 'pyname': u'semiconductor_bandgap', 'default': 1.12, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'eV'}), (u'shunt resistance', {'name': u'Shunt Resistance', 'pyname': u'shunt_resistance', 'default': 1000000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'ohms'}), (u'short circuit current', {'name': u'Short Circuit Current', 'pyname': u'short_circuit_current', 'default': 6.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'A'}), (u'open circuit voltage', {'name': u'Open Circuit Voltage', 'pyname': u'open_circuit_voltage', 'default': 21.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'reference temperature', {'name': u'Reference Temperature', 'pyname': u'reference_temperature', 'default': 25.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference insolation', {'name': u'Reference Insolation', 'pyname': u'reference_insolation', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'module current at maximum power', {'name': u'Module Current at Maximum Power', 'pyname': u'module_current_at_maximum_power', 'default': 5.9, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'A'}), (u'module voltage at maximum power', {'name': u'Module Voltage at Maximum Power', 'pyname': u'module_voltage_at_maximum_power', 'default': 17.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'temperature coefficient of short circuit current', {'name': u'Temperature Coefficient of Short Circuit Current', 'pyname': u'temperature_coefficient_of_short_circuit_current', 'default': 0.02, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'A/K'}), (u'temperature coefficient of open circuit voltage', {'name': u'Temperature Coefficient of Open Circuit Voltage', 'pyname': u'temperature_coefficient_of_open_circuit_voltage', 'default': -0.079, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V/K'}), (u'nominal operating cell temperature test ambient temperature', {'name': u'Nominal Operating Cell Temperature Test Ambient Temperature', 'pyname': u'nominal_operating_cell_temperature_test_ambient_temperature', 'default': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal operating cell temperature test cell temperature', {'name': u'Nominal Operating Cell Temperature Test Cell Temperature', 'pyname': u'nominal_operating_cell_temperature_test_cell_temperature', 'default': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal operating cell temperature test insolation', {'name': u'Nominal Operating Cell Temperature Test Insolation', 'pyname': u'nominal_operating_cell_temperature_test_insolation', 'default': 800.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'module heat loss coefficient', {'name': u'Module Heat Loss Coefficient', 'pyname': u'module_heat_loss_coefficient', 'default': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'total heat capacity', {'name': u'Total Heat Capacity', 'pyname': u'total_heat_capacity', 'default': 50000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/m2-K'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'PhotovoltaicPerformance:EquivalentOne-Diode',
- 'pyname': u'PhotovoltaicPerformanceEquivalentOneDiode',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'cell type',
+                                       {'name': u'Cell type',
+                                        'pyname': u'cell_type',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CrystallineSilicon',
+                                                            u'AmorphousSilicon'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'number of cells in series',
+                                       {'name': u'Number of Cells in Series',
+                                        'pyname': u'number_of_cells_in_series',
+                                        'default': 36,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0,
+                                        'autocalculatable': False,
+                                        'type': u'integer',
+                                        'unit': u'dimensionless'}),
+                                      (u'active area',
+                                       {'name': u'Active Area',
+                                        'pyname': u'active_area',
+                                        'default': 0.89,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.1,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm2'}),
+                                      (u'transmittance absorptance product',
+                                       {'name': u'Transmittance Absorptance Product',
+                                        'pyname': u'transmittance_absorptance_product',
+                                        'default': 0.95,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'semiconductor bandgap',
+                                       {'name': u'Semiconductor Bandgap',
+                                        'pyname': u'semiconductor_bandgap',
+                                        'default': 1.12,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'eV'}),
+                                      (u'shunt resistance',
+                                       {'name': u'Shunt Resistance',
+                                        'pyname': u'shunt_resistance',
+                                        'default': 1000000.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'ohms'}),
+                                      (u'short circuit current',
+                                       {'name': u'Short Circuit Current',
+                                        'pyname': u'short_circuit_current',
+                                        'default': 6.5,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A'}),
+                                      (u'open circuit voltage',
+                                       {'name': u'Open Circuit Voltage',
+                                        'pyname': u'open_circuit_voltage',
+                                        'default': 21.6,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'reference temperature',
+                                       {'name': u'Reference Temperature',
+                                        'pyname': u'reference_temperature',
+                                        'default': 25.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'reference insolation',
+                                       {'name': u'Reference Insolation',
+                                        'pyname': u'reference_insolation',
+                                        'default': 1000.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W/m2'}),
+                                      (u'module current at maximum power',
+                                       {'name': u'Module Current at Maximum Power',
+                                        'pyname': u'module_current_at_maximum_power',
+                                        'default': 5.9,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A'}),
+                                      (u'module voltage at maximum power',
+                                       {'name': u'Module Voltage at Maximum Power',
+                                        'pyname': u'module_voltage_at_maximum_power',
+                                        'default': 17.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'temperature coefficient of short circuit current',
+                                       {'name': u'Temperature Coefficient of Short Circuit Current',
+                                        'pyname': u'temperature_coefficient_of_short_circuit_current',
+                                        'default': 0.02,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A/K'}),
+                                      (u'temperature coefficient of open circuit voltage',
+                                       {'name': u'Temperature Coefficient of Open Circuit Voltage',
+                                        'pyname': u'temperature_coefficient_of_open_circuit_voltage',
+                                        'default': -0.079,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V/K'}),
+                                      (u'nominal operating cell temperature test ambient temperature',
+                                       {'name': u'Nominal Operating Cell Temperature Test Ambient Temperature',
+                                        'pyname': u'nominal_operating_cell_temperature_test_ambient_temperature',
+                                        'default': 20.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'nominal operating cell temperature test cell temperature',
+                                       {'name': u'Nominal Operating Cell Temperature Test Cell Temperature',
+                                        'pyname': u'nominal_operating_cell_temperature_test_cell_temperature',
+                                        'default': 40.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'nominal operating cell temperature test insolation',
+                                       {'name': u'Nominal Operating Cell Temperature Test Insolation',
+                                        'pyname': u'nominal_operating_cell_temperature_test_insolation',
+                                        'default': 800.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W/m2'}),
+                                      (u'module heat loss coefficient',
+                                       {'name': u'Module Heat Loss Coefficient',
+                                        'pyname': u'module_heat_loss_coefficient',
+                                        'default': 30.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W/m2-K'}),
+                                      (u'total heat capacity',
+                                       {'name': u'Total Heat Capacity',
+                                        'pyname': u'total_heat_capacity',
+                                        'default': 50000.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'J/m2-K'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'PhotovoltaicPerformance:EquivalentOne-Diode',
+               'pyname': u'PhotovoltaicPerformanceEquivalentOneDiode',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2524,20 +3489,18 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def cell_type(self):
         """field `Cell type`
-        
 
         Args:
             value (str): value for IDD Field `Cell type`
@@ -2547,20 +3510,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             str: the value of `cell_type` or None if not set
+
         """
         return self["Cell type"]
 
     @cell_type.setter
     def cell_type(self, value=None):
-        """  Corresponds to IDD field `Cell type`
-
-        """
+        """Corresponds to IDD field `Cell type`"""
         self["Cell type"] = value
 
     @property
     def number_of_cells_in_series(self):
         """field `Number of Cells in Series`
-        
+
         |  Units: dimensionless
         |  Default value: 36
 
@@ -2572,20 +3534,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             int: the value of `number_of_cells_in_series` or None if not set
+
         """
         return self["Number of Cells in Series"]
 
     @number_of_cells_in_series.setter
     def number_of_cells_in_series(self, value=36):
-        """  Corresponds to IDD field `Number of Cells in Series`
-
-        """
+        """Corresponds to IDD field `Number of Cells in Series`"""
         self["Number of Cells in Series"] = value
 
     @property
     def active_area(self):
         """field `Active Area`
-        
+
         |  The total power output of the array is determined by the
         |  number of modules (see above).  The Active Area is only
         |  used to calculate the PV Array Efficiency output variable.
@@ -2601,20 +3562,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `active_area` or None if not set
+
         """
         return self["Active Area"]
 
     @active_area.setter
     def active_area(self, value=0.89):
-        """  Corresponds to IDD field `Active Area`
-
-        """
+        """Corresponds to IDD field `Active Area`"""
         self["Active Area"] = value
 
     @property
     def transmittance_absorptance_product(self):
         """field `Transmittance Absorptance Product`
-        
+
         |  Units: dimensionless
         |  Default value: 0.95
         |  value <= 1.0
@@ -2627,20 +3587,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `transmittance_absorptance_product` or None if not set
+
         """
         return self["Transmittance Absorptance Product"]
 
     @transmittance_absorptance_product.setter
     def transmittance_absorptance_product(self, value=0.95):
-        """  Corresponds to IDD field `Transmittance Absorptance Product`
-
-        """
+        """Corresponds to IDD field `Transmittance Absorptance Product`"""
         self["Transmittance Absorptance Product"] = value
 
     @property
     def semiconductor_bandgap(self):
         """field `Semiconductor Bandgap`
-        
+
         |  Units: eV
         |  Default value: 1.12
 
@@ -2652,20 +3611,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `semiconductor_bandgap` or None if not set
+
         """
         return self["Semiconductor Bandgap"]
 
     @semiconductor_bandgap.setter
     def semiconductor_bandgap(self, value=1.12):
-        """  Corresponds to IDD field `Semiconductor Bandgap`
-
-        """
+        """Corresponds to IDD field `Semiconductor Bandgap`"""
         self["Semiconductor Bandgap"] = value
 
     @property
     def shunt_resistance(self):
         """field `Shunt Resistance`
-        
+
         |  Units: ohms
         |  Default value: 1000000.0
 
@@ -2677,20 +3635,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `shunt_resistance` or None if not set
+
         """
         return self["Shunt Resistance"]
 
     @shunt_resistance.setter
     def shunt_resistance(self, value=1000000.0):
-        """  Corresponds to IDD field `Shunt Resistance`
-
-        """
+        """Corresponds to IDD field `Shunt Resistance`"""
         self["Shunt Resistance"] = value
 
     @property
     def short_circuit_current(self):
         """field `Short Circuit Current`
-        
+
         |  Units: A
         |  Default value: 6.5
 
@@ -2702,20 +3659,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `short_circuit_current` or None if not set
+
         """
         return self["Short Circuit Current"]
 
     @short_circuit_current.setter
     def short_circuit_current(self, value=6.5):
-        """  Corresponds to IDD field `Short Circuit Current`
-
-        """
+        """Corresponds to IDD field `Short Circuit Current`"""
         self["Short Circuit Current"] = value
 
     @property
     def open_circuit_voltage(self):
         """field `Open Circuit Voltage`
-        
+
         |  Units: V
         |  Default value: 21.6
 
@@ -2727,20 +3683,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `open_circuit_voltage` or None if not set
+
         """
         return self["Open Circuit Voltage"]
 
     @open_circuit_voltage.setter
     def open_circuit_voltage(self, value=21.6):
-        """  Corresponds to IDD field `Open Circuit Voltage`
-
-        """
+        """Corresponds to IDD field `Open Circuit Voltage`"""
         self["Open Circuit Voltage"] = value
 
     @property
     def reference_temperature(self):
         """field `Reference Temperature`
-        
+
         |  Units: C
         |  Default value: 25.0
 
@@ -2752,20 +3707,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `reference_temperature` or None if not set
+
         """
         return self["Reference Temperature"]
 
     @reference_temperature.setter
     def reference_temperature(self, value=25.0):
-        """  Corresponds to IDD field `Reference Temperature`
-
-        """
+        """Corresponds to IDD field `Reference Temperature`"""
         self["Reference Temperature"] = value
 
     @property
     def reference_insolation(self):
         """field `Reference Insolation`
-        
+
         |  Units: W/m2
         |  Default value: 1000.0
 
@@ -2777,20 +3731,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `reference_insolation` or None if not set
+
         """
         return self["Reference Insolation"]
 
     @reference_insolation.setter
     def reference_insolation(self, value=1000.0):
-        """  Corresponds to IDD field `Reference Insolation`
-
-        """
+        """Corresponds to IDD field `Reference Insolation`"""
         self["Reference Insolation"] = value
 
     @property
     def module_current_at_maximum_power(self):
         """field `Module Current at Maximum Power`
-        
+
         |  Single module current at the maximum power point
         |  and reference conditions.  Module Current, Module Voltage,
         |  Number of Modules in Parallel and Number of Modules in Series
@@ -2806,20 +3759,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `module_current_at_maximum_power` or None if not set
+
         """
         return self["Module Current at Maximum Power"]
 
     @module_current_at_maximum_power.setter
     def module_current_at_maximum_power(self, value=5.9):
-        """  Corresponds to IDD field `Module Current at Maximum Power`
-
-        """
+        """Corresponds to IDD field `Module Current at Maximum Power`"""
         self["Module Current at Maximum Power"] = value
 
     @property
     def module_voltage_at_maximum_power(self):
         """field `Module Voltage at Maximum Power`
-        
+
         |  Single module voltage at the maximum power point
         |  and reference conditions.  Module Current, Module Voltage,
         |  Number of Modules in Parallel and Number of Modules in Series
@@ -2835,20 +3787,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `module_voltage_at_maximum_power` or None if not set
+
         """
         return self["Module Voltage at Maximum Power"]
 
     @module_voltage_at_maximum_power.setter
     def module_voltage_at_maximum_power(self, value=17.0):
-        """  Corresponds to IDD field `Module Voltage at Maximum Power`
-
-        """
+        """Corresponds to IDD field `Module Voltage at Maximum Power`"""
         self["Module Voltage at Maximum Power"] = value
 
     @property
     def temperature_coefficient_of_short_circuit_current(self):
         """field `Temperature Coefficient of Short Circuit Current`
-        
+
         |  Units: A/K
         |  Default value: 0.02
 
@@ -2860,20 +3811,20 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `temperature_coefficient_of_short_circuit_current` or None if not set
+
         """
         return self["Temperature Coefficient of Short Circuit Current"]
 
     @temperature_coefficient_of_short_circuit_current.setter
     def temperature_coefficient_of_short_circuit_current(self, value=0.02):
-        """  Corresponds to IDD field `Temperature Coefficient of Short Circuit Current`
-
-        """
+        """Corresponds to IDD field `Temperature Coefficient of Short Circuit
+        Current`"""
         self["Temperature Coefficient of Short Circuit Current"] = value
 
     @property
     def temperature_coefficient_of_open_circuit_voltage(self):
         """field `Temperature Coefficient of Open Circuit Voltage`
-        
+
         |  Units: V/K
         |  Default value: -0.079
 
@@ -2885,20 +3836,20 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `temperature_coefficient_of_open_circuit_voltage` or None if not set
+
         """
         return self["Temperature Coefficient of Open Circuit Voltage"]
 
     @temperature_coefficient_of_open_circuit_voltage.setter
     def temperature_coefficient_of_open_circuit_voltage(self, value=-0.079):
-        """  Corresponds to IDD field `Temperature Coefficient of Open Circuit Voltage`
-
-        """
+        """Corresponds to IDD field `Temperature Coefficient of Open Circuit
+        Voltage`"""
         self["Temperature Coefficient of Open Circuit Voltage"] = value
 
     @property
     def nominal_operating_cell_temperature_test_ambient_temperature(self):
         """field `Nominal Operating Cell Temperature Test Ambient Temperature`
-        
+
         |  Units: C
         |  Default value: 20.0
 
@@ -2910,20 +3861,24 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `nominal_operating_cell_temperature_test_ambient_temperature` or None if not set
+
         """
-        return self["Nominal Operating Cell Temperature Test Ambient Temperature"]
+        return self[
+            "Nominal Operating Cell Temperature Test Ambient Temperature"]
 
     @nominal_operating_cell_temperature_test_ambient_temperature.setter
-    def nominal_operating_cell_temperature_test_ambient_temperature(self, value=20.0):
-        """  Corresponds to IDD field `Nominal Operating Cell Temperature Test Ambient Temperature`
-
-        """
-        self["Nominal Operating Cell Temperature Test Ambient Temperature"] = value
+    def nominal_operating_cell_temperature_test_ambient_temperature(
+            self,
+            value=20.0):
+        """Corresponds to IDD field `Nominal Operating Cell Temperature Test
+        Ambient Temperature`"""
+        self[
+            "Nominal Operating Cell Temperature Test Ambient Temperature"] = value
 
     @property
     def nominal_operating_cell_temperature_test_cell_temperature(self):
         """field `Nominal Operating Cell Temperature Test Cell Temperature`
-        
+
         |  Units: C
         |  Default value: 40.0
 
@@ -2935,20 +3890,23 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `nominal_operating_cell_temperature_test_cell_temperature` or None if not set
+
         """
         return self["Nominal Operating Cell Temperature Test Cell Temperature"]
 
     @nominal_operating_cell_temperature_test_cell_temperature.setter
-    def nominal_operating_cell_temperature_test_cell_temperature(self, value=40.0):
-        """  Corresponds to IDD field `Nominal Operating Cell Temperature Test Cell Temperature`
-
-        """
-        self["Nominal Operating Cell Temperature Test Cell Temperature"] = value
+    def nominal_operating_cell_temperature_test_cell_temperature(
+            self,
+            value=40.0):
+        """Corresponds to IDD field `Nominal Operating Cell Temperature Test
+        Cell Temperature`"""
+        self[
+            "Nominal Operating Cell Temperature Test Cell Temperature"] = value
 
     @property
     def nominal_operating_cell_temperature_test_insolation(self):
         """field `Nominal Operating Cell Temperature Test Insolation`
-        
+
         |  Units: W/m2
         |  Default value: 800.0
 
@@ -2960,20 +3918,20 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `nominal_operating_cell_temperature_test_insolation` or None if not set
+
         """
         return self["Nominal Operating Cell Temperature Test Insolation"]
 
     @nominal_operating_cell_temperature_test_insolation.setter
     def nominal_operating_cell_temperature_test_insolation(self, value=800.0):
-        """  Corresponds to IDD field `Nominal Operating Cell Temperature Test Insolation`
-
-        """
+        """Corresponds to IDD field `Nominal Operating Cell Temperature Test
+        Insolation`"""
         self["Nominal Operating Cell Temperature Test Insolation"] = value
 
     @property
     def module_heat_loss_coefficient(self):
         """field `Module Heat Loss Coefficient`
-        
+
         |  Units: W/m2-K
         |  Default value: 30.0
 
@@ -2985,20 +3943,19 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `module_heat_loss_coefficient` or None if not set
+
         """
         return self["Module Heat Loss Coefficient"]
 
     @module_heat_loss_coefficient.setter
     def module_heat_loss_coefficient(self, value=30.0):
-        """  Corresponds to IDD field `Module Heat Loss Coefficient`
-
-        """
+        """Corresponds to IDD field `Module Heat Loss Coefficient`"""
         self["Module Heat Loss Coefficient"] = value
 
     @property
     def total_heat_capacity(self):
         """field `Total Heat Capacity`
-        
+
         |  Units: J/m2-K
         |  Default value: 50000.0
 
@@ -3010,38 +3967,359 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
 
         Returns:
             float: the value of `total_heat_capacity` or None if not set
+
         """
         return self["Total Heat Capacity"]
 
     @total_heat_capacity.setter
     def total_heat_capacity(self, value=50000.0):
-        """  Corresponds to IDD field `Total Heat Capacity`
-
-        """
+        """Corresponds to IDD field `Total Heat Capacity`"""
         self["Total Heat Capacity"] = value
 
 
 
 
 class PhotovoltaicPerformanceSandia(DataObject):
+
     """ Corresponds to IDD object `PhotovoltaicPerformance:Sandia`
         Describes performance input data needed for specific makes and models of production
         PV panels using the empirical coefficients assembled by Sandia National Laboratory.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'active area', {'name': u'Active Area', 'pyname': u'active_area', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'number of cells in series', {'name': u'Number of Cells in Series', 'pyname': u'number_of_cells_in_series', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer', 'unit': u'dimensionless'}), (u'number of cells in parallel', {'name': u'Number of Cells in Parallel', 'pyname': u'number_of_cells_in_parallel', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer', 'unit': u'dimensionless'}), (u'short circuit current', {'name': u'Short Circuit Current', 'pyname': u'short_circuit_current', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'A'}), (u'open circuit voltage', {'name': u'Open Circuit Voltage', 'pyname': u'open_circuit_voltage', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'current at maximum power point', {'name': u'Current at Maximum Power Point', 'pyname': u'current_at_maximum_power_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'A'}), (u'voltage at maximum power point', {'name': u'Voltage at Maximum Power Point', 'pyname': u'voltage_at_maximum_power_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'sandia database parameter aisc', {'name': u'Sandia Database Parameter aIsc', 'pyname': u'sandia_database_parameter_aisc', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'}), (u'sandia database parameter aimp', {'name': u'Sandia Database Parameter aImp', 'pyname': u'sandia_database_parameter_aimp', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'}), (u'sandia database parameter c0', {'name': u'Sandia Database Parameter c0', 'pyname': u'sandia_database_parameter_c0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c1', {'name': u'Sandia Database Parameter c1', 'pyname': u'sandia_database_parameter_c1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter bvoc0', {'name': u'Sandia Database Parameter BVoc0', 'pyname': u'sandia_database_parameter_bvoc0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V/K'}), (u'sandia database parameter mbvoc', {'name': u'Sandia Database Parameter mBVoc', 'pyname': u'sandia_database_parameter_mbvoc', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V/K'}), (u'sandia database parameter bvmp0', {'name': u'Sandia Database Parameter BVmp0', 'pyname': u'sandia_database_parameter_bvmp0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V/K'}), (u'sandia database parameter mbvmp', {'name': u'Sandia Database Parameter mBVmp', 'pyname': u'sandia_database_parameter_mbvmp', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'V/K'}), (u'diode factor', {'name': u'Diode Factor', 'pyname': u'diode_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c2', {'name': u'Sandia Database Parameter c2', 'pyname': u'sandia_database_parameter_c2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c3', {'name': u'Sandia Database Parameter c3', 'pyname': u'sandia_database_parameter_c3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a0', {'name': u'Sandia Database Parameter a0', 'pyname': u'sandia_database_parameter_a0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a1', {'name': u'Sandia Database Parameter a1', 'pyname': u'sandia_database_parameter_a1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a2', {'name': u'Sandia Database Parameter a2', 'pyname': u'sandia_database_parameter_a2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a3', {'name': u'Sandia Database Parameter a3', 'pyname': u'sandia_database_parameter_a3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a4', {'name': u'Sandia Database Parameter a4', 'pyname': u'sandia_database_parameter_a4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b0', {'name': u'Sandia Database Parameter b0', 'pyname': u'sandia_database_parameter_b0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b1', {'name': u'Sandia Database Parameter b1', 'pyname': u'sandia_database_parameter_b1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b2', {'name': u'Sandia Database Parameter b2', 'pyname': u'sandia_database_parameter_b2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b3', {'name': u'Sandia Database Parameter b3', 'pyname': u'sandia_database_parameter_b3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b4', {'name': u'Sandia Database Parameter b4', 'pyname': u'sandia_database_parameter_b4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b5', {'name': u'Sandia Database Parameter b5', 'pyname': u'sandia_database_parameter_b5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter delta(tc)', {'name': u'Sandia Database Parameter Delta(Tc)', 'pyname': u'sandia_database_parameter_deltatc', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'sandia database parameter fd', {'name': u'Sandia Database Parameter fd', 'pyname': u'sandia_database_parameter_fd', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter a', {'name': u'Sandia Database Parameter a', 'pyname': u'sandia_database_parameter_a', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter b', {'name': u'Sandia Database Parameter b', 'pyname': u'sandia_database_parameter_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c4', {'name': u'Sandia Database Parameter c4', 'pyname': u'sandia_database_parameter_c4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c5', {'name': u'Sandia Database Parameter c5', 'pyname': u'sandia_database_parameter_c5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter ix0', {'name': u'Sandia Database Parameter Ix0', 'pyname': u'sandia_database_parameter_ix0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'sandia database parameter ixx0', {'name': u'Sandia Database Parameter Ixx0', 'pyname': u'sandia_database_parameter_ixx0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'sandia database parameter c6', {'name': u'Sandia Database Parameter c6', 'pyname': u'sandia_database_parameter_c6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sandia database parameter c7', {'name': u'Sandia Database Parameter c7', 'pyname': u'sandia_database_parameter_c7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'PhotovoltaicPerformance:Sandia',
- 'pyname': u'PhotovoltaicPerformanceSandia',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'active area',
+                                       {'name': u'Active Area',
+                                        'pyname': u'active_area',
+                                        'default': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm2'}),
+                                      (u'number of cells in series',
+                                       {'name': u'Number of Cells in Series',
+                                        'pyname': u'number_of_cells_in_series',
+                                        'default': 1,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1,
+                                        'autocalculatable': False,
+                                        'type': u'integer',
+                                        'unit': u'dimensionless'}),
+                                      (u'number of cells in parallel',
+                                       {'name': u'Number of Cells in Parallel',
+                                        'pyname': u'number_of_cells_in_parallel',
+                                        'default': 1,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1,
+                                        'autocalculatable': False,
+                                        'type': u'integer',
+                                        'unit': u'dimensionless'}),
+                                      (u'short circuit current',
+                                       {'name': u'Short Circuit Current',
+                                        'pyname': u'short_circuit_current',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A'}),
+                                      (u'open circuit voltage',
+                                       {'name': u'Open Circuit Voltage',
+                                        'pyname': u'open_circuit_voltage',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'current at maximum power point',
+                                       {'name': u'Current at Maximum Power Point',
+                                        'pyname': u'current_at_maximum_power_point',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A'}),
+                                      (u'voltage at maximum power point',
+                                       {'name': u'Voltage at Maximum Power Point',
+                                        'pyname': u'voltage_at_maximum_power_point',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'sandia database parameter aisc',
+                                       {'name': u'Sandia Database Parameter aIsc',
+                                        'pyname': u'sandia_database_parameter_aisc',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'1/K'}),
+                                      (u'sandia database parameter aimp',
+                                       {'name': u'Sandia Database Parameter aImp',
+                                        'pyname': u'sandia_database_parameter_aimp',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'1/K'}),
+                                      (u'sandia database parameter c0',
+                                       {'name': u'Sandia Database Parameter c0',
+                                        'pyname': u'sandia_database_parameter_c0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c1',
+                                       {'name': u'Sandia Database Parameter c1',
+                                        'pyname': u'sandia_database_parameter_c1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter bvoc0',
+                                       {'name': u'Sandia Database Parameter BVoc0',
+                                        'pyname': u'sandia_database_parameter_bvoc0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V/K'}),
+                                      (u'sandia database parameter mbvoc',
+                                       {'name': u'Sandia Database Parameter mBVoc',
+                                        'pyname': u'sandia_database_parameter_mbvoc',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V/K'}),
+                                      (u'sandia database parameter bvmp0',
+                                       {'name': u'Sandia Database Parameter BVmp0',
+                                        'pyname': u'sandia_database_parameter_bvmp0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V/K'}),
+                                      (u'sandia database parameter mbvmp',
+                                       {'name': u'Sandia Database Parameter mBVmp',
+                                        'pyname': u'sandia_database_parameter_mbvmp',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V/K'}),
+                                      (u'diode factor',
+                                       {'name': u'Diode Factor',
+                                        'pyname': u'diode_factor',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c2',
+                                       {'name': u'Sandia Database Parameter c2',
+                                        'pyname': u'sandia_database_parameter_c2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c3',
+                                       {'name': u'Sandia Database Parameter c3',
+                                        'pyname': u'sandia_database_parameter_c3',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a0',
+                                       {'name': u'Sandia Database Parameter a0',
+                                        'pyname': u'sandia_database_parameter_a0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a1',
+                                       {'name': u'Sandia Database Parameter a1',
+                                        'pyname': u'sandia_database_parameter_a1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a2',
+                                       {'name': u'Sandia Database Parameter a2',
+                                        'pyname': u'sandia_database_parameter_a2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a3',
+                                       {'name': u'Sandia Database Parameter a3',
+                                        'pyname': u'sandia_database_parameter_a3',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a4',
+                                       {'name': u'Sandia Database Parameter a4',
+                                        'pyname': u'sandia_database_parameter_a4',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b0',
+                                       {'name': u'Sandia Database Parameter b0',
+                                        'pyname': u'sandia_database_parameter_b0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b1',
+                                       {'name': u'Sandia Database Parameter b1',
+                                        'pyname': u'sandia_database_parameter_b1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b2',
+                                       {'name': u'Sandia Database Parameter b2',
+                                        'pyname': u'sandia_database_parameter_b2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b3',
+                                       {'name': u'Sandia Database Parameter b3',
+                                        'pyname': u'sandia_database_parameter_b3',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b4',
+                                       {'name': u'Sandia Database Parameter b4',
+                                        'pyname': u'sandia_database_parameter_b4',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b5',
+                                       {'name': u'Sandia Database Parameter b5',
+                                        'pyname': u'sandia_database_parameter_b5',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter delta(tc)',
+                                       {'name': u'Sandia Database Parameter Delta(Tc)',
+                                        'pyname': u'sandia_database_parameter_deltatc',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'deltaC'}),
+                                      (u'sandia database parameter fd',
+                                       {'name': u'Sandia Database Parameter fd',
+                                        'pyname': u'sandia_database_parameter_fd',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter a',
+                                       {'name': u'Sandia Database Parameter a',
+                                        'pyname': u'sandia_database_parameter_a',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter b',
+                                       {'name': u'Sandia Database Parameter b',
+                                        'pyname': u'sandia_database_parameter_b',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c4',
+                                       {'name': u'Sandia Database Parameter c4',
+                                        'pyname': u'sandia_database_parameter_c4',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c5',
+                                       {'name': u'Sandia Database Parameter c5',
+                                        'pyname': u'sandia_database_parameter_c5',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter ix0',
+                                       {'name': u'Sandia Database Parameter Ix0',
+                                        'pyname': u'sandia_database_parameter_ix0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'sandia database parameter ixx0',
+                                       {'name': u'Sandia Database Parameter Ixx0',
+                                        'pyname': u'sandia_database_parameter_ixx0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'sandia database parameter c6',
+                                       {'name': u'Sandia Database Parameter c6',
+                                        'pyname': u'sandia_database_parameter_c6',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'}),
+                                      (u'sandia database parameter c7',
+                                       {'name': u'Sandia Database Parameter c7',
+                                        'pyname': u'sandia_database_parameter_c7',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'dimensionless'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'PhotovoltaicPerformance:Sandia',
+               'pyname': u'PhotovoltaicPerformanceSandia',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3051,20 +4329,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def active_area(self):
         """field `Active Area`
-        
+
         |  (m2, single module)
         |  Units: m2
         |  Default value: 1.0
@@ -3077,20 +4354,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `active_area` or None if not set
+
         """
         return self["Active Area"]
 
     @active_area.setter
     def active_area(self, value=1.0):
-        """  Corresponds to IDD field `Active Area`
-
-        """
+        """Corresponds to IDD field `Active Area`"""
         self["Active Area"] = value
 
     @property
     def number_of_cells_in_series(self):
         """field `Number of Cells in Series`
-        
+
         |  Units: dimensionless
         |  Default value: 1
         |  value >= 1
@@ -3103,20 +4379,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             int: the value of `number_of_cells_in_series` or None if not set
+
         """
         return self["Number of Cells in Series"]
 
     @number_of_cells_in_series.setter
     def number_of_cells_in_series(self, value=1):
-        """  Corresponds to IDD field `Number of Cells in Series`
-
-        """
+        """Corresponds to IDD field `Number of Cells in Series`"""
         self["Number of Cells in Series"] = value
 
     @property
     def number_of_cells_in_parallel(self):
         """field `Number of Cells in Parallel`
-        
+
         |  Units: dimensionless
         |  Default value: 1
         |  value >= 1
@@ -3129,20 +4404,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             int: the value of `number_of_cells_in_parallel` or None if not set
+
         """
         return self["Number of Cells in Parallel"]
 
     @number_of_cells_in_parallel.setter
     def number_of_cells_in_parallel(self, value=1):
-        """  Corresponds to IDD field `Number of Cells in Parallel`
-
-        """
+        """Corresponds to IDD field `Number of Cells in Parallel`"""
         self["Number of Cells in Parallel"] = value
 
     @property
     def short_circuit_current(self):
         """field `Short Circuit Current`
-        
+
         |  (Amps)
         |  Units: A
 
@@ -3154,20 +4428,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `short_circuit_current` or None if not set
+
         """
         return self["Short Circuit Current"]
 
     @short_circuit_current.setter
     def short_circuit_current(self, value=None):
-        """  Corresponds to IDD field `Short Circuit Current`
-
-        """
+        """Corresponds to IDD field `Short Circuit Current`"""
         self["Short Circuit Current"] = value
 
     @property
     def open_circuit_voltage(self):
         """field `Open Circuit Voltage`
-        
+
         |  (Volts)
         |  Units: V
 
@@ -3179,20 +4452,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `open_circuit_voltage` or None if not set
+
         """
         return self["Open Circuit Voltage"]
 
     @open_circuit_voltage.setter
     def open_circuit_voltage(self, value=None):
-        """  Corresponds to IDD field `Open Circuit Voltage`
-
-        """
+        """Corresponds to IDD field `Open Circuit Voltage`"""
         self["Open Circuit Voltage"] = value
 
     @property
     def current_at_maximum_power_point(self):
         """field `Current at Maximum Power Point`
-        
+
         |  (Amps)
         |  Units: A
 
@@ -3204,20 +4476,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `current_at_maximum_power_point` or None if not set
+
         """
         return self["Current at Maximum Power Point"]
 
     @current_at_maximum_power_point.setter
     def current_at_maximum_power_point(self, value=None):
-        """  Corresponds to IDD field `Current at Maximum Power Point`
-
-        """
+        """Corresponds to IDD field `Current at Maximum Power Point`"""
         self["Current at Maximum Power Point"] = value
 
     @property
     def voltage_at_maximum_power_point(self):
         """field `Voltage at Maximum Power Point`
-        
+
         |  (Volts)
         |  Units: V
 
@@ -3229,20 +4500,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `voltage_at_maximum_power_point` or None if not set
+
         """
         return self["Voltage at Maximum Power Point"]
 
     @voltage_at_maximum_power_point.setter
     def voltage_at_maximum_power_point(self, value=None):
-        """  Corresponds to IDD field `Voltage at Maximum Power Point`
-
-        """
+        """Corresponds to IDD field `Voltage at Maximum Power Point`"""
         self["Voltage at Maximum Power Point"] = value
 
     @property
     def sandia_database_parameter_aisc(self):
         """field `Sandia Database Parameter aIsc`
-        
+
         |  (1/degC)
         |  Units: 1/K
 
@@ -3254,20 +4524,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_aisc` or None if not set
+
         """
         return self["Sandia Database Parameter aIsc"]
 
     @sandia_database_parameter_aisc.setter
     def sandia_database_parameter_aisc(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter aIsc`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter aIsc`"""
         self["Sandia Database Parameter aIsc"] = value
 
     @property
     def sandia_database_parameter_aimp(self):
         """field `Sandia Database Parameter aImp`
-        
+
         |  (1/degC)
         |  Units: 1/K
 
@@ -3279,20 +4548,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_aimp` or None if not set
+
         """
         return self["Sandia Database Parameter aImp"]
 
     @sandia_database_parameter_aimp.setter
     def sandia_database_parameter_aimp(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter aImp`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter aImp`"""
         self["Sandia Database Parameter aImp"] = value
 
     @property
     def sandia_database_parameter_c0(self):
         """field `Sandia Database Parameter c0`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3303,20 +4571,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c0` or None if not set
+
         """
         return self["Sandia Database Parameter c0"]
 
     @sandia_database_parameter_c0.setter
     def sandia_database_parameter_c0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c0`"""
         self["Sandia Database Parameter c0"] = value
 
     @property
     def sandia_database_parameter_c1(self):
         """field `Sandia Database Parameter c1`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3327,20 +4594,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c1` or None if not set
+
         """
         return self["Sandia Database Parameter c1"]
 
     @sandia_database_parameter_c1.setter
     def sandia_database_parameter_c1(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c1`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c1`"""
         self["Sandia Database Parameter c1"] = value
 
     @property
     def sandia_database_parameter_bvoc0(self):
         """field `Sandia Database Parameter BVoc0`
-        
+
         |  (Volts/degC)
         |  Units: V/K
 
@@ -3352,20 +4618,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_bvoc0` or None if not set
+
         """
         return self["Sandia Database Parameter BVoc0"]
 
     @sandia_database_parameter_bvoc0.setter
     def sandia_database_parameter_bvoc0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter BVoc0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter BVoc0`"""
         self["Sandia Database Parameter BVoc0"] = value
 
     @property
     def sandia_database_parameter_mbvoc(self):
         """field `Sandia Database Parameter mBVoc`
-        
+
         |  (Volts/degC)
         |  Units: V/K
 
@@ -3377,20 +4642,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_mbvoc` or None if not set
+
         """
         return self["Sandia Database Parameter mBVoc"]
 
     @sandia_database_parameter_mbvoc.setter
     def sandia_database_parameter_mbvoc(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter mBVoc`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter mBVoc`"""
         self["Sandia Database Parameter mBVoc"] = value
 
     @property
     def sandia_database_parameter_bvmp0(self):
         """field `Sandia Database Parameter BVmp0`
-        
+
         |  (Volts/degC)
         |  Units: V/K
 
@@ -3402,20 +4666,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_bvmp0` or None if not set
+
         """
         return self["Sandia Database Parameter BVmp0"]
 
     @sandia_database_parameter_bvmp0.setter
     def sandia_database_parameter_bvmp0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter BVmp0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter BVmp0`"""
         self["Sandia Database Parameter BVmp0"] = value
 
     @property
     def sandia_database_parameter_mbvmp(self):
         """field `Sandia Database Parameter mBVmp`
-        
+
         |  (Volts/degC)
         |  Units: V/K
 
@@ -3427,20 +4690,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_mbvmp` or None if not set
+
         """
         return self["Sandia Database Parameter mBVmp"]
 
     @sandia_database_parameter_mbvmp.setter
     def sandia_database_parameter_mbvmp(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter mBVmp`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter mBVmp`"""
         self["Sandia Database Parameter mBVmp"] = value
 
     @property
     def diode_factor(self):
         """field `Diode Factor`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3451,20 +4713,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `diode_factor` or None if not set
+
         """
         return self["Diode Factor"]
 
     @diode_factor.setter
     def diode_factor(self, value=None):
-        """  Corresponds to IDD field `Diode Factor`
-
-        """
+        """Corresponds to IDD field `Diode Factor`"""
         self["Diode Factor"] = value
 
     @property
     def sandia_database_parameter_c2(self):
         """field `Sandia Database Parameter c2`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3475,20 +4736,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c2` or None if not set
+
         """
         return self["Sandia Database Parameter c2"]
 
     @sandia_database_parameter_c2.setter
     def sandia_database_parameter_c2(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c2`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c2`"""
         self["Sandia Database Parameter c2"] = value
 
     @property
     def sandia_database_parameter_c3(self):
         """field `Sandia Database Parameter c3`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3499,20 +4759,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c3` or None if not set
+
         """
         return self["Sandia Database Parameter c3"]
 
     @sandia_database_parameter_c3.setter
     def sandia_database_parameter_c3(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c3`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c3`"""
         self["Sandia Database Parameter c3"] = value
 
     @property
     def sandia_database_parameter_a0(self):
         """field `Sandia Database Parameter a0`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3523,20 +4782,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a0` or None if not set
+
         """
         return self["Sandia Database Parameter a0"]
 
     @sandia_database_parameter_a0.setter
     def sandia_database_parameter_a0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a0`"""
         self["Sandia Database Parameter a0"] = value
 
     @property
     def sandia_database_parameter_a1(self):
         """field `Sandia Database Parameter a1`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3547,20 +4805,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a1` or None if not set
+
         """
         return self["Sandia Database Parameter a1"]
 
     @sandia_database_parameter_a1.setter
     def sandia_database_parameter_a1(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a1`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a1`"""
         self["Sandia Database Parameter a1"] = value
 
     @property
     def sandia_database_parameter_a2(self):
         """field `Sandia Database Parameter a2`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3571,20 +4828,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a2` or None if not set
+
         """
         return self["Sandia Database Parameter a2"]
 
     @sandia_database_parameter_a2.setter
     def sandia_database_parameter_a2(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a2`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a2`"""
         self["Sandia Database Parameter a2"] = value
 
     @property
     def sandia_database_parameter_a3(self):
         """field `Sandia Database Parameter a3`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3595,20 +4851,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a3` or None if not set
+
         """
         return self["Sandia Database Parameter a3"]
 
     @sandia_database_parameter_a3.setter
     def sandia_database_parameter_a3(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a3`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a3`"""
         self["Sandia Database Parameter a3"] = value
 
     @property
     def sandia_database_parameter_a4(self):
         """field `Sandia Database Parameter a4`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3619,20 +4874,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a4` or None if not set
+
         """
         return self["Sandia Database Parameter a4"]
 
     @sandia_database_parameter_a4.setter
     def sandia_database_parameter_a4(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a4`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a4`"""
         self["Sandia Database Parameter a4"] = value
 
     @property
     def sandia_database_parameter_b0(self):
         """field `Sandia Database Parameter b0`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3643,20 +4897,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b0` or None if not set
+
         """
         return self["Sandia Database Parameter b0"]
 
     @sandia_database_parameter_b0.setter
     def sandia_database_parameter_b0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b0`"""
         self["Sandia Database Parameter b0"] = value
 
     @property
     def sandia_database_parameter_b1(self):
         """field `Sandia Database Parameter b1`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3667,20 +4920,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b1` or None if not set
+
         """
         return self["Sandia Database Parameter b1"]
 
     @sandia_database_parameter_b1.setter
     def sandia_database_parameter_b1(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b1`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b1`"""
         self["Sandia Database Parameter b1"] = value
 
     @property
     def sandia_database_parameter_b2(self):
         """field `Sandia Database Parameter b2`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3691,20 +4943,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b2` or None if not set
+
         """
         return self["Sandia Database Parameter b2"]
 
     @sandia_database_parameter_b2.setter
     def sandia_database_parameter_b2(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b2`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b2`"""
         self["Sandia Database Parameter b2"] = value
 
     @property
     def sandia_database_parameter_b3(self):
         """field `Sandia Database Parameter b3`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3715,20 +4966,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b3` or None if not set
+
         """
         return self["Sandia Database Parameter b3"]
 
     @sandia_database_parameter_b3.setter
     def sandia_database_parameter_b3(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b3`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b3`"""
         self["Sandia Database Parameter b3"] = value
 
     @property
     def sandia_database_parameter_b4(self):
         """field `Sandia Database Parameter b4`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3739,20 +4989,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b4` or None if not set
+
         """
         return self["Sandia Database Parameter b4"]
 
     @sandia_database_parameter_b4.setter
     def sandia_database_parameter_b4(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b4`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b4`"""
         self["Sandia Database Parameter b4"] = value
 
     @property
     def sandia_database_parameter_b5(self):
         """field `Sandia Database Parameter b5`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3763,20 +5012,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b5` or None if not set
+
         """
         return self["Sandia Database Parameter b5"]
 
     @sandia_database_parameter_b5.setter
     def sandia_database_parameter_b5(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b5`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b5`"""
         self["Sandia Database Parameter b5"] = value
 
     @property
     def sandia_database_parameter_deltatc(self):
         """field `Sandia Database Parameter Delta(Tc)`
-        
+
         |  (deg C)
         |  Units: deltaC
 
@@ -3788,20 +5036,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_deltatc` or None if not set
+
         """
         return self["Sandia Database Parameter Delta(Tc)"]
 
     @sandia_database_parameter_deltatc.setter
     def sandia_database_parameter_deltatc(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter Delta(Tc)`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter Delta(Tc)`"""
         self["Sandia Database Parameter Delta(Tc)"] = value
 
     @property
     def sandia_database_parameter_fd(self):
         """field `Sandia Database Parameter fd`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3812,20 +5059,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_fd` or None if not set
+
         """
         return self["Sandia Database Parameter fd"]
 
     @sandia_database_parameter_fd.setter
     def sandia_database_parameter_fd(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter fd`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter fd`"""
         self["Sandia Database Parameter fd"] = value
 
     @property
     def sandia_database_parameter_a(self):
         """field `Sandia Database Parameter a`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3836,20 +5082,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_a` or None if not set
+
         """
         return self["Sandia Database Parameter a"]
 
     @sandia_database_parameter_a.setter
     def sandia_database_parameter_a(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter a`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter a`"""
         self["Sandia Database Parameter a"] = value
 
     @property
     def sandia_database_parameter_b(self):
         """field `Sandia Database Parameter b`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3860,20 +5105,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_b` or None if not set
+
         """
         return self["Sandia Database Parameter b"]
 
     @sandia_database_parameter_b.setter
     def sandia_database_parameter_b(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter b`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter b`"""
         self["Sandia Database Parameter b"] = value
 
     @property
     def sandia_database_parameter_c4(self):
         """field `Sandia Database Parameter c4`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3884,20 +5128,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c4` or None if not set
+
         """
         return self["Sandia Database Parameter c4"]
 
     @sandia_database_parameter_c4.setter
     def sandia_database_parameter_c4(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c4`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c4`"""
         self["Sandia Database Parameter c4"] = value
 
     @property
     def sandia_database_parameter_c5(self):
         """field `Sandia Database Parameter c5`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3908,20 +5151,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c5` or None if not set
+
         """
         return self["Sandia Database Parameter c5"]
 
     @sandia_database_parameter_c5.setter
     def sandia_database_parameter_c5(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c5`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c5`"""
         self["Sandia Database Parameter c5"] = value
 
     @property
     def sandia_database_parameter_ix0(self):
         """field `Sandia Database Parameter Ix0`
-        
+
         |  (Amps)
 
         Args:
@@ -3932,20 +5174,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_ix0` or None if not set
+
         """
         return self["Sandia Database Parameter Ix0"]
 
     @sandia_database_parameter_ix0.setter
     def sandia_database_parameter_ix0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter Ix0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter Ix0`"""
         self["Sandia Database Parameter Ix0"] = value
 
     @property
     def sandia_database_parameter_ixx0(self):
         """field `Sandia Database Parameter Ixx0`
-        
+
         |  (Amps)
 
         Args:
@@ -3956,20 +5197,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_ixx0` or None if not set
+
         """
         return self["Sandia Database Parameter Ixx0"]
 
     @sandia_database_parameter_ixx0.setter
     def sandia_database_parameter_ixx0(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter Ixx0`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter Ixx0`"""
         self["Sandia Database Parameter Ixx0"] = value
 
     @property
     def sandia_database_parameter_c6(self):
         """field `Sandia Database Parameter c6`
-        
+
         |  Units: dimensionless
 
         Args:
@@ -3980,20 +5220,19 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c6` or None if not set
+
         """
         return self["Sandia Database Parameter c6"]
 
     @sandia_database_parameter_c6.setter
     def sandia_database_parameter_c6(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c6`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c6`"""
         self["Sandia Database Parameter c6"] = value
 
     @property
     def sandia_database_parameter_c7(self):
         """field `Sandia Database Parameter c7`
-        
+
         |  (non-dimensional)
         |  Units: dimensionless
 
@@ -4005,37 +5244,105 @@ class PhotovoltaicPerformanceSandia(DataObject):
 
         Returns:
             float: the value of `sandia_database_parameter_c7` or None if not set
+
         """
         return self["Sandia Database Parameter c7"]
 
     @sandia_database_parameter_c7.setter
     def sandia_database_parameter_c7(self, value=None):
-        """  Corresponds to IDD field `Sandia Database Parameter c7`
-
-        """
+        """Corresponds to IDD field `Sandia Database Parameter c7`"""
         self["Sandia Database Parameter c7"] = value
 
 
 
 
 class GeneratorFuelCell(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell`
         This generator model is the FC model from IEA Annex 42
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'power module name', {'name': u'Power Module Name', 'pyname': u'power_module_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air supply name', {'name': u'Air Supply Name', 'pyname': u'air_supply_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fuel supply name', {'name': u'Fuel Supply Name', 'pyname': u'fuel_supply_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water supply name', {'name': u'Water Supply Name', 'pyname': u'water_supply_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'auxiliary heater name', {'name': u'Auxiliary Heater Name', 'pyname': u'auxiliary_heater_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat exchanger name', {'name': u'Heat Exchanger Name', 'pyname': u'heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electrical storage name', {'name': u'Electrical Storage Name', 'pyname': u'electrical_storage_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inverter name', {'name': u'Inverter Name', 'pyname': u'inverter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'stack cooler name', {'name': u'Stack Cooler Name', 'pyname': u'stack_cooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell',
- 'pyname': u'GeneratorFuelCell',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'power module name',
+                                       {'name': u'Power Module Name',
+                                        'pyname': u'power_module_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'air supply name',
+                                       {'name': u'Air Supply Name',
+                                        'pyname': u'air_supply_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'fuel supply name',
+                                       {'name': u'Fuel Supply Name',
+                                        'pyname': u'fuel_supply_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'water supply name',
+                                       {'name': u'Water Supply Name',
+                                        'pyname': u'water_supply_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'auxiliary heater name',
+                                       {'name': u'Auxiliary Heater Name',
+                                        'pyname': u'auxiliary_heater_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heat exchanger name',
+                                       {'name': u'Heat Exchanger Name',
+                                        'pyname': u'heat_exchanger_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'electrical storage name',
+                                       {'name': u'Electrical Storage Name',
+                                        'pyname': u'electrical_storage_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'inverter name',
+                                       {'name': u'Inverter Name',
+                                        'pyname': u'inverter_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'stack cooler name',
+                                       {'name': u'Stack Cooler Name',
+                                        'pyname': u'stack_cooler_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell',
+               'pyname': u'GeneratorFuelCell',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4045,20 +5352,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def power_module_name(self):
         """field `Power Module Name`
-        
+
         |  Enter the name of a Generator:FuelCell:PowerModule object.
 
         Args:
@@ -4069,20 +5375,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `power_module_name` or None if not set
+
         """
         return self["Power Module Name"]
 
     @power_module_name.setter
     def power_module_name(self, value=None):
-        """  Corresponds to IDD field `Power Module Name`
-
-        """
+        """Corresponds to IDD field `Power Module Name`"""
         self["Power Module Name"] = value
 
     @property
     def air_supply_name(self):
         """field `Air Supply Name`
-        
+
         |  Enter the name of a Generator:FuelCell:AirSupply object.
 
         Args:
@@ -4093,20 +5398,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `air_supply_name` or None if not set
+
         """
         return self["Air Supply Name"]
 
     @air_supply_name.setter
     def air_supply_name(self, value=None):
-        """  Corresponds to IDD field `Air Supply Name`
-
-        """
+        """Corresponds to IDD field `Air Supply Name`"""
         self["Air Supply Name"] = value
 
     @property
     def fuel_supply_name(self):
         """field `Fuel Supply Name`
-        
+
         |  Enter the name of a Generator:FuelSupply object.
 
         Args:
@@ -4117,20 +5421,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `fuel_supply_name` or None if not set
+
         """
         return self["Fuel Supply Name"]
 
     @fuel_supply_name.setter
     def fuel_supply_name(self, value=None):
-        """  Corresponds to IDD field `Fuel Supply Name`
-
-        """
+        """Corresponds to IDD field `Fuel Supply Name`"""
         self["Fuel Supply Name"] = value
 
     @property
     def water_supply_name(self):
         """field `Water Supply Name`
-        
+
         |  Enter the name of a Generator:FuelCell:WaterSupply object.
 
         Args:
@@ -4141,20 +5444,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `water_supply_name` or None if not set
+
         """
         return self["Water Supply Name"]
 
     @water_supply_name.setter
     def water_supply_name(self, value=None):
-        """  Corresponds to IDD field `Water Supply Name`
-
-        """
+        """Corresponds to IDD field `Water Supply Name`"""
         self["Water Supply Name"] = value
 
     @property
     def auxiliary_heater_name(self):
         """field `Auxiliary Heater Name`
-        
+
         |  Enter the name of a Generator:FuelCell:AuxiliaryHeater object.
 
         Args:
@@ -4165,20 +5467,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `auxiliary_heater_name` or None if not set
+
         """
         return self["Auxiliary Heater Name"]
 
     @auxiliary_heater_name.setter
     def auxiliary_heater_name(self, value=None):
-        """  Corresponds to IDD field `Auxiliary Heater Name`
-
-        """
+        """Corresponds to IDD field `Auxiliary Heater Name`"""
         self["Auxiliary Heater Name"] = value
 
     @property
     def heat_exchanger_name(self):
         """field `Heat Exchanger Name`
-        
+
         |  Enter the name of a Generator:FuelCell:ExhaustGasToWaterHeatExchanger object.
 
         Args:
@@ -4189,20 +5490,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `heat_exchanger_name` or None if not set
+
         """
         return self["Heat Exchanger Name"]
 
     @heat_exchanger_name.setter
     def heat_exchanger_name(self, value=None):
-        """  Corresponds to IDD field `Heat Exchanger Name`
-
-        """
+        """Corresponds to IDD field `Heat Exchanger Name`"""
         self["Heat Exchanger Name"] = value
 
     @property
     def electrical_storage_name(self):
         """field `Electrical Storage Name`
-        
+
         |  Enter the name of a Generator:FuelCell:ElectricalStorage object.
 
         Args:
@@ -4213,20 +5513,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `electrical_storage_name` or None if not set
+
         """
         return self["Electrical Storage Name"]
 
     @electrical_storage_name.setter
     def electrical_storage_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Storage Name`
-
-        """
+        """Corresponds to IDD field `Electrical Storage Name`"""
         self["Electrical Storage Name"] = value
 
     @property
     def inverter_name(self):
         """field `Inverter Name`
-        
+
         |  Enter the name of a Generator:FuelCell:Inverter object.
 
         Args:
@@ -4237,20 +5536,19 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `inverter_name` or None if not set
+
         """
         return self["Inverter Name"]
 
     @inverter_name.setter
     def inverter_name(self, value=None):
-        """  Corresponds to IDD field `Inverter Name`
-
-        """
+        """Corresponds to IDD field `Inverter Name`"""
         self["Inverter Name"] = value
 
     @property
     def stack_cooler_name(self):
         """field `Stack Cooler Name`
-        
+
         |  Enter the name of a Generator:FuelCell:StackCooler object.
         |  optional, used for PEMFC
 
@@ -4262,20 +5560,20 @@ class GeneratorFuelCell(DataObject):
 
         Returns:
             str: the value of `stack_cooler_name` or None if not set
+
         """
         return self["Stack Cooler Name"]
 
     @stack_cooler_name.setter
     def stack_cooler_name(self, value=None):
-        """  Corresponds to IDD field `Stack Cooler Name`
-
-        """
+        """Corresponds to IDD field `Stack Cooler Name`"""
         self["Stack Cooler Name"] = value
 
 
 
 
 class GeneratorFuelCellPowerModule(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:PowerModule`
         Describe the core power module subsystem of a fuel cell power generator. This includes
         the fuel cell stack, fuel reformer, and whatever ancillary devices are included inside.
@@ -4283,19 +5581,273 @@ class GeneratorFuelCellPowerModule(DataObject):
         of these objects is needed and all the Generator:FuelCell objects can reference it.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'efficiency curve mode', {'name': u'Efficiency Curve Mode', 'pyname': u'efficiency_curve_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annex42', u'Normalized'], 'autocalculatable': False, 'type': 'alpha'}), (u'efficiency curve name', {'name': u'Efficiency Curve Name', 'pyname': u'efficiency_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal efficiency', {'name': u'Nominal Efficiency', 'pyname': u'nominal_efficiency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'nominal electrical power', {'name': u'Nominal Electrical Power', 'pyname': u'nominal_electrical_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'number of stops at start of simulation', {'name': u'Number of Stops at Start of Simulation', 'pyname': u'number_of_stops_at_start_of_simulation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'cycling performance degradation coefficient', {'name': u'Cycling Performance Degradation Coefficient', 'pyname': u'cycling_performance_degradation_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'number of run hours at beginning of simulation', {'name': u'Number of Run Hours at Beginning of Simulation', 'pyname': u'number_of_run_hours_at_beginning_of_simulation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'accumulated run time degradation coefficient', {'name': u'Accumulated Run Time Degradation Coefficient', 'pyname': u'accumulated_run_time_degradation_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'run time degradation initiation time threshold', {'name': u'Run Time Degradation Initiation Time Threshold', 'pyname': u'run_time_degradation_initiation_time_threshold', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'power up transient limit', {'name': u'Power Up Transient Limit', 'pyname': u'power_up_transient_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/s'}), (u'power down transient limit', {'name': u'Power Down Transient Limit', 'pyname': u'power_down_transient_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/s'}), (u'start up time', {'name': u'Start Up Time', 'pyname': u'start_up_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'start up fuel', {'name': u'Start Up Fuel', 'pyname': u'start_up_fuel', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kmol'}), (u'start up electricity consumption', {'name': u'Start Up Electricity Consumption', 'pyname': u'start_up_electricity_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'}), (u'start up electricity produced', {'name': u'Start Up Electricity Produced', 'pyname': u'start_up_electricity_produced', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'}), (u'shut down time', {'name': u'Shut Down Time', 'pyname': u'shut_down_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'shut down fuel', {'name': u'Shut Down Fuel', 'pyname': u'shut_down_fuel', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kmol'}), (u'shut down electricity consumption', {'name': u'Shut Down Electricity Consumption', 'pyname': u'shut_down_electricity_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'}), (u'ancillary electricity constant term', {'name': u'Ancillary Electricity Constant Term', 'pyname': u'ancillary_electricity_constant_term', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'ancillary electricity linear term', {'name': u'Ancillary Electricity Linear Term', 'pyname': u'ancillary_electricity_linear_term', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'skin loss calculation mode', {'name': u'Skin Loss Calculation Mode', 'pyname': u'skin_loss_calculation_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ConstantRate', u'UAForProcessGasTemperature', u'QuadraticFunctionOfFuelRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constant skin loss rate', {'name': u'Constant Skin Loss Rate', 'pyname': u'constant_skin_loss_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'skin loss u-factor times area term', {'name': u'Skin Loss U-Factor Times Area Term', 'pyname': u'skin_loss_ufactor_times_area_term', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'skin loss quadratic curve name', {'name': u'Skin Loss Quadratic Curve Name', 'pyname': u'skin_loss_quadratic_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dilution air flow rate', {'name': u'Dilution Air Flow Rate', 'pyname': u'dilution_air_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kmol/s'}), (u'stack heat loss to dilution air', {'name': u'Stack Heat loss to Dilution Air', 'pyname': u'stack_heat_loss_to_dilution_air', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'dilution inlet air node name', {'name': u'Dilution Inlet Air Node Name', 'pyname': u'dilution_inlet_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dilution outlet air node name', {'name': u'Dilution Outlet Air Node Name', 'pyname': u'dilution_outlet_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum operating point', {'name': u'Minimum Operating Point', 'pyname': u'minimum_operating_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'maximum operating point', {'name': u'Maximum Operating Point', 'pyname': u'maximum_operating_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:PowerModule',
- 'pyname': u'GeneratorFuelCellPowerModule',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'efficiency curve mode',
+                                       {'name': u'Efficiency Curve Mode',
+                                        'pyname': u'efficiency_curve_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Annex42',
+                                                            u'Normalized'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'efficiency curve name',
+                                       {'name': u'Efficiency Curve Name',
+                                        'pyname': u'efficiency_curve_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'nominal efficiency',
+                                       {'name': u'Nominal Efficiency',
+                                        'pyname': u'nominal_efficiency',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'nominal electrical power',
+                                       {'name': u'Nominal Electrical Power',
+                                        'pyname': u'nominal_electrical_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'number of stops at start of simulation',
+                                       {'name': u'Number of Stops at Start of Simulation',
+                                        'pyname': u'number_of_stops_at_start_of_simulation',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'cycling performance degradation coefficient',
+                                       {'name': u'Cycling Performance Degradation Coefficient',
+                                        'pyname': u'cycling_performance_degradation_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'number of run hours at beginning of simulation',
+                                       {'name': u'Number of Run Hours at Beginning of Simulation',
+                                        'pyname': u'number_of_run_hours_at_beginning_of_simulation',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'hr'}),
+                                      (u'accumulated run time degradation coefficient',
+                                       {'name': u'Accumulated Run Time Degradation Coefficient',
+                                        'pyname': u'accumulated_run_time_degradation_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'run time degradation initiation time threshold',
+                                       {'name': u'Run Time Degradation Initiation Time Threshold',
+                                        'pyname': u'run_time_degradation_initiation_time_threshold',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'hr'}),
+                                      (u'power up transient limit',
+                                       {'name': u'Power Up Transient Limit',
+                                        'pyname': u'power_up_transient_limit',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/s'}),
+                                      (u'power down transient limit',
+                                       {'name': u'Power Down Transient Limit',
+                                        'pyname': u'power_down_transient_limit',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/s'}),
+                                      (u'start up time',
+                                       {'name': u'Start Up Time',
+                                        'pyname': u'start_up_time',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u's'}),
+                                      (u'start up fuel',
+                                       {'name': u'Start Up Fuel',
+                                        'pyname': u'start_up_fuel',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kmol'}),
+                                      (u'start up electricity consumption',
+                                       {'name': u'Start Up Electricity Consumption',
+                                        'pyname': u'start_up_electricity_consumption',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'}),
+                                      (u'start up electricity produced',
+                                       {'name': u'Start Up Electricity Produced',
+                                        'pyname': u'start_up_electricity_produced',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'}),
+                                      (u'shut down time',
+                                       {'name': u'Shut Down Time',
+                                        'pyname': u'shut_down_time',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u's'}),
+                                      (u'shut down fuel',
+                                       {'name': u'Shut Down Fuel',
+                                        'pyname': u'shut_down_fuel',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kmol'}),
+                                      (u'shut down electricity consumption',
+                                       {'name': u'Shut Down Electricity Consumption',
+                                        'pyname': u'shut_down_electricity_consumption',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'}),
+                                      (u'ancillary electricity constant term',
+                                       {'name': u'Ancillary Electricity Constant Term',
+                                        'pyname': u'ancillary_electricity_constant_term',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'ancillary electricity linear term',
+                                       {'name': u'Ancillary Electricity Linear Term',
+                                        'pyname': u'ancillary_electricity_linear_term',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'skin loss calculation mode',
+                                       {'name': u'Skin Loss Calculation Mode',
+                                        'pyname': u'skin_loss_calculation_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'ConstantRate',
+                                                            u'UAForProcessGasTemperature',
+                                                            u'QuadraticFunctionOfFuelRate'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'skin loss radiative fraction',
+                                       {'name': u'Skin Loss Radiative Fraction',
+                                        'pyname': u'skin_loss_radiative_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constant skin loss rate',
+                                       {'name': u'Constant Skin Loss Rate',
+                                        'pyname': u'constant_skin_loss_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'skin loss u-factor times area term',
+                                       {'name': u'Skin Loss U-Factor Times Area Term',
+                                        'pyname': u'skin_loss_ufactor_times_area_term',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'skin loss quadratic curve name',
+                                       {'name': u'Skin Loss Quadratic Curve Name',
+                                        'pyname': u'skin_loss_quadratic_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'dilution air flow rate',
+                                       {'name': u'Dilution Air Flow Rate',
+                                        'pyname': u'dilution_air_flow_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kmol/s'}),
+                                      (u'stack heat loss to dilution air',
+                                       {'name': u'Stack Heat loss to Dilution Air',
+                                        'pyname': u'stack_heat_loss_to_dilution_air',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'dilution inlet air node name',
+                                       {'name': u'Dilution Inlet Air Node Name',
+                                        'pyname': u'dilution_inlet_air_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'dilution outlet air node name',
+                                       {'name': u'Dilution Outlet Air Node Name',
+                                        'pyname': u'dilution_outlet_air_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'minimum operating point',
+                                       {'name': u'Minimum Operating Point',
+                                        'pyname': u'minimum_operating_point',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'maximum operating point',
+                                       {'name': u'Maximum Operating Point',
+                                        'pyname': u'maximum_operating_point',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:PowerModule',
+               'pyname': u'GeneratorFuelCellPowerModule',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4305,20 +5857,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def efficiency_curve_mode(self):
         """field `Efficiency Curve Mode`
-        
 
         Args:
             value (str): value for IDD Field `Efficiency Curve Mode`
@@ -4328,20 +5878,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `efficiency_curve_mode` or None if not set
+
         """
         return self["Efficiency Curve Mode"]
 
     @efficiency_curve_mode.setter
     def efficiency_curve_mode(self, value=None):
-        """  Corresponds to IDD field `Efficiency Curve Mode`
-
-        """
+        """Corresponds to IDD field `Efficiency Curve Mode`"""
         self["Efficiency Curve Mode"] = value
 
     @property
     def efficiency_curve_name(self):
         """field `Efficiency Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Efficiency Curve Name`
@@ -4351,20 +5899,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `efficiency_curve_name` or None if not set
+
         """
         return self["Efficiency Curve Name"]
 
     @efficiency_curve_name.setter
     def efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD field `Efficiency Curve Name`
-
-        """
+        """Corresponds to IDD field `Efficiency Curve Name`"""
         self["Efficiency Curve Name"] = value
 
     @property
     def nominal_efficiency(self):
         """field `Nominal Efficiency`
-        
+
         |  This field is not used.
 
         Args:
@@ -4375,20 +5922,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `nominal_efficiency` or None if not set
+
         """
         return self["Nominal Efficiency"]
 
     @nominal_efficiency.setter
     def nominal_efficiency(self, value=None):
-        """  Corresponds to IDD field `Nominal Efficiency`
-
-        """
+        """Corresponds to IDD field `Nominal Efficiency`"""
         self["Nominal Efficiency"] = value
 
     @property
     def nominal_electrical_power(self):
         """field `Nominal Electrical Power`
-        
+
         |  This field is not used
         |  Units: W
 
@@ -4400,20 +5946,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `nominal_electrical_power` or None if not set
+
         """
         return self["Nominal Electrical Power"]
 
     @nominal_electrical_power.setter
     def nominal_electrical_power(self, value=None):
-        """  Corresponds to IDD field `Nominal Electrical Power`
-
-        """
+        """Corresponds to IDD field `Nominal Electrical Power`"""
         self["Nominal Electrical Power"] = value
 
     @property
     def number_of_stops_at_start_of_simulation(self):
         """field `Number of Stops at Start of Simulation`
-        
+
         |  this is Nstops in SOFC model specification
 
         Args:
@@ -4424,20 +5969,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `number_of_stops_at_start_of_simulation` or None if not set
+
         """
         return self["Number of Stops at Start of Simulation"]
 
     @number_of_stops_at_start_of_simulation.setter
     def number_of_stops_at_start_of_simulation(self, value=None):
-        """  Corresponds to IDD field `Number of Stops at Start of Simulation`
-
-        """
+        """Corresponds to IDD field `Number of Stops at Start of Simulation`"""
         self["Number of Stops at Start of Simulation"] = value
 
     @property
     def cycling_performance_degradation_coefficient(self):
         """field `Cycling Performance Degradation Coefficient`
-        
+
         |  this is D in SOFC model specification
 
         Args:
@@ -4448,20 +5992,20 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `cycling_performance_degradation_coefficient` or None if not set
+
         """
         return self["Cycling Performance Degradation Coefficient"]
 
     @cycling_performance_degradation_coefficient.setter
     def cycling_performance_degradation_coefficient(self, value=None):
-        """  Corresponds to IDD field `Cycling Performance Degradation Coefficient`
-
-        """
+        """Corresponds to IDD field `Cycling Performance Degradation
+        Coefficient`"""
         self["Cycling Performance Degradation Coefficient"] = value
 
     @property
     def number_of_run_hours_at_beginning_of_simulation(self):
         """field `Number of Run Hours at Beginning of Simulation`
-        
+
         |  Units: hr
 
         Args:
@@ -4472,20 +6016,20 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `number_of_run_hours_at_beginning_of_simulation` or None if not set
+
         """
         return self["Number of Run Hours at Beginning of Simulation"]
 
     @number_of_run_hours_at_beginning_of_simulation.setter
     def number_of_run_hours_at_beginning_of_simulation(self, value=None):
-        """  Corresponds to IDD field `Number of Run Hours at Beginning of Simulation`
-
-        """
+        """Corresponds to IDD field `Number of Run Hours at Beginning of
+        Simulation`"""
         self["Number of Run Hours at Beginning of Simulation"] = value
 
     @property
     def accumulated_run_time_degradation_coefficient(self):
         """field `Accumulated Run Time Degradation Coefficient`
-        
+
         |  this is L in SOFC model specification
 
         Args:
@@ -4496,20 +6040,20 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `accumulated_run_time_degradation_coefficient` or None if not set
+
         """
         return self["Accumulated Run Time Degradation Coefficient"]
 
     @accumulated_run_time_degradation_coefficient.setter
     def accumulated_run_time_degradation_coefficient(self, value=None):
-        """  Corresponds to IDD field `Accumulated Run Time Degradation Coefficient`
-
-        """
+        """Corresponds to IDD field `Accumulated Run Time Degradation
+        Coefficient`"""
         self["Accumulated Run Time Degradation Coefficient"] = value
 
     @property
     def run_time_degradation_initiation_time_threshold(self):
         """field `Run Time Degradation Initiation Time Threshold`
-        
+
         |  Units: hr
 
         Args:
@@ -4520,20 +6064,20 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `run_time_degradation_initiation_time_threshold` or None if not set
+
         """
         return self["Run Time Degradation Initiation Time Threshold"]
 
     @run_time_degradation_initiation_time_threshold.setter
     def run_time_degradation_initiation_time_threshold(self, value=None):
-        """  Corresponds to IDD field `Run Time Degradation Initiation Time Threshold`
-
-        """
+        """Corresponds to IDD field `Run Time Degradation Initiation Time
+        Threshold`"""
         self["Run Time Degradation Initiation Time Threshold"] = value
 
     @property
     def power_up_transient_limit(self):
         """field `Power Up Transient Limit`
-        
+
         |  Maximum rate of change in electrical output [power increasing]
         |  Units: W/s
 
@@ -4545,20 +6089,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `power_up_transient_limit` or None if not set
+
         """
         return self["Power Up Transient Limit"]
 
     @power_up_transient_limit.setter
     def power_up_transient_limit(self, value=None):
-        """  Corresponds to IDD field `Power Up Transient Limit`
-
-        """
+        """Corresponds to IDD field `Power Up Transient Limit`"""
         self["Power Up Transient Limit"] = value
 
     @property
     def power_down_transient_limit(self):
         """field `Power Down Transient Limit`
-        
+
         |  Maximum rate of change in electrical output [power decreasing]
         |  Enter positive value for rate of change
         |  Units: W/s
@@ -4571,20 +6114,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `power_down_transient_limit` or None if not set
+
         """
         return self["Power Down Transient Limit"]
 
     @power_down_transient_limit.setter
     def power_down_transient_limit(self, value=None):
-        """  Corresponds to IDD field `Power Down Transient Limit`
-
-        """
+        """Corresponds to IDD field `Power Down Transient Limit`"""
         self["Power Down Transient Limit"] = value
 
     @property
     def start_up_time(self):
         """field `Start Up Time`
-        
+
         |  Time from start up to normal operation
         |  Units: s
 
@@ -4596,20 +6138,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `start_up_time` or None if not set
+
         """
         return self["Start Up Time"]
 
     @start_up_time.setter
     def start_up_time(self, value=None):
-        """  Corresponds to IDD field `Start Up Time`
-
-        """
+        """Corresponds to IDD field `Start Up Time`"""
         self["Start Up Time"] = value
 
     @property
     def start_up_fuel(self):
         """field `Start Up Fuel`
-        
+
         |  Units: kmol
 
         Args:
@@ -4620,20 +6161,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `start_up_fuel` or None if not set
+
         """
         return self["Start Up Fuel"]
 
     @start_up_fuel.setter
     def start_up_fuel(self, value=None):
-        """  Corresponds to IDD field `Start Up Fuel`
-
-        """
+        """Corresponds to IDD field `Start Up Fuel`"""
         self["Start Up Fuel"] = value
 
     @property
     def start_up_electricity_consumption(self):
         """field `Start Up Electricity Consumption`
-        
+
         |  Units: J
 
         Args:
@@ -4644,20 +6184,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `start_up_electricity_consumption` or None if not set
+
         """
         return self["Start Up Electricity Consumption"]
 
     @start_up_electricity_consumption.setter
     def start_up_electricity_consumption(self, value=None):
-        """  Corresponds to IDD field `Start Up Electricity Consumption`
-
-        """
+        """Corresponds to IDD field `Start Up Electricity Consumption`"""
         self["Start Up Electricity Consumption"] = value
 
     @property
     def start_up_electricity_produced(self):
         """field `Start Up Electricity Produced`
-        
+
         |  Units: J
 
         Args:
@@ -4668,20 +6207,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `start_up_electricity_produced` or None if not set
+
         """
         return self["Start Up Electricity Produced"]
 
     @start_up_electricity_produced.setter
     def start_up_electricity_produced(self, value=None):
-        """  Corresponds to IDD field `Start Up Electricity Produced`
-
-        """
+        """Corresponds to IDD field `Start Up Electricity Produced`"""
         self["Start Up Electricity Produced"] = value
 
     @property
     def shut_down_time(self):
         """field `Shut Down Time`
-        
+
         |  Units: s
 
         Args:
@@ -4692,20 +6230,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `shut_down_time` or None if not set
+
         """
         return self["Shut Down Time"]
 
     @shut_down_time.setter
     def shut_down_time(self, value=None):
-        """  Corresponds to IDD field `Shut Down Time`
-
-        """
+        """Corresponds to IDD field `Shut Down Time`"""
         self["Shut Down Time"] = value
 
     @property
     def shut_down_fuel(self):
         """field `Shut Down Fuel`
-        
+
         |  Units: kmol
 
         Args:
@@ -4716,20 +6253,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `shut_down_fuel` or None if not set
+
         """
         return self["Shut Down Fuel"]
 
     @shut_down_fuel.setter
     def shut_down_fuel(self, value=None):
-        """  Corresponds to IDD field `Shut Down Fuel`
-
-        """
+        """Corresponds to IDD field `Shut Down Fuel`"""
         self["Shut Down Fuel"] = value
 
     @property
     def shut_down_electricity_consumption(self):
         """field `Shut Down Electricity Consumption`
-        
+
         |  Units: J
 
         Args:
@@ -4740,20 +6276,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `shut_down_electricity_consumption` or None if not set
+
         """
         return self["Shut Down Electricity Consumption"]
 
     @shut_down_electricity_consumption.setter
     def shut_down_electricity_consumption(self, value=None):
-        """  Corresponds to IDD field `Shut Down Electricity Consumption`
-
-        """
+        """Corresponds to IDD field `Shut Down Electricity Consumption`"""
         self["Shut Down Electricity Consumption"] = value
 
     @property
     def ancillary_electricity_constant_term(self):
         """field `Ancillary Electricity Constant Term`
-        
 
         Args:
             value (float): value for IDD Field `Ancillary Electricity Constant Term`
@@ -4763,20 +6297,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `ancillary_electricity_constant_term` or None if not set
+
         """
         return self["Ancillary Electricity Constant Term"]
 
     @ancillary_electricity_constant_term.setter
     def ancillary_electricity_constant_term(self, value=None):
-        """  Corresponds to IDD field `Ancillary Electricity Constant Term`
-
-        """
+        """Corresponds to IDD field `Ancillary Electricity Constant Term`"""
         self["Ancillary Electricity Constant Term"] = value
 
     @property
     def ancillary_electricity_linear_term(self):
         """field `Ancillary Electricity Linear Term`
-        
 
         Args:
             value (float): value for IDD Field `Ancillary Electricity Linear Term`
@@ -4786,20 +6318,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `ancillary_electricity_linear_term` or None if not set
+
         """
         return self["Ancillary Electricity Linear Term"]
 
     @ancillary_electricity_linear_term.setter
     def ancillary_electricity_linear_term(self, value=None):
-        """  Corresponds to IDD field `Ancillary Electricity Linear Term`
-
-        """
+        """Corresponds to IDD field `Ancillary Electricity Linear Term`"""
         self["Ancillary Electricity Linear Term"] = value
 
     @property
     def skin_loss_calculation_mode(self):
         """field `Skin Loss Calculation Mode`
-        
 
         Args:
             value (str): value for IDD Field `Skin Loss Calculation Mode`
@@ -4809,20 +6339,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `skin_loss_calculation_mode` or None if not set
+
         """
         return self["Skin Loss Calculation Mode"]
 
     @skin_loss_calculation_mode.setter
     def skin_loss_calculation_mode(self, value=None):
-        """  Corresponds to IDD field `Skin Loss Calculation Mode`
-
-        """
+        """Corresponds to IDD field `Skin Loss Calculation Mode`"""
         self["Skin Loss Calculation Mode"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4832,20 +6360,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def skin_loss_radiative_fraction(self):
         """field `Skin Loss Radiative Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -4856,20 +6383,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
+
         """
         return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Skin Loss Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Skin Loss Radiative Fraction`"""
         self["Skin Loss Radiative Fraction"] = value
 
     @property
     def constant_skin_loss_rate(self):
         """field `Constant Skin Loss Rate`
-        
+
         |  Units: W
 
         Args:
@@ -4880,20 +6406,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `constant_skin_loss_rate` or None if not set
+
         """
         return self["Constant Skin Loss Rate"]
 
     @constant_skin_loss_rate.setter
     def constant_skin_loss_rate(self, value=None):
-        """  Corresponds to IDD field `Constant Skin Loss Rate`
-
-        """
+        """Corresponds to IDD field `Constant Skin Loss Rate`"""
         self["Constant Skin Loss Rate"] = value
 
     @property
     def skin_loss_ufactor_times_area_term(self):
         """field `Skin Loss U-Factor Times Area Term`
-        
+
         |  Units: W/K
 
         Args:
@@ -4917,7 +6442,7 @@ class GeneratorFuelCellPowerModule(DataObject):
     @property
     def skin_loss_quadratic_curve_name(self):
         """field `Skin Loss Quadratic Curve Name`
-        
+
         |  curve is function of fuel use rate
 
         Args:
@@ -4928,20 +6453,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `skin_loss_quadratic_curve_name` or None if not set
+
         """
         return self["Skin Loss Quadratic Curve Name"]
 
     @skin_loss_quadratic_curve_name.setter
     def skin_loss_quadratic_curve_name(self, value=None):
-        """  Corresponds to IDD field `Skin Loss Quadratic Curve Name`
-
-        """
+        """Corresponds to IDD field `Skin Loss Quadratic Curve Name`"""
         self["Skin Loss Quadratic Curve Name"] = value
 
     @property
     def dilution_air_flow_rate(self):
         """field `Dilution Air Flow Rate`
-        
+
         |  Units: kmol/s
 
         Args:
@@ -4952,20 +6476,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `dilution_air_flow_rate` or None if not set
+
         """
         return self["Dilution Air Flow Rate"]
 
     @dilution_air_flow_rate.setter
     def dilution_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Dilution Air Flow Rate`
-
-        """
+        """Corresponds to IDD field `Dilution Air Flow Rate`"""
         self["Dilution Air Flow Rate"] = value
 
     @property
     def stack_heat_loss_to_dilution_air(self):
         """field `Stack Heat loss to Dilution Air`
-        
+
         |  Units: W
 
         Args:
@@ -4976,20 +6499,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `stack_heat_loss_to_dilution_air` or None if not set
+
         """
         return self["Stack Heat loss to Dilution Air"]
 
     @stack_heat_loss_to_dilution_air.setter
     def stack_heat_loss_to_dilution_air(self, value=None):
-        """  Corresponds to IDD field `Stack Heat loss to Dilution Air`
-
-        """
+        """Corresponds to IDD field `Stack Heat loss to Dilution Air`"""
         self["Stack Heat loss to Dilution Air"] = value
 
     @property
     def dilution_inlet_air_node_name(self):
         """field `Dilution Inlet Air Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Dilution Inlet Air Node Name`
@@ -4999,20 +6520,18 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `dilution_inlet_air_node_name` or None if not set
+
         """
         return self["Dilution Inlet Air Node Name"]
 
     @dilution_inlet_air_node_name.setter
     def dilution_inlet_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Dilution Inlet Air Node Name`
-
-        """
+        """Corresponds to IDD field `Dilution Inlet Air Node Name`"""
         self["Dilution Inlet Air Node Name"] = value
 
     @property
     def dilution_outlet_air_node_name(self):
         """field `Dilution Outlet Air Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Dilution Outlet Air Node Name`
@@ -5022,20 +6541,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             str: the value of `dilution_outlet_air_node_name` or None if not set
+
         """
         return self["Dilution Outlet Air Node Name"]
 
     @dilution_outlet_air_node_name.setter
     def dilution_outlet_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Dilution Outlet Air Node Name`
-
-        """
+        """Corresponds to IDD field `Dilution Outlet Air Node Name`"""
         self["Dilution Outlet Air Node Name"] = value
 
     @property
     def minimum_operating_point(self):
         """field `Minimum Operating Point`
-        
+
         |  Units: W
 
         Args:
@@ -5046,20 +6564,19 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `minimum_operating_point` or None if not set
+
         """
         return self["Minimum Operating Point"]
 
     @minimum_operating_point.setter
     def minimum_operating_point(self, value=None):
-        """  Corresponds to IDD field `Minimum Operating Point`
-
-        """
+        """Corresponds to IDD field `Minimum Operating Point`"""
         self["Minimum Operating Point"] = value
 
     @property
     def maximum_operating_point(self):
         """field `Maximum Operating Point`
-        
+
         |  Units: W
 
         Args:
@@ -5070,37 +6587,153 @@ class GeneratorFuelCellPowerModule(DataObject):
 
         Returns:
             float: the value of `maximum_operating_point` or None if not set
+
         """
         return self["Maximum Operating Point"]
 
     @maximum_operating_point.setter
     def maximum_operating_point(self, value=None):
-        """  Corresponds to IDD field `Maximum Operating Point`
-
-        """
+        """Corresponds to IDD field `Maximum Operating Point`"""
         self["Maximum Operating Point"] = value
 
 
 
 
 class GeneratorFuelCellAirSupply(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:AirSupply`
         Used to define details of the air supply subsystem for a fuel cell power generator.
     """
-    _schema = {'extensible-fields': OrderedDict([(u'constituent 1 name', {'name': u'Constituent 1 Name', 'pyname': u'constituent_1_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon'], 'autocalculatable': False, 'type': 'alpha'}), (u'molar fraction 1', {'name': u'Molar Fraction 1', 'pyname': u'molar_fraction_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'blower power curve name', {'name': u'Blower Power Curve Name', 'pyname': u'blower_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'blower heat loss factor', {'name': u'Blower Heat Loss Factor', 'pyname': u'blower_heat_loss_factor', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'air supply rate calculation mode', {'name': u'Air Supply Rate Calculation Mode', 'pyname': u'air_supply_rate_calculation_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirRatiobyStoics', u'QuadraticFunctionofElectricPower', u'QuadraticFunctionofFuelRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'stoichiometric ratio', {'name': u'Stoichiometric Ratio', 'pyname': u'stoichiometric_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air rate function of electric power curve name', {'name': u'Air Rate Function of Electric Power Curve Name', 'pyname': u'air_rate_function_of_electric_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air rate air temperature coefficient', {'name': u'Air Rate Air Temperature Coefficient', 'pyname': u'air_rate_air_temperature_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air rate function of fuel rate curve name', {'name': u'Air Rate Function of Fuel Rate Curve Name', 'pyname': u'air_rate_function_of_fuel_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air intake heat recovery mode', {'name': u'Air Intake Heat Recovery Mode', 'pyname': u'air_intake_heat_recovery_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NoRecovery', u'RecoverBurnerInverterStorage', u'RecoverAuxiliaryBurner', u'RecoverInverterandStorage', u'RecoverInverter', u'RecoverElectricalStorage'], 'autocalculatable': False, 'type': 'alpha'}), (u'air supply constituent mode', {'name': u'Air Supply Constituent Mode', 'pyname': u'air_supply_constituent_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AmbientAir', u'UserDefinedConstituents'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of userdefined constituents', {'name': u'Number of UserDefined Constituents', 'pyname': u'number_of_userdefined_constituents', 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:AirSupply',
- 'pyname': u'GeneratorFuelCellAirSupply',
- 'required-object': False,
- 'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict([(u'constituent 1 name',
+                                                  {'name': u'Constituent 1 Name',
+                                                   'pyname': u'constituent_1_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'accepted-values': [u'CarbonDioxide',
+                                                                       u'Nitrogen',
+                                                                       u'Oxygen',
+                                                                       u'Water',
+                                                                       u'Argon'],
+                                                      'autocalculatable': False,
+                                                      'type': 'alpha'}),
+                                                 (u'molar fraction 1',
+                                                  {'name': u'Molar Fraction 1',
+                                                   'pyname': u'molar_fraction_1',
+                                                   'maximum': 1.0,
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'minimum': 0.0,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'air inlet node name',
+                                       {'name': u'Air Inlet Node Name',
+                                        'pyname': u'air_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'blower power curve name',
+                                       {'name': u'Blower Power Curve Name',
+                                        'pyname': u'blower_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'blower heat loss factor',
+                                       {'name': u'Blower Heat Loss Factor',
+                                        'pyname': u'blower_heat_loss_factor',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'air supply rate calculation mode',
+                                       {'name': u'Air Supply Rate Calculation Mode',
+                                        'pyname': u'air_supply_rate_calculation_mode',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'AirRatiobyStoics',
+                                                            u'QuadraticFunctionofElectricPower',
+                                                            u'QuadraticFunctionofFuelRate'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'stoichiometric ratio',
+                                       {'name': u'Stoichiometric Ratio',
+                                        'pyname': u'stoichiometric_ratio',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'air rate function of electric power curve name',
+                                       {'name': u'Air Rate Function of Electric Power Curve Name',
+                                        'pyname': u'air_rate_function_of_electric_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'air rate air temperature coefficient',
+                                       {'name': u'Air Rate Air Temperature Coefficient',
+                                        'pyname': u'air_rate_air_temperature_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'air rate function of fuel rate curve name',
+                                       {'name': u'Air Rate Function of Fuel Rate Curve Name',
+                                        'pyname': u'air_rate_function_of_fuel_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'air intake heat recovery mode',
+                                       {'name': u'Air Intake Heat Recovery Mode',
+                                        'pyname': u'air_intake_heat_recovery_mode',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'NoRecovery',
+                                                            u'RecoverBurnerInverterStorage',
+                                                            u'RecoverAuxiliaryBurner',
+                                                            u'RecoverInverterandStorage',
+                                                            u'RecoverInverter',
+                                                            u'RecoverElectricalStorage'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'air supply constituent mode',
+                                       {'name': u'Air Supply Constituent Mode',
+                                        'pyname': u'air_supply_constituent_mode',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'AmbientAir',
+                                                            u'UserDefinedConstituents'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'number of userdefined constituents',
+                                       {'name': u'Number of UserDefined Constituents',
+                                        'pyname': u'number_of_userdefined_constituents',
+                                        'maximum': 5.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:AirSupply',
+               'pyname': u'GeneratorFuelCellAirSupply',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5110,20 +6743,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def air_inlet_node_name(self):
         """field `Air Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -5133,20 +6764,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Air Inlet Node Name`"""
         self["Air Inlet Node Name"] = value
 
     @property
     def blower_power_curve_name(self):
         """field `Blower Power Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Blower Power Curve Name`
@@ -5156,20 +6785,19 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `blower_power_curve_name` or None if not set
+
         """
         return self["Blower Power Curve Name"]
 
     @blower_power_curve_name.setter
     def blower_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Blower Power Curve Name`
-
-        """
+        """Corresponds to IDD field `Blower Power Curve Name`"""
         self["Blower Power Curve Name"] = value
 
     @property
     def blower_heat_loss_factor(self):
         """field `Blower Heat Loss Factor`
-        
+
         |  value <= 1.0
 
         Args:
@@ -5180,20 +6808,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             float: the value of `blower_heat_loss_factor` or None if not set
+
         """
         return self["Blower Heat Loss Factor"]
 
     @blower_heat_loss_factor.setter
     def blower_heat_loss_factor(self, value=None):
-        """  Corresponds to IDD field `Blower Heat Loss Factor`
-
-        """
+        """Corresponds to IDD field `Blower Heat Loss Factor`"""
         self["Blower Heat Loss Factor"] = value
 
     @property
     def air_supply_rate_calculation_mode(self):
         """field `Air Supply Rate Calculation Mode`
-        
 
         Args:
             value (str): value for IDD Field `Air Supply Rate Calculation Mode`
@@ -5203,20 +6829,19 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_supply_rate_calculation_mode` or None if not set
+
         """
         return self["Air Supply Rate Calculation Mode"]
 
     @air_supply_rate_calculation_mode.setter
     def air_supply_rate_calculation_mode(self, value=None):
-        """  Corresponds to IDD field `Air Supply Rate Calculation Mode`
-
-        """
+        """Corresponds to IDD field `Air Supply Rate Calculation Mode`"""
         self["Air Supply Rate Calculation Mode"] = value
 
     @property
     def stoichiometric_ratio(self):
         """field `Stoichiometric Ratio`
-        
+
         |  This is the excess air "stoics"
         |  the value entered is incremented by 1 in the model.
 
@@ -5228,20 +6853,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             float: the value of `stoichiometric_ratio` or None if not set
+
         """
         return self["Stoichiometric Ratio"]
 
     @stoichiometric_ratio.setter
     def stoichiometric_ratio(self, value=None):
-        """  Corresponds to IDD field `Stoichiometric Ratio`
-
-        """
+        """Corresponds to IDD field `Stoichiometric Ratio`"""
         self["Stoichiometric Ratio"] = value
 
     @property
     def air_rate_function_of_electric_power_curve_name(self):
         """field `Air Rate Function of Electric Power Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Rate Function of Electric Power Curve Name`
@@ -5251,20 +6874,19 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_rate_function_of_electric_power_curve_name` or None if not set
+
         """
         return self["Air Rate Function of Electric Power Curve Name"]
 
     @air_rate_function_of_electric_power_curve_name.setter
     def air_rate_function_of_electric_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Air Rate Function of Electric Power Curve Name`
-
-        """
+        """Corresponds to IDD field `Air Rate Function of Electric Power Curve
+        Name`"""
         self["Air Rate Function of Electric Power Curve Name"] = value
 
     @property
     def air_rate_air_temperature_coefficient(self):
         """field `Air Rate Air Temperature Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Air Rate Air Temperature Coefficient`
@@ -5274,20 +6896,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             float: the value of `air_rate_air_temperature_coefficient` or None if not set
+
         """
         return self["Air Rate Air Temperature Coefficient"]
 
     @air_rate_air_temperature_coefficient.setter
     def air_rate_air_temperature_coefficient(self, value=None):
-        """  Corresponds to IDD field `Air Rate Air Temperature Coefficient`
-
-        """
+        """Corresponds to IDD field `Air Rate Air Temperature Coefficient`"""
         self["Air Rate Air Temperature Coefficient"] = value
 
     @property
     def air_rate_function_of_fuel_rate_curve_name(self):
         """field `Air Rate Function of Fuel Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Rate Function of Fuel Rate Curve Name`
@@ -5297,20 +6917,19 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_rate_function_of_fuel_rate_curve_name` or None if not set
+
         """
         return self["Air Rate Function of Fuel Rate Curve Name"]
 
     @air_rate_function_of_fuel_rate_curve_name.setter
     def air_rate_function_of_fuel_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Air Rate Function of Fuel Rate Curve Name`
-
-        """
+        """Corresponds to IDD field `Air Rate Function of Fuel Rate Curve
+        Name`"""
         self["Air Rate Function of Fuel Rate Curve Name"] = value
 
     @property
     def air_intake_heat_recovery_mode(self):
         """field `Air Intake Heat Recovery Mode`
-        
 
         Args:
             value (str): value for IDD Field `Air Intake Heat Recovery Mode`
@@ -5320,20 +6939,18 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_intake_heat_recovery_mode` or None if not set
+
         """
         return self["Air Intake Heat Recovery Mode"]
 
     @air_intake_heat_recovery_mode.setter
     def air_intake_heat_recovery_mode(self, value=None):
-        """  Corresponds to IDD field `Air Intake Heat Recovery Mode`
-
-        """
+        """Corresponds to IDD field `Air Intake Heat Recovery Mode`"""
         self["Air Intake Heat Recovery Mode"] = value
 
     @property
     def air_supply_constituent_mode(self):
         """field `Air Supply Constituent Mode`
-        
 
         Args:
             value (str): value for IDD Field `Air Supply Constituent Mode`
@@ -5343,20 +6960,19 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             str: the value of `air_supply_constituent_mode` or None if not set
+
         """
         return self["Air Supply Constituent Mode"]
 
     @air_supply_constituent_mode.setter
     def air_supply_constituent_mode(self, value=None):
-        """  Corresponds to IDD field `Air Supply Constituent Mode`
-
-        """
+        """Corresponds to IDD field `Air Supply Constituent Mode`"""
         self["Air Supply Constituent Mode"] = value
 
     @property
     def number_of_userdefined_constituents(self):
         """field `Number of UserDefined Constituents`
-        
+
         |  value <= 5.0
 
         Args:
@@ -5367,21 +6983,20 @@ class GeneratorFuelCellAirSupply(DataObject):
 
         Returns:
             float: the value of `number_of_userdefined_constituents` or None if not set
+
         """
         return self["Number of UserDefined Constituents"]
 
     @number_of_userdefined_constituents.setter
     def number_of_userdefined_constituents(self, value=None):
-        """  Corresponds to IDD field `Number of UserDefined Constituents`
-
-        """
+        """Corresponds to IDD field `Number of UserDefined Constituents`"""
         self["Number of UserDefined Constituents"] = value
 
     def add_extensible(self,
                        constituent_1_name=None,
                        molar_fraction_1=None,
                        ):
-        """ Add values for extensible fields
+        """Add values for extensible fields.
 
         Args:
 
@@ -5393,26 +7008,31 @@ class GeneratorFuelCellAirSupply(DataObject):
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+
         """
         vals = []
-        constituent_1_name = self.check_value("Constituent 1 Name", constituent_1_name)
+        constituent_1_name = self.check_value(
+            "Constituent 1 Name",
+            constituent_1_name)
         vals.append(constituent_1_name)
-        molar_fraction_1 = self.check_value("Molar Fraction 1", molar_fraction_1)
+        molar_fraction_1 = self.check_value(
+            "Molar Fraction 1",
+            molar_fraction_1)
         vals.append(molar_fraction_1)
         self._extdata.append(vals)
 
     @property
     def extensibles(self):
-        """ Get list of all extensibles
-        """
+        """Get list of all extensibles."""
         return self._extdata
 
     @extensibles.setter
     def extensibles(self, extensibles):
-        """ Replaces extensible fields with `extensibles`
+        """Replaces extensible fields with `extensibles`
 
         Args:
             extensibles (list): nested list of extensible values
+
         """
         self._extdata = []
         for ext in extensibles:
@@ -5422,25 +7042,77 @@ class GeneratorFuelCellAirSupply(DataObject):
 
 
 class GeneratorFuelCellWaterSupply(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:WaterSupply`
         Used to provide details of the water supply subsystem for a fuel cell power generator.
         This water is used for steam reforming of the fuel and is not the same
         as the water used for thermal heat recovery.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reformer water flow rate function of fuel rate curve name', {'name': u'Reformer Water Flow Rate Function of Fuel Rate Curve Name', 'pyname': u'reformer_water_flow_rate_function_of_fuel_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reformer water pump power function of fuel rate curve name', {'name': u'Reformer Water Pump Power Function of Fuel Rate Curve Name', 'pyname': u'reformer_water_pump_power_function_of_fuel_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump heat loss factor', {'name': u'Pump Heat Loss Factor', 'pyname': u'pump_heat_loss_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'water temperature modeling mode', {'name': u'Water Temperature Modeling Mode', 'pyname': u'water_temperature_modeling_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'TemperatureFromAirNode', u'TemperatureFromWaterNode', u'TemperatureFromSchedule', u'MainsWaterTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'water temperature reference node name', {'name': u'Water Temperature Reference Node Name', 'pyname': u'water_temperature_reference_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water temperature schedule name', {'name': u'Water Temperature Schedule Name', 'pyname': u'water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:WaterSupply',
- 'pyname': u'GeneratorFuelCellWaterSupply',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'reformer water flow rate function of fuel rate curve name',
+                                       {'name': u'Reformer Water Flow Rate Function of Fuel Rate Curve Name',
+                                        'pyname': u'reformer_water_flow_rate_function_of_fuel_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'reformer water pump power function of fuel rate curve name',
+                                       {'name': u'Reformer Water Pump Power Function of Fuel Rate Curve Name',
+                                        'pyname': u'reformer_water_pump_power_function_of_fuel_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'pump heat loss factor',
+                                       {'name': u'Pump Heat Loss Factor',
+                                        'pyname': u'pump_heat_loss_factor',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'water temperature modeling mode',
+                                       {'name': u'Water Temperature Modeling Mode',
+                                        'pyname': u'water_temperature_modeling_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'TemperatureFromAirNode',
+                                                            u'TemperatureFromWaterNode',
+                                                            u'TemperatureFromSchedule',
+                                                            u'MainsWaterTemperature'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'water temperature reference node name',
+                                       {'name': u'Water Temperature Reference Node Name',
+                                        'pyname': u'water_temperature_reference_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'water temperature schedule name',
+                                       {'name': u'Water Temperature Schedule Name',
+                                        'pyname': u'water_temperature_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:WaterSupply',
+               'pyname': u'GeneratorFuelCellWaterSupply',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5450,20 +7122,18 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def reformer_water_flow_rate_function_of_fuel_rate_curve_name(self):
         """field `Reformer Water Flow Rate Function of Fuel Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Reformer Water Flow Rate Function of Fuel Rate Curve Name`
@@ -5473,20 +7143,23 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `reformer_water_flow_rate_function_of_fuel_rate_curve_name` or None if not set
+
         """
-        return self["Reformer Water Flow Rate Function of Fuel Rate Curve Name"]
+        return self[
+            "Reformer Water Flow Rate Function of Fuel Rate Curve Name"]
 
     @reformer_water_flow_rate_function_of_fuel_rate_curve_name.setter
-    def reformer_water_flow_rate_function_of_fuel_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Reformer Water Flow Rate Function of Fuel Rate Curve Name`
-
-        """
-        self["Reformer Water Flow Rate Function of Fuel Rate Curve Name"] = value
+    def reformer_water_flow_rate_function_of_fuel_rate_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Reformer Water Flow Rate Function of Fuel
+        Rate Curve Name`"""
+        self[
+            "Reformer Water Flow Rate Function of Fuel Rate Curve Name"] = value
 
     @property
     def reformer_water_pump_power_function_of_fuel_rate_curve_name(self):
         """field `Reformer Water Pump Power Function of Fuel Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Reformer Water Pump Power Function of Fuel Rate Curve Name`
@@ -5496,20 +7169,23 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `reformer_water_pump_power_function_of_fuel_rate_curve_name` or None if not set
+
         """
-        return self["Reformer Water Pump Power Function of Fuel Rate Curve Name"]
+        return self[
+            "Reformer Water Pump Power Function of Fuel Rate Curve Name"]
 
     @reformer_water_pump_power_function_of_fuel_rate_curve_name.setter
-    def reformer_water_pump_power_function_of_fuel_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Reformer Water Pump Power Function of Fuel Rate Curve Name`
-
-        """
-        self["Reformer Water Pump Power Function of Fuel Rate Curve Name"] = value
+    def reformer_water_pump_power_function_of_fuel_rate_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Reformer Water Pump Power Function of Fuel
+        Rate Curve Name`"""
+        self[
+            "Reformer Water Pump Power Function of Fuel Rate Curve Name"] = value
 
     @property
     def pump_heat_loss_factor(self):
         """field `Pump Heat Loss Factor`
-        
 
         Args:
             value (float): value for IDD Field `Pump Heat Loss Factor`
@@ -5519,20 +7195,18 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             float: the value of `pump_heat_loss_factor` or None if not set
+
         """
         return self["Pump Heat Loss Factor"]
 
     @pump_heat_loss_factor.setter
     def pump_heat_loss_factor(self, value=None):
-        """  Corresponds to IDD field `Pump Heat Loss Factor`
-
-        """
+        """Corresponds to IDD field `Pump Heat Loss Factor`"""
         self["Pump Heat Loss Factor"] = value
 
     @property
     def water_temperature_modeling_mode(self):
         """field `Water Temperature Modeling Mode`
-        
 
         Args:
             value (str): value for IDD Field `Water Temperature Modeling Mode`
@@ -5542,20 +7216,18 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `water_temperature_modeling_mode` or None if not set
+
         """
         return self["Water Temperature Modeling Mode"]
 
     @water_temperature_modeling_mode.setter
     def water_temperature_modeling_mode(self, value=None):
-        """  Corresponds to IDD field `Water Temperature Modeling Mode`
-
-        """
+        """Corresponds to IDD field `Water Temperature Modeling Mode`"""
         self["Water Temperature Modeling Mode"] = value
 
     @property
     def water_temperature_reference_node_name(self):
         """field `Water Temperature Reference Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Water Temperature Reference Node Name`
@@ -5565,20 +7237,18 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `water_temperature_reference_node_name` or None if not set
+
         """
         return self["Water Temperature Reference Node Name"]
 
     @water_temperature_reference_node_name.setter
     def water_temperature_reference_node_name(self, value=None):
-        """  Corresponds to IDD field `Water Temperature Reference Node Name`
-
-        """
+        """Corresponds to IDD field `Water Temperature Reference Node Name`"""
         self["Water Temperature Reference Node Name"] = value
 
     @property
     def water_temperature_schedule_name(self):
         """field `Water Temperature Schedule Name`
-        
 
         Args:
             value (str): value for IDD Field `Water Temperature Schedule Name`
@@ -5588,20 +7258,20 @@ class GeneratorFuelCellWaterSupply(DataObject):
 
         Returns:
             str: the value of `water_temperature_schedule_name` or None if not set
+
         """
         return self["Water Temperature Schedule Name"]
 
     @water_temperature_schedule_name.setter
     def water_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Water Temperature Schedule Name`
-
-        """
+        """Corresponds to IDD field `Water Temperature Schedule Name`"""
         self["Water Temperature Schedule Name"] = value
 
 
 
 
 class GeneratorFuelCellAuxiliaryHeater(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:AuxiliaryHeater`
         Intended for modeling an auxiliary heater for a fuel cell power generator, however this
         portion of the model is not yet available. The program still requires one of these
@@ -5609,19 +7279,110 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
         structures can be allocated).
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'excess air ratio', {'name': u'Excess Air Ratio', 'pyname': u'excess_air_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'ancillary power constant term', {'name': u'Ancillary Power Constant Term', 'pyname': u'ancillary_power_constant_term', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'ancillary power linear term', {'name': u'Ancillary Power Linear Term', 'pyname': u'ancillary_power_linear_term', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'skin loss u-factor times area value', {'name': u'Skin Loss U-Factor Times Area Value', 'pyname': u'skin_loss_ufactor_times_area_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'skin loss destination', {'name': u'Skin Loss Destination', 'pyname': u'skin_loss_destination', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SurroundingZone', u'AirInletForFuelCell'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name to receive skin losses', {'name': u'Zone Name to Receive Skin Losses', 'pyname': u'zone_name_to_receive_skin_losses', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating capacity units', {'name': u'Heating Capacity Units', 'pyname': u'heating_capacity_units', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Watts', u'kmol/s'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum heating capacity in watts', {'name': u'Maximum Heating Capacity in Watts', 'pyname': u'maximum_heating_capacity_in_watts', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum heating capacity in watts', {'name': u'Minimum Heating Capacity in Watts', 'pyname': u'minimum_heating_capacity_in_watts', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'maximum heating capacity in kmol per second', {'name': u'Maximum Heating Capacity in Kmol per Second', 'pyname': u'maximum_heating_capacity_in_kmol_per_second', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kmol/s'}), (u'minimum heating capacity in kmol per second', {'name': u'Minimum Heating Capacity in Kmol per Second', 'pyname': u'minimum_heating_capacity_in_kmol_per_second', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kmol/s'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:AuxiliaryHeater',
- 'pyname': u'GeneratorFuelCellAuxiliaryHeater',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'excess air ratio',
+                                       {'name': u'Excess Air Ratio',
+                                        'pyname': u'excess_air_ratio',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'ancillary power constant term',
+                                       {'name': u'Ancillary Power Constant Term',
+                                        'pyname': u'ancillary_power_constant_term',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'ancillary power linear term',
+                                       {'name': u'Ancillary Power Linear Term',
+                                        'pyname': u'ancillary_power_linear_term',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'skin loss u-factor times area value',
+                                       {'name': u'Skin Loss U-Factor Times Area Value',
+                                        'pyname': u'skin_loss_ufactor_times_area_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'skin loss destination',
+                                       {'name': u'Skin Loss Destination',
+                                        'pyname': u'skin_loss_destination',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'SurroundingZone',
+                                                            u'AirInletForFuelCell'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'zone name to receive skin losses',
+                                       {'name': u'Zone Name to Receive Skin Losses',
+                                        'pyname': u'zone_name_to_receive_skin_losses',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'heating capacity units',
+                                       {'name': u'Heating Capacity Units',
+                                        'pyname': u'heating_capacity_units',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Watts',
+                                                            u'kmol/s'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'maximum heating capacity in watts',
+                                       {'name': u'Maximum Heating Capacity in Watts',
+                                        'pyname': u'maximum_heating_capacity_in_watts',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'minimum heating capacity in watts',
+                                       {'name': u'Minimum Heating Capacity in Watts',
+                                        'pyname': u'minimum_heating_capacity_in_watts',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'maximum heating capacity in kmol per second',
+                                       {'name': u'Maximum Heating Capacity in Kmol per Second',
+                                        'pyname': u'maximum_heating_capacity_in_kmol_per_second',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kmol/s'}),
+                                      (u'minimum heating capacity in kmol per second',
+                                       {'name': u'Minimum Heating Capacity in Kmol per Second',
+                                        'pyname': u'minimum_heating_capacity_in_kmol_per_second',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kmol/s'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:AuxiliaryHeater',
+               'pyname': u'GeneratorFuelCellAuxiliaryHeater',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5631,20 +7392,18 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def excess_air_ratio(self):
         """field `Excess Air Ratio`
-        
 
         Args:
             value (float): value for IDD Field `Excess Air Ratio`
@@ -5654,20 +7413,18 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `excess_air_ratio` or None if not set
+
         """
         return self["Excess Air Ratio"]
 
     @excess_air_ratio.setter
     def excess_air_ratio(self, value=None):
-        """  Corresponds to IDD field `Excess Air Ratio`
-
-        """
+        """Corresponds to IDD field `Excess Air Ratio`"""
         self["Excess Air Ratio"] = value
 
     @property
     def ancillary_power_constant_term(self):
         """field `Ancillary Power Constant Term`
-        
 
         Args:
             value (float): value for IDD Field `Ancillary Power Constant Term`
@@ -5677,20 +7434,18 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `ancillary_power_constant_term` or None if not set
+
         """
         return self["Ancillary Power Constant Term"]
 
     @ancillary_power_constant_term.setter
     def ancillary_power_constant_term(self, value=None):
-        """  Corresponds to IDD field `Ancillary Power Constant Term`
-
-        """
+        """Corresponds to IDD field `Ancillary Power Constant Term`"""
         self["Ancillary Power Constant Term"] = value
 
     @property
     def ancillary_power_linear_term(self):
         """field `Ancillary Power Linear Term`
-        
 
         Args:
             value (float): value for IDD Field `Ancillary Power Linear Term`
@@ -5700,20 +7455,19 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `ancillary_power_linear_term` or None if not set
+
         """
         return self["Ancillary Power Linear Term"]
 
     @ancillary_power_linear_term.setter
     def ancillary_power_linear_term(self, value=None):
-        """  Corresponds to IDD field `Ancillary Power Linear Term`
-
-        """
+        """Corresponds to IDD field `Ancillary Power Linear Term`"""
         self["Ancillary Power Linear Term"] = value
 
     @property
     def skin_loss_ufactor_times_area_value(self):
         """field `Skin Loss U-Factor Times Area Value`
-        
+
         |  Units: W/K
 
         Args:
@@ -5737,7 +7491,6 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
     @property
     def skin_loss_destination(self):
         """field `Skin Loss Destination`
-        
 
         Args:
             value (str): value for IDD Field `Skin Loss Destination`
@@ -5747,20 +7500,18 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             str: the value of `skin_loss_destination` or None if not set
+
         """
         return self["Skin Loss Destination"]
 
     @skin_loss_destination.setter
     def skin_loss_destination(self, value=None):
-        """  Corresponds to IDD field `Skin Loss Destination`
-
-        """
+        """Corresponds to IDD field `Skin Loss Destination`"""
         self["Skin Loss Destination"] = value
 
     @property
     def zone_name_to_receive_skin_losses(self):
         """field `Zone Name to Receive Skin Losses`
-        
 
         Args:
             value (str): value for IDD Field `Zone Name to Receive Skin Losses`
@@ -5770,20 +7521,18 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             str: the value of `zone_name_to_receive_skin_losses` or None if not set
+
         """
         return self["Zone Name to Receive Skin Losses"]
 
     @zone_name_to_receive_skin_losses.setter
     def zone_name_to_receive_skin_losses(self, value=None):
-        """  Corresponds to IDD field `Zone Name to Receive Skin Losses`
-
-        """
+        """Corresponds to IDD field `Zone Name to Receive Skin Losses`"""
         self["Zone Name to Receive Skin Losses"] = value
 
     @property
     def heating_capacity_units(self):
         """field `Heating Capacity Units`
-        
 
         Args:
             value (str): value for IDD Field `Heating Capacity Units`
@@ -5793,20 +7542,19 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             str: the value of `heating_capacity_units` or None if not set
+
         """
         return self["Heating Capacity Units"]
 
     @heating_capacity_units.setter
     def heating_capacity_units(self, value=None):
-        """  Corresponds to IDD field `Heating Capacity Units`
-
-        """
+        """Corresponds to IDD field `Heating Capacity Units`"""
         self["Heating Capacity Units"] = value
 
     @property
     def maximum_heating_capacity_in_watts(self):
         """field `Maximum Heating Capacity in Watts`
-        
+
         |  Units: W
 
         Args:
@@ -5817,20 +7565,19 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `maximum_heating_capacity_in_watts` or None if not set
+
         """
         return self["Maximum Heating Capacity in Watts"]
 
     @maximum_heating_capacity_in_watts.setter
     def maximum_heating_capacity_in_watts(self, value=None):
-        """  Corresponds to IDD field `Maximum Heating Capacity in Watts`
-
-        """
+        """Corresponds to IDD field `Maximum Heating Capacity in Watts`"""
         self["Maximum Heating Capacity in Watts"] = value
 
     @property
     def minimum_heating_capacity_in_watts(self):
         """field `Minimum Heating Capacity in Watts`
-        
+
         |  Units: W
 
         Args:
@@ -5841,20 +7588,19 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `minimum_heating_capacity_in_watts` or None if not set
+
         """
         return self["Minimum Heating Capacity in Watts"]
 
     @minimum_heating_capacity_in_watts.setter
     def minimum_heating_capacity_in_watts(self, value=None):
-        """  Corresponds to IDD field `Minimum Heating Capacity in Watts`
-
-        """
+        """Corresponds to IDD field `Minimum Heating Capacity in Watts`"""
         self["Minimum Heating Capacity in Watts"] = value
 
     @property
     def maximum_heating_capacity_in_kmol_per_second(self):
         """field `Maximum Heating Capacity in Kmol per Second`
-        
+
         |  Units: kmol/s
 
         Args:
@@ -5865,20 +7611,20 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `maximum_heating_capacity_in_kmol_per_second` or None if not set
+
         """
         return self["Maximum Heating Capacity in Kmol per Second"]
 
     @maximum_heating_capacity_in_kmol_per_second.setter
     def maximum_heating_capacity_in_kmol_per_second(self, value=None):
-        """  Corresponds to IDD field `Maximum Heating Capacity in Kmol per Second`
-
-        """
+        """Corresponds to IDD field `Maximum Heating Capacity in Kmol per
+        Second`"""
         self["Maximum Heating Capacity in Kmol per Second"] = value
 
     @property
     def minimum_heating_capacity_in_kmol_per_second(self):
         """field `Minimum Heating Capacity in Kmol per Second`
-        
+
         |  Units: kmol/s
 
         Args:
@@ -5889,38 +7635,213 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
 
         Returns:
             float: the value of `minimum_heating_capacity_in_kmol_per_second` or None if not set
+
         """
         return self["Minimum Heating Capacity in Kmol per Second"]
 
     @minimum_heating_capacity_in_kmol_per_second.setter
     def minimum_heating_capacity_in_kmol_per_second(self, value=None):
-        """  Corresponds to IDD field `Minimum Heating Capacity in Kmol per Second`
-
-        """
+        """Corresponds to IDD field `Minimum Heating Capacity in Kmol per
+        Second`"""
         self["Minimum Heating Capacity in Kmol per Second"] = value
 
 
 
 
 class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:ExhaustGasToWaterHeatExchanger`
         Describes the exhaust gas heat exchanger subsystem of a fuel cell power generator
         used to recovery thermal energy
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water maximum flow rate', {'name': u'Heat Recovery Water Maximum Flow Rate', 'pyname': u'heat_recovery_water_maximum_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'exhaust outlet air node name', {'name': u'Exhaust Outlet Air Node Name', 'pyname': u'exhaust_outlet_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat exchanger calculation method', {'name': u'Heat Exchanger Calculation Method', 'pyname': u'heat_exchanger_calculation_method', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedEffectiveness', u'EmpiricalUAeff', u'FundementalUAeff', u'Condensing'], 'autocalculatable': False, 'type': 'alpha'}), (u'method 1 heat exchanger effectiveness', {'name': u'Method 1 Heat Exchanger Effectiveness', 'pyname': u'method_1_heat_exchanger_effectiveness', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 2 parameter hxs0', {'name': u'Method 2 Parameter hxs0', 'pyname': u'method_2_parameter_hxs0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 2 parameter hxs1', {'name': u'Method 2 Parameter hxs1', 'pyname': u'method_2_parameter_hxs1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 2 parameter hxs2', {'name': u'Method 2 Parameter hxs2', 'pyname': u'method_2_parameter_hxs2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 2 parameter hxs3', {'name': u'Method 2 Parameter hxs3', 'pyname': u'method_2_parameter_hxs3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 2 parameter hxs4', {'name': u'Method 2 Parameter hxs4', 'pyname': u'method_2_parameter_hxs4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 h0gas coefficient', {'name': u'Method 3 h0Gas Coefficient', 'pyname': u'method_3_h0gas_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 ndotgasref coefficient', {'name': u'Method 3 NdotGasRef Coefficient', 'pyname': u'method_3_ndotgasref_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 n coefficient', {'name': u'Method 3 n Coefficient', 'pyname': u'method_3_n_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 gas area', {'name': u'Method 3 Gas Area', 'pyname': u'method_3_gas_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'method 3 h0 water coefficient', {'name': u'Method 3 h0 Water Coefficient', 'pyname': u'method_3_h0_water_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 n dot water ref coefficient', {'name': u'Method 3 N dot Water ref Coefficient', 'pyname': u'method_3_n_dot_water_ref_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 m coefficient', {'name': u'Method 3 m Coefficient', 'pyname': u'method_3_m_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 3 water area', {'name': u'Method 3 Water Area', 'pyname': u'method_3_water_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'method 3 f adjustment factor', {'name': u'Method 3 F Adjustment Factor', 'pyname': u'method_3_f_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 4 hxl1 coefficient', {'name': u'Method 4 hxl1 Coefficient', 'pyname': u'method_4_hxl1_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 4 hxl2 coefficient', {'name': u'Method 4 hxl2 Coefficient', 'pyname': u'method_4_hxl2_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'method 4 condensation threshold', {'name': u'Method 4 Condensation Threshold', 'pyname': u'method_4_condensation_threshold', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:ExhaustGasToWaterHeatExchanger',
- 'pyname': u'GeneratorFuelCellExhaustGasToWaterHeatExchanger',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'heat recovery water inlet node name',
+                                       {'name': u'Heat Recovery Water Inlet Node Name',
+                                        'pyname': u'heat_recovery_water_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery water outlet node name',
+                                       {'name': u'Heat Recovery Water Outlet Node Name',
+                                        'pyname': u'heat_recovery_water_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery water maximum flow rate',
+                                       {'name': u'Heat Recovery Water Maximum Flow Rate',
+                                        'pyname': u'heat_recovery_water_maximum_flow_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm3/s'}),
+                                      (u'exhaust outlet air node name',
+                                       {'name': u'Exhaust Outlet Air Node Name',
+                                        'pyname': u'exhaust_outlet_air_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat exchanger calculation method',
+                                       {'name': u'Heat Exchanger Calculation Method',
+                                        'pyname': u'heat_exchanger_calculation_method',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'FixedEffectiveness',
+                                                            u'EmpiricalUAeff',
+                                                            u'FundementalUAeff',
+                                                            u'Condensing'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'method 1 heat exchanger effectiveness',
+                                       {'name': u'Method 1 Heat Exchanger Effectiveness',
+                                        'pyname': u'method_1_heat_exchanger_effectiveness',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 2 parameter hxs0',
+                                       {'name': u'Method 2 Parameter hxs0',
+                                        'pyname': u'method_2_parameter_hxs0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 2 parameter hxs1',
+                                       {'name': u'Method 2 Parameter hxs1',
+                                        'pyname': u'method_2_parameter_hxs1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 2 parameter hxs2',
+                                       {'name': u'Method 2 Parameter hxs2',
+                                        'pyname': u'method_2_parameter_hxs2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 2 parameter hxs3',
+                                       {'name': u'Method 2 Parameter hxs3',
+                                        'pyname': u'method_2_parameter_hxs3',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 2 parameter hxs4',
+                                       {'name': u'Method 2 Parameter hxs4',
+                                        'pyname': u'method_2_parameter_hxs4',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 h0gas coefficient',
+                                       {'name': u'Method 3 h0Gas Coefficient',
+                                        'pyname': u'method_3_h0gas_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 ndotgasref coefficient',
+                                       {'name': u'Method 3 NdotGasRef Coefficient',
+                                        'pyname': u'method_3_ndotgasref_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 n coefficient',
+                                       {'name': u'Method 3 n Coefficient',
+                                        'pyname': u'method_3_n_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 gas area',
+                                       {'name': u'Method 3 Gas Area',
+                                        'pyname': u'method_3_gas_area',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm2'}),
+                                      (u'method 3 h0 water coefficient',
+                                       {'name': u'Method 3 h0 Water Coefficient',
+                                        'pyname': u'method_3_h0_water_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 n dot water ref coefficient',
+                                       {'name': u'Method 3 N dot Water ref Coefficient',
+                                        'pyname': u'method_3_n_dot_water_ref_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 m coefficient',
+                                       {'name': u'Method 3 m Coefficient',
+                                        'pyname': u'method_3_m_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 3 water area',
+                                       {'name': u'Method 3 Water Area',
+                                        'pyname': u'method_3_water_area',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm2'}),
+                                      (u'method 3 f adjustment factor',
+                                       {'name': u'Method 3 F Adjustment Factor',
+                                        'pyname': u'method_3_f_adjustment_factor',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 4 hxl1 coefficient',
+                                       {'name': u'Method 4 hxl1 Coefficient',
+                                        'pyname': u'method_4_hxl1_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 4 hxl2 coefficient',
+                                       {'name': u'Method 4 hxl2 Coefficient',
+                                        'pyname': u'method_4_hxl2_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'method 4 condensation threshold',
+                                       {'name': u'Method 4 Condensation Threshold',
+                                        'pyname': u'method_4_condensation_threshold',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:ExhaustGasToWaterHeatExchanger',
+               'pyname': u'GeneratorFuelCellExhaustGasToWaterHeatExchanger',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5930,20 +7851,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def heat_recovery_water_inlet_node_name(self):
         """field `Heat Recovery Water Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
@@ -5953,20 +7872,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_inlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Inlet Node Name"]
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Inlet Node Name`"""
         self["Heat Recovery Water Inlet Node Name"] = value
 
     @property
     def heat_recovery_water_outlet_node_name(self):
         """field `Heat Recovery Water Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
@@ -5976,20 +7893,19 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_outlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Outlet Node Name"]
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Outlet Node Name`"""
         self["Heat Recovery Water Outlet Node Name"] = value
 
     @property
     def heat_recovery_water_maximum_flow_rate(self):
         """field `Heat Recovery Water Maximum Flow Rate`
-        
+
         |  Units: m3/s
 
         Args:
@@ -6000,20 +7916,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `heat_recovery_water_maximum_flow_rate` or None if not set
+
         """
         return self["Heat Recovery Water Maximum Flow Rate"]
 
     @heat_recovery_water_maximum_flow_rate.setter
     def heat_recovery_water_maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Maximum Flow Rate`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Maximum Flow Rate`"""
         self["Heat Recovery Water Maximum Flow Rate"] = value
 
     @property
     def exhaust_outlet_air_node_name(self):
         """field `Exhaust Outlet Air Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Exhaust Outlet Air Node Name`
@@ -6023,20 +7937,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             str: the value of `exhaust_outlet_air_node_name` or None if not set
+
         """
         return self["Exhaust Outlet Air Node Name"]
 
     @exhaust_outlet_air_node_name.setter
     def exhaust_outlet_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Outlet Air Node Name`
-
-        """
+        """Corresponds to IDD field `Exhaust Outlet Air Node Name`"""
         self["Exhaust Outlet Air Node Name"] = value
 
     @property
     def heat_exchanger_calculation_method(self):
         """field `Heat Exchanger Calculation Method`
-        
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Calculation Method`
@@ -6046,20 +7958,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             str: the value of `heat_exchanger_calculation_method` or None if not set
+
         """
         return self["Heat Exchanger Calculation Method"]
 
     @heat_exchanger_calculation_method.setter
     def heat_exchanger_calculation_method(self, value=None):
-        """  Corresponds to IDD field `Heat Exchanger Calculation Method`
-
-        """
+        """Corresponds to IDD field `Heat Exchanger Calculation Method`"""
         self["Heat Exchanger Calculation Method"] = value
 
     @property
     def method_1_heat_exchanger_effectiveness(self):
         """field `Method 1 Heat Exchanger Effectiveness`
-        
 
         Args:
             value (float): value for IDD Field `Method 1 Heat Exchanger Effectiveness`
@@ -6069,20 +7979,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_1_heat_exchanger_effectiveness` or None if not set
+
         """
         return self["Method 1 Heat Exchanger Effectiveness"]
 
     @method_1_heat_exchanger_effectiveness.setter
     def method_1_heat_exchanger_effectiveness(self, value=None):
-        """  Corresponds to IDD field `Method 1 Heat Exchanger Effectiveness`
-
-        """
+        """Corresponds to IDD field `Method 1 Heat Exchanger Effectiveness`"""
         self["Method 1 Heat Exchanger Effectiveness"] = value
 
     @property
     def method_2_parameter_hxs0(self):
         """field `Method 2 Parameter hxs0`
-        
 
         Args:
             value (float): value for IDD Field `Method 2 Parameter hxs0`
@@ -6092,20 +8000,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_2_parameter_hxs0` or None if not set
+
         """
         return self["Method 2 Parameter hxs0"]
 
     @method_2_parameter_hxs0.setter
     def method_2_parameter_hxs0(self, value=None):
-        """  Corresponds to IDD field `Method 2 Parameter hxs0`
-
-        """
+        """Corresponds to IDD field `Method 2 Parameter hxs0`"""
         self["Method 2 Parameter hxs0"] = value
 
     @property
     def method_2_parameter_hxs1(self):
         """field `Method 2 Parameter hxs1`
-        
 
         Args:
             value (float): value for IDD Field `Method 2 Parameter hxs1`
@@ -6115,20 +8021,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_2_parameter_hxs1` or None if not set
+
         """
         return self["Method 2 Parameter hxs1"]
 
     @method_2_parameter_hxs1.setter
     def method_2_parameter_hxs1(self, value=None):
-        """  Corresponds to IDD field `Method 2 Parameter hxs1`
-
-        """
+        """Corresponds to IDD field `Method 2 Parameter hxs1`"""
         self["Method 2 Parameter hxs1"] = value
 
     @property
     def method_2_parameter_hxs2(self):
         """field `Method 2 Parameter hxs2`
-        
 
         Args:
             value (float): value for IDD Field `Method 2 Parameter hxs2`
@@ -6138,20 +8042,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_2_parameter_hxs2` or None if not set
+
         """
         return self["Method 2 Parameter hxs2"]
 
     @method_2_parameter_hxs2.setter
     def method_2_parameter_hxs2(self, value=None):
-        """  Corresponds to IDD field `Method 2 Parameter hxs2`
-
-        """
+        """Corresponds to IDD field `Method 2 Parameter hxs2`"""
         self["Method 2 Parameter hxs2"] = value
 
     @property
     def method_2_parameter_hxs3(self):
         """field `Method 2 Parameter hxs3`
-        
 
         Args:
             value (float): value for IDD Field `Method 2 Parameter hxs3`
@@ -6161,20 +8063,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_2_parameter_hxs3` or None if not set
+
         """
         return self["Method 2 Parameter hxs3"]
 
     @method_2_parameter_hxs3.setter
     def method_2_parameter_hxs3(self, value=None):
-        """  Corresponds to IDD field `Method 2 Parameter hxs3`
-
-        """
+        """Corresponds to IDD field `Method 2 Parameter hxs3`"""
         self["Method 2 Parameter hxs3"] = value
 
     @property
     def method_2_parameter_hxs4(self):
         """field `Method 2 Parameter hxs4`
-        
 
         Args:
             value (float): value for IDD Field `Method 2 Parameter hxs4`
@@ -6184,20 +8084,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_2_parameter_hxs4` or None if not set
+
         """
         return self["Method 2 Parameter hxs4"]
 
     @method_2_parameter_hxs4.setter
     def method_2_parameter_hxs4(self, value=None):
-        """  Corresponds to IDD field `Method 2 Parameter hxs4`
-
-        """
+        """Corresponds to IDD field `Method 2 Parameter hxs4`"""
         self["Method 2 Parameter hxs4"] = value
 
     @property
     def method_3_h0gas_coefficient(self):
         """field `Method 3 h0Gas Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 h0Gas Coefficient`
@@ -6207,20 +8105,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_h0gas_coefficient` or None if not set
+
         """
         return self["Method 3 h0Gas Coefficient"]
 
     @method_3_h0gas_coefficient.setter
     def method_3_h0gas_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 h0Gas Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 h0Gas Coefficient`"""
         self["Method 3 h0Gas Coefficient"] = value
 
     @property
     def method_3_ndotgasref_coefficient(self):
         """field `Method 3 NdotGasRef Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 NdotGasRef Coefficient`
@@ -6230,20 +8126,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_ndotgasref_coefficient` or None if not set
+
         """
         return self["Method 3 NdotGasRef Coefficient"]
 
     @method_3_ndotgasref_coefficient.setter
     def method_3_ndotgasref_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 NdotGasRef Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 NdotGasRef Coefficient`"""
         self["Method 3 NdotGasRef Coefficient"] = value
 
     @property
     def method_3_n_coefficient(self):
         """field `Method 3 n Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 n Coefficient`
@@ -6253,20 +8147,19 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_n_coefficient` or None if not set
+
         """
         return self["Method 3 n Coefficient"]
 
     @method_3_n_coefficient.setter
     def method_3_n_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 n Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 n Coefficient`"""
         self["Method 3 n Coefficient"] = value
 
     @property
     def method_3_gas_area(self):
         """field `Method 3 Gas Area`
-        
+
         |  Units: m2
 
         Args:
@@ -6277,20 +8170,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_gas_area` or None if not set
+
         """
         return self["Method 3 Gas Area"]
 
     @method_3_gas_area.setter
     def method_3_gas_area(self, value=None):
-        """  Corresponds to IDD field `Method 3 Gas Area`
-
-        """
+        """Corresponds to IDD field `Method 3 Gas Area`"""
         self["Method 3 Gas Area"] = value
 
     @property
     def method_3_h0_water_coefficient(self):
         """field `Method 3 h0 Water Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 h0 Water Coefficient`
@@ -6300,20 +8191,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_h0_water_coefficient` or None if not set
+
         """
         return self["Method 3 h0 Water Coefficient"]
 
     @method_3_h0_water_coefficient.setter
     def method_3_h0_water_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 h0 Water Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 h0 Water Coefficient`"""
         self["Method 3 h0 Water Coefficient"] = value
 
     @property
     def method_3_n_dot_water_ref_coefficient(self):
         """field `Method 3 N dot Water ref Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 N dot Water ref Coefficient`
@@ -6323,20 +8212,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_n_dot_water_ref_coefficient` or None if not set
+
         """
         return self["Method 3 N dot Water ref Coefficient"]
 
     @method_3_n_dot_water_ref_coefficient.setter
     def method_3_n_dot_water_ref_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 N dot Water ref Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 N dot Water ref Coefficient`"""
         self["Method 3 N dot Water ref Coefficient"] = value
 
     @property
     def method_3_m_coefficient(self):
         """field `Method 3 m Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 m Coefficient`
@@ -6346,20 +8233,19 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_m_coefficient` or None if not set
+
         """
         return self["Method 3 m Coefficient"]
 
     @method_3_m_coefficient.setter
     def method_3_m_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 3 m Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 3 m Coefficient`"""
         self["Method 3 m Coefficient"] = value
 
     @property
     def method_3_water_area(self):
         """field `Method 3 Water Area`
-        
+
         |  Units: m2
 
         Args:
@@ -6370,20 +8256,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_water_area` or None if not set
+
         """
         return self["Method 3 Water Area"]
 
     @method_3_water_area.setter
     def method_3_water_area(self, value=None):
-        """  Corresponds to IDD field `Method 3 Water Area`
-
-        """
+        """Corresponds to IDD field `Method 3 Water Area`"""
         self["Method 3 Water Area"] = value
 
     @property
     def method_3_f_adjustment_factor(self):
         """field `Method 3 F Adjustment Factor`
-        
 
         Args:
             value (float): value for IDD Field `Method 3 F Adjustment Factor`
@@ -6393,20 +8277,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_3_f_adjustment_factor` or None if not set
+
         """
         return self["Method 3 F Adjustment Factor"]
 
     @method_3_f_adjustment_factor.setter
     def method_3_f_adjustment_factor(self, value=None):
-        """  Corresponds to IDD field `Method 3 F Adjustment Factor`
-
-        """
+        """Corresponds to IDD field `Method 3 F Adjustment Factor`"""
         self["Method 3 F Adjustment Factor"] = value
 
     @property
     def method_4_hxl1_coefficient(self):
         """field `Method 4 hxl1 Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 4 hxl1 Coefficient`
@@ -6416,20 +8298,18 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_4_hxl1_coefficient` or None if not set
+
         """
         return self["Method 4 hxl1 Coefficient"]
 
     @method_4_hxl1_coefficient.setter
     def method_4_hxl1_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 4 hxl1 Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 4 hxl1 Coefficient`"""
         self["Method 4 hxl1 Coefficient"] = value
 
     @property
     def method_4_hxl2_coefficient(self):
         """field `Method 4 hxl2 Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Method 4 hxl2 Coefficient`
@@ -6439,20 +8319,19 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_4_hxl2_coefficient` or None if not set
+
         """
         return self["Method 4 hxl2 Coefficient"]
 
     @method_4_hxl2_coefficient.setter
     def method_4_hxl2_coefficient(self, value=None):
-        """  Corresponds to IDD field `Method 4 hxl2 Coefficient`
-
-        """
+        """Corresponds to IDD field `Method 4 hxl2 Coefficient`"""
         self["Method 4 hxl2 Coefficient"] = value
 
     @property
     def method_4_condensation_threshold(self):
         """field `Method 4 Condensation Threshold`
-        
+
         |  Units: C
 
         Args:
@@ -6463,39 +8342,102 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
 
         Returns:
             float: the value of `method_4_condensation_threshold` or None if not set
+
         """
         return self["Method 4 Condensation Threshold"]
 
     @method_4_condensation_threshold.setter
     def method_4_condensation_threshold(self, value=None):
-        """  Corresponds to IDD field `Method 4 Condensation Threshold`
-
-        """
+        """Corresponds to IDD field `Method 4 Condensation Threshold`"""
         self["Method 4 Condensation Threshold"] = value
 
 
 
 
 class GeneratorFuelCellElectricalStorage(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:ElectricalStorage`
         Used to describe the electrical storage subsystem for a fuel cell power generator.
         The electrical storage model is a very simple "constrained bucket" model.
         Note that this electrical storage is embedded within the FC device.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'choice of model', {'name': u'Choice of Model', 'pyname': u'choice_of_model', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SimpleEfficiencyWithConstraints'], 'autocalculatable': False, 'type': 'alpha'}), (u'nominal charging energetic efficiency', {'name': u'Nominal Charging Energetic Efficiency', 'pyname': u'nominal_charging_energetic_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'nominal discharging energetic efficiency', {'name': u'Nominal Discharging Energetic Efficiency', 'pyname': u'nominal_discharging_energetic_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'simple maximum capacity', {'name': u'Simple Maximum Capacity', 'pyname': u'simple_maximum_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'}), (u'simple maximum power draw', {'name': u'Simple Maximum Power Draw', 'pyname': u'simple_maximum_power_draw', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'simple maximum power store', {'name': u'Simple Maximum Power Store', 'pyname': u'simple_maximum_power_store', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'initial charge state', {'name': u'Initial Charge State', 'pyname': u'initial_charge_state', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:ElectricalStorage',
- 'pyname': u'GeneratorFuelCellElectricalStorage',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'choice of model',
+                                       {'name': u'Choice of Model',
+                                        'pyname': u'choice_of_model',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'SimpleEfficiencyWithConstraints'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'nominal charging energetic efficiency',
+                                       {'name': u'Nominal Charging Energetic Efficiency',
+                                        'pyname': u'nominal_charging_energetic_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'nominal discharging energetic efficiency',
+                                       {'name': u'Nominal Discharging Energetic Efficiency',
+                                        'pyname': u'nominal_discharging_energetic_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'simple maximum capacity',
+                                       {'name': u'Simple Maximum Capacity',
+                                        'pyname': u'simple_maximum_capacity',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'}),
+                                      (u'simple maximum power draw',
+                                       {'name': u'Simple Maximum Power Draw',
+                                        'pyname': u'simple_maximum_power_draw',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'simple maximum power store',
+                                       {'name': u'Simple Maximum Power Store',
+                                        'pyname': u'simple_maximum_power_store',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'initial charge state',
+                                       {'name': u'Initial Charge State',
+                                        'pyname': u'initial_charge_state',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:ElectricalStorage',
+               'pyname': u'GeneratorFuelCellElectricalStorage',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6505,20 +8447,18 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def choice_of_model(self):
         """field `Choice of Model`
-        
 
         Args:
             value (str): value for IDD Field `Choice of Model`
@@ -6528,20 +8468,19 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             str: the value of `choice_of_model` or None if not set
+
         """
         return self["Choice of Model"]
 
     @choice_of_model.setter
     def choice_of_model(self, value=None):
-        """  Corresponds to IDD field `Choice of Model`
-
-        """
+        """Corresponds to IDD field `Choice of Model`"""
         self["Choice of Model"] = value
 
     @property
     def nominal_charging_energetic_efficiency(self):
         """field `Nominal Charging Energetic Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -6552,20 +8491,19 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `nominal_charging_energetic_efficiency` or None if not set
+
         """
         return self["Nominal Charging Energetic Efficiency"]
 
     @nominal_charging_energetic_efficiency.setter
     def nominal_charging_energetic_efficiency(self, value=None):
-        """  Corresponds to IDD field `Nominal Charging Energetic Efficiency`
-
-        """
+        """Corresponds to IDD field `Nominal Charging Energetic Efficiency`"""
         self["Nominal Charging Energetic Efficiency"] = value
 
     @property
     def nominal_discharging_energetic_efficiency(self):
         """field `Nominal Discharging Energetic Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -6576,20 +8514,20 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `nominal_discharging_energetic_efficiency` or None if not set
+
         """
         return self["Nominal Discharging Energetic Efficiency"]
 
     @nominal_discharging_energetic_efficiency.setter
     def nominal_discharging_energetic_efficiency(self, value=None):
-        """  Corresponds to IDD field `Nominal Discharging Energetic Efficiency`
-
-        """
+        """Corresponds to IDD field `Nominal Discharging Energetic
+        Efficiency`"""
         self["Nominal Discharging Energetic Efficiency"] = value
 
     @property
     def simple_maximum_capacity(self):
         """field `Simple Maximum Capacity`
-        
+
         |  Units: J
 
         Args:
@@ -6600,20 +8538,19 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `simple_maximum_capacity` or None if not set
+
         """
         return self["Simple Maximum Capacity"]
 
     @simple_maximum_capacity.setter
     def simple_maximum_capacity(self, value=None):
-        """  Corresponds to IDD field `Simple Maximum Capacity`
-
-        """
+        """Corresponds to IDD field `Simple Maximum Capacity`"""
         self["Simple Maximum Capacity"] = value
 
     @property
     def simple_maximum_power_draw(self):
         """field `Simple Maximum Power Draw`
-        
+
         |  Units: W
 
         Args:
@@ -6624,20 +8561,19 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `simple_maximum_power_draw` or None if not set
+
         """
         return self["Simple Maximum Power Draw"]
 
     @simple_maximum_power_draw.setter
     def simple_maximum_power_draw(self, value=None):
-        """  Corresponds to IDD field `Simple Maximum Power Draw`
-
-        """
+        """Corresponds to IDD field `Simple Maximum Power Draw`"""
         self["Simple Maximum Power Draw"] = value
 
     @property
     def simple_maximum_power_store(self):
         """field `Simple Maximum Power Store`
-        
+
         |  Units: W
 
         Args:
@@ -6648,20 +8584,19 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `simple_maximum_power_store` or None if not set
+
         """
         return self["Simple Maximum Power Store"]
 
     @simple_maximum_power_store.setter
     def simple_maximum_power_store(self, value=None):
-        """  Corresponds to IDD field `Simple Maximum Power Store`
-
-        """
+        """Corresponds to IDD field `Simple Maximum Power Store`"""
         self["Simple Maximum Power Store"] = value
 
     @property
     def initial_charge_state(self):
         """field `Initial Charge State`
-        
+
         |  Units: J
 
         Args:
@@ -6672,39 +8607,69 @@ class GeneratorFuelCellElectricalStorage(DataObject):
 
         Returns:
             float: the value of `initial_charge_state` or None if not set
+
         """
         return self["Initial Charge State"]
 
     @initial_charge_state.setter
     def initial_charge_state(self, value=None):
-        """  Corresponds to IDD field `Initial Charge State`
-
-        """
+        """Corresponds to IDD field `Initial Charge State`"""
         self["Initial Charge State"] = value
 
 
 
 
 class GeneratorFuelCellInverter(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:Inverter`
         Used to describe the power condition unit subsystem of a fuel cell power generator.
         This object models an inverter system contained within a fuel cell system that
         converts from direct current (DC) to alternating current (AC).
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inverter efficiency calculation mode', {'name': u'Inverter Efficiency Calculation Mode', 'pyname': u'inverter_efficiency_calculation_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Quadratic', u'Constant'], 'autocalculatable': False, 'type': 'alpha'}), (u'inverter efficiency', {'name': u'Inverter Efficiency', 'pyname': u'inverter_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency function of dc power curve name', {'name': u'Efficiency Function of DC Power Curve Name', 'pyname': u'efficiency_function_of_dc_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:Inverter',
- 'pyname': u'GeneratorFuelCellInverter',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'inverter efficiency calculation mode',
+                                       {'name': u'Inverter Efficiency Calculation Mode',
+                                        'pyname': u'inverter_efficiency_calculation_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Quadratic',
+                                                            u'Constant'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'inverter efficiency',
+                                       {'name': u'Inverter Efficiency',
+                                        'pyname': u'inverter_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency function of dc power curve name',
+                                       {'name': u'Efficiency Function of DC Power Curve Name',
+                                        'pyname': u'efficiency_function_of_dc_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:Inverter',
+               'pyname': u'GeneratorFuelCellInverter',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6714,20 +8679,18 @@ class GeneratorFuelCellInverter(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def inverter_efficiency_calculation_mode(self):
         """field `Inverter Efficiency Calculation Mode`
-        
 
         Args:
             value (str): value for IDD Field `Inverter Efficiency Calculation Mode`
@@ -6737,20 +8700,19 @@ class GeneratorFuelCellInverter(DataObject):
 
         Returns:
             str: the value of `inverter_efficiency_calculation_mode` or None if not set
+
         """
         return self["Inverter Efficiency Calculation Mode"]
 
     @inverter_efficiency_calculation_mode.setter
     def inverter_efficiency_calculation_mode(self, value=None):
-        """  Corresponds to IDD field `Inverter Efficiency Calculation Mode`
-
-        """
+        """Corresponds to IDD field `Inverter Efficiency Calculation Mode`"""
         self["Inverter Efficiency Calculation Mode"] = value
 
     @property
     def inverter_efficiency(self):
         """field `Inverter Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -6761,20 +8723,18 @@ class GeneratorFuelCellInverter(DataObject):
 
         Returns:
             float: the value of `inverter_efficiency` or None if not set
+
         """
         return self["Inverter Efficiency"]
 
     @inverter_efficiency.setter
     def inverter_efficiency(self, value=None):
-        """  Corresponds to IDD field `Inverter Efficiency`
-
-        """
+        """Corresponds to IDD field `Inverter Efficiency`"""
         self["Inverter Efficiency"] = value
 
     @property
     def efficiency_function_of_dc_power_curve_name(self):
         """field `Efficiency Function of DC Power Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Efficiency Function of DC Power Curve Name`
@@ -6784,38 +8744,194 @@ class GeneratorFuelCellInverter(DataObject):
 
         Returns:
             str: the value of `efficiency_function_of_dc_power_curve_name` or None if not set
+
         """
         return self["Efficiency Function of DC Power Curve Name"]
 
     @efficiency_function_of_dc_power_curve_name.setter
     def efficiency_function_of_dc_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Efficiency Function of DC Power Curve Name`
-
-        """
+        """Corresponds to IDD field `Efficiency Function of DC Power Curve
+        Name`"""
         self["Efficiency Function of DC Power Curve Name"] = value
 
 
 
 
 class GeneratorFuelCellStackCooler(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelCell:StackCooler`
         This object is optional and is used to define details needed to model the stack cooler
         on PEMFC.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal stack temperature', {'name': u'Nominal Stack Temperature', 'pyname': u'nominal_stack_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'actual stack temperature', {'name': u'Actual Stack Temperature', 'pyname': u'actual_stack_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'coefficient r0', {'name': u'Coefficient r0', 'pyname': u'coefficient_r0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient r1', {'name': u'Coefficient r1', 'pyname': u'coefficient_r1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient r2', {'name': u'Coefficient r2', 'pyname': u'coefficient_r2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient r3', {'name': u'Coefficient r3', 'pyname': u'coefficient_r3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'stack coolant flow rate', {'name': u'Stack Coolant Flow Rate', 'pyname': u'stack_coolant_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/s'}), (u'stack cooler u-factor times area value', {'name': u'Stack Cooler U-Factor Times Area Value', 'pyname': u'stack_cooler_ufactor_times_area_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'fs-cogen adjustment factor', {'name': u'Fs-cogen Adjustment Factor', 'pyname': u'fscogen_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'stack cogeneration exchanger area', {'name': u'Stack Cogeneration Exchanger Area', 'pyname': u'stack_cogeneration_exchanger_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'stack cogeneration exchanger nominal flow rate', {'name': u'Stack Cogeneration Exchanger Nominal Flow Rate', 'pyname': u'stack_cogeneration_exchanger_nominal_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/s'}), (u'stack cogeneration exchanger nominal heat transfer coefficient', {'name': u'Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient', 'pyname': u'stack_cogeneration_exchanger_nominal_heat_transfer_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'stack cogeneration exchanger nominal heat transfer coefficient exponent', {'name': u'Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent', 'pyname': u'stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'stack cooler pump power', {'name': u'Stack Cooler Pump Power', 'pyname': u'stack_cooler_pump_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'stack cooler pump heat loss fraction', {'name': u'Stack Cooler Pump Heat Loss Fraction', 'pyname': u'stack_cooler_pump_heat_loss_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'stack air cooler fan coefficient f0', {'name': u'Stack Air Cooler Fan Coefficient f0', 'pyname': u'stack_air_cooler_fan_coefficient_f0', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'stack air cooler fan coefficient f1', {'name': u'Stack Air Cooler Fan Coefficient f1', 'pyname': u'stack_air_cooler_fan_coefficient_f1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'stack air cooler fan coefficient f2', {'name': u'Stack Air Cooler Fan Coefficient f2', 'pyname': u'stack_air_cooler_fan_coefficient_f2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelCell:StackCooler',
- 'pyname': u'GeneratorFuelCellStackCooler',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'}),
+                                      (u'heat recovery water inlet node name',
+                                       {'name': u'Heat Recovery Water Inlet Node Name',
+                                        'pyname': u'heat_recovery_water_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'heat recovery water outlet node name',
+                                       {'name': u'Heat Recovery Water Outlet Node Name',
+                                        'pyname': u'heat_recovery_water_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'nominal stack temperature',
+                                       {'name': u'Nominal Stack Temperature',
+                                        'pyname': u'nominal_stack_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'actual stack temperature',
+                                       {'name': u'Actual Stack Temperature',
+                                        'pyname': u'actual_stack_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'coefficient r0',
+                                       {'name': u'Coefficient r0',
+                                        'pyname': u'coefficient_r0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'coefficient r1',
+                                       {'name': u'Coefficient r1',
+                                        'pyname': u'coefficient_r1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'coefficient r2',
+                                       {'name': u'Coefficient r2',
+                                        'pyname': u'coefficient_r2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'coefficient r3',
+                                       {'name': u'Coefficient r3',
+                                        'pyname': u'coefficient_r3',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack coolant flow rate',
+                                       {'name': u'Stack Coolant Flow Rate',
+                                        'pyname': u'stack_coolant_flow_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kg/s'}),
+                                      (u'stack cooler u-factor times area value',
+                                       {'name': u'Stack Cooler U-Factor Times Area Value',
+                                        'pyname': u'stack_cooler_ufactor_times_area_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'fs-cogen adjustment factor',
+                                       {'name': u'Fs-cogen Adjustment Factor',
+                                        'pyname': u'fscogen_adjustment_factor',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack cogeneration exchanger area',
+                                       {'name': u'Stack Cogeneration Exchanger Area',
+                                        'pyname': u'stack_cogeneration_exchanger_area',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'm2'}),
+                                      (u'stack cogeneration exchanger nominal flow rate',
+                                       {'name': u'Stack Cogeneration Exchanger Nominal Flow Rate',
+                                        'pyname': u'stack_cogeneration_exchanger_nominal_flow_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kg/s'}),
+                                      (u'stack cogeneration exchanger nominal heat transfer coefficient',
+                                       {'name': u'Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient',
+                                        'pyname': u'stack_cogeneration_exchanger_nominal_heat_transfer_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/m2-K'}),
+                                      (u'stack cogeneration exchanger nominal heat transfer coefficient exponent',
+                                       {'name': u'Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent',
+                                        'pyname': u'stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack cooler pump power',
+                                       {'name': u'Stack Cooler Pump Power',
+                                        'pyname': u'stack_cooler_pump_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'stack cooler pump heat loss fraction',
+                                       {'name': u'Stack Cooler Pump Heat Loss Fraction',
+                                        'pyname': u'stack_cooler_pump_heat_loss_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack air cooler fan coefficient f0',
+                                       {'name': u'Stack Air Cooler Fan Coefficient f0',
+                                        'pyname': u'stack_air_cooler_fan_coefficient_f0',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack air cooler fan coefficient f1',
+                                       {'name': u'Stack Air Cooler Fan Coefficient f1',
+                                        'pyname': u'stack_air_cooler_fan_coefficient_f1',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'stack air cooler fan coefficient f2',
+                                       {'name': u'Stack Air Cooler Fan Coefficient f2',
+                                        'pyname': u'stack_air_cooler_fan_coefficient_f2',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelCell:StackCooler',
+               'pyname': u'GeneratorFuelCellStackCooler',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6825,20 +8941,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def heat_recovery_water_inlet_node_name(self):
         """field `Heat Recovery Water Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
@@ -6848,20 +8962,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_inlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Inlet Node Name"]
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Inlet Node Name`"""
         self["Heat Recovery Water Inlet Node Name"] = value
 
     @property
     def heat_recovery_water_outlet_node_name(self):
         """field `Heat Recovery Water Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
@@ -6871,20 +8983,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             str: the value of `heat_recovery_water_outlet_node_name` or None if not set
+
         """
         return self["Heat Recovery Water Outlet Node Name"]
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Heat Recovery Water Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Heat Recovery Water Outlet Node Name`"""
         self["Heat Recovery Water Outlet Node Name"] = value
 
     @property
     def nominal_stack_temperature(self):
         """field `Nominal Stack Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -6895,20 +9006,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `nominal_stack_temperature` or None if not set
+
         """
         return self["Nominal Stack Temperature"]
 
     @nominal_stack_temperature.setter
     def nominal_stack_temperature(self, value=None):
-        """  Corresponds to IDD field `Nominal Stack Temperature`
-
-        """
+        """Corresponds to IDD field `Nominal Stack Temperature`"""
         self["Nominal Stack Temperature"] = value
 
     @property
     def actual_stack_temperature(self):
         """field `Actual Stack Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -6919,20 +9029,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `actual_stack_temperature` or None if not set
+
         """
         return self["Actual Stack Temperature"]
 
     @actual_stack_temperature.setter
     def actual_stack_temperature(self, value=None):
-        """  Corresponds to IDD field `Actual Stack Temperature`
-
-        """
+        """Corresponds to IDD field `Actual Stack Temperature`"""
         self["Actual Stack Temperature"] = value
 
     @property
     def coefficient_r0(self):
         """field `Coefficient r0`
-        
 
         Args:
             value (float): value for IDD Field `Coefficient r0`
@@ -6942,20 +9050,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `coefficient_r0` or None if not set
+
         """
         return self["Coefficient r0"]
 
     @coefficient_r0.setter
     def coefficient_r0(self, value=None):
-        """  Corresponds to IDD field `Coefficient r0`
-
-        """
+        """Corresponds to IDD field `Coefficient r0`"""
         self["Coefficient r0"] = value
 
     @property
     def coefficient_r1(self):
         """field `Coefficient r1`
-        
 
         Args:
             value (float): value for IDD Field `Coefficient r1`
@@ -6965,20 +9071,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `coefficient_r1` or None if not set
+
         """
         return self["Coefficient r1"]
 
     @coefficient_r1.setter
     def coefficient_r1(self, value=None):
-        """  Corresponds to IDD field `Coefficient r1`
-
-        """
+        """Corresponds to IDD field `Coefficient r1`"""
         self["Coefficient r1"] = value
 
     @property
     def coefficient_r2(self):
         """field `Coefficient r2`
-        
 
         Args:
             value (float): value for IDD Field `Coefficient r2`
@@ -6988,20 +9092,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `coefficient_r2` or None if not set
+
         """
         return self["Coefficient r2"]
 
     @coefficient_r2.setter
     def coefficient_r2(self, value=None):
-        """  Corresponds to IDD field `Coefficient r2`
-
-        """
+        """Corresponds to IDD field `Coefficient r2`"""
         self["Coefficient r2"] = value
 
     @property
     def coefficient_r3(self):
         """field `Coefficient r3`
-        
 
         Args:
             value (float): value for IDD Field `Coefficient r3`
@@ -7011,20 +9113,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `coefficient_r3` or None if not set
+
         """
         return self["Coefficient r3"]
 
     @coefficient_r3.setter
     def coefficient_r3(self, value=None):
-        """  Corresponds to IDD field `Coefficient r3`
-
-        """
+        """Corresponds to IDD field `Coefficient r3`"""
         self["Coefficient r3"] = value
 
     @property
     def stack_coolant_flow_rate(self):
         """field `Stack Coolant Flow Rate`
-        
+
         |  Units: kg/s
 
         Args:
@@ -7035,20 +9136,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_coolant_flow_rate` or None if not set
+
         """
         return self["Stack Coolant Flow Rate"]
 
     @stack_coolant_flow_rate.setter
     def stack_coolant_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Stack Coolant Flow Rate`
-
-        """
+        """Corresponds to IDD field `Stack Coolant Flow Rate`"""
         self["Stack Coolant Flow Rate"] = value
 
     @property
     def stack_cooler_ufactor_times_area_value(self):
         """field `Stack Cooler U-Factor Times Area Value`
-        
+
         |  Units: W/K
 
         Args:
@@ -7072,7 +9172,7 @@ class GeneratorFuelCellStackCooler(DataObject):
     @property
     def fscogen_adjustment_factor(self):
         """field `Fs-cogen Adjustment Factor`
-        
+
 
         Args:
             value (float): value for IDD Field `Fs-cogen Adjustment Factor`
@@ -7095,7 +9195,7 @@ class GeneratorFuelCellStackCooler(DataObject):
     @property
     def stack_cogeneration_exchanger_area(self):
         """field `Stack Cogeneration Exchanger Area`
-        
+
         |  Units: m2
 
         Args:
@@ -7106,20 +9206,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cogeneration_exchanger_area` or None if not set
+
         """
         return self["Stack Cogeneration Exchanger Area"]
 
     @stack_cogeneration_exchanger_area.setter
     def stack_cogeneration_exchanger_area(self, value=None):
-        """  Corresponds to IDD field `Stack Cogeneration Exchanger Area`
-
-        """
+        """Corresponds to IDD field `Stack Cogeneration Exchanger Area`"""
         self["Stack Cogeneration Exchanger Area"] = value
 
     @property
     def stack_cogeneration_exchanger_nominal_flow_rate(self):
         """field `Stack Cogeneration Exchanger Nominal Flow Rate`
-        
+
         |  Units: kg/s
 
         Args:
@@ -7130,20 +9229,21 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cogeneration_exchanger_nominal_flow_rate` or None if not set
+
         """
         return self["Stack Cogeneration Exchanger Nominal Flow Rate"]
 
     @stack_cogeneration_exchanger_nominal_flow_rate.setter
     def stack_cogeneration_exchanger_nominal_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Flow Rate`
-
-        """
+        """Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Flow
+        Rate`"""
         self["Stack Cogeneration Exchanger Nominal Flow Rate"] = value
 
     @property
     def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient(self):
-        """field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient`
-        
+        """field `Stack Cogeneration Exchanger Nominal Heat Transfer
+        Coefficient`
+
         |  Units: W/m2-K
 
         Args:
@@ -7154,20 +9254,25 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cogeneration_exchanger_nominal_heat_transfer_coefficient` or None if not set
+
         """
-        return self["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient"]
+        return self[
+            "Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient"]
 
     @stack_cogeneration_exchanger_nominal_heat_transfer_coefficient.setter
-    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient(self, value=None):
-        """  Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient`
-
-        """
-        self["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient"] = value
+    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient(
+            self,
+            value=None):
+        """Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Heat
+        Transfer Coefficient`"""
+        self[
+            "Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient"] = value
 
     @property
-    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent(self):
-        """field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent`
-        
+    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent(
+            self):
+        """field `Stack Cogeneration Exchanger Nominal Heat Transfer
+        Coefficient Exponent`
 
         Args:
             value (float): value for IDD Field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent`
@@ -7177,20 +9282,24 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent` or None if not set
+
         """
-        return self["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent"]
+        return self[
+            "Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent"]
 
     @stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent.setter
-    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent(self, value=None):
-        """  Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent`
-
-        """
-        self["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent"] = value
+    def stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent(
+            self,
+            value=None):
+        """Corresponds to IDD field `Stack Cogeneration Exchanger Nominal Heat
+        Transfer Coefficient Exponent`"""
+        self[
+            "Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent"] = value
 
     @property
     def stack_cooler_pump_power(self):
         """field `Stack Cooler Pump Power`
-        
+
         |  Units: W
 
         Args:
@@ -7201,20 +9310,19 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cooler_pump_power` or None if not set
+
         """
         return self["Stack Cooler Pump Power"]
 
     @stack_cooler_pump_power.setter
     def stack_cooler_pump_power(self, value=None):
-        """  Corresponds to IDD field `Stack Cooler Pump Power`
-
-        """
+        """Corresponds to IDD field `Stack Cooler Pump Power`"""
         self["Stack Cooler Pump Power"] = value
 
     @property
     def stack_cooler_pump_heat_loss_fraction(self):
         """field `Stack Cooler Pump Heat Loss Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -7225,20 +9333,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_cooler_pump_heat_loss_fraction` or None if not set
+
         """
         return self["Stack Cooler Pump Heat Loss Fraction"]
 
     @stack_cooler_pump_heat_loss_fraction.setter
     def stack_cooler_pump_heat_loss_fraction(self, value=None):
-        """  Corresponds to IDD field `Stack Cooler Pump Heat Loss Fraction`
-
-        """
+        """Corresponds to IDD field `Stack Cooler Pump Heat Loss Fraction`"""
         self["Stack Cooler Pump Heat Loss Fraction"] = value
 
     @property
     def stack_air_cooler_fan_coefficient_f0(self):
         """field `Stack Air Cooler Fan Coefficient f0`
-        
 
         Args:
             value (float): value for IDD Field `Stack Air Cooler Fan Coefficient f0`
@@ -7248,20 +9354,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_air_cooler_fan_coefficient_f0` or None if not set
+
         """
         return self["Stack Air Cooler Fan Coefficient f0"]
 
     @stack_air_cooler_fan_coefficient_f0.setter
     def stack_air_cooler_fan_coefficient_f0(self, value=None):
-        """  Corresponds to IDD field `Stack Air Cooler Fan Coefficient f0`
-
-        """
+        """Corresponds to IDD field `Stack Air Cooler Fan Coefficient f0`"""
         self["Stack Air Cooler Fan Coefficient f0"] = value
 
     @property
     def stack_air_cooler_fan_coefficient_f1(self):
         """field `Stack Air Cooler Fan Coefficient f1`
-        
 
         Args:
             value (float): value for IDD Field `Stack Air Cooler Fan Coefficient f1`
@@ -7271,20 +9375,18 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_air_cooler_fan_coefficient_f1` or None if not set
+
         """
         return self["Stack Air Cooler Fan Coefficient f1"]
 
     @stack_air_cooler_fan_coefficient_f1.setter
     def stack_air_cooler_fan_coefficient_f1(self, value=None):
-        """  Corresponds to IDD field `Stack Air Cooler Fan Coefficient f1`
-
-        """
+        """Corresponds to IDD field `Stack Air Cooler Fan Coefficient f1`"""
         self["Stack Air Cooler Fan Coefficient f1"] = value
 
     @property
     def stack_air_cooler_fan_coefficient_f2(self):
         """field `Stack Air Cooler Fan Coefficient f2`
-        
 
         Args:
             value (float): value for IDD Field `Stack Air Cooler Fan Coefficient f2`
@@ -7294,20 +9396,20 @@ class GeneratorFuelCellStackCooler(DataObject):
 
         Returns:
             float: the value of `stack_air_cooler_fan_coefficient_f2` or None if not set
+
         """
         return self["Stack Air Cooler Fan Coefficient f2"]
 
     @stack_air_cooler_fan_coefficient_f2.setter
     def stack_air_cooler_fan_coefficient_f2(self, value=None):
-        """  Corresponds to IDD field `Stack Air Cooler Fan Coefficient f2`
-
-        """
+        """Corresponds to IDD field `Stack Air Cooler Fan Coefficient f2`"""
         self["Stack Air Cooler Fan Coefficient f2"] = value
 
 
 
 
 class GeneratorMicroChp(DataObject):
+
     """ Corresponds to IDD object `Generator:MicroCHP`
         Small-scale combined heat and power (micro CHP) electric generator using the model
         developed by IEA/ECBCS Annex 42 see www.cogen-sim.net. The model was developed
@@ -7315,19 +9417,80 @@ class GeneratorMicroChp(DataObject):
         engines, but might be used for other types of residential CHP devices.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'performance parameters name', {'name': u'Performance Parameters Name', 'pyname': u'performance_parameters_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling water inlet node name', {'name': u'Cooling Water Inlet Node Name', 'pyname': u'cooling_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling water outlet node name', {'name': u'Cooling Water Outlet Node Name', 'pyname': u'cooling_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'generator fuel supply name', {'name': u'Generator Fuel Supply Name', 'pyname': u'generator_fuel_supply_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:MicroCHP',
- 'pyname': u'GeneratorMicroChp',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'performance parameters name',
+                                       {'name': u'Performance Parameters Name',
+                                        'pyname': u'performance_parameters_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'cooling water inlet node name',
+                                       {'name': u'Cooling Water Inlet Node Name',
+                                        'pyname': u'cooling_water_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'cooling water outlet node name',
+                                       {'name': u'Cooling Water Outlet Node Name',
+                                        'pyname': u'cooling_water_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'air inlet node name',
+                                       {'name': u'Air Inlet Node Name',
+                                        'pyname': u'air_inlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'air outlet node name',
+                                       {'name': u'Air Outlet Node Name',
+                                        'pyname': u'air_outlet_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'generator fuel supply name',
+                                       {'name': u'Generator Fuel Supply Name',
+                                        'pyname': u'generator_fuel_supply_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:MicroCHP',
+               'pyname': u'GeneratorMicroChp',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7337,20 +9500,19 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def performance_parameters_name(self):
         """field `Performance Parameters Name`
-        
+
         |  Enter the name of a Generator:MicroCHP:NonNormalizedParameters object.
 
         Args:
@@ -7361,20 +9523,18 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `performance_parameters_name` or None if not set
+
         """
         return self["Performance Parameters Name"]
 
     @performance_parameters_name.setter
     def performance_parameters_name(self, value=None):
-        """  Corresponds to IDD field `Performance Parameters Name`
-
-        """
+        """Corresponds to IDD field `Performance Parameters Name`"""
         self["Performance Parameters Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7384,20 +9544,18 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def cooling_water_inlet_node_name(self):
         """field `Cooling Water Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Cooling Water Inlet Node Name`
@@ -7407,20 +9565,18 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `cooling_water_inlet_node_name` or None if not set
+
         """
         return self["Cooling Water Inlet Node Name"]
 
     @cooling_water_inlet_node_name.setter
     def cooling_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Water Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Cooling Water Inlet Node Name`"""
         self["Cooling Water Inlet Node Name"] = value
 
     @property
     def cooling_water_outlet_node_name(self):
         """field `Cooling Water Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Cooling Water Outlet Node Name`
@@ -7430,20 +9586,18 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `cooling_water_outlet_node_name` or None if not set
+
         """
         return self["Cooling Water Outlet Node Name"]
 
     @cooling_water_outlet_node_name.setter
     def cooling_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Water Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Cooling Water Outlet Node Name`"""
         self["Cooling Water Outlet Node Name"] = value
 
     @property
     def air_inlet_node_name(self):
         """field `Air Inlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -7453,20 +9607,18 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
-
-        """
+        """Corresponds to IDD field `Air Inlet Node Name`"""
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
         """field `Air Outlet Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -7476,20 +9628,19 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
-
-        """
+        """Corresponds to IDD field `Air Outlet Node Name`"""
         self["Air Outlet Node Name"] = value
 
     @property
     def generator_fuel_supply_name(self):
         """field `Generator Fuel Supply Name`
-        
+
         |  Enter the name of a Generator:FuelSupply object.
 
         Args:
@@ -7500,20 +9651,19 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `generator_fuel_supply_name` or None if not set
+
         """
         return self["Generator Fuel Supply Name"]
 
     @generator_fuel_supply_name.setter
     def generator_fuel_supply_name(self, value=None):
-        """  Corresponds to IDD field `Generator Fuel Supply Name`
-
-        """
+        """Corresponds to IDD field `Generator Fuel Supply Name`"""
         self["Generator Fuel Supply Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -7525,38 +9675,248 @@ class GeneratorMicroChp(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
 
 
 
 class GeneratorMicroChpNonNormalizedParameters(DataObject):
+
     """ Corresponds to IDD object `Generator:MicroCHP:NonNormalizedParameters`
         This object is referenced by a Generator:MicroCHP object and provides the
         non-normalized parameters for the MicroCHP generator model.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum electric power', {'name': u'Maximum Electric Power', 'pyname': u'maximum_electric_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum electric power', {'name': u'Minimum Electric Power', 'pyname': u'minimum_electric_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum cooling water flow rate', {'name': u'Minimum Cooling Water Flow Rate', 'pyname': u'minimum_cooling_water_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/s'}), (u'maximum cooling water temperature', {'name': u'Maximum Cooling Water Temperature', 'pyname': u'maximum_cooling_water_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'electrical efficiency curve name', {'name': u'Electrical Efficiency Curve Name', 'pyname': u'electrical_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal efficiency curve name', {'name': u'Thermal Efficiency Curve Name', 'pyname': u'thermal_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling water flow rate mode', {'name': u'Cooling Water Flow Rate Mode', 'pyname': u'cooling_water_flow_rate_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantControl', u'InternalControl'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling water flow rate curve name', {'name': u'Cooling Water Flow Rate Curve Name', 'pyname': u'cooling_water_flow_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air flow rate curve name', {'name': u'Air Flow Rate Curve Name', 'pyname': u'air_flow_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum net electrical power rate of change', {'name': u'Maximum Net Electrical Power Rate of Change', 'pyname': u'maximum_net_electrical_power_rate_of_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/s'}), (u'maximum fuel flow rate of change', {'name': u'Maximum Fuel Flow Rate of Change', 'pyname': u'maximum_fuel_flow_rate_of_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/s2'}), (u'heat exchanger u-factor times area value', {'name': u'Heat Exchanger U-Factor Times Area Value', 'pyname': u'heat_exchanger_ufactor_times_area_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'skin loss u-factor times area value', {'name': u'Skin Loss U-Factor Times Area Value', 'pyname': u'skin_loss_ufactor_times_area_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'aggregated thermal mass of energy conversion portion of generator', {'name': u'Aggregated Thermal Mass of Energy Conversion Portion of Generator', 'pyname': u'aggregated_thermal_mass_of_energy_conversion_portion_of_generator', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'aggregated thermal mass of heat recovery portion of generator', {'name': u'Aggregated Thermal Mass of Heat Recovery Portion of Generator', 'pyname': u'aggregated_thermal_mass_of_heat_recovery_portion_of_generator', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'standby power', {'name': u'Standby Power', 'pyname': u'standby_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'warm up mode', {'name': u'Warm Up Mode', 'pyname': u'warm_up_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NominalEngineTemperature', u'TimeDelay'], 'autocalculatable': False, 'type': 'alpha'}), (u'warm up fuel flow rate coefficient', {'name': u'Warm Up Fuel Flow Rate Coefficient', 'pyname': u'warm_up_fuel_flow_rate_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'nominal engine operating temperature', {'name': u'Nominal Engine Operating Temperature', 'pyname': u'nominal_engine_operating_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'warm up power coefficient', {'name': u'Warm Up Power Coefficient', 'pyname': u'warm_up_power_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'warm up fuel flow rate limit ratio', {'name': u'Warm Up Fuel Flow Rate Limit Ratio', 'pyname': u'warm_up_fuel_flow_rate_limit_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'warm up delay time', {'name': u'Warm Up Delay Time', 'pyname': u'warm_up_delay_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'cool down power', {'name': u'Cool Down Power', 'pyname': u'cool_down_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'cool down delay time', {'name': u'Cool Down Delay Time', 'pyname': u'cool_down_delay_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'restart mode', {'name': u'Restart Mode', 'pyname': u'restart_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MandatoryCoolDown', u'OptionalCoolDown'], 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:MicroCHP:NonNormalizedParameters',
- 'pyname': u'GeneratorMicroChpNonNormalizedParameters',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'maximum electric power',
+                                       {'name': u'Maximum Electric Power',
+                                        'pyname': u'maximum_electric_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'minimum electric power',
+                                       {'name': u'Minimum Electric Power',
+                                        'pyname': u'minimum_electric_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'minimum cooling water flow rate',
+                                       {'name': u'Minimum Cooling Water Flow Rate',
+                                        'pyname': u'minimum_cooling_water_flow_rate',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kg/s'}),
+                                      (u'maximum cooling water temperature',
+                                       {'name': u'Maximum Cooling Water Temperature',
+                                        'pyname': u'maximum_cooling_water_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'electrical efficiency curve name',
+                                       {'name': u'Electrical Efficiency Curve Name',
+                                        'pyname': u'electrical_efficiency_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'thermal efficiency curve name',
+                                       {'name': u'Thermal Efficiency Curve Name',
+                                        'pyname': u'thermal_efficiency_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'cooling water flow rate mode',
+                                       {'name': u'Cooling Water Flow Rate Mode',
+                                        'pyname': u'cooling_water_flow_rate_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'PlantControl',
+                                                            u'InternalControl'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'cooling water flow rate curve name',
+                                       {'name': u'Cooling Water Flow Rate Curve Name',
+                                        'pyname': u'cooling_water_flow_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'air flow rate curve name',
+                                       {'name': u'Air Flow Rate Curve Name',
+                                        'pyname': u'air_flow_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'maximum net electrical power rate of change',
+                                       {'name': u'Maximum Net Electrical Power Rate of Change',
+                                        'pyname': u'maximum_net_electrical_power_rate_of_change',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/s'}),
+                                      (u'maximum fuel flow rate of change',
+                                       {'name': u'Maximum Fuel Flow Rate of Change',
+                                        'pyname': u'maximum_fuel_flow_rate_of_change',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kg/s2'}),
+                                      (u'heat exchanger u-factor times area value',
+                                       {'name': u'Heat Exchanger U-Factor Times Area Value',
+                                        'pyname': u'heat_exchanger_ufactor_times_area_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'skin loss u-factor times area value',
+                                       {'name': u'Skin Loss U-Factor Times Area Value',
+                                        'pyname': u'skin_loss_ufactor_times_area_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'skin loss radiative fraction',
+                                       {'name': u'Skin Loss Radiative Fraction',
+                                        'pyname': u'skin_loss_radiative_fraction',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'aggregated thermal mass of energy conversion portion of generator',
+                                       {'name': u'Aggregated Thermal Mass of Energy Conversion Portion of Generator',
+                                        'pyname': u'aggregated_thermal_mass_of_energy_conversion_portion_of_generator',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'aggregated thermal mass of heat recovery portion of generator',
+                                       {'name': u'Aggregated Thermal Mass of Heat Recovery Portion of Generator',
+                                        'pyname': u'aggregated_thermal_mass_of_heat_recovery_portion_of_generator',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W/K'}),
+                                      (u'standby power',
+                                       {'name': u'Standby Power',
+                                        'pyname': u'standby_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'warm up mode',
+                                       {'name': u'Warm Up Mode',
+                                        'pyname': u'warm_up_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'NominalEngineTemperature',
+                                                            u'TimeDelay'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'warm up fuel flow rate coefficient',
+                                       {'name': u'Warm Up Fuel Flow Rate Coefficient',
+                                        'pyname': u'warm_up_fuel_flow_rate_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'nominal engine operating temperature',
+                                       {'name': u'Nominal Engine Operating Temperature',
+                                        'pyname': u'nominal_engine_operating_temperature',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'C'}),
+                                      (u'warm up power coefficient',
+                                       {'name': u'Warm Up Power Coefficient',
+                                        'pyname': u'warm_up_power_coefficient',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'warm up fuel flow rate limit ratio',
+                                       {'name': u'Warm Up Fuel Flow Rate Limit Ratio',
+                                        'pyname': u'warm_up_fuel_flow_rate_limit_ratio',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'warm up delay time',
+                                       {'name': u'Warm Up Delay Time',
+                                        'pyname': u'warm_up_delay_time',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u's'}),
+                                      (u'cool down power',
+                                       {'name': u'Cool Down Power',
+                                        'pyname': u'cool_down_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'cool down delay time',
+                                       {'name': u'Cool Down Delay Time',
+                                        'pyname': u'cool_down_delay_time',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u's'}),
+                                      (u'restart mode',
+                                       {'name': u'Restart Mode',
+                                        'pyname': u'restart_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'MandatoryCoolDown',
+                                                            u'OptionalCoolDown'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:MicroCHP:NonNormalizedParameters',
+               'pyname': u'GeneratorMicroChpNonNormalizedParameters',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7566,20 +9926,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def maximum_electric_power(self):
         """field `Maximum Electric Power`
-        
+
         |  Units: W
 
         Args:
@@ -7590,20 +9949,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `maximum_electric_power` or None if not set
+
         """
         return self["Maximum Electric Power"]
 
     @maximum_electric_power.setter
     def maximum_electric_power(self, value=None):
-        """  Corresponds to IDD field `Maximum Electric Power`
-
-        """
+        """Corresponds to IDD field `Maximum Electric Power`"""
         self["Maximum Electric Power"] = value
 
     @property
     def minimum_electric_power(self):
         """field `Minimum Electric Power`
-        
+
         |  Units: W
 
         Args:
@@ -7614,20 +9972,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `minimum_electric_power` or None if not set
+
         """
         return self["Minimum Electric Power"]
 
     @minimum_electric_power.setter
     def minimum_electric_power(self, value=None):
-        """  Corresponds to IDD field `Minimum Electric Power`
-
-        """
+        """Corresponds to IDD field `Minimum Electric Power`"""
         self["Minimum Electric Power"] = value
 
     @property
     def minimum_cooling_water_flow_rate(self):
         """field `Minimum Cooling Water Flow Rate`
-        
+
         |  Units: kg/s
 
         Args:
@@ -7638,20 +9995,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `minimum_cooling_water_flow_rate` or None if not set
+
         """
         return self["Minimum Cooling Water Flow Rate"]
 
     @minimum_cooling_water_flow_rate.setter
     def minimum_cooling_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Cooling Water Flow Rate`
-
-        """
+        """Corresponds to IDD field `Minimum Cooling Water Flow Rate`"""
         self["Minimum Cooling Water Flow Rate"] = value
 
     @property
     def maximum_cooling_water_temperature(self):
         """field `Maximum Cooling Water Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -7662,20 +10018,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `maximum_cooling_water_temperature` or None if not set
+
         """
         return self["Maximum Cooling Water Temperature"]
 
     @maximum_cooling_water_temperature.setter
     def maximum_cooling_water_temperature(self, value=None):
-        """  Corresponds to IDD field `Maximum Cooling Water Temperature`
-
-        """
+        """Corresponds to IDD field `Maximum Cooling Water Temperature`"""
         self["Maximum Cooling Water Temperature"] = value
 
     @property
     def electrical_efficiency_curve_name(self):
         """field `Electrical Efficiency Curve Name`
-        
+
         |  TriQuadratic
 
         Args:
@@ -7686,20 +10041,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `electrical_efficiency_curve_name` or None if not set
+
         """
         return self["Electrical Efficiency Curve Name"]
 
     @electrical_efficiency_curve_name.setter
     def electrical_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Efficiency Curve Name`
-
-        """
+        """Corresponds to IDD field `Electrical Efficiency Curve Name`"""
         self["Electrical Efficiency Curve Name"] = value
 
     @property
     def thermal_efficiency_curve_name(self):
         """field `Thermal Efficiency Curve Name`
-        
+
         |  TriQuadratic
 
         Args:
@@ -7710,20 +10064,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `thermal_efficiency_curve_name` or None if not set
+
         """
         return self["Thermal Efficiency Curve Name"]
 
     @thermal_efficiency_curve_name.setter
     def thermal_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD field `Thermal Efficiency Curve Name`
-
-        """
+        """Corresponds to IDD field `Thermal Efficiency Curve Name`"""
         self["Thermal Efficiency Curve Name"] = value
 
     @property
     def cooling_water_flow_rate_mode(self):
         """field `Cooling Water Flow Rate Mode`
-        
 
         Args:
             value (str): value for IDD Field `Cooling Water Flow Rate Mode`
@@ -7733,20 +10085,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `cooling_water_flow_rate_mode` or None if not set
+
         """
         return self["Cooling Water Flow Rate Mode"]
 
     @cooling_water_flow_rate_mode.setter
     def cooling_water_flow_rate_mode(self, value=None):
-        """  Corresponds to IDD field `Cooling Water Flow Rate Mode`
-
-        """
+        """Corresponds to IDD field `Cooling Water Flow Rate Mode`"""
         self["Cooling Water Flow Rate Mode"] = value
 
     @property
     def cooling_water_flow_rate_curve_name(self):
         """field `Cooling Water Flow Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Cooling Water Flow Rate Curve Name`
@@ -7756,20 +10106,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `cooling_water_flow_rate_curve_name` or None if not set
+
         """
         return self["Cooling Water Flow Rate Curve Name"]
 
     @cooling_water_flow_rate_curve_name.setter
     def cooling_water_flow_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Water Flow Rate Curve Name`
-
-        """
+        """Corresponds to IDD field `Cooling Water Flow Rate Curve Name`"""
         self["Cooling Water Flow Rate Curve Name"] = value
 
     @property
     def air_flow_rate_curve_name(self):
         """field `Air Flow Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Air Flow Rate Curve Name`
@@ -7779,20 +10127,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `air_flow_rate_curve_name` or None if not set
+
         """
         return self["Air Flow Rate Curve Name"]
 
     @air_flow_rate_curve_name.setter
     def air_flow_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Air Flow Rate Curve Name`
-
-        """
+        """Corresponds to IDD field `Air Flow Rate Curve Name`"""
         self["Air Flow Rate Curve Name"] = value
 
     @property
     def maximum_net_electrical_power_rate_of_change(self):
         """field `Maximum Net Electrical Power Rate of Change`
-        
+
         |  Units: W/s
 
         Args:
@@ -7803,20 +10150,20 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `maximum_net_electrical_power_rate_of_change` or None if not set
+
         """
         return self["Maximum Net Electrical Power Rate of Change"]
 
     @maximum_net_electrical_power_rate_of_change.setter
     def maximum_net_electrical_power_rate_of_change(self, value=None):
-        """  Corresponds to IDD field `Maximum Net Electrical Power Rate of Change`
-
-        """
+        """Corresponds to IDD field `Maximum Net Electrical Power Rate of
+        Change`"""
         self["Maximum Net Electrical Power Rate of Change"] = value
 
     @property
     def maximum_fuel_flow_rate_of_change(self):
         """field `Maximum Fuel Flow Rate of Change`
-        
+
         |  Units: kg/s2
 
         Args:
@@ -7827,20 +10174,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `maximum_fuel_flow_rate_of_change` or None if not set
+
         """
         return self["Maximum Fuel Flow Rate of Change"]
 
     @maximum_fuel_flow_rate_of_change.setter
     def maximum_fuel_flow_rate_of_change(self, value=None):
-        """  Corresponds to IDD field `Maximum Fuel Flow Rate of Change`
-
-        """
+        """Corresponds to IDD field `Maximum Fuel Flow Rate of Change`"""
         self["Maximum Fuel Flow Rate of Change"] = value
 
     @property
     def heat_exchanger_ufactor_times_area_value(self):
         """field `Heat Exchanger U-Factor Times Area Value`
-        
+
         |  Units: W/K
 
         Args:
@@ -7864,7 +10210,7 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def skin_loss_ufactor_times_area_value(self):
         """field `Skin Loss U-Factor Times Area Value`
-        
+
         |  Units: W/K
 
         Args:
@@ -7888,7 +10234,6 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
     @property
     def skin_loss_radiative_fraction(self):
         """field `Skin Loss Radiative Fraction`
-        
 
         Args:
             value (float): value for IDD Field `Skin Loss Radiative Fraction`
@@ -7898,20 +10243,21 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
+
         """
         return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Skin Loss Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Skin Loss Radiative Fraction`"""
         self["Skin Loss Radiative Fraction"] = value
 
     @property
-    def aggregated_thermal_mass_of_energy_conversion_portion_of_generator(self):
-        """field `Aggregated Thermal Mass of Energy Conversion Portion of Generator`
-        
+    def aggregated_thermal_mass_of_energy_conversion_portion_of_generator(
+            self):
+        """field `Aggregated Thermal Mass of Energy Conversion Portion of
+        Generator`
+
         |  Units: W/K
 
         Args:
@@ -7922,20 +10268,25 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `aggregated_thermal_mass_of_energy_conversion_portion_of_generator` or None if not set
+
         """
-        return self["Aggregated Thermal Mass of Energy Conversion Portion of Generator"]
+        return self[
+            "Aggregated Thermal Mass of Energy Conversion Portion of Generator"]
 
     @aggregated_thermal_mass_of_energy_conversion_portion_of_generator.setter
-    def aggregated_thermal_mass_of_energy_conversion_portion_of_generator(self, value=None):
-        """  Corresponds to IDD field `Aggregated Thermal Mass of Energy Conversion Portion of Generator`
-
-        """
-        self["Aggregated Thermal Mass of Energy Conversion Portion of Generator"] = value
+    def aggregated_thermal_mass_of_energy_conversion_portion_of_generator(
+            self,
+            value=None):
+        """Corresponds to IDD field `Aggregated Thermal Mass of Energy
+        Conversion Portion of Generator`"""
+        self[
+            "Aggregated Thermal Mass of Energy Conversion Portion of Generator"] = value
 
     @property
     def aggregated_thermal_mass_of_heat_recovery_portion_of_generator(self):
-        """field `Aggregated Thermal Mass of Heat Recovery Portion of Generator`
-        
+        """field `Aggregated Thermal Mass of Heat Recovery Portion of
+        Generator`
+
         |  Units: W/K
 
         Args:
@@ -7946,20 +10297,24 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `aggregated_thermal_mass_of_heat_recovery_portion_of_generator` or None if not set
+
         """
-        return self["Aggregated Thermal Mass of Heat Recovery Portion of Generator"]
+        return self[
+            "Aggregated Thermal Mass of Heat Recovery Portion of Generator"]
 
     @aggregated_thermal_mass_of_heat_recovery_portion_of_generator.setter
-    def aggregated_thermal_mass_of_heat_recovery_portion_of_generator(self, value=None):
-        """  Corresponds to IDD field `Aggregated Thermal Mass of Heat Recovery Portion of Generator`
-
-        """
-        self["Aggregated Thermal Mass of Heat Recovery Portion of Generator"] = value
+    def aggregated_thermal_mass_of_heat_recovery_portion_of_generator(
+            self,
+            value=None):
+        """Corresponds to IDD field `Aggregated Thermal Mass of Heat Recovery
+        Portion of Generator`"""
+        self[
+            "Aggregated Thermal Mass of Heat Recovery Portion of Generator"] = value
 
     @property
     def standby_power(self):
         """field `Standby Power`
-        
+
         |  Units: W
 
         Args:
@@ -7970,20 +10325,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `standby_power` or None if not set
+
         """
         return self["Standby Power"]
 
     @standby_power.setter
     def standby_power(self, value=None):
-        """  Corresponds to IDD field `Standby Power`
-
-        """
+        """Corresponds to IDD field `Standby Power`"""
         self["Standby Power"] = value
 
     @property
     def warm_up_mode(self):
         """field `Warm Up Mode`
-        
+
         |  Stirling engines use Nominal Engine Temperature
         |  Internal combustion engines use Time Delay
 
@@ -7995,20 +10349,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `warm_up_mode` or None if not set
+
         """
         return self["Warm Up Mode"]
 
     @warm_up_mode.setter
     def warm_up_mode(self, value=None):
-        """  Corresponds to IDD field `Warm Up Mode`
-
-        """
+        """Corresponds to IDD field `Warm Up Mode`"""
         self["Warm Up Mode"] = value
 
     @property
     def warm_up_fuel_flow_rate_coefficient(self):
         """field `Warm Up Fuel Flow Rate Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Warm Up Fuel Flow Rate Coefficient`
@@ -8018,20 +10370,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `warm_up_fuel_flow_rate_coefficient` or None if not set
+
         """
         return self["Warm Up Fuel Flow Rate Coefficient"]
 
     @warm_up_fuel_flow_rate_coefficient.setter
     def warm_up_fuel_flow_rate_coefficient(self, value=None):
-        """  Corresponds to IDD field `Warm Up Fuel Flow Rate Coefficient`
-
-        """
+        """Corresponds to IDD field `Warm Up Fuel Flow Rate Coefficient`"""
         self["Warm Up Fuel Flow Rate Coefficient"] = value
 
     @property
     def nominal_engine_operating_temperature(self):
         """field `Nominal Engine Operating Temperature`
-        
+
         |  Units: C
 
         Args:
@@ -8042,20 +10393,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `nominal_engine_operating_temperature` or None if not set
+
         """
         return self["Nominal Engine Operating Temperature"]
 
     @nominal_engine_operating_temperature.setter
     def nominal_engine_operating_temperature(self, value=None):
-        """  Corresponds to IDD field `Nominal Engine Operating Temperature`
-
-        """
+        """Corresponds to IDD field `Nominal Engine Operating Temperature`"""
         self["Nominal Engine Operating Temperature"] = value
 
     @property
     def warm_up_power_coefficient(self):
         """field `Warm Up Power Coefficient`
-        
 
         Args:
             value (float): value for IDD Field `Warm Up Power Coefficient`
@@ -8065,20 +10414,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `warm_up_power_coefficient` or None if not set
+
         """
         return self["Warm Up Power Coefficient"]
 
     @warm_up_power_coefficient.setter
     def warm_up_power_coefficient(self, value=None):
-        """  Corresponds to IDD field `Warm Up Power Coefficient`
-
-        """
+        """Corresponds to IDD field `Warm Up Power Coefficient`"""
         self["Warm Up Power Coefficient"] = value
 
     @property
     def warm_up_fuel_flow_rate_limit_ratio(self):
         """field `Warm Up Fuel Flow Rate Limit Ratio`
-        
 
         Args:
             value (float): value for IDD Field `Warm Up Fuel Flow Rate Limit Ratio`
@@ -8088,20 +10435,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `warm_up_fuel_flow_rate_limit_ratio` or None if not set
+
         """
         return self["Warm Up Fuel Flow Rate Limit Ratio"]
 
     @warm_up_fuel_flow_rate_limit_ratio.setter
     def warm_up_fuel_flow_rate_limit_ratio(self, value=None):
-        """  Corresponds to IDD field `Warm Up Fuel Flow Rate Limit Ratio`
-
-        """
+        """Corresponds to IDD field `Warm Up Fuel Flow Rate Limit Ratio`"""
         self["Warm Up Fuel Flow Rate Limit Ratio"] = value
 
     @property
     def warm_up_delay_time(self):
         """field `Warm Up Delay Time`
-        
+
         |  Units: s
 
         Args:
@@ -8112,20 +10458,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `warm_up_delay_time` or None if not set
+
         """
         return self["Warm Up Delay Time"]
 
     @warm_up_delay_time.setter
     def warm_up_delay_time(self, value=None):
-        """  Corresponds to IDD field `Warm Up Delay Time`
-
-        """
+        """Corresponds to IDD field `Warm Up Delay Time`"""
         self["Warm Up Delay Time"] = value
 
     @property
     def cool_down_power(self):
         """field `Cool Down Power`
-        
+
         |  Units: W
 
         Args:
@@ -8136,20 +10481,19 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `cool_down_power` or None if not set
+
         """
         return self["Cool Down Power"]
 
     @cool_down_power.setter
     def cool_down_power(self, value=None):
-        """  Corresponds to IDD field `Cool Down Power`
-
-        """
+        """Corresponds to IDD field `Cool Down Power`"""
         self["Cool Down Power"] = value
 
     @property
     def cool_down_delay_time(self):
         """field `Cool Down Delay Time`
-        
+
         |  Units: s
 
         Args:
@@ -8160,20 +10504,18 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             float: the value of `cool_down_delay_time` or None if not set
+
         """
         return self["Cool Down Delay Time"]
 
     @cool_down_delay_time.setter
     def cool_down_delay_time(self, value=None):
-        """  Corresponds to IDD field `Cool Down Delay Time`
-
-        """
+        """Corresponds to IDD field `Cool Down Delay Time`"""
         self["Cool Down Delay Time"] = value
 
     @property
     def restart_mode(self):
         """field `Restart Mode`
-        
 
         Args:
             value (str): value for IDD Field `Restart Mode`
@@ -8183,37 +10525,485 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
 
         Returns:
             str: the value of `restart_mode` or None if not set
+
         """
         return self["Restart Mode"]
 
     @restart_mode.setter
     def restart_mode(self, value=None):
-        """  Corresponds to IDD field `Restart Mode`
-
-        """
+        """Corresponds to IDD field `Restart Mode`"""
         self["Restart Mode"] = value
 
 
 
 
 class GeneratorFuelSupply(DataObject):
+
     """ Corresponds to IDD object `Generator:FuelSupply`
         Used only with Generator:FuelCell and Generator:MicroCHP
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel temperature modeling mode', {'name': u'Fuel Temperature Modeling Mode', 'pyname': u'fuel_temperature_modeling_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'TemperatureFromAirNode', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'fuel temperature reference node name', {'name': u'Fuel Temperature Reference Node Name', 'pyname': u'fuel_temperature_reference_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fuel temperature schedule name', {'name': u'Fuel Temperature Schedule Name', 'pyname': u'fuel_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor power multiplier function of fuel rate curve name', {'name': u'Compressor Power Multiplier Function of Fuel Rate Curve Name', 'pyname': u'compressor_power_multiplier_function_of_fuel_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor heat loss factor', {'name': u'Compressor Heat Loss Factor', 'pyname': u'compressor_heat_loss_factor', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'GaseousConstituents', u'LiquidGeneric'], 'autocalculatable': False, 'type': 'alpha'}), (u'liquid generic fuel lower heating value', {'name': u'Liquid Generic Fuel Lower Heating Value', 'pyname': u'liquid_generic_fuel_lower_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'liquid generic fuel higher heating value', {'name': u'Liquid Generic Fuel Higher Heating Value', 'pyname': u'liquid_generic_fuel_higher_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'liquid generic fuel molecular weight', {'name': u'Liquid Generic Fuel Molecular Weight', 'pyname': u'liquid_generic_fuel_molecular_weight', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/mol'}), (u'liquid generic fuel co2 emission factor', {'name': u'Liquid Generic Fuel CO2 Emission Factor', 'pyname': u'liquid_generic_fuel_co2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'number of constituents in gaseous constituent fuel supply', {'name': u'Number of Constituents in Gaseous Constituent Fuel Supply', 'pyname': u'number_of_constituents_in_gaseous_constituent_fuel_supply', 'maximum': 12.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 1 name', {'name': u'Constituent 1 Name', 'pyname': u'constituent_1_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 1 molar fraction', {'name': u'Constituent 1 Molar Fraction', 'pyname': u'constituent_1_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 2 name', {'name': u'Constituent 2 Name', 'pyname': u'constituent_2_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 2 molar fraction', {'name': u'Constituent 2 Molar Fraction', 'pyname': u'constituent_2_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 3 name', {'name': u'Constituent 3 Name', 'pyname': u'constituent_3_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 3 molar fraction', {'name': u'Constituent 3 Molar Fraction', 'pyname': u'constituent_3_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 4 name', {'name': u'Constituent 4 Name', 'pyname': u'constituent_4_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 4 molar fraction', {'name': u'Constituent 4 Molar Fraction', 'pyname': u'constituent_4_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 5 name', {'name': u'Constituent 5 Name', 'pyname': u'constituent_5_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 5 molar fraction', {'name': u'Constituent 5 Molar Fraction', 'pyname': u'constituent_5_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 6 name', {'name': u'Constituent 6 Name', 'pyname': u'constituent_6_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 6 molar fraction', {'name': u'Constituent 6 Molar Fraction', 'pyname': u'constituent_6_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 7 name', {'name': u'Constituent 7 Name', 'pyname': u'constituent_7_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 7 molar fraction', {'name': u'Constituent 7 Molar Fraction', 'pyname': u'constituent_7_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 8 name', {'name': u'Constituent 8 Name', 'pyname': u'constituent_8_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 8 molar fraction', {'name': u'Constituent 8 Molar Fraction', 'pyname': u'constituent_8_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 9 name', {'name': u'Constituent 9 Name', 'pyname': u'constituent_9_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 9 molar fraction', {'name': u'Constituent 9 Molar Fraction', 'pyname': u'constituent_9_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 10 name', {'name': u'Constituent 10 Name', 'pyname': u'constituent_10_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 10 molar fraction', {'name': u'Constituent 10 Molar Fraction', 'pyname': u'constituent_10_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 11 name', {'name': u'Constituent 11 Name', 'pyname': u'constituent_11_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 11 molar fraction', {'name': u'Constituent 11 Molar Fraction', 'pyname': u'constituent_11_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'constituent 12 name', {'name': u'Constituent 12 Name', 'pyname': u'constituent_12_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CarbonDioxide', u'Nitrogen', u'Oxygen', u'Water', u'Argon', u'Hydrogen', u'Methane', u'Ethane', u'Propane', u'Butane', u'Pentane', u'Hexane', u'Methanol', u'Ethanol'], 'autocalculatable': False, 'type': 'alpha'}), (u'constituent 12 molar fraction', {'name': u'Constituent 12 Molar Fraction', 'pyname': u'constituent_12_molar_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'Generator:FuelSupply',
- 'pyname': u'GeneratorFuelSupply',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'fuel temperature modeling mode',
+                                       {'name': u'Fuel Temperature Modeling Mode',
+                                        'pyname': u'fuel_temperature_modeling_mode',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'TemperatureFromAirNode',
+                                                            u'Scheduled'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'fuel temperature reference node name',
+                                       {'name': u'Fuel Temperature Reference Node Name',
+                                        'pyname': u'fuel_temperature_reference_node_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'fuel temperature schedule name',
+                                       {'name': u'Fuel Temperature Schedule Name',
+                                        'pyname': u'fuel_temperature_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'compressor power multiplier function of fuel rate curve name',
+                                       {'name': u'Compressor Power Multiplier Function of Fuel Rate Curve Name',
+                                        'pyname': u'compressor_power_multiplier_function_of_fuel_rate_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'compressor heat loss factor',
+                                       {'name': u'Compressor Heat Loss Factor',
+                                        'pyname': u'compressor_heat_loss_factor',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'fuel type',
+                                       {'name': u'Fuel Type',
+                                        'pyname': u'fuel_type',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'GaseousConstituents',
+                                                            u'LiquidGeneric'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'liquid generic fuel lower heating value',
+                                       {'name': u'Liquid Generic Fuel Lower Heating Value',
+                                        'pyname': u'liquid_generic_fuel_lower_heating_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'liquid generic fuel higher heating value',
+                                       {'name': u'Liquid Generic Fuel Higher Heating Value',
+                                        'pyname': u'liquid_generic_fuel_higher_heating_value',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'kJ/kg'}),
+                                      (u'liquid generic fuel molecular weight',
+                                       {'name': u'Liquid Generic Fuel Molecular Weight',
+                                        'pyname': u'liquid_generic_fuel_molecular_weight',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'g/mol'}),
+                                      (u'liquid generic fuel co2 emission factor',
+                                       {'name': u'Liquid Generic Fuel CO2 Emission Factor',
+                                        'pyname': u'liquid_generic_fuel_co2_emission_factor',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'number of constituents in gaseous constituent fuel supply',
+                                       {'name': u'Number of Constituents in Gaseous Constituent Fuel Supply',
+                                        'pyname': u'number_of_constituents_in_gaseous_constituent_fuel_supply',
+                                        'maximum': 12.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 1 name',
+                                       {'name': u'Constituent 1 Name',
+                                        'pyname': u'constituent_1_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 1 molar fraction',
+                                       {'name': u'Constituent 1 Molar Fraction',
+                                        'pyname': u'constituent_1_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 2 name',
+                                       {'name': u'Constituent 2 Name',
+                                        'pyname': u'constituent_2_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 2 molar fraction',
+                                       {'name': u'Constituent 2 Molar Fraction',
+                                        'pyname': u'constituent_2_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 3 name',
+                                       {'name': u'Constituent 3 Name',
+                                        'pyname': u'constituent_3_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 3 molar fraction',
+                                       {'name': u'Constituent 3 Molar Fraction',
+                                        'pyname': u'constituent_3_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 4 name',
+                                       {'name': u'Constituent 4 Name',
+                                        'pyname': u'constituent_4_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 4 molar fraction',
+                                       {'name': u'Constituent 4 Molar Fraction',
+                                        'pyname': u'constituent_4_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 5 name',
+                                       {'name': u'Constituent 5 Name',
+                                        'pyname': u'constituent_5_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 5 molar fraction',
+                                       {'name': u'Constituent 5 Molar Fraction',
+                                        'pyname': u'constituent_5_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 6 name',
+                                       {'name': u'Constituent 6 Name',
+                                        'pyname': u'constituent_6_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 6 molar fraction',
+                                       {'name': u'Constituent 6 Molar Fraction',
+                                        'pyname': u'constituent_6_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 7 name',
+                                       {'name': u'Constituent 7 Name',
+                                        'pyname': u'constituent_7_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 7 molar fraction',
+                                       {'name': u'Constituent 7 Molar Fraction',
+                                        'pyname': u'constituent_7_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 8 name',
+                                       {'name': u'Constituent 8 Name',
+                                        'pyname': u'constituent_8_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 8 molar fraction',
+                                       {'name': u'Constituent 8 Molar Fraction',
+                                        'pyname': u'constituent_8_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 9 name',
+                                       {'name': u'Constituent 9 Name',
+                                        'pyname': u'constituent_9_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 9 molar fraction',
+                                       {'name': u'Constituent 9 Molar Fraction',
+                                        'pyname': u'constituent_9_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 10 name',
+                                       {'name': u'Constituent 10 Name',
+                                        'pyname': u'constituent_10_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 10 molar fraction',
+                                       {'name': u'Constituent 10 Molar Fraction',
+                                        'pyname': u'constituent_10_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 11 name',
+                                       {'name': u'Constituent 11 Name',
+                                        'pyname': u'constituent_11_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 11 molar fraction',
+                                       {'name': u'Constituent 11 Molar Fraction',
+                                        'pyname': u'constituent_11_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'constituent 12 name',
+                                       {'name': u'Constituent 12 Name',
+                                        'pyname': u'constituent_12_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'CarbonDioxide',
+                                                            u'Nitrogen',
+                                                            u'Oxygen',
+                                                            u'Water',
+                                                            u'Argon',
+                                                            u'Hydrogen',
+                                                            u'Methane',
+                                                            u'Ethane',
+                                                            u'Propane',
+                                                            u'Butane',
+                                                            u'Pentane',
+                                                            u'Hexane',
+                                                            u'Methanol',
+                                                            u'Ethanol'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'constituent 12 molar fraction',
+                                       {'name': u'Constituent 12 Molar Fraction',
+                                        'pyname': u'constituent_12_molar_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'Generator:FuelSupply',
+               'pyname': u'GeneratorFuelSupply',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8223,20 +11013,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def fuel_temperature_modeling_mode(self):
         """field `Fuel Temperature Modeling Mode`
-        
 
         Args:
             value (str): value for IDD Field `Fuel Temperature Modeling Mode`
@@ -8246,20 +11034,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `fuel_temperature_modeling_mode` or None if not set
+
         """
         return self["Fuel Temperature Modeling Mode"]
 
     @fuel_temperature_modeling_mode.setter
     def fuel_temperature_modeling_mode(self, value=None):
-        """  Corresponds to IDD field `Fuel Temperature Modeling Mode`
-
-        """
+        """Corresponds to IDD field `Fuel Temperature Modeling Mode`"""
         self["Fuel Temperature Modeling Mode"] = value
 
     @property
     def fuel_temperature_reference_node_name(self):
         """field `Fuel Temperature Reference Node Name`
-        
 
         Args:
             value (str): value for IDD Field `Fuel Temperature Reference Node Name`
@@ -8269,20 +11055,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `fuel_temperature_reference_node_name` or None if not set
+
         """
         return self["Fuel Temperature Reference Node Name"]
 
     @fuel_temperature_reference_node_name.setter
     def fuel_temperature_reference_node_name(self, value=None):
-        """  Corresponds to IDD field `Fuel Temperature Reference Node Name`
-
-        """
+        """Corresponds to IDD field `Fuel Temperature Reference Node Name`"""
         self["Fuel Temperature Reference Node Name"] = value
 
     @property
     def fuel_temperature_schedule_name(self):
         """field `Fuel Temperature Schedule Name`
-        
 
         Args:
             value (str): value for IDD Field `Fuel Temperature Schedule Name`
@@ -8292,20 +11076,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `fuel_temperature_schedule_name` or None if not set
+
         """
         return self["Fuel Temperature Schedule Name"]
 
     @fuel_temperature_schedule_name.setter
     def fuel_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Fuel Temperature Schedule Name`
-
-        """
+        """Corresponds to IDD field `Fuel Temperature Schedule Name`"""
         self["Fuel Temperature Schedule Name"] = value
 
     @property
     def compressor_power_multiplier_function_of_fuel_rate_curve_name(self):
         """field `Compressor Power Multiplier Function of Fuel Rate Curve Name`
-        
 
         Args:
             value (str): value for IDD Field `Compressor Power Multiplier Function of Fuel Rate Curve Name`
@@ -8315,20 +11097,24 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `compressor_power_multiplier_function_of_fuel_rate_curve_name` or None if not set
+
         """
-        return self["Compressor Power Multiplier Function of Fuel Rate Curve Name"]
+        return self[
+            "Compressor Power Multiplier Function of Fuel Rate Curve Name"]
 
     @compressor_power_multiplier_function_of_fuel_rate_curve_name.setter
-    def compressor_power_multiplier_function_of_fuel_rate_curve_name(self, value=None):
-        """  Corresponds to IDD field `Compressor Power Multiplier Function of Fuel Rate Curve Name`
-
-        """
-        self["Compressor Power Multiplier Function of Fuel Rate Curve Name"] = value
+    def compressor_power_multiplier_function_of_fuel_rate_curve_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Compressor Power Multiplier Function of
+        Fuel Rate Curve Name`"""
+        self[
+            "Compressor Power Multiplier Function of Fuel Rate Curve Name"] = value
 
     @property
     def compressor_heat_loss_factor(self):
         """field `Compressor Heat Loss Factor`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8339,20 +11125,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `compressor_heat_loss_factor` or None if not set
+
         """
         return self["Compressor Heat Loss Factor"]
 
     @compressor_heat_loss_factor.setter
     def compressor_heat_loss_factor(self, value=None):
-        """  Corresponds to IDD field `Compressor Heat Loss Factor`
-
-        """
+        """Corresponds to IDD field `Compressor Heat Loss Factor`"""
         self["Compressor Heat Loss Factor"] = value
 
     @property
     def fuel_type(self):
         """field `Fuel Type`
-        
 
         Args:
             value (str): value for IDD Field `Fuel Type`
@@ -8362,20 +11146,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `fuel_type` or None if not set
+
         """
         return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value=None):
-        """  Corresponds to IDD field `Fuel Type`
-
-        """
+        """Corresponds to IDD field `Fuel Type`"""
         self["Fuel Type"] = value
 
     @property
     def liquid_generic_fuel_lower_heating_value(self):
         """field `Liquid Generic Fuel Lower Heating Value`
-        
+
         |  Units: kJ/kg
 
         Args:
@@ -8386,20 +11169,20 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `liquid_generic_fuel_lower_heating_value` or None if not set
+
         """
         return self["Liquid Generic Fuel Lower Heating Value"]
 
     @liquid_generic_fuel_lower_heating_value.setter
     def liquid_generic_fuel_lower_heating_value(self, value=None):
-        """  Corresponds to IDD field `Liquid Generic Fuel Lower Heating Value`
-
-        """
+        """Corresponds to IDD field `Liquid Generic Fuel Lower Heating
+        Value`"""
         self["Liquid Generic Fuel Lower Heating Value"] = value
 
     @property
     def liquid_generic_fuel_higher_heating_value(self):
         """field `Liquid Generic Fuel Higher Heating Value`
-        
+
         |  Units: kJ/kg
 
         Args:
@@ -8410,20 +11193,20 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `liquid_generic_fuel_higher_heating_value` or None if not set
+
         """
         return self["Liquid Generic Fuel Higher Heating Value"]
 
     @liquid_generic_fuel_higher_heating_value.setter
     def liquid_generic_fuel_higher_heating_value(self, value=None):
-        """  Corresponds to IDD field `Liquid Generic Fuel Higher Heating Value`
-
-        """
+        """Corresponds to IDD field `Liquid Generic Fuel Higher Heating
+        Value`"""
         self["Liquid Generic Fuel Higher Heating Value"] = value
 
     @property
     def liquid_generic_fuel_molecular_weight(self):
         """field `Liquid Generic Fuel Molecular Weight`
-        
+
         |  Units: g/mol
 
         Args:
@@ -8434,20 +11217,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `liquid_generic_fuel_molecular_weight` or None if not set
+
         """
         return self["Liquid Generic Fuel Molecular Weight"]
 
     @liquid_generic_fuel_molecular_weight.setter
     def liquid_generic_fuel_molecular_weight(self, value=None):
-        """  Corresponds to IDD field `Liquid Generic Fuel Molecular Weight`
-
-        """
+        """Corresponds to IDD field `Liquid Generic Fuel Molecular Weight`"""
         self["Liquid Generic Fuel Molecular Weight"] = value
 
     @property
     def liquid_generic_fuel_co2_emission_factor(self):
         """field `Liquid Generic Fuel CO2 Emission Factor`
-        
 
         Args:
             value (float): value for IDD Field `Liquid Generic Fuel CO2 Emission Factor`
@@ -8457,20 +11238,20 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `liquid_generic_fuel_co2_emission_factor` or None if not set
+
         """
         return self["Liquid Generic Fuel CO2 Emission Factor"]
 
     @liquid_generic_fuel_co2_emission_factor.setter
     def liquid_generic_fuel_co2_emission_factor(self, value=None):
-        """  Corresponds to IDD field `Liquid Generic Fuel CO2 Emission Factor`
-
-        """
+        """Corresponds to IDD field `Liquid Generic Fuel CO2 Emission
+        Factor`"""
         self["Liquid Generic Fuel CO2 Emission Factor"] = value
 
     @property
     def number_of_constituents_in_gaseous_constituent_fuel_supply(self):
         """field `Number of Constituents in Gaseous Constituent Fuel Supply`
-        
+
         |  value <= 12.0
 
         Args:
@@ -8481,20 +11262,23 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `number_of_constituents_in_gaseous_constituent_fuel_supply` or None if not set
+
         """
-        return self["Number of Constituents in Gaseous Constituent Fuel Supply"]
+        return self[
+            "Number of Constituents in Gaseous Constituent Fuel Supply"]
 
     @number_of_constituents_in_gaseous_constituent_fuel_supply.setter
-    def number_of_constituents_in_gaseous_constituent_fuel_supply(self, value=None):
-        """  Corresponds to IDD field `Number of Constituents in Gaseous Constituent Fuel Supply`
-
-        """
-        self["Number of Constituents in Gaseous Constituent Fuel Supply"] = value
+    def number_of_constituents_in_gaseous_constituent_fuel_supply(
+            self,
+            value=None):
+        """Corresponds to IDD field `Number of Constituents in Gaseous
+        Constituent Fuel Supply`"""
+        self[
+            "Number of Constituents in Gaseous Constituent Fuel Supply"] = value
 
     @property
     def constituent_1_name(self):
         """field `Constituent 1 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 1 Name`
@@ -8504,20 +11288,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_1_name` or None if not set
+
         """
         return self["Constituent 1 Name"]
 
     @constituent_1_name.setter
     def constituent_1_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 1 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 1 Name`"""
         self["Constituent 1 Name"] = value
 
     @property
     def constituent_1_molar_fraction(self):
         """field `Constituent 1 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8528,20 +11311,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_1_molar_fraction` or None if not set
+
         """
         return self["Constituent 1 Molar Fraction"]
 
     @constituent_1_molar_fraction.setter
     def constituent_1_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 1 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 1 Molar Fraction`"""
         self["Constituent 1 Molar Fraction"] = value
 
     @property
     def constituent_2_name(self):
         """field `Constituent 2 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 2 Name`
@@ -8551,20 +11332,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_2_name` or None if not set
+
         """
         return self["Constituent 2 Name"]
 
     @constituent_2_name.setter
     def constituent_2_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 2 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 2 Name`"""
         self["Constituent 2 Name"] = value
 
     @property
     def constituent_2_molar_fraction(self):
         """field `Constituent 2 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8575,20 +11355,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_2_molar_fraction` or None if not set
+
         """
         return self["Constituent 2 Molar Fraction"]
 
     @constituent_2_molar_fraction.setter
     def constituent_2_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 2 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 2 Molar Fraction`"""
         self["Constituent 2 Molar Fraction"] = value
 
     @property
     def constituent_3_name(self):
         """field `Constituent 3 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 3 Name`
@@ -8598,20 +11376,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_3_name` or None if not set
+
         """
         return self["Constituent 3 Name"]
 
     @constituent_3_name.setter
     def constituent_3_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 3 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 3 Name`"""
         self["Constituent 3 Name"] = value
 
     @property
     def constituent_3_molar_fraction(self):
         """field `Constituent 3 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8622,20 +11399,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_3_molar_fraction` or None if not set
+
         """
         return self["Constituent 3 Molar Fraction"]
 
     @constituent_3_molar_fraction.setter
     def constituent_3_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 3 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 3 Molar Fraction`"""
         self["Constituent 3 Molar Fraction"] = value
 
     @property
     def constituent_4_name(self):
         """field `Constituent 4 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 4 Name`
@@ -8645,20 +11420,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_4_name` or None if not set
+
         """
         return self["Constituent 4 Name"]
 
     @constituent_4_name.setter
     def constituent_4_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 4 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 4 Name`"""
         self["Constituent 4 Name"] = value
 
     @property
     def constituent_4_molar_fraction(self):
         """field `Constituent 4 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8669,20 +11443,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_4_molar_fraction` or None if not set
+
         """
         return self["Constituent 4 Molar Fraction"]
 
     @constituent_4_molar_fraction.setter
     def constituent_4_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 4 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 4 Molar Fraction`"""
         self["Constituent 4 Molar Fraction"] = value
 
     @property
     def constituent_5_name(self):
         """field `Constituent 5 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 5 Name`
@@ -8692,20 +11464,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_5_name` or None if not set
+
         """
         return self["Constituent 5 Name"]
 
     @constituent_5_name.setter
     def constituent_5_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 5 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 5 Name`"""
         self["Constituent 5 Name"] = value
 
     @property
     def constituent_5_molar_fraction(self):
         """field `Constituent 5 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8716,20 +11487,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_5_molar_fraction` or None if not set
+
         """
         return self["Constituent 5 Molar Fraction"]
 
     @constituent_5_molar_fraction.setter
     def constituent_5_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 5 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 5 Molar Fraction`"""
         self["Constituent 5 Molar Fraction"] = value
 
     @property
     def constituent_6_name(self):
         """field `Constituent 6 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 6 Name`
@@ -8739,20 +11508,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_6_name` or None if not set
+
         """
         return self["Constituent 6 Name"]
 
     @constituent_6_name.setter
     def constituent_6_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 6 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 6 Name`"""
         self["Constituent 6 Name"] = value
 
     @property
     def constituent_6_molar_fraction(self):
         """field `Constituent 6 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8763,20 +11531,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_6_molar_fraction` or None if not set
+
         """
         return self["Constituent 6 Molar Fraction"]
 
     @constituent_6_molar_fraction.setter
     def constituent_6_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 6 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 6 Molar Fraction`"""
         self["Constituent 6 Molar Fraction"] = value
 
     @property
     def constituent_7_name(self):
         """field `Constituent 7 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 7 Name`
@@ -8786,20 +11552,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_7_name` or None if not set
+
         """
         return self["Constituent 7 Name"]
 
     @constituent_7_name.setter
     def constituent_7_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 7 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 7 Name`"""
         self["Constituent 7 Name"] = value
 
     @property
     def constituent_7_molar_fraction(self):
         """field `Constituent 7 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8810,20 +11575,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_7_molar_fraction` or None if not set
+
         """
         return self["Constituent 7 Molar Fraction"]
 
     @constituent_7_molar_fraction.setter
     def constituent_7_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 7 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 7 Molar Fraction`"""
         self["Constituent 7 Molar Fraction"] = value
 
     @property
     def constituent_8_name(self):
         """field `Constituent 8 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 8 Name`
@@ -8833,20 +11596,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_8_name` or None if not set
+
         """
         return self["Constituent 8 Name"]
 
     @constituent_8_name.setter
     def constituent_8_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 8 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 8 Name`"""
         self["Constituent 8 Name"] = value
 
     @property
     def constituent_8_molar_fraction(self):
         """field `Constituent 8 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8857,20 +11619,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_8_molar_fraction` or None if not set
+
         """
         return self["Constituent 8 Molar Fraction"]
 
     @constituent_8_molar_fraction.setter
     def constituent_8_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 8 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 8 Molar Fraction`"""
         self["Constituent 8 Molar Fraction"] = value
 
     @property
     def constituent_9_name(self):
         """field `Constituent 9 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 9 Name`
@@ -8880,20 +11640,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_9_name` or None if not set
+
         """
         return self["Constituent 9 Name"]
 
     @constituent_9_name.setter
     def constituent_9_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 9 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 9 Name`"""
         self["Constituent 9 Name"] = value
 
     @property
     def constituent_9_molar_fraction(self):
         """field `Constituent 9 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8904,20 +11663,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_9_molar_fraction` or None if not set
+
         """
         return self["Constituent 9 Molar Fraction"]
 
     @constituent_9_molar_fraction.setter
     def constituent_9_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 9 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 9 Molar Fraction`"""
         self["Constituent 9 Molar Fraction"] = value
 
     @property
     def constituent_10_name(self):
         """field `Constituent 10 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 10 Name`
@@ -8927,20 +11684,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_10_name` or None if not set
+
         """
         return self["Constituent 10 Name"]
 
     @constituent_10_name.setter
     def constituent_10_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 10 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 10 Name`"""
         self["Constituent 10 Name"] = value
 
     @property
     def constituent_10_molar_fraction(self):
         """field `Constituent 10 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8951,20 +11707,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_10_molar_fraction` or None if not set
+
         """
         return self["Constituent 10 Molar Fraction"]
 
     @constituent_10_molar_fraction.setter
     def constituent_10_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 10 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 10 Molar Fraction`"""
         self["Constituent 10 Molar Fraction"] = value
 
     @property
     def constituent_11_name(self):
         """field `Constituent 11 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 11 Name`
@@ -8974,20 +11728,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_11_name` or None if not set
+
         """
         return self["Constituent 11 Name"]
 
     @constituent_11_name.setter
     def constituent_11_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 11 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 11 Name`"""
         self["Constituent 11 Name"] = value
 
     @property
     def constituent_11_molar_fraction(self):
         """field `Constituent 11 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -8998,20 +11751,18 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_11_molar_fraction` or None if not set
+
         """
         return self["Constituent 11 Molar Fraction"]
 
     @constituent_11_molar_fraction.setter
     def constituent_11_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 11 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 11 Molar Fraction`"""
         self["Constituent 11 Molar Fraction"] = value
 
     @property
     def constituent_12_name(self):
         """field `Constituent 12 Name`
-        
 
         Args:
             value (str): value for IDD Field `Constituent 12 Name`
@@ -9021,20 +11772,19 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             str: the value of `constituent_12_name` or None if not set
+
         """
         return self["Constituent 12 Name"]
 
     @constituent_12_name.setter
     def constituent_12_name(self, value=None):
-        """  Corresponds to IDD field `Constituent 12 Name`
-
-        """
+        """Corresponds to IDD field `Constituent 12 Name`"""
         self["Constituent 12 Name"] = value
 
     @property
     def constituent_12_molar_fraction(self):
         """field `Constituent 12 Molar Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -9045,37 +11795,270 @@ class GeneratorFuelSupply(DataObject):
 
         Returns:
             float: the value of `constituent_12_molar_fraction` or None if not set
+
         """
         return self["Constituent 12 Molar Fraction"]
 
     @constituent_12_molar_fraction.setter
     def constituent_12_molar_fraction(self, value=None):
-        """  Corresponds to IDD field `Constituent 12 Molar Fraction`
-
-        """
+        """Corresponds to IDD field `Constituent 12 Molar Fraction`"""
         self["Constituent 12 Molar Fraction"] = value
 
 
 
 
 class GeneratorWindTurbine(DataObject):
+
     """ Corresponds to IDD object `Generator:WindTurbine`
         Wind turbine generator.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rotor type', {'name': u'Rotor Type', 'pyname': u'rotor_type', 'default': u'HorizontalAxisWindTurbine', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HorizontalAxisWindTurbine', u'VerticalAxisWindTurbine'], 'autocalculatable': False, 'type': 'alpha'}), (u'power control', {'name': u'Power Control', 'pyname': u'power_control', 'default': u'VariableSpeedVariablePitch', 'required-field': True, 'autosizable': False, 'accepted-values': [u'FixedSpeedFixedPitch', u'FixedSpeedVariablePitch', u'VariableSpeedFixedPitch', u'VariableSpeedVariablePitch'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated rotor speed', {'name': u'Rated Rotor Speed', 'pyname': u'rated_rotor_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'rotor diameter', {'name': u'Rotor Diameter', 'pyname': u'rotor_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'overall height', {'name': u'Overall Height', 'pyname': u'overall_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of blades', {'name': u'Number of Blades', 'pyname': u'number_of_blades', 'default': 3.0, 'required-field': True, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': 'real'}), (u'rated power', {'name': u'Rated Power', 'pyname': u'rated_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated wind speed', {'name': u'Rated Wind Speed', 'pyname': u'rated_wind_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'cut in wind speed', {'name': u'Cut In Wind Speed', 'pyname': u'cut_in_wind_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'cut out wind speed', {'name': u'Cut Out Wind Speed', 'pyname': u'cut_out_wind_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'fraction system efficiency', {'name': u'Fraction system Efficiency', 'pyname': u'fraction_system_efficiency', 'default': 0.835, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum tip speed ratio', {'name': u'Maximum Tip Speed Ratio', 'pyname': u'maximum_tip_speed_ratio', 'default': 5.0, 'minimum>': 0.0, 'maximum': 12.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum power coefficient', {'name': u'Maximum Power Coefficient', 'pyname': u'maximum_power_coefficient', 'default': 0.25, 'minimum>': 0.0, 'maximum': 0.59, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'annual local average wind speed', {'name': u'Annual Local Average Wind Speed', 'pyname': u'annual_local_average_wind_speed', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'height for local average wind speed', {'name': u'Height for Local Average Wind Speed', 'pyname': u'height_for_local_average_wind_speed', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'blade chord area', {'name': u'Blade Chord Area', 'pyname': u'blade_chord_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'blade drag coefficient', {'name': u'Blade Drag Coefficient', 'pyname': u'blade_drag_coefficient', 'default': 0.9, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'blade lift coefficient', {'name': u'Blade Lift Coefficient', 'pyname': u'blade_lift_coefficient', 'default': 0.05, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c1', {'name': u'Power Coefficient C1', 'pyname': u'power_coefficient_c1', 'default': 0.5176, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c2', {'name': u'Power Coefficient C2', 'pyname': u'power_coefficient_c2', 'default': 116.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c3', {'name': u'Power Coefficient C3', 'pyname': u'power_coefficient_c3', 'default': 0.4, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c4', {'name': u'Power Coefficient C4', 'pyname': u'power_coefficient_c4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c5', {'name': u'Power Coefficient C5', 'pyname': u'power_coefficient_c5', 'default': 5.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'power coefficient c6', {'name': u'Power Coefficient C6', 'pyname': u'power_coefficient_c6', 'default': 21.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 26,
- 'name': u'Generator:WindTurbine',
- 'pyname': u'GeneratorWindTurbine',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'rotor type',
+                                       {'name': u'Rotor Type',
+                                        'pyname': u'rotor_type',
+                                        'default': u'HorizontalAxisWindTurbine',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'HorizontalAxisWindTurbine',
+                                                            u'VerticalAxisWindTurbine'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'power control',
+                                       {'name': u'Power Control',
+                                        'pyname': u'power_control',
+                                        'default': u'VariableSpeedVariablePitch',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'accepted-values': [u'FixedSpeedFixedPitch',
+                                                            u'FixedSpeedVariablePitch',
+                                                            u'VariableSpeedFixedPitch',
+                                                            u'VariableSpeedVariablePitch'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'rated rotor speed',
+                                       {'name': u'Rated Rotor Speed',
+                                        'pyname': u'rated_rotor_speed',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'rev/min'}),
+                                      (u'rotor diameter',
+                                       {'name': u'Rotor Diameter',
+                                        'pyname': u'rotor_diameter',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm'}),
+                                      (u'overall height',
+                                       {'name': u'Overall Height',
+                                        'pyname': u'overall_height',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm'}),
+                                      (u'number of blades',
+                                       {'name': u'Number of Blades',
+                                        'pyname': u'number_of_blades',
+                                        'default': 3.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'minimum': 2.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'rated power',
+                                       {'name': u'Rated Power',
+                                        'pyname': u'rated_power',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'rated wind speed',
+                                       {'name': u'Rated Wind Speed',
+                                        'pyname': u'rated_wind_speed',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm/s'}),
+                                      (u'cut in wind speed',
+                                       {'name': u'Cut In Wind Speed',
+                                        'pyname': u'cut_in_wind_speed',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm/s'}),
+                                      (u'cut out wind speed',
+                                       {'name': u'Cut Out Wind Speed',
+                                        'pyname': u'cut_out_wind_speed',
+                                        'minimum>': 0.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm/s'}),
+                                      (u'fraction system efficiency',
+                                       {'name': u'Fraction system Efficiency',
+                                        'pyname': u'fraction_system_efficiency',
+                                        'default': 0.835,
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'maximum tip speed ratio',
+                                       {'name': u'Maximum Tip Speed Ratio',
+                                        'pyname': u'maximum_tip_speed_ratio',
+                                        'default': 5.0,
+                                        'minimum>': 0.0,
+                                        'maximum': 12.0,
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'maximum power coefficient',
+                                       {'name': u'Maximum Power Coefficient',
+                                        'pyname': u'maximum_power_coefficient',
+                                        'default': 0.25,
+                                        'minimum>': 0.0,
+                                        'maximum': 0.59,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'annual local average wind speed',
+                                       {'name': u'Annual Local Average Wind Speed',
+                                        'pyname': u'annual_local_average_wind_speed',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm/s'}),
+                                      (u'height for local average wind speed',
+                                       {'name': u'Height for Local Average Wind Speed',
+                                        'pyname': u'height_for_local_average_wind_speed',
+                                        'default': 50.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm'}),
+                                      (u'blade chord area',
+                                       {'name': u'Blade Chord Area',
+                                        'pyname': u'blade_chord_area',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'm2'}),
+                                      (u'blade drag coefficient',
+                                       {'name': u'Blade Drag Coefficient',
+                                        'pyname': u'blade_drag_coefficient',
+                                        'default': 0.9,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'blade lift coefficient',
+                                       {'name': u'Blade Lift Coefficient',
+                                        'pyname': u'blade_lift_coefficient',
+                                        'default': 0.05,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c1',
+                                       {'name': u'Power Coefficient C1',
+                                        'pyname': u'power_coefficient_c1',
+                                        'default': 0.5176,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c2',
+                                       {'name': u'Power Coefficient C2',
+                                        'pyname': u'power_coefficient_c2',
+                                        'default': 116.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c3',
+                                       {'name': u'Power Coefficient C3',
+                                        'pyname': u'power_coefficient_c3',
+                                        'default': 0.4,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c4',
+                                       {'name': u'Power Coefficient C4',
+                                        'pyname': u'power_coefficient_c4',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c5',
+                                       {'name': u'Power Coefficient C5',
+                                        'pyname': u'power_coefficient_c5',
+                                        'default': 5.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'power coefficient c6',
+                                       {'name': u'Power Coefficient C6',
+                                        'pyname': u'power_coefficient_c6',
+                                        'default': 21.0,
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 26,
+               'name': u'Generator:WindTurbine',
+               'pyname': u'GeneratorWindTurbine',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9085,20 +12068,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -9110,20 +12092,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def rotor_type(self):
         """field `Rotor Type`
-        
+
         |  allowed values are: Horizontal Axis Wind Turbine or Vertical Axis Wind Turbine
         |  Default value: HorizontalAxisWindTurbine
 
@@ -9135,20 +12116,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             str: the value of `rotor_type` or None if not set
+
         """
         return self["Rotor Type"]
 
     @rotor_type.setter
     def rotor_type(self, value="HorizontalAxisWindTurbine"):
-        """  Corresponds to IDD field `Rotor Type`
-
-        """
+        """Corresponds to IDD field `Rotor Type`"""
         self["Rotor Type"] = value
 
     @property
     def power_control(self):
         """field `Power Control`
-        
+
         |  Constant power output is obtained in the last three control types
         |  when the wind speed exceeds the rated wind speed.
         |  allowed values are: Fixed Speed Fixed Pitch, Fixed Speed Variable Pitch,
@@ -9163,20 +12143,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             str: the value of `power_control` or None if not set
+
         """
         return self["Power Control"]
 
     @power_control.setter
     def power_control(self, value="VariableSpeedVariablePitch"):
-        """  Corresponds to IDD field `Power Control`
-
-        """
+        """Corresponds to IDD field `Power Control`"""
         self["Power Control"] = value
 
     @property
     def rated_rotor_speed(self):
         """field `Rated Rotor Speed`
-        
+
         |  Units: rev/min
 
         Args:
@@ -9187,20 +12166,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `rated_rotor_speed` or None if not set
+
         """
         return self["Rated Rotor Speed"]
 
     @rated_rotor_speed.setter
     def rated_rotor_speed(self, value=None):
-        """  Corresponds to IDD field `Rated Rotor Speed`
-
-        """
+        """Corresponds to IDD field `Rated Rotor Speed`"""
         self["Rated Rotor Speed"] = value
 
     @property
     def rotor_diameter(self):
         """field `Rotor Diameter`
-        
+
         |  This field is the diameter of the perpendicular circle of the Vertical Axis Wind Turbine system
         |  from the upright pole on the ground.
         |  Units: m
@@ -9213,20 +12191,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `rotor_diameter` or None if not set
+
         """
         return self["Rotor Diameter"]
 
     @rotor_diameter.setter
     def rotor_diameter(self, value=None):
-        """  Corresponds to IDD field `Rotor Diameter`
-
-        """
+        """Corresponds to IDD field `Rotor Diameter`"""
         self["Rotor Diameter"] = value
 
     @property
     def overall_height(self):
         """field `Overall Height`
-        
+
         |  This field is the height of the hub for the Horizontal Axis Wind Turbines and
         |  of the pole for the Vertical Axis Wind Turbines.
         |  Units: m
@@ -9239,20 +12216,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `overall_height` or None if not set
+
         """
         return self["Overall Height"]
 
     @overall_height.setter
     def overall_height(self, value=None):
-        """  Corresponds to IDD field `Overall Height`
-
-        """
+        """Corresponds to IDD field `Overall Height`"""
         self["Overall Height"] = value
 
     @property
     def number_of_blades(self):
         """field `Number of Blades`
-        
+
         |  Default value: 3.0
         |  value >= 2.0
 
@@ -9264,20 +12240,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `number_of_blades` or None if not set
+
         """
         return self["Number of Blades"]
 
     @number_of_blades.setter
     def number_of_blades(self, value=3.0):
-        """  Corresponds to IDD field `Number of Blades`
-
-        """
+        """Corresponds to IDD field `Number of Blades`"""
         self["Number of Blades"] = value
 
     @property
     def rated_power(self):
         """field `Rated Power`
-        
+
         |  This field is the nominal power at the rated wind speed.
         |  Users should input maximum power in case of Fixed Speed Fixed Pitch control type.
         |  Units: W
@@ -9290,20 +12265,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `rated_power` or None if not set
+
         """
         return self["Rated Power"]
 
     @rated_power.setter
     def rated_power(self, value=None):
-        """  Corresponds to IDD field `Rated Power`
-
-        """
+        """Corresponds to IDD field `Rated Power`"""
         self["Rated Power"] = value
 
     @property
     def rated_wind_speed(self):
         """field `Rated Wind Speed`
-        
+
         |  Units: m/s
 
         Args:
@@ -9314,20 +12288,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `rated_wind_speed` or None if not set
+
         """
         return self["Rated Wind Speed"]
 
     @rated_wind_speed.setter
     def rated_wind_speed(self, value=None):
-        """  Corresponds to IDD field `Rated Wind Speed`
-
-        """
+        """Corresponds to IDD field `Rated Wind Speed`"""
         self["Rated Wind Speed"] = value
 
     @property
     def cut_in_wind_speed(self):
         """field `Cut In Wind Speed`
-        
+
         |  Units: m/s
 
         Args:
@@ -9338,20 +12311,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `cut_in_wind_speed` or None if not set
+
         """
         return self["Cut In Wind Speed"]
 
     @cut_in_wind_speed.setter
     def cut_in_wind_speed(self, value=None):
-        """  Corresponds to IDD field `Cut In Wind Speed`
-
-        """
+        """Corresponds to IDD field `Cut In Wind Speed`"""
         self["Cut In Wind Speed"] = value
 
     @property
     def cut_out_wind_speed(self):
         """field `Cut Out Wind Speed`
-        
+
         |  Units: m/s
 
         Args:
@@ -9362,20 +12334,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `cut_out_wind_speed` or None if not set
+
         """
         return self["Cut Out Wind Speed"]
 
     @cut_out_wind_speed.setter
     def cut_out_wind_speed(self, value=None):
-        """  Corresponds to IDD field `Cut Out Wind Speed`
-
-        """
+        """Corresponds to IDD field `Cut Out Wind Speed`"""
         self["Cut Out Wind Speed"] = value
 
     @property
     def fraction_system_efficiency(self):
         """field `Fraction system Efficiency`
-        
+
         |  Default value: 0.835
         |  value <= 1.0
 
@@ -9387,20 +12358,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `fraction_system_efficiency` or None if not set
+
         """
         return self["Fraction system Efficiency"]
 
     @fraction_system_efficiency.setter
     def fraction_system_efficiency(self, value=0.835):
-        """  Corresponds to IDD field `Fraction system Efficiency`
-
-        """
+        """Corresponds to IDD field `Fraction system Efficiency`"""
         self["Fraction system Efficiency"] = value
 
     @property
     def maximum_tip_speed_ratio(self):
         """field `Maximum Tip Speed Ratio`
-        
+
         |  Default value: 5.0
         |  value <= 12.0
 
@@ -9412,20 +12382,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_tip_speed_ratio` or None if not set
+
         """
         return self["Maximum Tip Speed Ratio"]
 
     @maximum_tip_speed_ratio.setter
     def maximum_tip_speed_ratio(self, value=5.0):
-        """  Corresponds to IDD field `Maximum Tip Speed Ratio`
-
-        """
+        """Corresponds to IDD field `Maximum Tip Speed Ratio`"""
         self["Maximum Tip Speed Ratio"] = value
 
     @property
     def maximum_power_coefficient(self):
         """field `Maximum Power Coefficient`
-        
+
         |  This field should be input if the rotor type is Horizontal Axis Wind Turbine
         |  Default value: 0.25
         |  value <= 0.59
@@ -9438,20 +12407,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `maximum_power_coefficient` or None if not set
+
         """
         return self["Maximum Power Coefficient"]
 
     @maximum_power_coefficient.setter
     def maximum_power_coefficient(self, value=0.25):
-        """  Corresponds to IDD field `Maximum Power Coefficient`
-
-        """
+        """Corresponds to IDD field `Maximum Power Coefficient`"""
         self["Maximum Power Coefficient"] = value
 
     @property
     def annual_local_average_wind_speed(self):
         """field `Annual Local Average Wind Speed`
-        
+
         |  Units: m/s
 
         Args:
@@ -9462,20 +12430,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `annual_local_average_wind_speed` or None if not set
+
         """
         return self["Annual Local Average Wind Speed"]
 
     @annual_local_average_wind_speed.setter
     def annual_local_average_wind_speed(self, value=None):
-        """  Corresponds to IDD field `Annual Local Average Wind Speed`
-
-        """
+        """Corresponds to IDD field `Annual Local Average Wind Speed`"""
         self["Annual Local Average Wind Speed"] = value
 
     @property
     def height_for_local_average_wind_speed(self):
         """field `Height for Local Average Wind Speed`
-        
+
         |  Units: m
         |  Default value: 50.0
 
@@ -9487,20 +12454,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `height_for_local_average_wind_speed` or None if not set
+
         """
         return self["Height for Local Average Wind Speed"]
 
     @height_for_local_average_wind_speed.setter
     def height_for_local_average_wind_speed(self, value=50.0):
-        """  Corresponds to IDD field `Height for Local Average Wind Speed`
-
-        """
+        """Corresponds to IDD field `Height for Local Average Wind Speed`"""
         self["Height for Local Average Wind Speed"] = value
 
     @property
     def blade_chord_area(self):
         """field `Blade Chord Area`
-        
+
         |  Units: m2
 
         Args:
@@ -9511,20 +12477,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `blade_chord_area` or None if not set
+
         """
         return self["Blade Chord Area"]
 
     @blade_chord_area.setter
     def blade_chord_area(self, value=None):
-        """  Corresponds to IDD field `Blade Chord Area`
-
-        """
+        """Corresponds to IDD field `Blade Chord Area`"""
         self["Blade Chord Area"] = value
 
     @property
     def blade_drag_coefficient(self):
         """field `Blade Drag Coefficient`
-        
+
         |  This field is only for Vertical Axis Wind Turbine..
         |  The user must input this field if the rotor type is Vertical Axis Wind Turbine.
         |  Default value: 0.9
@@ -9537,20 +12502,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `blade_drag_coefficient` or None if not set
+
         """
         return self["Blade Drag Coefficient"]
 
     @blade_drag_coefficient.setter
     def blade_drag_coefficient(self, value=0.9):
-        """  Corresponds to IDD field `Blade Drag Coefficient`
-
-        """
+        """Corresponds to IDD field `Blade Drag Coefficient`"""
         self["Blade Drag Coefficient"] = value
 
     @property
     def blade_lift_coefficient(self):
         """field `Blade Lift Coefficient`
-        
+
         |  This field is only for Vertical Axis Wind Turbine..
         |  The user must input this field if the rotor type is Vertical Axis Wind Turbine.
         |  Default value: 0.05
@@ -9563,20 +12527,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `blade_lift_coefficient` or None if not set
+
         """
         return self["Blade Lift Coefficient"]
 
     @blade_lift_coefficient.setter
     def blade_lift_coefficient(self, value=0.05):
-        """  Corresponds to IDD field `Blade Lift Coefficient`
-
-        """
+        """Corresponds to IDD field `Blade Lift Coefficient`"""
         self["Blade Lift Coefficient"] = value
 
     @property
     def power_coefficient_c1(self):
         """field `Power Coefficient C1`
-        
+
         |  This field is only available for Horizontal Axis Wind Turbine.
         |  The user should input all six parameters
         |  so that the analytic approximation is assumed.
@@ -9594,20 +12557,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c1` or None if not set
+
         """
         return self["Power Coefficient C1"]
 
     @power_coefficient_c1.setter
     def power_coefficient_c1(self, value=0.5176):
-        """  Corresponds to IDD field `Power Coefficient C1`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C1`"""
         self["Power Coefficient C1"] = value
 
     @property
     def power_coefficient_c2(self):
         """field `Power Coefficient C2`
-        
+
         |  Default value: 116.0
 
         Args:
@@ -9618,20 +12580,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c2` or None if not set
+
         """
         return self["Power Coefficient C2"]
 
     @power_coefficient_c2.setter
     def power_coefficient_c2(self, value=116.0):
-        """  Corresponds to IDD field `Power Coefficient C2`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C2`"""
         self["Power Coefficient C2"] = value
 
     @property
     def power_coefficient_c3(self):
         """field `Power Coefficient C3`
-        
+
         |  Default value: 0.4
 
         Args:
@@ -9642,20 +12603,18 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c3` or None if not set
+
         """
         return self["Power Coefficient C3"]
 
     @power_coefficient_c3.setter
     def power_coefficient_c3(self, value=0.4):
-        """  Corresponds to IDD field `Power Coefficient C3`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C3`"""
         self["Power Coefficient C3"] = value
 
     @property
     def power_coefficient_c4(self):
         """field `Power Coefficient C4`
-        
 
         Args:
             value (float): value for IDD Field `Power Coefficient C4`
@@ -9665,20 +12624,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c4` or None if not set
+
         """
         return self["Power Coefficient C4"]
 
     @power_coefficient_c4.setter
     def power_coefficient_c4(self, value=None):
-        """  Corresponds to IDD field `Power Coefficient C4`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C4`"""
         self["Power Coefficient C4"] = value
 
     @property
     def power_coefficient_c5(self):
         """field `Power Coefficient C5`
-        
+
         |  Default value: 5.0
 
         Args:
@@ -9689,20 +12647,19 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c5` or None if not set
+
         """
         return self["Power Coefficient C5"]
 
     @power_coefficient_c5.setter
     def power_coefficient_c5(self, value=5.0):
-        """  Corresponds to IDD field `Power Coefficient C5`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C5`"""
         self["Power Coefficient C5"] = value
 
     @property
     def power_coefficient_c6(self):
         """field `Power Coefficient C6`
-        
+
         |  Default value: 21.0
 
         Args:
@@ -9713,39 +12670,86 @@ class GeneratorWindTurbine(DataObject):
 
         Returns:
             float: the value of `power_coefficient_c6` or None if not set
+
         """
         return self["Power Coefficient C6"]
 
     @power_coefficient_c6.setter
     def power_coefficient_c6(self, value=21.0):
-        """  Corresponds to IDD field `Power Coefficient C6`
-
-        """
+        """Corresponds to IDD field `Power Coefficient C6`"""
         self["Power Coefficient C6"] = value
 
 
 
 
 class ElectricLoadCenterGenerators(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Generators`
         List of electric power generators to include in the simulation including the name and
         type of each generators along with availability schedule, rated power output,
         and thermal-to-electrical power ratio.
     """
-    _schema = {'extensible-fields': OrderedDict([(u'generator 1 name', {'name': u'Generator 1 Name', 'pyname': u'generator_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator 1 object type', {'name': u'Generator 1 Object Type', 'pyname': u'generator_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Generator:InternalCombustionEngine', u'Generator:CombustionTurbine', u'Generator:Photovoltaic', u'Generator:FuelCell', u'Generator:MicroCHP', u'Generator:MicroTurbine', u'Generator:WindTurbine'], 'autocalculatable': False, 'type': 'alpha'}), (u'generator 1 rated electric power output', {'name': u'Generator 1 Rated Electric Power Output', 'pyname': u'generator_1_rated_electric_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'generator 1 availability schedule name', {'name': u'Generator 1 Availability Schedule Name', 'pyname': u'generator_1_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator 1 rated thermal to electrical power ratio', {'name': u'Generator 1 Rated Thermal to Electrical Power Ratio', 'pyname': u'generator_1_rated_thermal_to_electrical_power_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 6,
- 'name': u'ElectricLoadCenter:Generators',
- 'pyname': u'ElectricLoadCenterGenerators',
- 'required-object': False,
- 'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict([(u'generator 1 name',
+                                                  {'name': u'Generator 1 Name',
+                                                   'pyname': u'generator_1_name',
+                                                   'required-field': True,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'}),
+                                                 (u'generator 1 object type',
+                                                  {'name': u'Generator 1 Object Type',
+                                                   'pyname': u'generator_1_object_type',
+                                                   'required-field': True,
+                                                   'autosizable': False,
+                                                   'accepted-values': [u'Generator:InternalCombustionEngine',
+                                                                       u'Generator:CombustionTurbine',
+                                                                       u'Generator:Photovoltaic',
+                                                                       u'Generator:FuelCell',
+                                                                       u'Generator:MicroCHP',
+                                                                       u'Generator:MicroTurbine',
+                                                                       u'Generator:WindTurbine'],
+                                                      'autocalculatable': False,
+                                                      'type': 'alpha'}),
+                                                 (u'generator 1 rated electric power output',
+                                                  {'name': u'Generator 1 Rated Electric Power Output',
+                                                   'pyname': u'generator_1_rated_electric_power_output',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'real',
+                                                   'unit': u'W'}),
+                                                 (u'generator 1 availability schedule name',
+                                                  {'name': u'Generator 1 Availability Schedule Name',
+                                                   'pyname': u'generator_1_availability_schedule_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'}),
+                                                 (u'generator 1 rated thermal to electrical power ratio',
+                                                  {'name': u'Generator 1 Rated Thermal to Electrical Power Ratio',
+                                                   'pyname': u'generator_1_rated_thermal_to_electrical_power_ratio',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 6,
+               'name': u'ElectricLoadCenter:Generators',
+               'pyname': u'ElectricLoadCenterGenerators',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9755,24 +12759,24 @@ class ElectricLoadCenterGenerators(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
-    def add_extensible(self,
-                       generator_1_name=None,
-                       generator_1_object_type=None,
-                       generator_1_rated_electric_power_output=None,
-                       generator_1_availability_schedule_name=None,
-                       generator_1_rated_thermal_to_electrical_power_ratio=None,
-                       ):
-        """ Add values for extensible fields
+    def add_extensible(
+        self,
+        generator_1_name=None,
+        generator_1_object_type=None,
+        generator_1_rated_electric_power_output=None,
+        generator_1_availability_schedule_name=None,
+        generator_1_rated_thermal_to_electrical_power_ratio=None,
+    ):
+        """Add values for extensible fields.
 
         Args:
 
@@ -9796,32 +12800,43 @@ class ElectricLoadCenterGenerators(DataObject):
             generator_1_rated_thermal_to_electrical_power_ratio (float): value for IDD Field `Generator 1 Rated Thermal to Electrical Power Ratio`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+
         """
         vals = []
-        generator_1_name = self.check_value("Generator 1 Name", generator_1_name)
+        generator_1_name = self.check_value(
+            "Generator 1 Name",
+            generator_1_name)
         vals.append(generator_1_name)
-        generator_1_object_type = self.check_value("Generator 1 Object Type", generator_1_object_type)
+        generator_1_object_type = self.check_value(
+            "Generator 1 Object Type",
+            generator_1_object_type)
         vals.append(generator_1_object_type)
-        generator_1_rated_electric_power_output = self.check_value("Generator 1 Rated Electric Power Output", generator_1_rated_electric_power_output)
+        generator_1_rated_electric_power_output = self.check_value(
+            "Generator 1 Rated Electric Power Output",
+            generator_1_rated_electric_power_output)
         vals.append(generator_1_rated_electric_power_output)
-        generator_1_availability_schedule_name = self.check_value("Generator 1 Availability Schedule Name", generator_1_availability_schedule_name)
+        generator_1_availability_schedule_name = self.check_value(
+            "Generator 1 Availability Schedule Name",
+            generator_1_availability_schedule_name)
         vals.append(generator_1_availability_schedule_name)
-        generator_1_rated_thermal_to_electrical_power_ratio = self.check_value("Generator 1 Rated Thermal to Electrical Power Ratio", generator_1_rated_thermal_to_electrical_power_ratio)
+        generator_1_rated_thermal_to_electrical_power_ratio = self.check_value(
+            "Generator 1 Rated Thermal to Electrical Power Ratio",
+            generator_1_rated_thermal_to_electrical_power_ratio)
         vals.append(generator_1_rated_thermal_to_electrical_power_ratio)
         self._extdata.append(vals)
 
     @property
     def extensibles(self):
-        """ Get list of all extensibles
-        """
+        """Get list of all extensibles."""
         return self._extdata
 
     @extensibles.setter
     def extensibles(self, extensibles):
-        """ Replaces extensible fields with `extensibles`
+        """Replaces extensible fields with `extensibles`
 
         Args:
             extensibles (list): nested list of extensible values
+
         """
         self._extdata = []
         for ext in extensibles:
@@ -9831,25 +12846,63 @@ class ElectricLoadCenterGenerators(DataObject):
 
 
 class ElectricLoadCenterInverterSimple(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Inverter:Simple`
         Electric power inverter to convert from direct current (DC) to alternating current
         (AC) in an electric load center that contains photovoltaic modules. This input
         object is for the simplest inverter model and uses a fixed efficiency.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'inverter efficiency', {'name': u'Inverter Efficiency', 'pyname': u'inverter_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Inverter:Simple',
- 'pyname': u'ElectricLoadCenterInverterSimple',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction',
+                                       {'name': u'Radiative Fraction',
+                                        'pyname': u'radiative_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'inverter efficiency',
+                                       {'name': u'Inverter Efficiency',
+                                        'pyname': u'inverter_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Inverter:Simple',
+               'pyname': u'ElectricLoadCenterInverterSimple',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9859,20 +12912,19 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -9884,20 +12936,19 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  enter name of zone to receive inverter losses as heat
         |  if blank then inverter is assumed to be outdoors
 
@@ -9909,20 +12960,19 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction(self):
         """field `Radiative Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -9933,20 +12983,19 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
         Returns:
             float: the value of `radiative_fraction` or None if not set
+
         """
         return self["Radiative Fraction"]
 
     @radiative_fraction.setter
     def radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction`"""
         self["Radiative Fraction"] = value
 
     @property
     def inverter_efficiency(self):
         """field `Inverter Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -9957,20 +13006,20 @@ class ElectricLoadCenterInverterSimple(DataObject):
 
         Returns:
             float: the value of `inverter_efficiency` or None if not set
+
         """
         return self["Inverter Efficiency"]
 
     @inverter_efficiency.setter
     def inverter_efficiency(self, value=None):
-        """  Corresponds to IDD field `Inverter Efficiency`
-
-        """
+        """Corresponds to IDD field `Inverter Efficiency`"""
         self["Inverter Efficiency"] = value
 
 
 
 
 class ElectricLoadCenterInverterFunctionOfPower(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Inverter:FunctionOfPower`
         Electric power inverter to convert from direct current (DC) to alternating current
         (AC) in an electric load center that contains photovoltaic modules. This input
@@ -9978,19 +13027,102 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
         power.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'efficiency function of power curve name', {'name': u'Efficiency Function of Power Curve Name', 'pyname': u'efficiency_function_of_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated maximum continuous input power', {'name': u'Rated Maximum Continuous Input Power', 'pyname': u'rated_maximum_continuous_input_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum efficiency', {'name': u'Minimum Efficiency', 'pyname': u'minimum_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum efficiency', {'name': u'Maximum Efficiency', 'pyname': u'maximum_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'minimum power output', {'name': u'Minimum Power Output', 'pyname': u'minimum_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'maximum power output', {'name': u'Maximum Power Output', 'pyname': u'maximum_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'ancillary power consumed in standby', {'name': u'Ancillary Power Consumed In Standby', 'pyname': u'ancillary_power_consumed_in_standby', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Inverter:FunctionOfPower',
- 'pyname': u'ElectricLoadCenterInverterFunctionOfPower',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction',
+                                       {'name': u'Radiative Fraction',
+                                        'pyname': u'radiative_fraction',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency function of power curve name',
+                                       {'name': u'Efficiency Function of Power Curve Name',
+                                        'pyname': u'efficiency_function_of_power_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'rated maximum continuous input power',
+                                       {'name': u'Rated Maximum Continuous Input Power',
+                                        'pyname': u'rated_maximum_continuous_input_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'minimum efficiency',
+                                       {'name': u'Minimum Efficiency',
+                                        'pyname': u'minimum_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum efficiency',
+                                       {'name': u'Maximum Efficiency',
+                                        'pyname': u'maximum_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'minimum power output',
+                                       {'name': u'Minimum Power Output',
+                                        'pyname': u'minimum_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'maximum power output',
+                                       {'name': u'Maximum Power Output',
+                                        'pyname': u'maximum_power_output',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'ancillary power consumed in standby',
+                                       {'name': u'Ancillary Power Consumed In Standby',
+                                        'pyname': u'ancillary_power_consumed_in_standby',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Inverter:FunctionOfPower',
+               'pyname': u'ElectricLoadCenterInverterFunctionOfPower',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10000,20 +13132,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -10025,20 +13156,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  Enter name of zone to receive inverter losses as heat
         |  if blank then inverter is assumed to be outdoors
 
@@ -10050,20 +13180,18 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction(self):
         """field `Radiative Fraction`
-        
 
         Args:
             value (float): value for IDD Field `Radiative Fraction`
@@ -10073,20 +13201,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `radiative_fraction` or None if not set
+
         """
         return self["Radiative Fraction"]
 
     @radiative_fraction.setter
     def radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction`"""
         self["Radiative Fraction"] = value
 
     @property
     def efficiency_function_of_power_curve_name(self):
         """field `Efficiency Function of Power Curve Name`
-        
+
         |  curve describes efficiency as a function of power
         |  curve is normalized relative to rated power in next field
 
@@ -10098,20 +13225,20 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             str: the value of `efficiency_function_of_power_curve_name` or None if not set
+
         """
         return self["Efficiency Function of Power Curve Name"]
 
     @efficiency_function_of_power_curve_name.setter
     def efficiency_function_of_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Efficiency Function of Power Curve Name`
-
-        """
+        """Corresponds to IDD field `Efficiency Function of Power Curve
+        Name`"""
         self["Efficiency Function of Power Curve Name"] = value
 
     @property
     def rated_maximum_continuous_input_power(self):
         """field `Rated Maximum Continuous Input Power`
-        
+
         |  Units: W
 
         Args:
@@ -10122,20 +13249,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `rated_maximum_continuous_input_power` or None if not set
+
         """
         return self["Rated Maximum Continuous Input Power"]
 
     @rated_maximum_continuous_input_power.setter
     def rated_maximum_continuous_input_power(self, value=None):
-        """  Corresponds to IDD field `Rated Maximum Continuous Input Power`
-
-        """
+        """Corresponds to IDD field `Rated Maximum Continuous Input Power`"""
         self["Rated Maximum Continuous Input Power"] = value
 
     @property
     def minimum_efficiency(self):
         """field `Minimum Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10146,20 +13272,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `minimum_efficiency` or None if not set
+
         """
         return self["Minimum Efficiency"]
 
     @minimum_efficiency.setter
     def minimum_efficiency(self, value=None):
-        """  Corresponds to IDD field `Minimum Efficiency`
-
-        """
+        """Corresponds to IDD field `Minimum Efficiency`"""
         self["Minimum Efficiency"] = value
 
     @property
     def maximum_efficiency(self):
         """field `Maximum Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10170,20 +13295,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `maximum_efficiency` or None if not set
+
         """
         return self["Maximum Efficiency"]
 
     @maximum_efficiency.setter
     def maximum_efficiency(self, value=None):
-        """  Corresponds to IDD field `Maximum Efficiency`
-
-        """
+        """Corresponds to IDD field `Maximum Efficiency`"""
         self["Maximum Efficiency"] = value
 
     @property
     def minimum_power_output(self):
         """field `Minimum Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -10194,20 +13318,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `minimum_power_output` or None if not set
+
         """
         return self["Minimum Power Output"]
 
     @minimum_power_output.setter
     def minimum_power_output(self, value=None):
-        """  Corresponds to IDD field `Minimum Power Output`
-
-        """
+        """Corresponds to IDD field `Minimum Power Output`"""
         self["Minimum Power Output"] = value
 
     @property
     def maximum_power_output(self):
         """field `Maximum Power Output`
-        
+
         |  Units: W
 
         Args:
@@ -10218,20 +13341,19 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `maximum_power_output` or None if not set
+
         """
         return self["Maximum Power Output"]
 
     @maximum_power_output.setter
     def maximum_power_output(self, value=None):
-        """  Corresponds to IDD field `Maximum Power Output`
-
-        """
+        """Corresponds to IDD field `Maximum Power Output`"""
         self["Maximum Power Output"] = value
 
     @property
     def ancillary_power_consumed_in_standby(self):
         """field `Ancillary Power Consumed In Standby`
-        
+
         |  Units: W
 
         Args:
@@ -10242,39 +13364,145 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
 
         Returns:
             float: the value of `ancillary_power_consumed_in_standby` or None if not set
+
         """
         return self["Ancillary Power Consumed In Standby"]
 
     @ancillary_power_consumed_in_standby.setter
     def ancillary_power_consumed_in_standby(self, value=None):
-        """  Corresponds to IDD field `Ancillary Power Consumed In Standby`
-
-        """
+        """Corresponds to IDD field `Ancillary Power Consumed In Standby`"""
         self["Ancillary Power Consumed In Standby"] = value
 
 
 
 
 class ElectricLoadCenterInverterLookUpTable(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Inverter:LookUpTable`
         California Energy Commission tests and publishes data on inverters
         This inverter model interpolates using CEC test data
         Input data are at http://www.gosolarcalifornia.org/equipment/inverter_tests/summaries
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'rated maximum continuous output power', {'name': u'Rated Maximum Continuous Output Power', 'pyname': u'rated_maximum_continuous_output_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'night tare loss power', {'name': u'Night Tare Loss Power', 'pyname': u'night_tare_loss_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'nominal voltage input', {'name': u'Nominal Voltage Input', 'pyname': u'nominal_voltage_input', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'V'}), (u'efficiency at 10% power and nominal voltage', {'name': u'Efficiency at 10% Power and Nominal Voltage', 'pyname': u'efficiency_at_10_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency at 20% power and nominal voltage', {'name': u'Efficiency at 20% Power and Nominal Voltage', 'pyname': u'efficiency_at_20_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency at 30% power and nominal voltage', {'name': u'Efficiency at 30% Power and Nominal Voltage', 'pyname': u'efficiency_at_30_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency at 50% power and nominal voltage', {'name': u'Efficiency at 50% Power and Nominal Voltage', 'pyname': u'efficiency_at_50_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency at 75% power and nominal voltage', {'name': u'Efficiency at 75% Power and Nominal Voltage', 'pyname': u'efficiency_at_75_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'efficiency at 100% power and nominal voltage', {'name': u'Efficiency at 100% Power and Nominal Voltage', 'pyname': u'efficiency_at_100_power_and_nominal_voltage', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Inverter:LookUpTable',
- 'pyname': u'ElectricLoadCenterInverterLookUpTable',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction',
+                                       {'name': u'Radiative Fraction',
+                                        'pyname': u'radiative_fraction',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'rated maximum continuous output power',
+                                       {'name': u'Rated Maximum Continuous Output Power',
+                                        'pyname': u'rated_maximum_continuous_output_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'night tare loss power',
+                                       {'name': u'Night Tare Loss Power',
+                                        'pyname': u'night_tare_loss_power',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'nominal voltage input',
+                                       {'name': u'Nominal Voltage Input',
+                                        'pyname': u'nominal_voltage_input',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'V'}),
+                                      (u'efficiency at 10% power and nominal voltage',
+                                       {'name': u'Efficiency at 10% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_10_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency at 20% power and nominal voltage',
+                                       {'name': u'Efficiency at 20% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_20_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency at 30% power and nominal voltage',
+                                       {'name': u'Efficiency at 30% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_30_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency at 50% power and nominal voltage',
+                                       {'name': u'Efficiency at 50% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_50_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency at 75% power and nominal voltage',
+                                       {'name': u'Efficiency at 75% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_75_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'efficiency at 100% power and nominal voltage',
+                                       {'name': u'Efficiency at 100% Power and Nominal Voltage',
+                                        'pyname': u'efficiency_at_100_power_and_nominal_voltage',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Inverter:LookUpTable',
+               'pyname': u'ElectricLoadCenterInverterLookUpTable',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10284,20 +13512,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -10309,20 +13536,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  Enter name of zone to receive inverter losses as heat
         |  if blank then inverter is assumed to be outdoors
 
@@ -10334,20 +13560,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction(self):
         """field `Radiative Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10358,20 +13583,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `radiative_fraction` or None if not set
+
         """
         return self["Radiative Fraction"]
 
     @radiative_fraction.setter
     def radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction`"""
         self["Radiative Fraction"] = value
 
     @property
     def rated_maximum_continuous_output_power(self):
         """field `Rated Maximum Continuous Output Power`
-        
+
         |  Units: W
 
         Args:
@@ -10382,20 +13606,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `rated_maximum_continuous_output_power` or None if not set
+
         """
         return self["Rated Maximum Continuous Output Power"]
 
     @rated_maximum_continuous_output_power.setter
     def rated_maximum_continuous_output_power(self, value=None):
-        """  Corresponds to IDD field `Rated Maximum Continuous Output Power`
-
-        """
+        """Corresponds to IDD field `Rated Maximum Continuous Output Power`"""
         self["Rated Maximum Continuous Output Power"] = value
 
     @property
     def night_tare_loss_power(self):
         """field `Night Tare Loss Power`
-        
+
         |  Units: W
 
         Args:
@@ -10406,20 +13629,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `night_tare_loss_power` or None if not set
+
         """
         return self["Night Tare Loss Power"]
 
     @night_tare_loss_power.setter
     def night_tare_loss_power(self, value=None):
-        """  Corresponds to IDD field `Night Tare Loss Power`
-
-        """
+        """Corresponds to IDD field `Night Tare Loss Power`"""
         self["Night Tare Loss Power"] = value
 
     @property
     def nominal_voltage_input(self):
         """field `Nominal Voltage Input`
-        
+
         |  Units: V
 
         Args:
@@ -10430,20 +13652,19 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `nominal_voltage_input` or None if not set
+
         """
         return self["Nominal Voltage Input"]
 
     @nominal_voltage_input.setter
     def nominal_voltage_input(self, value=None):
-        """  Corresponds to IDD field `Nominal Voltage Input`
-
-        """
+        """Corresponds to IDD field `Nominal Voltage Input`"""
         self["Nominal Voltage Input"] = value
 
     @property
     def efficiency_at_10_power_and_nominal_voltage(self):
         """field `Efficiency at 10% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10454,20 +13675,20 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_10_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 10% Power and Nominal Voltage"]
 
     @efficiency_at_10_power_and_nominal_voltage.setter
     def efficiency_at_10_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 10% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 10% Power and Nominal
+        Voltage`"""
         self["Efficiency at 10% Power and Nominal Voltage"] = value
 
     @property
     def efficiency_at_20_power_and_nominal_voltage(self):
         """field `Efficiency at 20% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10478,20 +13699,20 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_20_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 20% Power and Nominal Voltage"]
 
     @efficiency_at_20_power_and_nominal_voltage.setter
     def efficiency_at_20_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 20% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 20% Power and Nominal
+        Voltage`"""
         self["Efficiency at 20% Power and Nominal Voltage"] = value
 
     @property
     def efficiency_at_30_power_and_nominal_voltage(self):
         """field `Efficiency at 30% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10502,20 +13723,20 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_30_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 30% Power and Nominal Voltage"]
 
     @efficiency_at_30_power_and_nominal_voltage.setter
     def efficiency_at_30_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 30% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 30% Power and Nominal
+        Voltage`"""
         self["Efficiency at 30% Power and Nominal Voltage"] = value
 
     @property
     def efficiency_at_50_power_and_nominal_voltage(self):
         """field `Efficiency at 50% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10526,20 +13747,20 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_50_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 50% Power and Nominal Voltage"]
 
     @efficiency_at_50_power_and_nominal_voltage.setter
     def efficiency_at_50_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 50% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 50% Power and Nominal
+        Voltage`"""
         self["Efficiency at 50% Power and Nominal Voltage"] = value
 
     @property
     def efficiency_at_75_power_and_nominal_voltage(self):
         """field `Efficiency at 75% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10550,20 +13771,20 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_75_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 75% Power and Nominal Voltage"]
 
     @efficiency_at_75_power_and_nominal_voltage.setter
     def efficiency_at_75_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 75% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 75% Power and Nominal
+        Voltage`"""
         self["Efficiency at 75% Power and Nominal Voltage"] = value
 
     @property
     def efficiency_at_100_power_and_nominal_voltage(self):
         """field `Efficiency at 100% Power and Nominal Voltage`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10574,20 +13795,21 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
 
         Returns:
             float: the value of `efficiency_at_100_power_and_nominal_voltage` or None if not set
+
         """
         return self["Efficiency at 100% Power and Nominal Voltage"]
 
     @efficiency_at_100_power_and_nominal_voltage.setter
     def efficiency_at_100_power_and_nominal_voltage(self, value=None):
-        """  Corresponds to IDD field `Efficiency at 100% Power and Nominal Voltage`
-
-        """
+        """Corresponds to IDD field `Efficiency at 100% Power and Nominal
+        Voltage`"""
         self["Efficiency at 100% Power and Nominal Voltage"] = value
 
 
 
 
 class ElectricLoadCenterStorageSimple(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Storage:Simple`
         Used to model storage of electricity in an electric load center.  This is a simple
         model that does not attempt to represent any of the characteristics of a real
@@ -10596,19 +13818,97 @@ class ElectricLoadCenterStorageSimple(DataObject):
         ElectricLoadCenter:Distribution object.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction for zone heat gains', {'name': u'Radiative Fraction for Zone Heat Gains', 'pyname': u'radiative_fraction_for_zone_heat_gains', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'nominal energetic efficiency for charging', {'name': u'Nominal Energetic Efficiency for Charging', 'pyname': u'nominal_energetic_efficiency_for_charging', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'nominal discharging energetic efficiency', {'name': u'Nominal Discharging Energetic Efficiency', 'pyname': u'nominal_discharging_energetic_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum storage capacity', {'name': u'Maximum Storage Capacity', 'pyname': u'maximum_storage_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'}), (u'maximum power for discharging', {'name': u'Maximum Power for Discharging', 'pyname': u'maximum_power_for_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'maximum power for charging', {'name': u'Maximum Power for Charging', 'pyname': u'maximum_power_for_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'initial state of charge', {'name': u'Initial State of Charge', 'pyname': u'initial_state_of_charge', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Storage:Simple',
- 'pyname': u'ElectricLoadCenterStorageSimple',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction for zone heat gains',
+                                       {'name': u'Radiative Fraction for Zone Heat Gains',
+                                        'pyname': u'radiative_fraction_for_zone_heat_gains',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'nominal energetic efficiency for charging',
+                                       {'name': u'Nominal Energetic Efficiency for Charging',
+                                        'pyname': u'nominal_energetic_efficiency_for_charging',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'nominal discharging energetic efficiency',
+                                       {'name': u'Nominal Discharging Energetic Efficiency',
+                                        'pyname': u'nominal_discharging_energetic_efficiency',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real'}),
+                                      (u'maximum storage capacity',
+                                       {'name': u'Maximum Storage Capacity',
+                                        'pyname': u'maximum_storage_capacity',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'}),
+                                      (u'maximum power for discharging',
+                                       {'name': u'Maximum Power for Discharging',
+                                        'pyname': u'maximum_power_for_discharging',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'maximum power for charging',
+                                       {'name': u'Maximum Power for Charging',
+                                        'pyname': u'maximum_power_for_charging',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'W'}),
+                                      (u'initial state of charge',
+                                       {'name': u'Initial State of Charge',
+                                        'pyname': u'initial_state_of_charge',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'J'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Storage:Simple',
+               'pyname': u'ElectricLoadCenterStorageSimple',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10618,20 +13918,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -10643,20 +13942,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  Enter name of zone to receive storage losses as heat
         |  if blank then storage is assumed to be outdoors
 
@@ -10668,20 +13966,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction_for_zone_heat_gains(self):
         """field `Radiative Fraction for Zone Heat Gains`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10692,20 +13989,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `radiative_fraction_for_zone_heat_gains` or None if not set
+
         """
         return self["Radiative Fraction for Zone Heat Gains"]
 
     @radiative_fraction_for_zone_heat_gains.setter
     def radiative_fraction_for_zone_heat_gains(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction for Zone Heat Gains`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction for Zone Heat Gains`"""
         self["Radiative Fraction for Zone Heat Gains"] = value
 
     @property
     def nominal_energetic_efficiency_for_charging(self):
         """field `Nominal Energetic Efficiency for Charging`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10716,20 +14012,20 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `nominal_energetic_efficiency_for_charging` or None if not set
+
         """
         return self["Nominal Energetic Efficiency for Charging"]
 
     @nominal_energetic_efficiency_for_charging.setter
     def nominal_energetic_efficiency_for_charging(self, value=None):
-        """  Corresponds to IDD field `Nominal Energetic Efficiency for Charging`
-
-        """
+        """Corresponds to IDD field `Nominal Energetic Efficiency for
+        Charging`"""
         self["Nominal Energetic Efficiency for Charging"] = value
 
     @property
     def nominal_discharging_energetic_efficiency(self):
         """field `Nominal Discharging Energetic Efficiency`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10740,20 +14036,20 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `nominal_discharging_energetic_efficiency` or None if not set
+
         """
         return self["Nominal Discharging Energetic Efficiency"]
 
     @nominal_discharging_energetic_efficiency.setter
     def nominal_discharging_energetic_efficiency(self, value=None):
-        """  Corresponds to IDD field `Nominal Discharging Energetic Efficiency`
-
-        """
+        """Corresponds to IDD field `Nominal Discharging Energetic
+        Efficiency`"""
         self["Nominal Discharging Energetic Efficiency"] = value
 
     @property
     def maximum_storage_capacity(self):
         """field `Maximum Storage Capacity`
-        
+
         |  Units: J
 
         Args:
@@ -10764,20 +14060,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `maximum_storage_capacity` or None if not set
+
         """
         return self["Maximum Storage Capacity"]
 
     @maximum_storage_capacity.setter
     def maximum_storage_capacity(self, value=None):
-        """  Corresponds to IDD field `Maximum Storage Capacity`
-
-        """
+        """Corresponds to IDD field `Maximum Storage Capacity`"""
         self["Maximum Storage Capacity"] = value
 
     @property
     def maximum_power_for_discharging(self):
         """field `Maximum Power for Discharging`
-        
+
         |  Units: W
 
         Args:
@@ -10788,20 +14083,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `maximum_power_for_discharging` or None if not set
+
         """
         return self["Maximum Power for Discharging"]
 
     @maximum_power_for_discharging.setter
     def maximum_power_for_discharging(self, value=None):
-        """  Corresponds to IDD field `Maximum Power for Discharging`
-
-        """
+        """Corresponds to IDD field `Maximum Power for Discharging`"""
         self["Maximum Power for Discharging"] = value
 
     @property
     def maximum_power_for_charging(self):
         """field `Maximum Power for Charging`
-        
+
         |  Units: W
 
         Args:
@@ -10812,20 +14106,19 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `maximum_power_for_charging` or None if not set
+
         """
         return self["Maximum Power for Charging"]
 
     @maximum_power_for_charging.setter
     def maximum_power_for_charging(self, value=None):
-        """  Corresponds to IDD field `Maximum Power for Charging`
-
-        """
+        """Corresponds to IDD field `Maximum Power for Charging`"""
         self["Maximum Power for Charging"] = value
 
     @property
     def initial_state_of_charge(self):
         """field `Initial State of Charge`
-        
+
         |  Units: J
 
         Args:
@@ -10836,20 +14129,20 @@ class ElectricLoadCenterStorageSimple(DataObject):
 
         Returns:
             float: the value of `initial_state_of_charge` or None if not set
+
         """
         return self["Initial State of Charge"]
 
     @initial_state_of_charge.setter
     def initial_state_of_charge(self, value=None):
-        """  Corresponds to IDD field `Initial State of Charge`
-
-        """
+        """Corresponds to IDD field `Initial State of Charge`"""
         self["Initial State of Charge"] = value
 
 
 
 
 class ElectricLoadCenterStorageBattery(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Storage:Battery`
         Uses the kinetic battery model (KiBaM) to simulate rechargeable battery banks in an
         electrical load center. The battery bank is a collection of one or more individual
@@ -10860,19 +14153,197 @@ class ElectricLoadCenterStorageBattery(DataObject):
         each simulation run.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of battery modules in parallel', {'name': u'Number of Battery Modules in Parallel', 'pyname': u'number_of_battery_modules_in_parallel', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of battery modules in series', {'name': u'Number of Battery Modules in Series', 'pyname': u'number_of_battery_modules_in_series', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'maximum module capacity', {'name': u'Maximum Module Capacity', 'pyname': u'maximum_module_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Ah'}), (u'initial fractional state of charge', {'name': u'Initial Fractional State of Charge', 'pyname': u'initial_fractional_state_of_charge', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of available charge capacity', {'name': u'Fraction of Available Charge Capacity', 'pyname': u'fraction_of_available_charge_capacity', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'change rate from bound charge to available charge', {'name': u'Change Rate from Bound Charge to Available Charge', 'pyname': u'change_rate_from_bound_charge_to_available_charge', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'1/hr'}), (u'fully charged module open circuit voltage', {'name': u'Fully Charged Module Open Circuit Voltage', 'pyname': u'fully_charged_module_open_circuit_voltage', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'fully discharged module open circuit voltage', {'name': u'Fully Discharged Module Open Circuit Voltage', 'pyname': u'fully_discharged_module_open_circuit_voltage', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'voltage change curve name for charging', {'name': u'Voltage Change Curve Name for Charging', 'pyname': u'voltage_change_curve_name_for_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'voltage change curve name for discharging', {'name': u'Voltage Change Curve Name for Discharging', 'pyname': u'voltage_change_curve_name_for_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'module internal electrical resistance', {'name': u'Module Internal Electrical Resistance', 'pyname': u'module_internal_electrical_resistance', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'ohms'}), (u'maximum module discharging current', {'name': u'Maximum Module Discharging Current', 'pyname': u'maximum_module_discharging_current', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'A'}), (u'module cut-off voltage', {'name': u'Module Cut-off Voltage', 'pyname': u'module_cutoff_voltage', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'V'}), (u'module charge rate limit', {'name': u'Module Charge Rate Limit', 'pyname': u'module_charge_rate_limit', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'battery life calculation', {'name': u'Battery Life Calculation', 'pyname': u'battery_life_calculation', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of cycle bins', {'name': u'Number of Cycle Bins', 'pyname': u'number_of_cycle_bins', 'default': 10, 'required-field': False, 'autosizable': False, 'minimum': 5, 'autocalculatable': False, 'type': u'integer'}), (u'battery life curve name', {'name': u'Battery Life Curve Name', 'pyname': u'battery_life_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Storage:Battery',
- 'pyname': u'ElectricLoadCenterStorageBattery',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction',
+                                       {'name': u'Radiative Fraction',
+                                        'pyname': u'radiative_fraction',
+                                        'default': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'number of battery modules in parallel',
+                                       {'name': u'Number of Battery Modules in Parallel',
+                                        'pyname': u'number_of_battery_modules_in_parallel',
+                                        'default': 1,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1,
+                                        'autocalculatable': False,
+                                        'type': u'integer'}),
+                                      (u'number of battery modules in series',
+                                       {'name': u'Number of Battery Modules in Series',
+                                        'pyname': u'number_of_battery_modules_in_series',
+                                        'default': 1,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 1,
+                                        'autocalculatable': False,
+                                        'type': u'integer'}),
+                                      (u'maximum module capacity',
+                                       {'name': u'Maximum Module Capacity',
+                                        'pyname': u'maximum_module_capacity',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'Ah'}),
+                                      (u'initial fractional state of charge',
+                                       {'name': u'Initial Fractional State of Charge',
+                                        'pyname': u'initial_fractional_state_of_charge',
+                                        'default': 1.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'fraction of available charge capacity',
+                                       {'name': u'Fraction of Available Charge Capacity',
+                                        'pyname': u'fraction_of_available_charge_capacity',
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'change rate from bound charge to available charge',
+                                       {'name': u'Change Rate from Bound Charge to Available Charge',
+                                        'pyname': u'change_rate_from_bound_charge_to_available_charge',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': 'real',
+                                        'unit': u'1/hr'}),
+                                      (u'fully charged module open circuit voltage',
+                                       {'name': u'Fully Charged Module Open Circuit Voltage',
+                                        'pyname': u'fully_charged_module_open_circuit_voltage',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'fully discharged module open circuit voltage',
+                                       {'name': u'Fully Discharged Module Open Circuit Voltage',
+                                        'pyname': u'fully_discharged_module_open_circuit_voltage',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'voltage change curve name for charging',
+                                       {'name': u'Voltage Change Curve Name for Charging',
+                                        'pyname': u'voltage_change_curve_name_for_charging',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'voltage change curve name for discharging',
+                                       {'name': u'Voltage Change Curve Name for Discharging',
+                                        'pyname': u'voltage_change_curve_name_for_discharging',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'module internal electrical resistance',
+                                       {'name': u'Module Internal Electrical Resistance',
+                                        'pyname': u'module_internal_electrical_resistance',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'ohms'}),
+                                      (u'maximum module discharging current',
+                                       {'name': u'Maximum Module Discharging Current',
+                                        'pyname': u'maximum_module_discharging_current',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'A'}),
+                                      (u'module cut-off voltage',
+                                       {'name': u'Module Cut-off Voltage',
+                                        'pyname': u'module_cutoff_voltage',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'V'}),
+                                      (u'module charge rate limit',
+                                       {'name': u'Module Charge Rate Limit',
+                                        'pyname': u'module_charge_rate_limit',
+                                        'default': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'battery life calculation',
+                                       {'name': u'Battery Life Calculation',
+                                        'pyname': u'battery_life_calculation',
+                                        'default': u'No',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Yes',
+                                                            u'No'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'number of cycle bins',
+                                       {'name': u'Number of Cycle Bins',
+                                        'pyname': u'number_of_cycle_bins',
+                                        'default': 10,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 5,
+                                        'autocalculatable': False,
+                                        'type': u'integer'}),
+                                      (u'battery life curve name',
+                                       {'name': u'Battery Life Curve Name',
+                                        'pyname': u'battery_life_curve_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Storage:Battery',
+               'pyname': u'ElectricLoadCenterStorageBattery',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10882,20 +14353,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -10907,20 +14377,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  Enter name of zone to receive electrical storage losses as heat
         |  if blank then electrical storage losses are dissipated to outdoors
 
@@ -10932,20 +14401,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction(self):
         """field `Radiative Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -10956,20 +14424,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `radiative_fraction` or None if not set
+
         """
         return self["Radiative Fraction"]
 
     @radiative_fraction.setter
     def radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction`"""
         self["Radiative Fraction"] = value
 
     @property
     def number_of_battery_modules_in_parallel(self):
         """field `Number of Battery Modules in Parallel`
-        
+
         |  A module usually consists of several cells.
         |  The total number of modules in the battery bank
         |  is equal to number of modules in parallel times
@@ -10985,20 +14452,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             int: the value of `number_of_battery_modules_in_parallel` or None if not set
+
         """
         return self["Number of Battery Modules in Parallel"]
 
     @number_of_battery_modules_in_parallel.setter
     def number_of_battery_modules_in_parallel(self, value=1):
-        """  Corresponds to IDD field `Number of Battery Modules in Parallel`
-
-        """
+        """Corresponds to IDD field `Number of Battery Modules in Parallel`"""
         self["Number of Battery Modules in Parallel"] = value
 
     @property
     def number_of_battery_modules_in_series(self):
         """field `Number of Battery Modules in Series`
-        
+
         |  A module usually consists of several cells.
         |  The total number of modules in the battery bank
         |  is equal to number of modules in parallel times
@@ -11014,20 +14480,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             int: the value of `number_of_battery_modules_in_series` or None if not set
+
         """
         return self["Number of Battery Modules in Series"]
 
     @number_of_battery_modules_in_series.setter
     def number_of_battery_modules_in_series(self, value=1):
-        """  Corresponds to IDD field `Number of Battery Modules in Series`
-
-        """
+        """Corresponds to IDD field `Number of Battery Modules in Series`"""
         self["Number of Battery Modules in Series"] = value
 
     @property
     def maximum_module_capacity(self):
         """field `Maximum Module Capacity`
-        
+
         |  The capacity is for each module.
         |  A model parameter from manufacturer's data or test data.
         |  Units: Ah
@@ -11040,20 +14505,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `maximum_module_capacity` or None if not set
+
         """
         return self["Maximum Module Capacity"]
 
     @maximum_module_capacity.setter
     def maximum_module_capacity(self, value=None):
-        """  Corresponds to IDD field `Maximum Module Capacity`
-
-        """
+        """Corresponds to IDD field `Maximum Module Capacity`"""
         self["Maximum Module Capacity"] = value
 
     @property
     def initial_fractional_state_of_charge(self):
         """field `Initial Fractional State of Charge`
-        
+
         |  The state of charge is evaluated based on the
         |  maximum capacity defined in the next field.
         |  Default value: 1.0
@@ -11067,20 +14531,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `initial_fractional_state_of_charge` or None if not set
+
         """
         return self["Initial Fractional State of Charge"]
 
     @initial_fractional_state_of_charge.setter
     def initial_fractional_state_of_charge(self, value=1.0):
-        """  Corresponds to IDD field `Initial Fractional State of Charge`
-
-        """
+        """Corresponds to IDD field `Initial Fractional State of Charge`"""
         self["Initial Fractional State of Charge"] = value
 
     @property
     def fraction_of_available_charge_capacity(self):
         """field `Fraction of Available Charge Capacity`
-        
+
         |  A model parameter usually derived from test data by curve fitting.
         |  value <= 1.0
 
@@ -11092,20 +14555,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `fraction_of_available_charge_capacity` or None if not set
+
         """
         return self["Fraction of Available Charge Capacity"]
 
     @fraction_of_available_charge_capacity.setter
     def fraction_of_available_charge_capacity(self, value=None):
-        """  Corresponds to IDD field `Fraction of Available Charge Capacity`
-
-        """
+        """Corresponds to IDD field `Fraction of Available Charge Capacity`"""
         self["Fraction of Available Charge Capacity"] = value
 
     @property
     def change_rate_from_bound_charge_to_available_charge(self):
         """field `Change Rate from Bound Charge to Available Charge`
-        
+
         |  A model parameter usually derived from test data by curve fitting.
         |  Units: 1/hr
 
@@ -11117,20 +14579,20 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `change_rate_from_bound_charge_to_available_charge` or None if not set
+
         """
         return self["Change Rate from Bound Charge to Available Charge"]
 
     @change_rate_from_bound_charge_to_available_charge.setter
     def change_rate_from_bound_charge_to_available_charge(self, value=None):
-        """  Corresponds to IDD field `Change Rate from Bound Charge to Available Charge`
-
-        """
+        """Corresponds to IDD field `Change Rate from Bound Charge to Available
+        Charge`"""
         self["Change Rate from Bound Charge to Available Charge"] = value
 
     @property
     def fully_charged_module_open_circuit_voltage(self):
         """field `Fully Charged Module Open Circuit Voltage`
-        
+
         |  The voltage is for each battery module.
         |  Units: V
 
@@ -11142,20 +14604,20 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `fully_charged_module_open_circuit_voltage` or None if not set
+
         """
         return self["Fully Charged Module Open Circuit Voltage"]
 
     @fully_charged_module_open_circuit_voltage.setter
     def fully_charged_module_open_circuit_voltage(self, value=None):
-        """  Corresponds to IDD field `Fully Charged Module Open Circuit Voltage`
-
-        """
+        """Corresponds to IDD field `Fully Charged Module Open Circuit
+        Voltage`"""
         self["Fully Charged Module Open Circuit Voltage"] = value
 
     @property
     def fully_discharged_module_open_circuit_voltage(self):
         """field `Fully Discharged Module Open Circuit Voltage`
-        
+
         |  The voltage is for each battery module.
         |  Units: V
 
@@ -11167,20 +14629,20 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `fully_discharged_module_open_circuit_voltage` or None if not set
+
         """
         return self["Fully Discharged Module Open Circuit Voltage"]
 
     @fully_discharged_module_open_circuit_voltage.setter
     def fully_discharged_module_open_circuit_voltage(self, value=None):
-        """  Corresponds to IDD field `Fully Discharged Module Open Circuit Voltage`
-
-        """
+        """Corresponds to IDD field `Fully Discharged Module Open Circuit
+        Voltage`"""
         self["Fully Discharged Module Open Circuit Voltage"] = value
 
     @property
     def voltage_change_curve_name_for_charging(self):
         """field `Voltage Change Curve Name for Charging`
-        
+
         |  Determines how the open circuit voltage change with state of charge relative to the fully discharged state.
 
         Args:
@@ -11191,20 +14653,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `voltage_change_curve_name_for_charging` or None if not set
+
         """
         return self["Voltage Change Curve Name for Charging"]
 
     @voltage_change_curve_name_for_charging.setter
     def voltage_change_curve_name_for_charging(self, value=None):
-        """  Corresponds to IDD field `Voltage Change Curve Name for Charging`
-
-        """
+        """Corresponds to IDD field `Voltage Change Curve Name for Charging`"""
         self["Voltage Change Curve Name for Charging"] = value
 
     @property
     def voltage_change_curve_name_for_discharging(self):
         """field `Voltage Change Curve Name for Discharging`
-        
+
         |  Determines how the open circuit voltage change with state of charge relative to the fully charged state.
 
         Args:
@@ -11215,20 +14676,20 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `voltage_change_curve_name_for_discharging` or None if not set
+
         """
         return self["Voltage Change Curve Name for Discharging"]
 
     @voltage_change_curve_name_for_discharging.setter
     def voltage_change_curve_name_for_discharging(self, value=None):
-        """  Corresponds to IDD field `Voltage Change Curve Name for Discharging`
-
-        """
+        """Corresponds to IDD field `Voltage Change Curve Name for
+        Discharging`"""
         self["Voltage Change Curve Name for Discharging"] = value
 
     @property
     def module_internal_electrical_resistance(self):
         """field `Module Internal Electrical Resistance`
-        
+
         |  A model parameter from manufacture or derived from test data.
         |  Internal resistance is assumed to be constant.
         |  The internal resistance is for each battery module.
@@ -11242,20 +14703,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `module_internal_electrical_resistance` or None if not set
+
         """
         return self["Module Internal Electrical Resistance"]
 
     @module_internal_electrical_resistance.setter
     def module_internal_electrical_resistance(self, value=None):
-        """  Corresponds to IDD field `Module Internal Electrical Resistance`
-
-        """
+        """Corresponds to IDD field `Module Internal Electrical Resistance`"""
         self["Module Internal Electrical Resistance"] = value
 
     @property
     def maximum_module_discharging_current(self):
         """field `Maximum Module Discharging Current`
-        
+
         |  The constraint on discharging current is for each battery module.
         |  Units: A
 
@@ -11267,20 +14727,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `maximum_module_discharging_current` or None if not set
+
         """
         return self["Maximum Module Discharging Current"]
 
     @maximum_module_discharging_current.setter
     def maximum_module_discharging_current(self, value=None):
-        """  Corresponds to IDD field `Maximum Module Discharging Current`
-
-        """
+        """Corresponds to IDD field `Maximum Module Discharging Current`"""
         self["Maximum Module Discharging Current"] = value
 
     @property
     def module_cutoff_voltage(self):
         """field `Module Cut-off Voltage`
-        
+
         |  The voltage constraint is for each battery module.
         |  Units: V
 
@@ -11305,7 +14764,7 @@ class ElectricLoadCenterStorageBattery(DataObject):
     @property
     def module_charge_rate_limit(self):
         """field `Module Charge Rate Limit`
-        
+
         |  units 1/hr
         |  Charge rate limit is the division between charging current the remaining capacity.
         |  The constraint on charging current is for each module.
@@ -11319,20 +14778,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             float: the value of `module_charge_rate_limit` or None if not set
+
         """
         return self["Module Charge Rate Limit"]
 
     @module_charge_rate_limit.setter
     def module_charge_rate_limit(self, value=1.0):
-        """  Corresponds to IDD field `Module Charge Rate Limit`
-
-        """
+        """Corresponds to IDD field `Module Charge Rate Limit`"""
         self["Module Charge Rate Limit"] = value
 
     @property
     def battery_life_calculation(self):
         """field `Battery Life Calculation`
-        
+
         |  Default value: No
 
         Args:
@@ -11343,20 +14801,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `battery_life_calculation` or None if not set
+
         """
         return self["Battery Life Calculation"]
 
     @battery_life_calculation.setter
     def battery_life_calculation(self, value="No"):
-        """  Corresponds to IDD field `Battery Life Calculation`
-
-        """
+        """Corresponds to IDD field `Battery Life Calculation`"""
         self["Battery Life Calculation"] = value
 
     @property
     def number_of_cycle_bins(self):
         """field `Number of Cycle Bins`
-        
+
         |  Only required when battery life calculation is activated
         |  Default value: 10
         |  value >= 5
@@ -11369,20 +14826,19 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             int: the value of `number_of_cycle_bins` or None if not set
+
         """
         return self["Number of Cycle Bins"]
 
     @number_of_cycle_bins.setter
     def number_of_cycle_bins(self, value=10):
-        """  Corresponds to IDD field `Number of Cycle Bins`
-
-        """
+        """Corresponds to IDD field `Number of Cycle Bins`"""
         self["Number of Cycle Bins"] = value
 
     @property
     def battery_life_curve_name(self):
         """field `Battery Life Curve Name`
-        
+
         |  Determines the number of cycles to failure in relation to cycle range.
         |  Only required when battery life calculation is activated.
 
@@ -11394,38 +14850,211 @@ class ElectricLoadCenterStorageBattery(DataObject):
 
         Returns:
             str: the value of `battery_life_curve_name` or None if not set
+
         """
         return self["Battery Life Curve Name"]
 
     @battery_life_curve_name.setter
     def battery_life_curve_name(self, value=None):
-        """  Corresponds to IDD field `Battery Life Curve Name`
-
-        """
+        """Corresponds to IDD field `Battery Life Curve Name`"""
         self["Battery Life Curve Name"] = value
 
 
 
 
 class ElectricLoadCenterTransformer(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Transformer`
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    _schema = {'extensible-fields': OrderedDict([(u'meter 1 name', {'name': u'Meter 1 Name', 'pyname': u'meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'})]),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transformer usage', {'name': u'Transformer Usage', 'pyname': u'transformer_usage', 'default': u'PowerInFromGrid', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PowerInFromGrid', u'PowerOutFromOnsiteGeneration'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'VA'}), (u'phase', {'name': u'Phase', 'pyname': u'phase', 'default': 3, 'required-field': False, 'autosizable': False, 'accepted-values': [1, 3], 'autocalculatable': False, 'type': 'integer'}), (u'conductor material', {'name': u'Conductor Material', 'pyname': u'conductor_material', 'default': u'Aluminum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Copper', u'Aluminum'], 'autocalculatable': False, 'type': 'alpha'}), (u'full load temperature rise', {'name': u'Full Load Temperature Rise', 'pyname': u'full_load_temperature_rise', 'default': 150.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of eddy current losses', {'name': u'Fraction of Eddy Current Losses', 'pyname': u'fraction_of_eddy_current_losses', 'default': 0.1, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'performance input method', {'name': u'Performance Input Method', 'pyname': u'performance_input_method', 'default': u'RatedLosses', 'required-field': False, 'autosizable': False, 'accepted-values': [u'RatedLosses', u'NominalEfficiency'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated no load loss', {'name': u'Rated No Load Loss', 'pyname': u'rated_no_load_loss', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated load loss', {'name': u'Rated Load Loss', 'pyname': u'rated_load_loss', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nameplate efficiency', {'name': u'Nameplate Efficiency', 'pyname': u'nameplate_efficiency', 'default': 0.98, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'per unit load for nameplate efficiency', {'name': u'Per Unit Load for Nameplate Efficiency', 'pyname': u'per_unit_load_for_nameplate_efficiency', 'default': 0.35, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference temperature for nameplate efficiency', {'name': u'Reference Temperature for Nameplate Efficiency', 'pyname': u'reference_temperature_for_nameplate_efficiency', 'default': 75.0, 'maximum': 150.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'per unit load for maximum efficiency', {'name': u'Per Unit Load for Maximum Efficiency', 'pyname': u'per_unit_load_for_maximum_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'consider transformer loss for utility cost', {'name': u'Consider Transformer Loss for Utility Cost', 'pyname': u'consider_transformer_loss_for_utility_cost', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Transformer',
- 'pyname': u'ElectricLoadCenterTransformer',
- 'required-object': False,
- 'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict([(u'meter 1 name',
+                                                  {'name': u'Meter 1 Name',
+                                                   'pyname': u'meter_1_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'external-list'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'availability schedule name',
+                                       {'name': u'Availability Schedule Name',
+                                        'pyname': u'availability_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'transformer usage',
+                                       {'name': u'Transformer Usage',
+                                        'pyname': u'transformer_usage',
+                                        'default': u'PowerInFromGrid',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'PowerInFromGrid',
+                                                            u'PowerOutFromOnsiteGeneration'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'radiative fraction',
+                                       {'name': u'Radiative Fraction',
+                                        'pyname': u'radiative_fraction',
+                                        'default': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'rated capacity',
+                                       {'name': u'Rated Capacity',
+                                        'pyname': u'rated_capacity',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'VA'}),
+                                      (u'phase',
+                                       {'name': u'Phase',
+                                        'pyname': u'phase',
+                                        'default': 3,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [1,
+                                                            3],
+                                        'autocalculatable': False,
+                                        'type': 'integer'}),
+                                      (u'conductor material',
+                                       {'name': u'Conductor Material',
+                                        'pyname': u'conductor_material',
+                                        'default': u'Aluminum',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Copper',
+                                                            u'Aluminum'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'full load temperature rise',
+                                       {'name': u'Full Load Temperature Rise',
+                                        'pyname': u'full_load_temperature_rise',
+                                        'default': 150.0,
+                                        'maximum': 180.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 50.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'fraction of eddy current losses',
+                                       {'name': u'Fraction of Eddy Current Losses',
+                                        'pyname': u'fraction_of_eddy_current_losses',
+                                        'default': 0.1,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'performance input method',
+                                       {'name': u'Performance Input Method',
+                                        'pyname': u'performance_input_method',
+                                        'default': u'RatedLosses',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'RatedLosses',
+                                                            u'NominalEfficiency'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'rated no load loss',
+                                       {'name': u'Rated No Load Loss',
+                                        'pyname': u'rated_no_load_loss',
+                                        'minimum>': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'rated load loss',
+                                       {'name': u'Rated Load Loss',
+                                        'pyname': u'rated_load_loss',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 0.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'nameplate efficiency',
+                                       {'name': u'Nameplate Efficiency',
+                                        'pyname': u'nameplate_efficiency',
+                                        'default': 0.98,
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'per unit load for nameplate efficiency',
+                                       {'name': u'Per Unit Load for Nameplate Efficiency',
+                                        'pyname': u'per_unit_load_for_nameplate_efficiency',
+                                        'default': 0.35,
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'reference temperature for nameplate efficiency',
+                                       {'name': u'Reference Temperature for Nameplate Efficiency',
+                                        'pyname': u'reference_temperature_for_nameplate_efficiency',
+                                        'default': 75.0,
+                                        'maximum': 150.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'minimum': 20.0,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'C'}),
+                                      (u'per unit load for maximum efficiency',
+                                       {'name': u'Per Unit Load for Maximum Efficiency',
+                                        'pyname': u'per_unit_load_for_maximum_efficiency',
+                                        'minimum>': 0.0,
+                                        'maximum': 1.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real'}),
+                                      (u'consider transformer loss for utility cost',
+                                       {'name': u'Consider Transformer Loss for Utility Cost',
+                                        'pyname': u'consider_transformer_loss_for_utility_cost',
+                                        'default': u'Yes',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Yes',
+                                                            u'No'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Transformer',
+               'pyname': u'ElectricLoadCenterTransformer',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11435,20 +15064,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
         """field `Availability Schedule Name`
-        
+
         |  Availability schedule name for this system. Schedule value > 0 means the system is available.
         |  If this field is blank, the system is always available.
 
@@ -11460,20 +15088,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-
-        """
+        """Corresponds to IDD field `Availability Schedule Name`"""
         self["Availability Schedule Name"] = value
 
     @property
     def transformer_usage(self):
         """field `Transformer Usage`
-        
+
         |  A transformer can be used to transfer electric energy from utility grid to
         |  building (PowerInFromGrid)or from building on-site generation to
         |  the grid (PowerOutFromOnsiteGeneration)
@@ -11487,20 +15114,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `transformer_usage` or None if not set
+
         """
         return self["Transformer Usage"]
 
     @transformer_usage.setter
     def transformer_usage(self, value="PowerInFromGrid"):
-        """  Corresponds to IDD field `Transformer Usage`
-
-        """
+        """Corresponds to IDD field `Transformer Usage`"""
         self["Transformer Usage"] = value
 
     @property
     def zone_name(self):
         """field `Zone Name`
-        
+
         |  Enter name of zone to receive transformer losses as heat
         |  if blank then transformer losses are dissipated to outdoors
 
@@ -11512,20 +15138,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-
-        """
+        """Corresponds to IDD field `Zone Name`"""
         self["Zone Name"] = value
 
     @property
     def radiative_fraction(self):
         """field `Radiative Fraction`
-        
+
         |  value <= 1.0
 
         Args:
@@ -11536,20 +15161,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `radiative_fraction` or None if not set
+
         """
         return self["Radiative Fraction"]
 
     @radiative_fraction.setter
     def radiative_fraction(self, value=None):
-        """  Corresponds to IDD field `Radiative Fraction`
-
-        """
+        """Corresponds to IDD field `Radiative Fraction`"""
         self["Radiative Fraction"] = value
 
     @property
     def rated_capacity(self):
         """field `Rated Capacity`
-        
+
         |  the unit is VA, instead of kVA as usually shown on transformer nameplates.
         |  Units: VA
 
@@ -11561,20 +15185,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `rated_capacity` or None if not set
+
         """
         return self["Rated Capacity"]
 
     @rated_capacity.setter
     def rated_capacity(self, value=None):
-        """  Corresponds to IDD field `Rated Capacity`
-
-        """
+        """Corresponds to IDD field `Rated Capacity`"""
         self["Rated Capacity"] = value
 
     @property
     def phase(self):
         """field `Phase`
-        
+
         |  Must be single or three phase transformer.
         |  NOT used in the current model.
         |  Default value: 3
@@ -11587,20 +15210,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             int: the value of `phase` or None if not set
+
         """
         return self["Phase"]
 
     @phase.setter
     def phase(self, value=3):
-        """  Corresponds to IDD field `Phase`
-
-        """
+        """Corresponds to IDD field `Phase`"""
         self["Phase"] = value
 
     @property
     def conductor_material(self):
         """field `Conductor Material`
-        
+
         |  Winding material used by the transformer.
         |  Default value: Aluminum
 
@@ -11612,20 +15234,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `conductor_material` or None if not set
+
         """
         return self["Conductor Material"]
 
     @conductor_material.setter
     def conductor_material(self, value="Aluminum"):
-        """  Corresponds to IDD field `Conductor Material`
-
-        """
+        """Corresponds to IDD field `Conductor Material`"""
         self["Conductor Material"] = value
 
     @property
     def full_load_temperature_rise(self):
         """field `Full Load Temperature Rise`
-        
+
         |  Units: C
         |  Default value: 150.0
         |  value >= 50.0
@@ -11639,20 +15260,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `full_load_temperature_rise` or None if not set
+
         """
         return self["Full Load Temperature Rise"]
 
     @full_load_temperature_rise.setter
     def full_load_temperature_rise(self, value=150.0):
-        """  Corresponds to IDD field `Full Load Temperature Rise`
-
-        """
+        """Corresponds to IDD field `Full Load Temperature Rise`"""
         self["Full Load Temperature Rise"] = value
 
     @property
     def fraction_of_eddy_current_losses(self):
         """field `Fraction of Eddy Current Losses`
-        
+
         |  Default value: 0.1
         |  value <= 1.0
 
@@ -11664,20 +15284,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `fraction_of_eddy_current_losses` or None if not set
+
         """
         return self["Fraction of Eddy Current Losses"]
 
     @fraction_of_eddy_current_losses.setter
     def fraction_of_eddy_current_losses(self, value=0.1):
-        """  Corresponds to IDD field `Fraction of Eddy Current Losses`
-
-        """
+        """Corresponds to IDD field `Fraction of Eddy Current Losses`"""
         self["Fraction of Eddy Current Losses"] = value
 
     @property
     def performance_input_method(self):
         """field `Performance Input Method`
-        
+
         |  User can define transformer performance by specifying
         |  load and no load losses at rated conditions or
         |  nameplate efficiency and maximum efficiency
@@ -11691,20 +15310,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `performance_input_method` or None if not set
+
         """
         return self["Performance Input Method"]
 
     @performance_input_method.setter
     def performance_input_method(self, value="RatedLosses"):
-        """  Corresponds to IDD field `Performance Input Method`
-
-        """
+        """Corresponds to IDD field `Performance Input Method`"""
         self["Performance Input Method"] = value
 
     @property
     def rated_no_load_loss(self):
         """field `Rated No Load Loss`
-        
+
         |  Only required when RatedLosses is the performance input method
         |  Units: W
 
@@ -11716,20 +15334,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `rated_no_load_loss` or None if not set
+
         """
         return self["Rated No Load Loss"]
 
     @rated_no_load_loss.setter
     def rated_no_load_loss(self, value=None):
-        """  Corresponds to IDD field `Rated No Load Loss`
-
-        """
+        """Corresponds to IDD field `Rated No Load Loss`"""
         self["Rated No Load Loss"] = value
 
     @property
     def rated_load_loss(self):
         """field `Rated Load Loss`
-        
+
         |  Only required when RatedLosses is the performance input method
         |  Units: W
 
@@ -11741,20 +15358,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `rated_load_loss` or None if not set
+
         """
         return self["Rated Load Loss"]
 
     @rated_load_loss.setter
     def rated_load_loss(self, value=None):
-        """  Corresponds to IDD field `Rated Load Loss`
-
-        """
+        """Corresponds to IDD field `Rated Load Loss`"""
         self["Rated Load Loss"] = value
 
     @property
     def nameplate_efficiency(self):
         """field `Nameplate Efficiency`
-        
+
         |  Only required when NominalEfficiency is the performance input method
         |  Default value: 0.98
         |  value <= 1.0
@@ -11767,20 +15383,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `nameplate_efficiency` or None if not set
+
         """
         return self["Nameplate Efficiency"]
 
     @nameplate_efficiency.setter
     def nameplate_efficiency(self, value=0.98):
-        """  Corresponds to IDD field `Nameplate Efficiency`
-
-        """
+        """Corresponds to IDD field `Nameplate Efficiency`"""
         self["Nameplate Efficiency"] = value
 
     @property
     def per_unit_load_for_nameplate_efficiency(self):
         """field `Per Unit Load for Nameplate Efficiency`
-        
+
         |  Percentage of the rated capacity at which the nameplate efficiency is defined
         |  Only required when NominalEfficiency is the performance input method
         |  Default value: 0.35
@@ -11794,20 +15409,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `per_unit_load_for_nameplate_efficiency` or None if not set
+
         """
         return self["Per Unit Load for Nameplate Efficiency"]
 
     @per_unit_load_for_nameplate_efficiency.setter
     def per_unit_load_for_nameplate_efficiency(self, value=0.35):
-        """  Corresponds to IDD field `Per Unit Load for Nameplate Efficiency`
-
-        """
+        """Corresponds to IDD field `Per Unit Load for Nameplate Efficiency`"""
         self["Per Unit Load for Nameplate Efficiency"] = value
 
     @property
     def reference_temperature_for_nameplate_efficiency(self):
         """field `Reference Temperature for Nameplate Efficiency`
-        
+
         |  Conductor operating temperature at which the nameplate efficiency is defined
         |  Only required when NominalEfficiency is the performance input method
         |  Units: C
@@ -11823,20 +15437,20 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `reference_temperature_for_nameplate_efficiency` or None if not set
+
         """
         return self["Reference Temperature for Nameplate Efficiency"]
 
     @reference_temperature_for_nameplate_efficiency.setter
     def reference_temperature_for_nameplate_efficiency(self, value=75.0):
-        """  Corresponds to IDD field `Reference Temperature for Nameplate Efficiency`
-
-        """
+        """Corresponds to IDD field `Reference Temperature for Nameplate
+        Efficiency`"""
         self["Reference Temperature for Nameplate Efficiency"] = value
 
     @property
     def per_unit_load_for_maximum_efficiency(self):
         """field `Per Unit Load for Maximum Efficiency`
-        
+
         |  Percentage of the rate capacity at which the maximum efficiency is obtained
         |  Only required when NominalEfficiency is the performance input method
         |  value <= 1.0
@@ -11849,20 +15463,19 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             float: the value of `per_unit_load_for_maximum_efficiency` or None if not set
+
         """
         return self["Per Unit Load for Maximum Efficiency"]
 
     @per_unit_load_for_maximum_efficiency.setter
     def per_unit_load_for_maximum_efficiency(self, value=None):
-        """  Corresponds to IDD field `Per Unit Load for Maximum Efficiency`
-
-        """
+        """Corresponds to IDD field `Per Unit Load for Maximum Efficiency`"""
         self["Per Unit Load for Maximum Efficiency"] = value
 
     @property
     def consider_transformer_loss_for_utility_cost(self):
         """field `Consider Transformer Loss for Utility Cost`
-        
+
         |  Only required when the transformer is used for power in from the utility grid
         |  Default value: Yes
 
@@ -11874,26 +15487,27 @@ class ElectricLoadCenterTransformer(DataObject):
 
         Returns:
             str: the value of `consider_transformer_loss_for_utility_cost` or None if not set
+
         """
         return self["Consider Transformer Loss for Utility Cost"]
 
     @consider_transformer_loss_for_utility_cost.setter
     def consider_transformer_loss_for_utility_cost(self, value="Yes"):
-        """  Corresponds to IDD field `Consider Transformer Loss for Utility Cost`
-
-        """
+        """Corresponds to IDD field `Consider Transformer Loss for Utility
+        Cost`"""
         self["Consider Transformer Loss for Utility Cost"] = value
 
     def add_extensible(self,
                        meter_1_name=None,
                        ):
-        """ Add values for extensible fields
+        """Add values for extensible fields.
 
         Args:
 
             meter_1_name (str): value for IDD Field `Meter 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+
         """
         vals = []
         meter_1_name = self.check_value("Meter 1 Name", meter_1_name)
@@ -11902,16 +15516,16 @@ class ElectricLoadCenterTransformer(DataObject):
 
     @property
     def extensibles(self):
-        """ Get list of all extensibles
-        """
+        """Get list of all extensibles."""
         return self._extdata
 
     @extensibles.setter
     def extensibles(self, extensibles):
-        """ Replaces extensible fields with `extensibles`
+        """Replaces extensible fields with `extensibles`
 
         Args:
             extensibles (list): nested list of extensible values
+
         """
         self._extdata = []
         for ext in extensibles:
@@ -11921,24 +15535,107 @@ class ElectricLoadCenterTransformer(DataObject):
 
 
 class ElectricLoadCenterDistribution(DataObject):
+
     """ Corresponds to IDD object `ElectricLoadCenter:Distribution`
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'generator list name', {'name': u'Generator List Name', 'pyname': u'generator_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator operation scheme type', {'name': u'Generator Operation Scheme Type', 'pyname': u'generator_operation_scheme_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Baseload', u'DemandLimit', u'TrackElectrical', u'TrackSchedule', u'TrackMeter', u'FollowThermal', u'FollowThermalLimitElectrical'], 'autocalculatable': False, 'type': 'alpha'}), (u'demand limit scheme purchased electric demand limit', {'name': u'Demand Limit Scheme Purchased Electric Demand Limit', 'pyname': u'demand_limit_scheme_purchased_electric_demand_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'track schedule name scheme schedule name', {'name': u'Track Schedule Name Scheme Schedule Name', 'pyname': u'track_schedule_name_scheme_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'track meter scheme meter name', {'name': u'Track Meter Scheme Meter Name', 'pyname': u'track_meter_scheme_meter_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'electrical buss type', {'name': u'Electrical Buss Type', 'pyname': u'electrical_buss_type', 'default': u'AlternatingCurrent', 'required-field': False, 'autosizable': False, 'accepted-values': [u'AlternatingCurrent', u'AlternatingCurrentWithStorage', u'DirectCurrentWithInverter', u'DirectCurrentWithInverterDCStorage', u'DirectCurrentWithInverterACStorage'], 'autocalculatable': False, 'type': 'alpha'}), (u'inverter object name', {'name': u'Inverter Object Name', 'pyname': u'inverter_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electrical storage object name', {'name': u'Electrical Storage Object Name', 'pyname': u'electrical_storage_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transformer object name', {'name': u'Transformer Object Name', 'pyname': u'transformer_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Electric Load Center',
- 'min-fields': 0,
- 'name': u'ElectricLoadCenter:Distribution',
- 'pyname': u'ElectricLoadCenterDistribution',
- 'required-object': False,
- 'unique-object': False}
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'generator list name',
+                                       {'name': u'Generator List Name',
+                                        'pyname': u'generator_list_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'generator operation scheme type',
+                                       {'name': u'Generator Operation Scheme Type',
+                                        'pyname': u'generator_operation_scheme_type',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'Baseload',
+                                                            u'DemandLimit',
+                                                            u'TrackElectrical',
+                                                            u'TrackSchedule',
+                                                            u'TrackMeter',
+                                                            u'FollowThermal',
+                                                            u'FollowThermalLimitElectrical'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'demand limit scheme purchased electric demand limit',
+                                       {'name': u'Demand Limit Scheme Purchased Electric Demand Limit',
+                                        'pyname': u'demand_limit_scheme_purchased_electric_demand_limit',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'W'}),
+                                      (u'track schedule name scheme schedule name',
+                                       {'name': u'Track Schedule Name Scheme Schedule Name',
+                                        'pyname': u'track_schedule_name_scheme_schedule_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'track meter scheme meter name',
+                                       {'name': u'Track Meter Scheme Meter Name',
+                                        'pyname': u'track_meter_scheme_meter_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'external-list'}),
+                                      (u'electrical buss type',
+                                       {'name': u'Electrical Buss Type',
+                                        'pyname': u'electrical_buss_type',
+                                        'default': u'AlternatingCurrent',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'accepted-values': [u'AlternatingCurrent',
+                                                            u'AlternatingCurrentWithStorage',
+                                                            u'DirectCurrentWithInverter',
+                                                            u'DirectCurrentWithInverterDCStorage',
+                                                            u'DirectCurrentWithInverterACStorage'],
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'inverter object name',
+                                       {'name': u'Inverter Object Name',
+                                        'pyname': u'inverter_object_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'electrical storage object name',
+                                       {'name': u'Electrical Storage Object Name',
+                                        'pyname': u'electrical_storage_object_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'transformer object name',
+                                       {'name': u'Transformer Object Name',
+                                        'pyname': u'transformer_object_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Electric Load Center',
+               'min-fields': 0,
+               'name': u'ElectricLoadCenter:Distribution',
+               'pyname': u'ElectricLoadCenterDistribution',
+               'required-object': False,
+               'unique-object': False}
 
     @property
     def name(self):
         """field `Name`
-        
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11948,20 +15645,18 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-
-        """
+        """Corresponds to IDD field `Name`"""
         self["Name"] = value
 
     @property
     def generator_list_name(self):
         """field `Generator List Name`
-        
 
         Args:
             value (str): value for IDD Field `Generator List Name`
@@ -11971,20 +15666,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `generator_list_name` or None if not set
+
         """
         return self["Generator List Name"]
 
     @generator_list_name.setter
     def generator_list_name(self, value=None):
-        """  Corresponds to IDD field `Generator List Name`
-
-        """
+        """Corresponds to IDD field `Generator List Name`"""
         self["Generator List Name"] = value
 
     @property
     def generator_operation_scheme_type(self):
         """field `Generator Operation Scheme Type`
-        
+
         |  required if Generator List is entered.
 
         Args:
@@ -11995,20 +15689,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `generator_operation_scheme_type` or None if not set
+
         """
         return self["Generator Operation Scheme Type"]
 
     @generator_operation_scheme_type.setter
     def generator_operation_scheme_type(self, value=None):
-        """  Corresponds to IDD field `Generator Operation Scheme Type`
-
-        """
+        """Corresponds to IDD field `Generator Operation Scheme Type`"""
         self["Generator Operation Scheme Type"] = value
 
     @property
     def demand_limit_scheme_purchased_electric_demand_limit(self):
         """field `Demand Limit Scheme Purchased Electric Demand Limit`
-        
+
         |  Units: W
 
         Args:
@@ -12019,20 +15712,20 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             float: the value of `demand_limit_scheme_purchased_electric_demand_limit` or None if not set
+
         """
         return self["Demand Limit Scheme Purchased Electric Demand Limit"]
 
     @demand_limit_scheme_purchased_electric_demand_limit.setter
     def demand_limit_scheme_purchased_electric_demand_limit(self, value=None):
-        """  Corresponds to IDD field `Demand Limit Scheme Purchased Electric Demand Limit`
-
-        """
+        """Corresponds to IDD field `Demand Limit Scheme Purchased Electric
+        Demand Limit`"""
         self["Demand Limit Scheme Purchased Electric Demand Limit"] = value
 
     @property
     def track_schedule_name_scheme_schedule_name(self):
         """field `Track Schedule Name Scheme Schedule Name`
-        
+
         |  required when Generator Operation Scheme Type=TrackSchedule
 
         Args:
@@ -12043,20 +15736,20 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `track_schedule_name_scheme_schedule_name` or None if not set
+
         """
         return self["Track Schedule Name Scheme Schedule Name"]
 
     @track_schedule_name_scheme_schedule_name.setter
     def track_schedule_name_scheme_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Track Schedule Name Scheme Schedule Name`
-
-        """
+        """Corresponds to IDD field `Track Schedule Name Scheme Schedule
+        Name`"""
         self["Track Schedule Name Scheme Schedule Name"] = value
 
     @property
     def track_meter_scheme_meter_name(self):
         """field `Track Meter Scheme Meter Name`
-        
+
         |  required when Generator Operation Scheme Type=TrackMeter
 
         Args:
@@ -12067,20 +15760,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `track_meter_scheme_meter_name` or None if not set
+
         """
         return self["Track Meter Scheme Meter Name"]
 
     @track_meter_scheme_meter_name.setter
     def track_meter_scheme_meter_name(self, value=None):
-        """  Corresponds to IDD field `Track Meter Scheme Meter Name`
-
-        """
+        """Corresponds to IDD field `Track Meter Scheme Meter Name`"""
         self["Track Meter Scheme Meter Name"] = value
 
     @property
     def electrical_buss_type(self):
         """field `Electrical Buss Type`
-        
+
         |  Default value: AlternatingCurrent
 
         Args:
@@ -12091,20 +15783,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `electrical_buss_type` or None if not set
+
         """
         return self["Electrical Buss Type"]
 
     @electrical_buss_type.setter
     def electrical_buss_type(self, value="AlternatingCurrent"):
-        """  Corresponds to IDD field `Electrical Buss Type`
-
-        """
+        """Corresponds to IDD field `Electrical Buss Type`"""
         self["Electrical Buss Type"] = value
 
     @property
     def inverter_object_name(self):
         """field `Inverter Object Name`
-        
+
         |  required when Electrical Buss Type=DirectCurrentWithInverter, DirectCurrentWithInverterDCStorage,
         |  or DirectCurrentWithInverterACStorage
 
@@ -12116,20 +15807,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `inverter_object_name` or None if not set
+
         """
         return self["Inverter Object Name"]
 
     @inverter_object_name.setter
     def inverter_object_name(self, value=None):
-        """  Corresponds to IDD field `Inverter Object Name`
-
-        """
+        """Corresponds to IDD field `Inverter Object Name`"""
         self["Inverter Object Name"] = value
 
     @property
     def electrical_storage_object_name(self):
         """field `Electrical Storage Object Name`
-        
+
         |  required when Electrical Buss Type=AlternatingCurrentWithStorage, DirectCurrentWithInverterDCStorage,
         |  or DirectCurrentWithInverterACStorage
 
@@ -12141,20 +15831,19 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `electrical_storage_object_name` or None if not set
+
         """
         return self["Electrical Storage Object Name"]
 
     @electrical_storage_object_name.setter
     def electrical_storage_object_name(self, value=None):
-        """  Corresponds to IDD field `Electrical Storage Object Name`
-
-        """
+        """Corresponds to IDD field `Electrical Storage Object Name`"""
         self["Electrical Storage Object Name"] = value
 
     @property
     def transformer_object_name(self):
         """field `Transformer Object Name`
-        
+
         |  required when power needs to be output from on-site generation to the grid via transformer
 
         Args:
@@ -12165,14 +15854,13 @@ class ElectricLoadCenterDistribution(DataObject):
 
         Returns:
             str: the value of `transformer_object_name` or None if not set
+
         """
         return self["Transformer Object Name"]
 
     @transformer_object_name.setter
     def transformer_object_name(self, value=None):
-        """  Corresponds to IDD field `Transformer Object Name`
-
-        """
+        """Corresponds to IDD field `Transformer Object Name`"""
         self["Transformer Object Name"] = value
 
 
