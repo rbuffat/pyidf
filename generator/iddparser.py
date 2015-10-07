@@ -205,7 +205,7 @@ class IDDParser():
                 pass
 #                 logging.warn("ignore object: {}".format(obj.internal_name))
 
-        logging.warn("Bad objects:")
+        logging.warn("Bad objects: {}".format(len(bad_objs)))
         for o in bad_objs:
             logging.warn("Bad objects: {}".format(o.internal_name))
 
@@ -213,4 +213,4 @@ class IDDParser():
 
 if __name__ == '__main__':
     parser = IDDParser()
-    objects = parser.parse("V8-2-0-Energy+.idd")
+    objects = parser.parse("V8-4-0-Energy+.idd")

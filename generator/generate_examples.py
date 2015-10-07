@@ -14,7 +14,7 @@ file_name_named = r"../examples/Exercise1A_named.py"
 
 if __name__ == "__main__":
     idf = IDF(
-        r"/usr/local/EnergyPlus-8-2-0/ExampleFiles/BasicsFiles/Exercise1A.idf")
+        r"/home/rene/dev/EnergyPlus-8.4.0/testfiles/BasicsFiles/Exercise1A.idf")
     objs = []
     imports = set()
     for obj in idf:

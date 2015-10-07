@@ -12,10 +12,10 @@ from generator import generate_class, generate_helper, generate_test
 from generator import generate_idf, generate_init, generate_group
 from iddparser import IDDParser
 
-num_worker_threads = 1
-tidy = False
+num_worker_threads = multiprocessing.cpu_count()
+tidy = True
 
-version = "0.2.0-dev"
+version = "0.2.0"
 
 
 def worker(q, worker):
