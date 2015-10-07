@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyidf.room_air_models module &mdash; pyidf 0.1.4-dev documentation</title>
+    <title>pyidf.room_air_models module &mdash; pyidf 0.2.0-dev documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4-dev',
+        VERSION:     '0.2.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,31 +23,16 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="top" title="pyidf 0.2.0-dev documentation" href="index.html" />
     <link rel="up" title="pyidf package" href="pyidf.html" />
     <link rel="next" title="pyidf.schedules module" href="pyidf.schedules.html" />
-    <link rel="prev" title="pyidf.refrigeration module" href="pyidf.refrigeration.html" /> 
+    <link rel="prev" title="pyidf.refrigeration module" href="pyidf.refrigeration.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.schedules.html" title="pyidf.schedules module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -57,60 +42,6 @@
   <div class="section" id="module-pyidf.room_air_models">
 <span id="pyidf-room-air-models-module"></span><h1>pyidf.room_air_models module<a class="headerlink" href="#module-pyidf.room_air_models" title="Permalink to this headline">¶</a></h1>
 <p>Data objects in group &#8220;Room Air Models&#8221;</p>
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferBasementXface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementXface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementXface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:XFACE</cite>
-This is only needed when using manual gridding (not recommended)
-XFACE: X Direction cell face coordinates: m</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferBasementYface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementYface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementYface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:YFACE</cite>
-This is only needed when using manual gridding (not recommended)
-YFACE: Y Direction cell face coordinates: m</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferBasementZface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferBasementZface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferBasementZface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Basement:ZFACE</cite>
-This is only needed when using manual gridding (not recommended)
-ZFACE: Z Direction cell face coordinates: m</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferSlabXface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabXface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabXface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:XFACE</cite>
-This is only needed when using manual gridding (not recommended)
-XFACE: X Direction cell face coordinates: m</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferSlabYface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabYface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabYface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:YFACE</cite>
-This is only needed when using manual gridding (not recommended)
-YFACE: Y Direction cell face coordinates: m,</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyidf.room_air_models.GroundHeatTransferSlabZface">
-<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">GroundHeatTransferSlabZface</code><a class="headerlink" href="#pyidf.room_air_models.GroundHeatTransferSlabZface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
-<p>Corresponds to IDD object <cite>GroundHeatTransfer:Slab:ZFACE</cite>
-This is only needed when usuing manual gridding (not recommended)
-ZFACE: Z Direction cell face coordinates: m</p>
-</dd></dl>
-
 <dl class="class">
 <dt id="pyidf.room_air_models.RoomAirModelType">
 <em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirModelType</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType" title="Permalink to this definition">¶</a></dt>
@@ -132,7 +63,7 @@ temperature) will be used.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Air Temperature Coupling Strategy</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>air_temperature_coupling_strategy</cite> or None if not set</td>
@@ -153,7 +84,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -174,14 +105,16 @@ if <cite>value</cite> is not a valid value</td>
 <div class="line">needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone</div>
 <div class="line">Mundt roomair model for displacement ventilation with single floor air node</div>
 <div class="line">needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone</div>
-<div class="line">(UCSD three-node displacement ventilation model)</div>
+<div class="line">(ThreeNodeDisplacementVentilation = RoomAir modeling using UCSD three-node displacement ventilation model)</div>
 <div class="line">needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone</div>
-<div class="line">(UCSD two-zone cross ventilation model)</div>
+<div class="line">(CrossVentilation = RoomAir modeling using UCSD two-zone cross ventilation model)</div>
 <div class="line">needs RoomAirSettings:CrossVentilation object referencing this Zone</div>
 <div class="line">2-Node UFAD model for interior zones</div>
 <div class="line">needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone</div>
-<div class="line">(2-Node UFAD model for exterior zones)</div>
+<div class="line">(UnderFloorAirDistributionExterior = RoomAir modeling using 2-Node UFAD model for exterior zones)</div>
 <div class="line">needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone</div>
+<div class="line">(AirflowNetwork = RoomAir modeling using AirflowNetwork)</div>
+<div class="line">needs RoomAirSettings:AirflowNetwork object referencing this Zone</div>
 <div class="line">Default value: Mixing</div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -190,7 +123,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Room-Air Modeling Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roomair_modeling_type</cite> or None if not set</td>
@@ -211,7 +144,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -243,7 +176,7 @@ Define an air node for some types of nodal room air models</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Height of Nodal Control Volume Center</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>height_of_nodal_control_volume_center</cite> or None if not set</td>
@@ -264,7 +197,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -285,7 +218,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Node Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>node_type</cite> or None if not set</td>
@@ -306,7 +239,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 10 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_10_name</cite> or None if not set</td>
@@ -327,7 +260,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 11 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_11_name</cite> or None if not set</td>
@@ -348,7 +281,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 12 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_12_name</cite> or None if not set</td>
@@ -369,7 +302,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 13 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_13_name</cite> or None if not set</td>
@@ -390,7 +323,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 14 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_14_name</cite> or None if not set</td>
@@ -411,7 +344,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 15 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_15_name</cite> or None if not set</td>
@@ -432,7 +365,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 16 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_16_name</cite> or None if not set</td>
@@ -453,7 +386,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 17 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_17_name</cite> or None if not set</td>
@@ -474,7 +407,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 18 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_18_name</cite> or None if not set</td>
@@ -495,7 +428,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 19 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_19_name</cite> or None if not set</td>
@@ -516,7 +449,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 1 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_1_name</cite> or None if not set</td>
@@ -537,7 +470,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 20 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_20_name</cite> or None if not set</td>
@@ -558,7 +491,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 21 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_21_name</cite> or None if not set</td>
@@ -579,7 +512,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 2 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_2_name</cite> or None if not set</td>
@@ -600,7 +533,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 3 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_3_name</cite> or None if not set</td>
@@ -621,7 +554,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 4 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_4_name</cite> or None if not set</td>
@@ -642,7 +575,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 5 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_5_name</cite> or None if not set</td>
@@ -663,7 +596,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 6 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_6_name</cite> or None if not set</td>
@@ -684,7 +617,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 7 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_7_name</cite> or None if not set</td>
@@ -705,7 +638,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 8 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_8_name</cite> or None if not set</td>
@@ -726,7 +659,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 9 Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>surface_9_name</cite> or None if not set</td>
@@ -747,7 +680,419 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirNodeAirflowNetwork</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:Node:AirflowNetwork</cite>
+define an air node for some types of nodal air models</p>
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.fraction_of_zone_air_volume">
+<code class="descname">fraction_of_zone_air_volume</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.fraction_of_zone_air_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Fraction of Zone Air Volume</cite></p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Zone Air Volume</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_zone_air_volume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkadjacentsurfacelist_name">
+<code class="descname">roomairnodeairflownetworkadjacentsurfacelist_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkadjacentsurfacelist_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>RoomAir:Node:AirflowNetwork:AdjacentSurfaceList Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>RoomAir:Node:AirflowNetwork:AdjacentSurfaceList Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roomairnodeairflownetworkadjacentsurfacelist_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkhvacequipment_name">
+<code class="descname">roomairnodeairflownetworkhvacequipment_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkhvacequipment_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>RoomAir:Node:AirflowNetwork:HVACEquipment Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>RoomAir:Node:AirflowNetwork:HVACEquipment Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roomairnodeairflownetworkhvacequipment_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkinternalgains_name">
+<code class="descname">roomairnodeairflownetworkinternalgains_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.roomairnodeairflownetworkinternalgains_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>RoomAir:Node:AirflowNetwork:InternalGains Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>RoomAir:Node:AirflowNetwork:InternalGains Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>roomairnodeairflownetworkinternalgains_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetwork.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetwork.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirNodeAirflowNetworkAdjacentSurfaceList</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:Node:AirflowNetwork:AdjacentSurfaceList</cite></p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>surface_1_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>surface_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Surface 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkAdjacentSurfaceList.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirNodeAirflowNetworkHvacequipment</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:Node:AirflowNetwork:HVACEquipment</cite>
+define the zone equipment associated with one particular RoomAir:Node</p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>zonehvac_or_air_terminal_equipment_object_type_1=None</em>, <em>zonehvac_or_air_terminal_equipment_object_name_1=None</em>, <em>fraction_of_output_or_supply_air_from_hvac_equipment_1=None</em>, <em>fraction_of_input_or_return_air_to_hvac_equipment_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>zonehvac_or_air_terminal_equipment_object_type_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>ZoneHVAC or Air Terminal Equipment Object Type 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>zonehvac_or_air_terminal_equipment_object_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>ZoneHVAC or Air Terminal Equipment Object Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>fraction_of_output_or_supply_air_from_hvac_equipment_1</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Output or Supply Air from HVAC Equipment 1</cite>
+value &lt;= 1.0
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>fraction_of_input_or_return_air_to_hvac_equipment_1</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Input or Return Air to HVAC Equipment 1</cite>
+value &lt;= 1.0
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkHvacequipment.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirNodeAirflowNetworkInternalGains</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAir:Node:AirflowNetwork:InternalGains</cite>
+define the internal gains that are associated with one particular RoomAir:Node</p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>internal_gain_object_1_type=None</em>, <em>internal_gain_object_1_name=None</em>, <em>fraction_of_gains_to_node_1=None</em>, <em>internal_gain_object_2_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>internal_gain_object_1_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Internal Gain Object 1 Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>internal_gain_object_1_name</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Internal Gain Object 1 Name</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>fraction_of_gains_to_node_1</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Gains to Node 1</cite>
+value &lt;= 1.0
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+<li><strong>internal_gain_object_2_type</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Internal Gain Object 2 Type</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNodeAirflowNetworkInternalGains.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork">
+<em class="property">class </em><code class="descclassname">pyidf.room_air_models.</code><code class="descname">RoomAirSettingsAirflowNetwork</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
+<p>Corresponds to IDD object <cite>RoomAirSettings:AirflowNetwork</cite>
+RoomAir modeling using Airflow pressure network solver</p>
+<dl class="method">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork.add_extensible">
+<code class="descname">add_extensible</code><span class="sig-paren">(</span><em>roomairflownetworknode_name_1=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork.add_extensible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add values for extensible fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>roomairflownetworknode_name_1</strong> (<em>str</em>) &#8211; value for IDD Field <cite>RoomAirflowNetwork:Node Name 1</cite>
+if <cite>value</cite> is None it will not be checked against the
+specification and is assumed to be a missing value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork.control_point_roomairflownetworknode_name">
+<code class="descname">control_point_roomairflownetworknode_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork.control_point_roomairflownetworknode_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Control Point RoomAirflowNetwork:Node Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Control Point RoomAirflowNetwork:Node Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_point_roomairflownetworknode_name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork.extensibles">
+<code class="descname">extensibles</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork.extensibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all extensibles</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork.name">
+<code class="descname">name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Name</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+if <cite>value</cite> is not a valid value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.room_air_models.RoomAirSettingsAirflowNetwork.zone_name">
+<code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsAirflowNetwork.zone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>field <cite>Zone Name</cite></p>
+<div class="line-block">
+<div class="line">Name of Zone being described. Any existing zone name</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -785,7 +1130,7 @@ Used with RoomAirModelType = CrossVentilation.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Airflow Region Used for Thermal Comfort Evaluation</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>airflow_region_used_for_thermal_comfort_evaluation</cite> or None if not set</td>
@@ -811,7 +1156,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gain Distribution Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gain_distribution_schedule_name</cite> or None if not set</td>
@@ -835,7 +1180,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -867,7 +1212,7 @@ The Mundt model for displacement ventilation</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Convective Internal Loads Added to Floor Air</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_convective_internal_loads_added_to_floor_air</cite> or None if not set</td>
@@ -891,7 +1236,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Fraction of Infiltration Internal Loads Added to Floor Air</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>fraction_of_infiltration_internal_loads_added_to_floor_air</cite> or None if not set</td>
@@ -912,7 +1257,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -946,7 +1291,7 @@ The UCSD model for Displacement Ventilation</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
@@ -972,7 +1317,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gain Distribution Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gain_distribution_schedule_name</cite> or None if not set</td>
@@ -999,7 +1344,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Number of Plumes per Occupant</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_plumes_per_occupant</cite> or None if not set</td>
@@ -1016,7 +1361,7 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
 <div class="line-block">
 <div class="line">Minimum temperature difference between predicted upper and lower layer</div>
-<div class="line">temperatures above which DV auxilliary outputs are calculated.</div>
+<div class="line">temperatures above which DV auxiliary outputs are calculated.</div>
 <div class="line">These outputs are &#8216;DV Transition Height&#8217;, &#8216;DV Fraction Min Recommended Flow Rate&#8217;</div>
 <div class="line">&#8216;DV Average Temp Gradient&#8217; and &#8216;DV Maximum Temp Gradient&#8217;.  They</div>
 <div class="line">are set to negative values when the temperature difference is less than the</div>
@@ -1030,7 +1375,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
@@ -1056,7 +1401,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
@@ -1080,7 +1425,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -1116,10 +1461,12 @@ coming from a warm window. Used with RoomAirModelType = CrossVentilation.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1139,10 +1486,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1162,10 +1511,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1185,10 +1536,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1208,10 +1561,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1232,7 +1587,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
@@ -1257,10 +1612,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Design Effective Area of Diffuser</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1281,10 +1638,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Diffuser Slot Angle from Vertical</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1303,7 +1662,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Floor Diffuser Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>floor_diffuser_type</cite> or None if not set</td>
@@ -1327,10 +1686,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Number of Diffusers per Zone</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>number_of_diffusers_per_zone</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_diffusers_per_zone</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1350,10 +1711,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Power per Plume</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>power_per_plume</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>power_per_plume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1365,8 +1728,8 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
 <div class="line-block">
 <div class="line">Minimum temperature difference between upper and lower layer</div>
-<div class="line">temperatures above which UFAD auxilliary outputs are calculated.</div>
-<div class="line">These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They</div>
+<div class="line">temperatures above which UFAD auxiliary outputs are calculated.</div>
+<div class="line">These outputs are &#8216;UF Transition Height&#8217; and &#8216;UF Average Temp Gradient&#8217;.  They</div>
 <div class="line">are set to zero values when the temperature difference is less than the</div>
 <div class="line">threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1</div>
 <div class="line">Units: deltaC</div>
@@ -1378,7 +1741,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
@@ -1404,7 +1767,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
@@ -1430,10 +1793,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Transition Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>transition_height</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>transition_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1452,7 +1817,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -1491,10 +1856,12 @@ Used with RoomAirModelType = UnderFloorAirDistributionInterior.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient A</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_a</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_a</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1515,10 +1882,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient B</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_b</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_b</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1539,10 +1908,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient C</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_c</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_c</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1563,10 +1934,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient D</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_d</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_d</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1587,10 +1960,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Coefficient E</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>coefficient_e</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>coefficient_e</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1611,7 +1986,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Comfort Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>comfort_height</cite> or None if not set</td>
@@ -1636,10 +2011,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Design Effective Area of Diffuser</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_effective_area_of_diffuser</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1660,10 +2037,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Diffuser Slot Angle from Vertical</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>diffuser_slot_angle_from_vertical</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1682,7 +2061,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Floor Diffuser Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>floor_diffuser_type</cite> or None if not set</td>
@@ -1707,10 +2086,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Number of Diffusers</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>number_of_diffusers</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_diffusers</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1730,10 +2111,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Power per Plume</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>power_per_plume</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>power_per_plume</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1745,8 +2128,8 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
 <div class="line-block">
 <div class="line">Minimum temperature difference between predicted upper and lower layer</div>
-<div class="line">temperatures above which UFAD auxilliary outputs are calculated.</div>
-<div class="line">These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They</div>
+<div class="line">temperatures above which UFAD auxiliary outputs are calculated.</div>
+<div class="line">These outputs are &#8216;UF Transition Height&#8217; and &#8216;UF Average Temp Gradient&#8217;.  They</div>
 <div class="line">are set to zero values when the temperature difference is less than the</div>
 <div class="line">threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1</div>
 <div class="line">Units: deltaC</div>
@@ -1758,7 +2141,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Difference Threshold for Reporting</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_difference_threshold_for_reporting</cite> or None if not set</td>
@@ -1784,7 +2167,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
@@ -1810,10 +2193,12 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float or &#8220;Autocalculate&#8221;</em>) &#8211; value for IDD Field <cite>Transition Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float or &#8220;Autocalculate&#8221;: the value of <cite>transition_height</cite> or None if not set</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>transition_height</cite> or None if not set</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float or &#8220;Autocalculate&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -1832,7 +2217,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -1865,7 +2250,7 @@ Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
@@ -1890,7 +2275,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
@@ -1911,7 +2296,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -1936,7 +2321,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
@@ -1961,7 +2346,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient</cite> or None if not set</td>
@@ -1986,7 +2371,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
@@ -2005,7 +2390,7 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>Bases: <a class="reference internal" href="pyidf.helper.html#pyidf.helper.DataObject" title="pyidf.helper.DataObject"><code class="xref py py-class docutils literal"><span class="pre">pyidf.helper.DataObject</span></code></a></p>
 <p>Corresponds to IDD object <cite>RoomAir:TemperaturePattern:NondimensionalHeight</cite>
 Defines a distribution pattern for air temperatures relative to the current mean air
-temperature as a function of height. The height, referred to as Zeta, is non-dimensional
+temperature as a function of height. The height, referred to as Zeta, is nondimensional
 by normalizing with the zone ceiling height.
 Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
 <dl class="method">
@@ -2046,7 +2431,7 @@ specification and is assumed to be a missing value</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
@@ -2076,7 +2461,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
@@ -2103,7 +2488,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2128,7 +2513,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
@@ -2153,7 +2538,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
@@ -2212,7 +2597,7 @@ specification and is assumed to be a missing value</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
@@ -2237,7 +2622,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_offset</cite> or None if not set</td>
@@ -2264,7 +2649,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2289,7 +2674,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_offset</cite> or None if not set</td>
@@ -2314,7 +2699,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Offset</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_offset</cite> or None if not set</td>
@@ -2347,7 +2732,7 @@ Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Control Integer for Pattern Control Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>control_integer_for_pattern_control_schedule_name</cite> or None if not set</td>
@@ -2372,7 +2757,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Exhaust Air Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>exhaust_air_height</cite> or None if not set</td>
@@ -2393,7 +2778,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Gradient Interpolation Mode</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>gradient_interpolation_mode</cite> or None if not set</td>
@@ -2417,7 +2802,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Lower Heat Rate Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lower_heat_rate_bound</cite> or None if not set</td>
@@ -2441,7 +2826,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Lower Temperature Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>lower_temperature_bound</cite> or None if not set</td>
@@ -2462,7 +2847,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2487,7 +2872,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Return Air Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>return_air_height</cite> or None if not set</td>
@@ -2512,7 +2897,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient Lower Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient_lower_bound</cite> or None if not set</td>
@@ -2537,7 +2922,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Temperature Gradient Upper  Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>temperature_gradient_upper_bound</cite> or None if not set</td>
@@ -2562,7 +2947,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Thermostat Height</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>thermostat_height</cite> or None if not set</td>
@@ -2586,7 +2971,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Upper Heat Rate Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>upper_heat_rate_bound</cite> or None if not set</td>
@@ -2610,7 +2995,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Upper Temperature Bound</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>upper_temperature_bound</cite> or None if not set</td>
@@ -2645,7 +3030,7 @@ temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.</p
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Availability Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>availability_schedule_name</cite> or None if not set</td>
@@ -2666,7 +3051,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2692,7 +3077,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Pattern Control Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>pattern_control_schedule_name</cite> or None if not set</td>
@@ -2713,7 +3098,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Zone Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>zone_name</cite> or None if not set</td>
@@ -2733,13 +3118,17 @@ if <cite>value</cite> is not a valid value</td>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyidf.refrigeration.html"
-                        title="previous chapter">pyidf.refrigeration module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyidf.schedules.html"
-                        title="next chapter">pyidf.schedules module</a></p>
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="pyidf.html">pyidf package</a><ul>
+      <li>Previous: <a href="pyidf.refrigeration.html" title="previous chapter">pyidf.refrigeration module</a></li>
+      <li>Next: <a href="pyidf.schedules.html" title="next chapter">pyidf.schedules module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -2764,28 +3153,20 @@ if <cite>value</cite> is not a valid value</td>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.schedules.html" title="pyidf.schedules module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.refrigeration.html" title="pyidf.refrigeration module"
-             >previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2015, Rene Buffat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/pyidf.room_air_models.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2014, Rene Buffat.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
-    </div>
+
+    
+
+    
   </body>
 </html>

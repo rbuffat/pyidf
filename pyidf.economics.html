@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyidf.economics module &mdash; pyidf 0.1.4-dev documentation</title>
+    <title>pyidf.economics module &mdash; pyidf 0.2.0-dev documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4-dev',
+        VERSION:     '0.2.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,31 +23,16 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="top" title="pyidf 0.2.0-dev documentation" href="index.html" />
     <link rel="up" title="pyidf package" href="pyidf.html" />
     <link rel="next" title="pyidf.electric_load_center module" href="pyidf.electric_load_center.html" />
-    <link rel="prev" title="pyidf.detailed_ground_heat_transfer module" href="pyidf.detailed_ground_heat_transfer.html" /> 
+    <link rel="prev" title="pyidf.detailed_ground_heat_transfer module" href="pyidf.detailed_ground_heat_transfer.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.electric_load_center.html" title="pyidf.electric_load_center module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.detailed_ground_heat_transfer.html" title="pyidf.detailed_ground_heat_transfer module"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -78,7 +63,7 @@ so that the overall costs of the project will reflect various profit and fees.</
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Commissioning Fee</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>commissioning_fee</cite> or None if not set</td>
@@ -102,7 +87,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Contingency</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>contingency</cite> or None if not set</td>
@@ -126,7 +111,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Contractor Fee</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>contractor_fee</cite> or None if not set</td>
@@ -150,7 +135,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Design and Engineering Fees</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>design_and_engineering_fees</cite> or None if not set</td>
@@ -176,7 +161,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Miscellaneous Cost per Conditioned Area</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>miscellaneous_cost_per_conditioned_area</cite> or None if not set</td>
@@ -200,7 +185,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Permits, Bonding and Insurance</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>permits_bonding_and_insurance</cite> or None if not set</td>
@@ -225,7 +210,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Regional Adjustment Factor</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>regional_adjustment_factor</cite> or None if not set</td>
@@ -258,7 +243,7 @@ for a cost estimate.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Area</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_area</cite> or None if not set</td>
@@ -282,7 +267,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Each</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_each</cite> or None if not set</td>
@@ -307,7 +292,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Energy per Temperature Difference</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_energy_per_temperature_difference</cite> or None if not set</td>
@@ -331,7 +316,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Unit of Output Capacity</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_unit_of_output_capacity</cite> or None if not set</td>
@@ -356,7 +341,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Unit of Output Capacity per COP</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_unit_of_output_capacity_per_cop</cite> or None if not set</td>
@@ -380,7 +365,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Volume</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_volume</cite> or None if not set</td>
@@ -404,7 +389,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost per Volume Rate</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_volume_rate</cite> or None if not set</td>
@@ -428,7 +413,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Item Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>item_name</cite> or None if not set</td>
@@ -452,7 +437,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Line Item Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>line_item_type</cite> or None if not set</td>
@@ -473,7 +458,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -497,7 +482,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Object End-Use Key</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>object_enduse_key</cite> or None if not set</td>
@@ -522,7 +507,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Quantity</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>quantity</cite> or None if not set</td>
@@ -543,7 +528,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>type</cite> or None if not set</td>
@@ -580,7 +565,7 @@ current building model cost estimate.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Commissioning Fee</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_commissioning_fee</cite> or None if not set</td>
@@ -601,7 +586,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Contingency</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_contingency</cite> or None if not set</td>
@@ -625,7 +610,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Contractor Fee</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_contractor_fee</cite> or None if not set</td>
@@ -649,7 +634,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Design and Engineering Fees</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_design_and_engineering_fees</cite> or None if not set</td>
@@ -674,7 +659,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Line Item Costs</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_line_item_costs</cite> or None if not set</td>
@@ -700,7 +685,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Miscellaneous Cost per Conditioned Area</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_miscellaneous_cost_per_conditioned_area</cite> or None if not set</td>
@@ -724,7 +709,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Permits, Bonding and Insurance</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_permits_bonding_and_insurance</cite> or None if not set</td>
@@ -749,7 +734,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Reference Building Regional Adjustment Factor</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>reference_building_regional_adjustment_factor</cite> or None if not set</td>
@@ -782,7 +767,7 @@ If CurrencyType is not specified, it will default to USD and produce $ in the re
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Monetary Unit</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>monetary_unit</cite> or None if not set</td>
@@ -816,7 +801,7 @@ LifeCycleCost:RecurringCost object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Category</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>category</cite> or None if not set</td>
@@ -843,7 +828,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost</cite> or None if not set</td>
@@ -872,7 +857,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Months from Start</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>months_from_start</cite> or None if not set</td>
@@ -893,7 +878,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -920,7 +905,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Start of Costs</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>start_of_costs</cite> or None if not set</td>
@@ -948,7 +933,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Years from Start</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>years_from_start</cite> or None if not set</td>
@@ -985,7 +970,7 @@ object is present the tabular report file will contain the Life-Cycle Cost Repor
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Base Date Month</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>base_date_month</cite> or None if not set</td>
@@ -1012,7 +997,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Base Date Year</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>base_date_year</cite> or None if not set</td>
@@ -1039,7 +1024,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Depreciation Method</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>depreciation_method</cite> or None if not set</td>
@@ -1066,7 +1051,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Discounting Convention</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>discounting_convention</cite> or None if not set</td>
@@ -1091,7 +1076,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Inflation</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inflation</cite> or None if not set</td>
@@ -1119,7 +1104,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Inflation Approach</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>inflation_approach</cite> or None if not set</td>
@@ -1147,7 +1132,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Length of Study Period in Years</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>length_of_study_period_in_years</cite> or None if not set</td>
@@ -1168,7 +1153,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -1195,7 +1180,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Nominal Discount Rate</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>nominal_discount_rate</cite> or None if not set</td>
@@ -1222,7 +1207,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Real Discount Rate</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>real_discount_rate</cite> or None if not set</td>
@@ -1250,7 +1235,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Service Date Month</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>service_date_month</cite> or None if not set</td>
@@ -1276,7 +1261,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Service Date Year</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>service_date_year</cite> or None if not set</td>
@@ -1307,7 +1292,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Tax rate</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tax_rate</cite> or None if not set</td>
@@ -1345,7 +1330,7 @@ schedule, use LifeCycleCost:NonrecurringCost objects instead.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Annual escalation rate</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>annual_escalation_rate</cite> or None if not set</td>
@@ -1369,7 +1354,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Category</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>category</cite> or None if not set</td>
@@ -1386,7 +1371,7 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Cost</cite></p>
 <div class="line-block">
 <div class="line">Enter the cost in dollars (or the appropriate monetary unit) for the recurring costs. Enter</div>
-<div class="line">the cost for each time it occurs. For example if the annual maintenance cost is 500 dolllars</div>
+<div class="line">the cost for each time it occurs. For example if the annual maintenance cost is 500 dollars</div>
 <div class="line">enter 500 here.</div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1395,7 +1380,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Cost</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost</cite> or None if not set</td>
@@ -1424,7 +1409,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Months from Start</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>months_from_start</cite> or None if not set</td>
@@ -1445,7 +1430,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -1462,7 +1447,7 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Repeat Period Months</cite></p>
 <div class="line-block">
 <div class="line">This field and the Repeat Period Years field indicate how much time elapses between</div>
-<div class="line">reoccurrences of the cost. Only integers should be entered representing whole years.</div>
+<div class="line">re-occurrences of the cost. Only integers should be entered representing whole years.</div>
 <div class="line">The Repeat Period Years (times 12) and Repeat Period Months are added together.</div>
 <div class="line">value &lt;= 1200</div>
 </div>
@@ -1472,7 +1457,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Repeat Period Months</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>repeat_period_months</cite> or None if not set</td>
@@ -1489,7 +1474,7 @@ if <cite>value</cite> is not a valid value</td>
 <dd><p>field <cite>Repeat Period Years</cite></p>
 <div class="line-block">
 <div class="line">This field and the Repeat Period Months field indicate how much time elapses between</div>
-<div class="line">reoccurrences of the cost. For costs that occur every year such the Repeat Period Years</div>
+<div class="line">re-occurrences of the cost. For costs that occur every year such the Repeat Period Years</div>
 <div class="line">should be 1 and Repeat Period Months should be 0. Only integers should be entered</div>
 <div class="line">representing whole years.</div>
 <div class="line">Default value: 1</div>
@@ -1501,7 +1486,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Repeat Period Years</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>repeat_period_years</cite> or None if not set</td>
@@ -1527,7 +1512,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Start of Costs</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>start_of_costs</cite> or None if not set</td>
@@ -1555,7 +1540,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Years from Start</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>years_from_start</cite> or None if not set</td>
@@ -1610,7 +1595,7 @@ specification and is assumed to be a missing value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -1631,7 +1616,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Resource</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>resource</cite> or None if not set</td>
@@ -1684,7 +1669,7 @@ specification and is assumed to be a missing value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Escalation Start Month</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>escalation_start_month</cite> or None if not set</td>
@@ -1712,7 +1697,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) &#8211; value for IDD Field <cite>Escalation Start Year</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>escalation_start_year</cite> or None if not set</td>
@@ -1745,7 +1730,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -1766,7 +1751,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Resource</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>resource</cite> or None if not set</td>
@@ -1801,7 +1786,7 @@ single tariff and they will be added together.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 10 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_10_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1826,7 +1811,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 11 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_11_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1851,7 +1836,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 12 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_12_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1876,7 +1861,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 13 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_13_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1901,7 +1886,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 14 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_14_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1926,7 +1911,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 15 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_15_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1951,7 +1936,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 1 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_1_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -1976,7 +1961,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 2 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_2_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2001,7 +1986,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 3 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_3_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2026,7 +2011,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 4 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_4_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2051,7 +2036,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 5 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_5_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2076,7 +2061,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 6 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_6_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2101,7 +2086,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 7 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_7_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2126,7 +2111,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 8 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_8_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2151,7 +2136,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block 9 Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_9_cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2177,7 +2162,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 10 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_10_value_or_variable_name</cite> or None if not set</td>
@@ -2203,7 +2188,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 11 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_11_value_or_variable_name</cite> or None if not set</td>
@@ -2229,7 +2214,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 12 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_12_value_or_variable_name</cite> or None if not set</td>
@@ -2255,7 +2240,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 13 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_13_value_or_variable_name</cite> or None if not set</td>
@@ -2281,7 +2266,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 14 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_14_value_or_variable_name</cite> or None if not set</td>
@@ -2307,7 +2292,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 15 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_15_value_or_variable_name</cite> or None if not set</td>
@@ -2333,7 +2318,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 1 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_1_value_or_variable_name</cite> or None if not set</td>
@@ -2359,7 +2344,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 2 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_2_value_or_variable_name</cite> or None if not set</td>
@@ -2385,7 +2370,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 3 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_3_value_or_variable_name</cite> or None if not set</td>
@@ -2411,7 +2396,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 4 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_4_value_or_variable_name</cite> or None if not set</td>
@@ -2437,7 +2422,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 5 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_5_value_or_variable_name</cite> or None if not set</td>
@@ -2463,7 +2448,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 6 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_6_value_or_variable_name</cite> or None if not set</td>
@@ -2489,7 +2474,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 7 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_7_value_or_variable_name</cite> or None if not set</td>
@@ -2515,7 +2500,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 8 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_8_value_or_variable_name</cite> or None if not set</td>
@@ -2541,7 +2526,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size 9 Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_9_value_or_variable_name</cite> or None if not set</td>
@@ -2570,7 +2555,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Block Size Multiplier Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>block_size_multiplier_value_or_variable_name</cite> or None if not set</td>
@@ -2596,7 +2581,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Category Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>category_variable_name</cite> or None if not set</td>
@@ -2623,7 +2608,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2649,7 +2634,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Remaining Into Variable</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>remaining_into_variable</cite> or None if not set</td>
@@ -2675,7 +2660,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season</cite> or None if not set</td>
@@ -2696,7 +2681,7 @@ if <cite>value</cite> is not a valid value</td>
 <div class="line">other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges</div>
 <div class="line">ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then</div>
 <div class="line">peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.</div>
-<div class="line">In addition see the Tariff Report to see other native variablles that may be available. Also you can</div>
+<div class="line">In addition see the Tariff Report to see other native variables that may be available. Also you can</div>
 <div class="line">create additional user defined variables to model complex tariffs.</div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2705,7 +2690,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Source Variable</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>source_variable</cite> or None if not set</td>
@@ -2729,7 +2714,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -2767,7 +2752,7 @@ tariff and they will be added together.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Category Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>category_variable_name</cite> or None if not set</td>
@@ -2795,7 +2780,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Cost per Unit Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>cost_per_unit_value_or_variable_name</cite> or None if not set</td>
@@ -2823,7 +2808,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -2848,7 +2833,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season</cite> or None if not set</td>
@@ -2869,7 +2854,7 @@ if <cite>value</cite> is not a valid value</td>
 <div class="line">if other charges are based on those. Typical values include totalEnergy totalDemand EnergyCharges DemandCharges</div>
 <div class="line">ServiceCharges Basis Adjustments Surcharges Subtotal Taxes and Total. If it is a time-of-use rate then</div>
 <div class="line">peakEnergy peakDemand shoulderEnergy shoulderDemand offPeakEnergy offPeakDemand midPeakEnergy and midPeakDemand.</div>
-<div class="line">In addition see the Tariff Report to see other native variablles that may be available. Also you can</div>
+<div class="line">In addition see the Tariff Report to see other native variables that may be available. Also you can</div>
 <div class="line">create additional user defined variables to model complex tariffs.</div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2878,7 +2863,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Source Variable</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>source_variable</cite> or None if not set</td>
@@ -2902,7 +2887,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -2939,7 +2924,7 @@ to all objects involved in the rate in the order that they should be computed.</
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 1</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_1</cite> or None if not set</td>
@@ -2960,7 +2945,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 10</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_10</cite> or None if not set</td>
@@ -2981,7 +2966,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 11</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_11</cite> or None if not set</td>
@@ -3002,7 +2987,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 12</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_12</cite> or None if not set</td>
@@ -3023,7 +3008,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 13</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_13</cite> or None if not set</td>
@@ -3044,7 +3029,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 14</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_14</cite> or None if not set</td>
@@ -3065,7 +3050,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 15</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_15</cite> or None if not set</td>
@@ -3086,7 +3071,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 16</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_16</cite> or None if not set</td>
@@ -3107,7 +3092,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 17</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_17</cite> or None if not set</td>
@@ -3128,7 +3113,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 18</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_18</cite> or None if not set</td>
@@ -3149,7 +3134,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 19</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_19</cite> or None if not set</td>
@@ -3170,7 +3155,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 2</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_2</cite> or None if not set</td>
@@ -3191,7 +3176,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 20</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_20</cite> or None if not set</td>
@@ -3212,7 +3197,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 21</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_21</cite> or None if not set</td>
@@ -3233,7 +3218,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 22</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_22</cite> or None if not set</td>
@@ -3254,7 +3239,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 23</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_23</cite> or None if not set</td>
@@ -3275,7 +3260,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 24</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_24</cite> or None if not set</td>
@@ -3296,7 +3281,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 25</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_25</cite> or None if not set</td>
@@ -3317,7 +3302,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 26</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_26</cite> or None if not set</td>
@@ -3338,7 +3323,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 27</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_27</cite> or None if not set</td>
@@ -3359,7 +3344,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 28</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_28</cite> or None if not set</td>
@@ -3380,7 +3365,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 29</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_29</cite> or None if not set</td>
@@ -3401,7 +3386,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 3</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_3</cite> or None if not set</td>
@@ -3422,7 +3407,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 30</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_30</cite> or None if not set</td>
@@ -3443,7 +3428,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 4</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_4</cite> or None if not set</td>
@@ -3464,7 +3449,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 5</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_5</cite> or None if not set</td>
@@ -3485,7 +3470,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 6</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_6</cite> or None if not set</td>
@@ -3506,7 +3491,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 7</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_7</cite> or None if not set</td>
@@ -3527,7 +3512,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 8</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_8</cite> or None if not set</td>
@@ -3548,7 +3533,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Compute Step 9</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>compute_step_9</cite> or None if not set</td>
@@ -3569,7 +3554,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -3593,7 +3578,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -3615,7 +3600,7 @@ The qualify object allows only tariffs to be selected based on limits which may 
 such as maximum or minimum demand requirements. If the results of the simulation fall
 outside of the range of qualifications, that tariff is still calculated but the
 &#8220;Qualified&#8221; entry will say &#8220;No&#8221; and the UtilityCost:Qualify that caused its exclusion
-is shown. Multiple UtilityCost:Qualify objects can appear for the same tarriff and
+is shown. Multiple UtilityCost:Qualify objects can appear for the same tariff and
 they can be based on any variable.</p>
 <dl class="attribute">
 <dt id="pyidf.economics.UtilityCostQualify.name">
@@ -3630,7 +3615,7 @@ they can be based on any variable.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -3649,7 +3634,7 @@ if <cite>value</cite> is not a valid value</td>
 <div class="line">A number from 1 to 12.  If no value entered 12 is assumed when the qualify type is minimum and 1 when</div>
 <div class="line">the qualify type is maximum.  This is the number of months that the threshold test applies to determine</div>
 <div class="line">if the rate qualifies or not.  If the season is less than 12 months (if it is not annual) then the</div>
-<div class="line">value is automatically reduced to the number of months of the seaon.</div>
+<div class="line">value is automatically reduced to the number of months of the season.</div>
 <div class="line">value &gt;= 1.0</div>
 <div class="line">value &lt;= 12.0</div>
 </div>
@@ -3659,7 +3644,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Number of Months</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>number_of_months</cite> or None if not set</td>
@@ -3683,7 +3668,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Qualify Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>qualify_type</cite> or None if not set</td>
@@ -3708,7 +3693,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season</cite> or None if not set</td>
@@ -3732,7 +3717,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -3760,7 +3745,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Threshold Test</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>threshold_test</cite> or None if not set</td>
@@ -3786,7 +3771,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Threshold Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>threshold_value_or_variable_name</cite> or None if not set</td>
@@ -3811,7 +3796,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>variable_name</cite> or None if not set</td>
@@ -3849,7 +3834,7 @@ increased to be more consistent with a month that set a higher demand charge.</p
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Adjustment Source Variable</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>adjustment_source_variable</cite> or None if not set</td>
@@ -3876,7 +3861,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Baseline Source Variable</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>baseline_source_variable</cite> or None if not set</td>
@@ -3902,7 +3887,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Multiplier Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>multiplier_value_or_variable_name</cite> or None if not set</td>
@@ -3927,7 +3912,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -3954,7 +3939,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Offset Value or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>offset_value_or_variable_name</cite> or None if not set</td>
@@ -3980,7 +3965,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season From</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season_from</cite> or None if not set</td>
@@ -4006,7 +3991,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season To</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season_to</cite> or None if not set</td>
@@ -4030,7 +4015,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -4069,7 +4054,7 @@ UtilityCost:Computation objects.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Buy Or Sell</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>buy_or_sell</cite> or None if not set</td>
@@ -4094,7 +4079,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Conversion Factor Choice</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>conversion_factor_choice</cite> or None if not set</td>
@@ -4120,7 +4105,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Customer Baseline Load Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>customer_baseline_load_schedule_name</cite> or None if not set</td>
@@ -4148,7 +4133,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Demand Conversion Factor</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>demand_conversion_factor</cite> or None if not set</td>
@@ -4174,7 +4159,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Demand Window Length</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>demand_window_length</cite> or None if not set</td>
@@ -4202,7 +4187,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>Energy Conversion Factor</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>energy_conversion_factor</cite> or None if not set</td>
@@ -4229,7 +4214,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Group Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>group_name</cite> or None if not set</td>
@@ -4254,7 +4239,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Minimum Monthly Charge or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>minimum_monthly_charge_or_variable_name</cite> or None if not set</td>
@@ -4283,7 +4268,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Month Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>month_schedule_name</cite> or None if not set</td>
@@ -4308,7 +4293,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Monthly Charge or Variable Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>monthly_charge_or_variable_name</cite> or None if not set</td>
@@ -4333,7 +4318,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -4357,7 +4342,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Output Meter Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>output_meter_name</cite> or None if not set</td>
@@ -4383,7 +4368,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Real Time Pricing Charge Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>real_time_pricing_charge_schedule_name</cite> or None if not set</td>
@@ -4408,7 +4393,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Season Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>season_schedule_name</cite> or None if not set</td>
@@ -4433,7 +4418,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Time of Use Period Schedule Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>time_of_use_period_schedule_name</cite> or None if not set</td>
@@ -4462,7 +4447,7 @@ Allows for the direct entry of monthly values into a utility tariff variable.</p
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>April Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>april_value</cite> or None if not set</td>
@@ -4483,7 +4468,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>August Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>august_value</cite> or None if not set</td>
@@ -4504,7 +4489,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>December Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>december_value</cite> or None if not set</td>
@@ -4525,7 +4510,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>February Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>february_value</cite> or None if not set</td>
@@ -4546,7 +4531,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>January Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>january_value</cite> or None if not set</td>
@@ -4567,7 +4552,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>July Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>july_value</cite> or None if not set</td>
@@ -4588,7 +4573,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>June Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>june_value</cite> or None if not set</td>
@@ -4609,7 +4594,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>March Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>march_value</cite> or None if not set</td>
@@ -4630,7 +4615,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>May Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>may_value</cite> or None if not set</td>
@@ -4651,7 +4636,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>name</cite> or None if not set</td>
@@ -4672,7 +4657,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>November Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>november_value</cite> or None if not set</td>
@@ -4693,7 +4678,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>October Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>october_value</cite> or None if not set</td>
@@ -4714,7 +4699,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em>) &#8211; value for IDD Field <cite>September Value</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>september_value</cite> or None if not set</td>
@@ -4738,7 +4723,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Tariff Name</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>tariff_name</cite> or None if not set</td>
@@ -4762,7 +4747,7 @@ if <cite>value</cite> is not a valid value</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; value for IDD Field <cite>Variable Type</cite></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if <cite>value</cite> is not a valid value</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of <cite>variable_type</cite> or None if not set</td>
@@ -4782,13 +4767,17 @@ if <cite>value</cite> is not a valid value</td>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyidf.detailed_ground_heat_transfer.html"
-                        title="previous chapter">pyidf.detailed_ground_heat_transfer module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyidf.electric_load_center.html"
-                        title="next chapter">pyidf.electric_load_center module</a></p>
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="pyidf.html">pyidf package</a><ul>
+      <li>Previous: <a href="pyidf.detailed_ground_heat_transfer.html" title="previous chapter">pyidf.detailed_ground_heat_transfer module</a></li>
+      <li>Next: <a href="pyidf.electric_load_center.html" title="next chapter">pyidf.electric_load_center module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -4813,28 +4802,20 @@ if <cite>value</cite> is not a valid value</td>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.electric_load_center.html" title="pyidf.electric_load_center module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.detailed_ground_heat_transfer.html" title="pyidf.detailed_ground_heat_transfer module"
-             >previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2015, Rene Buffat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/pyidf.economics.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2014, Rene Buffat.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyidf.helper module &mdash; pyidf 0.1.4-dev documentation</title>
+    <title>pyidf.helper module &mdash; pyidf 0.2.0-dev documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4-dev',
+        VERSION:     '0.2.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,31 +23,16 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyidf 0.1.4-dev documentation" href="index.html" />
+    <link rel="top" title="pyidf 0.2.0-dev documentation" href="index.html" />
     <link rel="up" title="pyidf package" href="pyidf.html" />
     <link rel="next" title="pyidf.humidifiers_and_dehumidifiers module" href="pyidf.humidifiers_and_dehumidifiers.html" />
-    <link rel="prev" title="pyidf.heat_recovery module" href="pyidf.heat_recovery.html" /> 
+    <link rel="prev" title="pyidf.heat_recovery module" href="pyidf.heat_recovery.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.humidifiers_and_dehumidifiers.html" title="pyidf.humidifiers_and_dehumidifiers module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.heat_recovery.html" title="pyidf.heat_recovery module"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" accesskey="U">pyidf package</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -63,6 +48,11 @@
 <dd><dl class="attribute">
 <dt id="pyidf.helper.DONames.AirConditionerVariableRefrigerantFlow">
 <code class="descname">AirConditionerVariableRefrigerantFlow</code><em class="property"> = 'AirConditioner:VariableRefrigerantFlow'</em><a class="headerlink" href="#pyidf.helper.DONames.AirConditionerVariableRefrigerantFlow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.AirConditionerVariableRefrigerantFlowFluidTemperatureControl">
+<code class="descname">AirConditionerVariableRefrigerantFlowFluidTemperatureControl</code><em class="property"> = 'AirConditioner:VariableRefrigerantFlow:FluidTemperatureControl'</em><a class="headerlink" href="#pyidf.helper.DONames.AirConditionerVariableRefrigerantFlowFluidTemperatureControl" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -181,6 +171,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.AirTerminalSingleDuctConstantVolumeFourPipeBeam">
+<code class="descname">AirTerminalSingleDuctConstantVolumeFourPipeBeam</code><em class="property"> = 'AirTerminal:SingleDuct:ConstantVolume:FourPipeBeam'</em><a class="headerlink" href="#pyidf.helper.DONames.AirTerminalSingleDuctConstantVolumeFourPipeBeam" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.AirTerminalSingleDuctConstantVolumeFourPipeInduction">
 <code class="descname">AirTerminalSingleDuctConstantVolumeFourPipeInduction</code><em class="property"> = 'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction'</em><a class="headerlink" href="#pyidf.helper.DONames.AirTerminalSingleDuctConstantVolumeFourPipeInduction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -296,6 +291,16 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.AirflowNetworkIntraZoneLinkage">
+<code class="descname">AirflowNetworkIntraZoneLinkage</code><em class="property"> = 'AirflowNetwork:IntraZone:Linkage'</em><a class="headerlink" href="#pyidf.helper.DONames.AirflowNetworkIntraZoneLinkage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.AirflowNetworkIntraZoneNode">
+<code class="descname">AirflowNetworkIntraZoneNode</code><em class="property"> = 'AirflowNetwork:IntraZone:Node'</em><a class="headerlink" href="#pyidf.helper.DONames.AirflowNetworkIntraZoneNode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.AirflowNetworkMultiZoneComponentDetailedOpening">
 <code class="descname">AirflowNetworkMultiZoneComponentDetailedOpening</code><em class="property"> = 'AirflowNetwork:MultiZone:Component:DetailedOpening'</em><a class="headerlink" href="#pyidf.helper.DONames.AirflowNetworkMultiZoneComponentDetailedOpening" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -353,6 +358,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.AirflowNetworkMultiZoneZone">
 <code class="descname">AirflowNetworkMultiZoneZone</code><em class="property"> = 'AirflowNetwork:MultiZone:Zone'</em><a class="headerlink" href="#pyidf.helper.DONames.AirflowNetworkMultiZoneZone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.AirflowNetworkOccupantVentilationControl">
+<code class="descname">AirflowNetworkOccupantVentilationControl</code><em class="property"> = 'AirflowNetwork:OccupantVentilationControl'</em><a class="headerlink" href="#pyidf.helper.DONames.AirflowNetworkOccupantVentilationControl" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -556,6 +566,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.CoilCoolingDxVariableRefrigerantFlowFluidTemperatureControl">
+<code class="descname">CoilCoolingDxVariableRefrigerantFlowFluidTemperatureControl</code><em class="property"> = 'Coil:Cooling:DX:VariableRefrigerantFlow:FluidTemperatureControl'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilCoolingDxVariableRefrigerantFlowFluidTemperatureControl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.CoilCoolingDxVariableSpeed">
 <code class="descname">CoilCoolingDxVariableSpeed</code><em class="property"> = 'Coil:Cooling:DX:VariableSpeed'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilCoolingDxVariableSpeed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -603,6 +618,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.CoilHeatingDxVariableRefrigerantFlow">
 <code class="descname">CoilHeatingDxVariableRefrigerantFlow</code><em class="property"> = 'Coil:Heating:DX:VariableRefrigerantFlow'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilHeatingDxVariableRefrigerantFlow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.CoilHeatingDxVariableRefrigerantFlowFluidTemperatureControl">
+<code class="descname">CoilHeatingDxVariableRefrigerantFlowFluidTemperatureControl</code><em class="property"> = 'Coil:Heating:DX:VariableRefrigerantFlow:FluidTemperatureControl'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilHeatingDxVariableRefrigerantFlowFluidTemperatureControl" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -686,8 +706,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPump">
-<code class="descname">CoilWaterHeatingAirToWaterHeatPump</code><em class="property"> = 'Coil:WaterHeating:AirToWaterHeatPump'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPump" title="Permalink to this definition">¶</a></dt>
+<dt id="pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpPumped">
+<code class="descname">CoilWaterHeatingAirToWaterHeatPumpPumped</code><em class="property"> = 'Coil:WaterHeating:AirToWaterHeatPump:Pumped'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpPumped" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpVariableSpeed">
+<code class="descname">CoilWaterHeatingAirToWaterHeatPumpVariableSpeed</code><em class="property"> = 'Coil:WaterHeating:AirToWaterHeatPump:VariableSpeed'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpVariableSpeed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpWrapped">
+<code class="descname">CoilWaterHeatingAirToWaterHeatPumpWrapped</code><em class="property"> = 'Coil:WaterHeating:AirToWaterHeatPump:Wrapped'</em><a class="headerlink" href="#pyidf.helper.DONames.CoilWaterHeatingAirToWaterHeatPumpWrapped" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -856,8 +886,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.CurveChillerPartLoadWithLift">
+<code class="descname">CurveChillerPartLoadWithLift</code><em class="property"> = 'Curve:ChillerPartLoadWithLift'</em><a class="headerlink" href="#pyidf.helper.DONames.CurveChillerPartLoadWithLift" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.CurveCubic">
 <code class="descname">CurveCubic</code><em class="property"> = 'Curve:Cubic'</em><a class="headerlink" href="#pyidf.helper.DONames.CurveCubic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.CurveCubicLinear">
+<code class="descname">CurveCubicLinear</code><em class="property"> = 'Curve:CubicLinear'</em><a class="headerlink" href="#pyidf.helper.DONames.CurveCubicLinear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1006,6 +1046,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.DemandManagerVentilation">
+<code class="descname">DemandManagerVentilation</code><em class="property"> = 'DemandManager:Ventilation'</em><a class="headerlink" href="#pyidf.helper.DONames.DemandManagerVentilation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.DesignSpecificationOutdoorAir">
 <code class="descname">DesignSpecificationOutdoorAir</code><em class="property"> = 'DesignSpecification:OutdoorAir'</em><a class="headerlink" href="#pyidf.helper.DONames.DesignSpecificationOutdoorAir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1048,6 +1093,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.ElectricEquipment">
 <code class="descname">ElectricEquipment</code><em class="property"> = 'ElectricEquipment'</em><a class="headerlink" href="#pyidf.helper.DONames.ElectricEquipment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.ElectricEquipmentIteAirCooled">
+<code class="descname">ElectricEquipmentIteAirCooled</code><em class="property"> = 'ElectricEquipment:ITE:AirCooled'</em><a class="headerlink" href="#pyidf.helper.DONames.ElectricEquipmentIteAirCooled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1311,8 +1361,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.FaultModelFoulingAirFilter">
+<code class="descname">FaultModelFoulingAirFilter</code><em class="property"> = 'FaultModel:Fouling:AirFilter'</em><a class="headerlink" href="#pyidf.helper.DONames.FaultModelFoulingAirFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.FaultModelFoulingCoil">
 <code class="descname">FaultModelFoulingCoil</code><em class="property"> = 'FaultModel:Fouling:Coil'</em><a class="headerlink" href="#pyidf.helper.DONames.FaultModelFoulingCoil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.FaultModelHumidistatOffset">
+<code class="descname">FaultModelHumidistatOffset</code><em class="property"> = 'FaultModel:HumidistatOffset'</em><a class="headerlink" href="#pyidf.helper.DONames.FaultModelHumidistatOffset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1333,6 +1393,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.FaultModelTemperatureSensorOffsetReturnAir">
 <code class="descname">FaultModelTemperatureSensorOffsetReturnAir</code><em class="property"> = 'FaultModel:TemperatureSensorOffset:ReturnAir'</em><a class="headerlink" href="#pyidf.helper.DONames.FaultModelTemperatureSensorOffsetReturnAir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.FaultModelThermostatOffset">
+<code class="descname">FaultModelThermostatOffset</code><em class="property"> = 'FaultModel:ThermostatOffset'</em><a class="headerlink" href="#pyidf.helper.DONames.FaultModelThermostatOffset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1523,6 +1588,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.GroundHeatExchangerPond">
 <code class="descname">GroundHeatExchangerPond</code><em class="property"> = 'GroundHeatExchanger:Pond'</em><a class="headerlink" href="#pyidf.helper.DONames.GroundHeatExchangerPond" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.GroundHeatExchangerSlinky">
+<code class="descname">GroundHeatExchangerSlinky</code><em class="property"> = 'GroundHeatExchanger:Slinky'</em><a class="headerlink" href="#pyidf.helper.DONames.GroundHeatExchangerSlinky" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1738,6 +1808,11 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.HumidifierSteamElectric">
 <code class="descname">HumidifierSteamElectric</code><em class="property"> = 'Humidifier:Steam:Electric'</em><a class="headerlink" href="#pyidf.helper.DONames.HumidifierSteamElectric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.HumidifierSteamGas">
+<code class="descname">HumidifierSteamGas</code><em class="property"> = 'Humidifier:Steam:Gas'</em><a class="headerlink" href="#pyidf.helper.DONames.HumidifierSteamGas" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2166,6 +2241,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.OutputTableAnnual">
+<code class="descname">OutputTableAnnual</code><em class="property"> = 'Output:Table:Annual'</em><a class="headerlink" href="#pyidf.helper.DONames.OutputTableAnnual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.OutputTableMonthly">
 <code class="descname">OutputTableMonthly</code><em class="property"> = 'Output:Table:Monthly'</em><a class="headerlink" href="#pyidf.helper.DONames.OutputTableMonthly" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2341,6 +2421,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.PlantEquipmentOperationThermalEnergyStorage">
+<code class="descname">PlantEquipmentOperationThermalEnergyStorage</code><em class="property"> = 'PlantEquipmentOperation:ThermalEnergyStorage'</em><a class="headerlink" href="#pyidf.helper.DONames.PlantEquipmentOperationThermalEnergyStorage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.PlantEquipmentOperationUncontrolled">
 <code class="descname">PlantEquipmentOperationUncontrolled</code><em class="property"> = 'PlantEquipmentOperation:Uncontrolled'</em><a class="headerlink" href="#pyidf.helper.DONames.PlantEquipmentOperationUncontrolled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2483,6 +2568,31 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.RoomAirNode">
 <code class="descname">RoomAirNode</code><em class="property"> = 'RoomAir:Node'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirNode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.RoomAirNodeAirflowNetwork">
+<code class="descname">RoomAirNodeAirflowNetwork</code><em class="property"> = 'RoomAir:Node:AirflowNetwork'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirNodeAirflowNetwork" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.RoomAirNodeAirflowNetworkAdjacentSurfaceList">
+<code class="descname">RoomAirNodeAirflowNetworkAdjacentSurfaceList</code><em class="property"> = 'RoomAir:Node:AirflowNetwork:AdjacentSurfaceList'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirNodeAirflowNetworkAdjacentSurfaceList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.RoomAirNodeAirflowNetworkHvacequipment">
+<code class="descname">RoomAirNodeAirflowNetworkHvacequipment</code><em class="property"> = 'RoomAir:Node:AirflowNetwork:HVACEquipment'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirNodeAirflowNetworkHvacequipment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.RoomAirNodeAirflowNetworkInternalGains">
+<code class="descname">RoomAirNodeAirflowNetworkInternalGains</code><em class="property"> = 'RoomAir:Node:AirflowNetwork:InternalGains'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirNodeAirflowNetworkInternalGains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.RoomAirSettingsAirflowNetwork">
+<code class="descname">RoomAirSettingsAirflowNetwork</code><em class="property"> = 'RoomAirSettings:AirflowNetwork'</em><a class="headerlink" href="#pyidf.helper.DONames.RoomAirSettingsAirflowNetwork" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2686,6 +2796,16 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.SetpointManagerReturnTemperatureChilledWater">
+<code class="descname">SetpointManagerReturnTemperatureChilledWater</code><em class="property"> = 'SetpointManager:ReturnTemperature:ChilledWater'</em><a class="headerlink" href="#pyidf.helper.DONames.SetpointManagerReturnTemperatureChilledWater" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.SetpointManagerReturnTemperatureHotWater">
+<code class="descname">SetpointManagerReturnTemperatureHotWater</code><em class="property"> = 'SetpointManager:ReturnTemperature:HotWater'</em><a class="headerlink" href="#pyidf.helper.DONames.SetpointManagerReturnTemperatureHotWater" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.SetpointManagerScheduled">
 <code class="descname">SetpointManagerScheduled</code><em class="property"> = 'SetpointManager:Scheduled'</em><a class="headerlink" href="#pyidf.helper.DONames.SetpointManagerScheduled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2806,8 +2926,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyidf.helper.DONames.SiteGroundDomain">
-<code class="descname">SiteGroundDomain</code><em class="property"> = 'Site:GroundDomain'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundDomain" title="Permalink to this definition">¶</a></dt>
+<dt id="pyidf.helper.DONames.SiteGroundDomainBasement">
+<code class="descname">SiteGroundDomainBasement</code><em class="property"> = 'Site:GroundDomain:Basement'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundDomainBasement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.SiteGroundDomainSlab">
+<code class="descname">SiteGroundDomainSlab</code><em class="property"> = 'Site:GroundDomain:Slab'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundDomainSlab" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2838,6 +2963,21 @@
 <dl class="attribute">
 <dt id="pyidf.helper.DONames.SiteGroundTemperatureShallow">
 <code class="descname">SiteGroundTemperatureShallow</code><em class="property"> = 'Site:GroundTemperature:Shallow'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundTemperatureShallow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.SiteGroundTemperatureUndisturbedFiniteDifference">
+<code class="descname">SiteGroundTemperatureUndisturbedFiniteDifference</code><em class="property"> = 'Site:GroundTemperature:Undisturbed:FiniteDifference'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundTemperatureUndisturbedFiniteDifference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.SiteGroundTemperatureUndisturbedKusudaAchenbach">
+<code class="descname">SiteGroundTemperatureUndisturbedKusudaAchenbach</code><em class="property"> = 'Site:GroundTemperature:Undisturbed:KusudaAchenbach'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundTemperatureUndisturbedKusudaAchenbach" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.SiteGroundTemperatureUndisturbedXing">
+<code class="descname">SiteGroundTemperatureUndisturbedXing</code><em class="property"> = 'Site:GroundTemperature:Undisturbed:Xing'</em><a class="headerlink" href="#pyidf.helper.DONames.SiteGroundTemperatureUndisturbedXing" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3061,6 +3201,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyidf.helper.DONames.SwimmingPoolIndoor">
+<code class="descname">SwimmingPoolIndoor</code><em class="property"> = 'SwimmingPool:Indoor'</em><a class="headerlink" href="#pyidf.helper.DONames.SwimmingPoolIndoor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyidf.helper.DONames.TableMultiVariableLookup">
 <code class="descname">TableMultiVariableLookup</code><em class="property"> = 'Table:MultiVariableLookup'</em><a class="headerlink" href="#pyidf.helper.DONames.TableMultiVariableLookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -3146,8 +3291,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyidf.helper.DONames.UnitarySystemPerformanceHeatPumpMultispeed">
-<code class="descname">UnitarySystemPerformanceHeatPumpMultispeed</code><em class="property"> = 'UnitarySystemPerformance:HeatPump:Multispeed'</em><a class="headerlink" href="#pyidf.helper.DONames.UnitarySystemPerformanceHeatPumpMultispeed" title="Permalink to this definition">¶</a></dt>
+<dt id="pyidf.helper.DONames.UnitarySystemPerformanceMultispeed">
+<code class="descname">UnitarySystemPerformanceMultispeed</code><em class="property"> = 'UnitarySystemPerformance:Multispeed'</em><a class="headerlink" href="#pyidf.helper.DONames.UnitarySystemPerformanceMultispeed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3216,8 +3361,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyidf.helper.DONames.WaterHeaterHeatPump">
-<code class="descname">WaterHeaterHeatPump</code><em class="property"> = 'WaterHeater:HeatPump'</em><a class="headerlink" href="#pyidf.helper.DONames.WaterHeaterHeatPump" title="Permalink to this definition">¶</a></dt>
+<dt id="pyidf.helper.DONames.WaterHeaterHeatPumpPumpedCondenser">
+<code class="descname">WaterHeaterHeatPumpPumpedCondenser</code><em class="property"> = 'WaterHeater:HeatPump:PumpedCondenser'</em><a class="headerlink" href="#pyidf.helper.DONames.WaterHeaterHeatPumpPumpedCondenser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyidf.helper.DONames.WaterHeaterHeatPumpWrappedCondenser">
+<code class="descname">WaterHeaterHeatPumpWrappedCondenser</code><em class="property"> = 'WaterHeater:HeatPump:WrappedCondenser'</em><a class="headerlink" href="#pyidf.helper.DONames.WaterHeaterHeatPumpWrappedCondenser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3745,14 +3895,14 @@
 <dt id="pyidf.helper.DataObject.check">
 <code class="descname">check</code><span class="sig-paren">(</span><em>strict=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyidf.helper.DataObject.check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if all required fields are not None</p>
-<blockquote>
-<div>True: raises an Execption in case of error
-False: logs a warning in case of error</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>strict</strong> (<em>bool</em>) &#8211; True: raises an Execption in case of error
+False: logs a warning in case of error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;</td>
 </tr>
 </tbody>
 </table>
@@ -3775,7 +3925,7 @@ False: logs a warning in case of error</div></blockquote>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value valid for schema</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; 
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 if value not valid for schema</p>
 </td>
 </tr>
@@ -3854,13 +4004,17 @@ if value not valid for schema</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyidf.heat_recovery.html"
-                        title="previous chapter">pyidf.heat_recovery module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyidf.humidifiers_and_dehumidifiers.html"
-                        title="next chapter">pyidf.humidifiers_and_dehumidifiers module</a></p>
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="pyidf.html">pyidf package</a><ul>
+      <li>Previous: <a href="pyidf.heat_recovery.html" title="previous chapter">pyidf.heat_recovery module</a></li>
+      <li>Next: <a href="pyidf.humidifiers_and_dehumidifiers.html" title="next chapter">pyidf.humidifiers_and_dehumidifiers module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -3885,28 +4039,20 @@ if value not valid for schema</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pyidf.humidifiers_and_dehumidifiers.html" title="pyidf.humidifiers_and_dehumidifiers module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pyidf.heat_recovery.html" title="pyidf.heat_recovery module"
-             >previous</a> |</li>
-        <li><a href="index.html">pyidf 0.1.4-dev documentation</a> &raquo;</li>
-          <li><a href="pyidf.html" >pyidf package</a> &raquo;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2015, Rene Buffat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/pyidf.helper.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2014, Rene Buffat.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
-    </div>
+
+    
+
+    
   </body>
 </html>
