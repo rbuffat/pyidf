@@ -41,7 +41,7 @@ if __name__ == '__main__':
     idf = IDF()
 
     obj1 = Version()
-    obj1.version_identifier = "8.2"
+    obj1.version_identifier = "8.4"
     idf.add(obj1)
 
     obj2 = Building()

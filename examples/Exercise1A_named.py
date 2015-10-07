@@ -13,7 +13,7 @@ if __name__ == '__main__':
     idf = IDF()
 
     obj1 = IDF._create_datadict("Version")
-    obj1["Version Identifier"] = "8.2"
+    obj1["Version Identifier"] = "8.4"
     idf.add(obj1)
 
     obj2 = IDF._create_datadict("Building")
