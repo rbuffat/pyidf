@@ -186,7 +186,7 @@ class IDDParser():
         bad_objs = []
         for obj in self.objects:
             obj.make_extensibles()
-            if not obj.ignored or True:
+            if not obj.ignored:
                 fields = defaultdict(list)
                 for field in obj.fields + obj.extensible_fields:
 
