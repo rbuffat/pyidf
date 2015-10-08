@@ -53,7 +53,7 @@ class IDDParser():
 
     def _parse_field_name(self, line):
         # print "NewField:\t", line
-        match_field_name = re.search(r"\\field\s([^!]*)$", line, re.IGNORECASE)
+        match_field_name = re.search(r"\\field\s([^!]*)", line, re.IGNORECASE)
         match_field_type = re.search(r"^\s*([AN])", line)
         match_field_id = re.search(r"^\s*([AN0-9]+)", line)
 
@@ -87,7 +87,7 @@ class IDDParser():
 
             match_value = re.search(r"\s*\\[^\s]+\s?(.*)", line)
             if match_value is not None:
-                attribute_value = match_value.group(1).split('!')[0].strip() #TODO
+                attribute_value = match_value.group(1).split('!')[0].strip()  # TODO
 
                 if attribute_name.startswith("extensible"):
                     count_match = re.search(r"\s*\\extensible:([0-9]+)", line, re.IGNORECASE)
@@ -127,6 +127,7 @@ class IDDParser():
                         self.objects.append(self.current_object)
 
                     internal_name = self._parse_object_name(line)
+                    logging.info("new object: {}".format(internal_name))
                     self.current_object = DataObject(internal_name, group=self.current_group)
                     self.current_field = None
 
@@ -138,9 +139,10 @@ class IDDParser():
 
                     try:
                         ftype, internal_name, fid = self._parse_field_name(line)
+                        logging.info("\t field: {}".format(internal_name))
                         self.current_field = DataField(internal_name, ftype, fid, self.current_object)
                     except Exception as e:
-                        logging.error("{}, {}".format(self.current_object.internal_name, line))
+                        logging.exception("{}, {}".format(self.current_object.internal_name, line))
                         self.current_object.ignored = True
 
                 elif self._is_attribute(line):
