@@ -385,243 +385,6 @@ class EnergyManagementSystemProgramCallingManager(DataObject):
 
 
 
-class EnergyManagementSystemProgram(DataObject):
-
-    """ Corresponds to IDD object `EnergyManagementSystem:Program`
-        This input defines an Erl program
-        Each field after the name is a line of EMS Runtime Language
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'program line 1',
-                                                  {'name': u'Program Line 1',
-                                                   'pyname': u'program_line_1',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'alpha'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'alpha'})]),
-               'format': None,
-               'group': u'Energy Management System',
-               'min-fields': 2,
-               'name': u'EnergyManagementSystem:Program',
-               'pyname': u'EnergyManagementSystemProgram',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        |  no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    def add_extensible(self,
-                       program_line_1=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            program_line_1 (str): value for IDD Field `Program Line 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        program_line_1 = self.check_value("Program Line 1", program_line_1)
-        vals.append(program_line_1)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class EnergyManagementSystemSubroutine(DataObject):
-
-    """ Corresponds to IDD object `EnergyManagementSystem:Subroutine`
-        This input defines an Erl program subroutine
-        Each field after the name is a line of EMS Runtime Language
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'program line 1',
-                                                  {'name': u'Program Line 1',
-                                                   'pyname': u'program_line_1',
-                                                   'required-field': False,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'alpha'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'alpha'})]),
-               'format': None,
-               'group': u'Energy Management System',
-               'min-fields': 2,
-               'name': u'EnergyManagementSystem:Subroutine',
-               'pyname': u'EnergyManagementSystemSubroutine',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        |  no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    def add_extensible(self,
-                       program_line_1=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            program_line_1 (str): value for IDD Field `Program Line 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        program_line_1 = self.check_value("Program Line 1", program_line_1)
-        vals.append(program_line_1)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class EnergyManagementSystemGlobalVariable(DataObject):
-
-    """ Corresponds to IDD object `EnergyManagementSystem:GlobalVariable`
-        Declares Erl variable as having global scope
-        No spaces allowed in names used for Erl variables
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'erl variable 1 name',
-                                                  {'name': u'Erl Variable 1 Name',
-                                                   'pyname': u'erl_variable_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'alpha'})]),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Energy Management System',
-               'min-fields': 1,
-               'name': u'EnergyManagementSystem:GlobalVariable',
-               'pyname': u'EnergyManagementSystemGlobalVariable',
-               'required-object': False,
-               'unique-object': False}
-
-    def add_extensible(self,
-                       erl_variable_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            erl_variable_1_name (str): value for IDD Field `Erl Variable 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        erl_variable_1_name = self.check_value(
-            "Erl Variable 1 Name",
-            erl_variable_1_name)
-        vals.append(erl_variable_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class EnergyManagementSystemOutputVariable(DataObject):
 
     """ Corresponds to IDD object `EnergyManagementSystem:OutputVariable`
@@ -1515,5 +1278,242 @@ class EnergyManagementSystemConstructionIndexVariable(DataObject):
     def construction_object_name(self, value=None):
         """Corresponds to IDD field `Construction Object Name`"""
         self["Construction Object Name"] = value
+
+
+
+
+class EnergyManagementSystemProgram(DataObject):
+
+    """ Corresponds to IDD object `EnergyManagementSystem:Program`
+        This input defines an Erl program
+        Each field after the name is a line of EMS Runtime Language
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'program line 1',
+                                                  {'name': u'Program Line 1',
+                                                   'pyname': u'program_line_1',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'alpha'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'})]),
+               'format': None,
+               'group': u'Energy Management System',
+               'min-fields': 2,
+               'name': u'EnergyManagementSystem:Program',
+               'pyname': u'EnergyManagementSystemProgram',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        |  no spaces allowed in name
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    def add_extensible(self,
+                       program_line_1=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            program_line_1 (str): value for IDD Field `Program Line 1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        program_line_1 = self.check_value("Program Line 1", program_line_1)
+        vals.append(program_line_1)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class EnergyManagementSystemSubroutine(DataObject):
+
+    """ Corresponds to IDD object `EnergyManagementSystem:Subroutine`
+        This input defines an Erl program subroutine
+        Each field after the name is a line of EMS Runtime Language
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'program line',
+                                                  {'name': u'Program Line',
+                                                   'pyname': u'program_line',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'alpha'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'})]),
+               'format': None,
+               'group': u'Energy Management System',
+               'min-fields': 2,
+               'name': u'EnergyManagementSystem:Subroutine',
+               'pyname': u'EnergyManagementSystemSubroutine',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        |  no spaces allowed in name
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    def add_extensible(self,
+                       program_line=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            program_line (str): value for IDD Field `Program Line`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        program_line = self.check_value("Program Line", program_line)
+        vals.append(program_line)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class EnergyManagementSystemGlobalVariable(DataObject):
+
+    """ Corresponds to IDD object `EnergyManagementSystem:GlobalVariable`
+        Declares Erl variable as having global scope
+        No spaces allowed in names used for Erl variables
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'erl variable 1 name',
+                                                  {'name': u'Erl Variable 1 Name',
+                                                   'pyname': u'erl_variable_1_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'alpha'})]),
+               'fields': OrderedDict(),
+               'format': None,
+               'group': u'Energy Management System',
+               'min-fields': 1,
+               'name': u'EnergyManagementSystem:GlobalVariable',
+               'pyname': u'EnergyManagementSystemGlobalVariable',
+               'required-object': False,
+               'unique-object': False}
+
+    def add_extensible(self,
+                       erl_variable_1_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            erl_variable_1_name (str): value for IDD Field `Erl Variable 1 Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        erl_variable_1_name = self.check_value(
+            "Erl Variable 1 Name",
+            erl_variable_1_name)
+        vals.append(erl_variable_1_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
 
 

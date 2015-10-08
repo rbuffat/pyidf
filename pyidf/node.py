@@ -230,324 +230,6 @@ class Branch(DataObject):
 
 
 
-class BranchList(DataObject):
-
-    """ Corresponds to IDD object `BranchList`
-        Branches MUST be listed in Flow order: Inlet branch, then parallel branches, then Outlet branch.
-        Branches are simulated in the order listed.  Branch names cannot be duplicated within a single branch list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'branch 1 name',
-                                                  {'name': u'Branch 1 Name',
-                                                   'pyname': u'branch_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'object-list'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'})]),
-               'format': None,
-               'group': u'Node',
-               'min-fields': 0,
-               'name': u'BranchList',
-               'pyname': u'BranchList',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    def add_extensible(self,
-                       branch_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            branch_1_name (str): value for IDD Field `Branch 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        branch_1_name = self.check_value("Branch 1 Name", branch_1_name)
-        vals.append(branch_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class ConnectorSplitter(DataObject):
-
-    """ Corresponds to IDD object `Connector:Splitter`
-        Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
-        within a single Splitter list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'outlet branch 1 name',
-                                                  {'name': u'Outlet Branch 1 Name',
-                                                   'pyname': u'outlet_branch_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'object-list'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'inlet branch name',
-                                       {'name': u'Inlet Branch Name',
-                                        'pyname': u'inlet_branch_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'object-list'})]),
-               'format': None,
-               'group': u'Node',
-               'min-fields': 3,
-               'name': u'Connector:Splitter',
-               'pyname': u'ConnectorSplitter',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def inlet_branch_name(self):
-        """field `Inlet Branch Name`
-
-        Args:
-            value (str): value for IDD Field `Inlet Branch Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `inlet_branch_name` or None if not set
-
-        """
-        return self["Inlet Branch Name"]
-
-    @inlet_branch_name.setter
-    def inlet_branch_name(self, value=None):
-        """Corresponds to IDD field `Inlet Branch Name`"""
-        self["Inlet Branch Name"] = value
-
-    def add_extensible(self,
-                       outlet_branch_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            outlet_branch_1_name (str): value for IDD Field `Outlet Branch 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        outlet_branch_1_name = self.check_value(
-            "Outlet Branch 1 Name",
-            outlet_branch_1_name)
-        vals.append(outlet_branch_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class ConnectorMixer(DataObject):
-
-    """ Corresponds to IDD object `Connector:Mixer`
-        Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
-        a single mixer list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'inlet branch 1 name',
-                                                  {'name': u'Inlet Branch 1 Name',
-                                                   'pyname': u'inlet_branch_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'object-list'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'outlet branch name',
-                                       {'name': u'Outlet Branch Name',
-                                        'pyname': u'outlet_branch_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'object-list'})]),
-               'format': None,
-               'group': u'Node',
-               'min-fields': 3,
-               'name': u'Connector:Mixer',
-               'pyname': u'ConnectorMixer',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def outlet_branch_name(self):
-        """field `Outlet Branch Name`
-
-        Args:
-            value (str): value for IDD Field `Outlet Branch Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `outlet_branch_name` or None if not set
-
-        """
-        return self["Outlet Branch Name"]
-
-    @outlet_branch_name.setter
-    def outlet_branch_name(self, value=None):
-        """Corresponds to IDD field `Outlet Branch Name`"""
-        self["Outlet Branch Name"] = value
-
-    def add_extensible(self,
-                       inlet_branch_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            inlet_branch_1_name (str): value for IDD Field `Inlet Branch 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        inlet_branch_1_name = self.check_value(
-            "Inlet Branch 1 Name",
-            inlet_branch_1_name)
-        vals.append(inlet_branch_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class ConnectorList(DataObject):
 
     """ Corresponds to IDD object `ConnectorList`
@@ -710,92 +392,6 @@ class ConnectorList(DataObject):
 
 
 
-class NodeList(DataObject):
-
-    """ Corresponds to IDD object `NodeList`
-        This object is used in places where lists of nodes may be
-        needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'node 1 name',
-                                                  {'name': u'Node 1 Name',
-                                                   'pyname': u'node_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'})]),
-               'format': None,
-               'group': u'Node',
-               'min-fields': 2,
-               'name': u'NodeList',
-               'pyname': u'NodeList',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    def add_extensible(self,
-                       node_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            node_1_name (str): value for IDD Field `Node 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        node_1_name = self.check_value("Node 1 Name", node_1_name)
-        vals.append(node_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class OutdoorAirNode(DataObject):
 
     """ Corresponds to IDD object `OutdoorAir:Node`
@@ -875,72 +471,6 @@ class OutdoorAirNode(DataObject):
     def height_above_ground(self, value=-1.0):
         """Corresponds to IDD field `Height Above Ground`"""
         self["Height Above Ground"] = value
-
-
-
-
-class OutdoorAirNodeList(DataObject):
-
-    """ Corresponds to IDD object `OutdoorAir:NodeList`
-        This object sets the temperature and humidity conditions
-        for an outdoor air node using the weather data values.
-        to vary outdoor air node conditions with height above ground
-        use OutdoorAir:Node instead of this object.
-        This object may be used more than once.
-        The same node name may not appear in both an OutdoorAir:Node object and
-        an OutdoorAir:NodeList object.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'node or nodelist name 1',
-                                                  {'name': u'Node or NodeList Name 1',
-                                                   'pyname': u'node_or_nodelist_name_1',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Node',
-               'min-fields': 0,
-               'name': u'OutdoorAir:NodeList',
-               'pyname': u'OutdoorAirNodeList',
-               'required-object': False,
-               'unique-object': False}
-
-    def add_extensible(self,
-                       node_or_nodelist_name_1=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            node_or_nodelist_name_1 (str): value for IDD Field `Node or NodeList Name 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        node_or_nodelist_name_1 = self.check_value(
-            "Node or NodeList Name 1",
-            node_or_nodelist_name_1)
-        vals.append(node_or_nodelist_name_1)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
 
 
 
@@ -3851,5 +3381,389 @@ class Duct(DataObject):
     def outlet_node_name(self, value=None):
         """Corresponds to IDD field `Outlet Node Name`"""
         self["Outlet Node Name"] = value
+
+
+
+
+class ConnectorMixer(DataObject):
+
+    """ Corresponds to IDD object `Connector:Mixer`
+        Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
+        a single mixer list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'inlet branch name',
+                                                  {'name': u'Inlet Branch Name',
+                                                   'pyname': u'inlet_branch_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'outlet branch name',
+                                       {'name': u'Outlet Branch Name',
+                                        'pyname': u'outlet_branch_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Node',
+               'min-fields': 3,
+               'name': u'Connector:Mixer',
+               'pyname': u'ConnectorMixer',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def outlet_branch_name(self):
+        """field `Outlet Branch Name`
+
+        Args:
+            value (str): value for IDD Field `Outlet Branch Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `outlet_branch_name` or None if not set
+
+        """
+        return self["Outlet Branch Name"]
+
+    @outlet_branch_name.setter
+    def outlet_branch_name(self, value=None):
+        """Corresponds to IDD field `Outlet Branch Name`"""
+        self["Outlet Branch Name"] = value
+
+    def add_extensible(self,
+                       inlet_branch_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            inlet_branch_name (str): value for IDD Field `Inlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        inlet_branch_name = self.check_value(
+            "Inlet Branch Name",
+            inlet_branch_name)
+        vals.append(inlet_branch_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class NodeList(DataObject):
+
+    """ Corresponds to IDD object `NodeList`
+        This object is used in places where lists of nodes may be
+        needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'node name',
+                                                  {'name': u'Node Name',
+                                                   'pyname': u'node_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Node',
+               'min-fields': 2,
+               'name': u'NodeList',
+               'pyname': u'NodeList',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    def add_extensible(self,
+                       node_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            node_name (str): value for IDD Field `Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        node_name = self.check_value("Node Name", node_name)
+        vals.append(node_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class OutdoorAirNodeList(DataObject):
+
+    """ Corresponds to IDD object `OutdoorAir:NodeList`
+        This object sets the temperature and humidity conditions
+        for an outdoor air node using the weather data values.
+        to vary outdoor air node conditions with height above ground
+        use OutdoorAir:Node instead of this object.
+        This object may be used more than once.
+        The same node name may not appear in both an OutdoorAir:Node object and
+        an OutdoorAir:NodeList object.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'node or nodelist name 1',
+                                                  {'name': u'Node or NodeList Name 1',
+                                                   'pyname': u'node_or_nodelist_name_1',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict(),
+               'format': None,
+               'group': u'Node',
+               'min-fields': 1,
+               'name': u'OutdoorAir:NodeList',
+               'pyname': u'OutdoorAirNodeList',
+               'required-object': False,
+               'unique-object': False}
+
+    def add_extensible(self,
+                       node_or_nodelist_name_1=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            node_or_nodelist_name_1 (str): value for IDD Field `Node or NodeList Name 1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        node_or_nodelist_name_1 = self.check_value(
+            "Node or NodeList Name 1",
+            node_or_nodelist_name_1)
+        vals.append(node_or_nodelist_name_1)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class ConnectorSplitter(DataObject):
+
+    """ Corresponds to IDD object `Connector:Splitter`
+        Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
+        within a single Splitter list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'outlet branch name',
+                                                  {'name': u'Outlet Branch Name',
+                                                   'pyname': u'outlet_branch_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'inlet branch name',
+                                       {'name': u'Inlet Branch Name',
+                                        'pyname': u'inlet_branch_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'})]),
+               'format': None,
+               'group': u'Node',
+               'min-fields': 3,
+               'name': u'Connector:Splitter',
+               'pyname': u'ConnectorSplitter',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def inlet_branch_name(self):
+        """field `Inlet Branch Name`
+
+        Args:
+            value (str): value for IDD Field `Inlet Branch Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `inlet_branch_name` or None if not set
+
+        """
+        return self["Inlet Branch Name"]
+
+    @inlet_branch_name.setter
+    def inlet_branch_name(self, value=None):
+        """Corresponds to IDD field `Inlet Branch Name`"""
+        self["Inlet Branch Name"] = value
+
+    def add_extensible(self,
+                       outlet_branch_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            outlet_branch_name (str): value for IDD Field `Outlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        outlet_branch_name = self.check_value(
+            "Outlet Branch Name",
+            outlet_branch_name)
+        vals.append(outlet_branch_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
 
 

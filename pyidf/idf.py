@@ -5,7 +5,7 @@ It is based on a modified Energy+.idd specification file.
 
 Do not expect (yet) that it actually works!
 
-Generation date: 2015-10-07
+Generation date: 2015-10-08
 
 """
 import six
@@ -865,16 +865,6 @@ class IDF(object):
             "site:solarandvisiblespectrum"]
 
     @property
-    def sitespectrumdatas(self):
-        """Get list of all `SiteSpectrumData` objects.
-
-        Raises:
-            ValueError: if no objects of type `SiteSpectrumData` are present
-
-        """
-        return self._data["Location and Climate"]["site:spectrumdata"]
-
-    @property
     def scheduletypelimitss(self):
         """Get list of all `ScheduleTypeLimits` objects.
 
@@ -905,16 +895,6 @@ class IDF(object):
         return self._data["Schedules"]["schedule:day:interval"]
 
     @property
-    def scheduledaylists(self):
-        """Get list of all `ScheduleDayList` objects.
-
-        Raises:
-            ValueError: if no objects of type `ScheduleDayList` are present
-
-        """
-        return self._data["Schedules"]["schedule:day:list"]
-
-    @property
     def scheduleweekdailys(self):
         """Get list of all `ScheduleWeekDaily` objects.
 
@@ -933,26 +913,6 @@ class IDF(object):
 
         """
         return self._data["Schedules"]["schedule:week:compact"]
-
-    @property
-    def scheduleyears(self):
-        """Get list of all `ScheduleYear` objects.
-
-        Raises:
-            ValueError: if no objects of type `ScheduleYear` are present
-
-        """
-        return self._data["Schedules"]["schedule:year"]
-
-    @property
-    def schedulecompacts(self):
-        """Get list of all `ScheduleCompact` objects.
-
-        Raises:
-            ValueError: if no objects of type `ScheduleCompact` are present
-
-        """
-        return self._data["Schedules"]["schedule:compact"]
 
     @property
     def scheduleconstants(self):
@@ -1344,17 +1304,6 @@ class IDF(object):
             "materialproperty:heatandmoisturetransfer:thermalconductivity"]
 
     @property
-    def materialpropertyglazingspectraldatas(self):
-        """Get list of all `MaterialPropertyGlazingSpectralData` objects.
-
-        Raises:
-            ValueError: if no objects of type `MaterialPropertyGlazingSpectralData` are present
-
-        """
-        return self._data["Surface Construction Elements"][
-            "materialproperty:glazingspectraldata"]
-
-    @property
     def constructions(self):
         """Get list of all `Construction` objects.
 
@@ -1470,16 +1419,6 @@ class IDF(object):
 
         """
         return self._data["Thermal Zones and Surfaces"]["zone"]
-
-    @property
-    def zonelists(self):
-        """Get list of all `ZoneList` objects.
-
-        Raises:
-            ValueError: if no objects of type `ZoneList` are present
-
-        """
-        return self._data["Thermal Zones and Surfaces"]["zonelist"]
 
     @property
     def zonegroups(self):
@@ -2060,17 +1999,6 @@ class IDF(object):
             "complexfenestrationproperty:solarabsorbedlayers"]
 
     @property
-    def zonepropertyuserviewfactorsbysurfacenames(self):
-        """Get list of all `ZonePropertyUserViewFactorsBySurfaceName` objects.
-
-        Raises:
-            ValueError: if no objects of type `ZonePropertyUserViewFactorsBySurfaceName` are present
-
-        """
-        return self._data["Advanced Construction"][
-            "zoneproperty:userviewfactors:bysurfacename"]
-
-    @property
     def groundheattransfercontrols(self):
         """Get list of all `GroundHeatTransferControl` objects.
 
@@ -2168,39 +2096,6 @@ class IDF(object):
         """
         return self._data["Detailed Ground Heat Transfer"][
             "groundheattransfer:slab:manualgrid"]
-
-    @property
-    def groundheattransferslabxfaces(self):
-        """Get list of all `GroundHeatTransferSlabXface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferSlabXface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:slab:xface"]
-
-    @property
-    def groundheattransferslabyfaces(self):
-        """Get list of all `GroundHeatTransferSlabYface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferSlabYface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:slab:yface"]
-
-    @property
-    def groundheattransferslabzfaces(self):
-        """Get list of all `GroundHeatTransferSlabZface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferSlabZface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:slab:zface"]
 
     @property
     def groundheattransferbasementsimparameterss(self):
@@ -2322,39 +2217,6 @@ class IDF(object):
         """
         return self._data["Detailed Ground Heat Transfer"][
             "groundheattransfer:basement:manualgrid"]
-
-    @property
-    def groundheattransferbasementxfaces(self):
-        """Get list of all `GroundHeatTransferBasementXface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferBasementXface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:basement:xface"]
-
-    @property
-    def groundheattransferbasementyfaces(self):
-        """Get list of all `GroundHeatTransferBasementYface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferBasementYface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:basement:yface"]
-
-    @property
-    def groundheattransferbasementzfaces(self):
-        """Get list of all `GroundHeatTransferBasementZface` objects.
-
-        Raises:
-            ValueError: if no objects of type `GroundHeatTransferBasementZface` are present
-
-        """
-        return self._data["Detailed Ground Heat Transfer"][
-            "groundheattransfer:basement:zface"]
 
     @property
     def roomairmodeltypes(self):
@@ -5232,26 +5094,6 @@ class IDF(object):
         return self._data["Air Distribution"]["outdoorair:mixer"]
 
     @property
-    def airloophvaczonesplitters(self):
-        """Get list of all `AirLoopHvacZoneSplitter` objects.
-
-        Raises:
-            ValueError: if no objects of type `AirLoopHvacZoneSplitter` are present
-
-        """
-        return self._data["Air Distribution"]["airloophvac:zonesplitter"]
-
-    @property
-    def airloophvacsupplyplenums(self):
-        """Get list of all `AirLoopHvacSupplyPlenum` objects.
-
-        Raises:
-            ValueError: if no objects of type `AirLoopHvacSupplyPlenum` are present
-
-        """
-        return self._data["Air Distribution"]["airloophvac:supplyplenum"]
-
-    @property
     def airloophvacsupplypaths(self):
         """Get list of all `AirLoopHvacSupplyPath` objects.
 
@@ -5260,26 +5102,6 @@ class IDF(object):
 
         """
         return self._data["Air Distribution"]["airloophvac:supplypath"]
-
-    @property
-    def airloophvaczonemixers(self):
-        """Get list of all `AirLoopHvacZoneMixer` objects.
-
-        Raises:
-            ValueError: if no objects of type `AirLoopHvacZoneMixer` are present
-
-        """
-        return self._data["Air Distribution"]["airloophvac:zonemixer"]
-
-    @property
-    def airloophvacreturnplenums(self):
-        """Get list of all `AirLoopHvacReturnPlenum` objects.
-
-        Raises:
-            ValueError: if no objects of type `AirLoopHvacReturnPlenum` are present
-
-        """
-        return self._data["Air Distribution"]["airloophvac:returnplenum"]
 
     @property
     def airloophvacreturnpaths(self):
@@ -5302,36 +5124,6 @@ class IDF(object):
         return self._data["Node"]["branch"]
 
     @property
-    def branchlists(self):
-        """Get list of all `BranchList` objects.
-
-        Raises:
-            ValueError: if no objects of type `BranchList` are present
-
-        """
-        return self._data["Node"]["branchlist"]
-
-    @property
-    def connectorsplitters(self):
-        """Get list of all `ConnectorSplitter` objects.
-
-        Raises:
-            ValueError: if no objects of type `ConnectorSplitter` are present
-
-        """
-        return self._data["Node"]["connector:splitter"]
-
-    @property
-    def connectormixers(self):
-        """Get list of all `ConnectorMixer` objects.
-
-        Raises:
-            ValueError: if no objects of type `ConnectorMixer` are present
-
-        """
-        return self._data["Node"]["connector:mixer"]
-
-    @property
     def connectorlists(self):
         """Get list of all `ConnectorList` objects.
 
@@ -5342,16 +5134,6 @@ class IDF(object):
         return self._data["Node"]["connectorlist"]
 
     @property
-    def nodelists(self):
-        """Get list of all `NodeList` objects.
-
-        Raises:
-            ValueError: if no objects of type `NodeList` are present
-
-        """
-        return self._data["Node"]["nodelist"]
-
-    @property
     def outdoorairnodes(self):
         """Get list of all `OutdoorAirNode` objects.
 
@@ -5360,16 +5142,6 @@ class IDF(object):
 
         """
         return self._data["Node"]["outdoorair:node"]
-
-    @property
-    def outdoorairnodelists(self):
-        """Get list of all `OutdoorAirNodeList` objects.
-
-        Raises:
-            ValueError: if no objects of type `OutdoorAirNodeList` are present
-
-        """
-        return self._data["Node"]["outdoorair:nodelist"]
 
     @property
     def pipeadiabatics(self):
@@ -6355,39 +6127,6 @@ class IDF(object):
             "energymanagementsystem:programcallingmanager"]
 
     @property
-    def energymanagementsystemprograms(self):
-        """Get list of all `EnergyManagementSystemProgram` objects.
-
-        Raises:
-            ValueError: if no objects of type `EnergyManagementSystemProgram` are present
-
-        """
-        return self._data["Energy Management System"][
-            "energymanagementsystem:program"]
-
-    @property
-    def energymanagementsystemsubroutines(self):
-        """Get list of all `EnergyManagementSystemSubroutine` objects.
-
-        Raises:
-            ValueError: if no objects of type `EnergyManagementSystemSubroutine` are present
-
-        """
-        return self._data["Energy Management System"][
-            "energymanagementsystem:subroutine"]
-
-    @property
-    def energymanagementsystemglobalvariables(self):
-        """Get list of all `EnergyManagementSystemGlobalVariable` objects.
-
-        Raises:
-            ValueError: if no objects of type `EnergyManagementSystemGlobalVariable` are present
-
-        """
-        return self._data["Energy Management System"][
-            "energymanagementsystem:globalvariable"]
-
-    @property
     def energymanagementsystemoutputvariables(self):
         """Get list of all `EnergyManagementSystemOutputVariable` objects.
 
@@ -7296,16 +7035,6 @@ class IDF(object):
         return self._data["Refrigeration"]["refrigeration:airchiller"]
 
     @property
-    def zonehvacrefrigerationchillersets(self):
-        """Get list of all `ZoneHvacRefrigerationChillerSet` objects.
-
-        Raises:
-            ValueError: if no objects of type `ZoneHvacRefrigerationChillerSet` are present
-
-        """
-        return self._data["Refrigeration"]["zonehvac:refrigerationchillerset"]
-
-    @property
     def demandmanagerassignmentlists(self):
         """Get list of all `DemandManagerAssignmentList` objects.
 
@@ -7832,16 +7561,6 @@ class IDF(object):
         return self._data["Operational Faults"]["faultmodel:fouling:coil"]
 
     @property
-    def matrixtwodimensions(self):
-        """Get list of all `MatrixTwoDimension` objects.
-
-        Raises:
-            ValueError: if no objects of type `MatrixTwoDimension` are present
-
-        """
-        return self._data["General Data Entry"]["matrix:twodimension"]
-
-    @property
     def curvelinears(self):
         """Get list of all `CurveLinear` objects.
 
@@ -8042,37 +7761,6 @@ class IDF(object):
         """
         return self._data["Performance Curves"][
             "curve:chillerpartloadwithlift"]
-
-    @property
-    def tableoneindependentvariables(self):
-        """Get list of all `TableOneIndependentVariable` objects.
-
-        Raises:
-            ValueError: if no objects of type `TableOneIndependentVariable` are present
-
-        """
-        return self._data["Performance Tables"]["table:oneindependentvariable"]
-
-    @property
-    def tabletwoindependentvariabless(self):
-        """Get list of all `TableTwoIndependentVariables` objects.
-
-        Raises:
-            ValueError: if no objects of type `TableTwoIndependentVariables` are present
-
-        """
-        return self._data["Performance Tables"][
-            "table:twoindependentvariables"]
-
-    @property
-    def tablemultivariablelookups(self):
-        """Get list of all `TableMultiVariableLookup` objects.
-
-        Raises:
-            ValueError: if no objects of type `TableMultiVariableLookup` are present
-
-        """
-        return self._data["Performance Tables"]["table:multivariablelookup"]
 
     @property
     def fluidpropertiesnames(self):
@@ -8609,6 +8297,231 @@ class IDF(object):
         """
         return self._data["Output Reporting"]["output:preprocessormessage"]
 
+    @property
+    def scheduledaylists(self):
+        """Get list of all `ScheduleDayList` objects.
+
+        Raises:
+            ValueError: if no objects of type `ScheduleDayList` are present
+
+        """
+        return self._data["Schedules"]["schedule:day:list"]
+
+    @property
+    def scheduleyears(self):
+        """Get list of all `ScheduleYear` objects.
+
+        Raises:
+            ValueError: if no objects of type `ScheduleYear` are present
+
+        """
+        return self._data["Schedules"]["schedule:year"]
+
+    @property
+    def schedulecompacts(self):
+        """Get list of all `ScheduleCompact` objects.
+
+        Raises:
+            ValueError: if no objects of type `ScheduleCompact` are present
+
+        """
+        return self._data["Schedules"]["schedule:compact"]
+
+    @property
+    def materialpropertyglazingspectraldatas(self):
+        """Get list of all `MaterialPropertyGlazingSpectralData` objects.
+
+        Raises:
+            ValueError: if no objects of type `MaterialPropertyGlazingSpectralData` are present
+
+        """
+        return self._data["Surface Construction Elements"][
+            "materialproperty:glazingspectraldata"]
+
+    @property
+    def zonelists(self):
+        """Get list of all `ZoneList` objects.
+
+        Raises:
+            ValueError: if no objects of type `ZoneList` are present
+
+        """
+        return self._data["Thermal Zones and Surfaces"]["zonelist"]
+
+    @property
+    def airloophvaczonesplitters(self):
+        """Get list of all `AirLoopHvacZoneSplitter` objects.
+
+        Raises:
+            ValueError: if no objects of type `AirLoopHvacZoneSplitter` are present
+
+        """
+        return self._data["Air Distribution"]["airloophvac:zonesplitter"]
+
+    @property
+    def airloophvacsupplyplenums(self):
+        """Get list of all `AirLoopHvacSupplyPlenum` objects.
+
+        Raises:
+            ValueError: if no objects of type `AirLoopHvacSupplyPlenum` are present
+
+        """
+        return self._data["Air Distribution"]["airloophvac:supplyplenum"]
+
+    @property
+    def airloophvaczonemixers(self):
+        """Get list of all `AirLoopHvacZoneMixer` objects.
+
+        Raises:
+            ValueError: if no objects of type `AirLoopHvacZoneMixer` are present
+
+        """
+        return self._data["Air Distribution"]["airloophvac:zonemixer"]
+
+    @property
+    def airloophvacreturnplenums(self):
+        """Get list of all `AirLoopHvacReturnPlenum` objects.
+
+        Raises:
+            ValueError: if no objects of type `AirLoopHvacReturnPlenum` are present
+
+        """
+        return self._data["Air Distribution"]["airloophvac:returnplenum"]
+
+    @property
+    def branchlists(self):
+        """Get list of all `BranchList` objects.
+
+        Raises:
+            ValueError: if no objects of type `BranchList` are present
+
+        """
+        return self._data["Pumps"]["branchlist"]
+
+    @property
+    def connectormixers(self):
+        """Get list of all `ConnectorMixer` objects.
+
+        Raises:
+            ValueError: if no objects of type `ConnectorMixer` are present
+
+        """
+        return self._data["Node"]["connector:mixer"]
+
+    @property
+    def nodelists(self):
+        """Get list of all `NodeList` objects.
+
+        Raises:
+            ValueError: if no objects of type `NodeList` are present
+
+        """
+        return self._data["Node"]["nodelist"]
+
+    @property
+    def outdoorairnodelists(self):
+        """Get list of all `OutdoorAirNodeList` objects.
+
+        Raises:
+            ValueError: if no objects of type `OutdoorAirNodeList` are present
+
+        """
+        return self._data["Node"]["outdoorair:nodelist"]
+
+    @property
+    def energymanagementsystemprograms(self):
+        """Get list of all `EnergyManagementSystemProgram` objects.
+
+        Raises:
+            ValueError: if no objects of type `EnergyManagementSystemProgram` are present
+
+        """
+        return self._data["Energy Management System"][
+            "energymanagementsystem:program"]
+
+    @property
+    def energymanagementsystemsubroutines(self):
+        """Get list of all `EnergyManagementSystemSubroutine` objects.
+
+        Raises:
+            ValueError: if no objects of type `EnergyManagementSystemSubroutine` are present
+
+        """
+        return self._data["Energy Management System"][
+            "energymanagementsystem:subroutine"]
+
+    @property
+    def energymanagementsystemglobalvariables(self):
+        """Get list of all `EnergyManagementSystemGlobalVariable` objects.
+
+        Raises:
+            ValueError: if no objects of type `EnergyManagementSystemGlobalVariable` are present
+
+        """
+        return self._data["Energy Management System"][
+            "energymanagementsystem:globalvariable"]
+
+    @property
+    def zonehvacrefrigerationchillersets(self):
+        """Get list of all `ZoneHvacRefrigerationChillerSet` objects.
+
+        Raises:
+            ValueError: if no objects of type `ZoneHvacRefrigerationChillerSet` are present
+
+        """
+        return self._data["Refrigeration"]["zonehvac:refrigerationchillerset"]
+
+    @property
+    def matrixtwodimensions(self):
+        """Get list of all `MatrixTwoDimension` objects.
+
+        Raises:
+            ValueError: if no objects of type `MatrixTwoDimension` are present
+
+        """
+        return self._data["Refrigeration"]["matrix:twodimension"]
+
+    @property
+    def tableoneindependentvariables(self):
+        """Get list of all `TableOneIndependentVariable` objects.
+
+        Raises:
+            ValueError: if no objects of type `TableOneIndependentVariable` are present
+
+        """
+        return self._data["Performance Tables"]["table:oneindependentvariable"]
+
+    @property
+    def tabletwoindependentvariabless(self):
+        """Get list of all `TableTwoIndependentVariables` objects.
+
+        Raises:
+            ValueError: if no objects of type `TableTwoIndependentVariables` are present
+
+        """
+        return self._data["Performance Tables"][
+            "table:twoindependentvariables"]
+
+    @property
+    def tablemultivariablelookups(self):
+        """Get list of all `TableMultiVariableLookup` objects.
+
+        Raises:
+            ValueError: if no objects of type `TableMultiVariableLookup` are present
+
+        """
+        return self._data["Performance Tables"]["table:multivariablelookup"]
+
+    @property
+    def connectorsplitters(self):
+        """Get list of all `ConnectorSplitter` objects.
+
+        Raises:
+            ValueError: if no objects of type `ConnectorSplitter` are present
+
+        """
+        return self._data["Node"]["connector:splitter"]
+
     @classmethod
     def _create_datadict(cls, internal_name):
         """Creates an object depending on `internal_name`
@@ -8756,9 +8669,6 @@ class IDF(object):
         if internal_name.lower() == "site:solarandvisiblespectrum":
             from pyidf.location_and_climate import SiteSolarAndVisibleSpectrum
             return SiteSolarAndVisibleSpectrum()
-        if internal_name.lower() == "site:spectrumdata":
-            from pyidf.location_and_climate import SiteSpectrumData
-            return SiteSpectrumData()
         if internal_name.lower() == "scheduletypelimits":
             from pyidf.schedules import ScheduleTypeLimits
             return ScheduleTypeLimits()
@@ -8768,21 +8678,12 @@ class IDF(object):
         if internal_name.lower() == "schedule:day:interval":
             from pyidf.schedules import ScheduleDayInterval
             return ScheduleDayInterval()
-        if internal_name.lower() == "schedule:day:list":
-            from pyidf.schedules import ScheduleDayList
-            return ScheduleDayList()
         if internal_name.lower() == "schedule:week:daily":
             from pyidf.schedules import ScheduleWeekDaily
             return ScheduleWeekDaily()
         if internal_name.lower() == "schedule:week:compact":
             from pyidf.schedules import ScheduleWeekCompact
             return ScheduleWeekCompact()
-        if internal_name.lower() == "schedule:year":
-            from pyidf.schedules import ScheduleYear
-            return ScheduleYear()
-        if internal_name.lower() == "schedule:compact":
-            from pyidf.schedules import ScheduleCompact
-            return ScheduleCompact()
         if internal_name.lower() == "schedule:constant":
             from pyidf.schedules import ScheduleConstant
             return ScheduleConstant()
@@ -8898,9 +8799,6 @@ class IDF(object):
         ) == "materialproperty:heatandmoisturetransfer:thermalconductivity":
             from pyidf.surface_construction_elements import MaterialPropertyHeatAndMoistureTransferThermalConductivity
             return MaterialPropertyHeatAndMoistureTransferThermalConductivity()
-        if internal_name.lower() == "materialproperty:glazingspectraldata":
-            from pyidf.surface_construction_elements import MaterialPropertyGlazingSpectralData
-            return MaterialPropertyGlazingSpectralData()
         if internal_name.lower() == "construction":
             from pyidf.surface_construction_elements import Construction
             return Construction()
@@ -8934,9 +8832,6 @@ class IDF(object):
         if internal_name.lower() == "zone":
             from pyidf.thermal_zones_and_surfaces import Zone
             return Zone()
-        if internal_name.lower() == "zonelist":
-            from pyidf.thermal_zones_and_surfaces import ZoneList
-            return ZoneList()
         if internal_name.lower() == "zonegroup":
             from pyidf.thermal_zones_and_surfaces import ZoneGroup
             return ZoneGroup()
@@ -9109,10 +9004,6 @@ class IDF(object):
         ) == "complexfenestrationproperty:solarabsorbedlayers":
             from pyidf.advanced_construction import ComplexFenestrationPropertySolarAbsorbedLayers
             return ComplexFenestrationPropertySolarAbsorbedLayers()
-        if internal_name.lower(
-        ) == "zoneproperty:userviewfactors:bysurfacename":
-            from pyidf.advanced_construction import ZonePropertyUserViewFactorsBySurfaceName
-            return ZonePropertyUserViewFactorsBySurfaceName()
         if internal_name.lower() == "groundheattransfer:control":
             from pyidf.detailed_ground_heat_transfer import GroundHeatTransferControl
             return GroundHeatTransferControl()
@@ -9140,15 +9031,6 @@ class IDF(object):
         if internal_name.lower() == "groundheattransfer:slab:manualgrid":
             from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabManualGrid
             return GroundHeatTransferSlabManualGrid()
-        if internal_name.lower() == "groundheattransfer:slab:xface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabXface
-            return GroundHeatTransferSlabXface()
-        if internal_name.lower() == "groundheattransfer:slab:yface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabYface
-            return GroundHeatTransferSlabYface()
-        if internal_name.lower() == "groundheattransfer:slab:zface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabZface
-            return GroundHeatTransferSlabZface()
         if internal_name.lower(
         ) == "groundheattransfer:basement:simparameters":
             from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSimParameters
@@ -9184,15 +9066,6 @@ class IDF(object):
         if internal_name.lower() == "groundheattransfer:basement:manualgrid":
             from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementManualGrid
             return GroundHeatTransferBasementManualGrid()
-        if internal_name.lower() == "groundheattransfer:basement:xface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementXface
-            return GroundHeatTransferBasementXface()
-        if internal_name.lower() == "groundheattransfer:basement:yface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementYface
-            return GroundHeatTransferBasementYface()
-        if internal_name.lower() == "groundheattransfer:basement:zface":
-            from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementZface
-            return GroundHeatTransferBasementZface()
         if internal_name.lower() == "roomairmodeltype":
             from pyidf.room_air_models import RoomAirModelType
             return RoomAirModelType()
@@ -10075,48 +9948,21 @@ class IDF(object):
         if internal_name.lower() == "outdoorair:mixer":
             from pyidf.air_distribution import OutdoorAirMixer
             return OutdoorAirMixer()
-        if internal_name.lower() == "airloophvac:zonesplitter":
-            from pyidf.air_distribution import AirLoopHvacZoneSplitter
-            return AirLoopHvacZoneSplitter()
-        if internal_name.lower() == "airloophvac:supplyplenum":
-            from pyidf.air_distribution import AirLoopHvacSupplyPlenum
-            return AirLoopHvacSupplyPlenum()
         if internal_name.lower() == "airloophvac:supplypath":
             from pyidf.air_distribution import AirLoopHvacSupplyPath
             return AirLoopHvacSupplyPath()
-        if internal_name.lower() == "airloophvac:zonemixer":
-            from pyidf.air_distribution import AirLoopHvacZoneMixer
-            return AirLoopHvacZoneMixer()
-        if internal_name.lower() == "airloophvac:returnplenum":
-            from pyidf.air_distribution import AirLoopHvacReturnPlenum
-            return AirLoopHvacReturnPlenum()
         if internal_name.lower() == "airloophvac:returnpath":
             from pyidf.air_distribution import AirLoopHvacReturnPath
             return AirLoopHvacReturnPath()
         if internal_name.lower() == "branch":
             from pyidf.node import Branch
             return Branch()
-        if internal_name.lower() == "branchlist":
-            from pyidf.node import BranchList
-            return BranchList()
-        if internal_name.lower() == "connector:splitter":
-            from pyidf.node import ConnectorSplitter
-            return ConnectorSplitter()
-        if internal_name.lower() == "connector:mixer":
-            from pyidf.node import ConnectorMixer
-            return ConnectorMixer()
         if internal_name.lower() == "connectorlist":
             from pyidf.node import ConnectorList
             return ConnectorList()
-        if internal_name.lower() == "nodelist":
-            from pyidf.node import NodeList
-            return NodeList()
         if internal_name.lower() == "outdoorair:node":
             from pyidf.node import OutdoorAirNode
             return OutdoorAirNode()
-        if internal_name.lower() == "outdoorair:nodelist":
-            from pyidf.node import OutdoorAirNodeList
-            return OutdoorAirNodeList()
         if internal_name.lower() == "pipe:adiabatic":
             from pyidf.node import PipeAdiabatic
             return PipeAdiabatic()
@@ -10405,15 +10251,6 @@ class IDF(object):
         ) == "energymanagementsystem:programcallingmanager":
             from pyidf.energy_management_system import EnergyManagementSystemProgramCallingManager
             return EnergyManagementSystemProgramCallingManager()
-        if internal_name.lower() == "energymanagementsystem:program":
-            from pyidf.energy_management_system import EnergyManagementSystemProgram
-            return EnergyManagementSystemProgram()
-        if internal_name.lower() == "energymanagementsystem:subroutine":
-            from pyidf.energy_management_system import EnergyManagementSystemSubroutine
-            return EnergyManagementSystemSubroutine()
-        if internal_name.lower() == "energymanagementsystem:globalvariable":
-            from pyidf.energy_management_system import EnergyManagementSystemGlobalVariable
-            return EnergyManagementSystemGlobalVariable()
         if internal_name.lower() == "energymanagementsystem:outputvariable":
             from pyidf.energy_management_system import EnergyManagementSystemOutputVariable
             return EnergyManagementSystemOutputVariable()
@@ -10695,9 +10532,6 @@ class IDF(object):
         if internal_name.lower() == "refrigeration:airchiller":
             from pyidf.refrigeration import RefrigerationAirChiller
             return RefrigerationAirChiller()
-        if internal_name.lower() == "zonehvac:refrigerationchillerset":
-            from pyidf.refrigeration import ZoneHvacRefrigerationChillerSet
-            return ZoneHvacRefrigerationChillerSet()
         if internal_name.lower() == "demandmanagerassignmentlist":
             from pyidf.demand_limiting_controls import DemandManagerAssignmentList
             return DemandManagerAssignmentList()
@@ -10855,9 +10689,6 @@ class IDF(object):
         if internal_name.lower() == "faultmodel:fouling:coil":
             from pyidf.operational_faults import FaultModelFoulingCoil
             return FaultModelFoulingCoil()
-        if internal_name.lower() == "matrix:twodimension":
-            from pyidf.general_data_entry import MatrixTwoDimension
-            return MatrixTwoDimension()
         if internal_name.lower() == "curve:linear":
             from pyidf.performance_curves import CurveLinear
             return CurveLinear()
@@ -10918,15 +10749,6 @@ class IDF(object):
         if internal_name.lower() == "curve:chillerpartloadwithlift":
             from pyidf.performance_curves import CurveChillerPartLoadWithLift
             return CurveChillerPartLoadWithLift()
-        if internal_name.lower() == "table:oneindependentvariable":
-            from pyidf.performance_tables import TableOneIndependentVariable
-            return TableOneIndependentVariable()
-        if internal_name.lower() == "table:twoindependentvariables":
-            from pyidf.performance_tables import TableTwoIndependentVariables
-            return TableTwoIndependentVariables()
-        if internal_name.lower() == "table:multivariablelookup":
-            from pyidf.performance_tables import TableMultiVariableLookup
-            return TableMultiVariableLookup()
         if internal_name.lower() == "fluidproperties:name":
             from pyidf.fluid_properties import FluidPropertiesName
             return FluidPropertiesName()
@@ -11086,6 +10908,72 @@ class IDF(object):
         if internal_name.lower() == "output:preprocessormessage":
             from pyidf.output_reporting import OutputPreprocessorMessage
             return OutputPreprocessorMessage()
+        if internal_name.lower() == "schedule:day:list":
+            from pyidf.schedules import ScheduleDayList
+            return ScheduleDayList()
+        if internal_name.lower() == "schedule:year":
+            from pyidf.schedules import ScheduleYear
+            return ScheduleYear()
+        if internal_name.lower() == "schedule:compact":
+            from pyidf.schedules import ScheduleCompact
+            return ScheduleCompact()
+        if internal_name.lower() == "materialproperty:glazingspectraldata":
+            from pyidf.surface_construction_elements import MaterialPropertyGlazingSpectralData
+            return MaterialPropertyGlazingSpectralData()
+        if internal_name.lower() == "zonelist":
+            from pyidf.thermal_zones_and_surfaces import ZoneList
+            return ZoneList()
+        if internal_name.lower() == "airloophvac:zonesplitter":
+            from pyidf.air_distribution import AirLoopHvacZoneSplitter
+            return AirLoopHvacZoneSplitter()
+        if internal_name.lower() == "airloophvac:supplyplenum":
+            from pyidf.air_distribution import AirLoopHvacSupplyPlenum
+            return AirLoopHvacSupplyPlenum()
+        if internal_name.lower() == "airloophvac:zonemixer":
+            from pyidf.air_distribution import AirLoopHvacZoneMixer
+            return AirLoopHvacZoneMixer()
+        if internal_name.lower() == "airloophvac:returnplenum":
+            from pyidf.air_distribution import AirLoopHvacReturnPlenum
+            return AirLoopHvacReturnPlenum()
+        if internal_name.lower() == "branchlist":
+            from pyidf.pumps import BranchList
+            return BranchList()
+        if internal_name.lower() == "connector:mixer":
+            from pyidf.node import ConnectorMixer
+            return ConnectorMixer()
+        if internal_name.lower() == "nodelist":
+            from pyidf.node import NodeList
+            return NodeList()
+        if internal_name.lower() == "outdoorair:nodelist":
+            from pyidf.node import OutdoorAirNodeList
+            return OutdoorAirNodeList()
+        if internal_name.lower() == "energymanagementsystem:program":
+            from pyidf.energy_management_system import EnergyManagementSystemProgram
+            return EnergyManagementSystemProgram()
+        if internal_name.lower() == "energymanagementsystem:subroutine":
+            from pyidf.energy_management_system import EnergyManagementSystemSubroutine
+            return EnergyManagementSystemSubroutine()
+        if internal_name.lower() == "energymanagementsystem:globalvariable":
+            from pyidf.energy_management_system import EnergyManagementSystemGlobalVariable
+            return EnergyManagementSystemGlobalVariable()
+        if internal_name.lower() == "zonehvac:refrigerationchillerset":
+            from pyidf.refrigeration import ZoneHvacRefrigerationChillerSet
+            return ZoneHvacRefrigerationChillerSet()
+        if internal_name.lower() == "matrix:twodimension":
+            from pyidf.refrigeration import MatrixTwoDimension
+            return MatrixTwoDimension()
+        if internal_name.lower() == "table:oneindependentvariable":
+            from pyidf.performance_tables import TableOneIndependentVariable
+            return TableOneIndependentVariable()
+        if internal_name.lower() == "table:twoindependentvariables":
+            from pyidf.performance_tables import TableTwoIndependentVariables
+            return TableTwoIndependentVariables()
+        if internal_name.lower() == "table:multivariablelookup":
+            from pyidf.performance_tables import TableMultiVariableLookup
+            return TableMultiVariableLookup()
+        if internal_name.lower() == "connector:splitter":
+            from pyidf.node import ConnectorSplitter
+            return ConnectorSplitter()
         raise ValueError(
             "No DataDictionary known for {}".format(internal_name))
 

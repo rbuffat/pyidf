@@ -29,8 +29,8 @@ class TestConnectorMixer(unittest.TestCase):
         var_outlet_branch_name = "object-list|Outlet Branch Name"
         obj.outlet_branch_name = var_outlet_branch_name
         paras = []
-        var_inlet_branch_1_name = "object-list|Inlet Branch 1 Name"
-        paras.append(var_inlet_branch_1_name)
+        var_inlet_branch_name = "object-list|Inlet Branch Name"
+        paras.append(var_inlet_branch_name)
         obj.add_extensible(*paras)
         
 
@@ -45,5 +45,5 @@ class TestConnectorMixer(unittest.TestCase):
         idf2 = IDF(self.path)
         self.assertEqual(idf2.connectormixers[0].name, var_name)
         self.assertEqual(idf2.connectormixers[0].outlet_branch_name, var_outlet_branch_name)
-        index = obj.extensible_field_index("Inlet Branch 1 Name")
-        self.assertEqual(idf2.connectormixers[0].extensibles[0][index], var_inlet_branch_1_name)
+        index = obj.extensible_field_index("Inlet Branch Name")
+        self.assertEqual(idf2.connectormixers[0].extensibles[0][index], var_inlet_branch_name)

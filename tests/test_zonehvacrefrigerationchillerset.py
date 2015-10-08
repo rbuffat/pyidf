@@ -38,8 +38,8 @@ class TestZoneHvacRefrigerationChillerSet(unittest.TestCase):
         var_air_outlet_node_name = "node|Air Outlet Node Name"
         obj.air_outlet_node_name = var_air_outlet_node_name
         paras = []
-        var_air_chiller_1_name = "object-list|Air Chiller 1 Name"
-        paras.append(var_air_chiller_1_name)
+        var_air_chiller_name = "Air Chiller  Name"
+        paras.append(var_air_chiller_name)
         obj.add_extensible(*paras)
         
 
@@ -57,5 +57,5 @@ class TestZoneHvacRefrigerationChillerSet(unittest.TestCase):
         self.assertEqual(idf2.zonehvacrefrigerationchillersets[0].zone_name, var_zone_name)
         self.assertEqual(idf2.zonehvacrefrigerationchillersets[0].air_inlet_node_name, var_air_inlet_node_name)
         self.assertEqual(idf2.zonehvacrefrigerationchillersets[0].air_outlet_node_name, var_air_outlet_node_name)
-        index = obj.extensible_field_index("Air Chiller 1 Name")
-        self.assertEqual(idf2.zonehvacrefrigerationchillersets[0].extensibles[0][index], var_air_chiller_1_name)
+        index = obj.extensible_field_index("Air Chiller  Name")
+        self.assertEqual(idf2.zonehvacrefrigerationchillersets[0].extensibles[0][index], var_air_chiller_name)

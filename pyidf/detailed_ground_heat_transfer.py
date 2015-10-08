@@ -2286,63 +2286,6 @@ class GroundHeatTransferSlabManualGrid(DataObject):
 
 
 
-class GroundHeatTransferSlabXface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Slab:XFACE`
-        This is only needed when using manual gridding (not recommended)
-        XFACE: X Direction cell face coordinates: m
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Slab:XFACE',
-               'pyname': u'GroundHeatTransferSlabXface',
-               'required-object': False,
-               'unique-object': False}
-
-
-
-
-class GroundHeatTransferSlabYface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Slab:YFACE`
-        This is only needed when using manual gridding (not recommended)
-        YFACE: Y Direction cell face coordinates: m,
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Slab:YFACE',
-               'pyname': u'GroundHeatTransferSlabYface',
-               'required-object': False,
-               'unique-object': False}
-
-
-
-
-class GroundHeatTransferSlabZface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Slab:ZFACE`
-        This is only needed when using manual gridding (not recommended)
-        ZFACE: Z Direction cell face coordinates: m
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Slab:ZFACE',
-               'pyname': u'GroundHeatTransferSlabZface',
-               'required-object': False,
-               'unique-object': False}
-
-
-
-
 class GroundHeatTransferBasementSimParameters(DataObject):
 
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SimParameters`
@@ -5053,62 +4996,5 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         """
         self[
             "KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value
-
-
-
-
-class GroundHeatTransferBasementXface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Basement:XFACE`
-        This is only needed when using manual gridding (not recommended)
-        XFACE: X Direction cell face coordinates: m
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Basement:XFACE',
-               'pyname': u'GroundHeatTransferBasementXface',
-               'required-object': False,
-               'unique-object': False}
-
-
-
-
-class GroundHeatTransferBasementYface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Basement:YFACE`
-        This is only needed when using manual gridding (not recommended)
-        YFACE: Y Direction cell face coordinates: m
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Basement:YFACE',
-               'pyname': u'GroundHeatTransferBasementYface',
-               'required-object': False,
-               'unique-object': False}
-
-
-
-
-class GroundHeatTransferBasementZface(DataObject):
-
-    """ Corresponds to IDD object `GroundHeatTransfer:Basement:ZFACE`
-        This is only needed when using manual gridding (not recommended)
-        ZFACE: Z Direction cell face coordinates: m
-    """
-    _schema = {'extensible-fields': OrderedDict(),
-               'fields': OrderedDict(),
-               'format': None,
-               'group': u'Detailed Ground Heat Transfer',
-               'min-fields': 0,
-               'name': u'GroundHeatTransfer:Basement:ZFACE',
-               'pyname': u'GroundHeatTransferBasementZface',
-               'required-object': False,
-               'unique-object': False}
 
 

@@ -1179,294 +1179,6 @@ class OutdoorAirMixer(DataObject):
 
 
 
-class AirLoopHvacZoneSplitter(DataObject):
-
-    """ Corresponds to IDD object `AirLoopHVAC:ZoneSplitter`
-        Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
-        cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'outlet 1 node name',
-                                                  {'name': u'Outlet 1 Node Name',
-                                                   'pyname': u'outlet_1_node_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'inlet node name',
-                                       {'name': u'Inlet Node Name',
-                                        'pyname': u'inlet_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'})]),
-               'format': None,
-               'group': u'Air Distribution',
-               'min-fields': 0,
-               'name': u'AirLoopHVAC:ZoneSplitter',
-               'pyname': u'AirLoopHvacZoneSplitter',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """field `Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-
-        """
-        return self["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Inlet Node Name`"""
-        self["Inlet Node Name"] = value
-
-    def add_extensible(self,
-                       outlet_1_node_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            outlet_1_node_name (str): value for IDD Field `Outlet 1 Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        outlet_1_node_name = self.check_value(
-            "Outlet 1 Node Name",
-            outlet_1_node_name)
-        vals.append(outlet_1_node_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class AirLoopHvacSupplyPlenum(DataObject):
-
-    """ Corresponds to IDD object `AirLoopHVAC:SupplyPlenum`
-        Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
-        Node names cannot be duplicated within a single supply plenum list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'outlet 1 node name',
-                                                  {'name': u'Outlet 1 Node Name',
-                                                   'pyname': u'outlet_1_node_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'zone name',
-                                       {'name': u'Zone Name',
-                                        'pyname': u'zone_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'object-list'}),
-                                      (u'zone node name',
-                                       {'name': u'Zone Node Name',
-                                        'pyname': u'zone_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'}),
-                                      (u'inlet node name',
-                                       {'name': u'Inlet Node Name',
-                                        'pyname': u'inlet_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'})]),
-               'format': None,
-               'group': u'Air Distribution',
-               'min-fields': 0,
-               'name': u'AirLoopHVAC:SupplyPlenum',
-               'pyname': u'AirLoopHvacSupplyPlenum',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def zone_name(self):
-        """field `Zone Name`
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-
-        """
-        return self["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """Corresponds to IDD field `Zone Name`"""
-        self["Zone Name"] = value
-
-    @property
-    def zone_node_name(self):
-        """field `Zone Node Name`
-
-        Args:
-            value (str): value for IDD Field `Zone Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `zone_node_name` or None if not set
-
-        """
-        return self["Zone Node Name"]
-
-    @zone_node_name.setter
-    def zone_node_name(self, value=None):
-        """Corresponds to IDD field `Zone Node Name`"""
-        self["Zone Node Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """field `Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-
-        """
-        return self["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Inlet Node Name`"""
-        self["Inlet Node Name"] = value
-
-    def add_extensible(self,
-                       outlet_1_node_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            outlet_1_node_name (str): value for IDD Field `Outlet 1 Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        outlet_1_node_name = self.check_value(
-            "Outlet 1 Node Name",
-            outlet_1_node_name)
-        vals.append(outlet_1_node_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class AirLoopHvacSupplyPath(DataObject):
 
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
@@ -1601,324 +1313,6 @@ class AirLoopHvacSupplyPath(DataObject):
 
 
 
-class AirLoopHvacZoneMixer(DataObject):
-
-    """ Corresponds to IDD object `AirLoopHVAC:ZoneMixer`
-        Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
-        be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'inlet 1 node name',
-                                                  {'name': u'Inlet 1 Node Name',
-                                                   'pyname': u'inlet_1_node_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'outlet node name',
-                                       {'name': u'Outlet Node Name',
-                                        'pyname': u'outlet_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'})]),
-               'format': None,
-               'group': u'Air Distribution',
-               'min-fields': 0,
-               'name': u'AirLoopHVAC:ZoneMixer',
-               'pyname': u'AirLoopHvacZoneMixer',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """field `Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-
-        """
-        return self["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """Corresponds to IDD field `Outlet Node Name`"""
-        self["Outlet Node Name"] = value
-
-    def add_extensible(self,
-                       inlet_1_node_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            inlet_1_node_name (str): value for IDD Field `Inlet 1 Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        inlet_1_node_name = self.check_value(
-            "Inlet 1 Node Name",
-            inlet_1_node_name)
-        vals.append(inlet_1_node_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
-class AirLoopHvacReturnPlenum(DataObject):
-
-    """ Corresponds to IDD object `AirLoopHVAC:ReturnPlenum`
-        Connects N zone inlet air streams, through zone return plenum, to outlet
-        (currently 500 per air loop)
-        Node names cannot be duplicated within a single plenum list.
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'inlet 1 node name',
-                                                  {'name': u'Inlet 1 Node Name',
-                                                   'pyname': u'inlet_1_node_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'node'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': 'alpha'}),
-                                      (u'zone name',
-                                       {'name': u'Zone Name',
-                                        'pyname': u'zone_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'object-list'}),
-                                      (u'zone node name',
-                                       {'name': u'Zone Node Name',
-                                        'pyname': u'zone_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'}),
-                                      (u'outlet node name',
-                                       {'name': u'Outlet Node Name',
-                                        'pyname': u'outlet_node_name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'}),
-                                      (u'induced air outlet node or nodelist name',
-                                       {'name': u'Induced Air Outlet Node or NodeList Name',
-                                        'pyname': u'induced_air_outlet_node_or_nodelist_name',
-                                        'required-field': False,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'node'})]),
-               'format': None,
-               'group': u'Air Distribution',
-               'min-fields': 0,
-               'name': u'AirLoopHVAC:ReturnPlenum',
-               'pyname': u'AirLoopHvacReturnPlenum',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    @property
-    def zone_name(self):
-        """field `Zone Name`
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-
-        """
-        return self["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """Corresponds to IDD field `Zone Name`"""
-        self["Zone Name"] = value
-
-    @property
-    def zone_node_name(self):
-        """field `Zone Node Name`
-
-        Args:
-            value (str): value for IDD Field `Zone Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `zone_node_name` or None if not set
-
-        """
-        return self["Zone Node Name"]
-
-    @zone_node_name.setter
-    def zone_node_name(self, value=None):
-        """Corresponds to IDD field `Zone Node Name`"""
-        self["Zone Node Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """field `Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-
-        """
-        return self["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """Corresponds to IDD field `Outlet Node Name`"""
-        self["Outlet Node Name"] = value
-
-    @property
-    def induced_air_outlet_node_or_nodelist_name(self):
-        """field `Induced Air Outlet Node or NodeList Name`
-
-        Args:
-            value (str): value for IDD Field `Induced Air Outlet Node or NodeList Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `induced_air_outlet_node_or_nodelist_name` or None if not set
-
-        """
-        return self["Induced Air Outlet Node or NodeList Name"]
-
-    @induced_air_outlet_node_or_nodelist_name.setter
-    def induced_air_outlet_node_or_nodelist_name(self, value=None):
-        """Corresponds to IDD field `Induced Air Outlet Node or NodeList
-        Name`"""
-        self["Induced Air Outlet Node or NodeList Name"] = value
-
-    def add_extensible(self,
-                       inlet_1_node_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            inlet_1_node_name (str): value for IDD Field `Inlet 1 Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        inlet_1_node_name = self.check_value(
-            "Inlet 1 Node Name",
-            inlet_1_node_name)
-        vals.append(inlet_1_node_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class AirLoopHvacReturnPath(DataObject):
 
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
@@ -2031,6 +1425,610 @@ class AirLoopHvacReturnPath(DataObject):
             "Component 1 Name",
             component_1_name)
         vals.append(component_1_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class AirLoopHvacZoneSplitter(DataObject):
+
+    """ Corresponds to IDD object `AirLoopHVAC:ZoneSplitter`
+        Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
+        cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'outlet  node name',
+                                                  {'name': u'Outlet  Node Name',
+                                                   'pyname': u'outlet_node_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'inlet node name',
+                                       {'name': u'Inlet Node Name',
+                                        'pyname': u'inlet_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Air Distribution',
+               'min-fields': 0,
+               'name': u'AirLoopHVAC:ZoneSplitter',
+               'pyname': u'AirLoopHvacZoneSplitter',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def inlet_node_name(self):
+        """field `Inlet Node Name`
+
+        Args:
+            value (str): value for IDD Field `Inlet Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `inlet_node_name` or None if not set
+
+        """
+        return self["Inlet Node Name"]
+
+    @inlet_node_name.setter
+    def inlet_node_name(self, value=None):
+        """Corresponds to IDD field `Inlet Node Name`"""
+        self["Inlet Node Name"] = value
+
+    def add_extensible(self,
+                       outlet_node_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            outlet_node_name (str): value for IDD Field `Outlet  Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        outlet_node_name = self.check_value(
+            "Outlet  Node Name",
+            outlet_node_name)
+        vals.append(outlet_node_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class AirLoopHvacSupplyPlenum(DataObject):
+
+    """ Corresponds to IDD object `AirLoopHVAC:SupplyPlenum`
+        Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
+        Node names cannot be duplicated within a single supply plenum list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'outlet node name',
+                                                  {'name': u'Outlet Node Name',
+                                                   'pyname': u'outlet_node_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone node name',
+                                       {'name': u'Zone Node Name',
+                                        'pyname': u'zone_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'inlet node name',
+                                       {'name': u'Inlet Node Name',
+                                        'pyname': u'inlet_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Air Distribution',
+               'min-fields': 5,
+               'name': u'AirLoopHVAC:SupplyPlenum',
+               'pyname': u'AirLoopHvacSupplyPlenum',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def zone_name(self):
+        """field `Zone Name`
+
+        Args:
+            value (str): value for IDD Field `Zone Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `zone_name` or None if not set
+
+        """
+        return self["Zone Name"]
+
+    @zone_name.setter
+    def zone_name(self, value=None):
+        """Corresponds to IDD field `Zone Name`"""
+        self["Zone Name"] = value
+
+    @property
+    def zone_node_name(self):
+        """field `Zone Node Name`
+
+        Args:
+            value (str): value for IDD Field `Zone Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `zone_node_name` or None if not set
+
+        """
+        return self["Zone Node Name"]
+
+    @zone_node_name.setter
+    def zone_node_name(self, value=None):
+        """Corresponds to IDD field `Zone Node Name`"""
+        self["Zone Node Name"] = value
+
+    @property
+    def inlet_node_name(self):
+        """field `Inlet Node Name`
+
+        Args:
+            value (str): value for IDD Field `Inlet Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `inlet_node_name` or None if not set
+
+        """
+        return self["Inlet Node Name"]
+
+    @inlet_node_name.setter
+    def inlet_node_name(self, value=None):
+        """Corresponds to IDD field `Inlet Node Name`"""
+        self["Inlet Node Name"] = value
+
+    def add_extensible(self,
+                       outlet_node_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            outlet_node_name (str): value for IDD Field `Outlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        outlet_node_name = self.check_value(
+            "Outlet Node Name",
+            outlet_node_name)
+        vals.append(outlet_node_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class AirLoopHvacZoneMixer(DataObject):
+
+    """ Corresponds to IDD object `AirLoopHVAC:ZoneMixer`
+        Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
+        be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'inlet 1 node name',
+                                                  {'name': u'Inlet 1 Node Name',
+                                                   'pyname': u'inlet_1_node_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'outlet node name',
+                                       {'name': u'Outlet Node Name',
+                                        'pyname': u'outlet_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Air Distribution',
+               'min-fields': 3,
+               'name': u'AirLoopHVAC:ZoneMixer',
+               'pyname': u'AirLoopHvacZoneMixer',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def outlet_node_name(self):
+        """field `Outlet Node Name`
+
+        Args:
+            value (str): value for IDD Field `Outlet Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `outlet_node_name` or None if not set
+
+        """
+        return self["Outlet Node Name"]
+
+    @outlet_node_name.setter
+    def outlet_node_name(self, value=None):
+        """Corresponds to IDD field `Outlet Node Name`"""
+        self["Outlet Node Name"] = value
+
+    def add_extensible(self,
+                       inlet_1_node_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            inlet_1_node_name (str): value for IDD Field `Inlet 1 Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        inlet_1_node_name = self.check_value(
+            "Inlet 1 Node Name",
+            inlet_1_node_name)
+        vals.append(inlet_1_node_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
+
+
+class AirLoopHvacReturnPlenum(DataObject):
+
+    """ Corresponds to IDD object `AirLoopHVAC:ReturnPlenum`
+        Connects N zone inlet air streams, through zone return plenum, to outlet
+        (currently 500 per air loop)
+        Node names cannot be duplicated within a single plenum list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'inlet node name',
+                                                  {'name': u'Inlet Node Name',
+                                                   'pyname': u'inlet_node_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'node'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'}),
+                                      (u'zone name',
+                                       {'name': u'Zone Name',
+                                        'pyname': u'zone_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'object-list'}),
+                                      (u'zone node name',
+                                       {'name': u'Zone Node Name',
+                                        'pyname': u'zone_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'outlet node name',
+                                       {'name': u'Outlet Node Name',
+                                        'pyname': u'outlet_node_name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'}),
+                                      (u'induced air outlet node or nodelist name',
+                                       {'name': u'Induced Air Outlet Node or NodeList Name',
+                                        'pyname': u'induced_air_outlet_node_or_nodelist_name',
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'node'})]),
+               'format': None,
+               'group': u'Air Distribution',
+               'min-fields': 6,
+               'name': u'AirLoopHVAC:ReturnPlenum',
+               'pyname': u'AirLoopHvacReturnPlenum',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    @property
+    def zone_name(self):
+        """field `Zone Name`
+
+        Args:
+            value (str): value for IDD Field `Zone Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `zone_name` or None if not set
+
+        """
+        return self["Zone Name"]
+
+    @zone_name.setter
+    def zone_name(self, value=None):
+        """Corresponds to IDD field `Zone Name`"""
+        self["Zone Name"] = value
+
+    @property
+    def zone_node_name(self):
+        """field `Zone Node Name`
+
+        Args:
+            value (str): value for IDD Field `Zone Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `zone_node_name` or None if not set
+
+        """
+        return self["Zone Node Name"]
+
+    @zone_node_name.setter
+    def zone_node_name(self, value=None):
+        """Corresponds to IDD field `Zone Node Name`"""
+        self["Zone Node Name"] = value
+
+    @property
+    def outlet_node_name(self):
+        """field `Outlet Node Name`
+
+        Args:
+            value (str): value for IDD Field `Outlet Node Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `outlet_node_name` or None if not set
+
+        """
+        return self["Outlet Node Name"]
+
+    @outlet_node_name.setter
+    def outlet_node_name(self, value=None):
+        """Corresponds to IDD field `Outlet Node Name`"""
+        self["Outlet Node Name"] = value
+
+    @property
+    def induced_air_outlet_node_or_nodelist_name(self):
+        """field `Induced Air Outlet Node or NodeList Name`
+
+        Args:
+            value (str): value for IDD Field `Induced Air Outlet Node or NodeList Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `induced_air_outlet_node_or_nodelist_name` or None if not set
+
+        """
+        return self["Induced Air Outlet Node or NodeList Name"]
+
+    @induced_air_outlet_node_or_nodelist_name.setter
+    def induced_air_outlet_node_or_nodelist_name(self, value=None):
+        """Corresponds to IDD field `Induced Air Outlet Node or NodeList
+        Name`"""
+        self["Induced Air Outlet Node or NodeList Name"] = value
+
+    def add_extensible(self,
+                       inlet_node_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            inlet_node_name (str): value for IDD Field `Inlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        inlet_node_name = self.check_value("Inlet Node Name", inlet_node_name)
+        vals.append(inlet_node_name)
         self._extdata.append(vals)
 
     @property

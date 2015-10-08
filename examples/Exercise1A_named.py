@@ -76,16 +76,22 @@ if __name__ == '__main__':
     obj10["Humidity Condition Type"] = "Wetbulb"
     obj10["Wetbulb or DewPoint at Maximum Dry-Bulb"] = 23.6
     obj10["Humidity Condition Day Schedule Name"] = None
-    obj10["Humidity Ratio at Maximum Dry-Bulb v3"] = None
+    obj10["Humidity Ratio at Maximum Dry-Bulb"] = None
+    obj10["Enthalpy at Maximum Dry-Bulb"] = None
     obj10["Daily Wet-Bulb Temperature Range"] = None
-    obj10["Barometric Pressure"] = None
-    obj10["Wind Speed"] = 99063.21
+    obj10["Barometric Pressure"] = 99063.21
+    obj10["Wind Speed"] = 0.0
     obj10["Wind Direction"] = 0.0
-    obj10["Rain Indicator"] = "0.0"
+    obj10["Rain Indicator"] = "No"
     obj10["Snow Indicator"] = "No"
     obj10["Daylight Saving Time Indicator"] = "No"
-    obj10["Solar Model Indicator"] = "No"
-    obj10["Beam Solar Day Schedule Name"] = "ASHRAEClearSky"
+    obj10["Solar Model Indicator"] = "ASHRAEClearSky"
+    obj10["Beam Solar Day Schedule Name"] = None
+    obj10["Diffuse Solar Day Schedule Name"] = None
+    obj10["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = None
+    obj10[
+        "ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = None
+    obj10["Sky Clearness"] = 1.0
     idf.add(obj10)
 
     obj11 = IDF._create_datadict("SizingPeriod:DesignDay")
@@ -100,16 +106,22 @@ if __name__ == '__main__':
     obj11["Humidity Condition Type"] = "Wetbulb"
     obj11["Wetbulb or DewPoint at Maximum Dry-Bulb"] = -21.2
     obj11["Humidity Condition Day Schedule Name"] = None
-    obj11["Humidity Ratio at Maximum Dry-Bulb v3"] = None
+    obj11["Humidity Ratio at Maximum Dry-Bulb"] = None
+    obj11["Enthalpy at Maximum Dry-Bulb"] = None
     obj11["Daily Wet-Bulb Temperature Range"] = None
-    obj11["Barometric Pressure"] = None
-    obj11["Wind Speed"] = 99063.21
-    obj11["Wind Direction"] = 4.6
-    obj11["Rain Indicator"] = "270.0000"
+    obj11["Barometric Pressure"] = 99063.21
+    obj11["Wind Speed"] = 4.6
+    obj11["Wind Direction"] = 270.0
+    obj11["Rain Indicator"] = "No"
     obj11["Snow Indicator"] = "No"
     obj11["Daylight Saving Time Indicator"] = "No"
-    obj11["Solar Model Indicator"] = "No"
-    obj11["Beam Solar Day Schedule Name"] = "ASHRAEClearSky"
+    obj11["Solar Model Indicator"] = "ASHRAEClearSky"
+    obj11["Beam Solar Day Schedule Name"] = None
+    obj11["Diffuse Solar Day Schedule Name"] = None
+    obj11["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = None
+    obj11[
+        "ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = None
+    obj11["Sky Clearness"] = 0.0
     idf.add(obj11)
 
     obj12 = IDF._create_datadict("Site:GroundTemperature:BuildingSurface")

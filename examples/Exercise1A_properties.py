@@ -104,16 +104,21 @@ if __name__ == '__main__':
     obj10.humidity_condition_type = "Wetbulb"
     obj10.wetbulb_or_dewpoint_at_maximum_drybulb = 23.6
     obj10.humidity_condition_day_schedule_name = None
-    obj10.humidity_ratio_at_maximum_drybulb_v3 = None
+    obj10.humidity_ratio_at_maximum_drybulb = None
+    obj10.enthalpy_at_maximum_drybulb = None
     obj10.daily_wetbulb_temperature_range = None
-    obj10.barometric_pressure = None
-    obj10.wind_speed = 99063.21
+    obj10.barometric_pressure = 99063.21
+    obj10.wind_speed = 0.0
     obj10.wind_direction = 0.0
-    obj10.rain_indicator = "0.0"
+    obj10.rain_indicator = "No"
     obj10.snow_indicator = "No"
     obj10.daylight_saving_time_indicator = "No"
-    obj10.solar_model_indicator = "No"
-    obj10.beam_solar_day_schedule_name = "ASHRAEClearSky"
+    obj10.solar_model_indicator = "ASHRAEClearSky"
+    obj10.beam_solar_day_schedule_name = None
+    obj10.diffuse_solar_day_schedule_name = None
+    obj10.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = None
+    obj10.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = None
+    obj10.sky_clearness = 1.0
     idf.add(obj10)
 
     obj11 = SizingPeriodDesignDay()
@@ -128,16 +133,21 @@ if __name__ == '__main__':
     obj11.humidity_condition_type = "Wetbulb"
     obj11.wetbulb_or_dewpoint_at_maximum_drybulb = -21.2
     obj11.humidity_condition_day_schedule_name = None
-    obj11.humidity_ratio_at_maximum_drybulb_v3 = None
+    obj11.humidity_ratio_at_maximum_drybulb = None
+    obj11.enthalpy_at_maximum_drybulb = None
     obj11.daily_wetbulb_temperature_range = None
-    obj11.barometric_pressure = None
-    obj11.wind_speed = 99063.21
-    obj11.wind_direction = 4.6
-    obj11.rain_indicator = "270.0000"
+    obj11.barometric_pressure = 99063.21
+    obj11.wind_speed = 4.6
+    obj11.wind_direction = 270.0
+    obj11.rain_indicator = "No"
     obj11.snow_indicator = "No"
     obj11.daylight_saving_time_indicator = "No"
-    obj11.solar_model_indicator = "No"
-    obj11.beam_solar_day_schedule_name = "ASHRAEClearSky"
+    obj11.solar_model_indicator = "ASHRAEClearSky"
+    obj11.beam_solar_day_schedule_name = None
+    obj11.diffuse_solar_day_schedule_name = None
+    obj11.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = None
+    obj11.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = None
+    obj11.sky_clearness = 0.0
     idf.add(obj11)
 
     obj12 = SiteGroundTemperatureBuildingSurface()

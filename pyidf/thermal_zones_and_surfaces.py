@@ -786,100 +786,6 @@ class Zone(DataObject):
 
 
 
-class ZoneList(DataObject):
-
-    """Corresponds to IDD object `ZoneList` Defines a list of thermal zones
-    which can be referenced as a group.
-
-    The ZoneList name
-    may be used elsewhere in the input to apply a parameter to all zones in the list.
-    ZoneLists can be used effectively with the following objects: People, Lights,
-    ElectricEquipment, GasEquipment, HotWaterEquipment, ZoneInfiltration:DesignFlowRate,
-    ZoneVentilation:DesignFlowRate, Sizing:Zone, ZoneControl:Thermostat, and others.
-
-    """
-    _schema = {'extensible-fields': OrderedDict([(u'zone 1 name',
-                                                  {'name': u'Zone 1 Name',
-                                                   'pyname': u'zone_1_name',
-                                                   'required-field': True,
-                                                   'autosizable': False,
-                                                   'autocalculatable': False,
-                                                   'type': u'object-list'})]),
-               'fields': OrderedDict([(u'name',
-                                       {'name': u'Name',
-                                        'pyname': u'name',
-                                        'required-field': True,
-                                        'autosizable': False,
-                                        'autocalculatable': False,
-                                        'type': u'alpha'})]),
-               'format': None,
-               'group': u'Thermal Zones and Surfaces',
-               'min-fields': 2,
-               'name': u'ZoneList',
-               'pyname': u'ZoneList',
-               'required-object': False,
-               'unique-object': False}
-
-    @property
-    def name(self):
-        """field `Name`
-
-        |  Name of the Zone List
-
-        Args:
-            value (str): value for IDD Field `Name`
-
-        Raises:
-            ValueError: if `value` is not a valid value
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`"""
-        self["Name"] = value
-
-    def add_extensible(self,
-                       zone_1_name=None,
-                       ):
-        """Add values for extensible fields.
-
-        Args:
-
-            zone_1_name (str): value for IDD Field `Zone 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        """
-        vals = []
-        zone_1_name = self.check_value("Zone 1 Name", zone_1_name)
-        vals.append(zone_1_name)
-        self._extdata.append(vals)
-
-    @property
-    def extensibles(self):
-        """Get list of all extensibles."""
-        return self._extdata
-
-    @extensibles.setter
-    def extensibles(self, extensibles):
-        """Replaces extensible fields with `extensibles`
-
-        Args:
-            extensibles (list): nested list of extensible values
-
-        """
-        self._extdata = []
-        for ext in extensibles:
-            self.add_extensible(*ext)
-
-
-
-
 class ZoneGroup(DataObject):
 
     """Corresponds to IDD object `ZoneGroup` Adds a multiplier to a ZoneList.
@@ -13298,5 +13204,99 @@ class ShadingPropertyReflectance(DataObject):
     def glazing_construction_name(self, value=None):
         """Corresponds to IDD field `Glazing Construction Name`"""
         self["Glazing Construction Name"] = value
+
+
+
+
+class ZoneList(DataObject):
+
+    """Corresponds to IDD object `ZoneList` Defines a list of thermal zones
+    which can be referenced as a group.
+
+    The ZoneList name
+    may be used elsewhere in the input to apply a parameter to all zones in the list.
+    ZoneLists can be used effectively with the following objects: People, Lights,
+    ElectricEquipment, GasEquipment, HotWaterEquipment, ZoneInfiltration:DesignFlowRate,
+    ZoneVentilation:DesignFlowRate, Sizing:Zone, ZoneControl:Thermostat, and others.
+
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'zone 1 name',
+                                                  {'name': u'Zone 1 Name',
+                                                   'pyname': u'zone_1_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'alpha'})]),
+               'format': None,
+               'group': u'Thermal Zones and Surfaces',
+               'min-fields': 2,
+               'name': u'ZoneList',
+               'pyname': u'ZoneList',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        |  Name of the Zone List
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    def add_extensible(self,
+                       zone_1_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            zone_1_name (str): value for IDD Field `Zone 1 Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        zone_1_name = self.check_value("Zone 1 Name", zone_1_name)
+        vals.append(zone_1_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
 
 

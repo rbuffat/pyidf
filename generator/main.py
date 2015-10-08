@@ -11,11 +11,12 @@ import Queue
 from generator import generate_class, generate_helper, generate_test
 from generator import generate_idf, generate_init, generate_group
 from iddparser import IDDParser
+import logging
 
 num_worker_threads = multiprocessing.cpu_count()
 tidy = True
 
-version = "0.2.0"
+version = "0.2.1"
 
 
 def worker(q, worker):
@@ -47,6 +48,12 @@ def create_file(fname, group, objs):
         f.write(source)
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                        datefmt='%m-%d %H:%M',
+                        filename='pyidf.log',
+                        filemode='w')
+
     parser1 = IDDParser()
     objsalt = parser1.parse("V8-4-0-Energy+Alt.idd")
     parser2 = IDDParser()

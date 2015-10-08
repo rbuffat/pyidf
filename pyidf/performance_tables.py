@@ -27,17 +27,17 @@ class TableOneIndependentVariable(DataObject):
         Exponent Table Equation: Output = a + b*X**c
         Exponent solution requires a minimum of 4 data pairs
     """
-    _schema = {'extensible-fields': OrderedDict([(u'x value #1',
-                                                  {'name': u'X Value #1',
-                                                   'pyname': u'x_value_1',
-                                                   'required-field': True,
+    _schema = {'extensible-fields': OrderedDict([(u'x value',
+                                                  {'name': u'X Value',
+                                                   'pyname': u'x_value',
+                                                   'required-field': False,
                                                    'autosizable': False,
                                                    'autocalculatable': False,
                                                    'type': u'real'}),
-                                                 (u'output value #1',
-                                                  {'name': u'Output Value #1',
-                                                   'pyname': u'output_value_1',
-                                                   'required-field': True,
+                                                 (u'output value',
+                                                  {'name': u'Output Value',
+                                                   'pyname': u'output_value',
+                                                   'required-field': False,
                                                    'autosizable': False,
                                                    'autocalculatable': False,
                                                    'type': u'real'})]),
@@ -379,27 +379,27 @@ class TableOneIndependentVariable(DataObject):
         self["Normalization Reference"] = value
 
     def add_extensible(self,
-                       x_value_1=None,
-                       output_value_1=None,
+                       x_value=None,
+                       output_value=None,
                        ):
         """Add values for extensible fields.
 
         Args:
 
-            x_value_1 (float): value for IDD Field `X Value #1`
+            x_value (float): value for IDD Field `X Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-            output_value_1 (float): value for IDD Field `Output Value #1`
+            output_value (float): value for IDD Field `Output Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         """
         vals = []
-        x_value_1 = self.check_value("X Value #1", x_value_1)
-        vals.append(x_value_1)
-        output_value_1 = self.check_value("Output Value #1", output_value_1)
-        vals.append(output_value_1)
+        x_value = self.check_value("X Value", x_value)
+        vals.append(x_value)
+        output_value = self.check_value("Output Value", output_value)
+        vals.append(output_value)
         self._extdata.append(vals)
 
     @property
@@ -433,23 +433,23 @@ class TableTwoIndependentVariables(DataObject):
         QuadraticLinear Table Equation: Output = a + bX + cX**2 + dY + eXY + fX**2Y
         QuadraticLinear solution requires a minimum of 6 data pairs
     """
-    _schema = {'extensible-fields': OrderedDict([(u'x value #1',
-                                                  {'name': u'X Value #1',
-                                                   'pyname': u'x_value_1',
+    _schema = {'extensible-fields': OrderedDict([(u'x value',
+                                                  {'name': u'X Value',
+                                                   'pyname': u'x_value',
                                                    'required-field': True,
                                                    'autosizable': False,
                                                    'autocalculatable': False,
                                                    'type': u'real'}),
-                                                 (u'y value #1',
-                                                  {'name': u'Y Value #1',
-                                                   'pyname': u'y_value_1',
+                                                 (u'y value',
+                                                  {'name': u'Y Value',
+                                                   'pyname': u'y_value',
                                                    'required-field': True,
                                                    'autosizable': False,
                                                    'autocalculatable': False,
                                                    'type': u'real'}),
-                                                 (u'output value #1',
-                                                  {'name': u'Output Value #1',
-                                                   'pyname': u'output_value_1',
+                                                 (u'output value',
+                                                  {'name': u'Output Value',
+                                                   'pyname': u'output_value',
                                                    'required-field': True,
                                                    'autosizable': False,
                                                    'autocalculatable': False,
@@ -879,34 +879,34 @@ class TableTwoIndependentVariables(DataObject):
         self["Normalization Reference"] = value
 
     def add_extensible(self,
-                       x_value_1=None,
-                       y_value_1=None,
-                       output_value_1=None,
+                       x_value=None,
+                       y_value=None,
+                       output_value=None,
                        ):
         """Add values for extensible fields.
 
         Args:
 
-            x_value_1 (float): value for IDD Field `X Value #1`
+            x_value (float): value for IDD Field `X Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-            y_value_1 (float): value for IDD Field `Y Value #1`
+            y_value (float): value for IDD Field `Y Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-            output_value_1 (float): value for IDD Field `Output Value #1`
+            output_value (float): value for IDD Field `Output Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         """
         vals = []
-        x_value_1 = self.check_value("X Value #1", x_value_1)
-        vals.append(x_value_1)
-        y_value_1 = self.check_value("Y Value #1", y_value_1)
-        vals.append(y_value_1)
-        output_value_1 = self.check_value("Output Value #1", output_value_1)
-        vals.append(output_value_1)
+        x_value = self.check_value("X Value", x_value)
+        vals.append(x_value)
+        y_value = self.check_value("Y Value", y_value)
+        vals.append(y_value)
+        output_value = self.check_value("Output Value", output_value)
+        vals.append(output_value)
         self._extdata.append(vals)
 
     @property
@@ -937,9 +937,148 @@ class TableMultiVariableLookup(DataObject):
         polynomial order is assumed to be the number of interpolation points (n) minus 1.
         When any independent variable value is outside the table limits, linear extrapolation
         is used to predict the table result and is based on the two nearest data points in the
-        table for that particular independent variable.
+        table for that particularindependent variable.
     """
-    _schema = {'extensible-fields': OrderedDict(),
+    _schema = {'extensible-fields': OrderedDict([(u'field 3 determined by the number of independent variables',
+                                                  {'name': u'Field 3 Determined by the Number of Independent Variables',
+                                                   'pyname': u'field_3_determined_by_the_number_of_independent_variables',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v1',
+                                                  {'name': u'V1',
+                                                   'pyname': u'v1',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v2',
+                                                  {'name': u'V2',
+                                                   'pyname': u'v2',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v3',
+                                                  {'name': u'V3',
+                                                   'pyname': u'v3',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v4',
+                                                  {'name': u'V4',
+                                                   'pyname': u'v4',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v5',
+                                                  {'name': u'V5',
+                                                   'pyname': u'v5',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v6',
+                                                  {'name': u'V6',
+                                                   'pyname': u'v6',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v7',
+                                                  {'name': u'V7',
+                                                   'pyname': u'v7',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v8',
+                                                  {'name': u'V8',
+                                                   'pyname': u'v8',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v9',
+                                                  {'name': u'V9',
+                                                   'pyname': u'v9',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v10',
+                                                  {'name': u'V10',
+                                                   'pyname': u'v10',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v11',
+                                                  {'name': u'V11',
+                                                   'pyname': u'v11',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v12',
+                                                  {'name': u'V12',
+                                                   'pyname': u'v12',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v13',
+                                                  {'name': u'V13',
+                                                   'pyname': u'v13',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v14',
+                                                  {'name': u'V14',
+                                                   'pyname': u'v14',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v15',
+                                                  {'name': u'V15',
+                                                   'pyname': u'v15',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v16',
+                                                  {'name': u'V16',
+                                                   'pyname': u'v16',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v17',
+                                                  {'name': u'V17',
+                                                   'pyname': u'v17',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v18',
+                                                  {'name': u'V18',
+                                                   'pyname': u'v18',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'}),
+                                                 (u'v19',
+                                                  {'name': u'V19',
+                                                   'pyname': u'v19',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': 'real'})]),
                'fields': OrderedDict([(u'name',
                                        {'name': u'Name',
                                         'pyname': u'name',
@@ -1956,5 +2095,175 @@ class TableMultiVariableLookup(DataObject):
         Independent Variables`"""
         self[
             "Field 2 Determined by the Number of Independent Variables"] = value
+
+    def add_extensible(
+        self,
+        field_3_determined_by_the_number_of_independent_variables=None,
+        v1=None,
+        v2=None,
+        v3=None,
+        v4=None,
+        v5=None,
+        v6=None,
+        v7=None,
+        v8=None,
+        v9=None,
+        v10=None,
+        v11=None,
+        v12=None,
+        v13=None,
+        v14=None,
+        v15=None,
+        v16=None,
+        v17=None,
+        v18=None,
+        v19=None,
+    ):
+        """Add values for extensible fields.
+
+        Args:
+
+            field_3_determined_by_the_number_of_independent_variables (float): value for IDD Field `Field 3 Determined by the Number of Independent Variables`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v1 (float): value for IDD Field `V1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v2 (float): value for IDD Field `V2`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v3 (float): value for IDD Field `V3`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v4 (float): value for IDD Field `V4`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v5 (float): value for IDD Field `V5`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v6 (float): value for IDD Field `V6`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v7 (float): value for IDD Field `V7`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v8 (float): value for IDD Field `V8`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v9 (float): value for IDD Field `V9`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v10 (float): value for IDD Field `V10`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v11 (float): value for IDD Field `V11`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v12 (float): value for IDD Field `V12`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v13 (float): value for IDD Field `V13`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v14 (float): value for IDD Field `V14`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v15 (float): value for IDD Field `V15`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v16 (float): value for IDD Field `V16`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v17 (float): value for IDD Field `V17`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v18 (float): value for IDD Field `V18`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            v19 (float): value for IDD Field `V19`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        field_3_determined_by_the_number_of_independent_variables = self.check_value(
+            "Field 3 Determined by the Number of Independent Variables",
+            field_3_determined_by_the_number_of_independent_variables)
+        vals.append(field_3_determined_by_the_number_of_independent_variables)
+        v1 = self.check_value("V1", v1)
+        vals.append(v1)
+        v2 = self.check_value("V2", v2)
+        vals.append(v2)
+        v3 = self.check_value("V3", v3)
+        vals.append(v3)
+        v4 = self.check_value("V4", v4)
+        vals.append(v4)
+        v5 = self.check_value("V5", v5)
+        vals.append(v5)
+        v6 = self.check_value("V6", v6)
+        vals.append(v6)
+        v7 = self.check_value("V7", v7)
+        vals.append(v7)
+        v8 = self.check_value("V8", v8)
+        vals.append(v8)
+        v9 = self.check_value("V9", v9)
+        vals.append(v9)
+        v10 = self.check_value("V10", v10)
+        vals.append(v10)
+        v11 = self.check_value("V11", v11)
+        vals.append(v11)
+        v12 = self.check_value("V12", v12)
+        vals.append(v12)
+        v13 = self.check_value("V13", v13)
+        vals.append(v13)
+        v14 = self.check_value("V14", v14)
+        vals.append(v14)
+        v15 = self.check_value("V15", v15)
+        vals.append(v15)
+        v16 = self.check_value("V16", v16)
+        vals.append(v16)
+        v17 = self.check_value("V17", v17)
+        vals.append(v17)
+        v18 = self.check_value("V18", v18)
+        vals.append(v18)
+        v19 = self.check_value("V19", v19)
+        vals.append(v19)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
 
 

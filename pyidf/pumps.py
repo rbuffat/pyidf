@@ -2904,3 +2904,89 @@ class HeaderedPumpsVariableSpeed(DataObject):
         self["Skin Loss Radiative Fraction"] = value
 
 
+
+
+class BranchList(DataObject):
+
+    """ Corresponds to IDD object `BranchList`
+        Branches MUST be listed in Flow order: Inlet branch, then parallel branches, then Outlet branch.
+        Branches are simulated in the order listed.  Branch names cannot be duplicated within a single branch list.
+    """
+    _schema = {'extensible-fields': OrderedDict([(u'branch name',
+                                                  {'name': u'Branch Name',
+                                                   'pyname': u'branch_name',
+                                                   'required-field': False,
+                                                   'autosizable': False,
+                                                   'autocalculatable': False,
+                                                   'type': u'object-list'})]),
+               'fields': OrderedDict([(u'name',
+                                       {'name': u'Name',
+                                        'pyname': u'name',
+                                        'required-field': True,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': 'alpha'})]),
+               'format': None,
+               'group': u'Pumps',
+               'min-fields': 2,
+               'name': u'BranchList',
+               'pyname': u'BranchList',
+               'required-object': False,
+               'unique-object': False}
+
+    @property
+    def name(self):
+        """field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+
+        Raises:
+            ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """Corresponds to IDD field `Name`"""
+        self["Name"] = value
+
+    def add_extensible(self,
+                       branch_name=None,
+                       ):
+        """Add values for extensible fields.
+
+        Args:
+
+            branch_name (str): value for IDD Field `Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        """
+        vals = []
+        branch_name = self.check_value("Branch Name", branch_name)
+        vals.append(branch_name)
+        self._extdata.append(vals)
+
+    @property
+    def extensibles(self):
+        """Get list of all extensibles."""
+        return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
+
