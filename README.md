@@ -1,14 +1,16 @@
 #pyidf
 
-Python library to read, modify and create EnergyPlus idf files.
+This Python library allows to read, modify and create EnergyPlus idf files.
 
 [![Build Status](https://travis-ci.org/rbuffat/pyidf.svg?branch=master)](https://travis-ci.org/rbuffat/pyidf)
 [![Coverage Status](https://coveralls.io/repos/rbuffat/pyidf/badge.png)](https://coveralls.io/r/rbuffat/pyidf)
 [![Code Health](https://landscape.io/github/rbuffat/pyidf/master/landscape.svg)](https://landscape.io/github/rbuffat/pyidf/master)
 
-The Pyidf libary is generated from the current (EnergyPlus V8.4.0) Energy+.idd IDF specification.  
+The Pyidf library is generated from the current (EnergyPlus V8.4.0) Energy+.idd IDF specification. For each EnergyPlus Object a Python class is generated. This class is aware of the specified properties. Thus input values can be checked to be valid against the EnergyPlus specification.
 
+Due to ambiguities in the EnergyPlus IDF specification file some EnergyPlus objects are (possibly) not correctly transferred to Python objects:
 
+```
 Site:SpectrumData
 ZoneProperty:UserViewFactors:bySurfaceName
 GroundHeatTransfer:Slab:XFACE
@@ -17,6 +19,12 @@ GroundHeatTransfer:Slab:ZFACE
 GroundHeatTransfer:Basement:XFACE
 GroundHeatTransfer:Basement:YFACE
 GroundHeatTransfer:Basement:ZFACE
+```
+
+## Why should I use pyidf?
+
+Pyidf represents EnergyPlus Objects as Python Classes. This allows auto completion. Pyidf EnergyPlus Objects are aware of their schema. Thus input values can be tested against the specification when the IDF is generated. The Python classes are documented based on the EnergyPlus specification.
+
 
 ## Installation
  
