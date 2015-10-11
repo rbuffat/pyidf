@@ -6,19 +6,17 @@ Python library to read, modify and create EnergyPlus idf files.
 [![Coverage Status](https://coveralls.io/repos/rbuffat/pyidf/badge.png)](https://coveralls.io/r/rbuffat/pyidf)
 [![Code Health](https://landscape.io/github/rbuffat/pyidf/master/landscape.svg)](https://landscape.io/github/rbuffat/pyidf/master)
 
-**This is a work in progress, do NOT expect it to actually work! As this is an early work, changes in the API are very likely to happen.**
+The Pyidf libary is generated from the current (EnergyPlus V8.4.0) Energy+.idd IDF specification.  
 
-## Todos:
 
-* field comments not implemented:
-  * type: object-list, external-list, node
-  * retaincase
-  * object-list
-  * external-list
-  * reference
-* object level comments not yet implemented
-  * obsolete
-  * reference-class-name
+Site:SpectrumData
+ZoneProperty:UserViewFactors:bySurfaceName
+GroundHeatTransfer:Slab:XFACE
+GroundHeatTransfer:Slab:YFACE
+GroundHeatTransfer:Slab:ZFACE
+GroundHeatTransfer:Basement:XFACE
+GroundHeatTransfer:Basement:YFACE
+GroundHeatTransfer:Basement:ZFACE
 
 ## Installation
  
